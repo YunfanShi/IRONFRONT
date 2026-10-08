@@ -46,16 +46,16 @@ function start(options:GameOptions,shared?:Battle){
  keys.clear();frameAccumulator=0;paused=false;
  ui.hideOverlay();requestLock();
 }
-function returnMenu(){ui.isLanHost=false;ui.isLanSession=false;lan?.close();lan=null;ui.resetBattleState();mapVisible=false;scoreVisible=false;debugVisible=false;ui.tactical.classList.add('hidden');ui.scoreboard.classList.add('hidden');ui.debug.classList.add('hidden');paused=true;shooting=false;shotPending=false;audio.vehicleEngine(false,0);keys.clear();if(document.pointerLockElement)document.exitPointerLock();battle=null;world?.dispose();world=null;ui.menu()}
+function returnMenu(){ui.isLanHost=false;ui.isLanSession=false;ui.connection=null;lan?.close();lan=null;ui.resetBattleState();mapVisible=false;scoreVisible=false;debugVisible=false;ui.tactical.classList.add('hidden');ui.scoreboard.classList.add('hidden');ui.debug.classList.add('hidden');paused=true;shooting=false;shotPending=false;audio.vehicleEngine(false,0);keys.clear();if(document.pointerLockElement)document.exitPointerLock();battle=null;world?.dispose();world=null;ui.menu()}
 function resume(){if(!battle||battle.finished)return;keys.clear();frameAccumulator=0;aiming=false;shooting=false;shotPending=false;paused=false;ui.hideOverlay();requestLock()}
 function respawn(at:string){if(lan){lan.action('respawn',at,{loadout:ui.loadout});return;}if(!battle||battle.elapsed<battle.player.respawnAt)return;battle.setLoadout(ui.loadout);if(battle.respawnPlayer(at)){
   deathAge=null;keys.clear();aiming=false;shooting=false;shotPending=false;semiLatch=false;frameAccumulator=0;
   faceObjective();velocityY=0;jumpOffset=0;velocityX=0;velocityZ=0;stepTravel=0;lastPlayerHP=battle.player.hp;paused=false;ui.hideOverlay();audio.click();requestLock();
  }}
 ui.onAssignTeam=(id,team)=>lan?.action('team',id,{team});
-ui.onNetwork=async(address,code,host)=>{const status=ui.modal.querySelector('#lan-status');if(status)status.textContent='连接房间服务…';const client=new LanClient();try{const shared=await client.connect(address,code,host,{...ui.settings,aiEnabled:ui.modal.querySelector<HTMLInputElement>('#lan-ai')?.checked!==false,joinTeam:ui.modal.querySelector<HTMLSelectElement>('#lan-team')?.value??'blue'});lan?.close();lan=client;ui.isLanHost=client.isHost;ui.isLanSession=true;client.onDisconnect=()=>{returnMenu();const el=ui.modal.querySelector('#lan-status');if(el)el.textContent='连接已断开，请重新加入房间。';};start(ui.settings,shared);client.action('loadout',undefined,{loadout:ui.loadout});ui.hud.querySelector('#lan-hud')!.textContent=`LAN ${client.code} · YOU ${client.id+1} · IP ${address}`;}catch(error){client.close();if(status)status.textContent=String(error);}};
+ui.onNetwork=async(address,code,host)=>{const status=ui.modal.querySelector('#lan-status');if(status)status.textContent='连接房间服务…';const client=new LanClient();try{const shared=await client.connect(address,code,host,{...ui.settings,aiEnabled:ui.modal.querySelector<HTMLInputElement>('#lan-ai')?.checked!==false,joinTeam:ui.modal.querySelector<HTMLSelectElement>('#lan-team')?.value??'blue'});lan?.close();lan=client;ui.isLanHost=client.isHost;ui.isLanSession=true;ui.connection={address:client.address,code:client.code,shareUrls:client.shareUrls};client.onRelocate=()=>{velocityX=0;velocityZ=0;velocityY=0;jumpOffset=0;};client.onDisconnect=()=>{returnMenu();const el=ui.modal.querySelector('#lan-status');if(el)el.textContent='连接已断开，请重新加入房间。';};start(ui.settings,shared);client.action('loadout',undefined,{loadout:ui.loadout});ui.hud.querySelector('#lan-hud')!.textContent=`LAN ${client.code} · YOU ${client.id+1} · IP ${address}`;}catch(error){client.close();if(status)status.textContent=String(error);}};
 ui.onUnstuck=()=>{if(lan){lan.action('unstuck');resume();return;}if(battle?.unstuckPlayer()){velocityX=0;velocityZ=0;velocityY=0;jumpOffset=0;resume();}};
-ui.onStart=options=>{lan?.close();lan=null;ui.isLanHost=false;ui.isLanSession=false;start(options);};ui.onMenu=returnMenu;ui.onResume=resume;ui.onRespawn=respawn;
+ui.onStart=options=>{lan?.close();lan=null;ui.isLanHost=false;ui.isLanSession=false;ui.connection=null;ui.hud.querySelector('#lan-hud')!.textContent='';start(options);};ui.onMenu=returnMenu;ui.onResume=resume;ui.onRespawn=respawn;
 ui.onSupport=(id,at)=>{if(!battle)return;if(lan){lan.action('support',id,{at});ui.support(battle,'请求已发送到房主');return;}const result=battle.requestSupport(id,at);ui.support(battle,result.reason)};
 document.addEventListener('click',e=>{if((e.target as HTMLElement).closest('button,input,select')){audio.unlock();if((e.target as HTMLElement).closest('button'))audio.click()}},{capture:true});
 ui.onChange=(options)=>{audio.volume=options.volume;audio.musicVolume=options.musicVolume;audio.effectsVolume=options.effectsVolume;audio.ambientVolume=options.ambientVolume};
@@ -118,11 +118,12 @@ document.addEventListener('keyup',e=>{
 window.addEventListener('blur',()=>{keys.clear();shooting=false;shotPending=false;if(battle&&!paused&&battle.player.alive){paused=true;ui.pause()}});
 function playerMovement(dt:number){
  if(!battle||!battle.player.alive)return;
- if(lan){const forward=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),side=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(equipmentUntil<performance.now())selectedEquipment=null;if(selectedEquipment&&shooting&&!semiLatch){lan.action(selectedEquipment==='aa'?'aa':selectedEquipment==='at'?'rocket':selectedEquipment==='frag'||selectedEquipment==='smoke'?'grenade':'gadget');semiLatch=true;equipmentUntil=performance.now()+1000;}lan.input({yaw:lookYaw,pitch:lookPitch,forward,side,up:(keys.has('Space')?1:0)-(keys.has('ControlLeft')?1:0),fire:shooting&&!selectedEquipment,ads:aiming,sprint:keys.has('ShiftLeft'),crouch:crouchToggle||keys.has('ControlLeft')});moving=!!(forward||side);actualSpeed=moving?1:0;return;}
+
  const player=battle.player;recoilPitch*=Math.exp(-dt*9);recoilYaw*=Math.exp(-dt*9);
  const horizontal=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);
  const forward=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0);
  const magnitude=Math.hypot(horizontal,forward)||1;
+ if(lan){lan.input({yaw:lookYaw,pitch:lookPitch,forward,side:horizontal,up:(keys.has('Space')?1:0)-(keys.has('ControlLeft')?1:0),fire:shooting&&!selectedEquipment,ads:aiming,sprint:(keys.has('ShiftLeft')||keys.has('ShiftRight'))&&performance.now()-shiftPressedAt>180&&forward>0,crouch:crouchToggle||keys.has('ControlLeft')});if(battle.inVehicle){moving=Math.abs(forward)+Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);return;}}
  if(battle.inVehicle){
   sprinting=false;crouchToggle=false;moving=Math.abs(forward)>0||Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);sideLean=0;
   const arrows=keys.has('ArrowUp')||keys.has('ArrowDown')||keys.has('ArrowLeft')||keys.has('ArrowRight');
@@ -153,6 +154,7 @@ function playerMovement(dt:number){
  }}else if(!moving)stepTravel=0;
  battle.playerAiming=aiming;
  if(equipmentUntil<performance.now())selectedEquipment=null;
+ if(lan){if(selectedEquipment&&shooting&&!semiLatch){lan.action(selectedEquipment==='aa'?'aa':selectedEquipment==='at'?'rocket':selectedEquipment==='frag'||selectedEquipment==='smoke'?'grenade':'gadget');semiLatch=true;equipmentUntil=performance.now()+1000;}return;}
  if(selectedEquipment&&shooting&&!semiLatch){const d={x:-Math.sin(lookYaw)*Math.cos(lookPitch),y:Math.sin(lookPitch),z:-Math.cos(lookYaw)*Math.cos(lookPitch)};const ok=selectedEquipment==='aa'?battle.fireAA(d):selectedEquipment==='at'?battle.fireRocket(d):selectedEquipment==='frag'||selectedEquipment==='smoke'?battle.throwGrenade(d):battle.useGadget();if(ok){equipmentUntil=performance.now()+1000;audio.click();}semiLatch=true;shotPending=false;}
  const canFireHeld=battle.activeWeapon.automatic||!semiLatch;
  if((shooting||shotPending)&&canFireHeld&&world&&!sprinting&&!selectedEquipment){
@@ -173,6 +175,7 @@ function frame(time:number){
  if(!paused&&!battle.finished){frameAccumulator=Math.min(.18,frameAccumulator+dt);
   let i=0;while(frameAccumulator>=1/60&&i++<8){playerMovement(1/60);if(!lan)battle.tick(1/60);frameAccumulator-=1/60}
  }
+ if(lan){if(paused)lan.input({forward:0,side:0,fire:false,yaw:lookYaw,pitch:lookPitch});lan.reconcile(battle,dt);}
  const events=lan?lan.events():battle.events();
  if(events.length){for(const event of events)if(event.type==='playerHit'||(event.type==='vehicleHit'&&event.id===battle.playerVehicle?.id))ui.showDamage(event.amount,event.from,battle,lookYaw);ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw);world.showEvents(events,battle.player.pos);
   if(events.some(e=>e.type==='shot'&&e.player&&e.hit))ui.showHit();

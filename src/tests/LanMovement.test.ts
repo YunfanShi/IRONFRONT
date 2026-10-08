@@ -1,0 +1,10 @@
+import {describe,it,expect} from 'vitest';
+import {Battle} from '../core/Battle';
+import {LanClient} from '../network/LanClient';
+const setup=()=>{const b=new Battle({size:8,tickets:500,difficulty:'normal'}),client=new LanClient();const snapshot=()=>structuredClone({elapsed:b.elapsed,finished:b.finished,winner:b.winner,sectorIndex:b.sectorIndex,tickets:b.tickets,soldiers:b.soldiers,vehicles:b.vehicles,points:b.points,supports:b.supports,projectiles:b.projectiles,player:b.exportPlayerState()});(client as any).apply(b,snapshot());return {b,client,snapshot};};
+describe('LAN movement authority reconciliation',()=>{
+ it('preserves the predicted camera position until correction is spread over frames',()=>{const {b,client,snapshot}=setup();const m=snapshot(),x=b.player.pos.x;m.soldiers[b.player.id]!.pos.x+=.6;(client as any).apply(b,m);expect(b.player.pos.x).toBe(x);client.reconcile(b,1/60);expect(b.player.pos.x).toBeGreaterThan(x);expect(b.player.pos.x).toBeLessThan(x+.6);});
+ it('converges at a bounded continuous rate rather than a snapshot jump',()=>{const {b,client,snapshot}=setup();const m=snapshot(),x=b.player.pos.x;m.soldiers[b.player.id]!.pos.x+=.6;(client as any).apply(b,m);let max=0;for(let i=0;i<60;i++){const old=b.player.pos.x;client.reconcile(b,1/60);max=Math.max(max,Math.abs(b.player.pos.x-old));}expect(max).toBeLessThan(.11);expect(b.player.pos.x).toBeCloseTo(x+.6,3);});
+ it('accepts a real teleport immediately and resets local movement',()=>{const {b,client,snapshot}=setup();let resets=0;client.onRelocate=()=>resets++;const m=snapshot();m.soldiers[b.player.id]!.pos.x+=12;(client as any).apply(b,m);expect(b.player.pos.x).toBe(m.soldiers[b.player.id]!.pos.x);expect(resets).toBe(1);});
+ it('does not interpolate death or faction changes as walking',()=>{const {b,client,snapshot}=setup();const m=snapshot();m.soldiers[b.player.id]!.alive=false;m.soldiers[b.player.id]!.pos.x+=1;(client as any).apply(b,m);expect(b.player.pos.x).toBe(m.soldiers[b.player.id]!.pos.x);client.reconcile(b,1);expect(b.player.pos.x).toBe(m.soldiers[b.player.id]!.pos.x);});
+});

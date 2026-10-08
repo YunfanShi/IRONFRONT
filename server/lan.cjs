@@ -1,8 +1,9 @@
 // One authoritative Battle per co-op room. Clients send controls, never health/positions.
-const http = require('node:http'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
+const http = require('node:http'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto'), os = require('node:os');
 const { WebSocketServer, WebSocket } = require('ws');
 const { Battle } = require('../.logic-build/core/Battle.js');
 const port = Number(process.env.PORT) || 7878, rooms = new Map(), dist = path.resolve(__dirname, '../dist');
+const addresses = () => [...new Set(Object.values(os.networkInterfaces()).flat().filter(n => n && n.family === 'IPv4' && !n.internal).map(n => `http://${n.address}:${port}`))];
 const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -53,7 +54,7 @@ const server = http.createServer((req, res) => {
     }
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.10.1', rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
+        return res.end(JSON.stringify({ version: '0.11.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
     }
     let pathname;
     try {
@@ -257,7 +258,11 @@ setInterval(() => {
             }
             else {
                 const len = Math.hypot(i.forward, i.side) || 1, speed = i.crouch ? 3.8 : i.sprint && !i.ads ? 13.7 : i.ads ? 5.8 : 8.6;
-                b.movePlayer((Math.cos(y) * i.side - Math.sin(y) * i.forward) / len * speed * .05, (-Math.sin(y) * i.side - Math.cos(y) * i.forward) / len * speed * .05);
+                const desiredX=(Math.cos(y)*i.side-Math.sin(y)*i.forward)/len*speed,desiredZ=(-Math.sin(y)*i.side-Math.cos(y)*i.forward)/len*speed;
+                const weight=1-Math.exp(-.05*(i.forward||i.side?13:17));
+                const velocity=b.player.velocity||{x:0,z:0};velocity.x+=(desiredX-velocity.x)*weight;velocity.z+=(desiredZ-velocity.z)*weight;
+                const old={...b.player.pos};b.movePlayer(velocity.x*.05,velocity.z*.05);
+                if(Math.hypot(b.player.pos.x-old.x,b.player.pos.z-old.z)<Math.hypot(velocity.x,velocity.z)*.05*.22){velocity.x*=.65;velocity.z*=.65;}b.player.velocity=velocity;
                 if (i.fire && (b.activeWeapon.automatic || !c.fireHeld))
                     b.shootPlayer(d);
                 c.fireHeld = i.fire;

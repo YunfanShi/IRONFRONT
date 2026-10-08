@@ -1,3 +1,28 @@
+
+> project-ironfront@0.11.0 check
+> npm run typecheck && npm run test && npm run test:logic && npm run test:lan && npm run build
+
+
+> project-ironfront@0.11.0 typecheck
+> tsc --noEmit
+
+
+> project-ironfront@0.11.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository
+
+
+ Test Files  7 passed (7)
+      Tests  64 passed (64)
+   Start at  07:36:26
+   Duration  3.75s (transform 1.18s, setup 0ms, import 1.70s, tests 5.14s, environment 1ms)
+
+
+> project-ironfront@0.11.0 test:logic
+> tsc -p tsconfig.logic.json && node scripts/verify-core.cjs
+
 {
   "ok": true,
   "auditory": {
@@ -167,97 +192,33 @@
     ],
     "navFailures": 0,
     "runtimeMs": 1207
-  },
-  "version": "0.11.0",
-  "baseline": {
-    "version": "0.10.1",
-    "commit": "3e9b21ceb0c1068d2bb8625724edf27122c3b3ef",
-    "matchedLocalFiles": 33
-  },
-  "unitTests": {
-    "passed": 64,
-    "files": 7
-  },
-  "browser": {
-    "passed": 19,
-    "renderSample": {
-      "samples": [
-        59.994584175321066,
-        60.01698537184899,
-        60.016065490515224,
-        60.00533562932251,
-        60.007309478855234,
-        60.00001032371428,
-        59.99625788562348,
-        60.025862553190336
-      ],
-      "info": {
-        "renderer": "WebKit WebGL",
-        "calls": 769,
-        "ratio": 1
-      }
-    },
-    "audio": {
-      "music": {
-        "cue": "victory",
-        "desired": "victory",
-        "status": "playing",
-        "error": "",
-        "track": "victory",
-        "slots": [
-          {
-            "paused": false,
-            "volume": 0.010647649147810558,
-            "ready": 4,
-            "time": 0.228204
-          },
-          {
-            "paused": false,
-            "volume": 0.0075794523440889305,
-            "ready": 4,
-            "time": 0.042441
-          }
-        ]
-      },
-      "decoded": 29,
-      "voices": 0,
-      "context": "running",
-      "master": 0.4
-    },
-    "walkContinuity": {
-      "stationaryFraction": 0,
-      "maxFrameStep": 0.3119186008608996,
-      "samples": 80
-    }
-  },
-  "breakthrough": {
-    "ok": true,
-    "mode": "breakthrough",
-    "size": 32,
-    "tickets": 500,
-    "seed": 505,
-    "seconds": 1559.125,
-    "winner": "red",
-    "completedSectors": 3,
-    "captures": 6,
-    "deaths": 769,
-    "shots": 20507,
-    "navFailures": 0
-  },
-  "lan": {
-    "ok": true,
-    "tickRate": 20,
-    "maxHumans": 8,
-    "squadSize": 4,
-    "tests": [
-      "two actual clients and shared authoritative movement",
-      "independent ammunition and events",
-      "stale input cutoff",
-      "unknown room rejection",
-      "host-only faction assignment",
-      "AI-free 1v1",
-      "eight admitted and ninth rejected",
-      "disconnect AI takeover or disabled AI stays disabled"
-    ]
   }
 }
+
+> project-ironfront@0.11.0 test:lan
+> npm run compile:logic && node scripts/test-lan.cjs
+
+
+> project-ironfront@0.11.0 compile:logic
+> tsc -p tsconfig.logic.json && node scripts/prepare-logic.cjs
+
+LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, four-member squads, eight-player cap and ninth-player rejection.
+
+> project-ironfront@0.11.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 29 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.49 kB │ gzip:   0.32 kB
+dist/assets/index-tttnm3qK.css   40.53 kB │ gzip:  10.57 kB
+dist/assets/index-DdMGfwtY.js   204.50 kB │ gzip:  71.91 kB
+dist/assets/three-Ck3ghlT6.js   501.74 kB │ gzip: 126.16 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.01s

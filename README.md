@@ -1,6 +1,14 @@
-# PROJECT IRONFRONT 0.10.1
+# PROJECT IRONFRONT 0.11.0
 
 在 IRONFRONT 0.5 核心上继续迭代，继承 Option A 操作修复。Three.js 大战场包含征服、前线推进、四兵种、七种枪械、小队战术、三种大战场事件、征用支援、七类载具与真实局域网房间。人物采用原创方块风格：蓝红制服区分阵营，真人佩戴金色胸章。没有使用 Minecraft、战地或三角洲的商业模型。
+
+## 单人或联机，自由选择
+
+菜单的“单人游戏 / SOLO”直接启动本机 AI 战场，无需创建房间、连接 WebSocket 或等待其他玩家。即使通过 `npm run lan` 提供的网页访问，仍可选择单人。局域网房间是可选入口。
+
+联机后按 Esc，在连接信息设置中查看当前连接 IP:端口、六位房间码；房主还能看到服务器本机 IPv4 的可分享网页地址。其他人用该网址和房间码加入，无需下载游戏包。VPN/虚拟网卡可能提供多个地址，应选择与朋友同网段的地址。
+
+走路恢复单机每帧加减速、碰撞、脚步与镜头流程。联机客户端本地预测步兵移动，服务器依然权威；小幅误差分帧校正，复活、换阵营、上下车和大幅位置变化直接采用服务器状态。车辆控制仍由服务器负责。
 
 ## 启动
 
@@ -63,7 +71,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-`check` 包含严格 TS、60 项单元测试、8/16/32/64 自动战局、默认 500 票 32v32、真实 LAN 客户端回归与生产构建。Chrome 路径可通过 IRONFRONT_CHROME_PATH 指定；软件 WebGL 可设 IRONFRONT_SOFTWARE_WEBGL=1。浏览器 17 项回归均通过，实际结果和限制见 QA_REPORT.md / QA_RESULTS.json / docs/qa。
+`check` 包含严格 TS、64 项单元测试、8/16/32/64 自动战局、默认 500 票 32v32、真实 LAN 客户端回归与生产构建。Chrome 路径可通过 IRONFRONT_CHROME_PATH 指定；软件 WebGL 可设 IRONFRONT_SOFTWARE_WEBGL=1。浏览器 19 项回归均通过，实际结果和限制见 QA_REPORT.md / QA_RESULTS.json / docs/qa。
 
 ## 当前边界
 

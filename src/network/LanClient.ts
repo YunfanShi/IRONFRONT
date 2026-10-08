@@ -7,6 +7,11 @@ export class LanClient {
     code = '';
     connected = false;
     isHost = false;
+    address = '';
+    shareUrls: string[] = [];
+    private correction = {x: 0, z: 0};
+    onRelocate: () => void = () => {};
+    private receivedState = false;
     onDisconnect: () => void = () => { };
     async connect(address: string, code: string, host: boolean, options: Record<string, unknown> = {}): Promise<Battle> {
         const url = new URL(address.includes('://') ? address : `http://${address}`);
@@ -14,6 +19,8 @@ export class LanClient {
             url.port = '7878';
         if (!['http:', 'https:'].includes(url.protocol))
             throw new Error('请输入主机 IP:端口');
+        this.address = url.host;
+        try { const response = await fetch(new URL('/api/status', url)); const info = await response.json(); this.shareUrls = Array.isArray(info.addresses) ? info.addresses : []; } catch {}
         let hostToken = '';
         if (host) {
             const response = await fetch(new URL('/api/rooms', url), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(options) });
@@ -56,7 +63,9 @@ export class LanClient {
                 reject(new Error('房间不存在、已满或服务不可用')); };
         });
     }
-    private apply(b: Battle, m: any) { for (const key of ['elapsed', 'finished', 'winner', 'sectorIndex'] as const)
+    private apply(b: Battle, m: any) {
+        const previous = { ...b.player.pos }, alive = b.player.alive, vehicle = b.player.vehicleId, team = b.player.team;
+ for (const key of ['elapsed', 'finished', 'winner', 'sectorIndex'] as const)
         b[key] = m[key] as never; Object.assign(b.tickets, m.tickets); for (const key of ['soldiers', 'vehicles', 'points', 'supports', 'projectiles'] as const) {
         const list = b[key] as any[];
         for (let i = 0; i < m[key].length; i++) {
@@ -66,7 +75,20 @@ export class LanClient {
                 list.push(m[key][i]);
         }
         list.length = m[key].length;
-    } b.importPlayerState(m.player); }
+    } b.importPlayerState(m.player);
+        const player = b.player, authoritative = {...player.pos};
+        if(this.receivedState && alive && player.alive && vehicle === null && player.vehicleId === null && team === player.team && Math.hypot(authoritative.x-previous.x,authoritative.z-previous.z)<3){
+            player.pos = previous;
+            // Small authority errors are distributed over rendering frames, never a 20Hz camera jump.
+            this.correction = {x:authoritative.x+(player.velocity?.x??0)*.035-previous.x,z:authoritative.z+(player.velocity?.z??0)*.035-previous.z};
+        } else {this.correction={x:0,z:0};if(this.receivedState)this.onRelocate();}
+        this.receivedState=true;
+    }
+    reconcile(b: Battle, dt: number) {
+        if(!b.player.alive || b.inVehicle)return;
+        const weight=1-Math.exp(-dt*10), x=this.correction.x*weight,z=this.correction.z*weight;
+        b.movePlayer(x,z);this.correction.x-=x;this.correction.z-=z;
+    }
     input(value: Record<string, unknown>) { const now = performance.now(); if (now - this.lastSend < 35)
         return; this.lastSend = now; this.send({ type: 'input', ...value }); }
     action(action: string, value?: unknown, extra: Record<string, unknown> = {}) { this.send({ type: 'action', action, value, ...extra }); }

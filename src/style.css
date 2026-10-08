@@ -164,3 +164,5 @@ body{background:#172b35;font-feature-settings:'tnum' 1;}
 #vehicle-aim-status {position:fixed;left:50%;top:57%;transform:translateX(-50%);font:11px monospace;color:#d1e3c2;text-shadow:0 1px 3px #000}
 .room-roster {border-top:1px solid #81908855;padding:12px 0}.room-roster h3{font-size:13px}.room-roster label{display:flex;justify-content:space-between;margin:8px 0;font-size:12px}.room-roster select,.lan-panel select{background:#1a2528;color:#dbe6de;border:1px solid #788d8266;padding:8px}.lan-panel input[type=checkbox]{width:auto;margin-right:8px}
 .hud-top #tickets{margin-top:0}#squad-info{max-width:250px;width:250px}
+
+.network-info{border-top:1px solid #8da3ad55;padding:12px 0;margin:12px 0;font-size:13px;overflow-wrap:anywhere}.network-info h3{font-size:14px;margin:0 0 8px}.network-info p{margin:6px 0}.share-address{display:block;user-select:all;color:#c5deed}.solo-actions{margin-top:24px}
