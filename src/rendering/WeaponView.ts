@@ -9,6 +9,7 @@ export class WeaponView {
  private flash:THREE.Sprite;private flashLight:THREE.PointLight;
  private animation=0;private recoil=0;private swayX=0;private swayY=0;private adsBlend=0;private sprintBlend=0;private bob=0;private flashLife=0;
  private throwMotion=0;
+ muzzleWorldPosition(){this.camera.updateMatrixWorld(true);this.group.updateWorldMatrix(true,false);return this.group.localToWorld(new THREE.Vector3(0,.02,MODEL_PROFILES[this.current].muzzle));}
  get aimBlend(){return this.adsBlend}
  throw(){this.throwMotion=1;this.adsBlend=0}
  private reloadMotion=0;private lastReloading=false;private swapMotion=0;private current:WeaponId='carbine';

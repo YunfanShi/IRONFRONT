@@ -1,3 +1,34 @@
+
+> project-ironfront@0.9.0 check
+> npm run typecheck && npm run test && npm run test:logic && npm run build
+
+
+> project-ironfront@0.9.0 typecheck
+> tsc --noEmit
+
+
+> project-ironfront@0.9.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository
+
+ ✓ src/tests/Presentation.test.ts (4 tests) 8ms
+ ✓ src/tests/Embarkation.test.ts (4 tests) 151ms
+ ✓ src/tests/Requisition.test.ts (13 tests) 215ms
+ ✓ src/tests/Deployment.test.ts (15 tests) 232ms
+ ✓ src/tests/Conquest.test.ts (10 tests) 1493ms
+   ✓ Autonomous battle AI > finishes the primary 32v32 battle with the default 500 tickets while the player is idle  1286ms
+
+ Test Files  5 passed (5)
+      Tests  46 passed (46)
+   Start at  19:53:08
+   Duration  1.78s (transform 250ms, setup 0ms, collect 570ms, tests 2.10s, environment 0ms, prepare 274ms)
+
+
+> project-ironfront@0.9.0 test:logic
+> tsc -p tsconfig.logic.json && node scripts/verify-core.cjs
+
 {
   "ok": true,
   "auditory": {
@@ -167,79 +198,24 @@
     ],
     "navFailures": 0,
     "runtimeMs": 1043
-  },
-  "version": "0.9.0",
-  "baseline": {
-    "version": "0.8.0",
-    "commit": "290ab1a9cf467f42718e15c615e80a11b3bf72bb",
-    "remoteAndLocalMatch": true,
-    "localDeliverySourceFilesCompared": 26
-  },
-  "static": {
-    "typecheck": "PASS",
-    "unitTests": 46,
-    "productionBuild": "PASS"
-  },
-  "breakthrough": {
-    "ok": true,
-    "mode": "breakthrough",
-    "size": 32,
-    "tickets": 500,
-    "seed": 505,
-    "seconds": 1162,
-    "winner": "blue",
-    "completedSectors": 5,
-    "captures": 10,
-    "deaths": 536,
-    "shots": 18310,
-    "navFailures": 0
-  },
-  "browser": {
-    "status": "PASS",
-    "tests": 13,
-    "renderSample": {
-      "samples": [
-        29.98160260174726,
-        29.987154678329276,
-        29.99331837540482,
-        29.993167434483745,
-        29.999016427079454,
-        30.000958914461954,
-        30.005009689622646,
-        29.999365406547746
-      ],
-      "info": {
-        "renderer": "WebKit WebGL",
-        "calls": 689,
-        "ratio": 1
-      }
-    },
-    "audio": {
-      "music": {
-        "cue": "victory",
-        "desired": "victory",
-        "status": "playing",
-        "error": "",
-        "track": "victory",
-        "slots": [
-          {
-            "paused": false,
-            "volume": 0.0017969070040335213,
-            "ready": 4,
-            "time": 0.022269
-          },
-          {
-            "paused": false,
-            "volume": 0.003609740602191078,
-            "ready": 4,
-            "time": 0.022255
-          }
-        ]
-      },
-      "decoded": 29,
-      "voices": 0,
-      "context": "running",
-      "master": 0.4
-    }
   }
 }
+
+> project-ironfront@0.9.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 26 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.49 kB │ gzip:   0.32 kB
+dist/assets/index-D3llecMC.css   33.33 kB │ gzip:   8.98 kB
+dist/assets/index-FGgUoH7S.js   172.71 kB │ gzip:  61.01 kB
+dist/assets/three-QyYgx8gX.js   500.74 kB │ gzip: 125.91 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 854ms

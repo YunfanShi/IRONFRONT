@@ -10,6 +10,7 @@ if(!app)throw new Error('Missing application mount');
 const ui=new UI(app),audio=new AudioManager();audio.volume=ui.settings.volume;audio.musicVolume=ui.settings.musicVolume;audio.effectsVolume=ui.settings.effectsVolume;audio.ambientVolume=ui.settings.ambientVolume;
 let lockFailed=false,recoilPitch=0,recoilYaw=0;
 let battle:Battle|null=null,world:WorldView|null=null;
+let deathAge:number|null=null;
 let paused=true,lookYaw=0,lookPitch=0,velocityY=0,jumpOffset=0;
 let mapVisible=false,scoreVisible=false,debugVisible=false;
 let shotPending=false,shiftPressedAt=0;
@@ -44,7 +45,7 @@ function start(options:GameOptions){
 function returnMenu(){ui.resetBattleState();mapVisible=false;scoreVisible=false;debugVisible=false;ui.tactical.classList.add('hidden');ui.scoreboard.classList.add('hidden');ui.debug.classList.add('hidden');paused=true;shooting=false;shotPending=false;audio.vehicleEngine(false,0);keys.clear();if(document.pointerLockElement)document.exitPointerLock();battle=null;world?.dispose();world=null;ui.menu()}
 function resume(){if(!battle||battle.finished)return;keys.clear();frameAccumulator=0;aiming=false;shooting=false;shotPending=false;paused=false;ui.hideOverlay();requestLock()}
 function respawn(at:string){if(!battle||battle.elapsed<battle.player.respawnAt)return;battle.setLoadout(ui.loadout);if(battle.respawnPlayer(at)){
-  keys.clear();aiming=false;shooting=false;shotPending=false;semiLatch=false;frameAccumulator=0;
+  deathAge=null;keys.clear();aiming=false;shooting=false;shotPending=false;semiLatch=false;frameAccumulator=0;
   faceObjective();velocityY=0;jumpOffset=0;velocityX=0;velocityZ=0;stepTravel=0;lastPlayerHP=battle.player.hp;paused=false;ui.hideOverlay();audio.click();requestLock();
  }}
 ui.onStart=start;ui.onMenu=returnMenu;ui.onResume=resume;ui.onRespawn=respawn;
@@ -142,7 +143,7 @@ function playerMovement(dt:number){
  const canFireHeld=battle.activeWeapon.automatic||!semiLatch;
  if((shooting||shotPending)&&canFireHeld&&world&&!sprinting){
   const direction={x:-Math.sin(lookYaw+recoilYaw)*Math.cos(lookPitch+recoilPitch),y:Math.sin(lookPitch+recoilPitch),z:-Math.cos(lookYaw+recoilYaw)*Math.cos(lookPitch+recoilPitch)};
-  if(battle.shootPlayer(direction,(crouching?1.07:1.78)+jumpOffset)){
+  if(battle.shootPlayer(direction,(crouching?1.07:1.78)+jumpOffset,world.weapon.muzzleWorldPosition())){
    shotPending=false;if(!battle.activeWeapon.automatic)semiLatch=true;
    world.playerShot(battle.playerWeapon);recoilPitch=Math.min(.12,recoilPitch+battle.activeWeapon.recoil*.07);recoilYaw+=(battle.random.next()-.5)*battle.activeWeapon.recoil*.02;ui.hud.classList.add('firing');setTimeout(()=>ui.hud.classList.remove('firing'),85)
   }
@@ -162,9 +163,10 @@ function frame(time:number){
  if(events.length){for(const event of events)if(event.type==='playerHit')ui.showDamage(event.amount,event.from,battle,lookYaw);ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw);world.showEvents(events,battle.player.pos);
   if(events.some(e=>e.type==='shot'&&e.player&&e.hit))ui.showHit();
  }
- if(!battle.player.alive&&!battle.finished&&ui.screen!=='respawn'){
-  paused=false;shooting=false;shotPending=false;if(document.pointerLockElement)document.exitPointerLock();ui.dead(battle);
+ if(!battle.player.alive&&!battle.finished&&deathAge===null){
+  paused=false;shooting=false;shotPending=false;if(document.pointerLockElement)document.exitPointerLock();deathAge=0;ui.beginDeath();
  }
+ if(deathAge!==null&&!battle.player.alive&&!battle.finished){deathAge+=dt;if(deathAge>=4.8&&ui.screen!=='respawn')ui.dead(battle);}else if(battle.player.alive)deathAge=null;
  if(battle.finished&&ui.screen!=='end'){
   paused=true;shooting=false;shotPending=false;if(document.pointerLockElement)document.exitPointerLock();ui.end(battle);
  }
@@ -172,7 +174,7 @@ function frame(time:number){
  const eyeTarget=battle.sliding?.72:crouched?1.07:1.78;eyeSmooth+=(eyeTarget-eyeSmooth)*(1-Math.exp(-dt*12));
  if(battle.player.hp<lastPlayerHP){audio.hurt();ui.hud.classList.remove('hurt');void ui.hud.offsetWidth;ui.hud.classList.add('hurt');setTimeout(()=>ui.hud.classList.remove('hurt'),430)}
  lastPlayerHP=battle.player.hp;
- world.render(battle,dt,{yaw:lookYaw+recoilYaw,pitch:lookPitch+recoilPitch,height:eyeSmooth+jumpOffset,ads:aiming,moving:moving&&!paused,sprint:sprinting,reload:battle.isReloading(),speed:actualSpeed,side:sideLean});
+ world.render(battle,dt,{yaw:lookYaw+recoilYaw,pitch:lookPitch+recoilPitch,height:eyeSmooth+jumpOffset,ads:aiming,moving:moving&&!paused,sprint:sprinting,reload:battle.isReloading(),speed:actualSpeed,side:sideLean,deathAge:deathAge??undefined});
  ui.hud.classList.toggle('aiming',aiming&&!battle.isReloading()&&!battle.inVehicle);ui.hud.classList.toggle('scoped',aiming&&battle.activeWeapon.zoom>=3&&!battle.isReloading()&&!battle.inVehicle);ui.hud.style.setProperty('--ads-blend',String(world.weapon.aimBlend));ui.hud.classList.toggle('sprinting',sprinting);
  ui.drawHUD(battle,time/1000,lookYaw);
  if(mapVisible)ui.toggleMap(true,battle);

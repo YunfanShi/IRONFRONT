@@ -1,0 +1,129 @@
+{
+  "source": "https://opengameart.org/node/21826",
+  "authors": [
+    "Ben Jaszczak",
+    "Brian Nelson",
+    "Kevin Heras",
+    "Matthew Nanney"
+  ],
+  "clips": [
+    {
+      "file": "carbine.wav",
+      "source": "AR-15/D_24P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.5439,
+      "seconds": 1.05,
+      "sha256": "54536d4c57f5017f585237dbd3334872bdcf48bb8747f4c20360c52961b25601"
+    },
+    {
+      "file": "carbine-alt.wav",
+      "source": "AR-15/D_32P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.6988,
+      "seconds": 1.05,
+      "sha256": "15ade3e7b85ef86aac5d95b3bd45697d58e9487221f44c7a8dbc1391078db3d6"
+    },
+    {
+      "file": "marksman.wav",
+      "source": "SKS/U_14P.wav",
+      "license": "CC0",
+      "onsetSeconds": 3.572,
+      "seconds": 1.05,
+      "sha256": "a2577a7fb84254da4812d1cea99e5aa937f8d59cdcf7c87aa93ee01d7476c9b1"
+    },
+    {
+      "file": "marksman-alt.wav",
+      "source": "SKS/U_19P.wav",
+      "license": "CC0",
+      "onsetSeconds": 2.6093,
+      "seconds": 1.05,
+      "sha256": "2488e262b2042062605488845677156cb5db3280cfd34277964daa604e9b1d83"
+    },
+    {
+      "file": "smg.wav",
+      "source": "Carl Gustav M45/G_20P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.3427,
+      "seconds": 1.05,
+      "sha256": "2ed6ff92f150aeeb711a651602848d8ad59104895e39d8c33151bfe9d699310c"
+    },
+    {
+      "file": "smg-alt.wav",
+      "source": "Carl Gustav M45/G_22P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.2691,
+      "seconds": 1.05,
+      "sha256": "f13ab34196065636a559bca1cac690426163b2d1e59dce167b9ee966d117ba90"
+    },
+    {
+      "file": "lmg.wav",
+      "source": "PPSh/P_30P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.9639,
+      "seconds": 1.05,
+      "sha256": "02ae7abc3fcc73865571aa2574f71192634f45049d3573f49c10a085a50cc838"
+    },
+    {
+      "file": "lmg-alt.wav",
+      "source": "PPSh/P_30P.wav",
+      "license": "CC0",
+      "onsetSeconds": 4.3822,
+      "seconds": 1.05,
+      "sha256": "4d6f48cb8341ee2ddbc18ef7a38077d8dd55e3bcb21b8e39fe016a7ec3f8975f"
+    },
+    {
+      "file": "battleRifle.wav",
+      "source": "AK-47/C_28P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.6062,
+      "seconds": 1.05,
+      "sha256": "1c56a0d46a158ac7f1c547235d5f6f4d1b7ae25fee95db1f9089850ec63733b8"
+    },
+    {
+      "file": "battleRifle-alt.wav",
+      "source": "AK-47/C_31P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.3332,
+      "seconds": 1.05,
+      "sha256": "b680b764542f40bf179725c87067946cd8f1af8befb510f3926ec34290a273e0"
+    },
+    {
+      "file": "sniper.wav",
+      "source": "Tikka/W_24P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.7496,
+      "seconds": 1.5,
+      "sha256": "c0bccd2d40700353ddf0b040efe26803fc407c955c7cac38a1bc961c2658cae0"
+    },
+    {
+      "file": "sniper-alt.wav",
+      "source": "Tikka/W_29P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.5724,
+      "seconds": 1.5,
+      "sha256": "b9b2db19ca9d6d930f226fab88da67946b63121fd4efe95d8923bee7d9bf299e"
+    },
+    {
+      "file": "pistol.wav",
+      "source": "1911/A_34P.wav",
+      "license": "CC0",
+      "onsetSeconds": 1.5373,
+      "seconds": 1.05,
+      "sha256": "2852c86da67afbccf0d6cc1b34bb01578fa6f94dc9d009bf9b514165d09e595b"
+    },
+    {
+      "file": "pistol-alt.wav",
+      "source": "1911/A_42P.wav",
+      "license": "CC0",
+      "onsetSeconds": 0.9365,
+      "seconds": 1.05,
+      "sha256": "fbf87bf2c67bea9e70adabb145a18408593a0e01fbe9052203888f6cd32d7c54"
+    }
+  ],
+  "explosion": {
+    "source": "https://opengameart.org/content/explosions-4",
+    "author": "EZduzziteh",
+    "license": "CC0",
+    "file": "explosion1.ogg"
+  }
+}

@@ -78,7 +78,7 @@ export class SoldierVisuals {
     const footY=heightAt(state.x,state.z),bob=step*.052*(crouching ? .45 : 1);
     const sY=Math.sin(state.yaw),cY=Math.cos(state.yaw);
     const deathAge=battle.elapsed-soldier.deathAt,fall=!soldier.alive?Math.min(1,Math.max(0,deathAge/.72)):0;
-    const corpseVisible=soldier.alive||deathAge<3.7;const crouchDrop=crouching ? .38 : 0;
+    const corpseVisible=soldier.vehicleId===null&&(soldier.alive||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
     for(let j=0;j<army.parts.length;j++){
      const part=army.parts[j]!,[lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
      if(part.kind==='legL'){rx=stride*.38+(crouching ? .30 : 0);zz+=stride*.21;yy+=Math.max(0,-stride)*.09}

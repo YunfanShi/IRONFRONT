@@ -21,7 +21,7 @@ describe('Requisition transactions and state effects',()=>{
   const b=make();isolate(b);b.awardRP(500,'test');const blue=b.soldiers[1]!;blue.alive=false;blue.respawnAt=100;expect(b.requestSupport('reinforce','C').ok).toBe(true);run(b,1.2);expect(blue.alive).toBe(true);expect(b.soldiers).toHaveLength(16);expect(blue.morale).toBeGreaterThanOrEqual(.8);
  });
  it('summons three distinct vehicles, caps capacity and allows driving',()=>{
-  const b=make();b.awardRP(2000,'test');for(const kind of ['scout','ifv','tank'] as const){expect(b.requestSupport(kind,'C').ok).toBe(true);const v=b.vehicles.at(-1)!;expect(v.kind).toBe(kind);expect(v.hp).toBe(VEHICLE_TYPES[kind].maxHp);expect(v.driver).toBe(null);b.player.pos={...v.pos};expect(b.togglePlayerVehicle()).toBe(true);const old={...v.pos};b.drivePlayerVehicle(1,0,.5);expect(Math.hypot(v.pos.x-old.x,v.pos.z-old.z)).toBeGreaterThan(0);expect(b.togglePlayerVehicle()).toBe(true);}
+  const b=make();b.awardRP(2000,'test');for(const kind of ['scout','ifv','tank'] as const){expect(b.requestSupport(kind,'C').ok).toBe(true);const v=b.vehicles.at(-1)!;expect(v.kind).toBe(kind);expect(v.hp).toBe(VEHICLE_TYPES[kind].maxHp);expect(v.driver).toBe(null);b.player.pos={...v.pos};expect(b.togglePlayerVehicle()).toBe(false);expect(v.airborne).toBe(true);run(b,8.1);expect(v.airborne).toBe(false);expect(b.togglePlayerVehicle()).toBe(true);const old={...v.pos};b.drivePlayerVehicle(1,0,.5);expect(Math.hypot(v.pos.x-old.x,v.pos.z-old.z)).toBeGreaterThan(0);expect(b.togglePlayerVehicle()).toBe(true);}
   run(b,41);const before=b.requisitionPoints;expect(b.requestSupport('scout','C').ok).toBe(false);expect(b.requisitionPoints).toBe(before);
  });
 });

@@ -6,7 +6,7 @@ import {EnvironmentArt} from './EnvironmentArt';
 import {SoldierVisuals} from './SoldierVisuals';
 import {WeaponView} from './WeaponView';
 import {WEAPONS,type WeaponId} from '../combat/Weapons';
-import {VEHICLE_TYPES} from '../vehicles/Vehicle';
+import {VEHICLE_TYPES,vehicleMuzzle} from '../vehicles/Vehicle';
 import {VehicleVisuals} from './VehicleVisuals';
 
 const material=(hex:number,roughness=.9,metalness=.0)=>new THREE.MeshStandardMaterial({color:hex,roughness,metalness});
@@ -20,7 +20,7 @@ function makeFlag(label:string):THREE.Sprite {
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(can),transparent:true,depthTest:false}));sprite.scale.set(14,14,1);return sprite;
 }
 type FX={position:THREE.Vector3;velocity:THREE.Vector3;color:THREE.Color;life:number;max:number};
-export interface LookState {yaw:number;pitch:number;height:number;ads:boolean;moving:boolean;sprint:boolean;reload:boolean;speed:number;side:number;paused?:boolean}
+export interface LookState {yaw:number;pitch:number;height:number;ads:boolean;moving:boolean;sprint:boolean;reload:boolean;speed:number;side:number;paused?:boolean;deathAge?:number}
 export class WorldView {
  readonly scene=new THREE.Scene();readonly renderer:THREE.WebGLRenderer;
  readonly camera:THREE.PerspectiveCamera;readonly weapon:WeaponView;
@@ -34,7 +34,7 @@ export class WorldView {
  private t=0;private high:boolean;private medium:boolean;private sun:THREE.DirectionalLight;private shadowEnabled:boolean;
  private iff:{id:number;sprite:THREE.Sprite}[]=[];
  private supportSmoke=new Map<number,THREE.Sprite[]>();private supportSmokeTexture:THREE.Texture|null=null;
- private cameraKick=0;private vignette:HTMLDivElement|null=null;private smoke:{sprite:THREE.Sprite;baseX:number;baseY:number;baseScale:number;phase:number}[]=[];
+ private hitFlash=0;private hitRoll=0;private cameraKick=0;private vignette:HTMLDivElement|null=null;private smoke:{sprite:THREE.Sprite;baseX:number;baseY:number;baseScale:number;phase:number}[]=[];
  constructor(private canvas:HTMLCanvasElement,battle:Battle,quality:'low'|'medium'|'high',private baseFov=79,private renderScale=1){
   this.high=quality==='high';this.medium=quality==='medium';this.shadowEnabled=quality!=='low';
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:quality!=='low',powerPreference:'high-performance',alpha:false});
@@ -171,14 +171,14 @@ export class WorldView {
  showEvents(events:BattleEvent[],player:{x:number;z:number}){
   for(const e of events){
    if((e.type==='shot'||(e.type==='vehicleShot'&&e.weapon==='mg'))&&dist(e.from,player)<220){
-    const vehicle=e.type==='vehicleShot';const start=new THREE.Vector3(e.from.x,heightAt(e.from.x,e.from.z)+(vehicle?2.75:1.4),e.from.z);
-    const end=new THREE.Vector3(e.to.x,heightAt(e.to.x,e.to.z)+(vehicle ? .85 : 1.35),e.to.z);
+    const vehicle=e.type==='vehicleShot';const start=e.muzzle?new THREE.Vector3(e.muzzle.x,e.muzzle.y,e.muzzle.z):new THREE.Vector3(e.from.x,heightAt(e.from.x,e.from.z)+(vehicle?2.75:1.4),e.from.z);
+    const end=e.type==='shot'&&e.end?new THREE.Vector3(e.end.x,e.end.y,e.end.z):new THREE.Vector3(e.to.x,heightAt(e.to.x,e.to.z)+(vehicle ? .85 : 1.35),e.to.z);
     // Visible short-lived tracer plus a luminous projectile head; no range truncation.
     const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([start,end]),new THREE.LineBasicMaterial({color:e.team==='blue'?0xffdfa3:0xffab82,transparent:true,opacity:vehicle ? 1 : .95,depthWrite:false,blending:THREE.AdditiveBlending}));
     this.spawnSpark(end.x,end.y,end.z,e.team==='blue'?0xffe5a0:0xff8d65,2);this.scene.add(line);this.tracer.push({line,life:vehicle?.18:.15});
     if(vehicle||Math.random()<.7)this.spawnSpark(end.x,end.y,end.z,e.hit?0xf7c18a:0xdcc6a2,vehicle?20:e.hit?9:4);
-   }else if(e.type==='vehicleShot'){const dir=new THREE.Vector3(e.to.x-e.from.x,0,e.to.z-e.from.z).normalize(),y=heightAt(e.from.x,e.from.z)+3.1;this.spawnSpark(e.from.x+dir.x*5,y,e.from.z+dir.z*5,0xffcd83,18);if(e.player)this.cameraKick=Math.min(.085,this.cameraKick+.04);
-   }else if(e.type==='playerHit'){this.cameraKick=Math.min(.085,this.cameraKick+.018+e.amount*.00045);
+   }else if(e.type==='vehicleShot'){const dir=new THREE.Vector3(e.to.x-e.from.x,0,e.to.z-e.from.z).normalize(),y=e.muzzle?.y??heightAt(e.from.x,e.from.z)+3.1;this.spawnSpark(e.from.x,y,e.from.z,0xffcd83,18);if(e.player)this.cameraKick=Math.min(.085,this.cameraKick+.04);
+   }else if(e.type==='playerHit'){this.hitFlash=Math.min(1,this.hitFlash+.65+e.amount*.006);this.hitRoll=(Math.random()-.5)*.07;this.cameraKick=Math.min(.085,this.cameraKick+.018+e.amount*.00045);
    }else if(e.type==='vehicleDisabled'){this.spawnSpark(e.at.x,heightAt(e.at.x,e.at.z)+1.7,e.at.z,0xffaa69,42);
    }else if(e.type==='artilleryImpact'||e.type==='projectileImpact'){const y=heightAt(e.at.x,e.at.z)+1.0;this.spawnSpark(e.at.x,y,e.at.z,0xffb063,this.high?90:58);const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,16,10),new THREE.MeshBasicMaterial({color:0xffa35b,transparent:true,opacity:.34,depthWrite:false,blending:THREE.AdditiveBlending}));mesh.position.set(e.at.x,y,e.at.z);this.scene.add(mesh);this.blastFx.push({mesh,life:.58,max:.58,radius:e.radius*.72});const d=dist(e.at,player);if(d<105)this.cameraKick=Math.min(.42,this.cameraKick+(1-d/105)*.26);
    }else if(e.type==='death'){
@@ -210,14 +210,14 @@ export class WorldView {
   const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2(0,0),this.camera);ray.far=VEHICLE_TYPES[v.kind].weaponRange;
   const hits=ray.intersectObjects(this.scene.children,true).filter(hit=>{if(!(hit.object instanceof THREE.Mesh))return false;let o:THREE.Object3D|null=hit.object;while(o){if(o.userData.vehicleId===v.id||o.userData.projectile)return false;o=o.parent;}return true;});
   const target=hits[0]?.point??ray.ray.at(ray.far,new THREE.Vector3());
-  const direction=target.clone().sub(new THREE.Vector3(v.pos.x,heightAt(v.pos.x,v.pos.z)+3.1,v.pos.z)).normalize();return {x:direction.x,y:direction.y,z:direction.z};
+  const direction=target.clone().sub(new THREE.Vector3(vehicleMuzzle(v,battle.playerSeat===1||v.kind==='scout').x,heightAt(v.pos.x,v.pos.z)+vehicleMuzzle(v,battle.playerSeat===1||v.kind==='scout').y,vehicleMuzzle(v,battle.playerSeat===1||v.kind==='scout').z)).normalize();return {x:direction.x,y:direction.y,z:direction.z};
  }
  private updateProjectileMeshes(battle:Battle){
   for(const [id,mesh] of this.projectileMeshes)if(!battle.projectiles.some(p=>p.id===id)){this.scene.remove(mesh);mesh.geometry.dispose();(mesh.material as THREE.Material).dispose();this.projectileMeshes.delete(id);}
   for(const p of battle.projectiles){let mesh=this.projectileMeshes.get(p.id);if(!mesh){mesh=new THREE.Mesh(new THREE.SphereGeometry(p.kind==='rocket'?.18:.14,8,6),new THREE.MeshBasicMaterial({color:0xffd58a}));mesh.scale.set(1,1,2.5);mesh.userData.projectile=true;this.scene.add(mesh);this.projectileMeshes.set(p.id,mesh);}mesh.position.set(p.pos.x,p.pos.y,p.pos.z);mesh.lookAt(p.pos.x+p.velocity.x,p.pos.y+p.velocity.y,p.pos.z+p.velocity.z);if(this.particles.length<900)this.particles.push({position:mesh.position.clone(),velocity:new THREE.Vector3(0,.5,0),color:new THREE.Color(0xd1c3a7),life:.3,max:.3});}
  }
  render(battle:Battle,dt:number,look:LookState){
-  this.lastBattle=battle;this.t+=dt;
+  this.lastBattle=battle;this.t+=dt;if(this.scene.fog instanceof THREE.FogExp2)this.scene.fog.density=(this.high?.00255:this.medium?.00315:.00415)*(1-.88*THREE.MathUtils.smoothstep(look.deathAge??0,2,4.8));
   const p=battle.player,vehicle=battle.playerVehicle;
   if(vehicle){
    const gunner=battle.playerSeat===1,distance=gunner?0:10;
@@ -228,13 +228,15 @@ export class WorldView {
   }else this.camera.position.set(p.pos.x,heightAt(p.pos.x,p.pos.z)+look.height,p.pos.z);
   for(const object of this.scene.children)if(object.userData.sky)object.position.copy(this.camera.position);
   this.camera.rotation.order='YXZ';this.camera.rotation.y=look.yaw;this.camera.rotation.x=look.pitch-this.cameraKick;
+  this.camera.rotation.z=this.hitRoll;this.hitRoll=THREE.MathUtils.damp(this.hitRoll,0,10,dt);this.hitFlash=Math.max(0,this.hitFlash-dt*1.7);
+  if(look.deathAge!==undefined){const age=look.deathAge,fall=THREE.MathUtils.smoothstep(age,0,1.15),rise=THREE.MathUtils.smoothstep(age,2,4.8);this.camera.position.set(p.pos.x*(1-rise),heightAt(p.pos.x,p.pos.z)+THREE.MathUtils.lerp(look.height,.28,fall)+rise*525,p.pos.z*(1-rise));this.camera.rotation.x=THREE.MathUtils.lerp(look.pitch-.25*fall,-Math.PI/2+.001,rise);this.camera.rotation.y=look.yaw*(1-rise);this.camera.rotation.z=.75*fall*(1-rise);}
   this.cameraKick=THREE.MathUtils.damp(this.cameraKick,0,17,dt);
   const aim=this.weapon.render(dt,{weapon:battle.playerWeapon,ads:look.ads&&!vehicle,sprint:look.sprint&&!vehicle,moving:look.moving,speed:look.speed,reload:look.reload,alive:p.alive&&!vehicle,velocitySide:look.side});
   const sway=look.moving?Math.sin(this.t*(look.sprint?15:11))*.011*(look.sprint?1.5:1):0;
   this.camera.position.y+=sway*(1-aim*.65);
-  this.camera.rotation.z=look.side*.013;
+  this.camera.rotation.z+=look.side*.013;
   const adsFov=THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(THREE.MathUtils.degToRad(this.baseFov/2))/battle.activeWeapon.zoom));this.camera.fov=THREE.MathUtils.damp(this.camera.fov,THREE.MathUtils.lerp(this.baseFov,adsFov,aim)+(look.sprint?3:0),13,dt);this.camera.updateProjectionMatrix();
-  for(const item of this.iff){const s=battle.soldiers[item.id]!;item.sprite.visible=s.alive&&battle.canIdentify(s.pos,s.team==='blue'?60:35);item.sprite.position.set(s.pos.x,heightAt(s.pos.x,s.pos.z)+2.35,s.pos.z);const width=Math.max(.2,dist(p.pos,s.pos)*Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2))*.07);item.sprite.scale.set(width,width*.375,1)}
+  for(const item of this.iff){const s=battle.soldiers[item.id]!;item.sprite.visible=s.alive&&s.vehicleId===null&&battle.canIdentify(s.pos,s.team==='blue'?60:35);item.sprite.position.set(s.pos.x,heightAt(s.pos.x,s.pos.z)+2.35,s.pos.z);const width=Math.max(.2,dist(p.pos,s.pos)*Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2))*.07);item.sprite.scale.set(width,width*.375,1)}
   this.updateSupportSmoke(battle);
   this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt);this.vehicleRender.update(dt);
   for(let i=0;i<this.markers.length;i++){
@@ -248,7 +250,7 @@ export class WorldView {
   if(this.shadowEnabled){this.sun.position.set(p.pos.x+160,240,p.pos.z-125);this.sun.target.position.set(p.pos.x,0,p.pos.z);this.sun.target.updateMatrixWorld()}
   this.updateParticles(dt);this.updateBlastFx(dt);this.updateAmbientSmoke(dt);
   for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
-  if(this.vignette){this.vignette.style.opacity=String(Math.max(0,(1-p.hp/100)*.6));}
+  if(this.vignette){this.vignette.style.opacity=String(Math.max(0,(p.alive?(1-p.hp/100)*.8:0)+this.hitFlash*.85));}
   this.renderer.render(this.scene,this.camera);
  }
  dispose(){

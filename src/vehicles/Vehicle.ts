@@ -7,7 +7,7 @@ export interface ArmoredVehicle {
  team:Team;
  pos:Point;
  yaw:number;
- turretYaw:number;mgYaw:number;
+ turretYaw:number;turretPitch:number;mgYaw:number;
  hp:number;
  maxHp:number;
  alive:boolean;
@@ -15,6 +15,7 @@ export interface ArmoredVehicle {
  respawnAt:number;
  speed:number;
  driver:'ai'|'player'|null;
+ occupants:(number|null)[]; reservedFor:number|null; dropStarted:number; landAt:number; airborne:boolean;
  goal:string;
  route:Point[];
  nextPath:number;
@@ -52,11 +53,21 @@ export const VEHICLE_TYPES={
 } as const;
 export function createVehicle(id:number,team:Team,kind:VehicleKind,spawn:Point,requisitioned=false):ArmoredVehicle {
  const cfg=VEHICLE_TYPES[kind];
- return {id,team,kind,seatCount:kind==='scout'?2:4,spawn:{...spawn},requisitioned,pos:{...spawn},yaw:team==='blue'?0:Math.PI,turretYaw:team==='blue'?0:Math.PI,mgYaw:team==='blue'?0:Math.PI,hp:cfg.maxHp,maxHp:cfg.maxHp,alive:true,disabledAt:-999,respawnAt:0,speed:0,driver:team==='blue'?null:'ai',goal:'C',route:[],nextPath:0,nextDecision:team==='blue'?45:.5,nextShot:0,nextMGShot:0,steering:0,stuckFor:0,lastProgress:{...spawn}};
+ return {id,team,kind,seatCount:kind==='scout'?2:4,spawn:{...spawn},requisitioned,pos:{...spawn},yaw:team==='blue'?0:Math.PI,turretYaw:team==='blue'?0:Math.PI,turretPitch:0,mgYaw:team==='blue'?0:Math.PI,hp:cfg.maxHp,maxHp:cfg.maxHp,alive:true,disabledAt:-999,respawnAt:0,speed:0,driver:null,occupants:Array(kind==='scout'?2:4).fill(null),reservedFor:requisitioned?0:null,dropStarted:0,landAt:0,airborne:false,goal:'C',route:[],nextPath:0,nextDecision:team==='blue'?45:.5,nextShot:0,nextMGShot:0,steering:0,stuckFor:0,lastProgress:{...spawn}};
 }
 export function createArmoredVehicles():ArmoredVehicle[]{
  // Preserve the original IFV IDs. Extra vehicles use separate parking bays.
  const vehicles=(['blue','red'] as Team[]).map((team,id)=>createVehicle(id,team,'ifv',VEHICLE_SPAWNS[team]));
  for(const team of ['blue','red'] as Team[])for(const [kind,offset] of [['scout',12],['tank',24],['transport',36]] as const){const p=VEHICLE_SPAWNS[team];vehicles.push(createVehicle(vehicles.length,team,kind,{x:p.x+(team==='blue'?offset:-offset),z:p.z}));}
  return vehicles;
+}
+
+/** Matches the rendered barrel endpoint, including hull scale and gun elevation. */
+export function vehicleMuzzle(v:ArmoredVehicle,mg=false):{x:number;y:number;z:number}{
+ const scale=v.kind==='tank'?1.08:v.kind==='ifv'?.96:v.kind==='scout'?.66:.7;
+ const yaw=mg?v.mgYaw:v.turretYaw,pitch=mg?0:v.turretPitch;
+ const forward=mg?1.525*scale:(5.925*Math.cos(pitch)-.1)*scale;
+ const side=mg?.8*(v.kind==='scout'?.65:v.kind==='transport'?.6:scale):0;
+ const y=mg?3.55*(v.kind==='scout'?.75:v.kind==='transport'?.6:scale):(2.6+5.925*Math.sin(pitch))*scale;
+ return {x:v.pos.x+Math.sin(yaw)*forward+Math.cos(v.yaw)*side,y,z:v.pos.z+Math.cos(yaw)*forward-Math.sin(v.yaw)*side};
 }

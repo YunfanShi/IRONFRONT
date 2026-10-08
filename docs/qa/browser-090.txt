@@ -1,0 +1,28 @@
+
+> project-ironfront@0.9.0 test:browser
+> playwright test
+
+[WebServer] (node:13419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 13 tests using 1 worker
+
+(node:13421) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser.spec.ts:4:1 › menu exposes the required setup surfaces (1.2s)
+  ✓   2 tests/browser.spec.ts:12:1 › starts a battle, shows HUD, pause and diagnostics (2.1s)
+HEADLESS_32V32_FPS {"samples":[29.98160260174726,29.987154678329276,29.99331837540482,29.993167434483745,29.999016427079454,30.000958914461954,30.005009689622646,29.999365406547746],"info":{"renderer":"WebKit WebGL","calls":689,"ratio":1}}
+  ✓   3 tests/browser.spec.ts:19:1 › loadout persists, real RP support works, ADS fires and menu cleanup survives restart (7.3s)
+  ✓   4 tests/browser.spec.ts:36:1 › pointer-lock denial leaves drag look and weapon controls playable (1.9s)
+  ✓   5 tests/browser.spec.ts:41:1 › A/D strafes without accumulated camera roll, Shift slides, damage direction and equipment stay visible (4.4s)
+  ✓   6 tests/browser.spec.ts:51:1 › driver shell, gunner MG, passengers and fourth transport are playable through keyboard controls (1.8s)
+  ✓   7 tests/browser.spec.ts:58:1 › map deployment locks engaged squadmates and attacked flags and deploys beside a safe member (6.5s)
+  ✓   8 tests/browser.spec.ts:65:1 › preparation selects and persists Breakthrough and the active frontline really advances (870ms)
+AUDIO_QA {"music":{"cue":"victory","desired":"victory","status":"playing","error":"","track":"victory","slots":[{"paused":false,"volume":0.0017969070040335213,"ready":4,"time":0.022269},{"paused":false,"volume":0.003609740602191078,"ready":4,"time":0.022255}]},"decoded":29,"voices":0,"context":"running","master":0.4}
+  ✓   9 tests/browser.spec.ts:69:1 › local MP3 playback, decoded sound effects, mixing and result cues work (7.4s)
+  ✓  10 tests/browser.spec.ts:76:1 › seven distinct first-person models render and missing music stays playable (5.3s)
+  ✓  11 tests/browser.spec.ts:81:1 › airdrop reserves armor for caller and actual driver exits on takeover (9.3s)
+  ✓  12 tests/browser.spec.ts:89:1 › death falls then rises into deployment instead of opening map immediately (7.5s)
+  ✓  13 tests/browser.spec.ts:95:1 › player shot event uses the rendered muzzle and damage flashes immediately (1.9s)
+
+  13 passed (59.4s)

@@ -4,7 +4,7 @@ import type {Battle} from '../core/Battle';
 import {heightAt} from '../core/math';
 import type {ArmoredVehicle} from '../vehicles/Vehicle';
 
-type Visual={vehicle:ArmoredVehicle;root:THREE.Group;turret:THREE.Group;mg:THREE.Group;wheels:THREE.Mesh[];materials:THREE.Material[]};
+type Visual={vehicle:ArmoredVehicle;root:THREE.Group;turret:THREE.Group;mg:THREE.Group;gun:THREE.Group;parachute:THREE.Group;wheels:THREE.Mesh[];materials:THREE.Material[]};
 
 /** Detailed but lightweight fictional armored ground vehicles for the combined-arms phase. */
 export class VehicleVisuals {
@@ -26,8 +26,9 @@ export class VehicleVisuals {
   const turret=new THREE.Group();turret.position.set(0,2.10,-.10);root.add(turret);
   box(3.05,.78,2.65,armor,0,.35,0,turret);const turretFront=box(2.72,.64,1.15,trim,0,.39,1.55,turret);turretFront.rotation.x=-.14;
   box(1.22,.46,1.05,armorDark,-.58,.92,-.30,turret);box(.88,.28,.72,glass,.58,.88,.40,turret);
-  const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.14,.19,4.75,12),steel);barrel.rotation.x=Math.PI/2;barrel.position.set(0,.50,3.35);barrel.castShadow=true;turret.add(barrel);
-  const muzzle=new THREE.Mesh(new THREE.CylinderGeometry(.25,.25,.55,12),armorDark);muzzle.rotation.x=Math.PI/2;muzzle.position.set(0,.50,5.65);turret.add(muzzle);
+  const gun=new THREE.Group();gun.position.y=.5;turret.add(gun);
+  const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.14,.19,4.75,12),steel);barrel.rotation.x=Math.PI/2;barrel.position.set(0,0,3.35);barrel.castShadow=true;gun.add(barrel);
+  const muzzle=new THREE.Mesh(new THREE.CylinderGeometry(.25,.25,.55,12),armorDark);muzzle.rotation.x=Math.PI/2;muzzle.position.set(0,0,5.65);gun.add(muzzle);
   const antenna=new THREE.Mesh(new THREE.CylinderGeometry(.025,.035,2.6,7),steel);antenna.position.set(-.96,2.00,-.78);turret.add(antenna);
   const mg=new THREE.Group();mg.position.set(.8,3.4,-.25);root.add(mg);box(.24,.22,1.65,steel,0,.15,.7,mg);box(.35,.4,.45,armorDark,0,0,0,mg);
   // Lamps, hatches and faction markings.
@@ -38,15 +39,16 @@ export class VehicleVisuals {
   else if(vehicle.kind==='scout'){root.scale.set(.65,.75,.66);turret.scale.set(.65,.6,.45)}
   else root.scale.setScalar(vehicle.kind==='tank'?1.08:.96);
   // Batch static pieces per material, retaining independent turret and wheel motion.
-  for(const parent of [root,turret,mg]){const groups=new Map<THREE.Material,THREE.Mesh[]>();for(const child of [...parent.children])if(child instanceof THREE.Mesh&&!wheels.includes(child)&&!Array.isArray(child.material)){const list=groups.get(child.material)??[];list.push(child);groups.set(child.material,list);}
+  for(const parent of [root,turret,mg,gun]){const groups=new Map<THREE.Material,THREE.Mesh[]>();for(const child of [...parent.children])if(child instanceof THREE.Mesh&&!wheels.includes(child)&&!Array.isArray(child.material)){const list=groups.get(child.material)??[];list.push(child);groups.set(child.material,list);}
    for(const [material,parts] of groups){if(parts.length<2)continue;const geometries=parts.map(mesh=>{mesh.updateMatrix();return mesh.geometry.clone().applyMatrix4(mesh.matrix)}),merged=mergeGeometries(geometries,false);for(const geometry of geometries)geometry.dispose();if(!merged)continue;for(const mesh of parts){parent.remove(mesh);mesh.geometry.dispose();}const batch=new THREE.Mesh(merged,material);batch.castShadow=true;batch.receiveShadow=true;parent.add(batch);}}
-  this.scene.add(root);return {vehicle,root,turret,mg,wheels,materials};
+  const parachute=new THREE.Group();const fabric=new THREE.MeshStandardMaterial({color:0xb2ac86,side:THREE.DoubleSide,roughness:1});materials.push(fabric);const canopy=new THREE.Mesh(new THREE.SphereGeometry(10,16,8,0,Math.PI*2,0,Math.PI/2),fabric);canopy.scale.set(1,.45,1);canopy.position.y=24;parachute.add(canopy);const cord=new THREE.LineBasicMaterial({color:0xd5cba5});materials.push(cord);for(const x of [-1,1])for(const z of [-1,1])parachute.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x*2,2,z*2),new THREE.Vector3(x*6.5,24,z*6.5)]),cord));parachute.visible=false;root.add(parachute);
+  this.scene.add(root);return {vehicle,root,turret,mg,gun,parachute,wheels,materials};
  }
  private removeVisual(v:Visual){this.scene.remove(v.root);v.root.traverse(o=>{const m=o as THREE.Mesh;m.geometry?.dispose()});for(const m of v.materials)m.dispose()}
  update(dt:number){
   for(let i=this.visuals.length-1;i>=0;i--){const v=this.visuals[i]!;if(this.battle.vehicles[v.vehicle.id]!==v.vehicle){this.removeVisual(v);this.visuals.splice(i,1)}}
   for(const v of this.battle.vehicles)if(!this.visuals.some(item=>item.vehicle===v))this.visuals.push(this.build(v));
-  for(const v of this.visuals){const item=v.vehicle,root=v.root;root.position.set(item.pos.x,heightAt(item.pos.x,item.pos.z)+.05,item.pos.z);root.rotation.y=item.yaw;const rel=Math.atan2(Math.sin(item.turretYaw-item.yaw),Math.cos(item.turretYaw-item.yaw));v.mg.rotation.y=Math.atan2(Math.sin(item.mgYaw-item.yaw),Math.cos(item.mgYaw-item.yaw));v.turret.rotation.y=THREE.MathUtils.damp(v.turret.rotation.y,rel,7,dt);for(const wheel of v.wheels)wheel.rotation.x+=item.speed*dt*.42;
+  for(const v of this.visuals){const item=v.vehicle,root=v.root;root.position.set(item.pos.x,heightAt(item.pos.x,item.pos.z)+.05,item.pos.z);if(item.airborne)root.position.y+=Math.max(2,(8-(this.battle.elapsed-item.dropStarted))*10);v.parachute.visible=item.airborne;v.gun.rotation.x=-item.turretPitch;root.rotation.y=item.yaw;const rel=Math.atan2(Math.sin(item.turretYaw-item.yaw),Math.cos(item.turretYaw-item.yaw));v.mg.rotation.y=Math.atan2(Math.sin(item.mgYaw-item.yaw),Math.cos(item.mgYaw-item.yaw));v.turret.rotation.y=rel;for(const wheel of v.wheels)wheel.rotation.x+=item.speed*dt*.42;
    const disabled=!item.alive;root.rotation.z=THREE.MathUtils.damp(root.rotation.z,disabled?(item.id%2 ? .10 : -.10):0,3,dt);root.position.y-=disabled ? .10 : 0;root.visible=!(this.battle.playerVehicle===item&&this.battle.playerSeat===1);
   }}
  dispose(){const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>();for(const v of this.visuals){this.scene.remove(v.root);v.root.traverse((o:THREE.Object3D)=>{const m=o as THREE.Mesh;if(m.geometry instanceof THREE.BufferGeometry)geometries.add(m.geometry);if(m.material){for(const x of Array.isArray(m.material)?m.material:[m.material])materials.add(x)}})}for(const g of geometries)g.dispose();for(const m of materials)m.dispose()}

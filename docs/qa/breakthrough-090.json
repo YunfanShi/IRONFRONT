@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "mode": "breakthrough",
+  "size": 32,
+  "tickets": 500,
+  "seed": 505,
+  "seconds": 1162,
+  "winner": "blue",
+  "completedSectors": 5,
+  "captures": 10,
+  "deaths": 536,
+  "shots": 18310,
+  "navFailures": 0
+}
