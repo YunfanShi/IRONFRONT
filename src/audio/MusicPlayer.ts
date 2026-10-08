@@ -14,7 +14,7 @@ export class MusicPlayer {
  update(desired:MusicCue,dt:number,volume:number,duck:boolean,paused:boolean){this.desired=desired;const now=performance.now()/1000,terminal=desired==='victory'||desired==='defeat'||desired==='menu';
   if(desired!==this.cue&&(terminal||now-this.since>=6)){this.cue=desired;this.since=now;this.playlistIndex=0;this.playNext();}
   if(this.enabled&&this.active<0&&!this.pending&&this.status!=='missing'&&now>=this.retryAt)this.playNext();
-  this.duckGain+=((duck?.62:1)*(paused?.55:1)-this.duckGain)*(1-Math.exp(-dt*(duck?7:1.5)));this.masterGain+=(volume-this.masterGain)*(1-Math.exp(-dt*4));
+  this.duckGain+=((duck?.84:1)*(paused?.8:1)-this.duckGain)*(1-Math.exp(-dt*(duck?7:1.5)));this.masterGain+=(Math.min(1,volume*1.65)-this.masterGain)*(1-Math.exp(-dt*4));
   for(const [index,slot] of this.slots.entries()){slot.level+=Math.sign(slot.target-slot.level)*Math.min(Math.abs(slot.target-slot.level),dt/4);slot.audio.volume=Math.min(1,Math.max(0,Math.sin(slot.level*Math.PI/2)*(volume===0?0:this.masterGain)*this.duckGain*(document.hidden?0:1)));if(index!==this.pendingIndex&&slot.target===0&&slot.level<.001&&!slot.audio.paused)slot.audio.pause();}
  }
  get state(){return {cue:this.cue,desired:this.desired,status:this.status,error:this.lastError,track:this.currentTrack,slots:this.slots.map(s=>({paused:s.audio.paused,volume:s.audio.volume,ready:s.audio.readyState,time:s.audio.currentTime}))};}

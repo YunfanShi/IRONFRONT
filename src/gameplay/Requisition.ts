@@ -1,6 +1,10 @@
+import type {Team} from '../world/Layout';
 import type {Point} from '../core/math';
-export type SupportId='recon'|'smoke'|'artillery'|'reinforce'|'scout'|'ifv'|'tank'|'transport';
+export type SupportId='recon'|'smoke'|'artillery'|'reinforce'|'scout'|'ifv'|'tank'|'transport'|'aa'|'helicopter'|'jet';
 export const SUPPORTS:Record<SupportId,{name:string;zh:string;cost:number;cooldown:number;description:string}>={
+ aa:{name:'A40 AA',zh:'A40 防空车',cost:260,cooldown:55,description:'Rapid anti-air cannon · reserved airdrop'},
+ helicopter:{name:'H8 Kestrel',zh:'H8 武装直升机',cost:380,cooldown:70,description:'Four-seat helicopter · Space climb / Ctrl descend'},
+ jet:{name:'J20 Stratus',zh:'J20 战斗机',cost:420,cooldown:80,description:'Fast aircraft · cannon · one pilot seat'},
  transport:{name:'U8 Rover',zh:'U8 武装运输车',cost:120,cooldown:30,description:'8s nearby airdrop · four seats · reserved for you'},
  recon:{name:'Recon scan',zh:'侦察扫描',cost:80,cooldown:25,description:'Reveal approximate enemy contacts around a sector for 12s'},
  smoke:{name:'Smoke barrage',zh:'烟幕弹幕',cost:100,cooldown:30,description:'Block sight and targeting across a sector for 22s'},
@@ -10,5 +14,5 @@ export const SUPPORTS:Record<SupportId,{name:string;zh:string;cost:number;cooldo
  ifv:{name:'V12 Lancer IFV',zh:'V12 步战车',cost:300,cooldown:65,description:'8s nearby airdrop · autocannon IFV · reserved for you'},
  tank:{name:'T90 Bastion MBT',zh:'T90 主战坦克',cost:450,cooldown:90,description:'8s nearby airdrop · heavy armor and cannon · reserved for you'}
 };
-export interface SupportEffect {id:number;kind:'recon'|'smoke'|'artillery'|'reinforce';at:Point;starts:number;ends:number;nextPulse:number;pulses:number}
+export interface SupportEffect {id:number;kind:'recon'|'smoke'|'artillery'|'reinforce';team?:Team;owner?:number;at:Point;starts:number;ends:number;nextPulse:number;pulses:number}
 export const RP_REWARDS={kill:60,capture:120,assist:25,defense:30,vehicle:150,objectiveTick:5} as const;

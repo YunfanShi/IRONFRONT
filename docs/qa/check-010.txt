@@ -1,3 +1,28 @@
+
+> project-ironfront@0.10.0 check
+> npm run typecheck && npm run test && npm run test:logic && npm run test:lan && npm run build
+
+
+> project-ironfront@0.10.0 typecheck
+> tsc --noEmit
+
+
+> project-ironfront@0.10.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository
+
+
+ Test Files  6 passed (6)
+      Tests  60 passed (60)
+   Start at  22:58:52
+   Duration  3.16s (transform 5.09s, setup 0ms, import 5.43s, tests 2.90s, environment 0ms)
+
+
+> project-ironfront@0.10.0 test:logic
+> tsc -p tsconfig.logic.json && node scripts/verify-core.cjs
+
 {
   "ok": true,
   "auditory": {
@@ -167,92 +192,33 @@
     ],
     "navFailures": 0,
     "runtimeMs": 784
-  },
-  "version": "0.10.0",
-  "baseline": {
-    "commit": "9aeb96a6d1ae4c60c01dcbe94e757b4ca41c4303",
-    "version": "0.9.0",
-    "matchedLocalFiles": 28
-  },
-  "unitTests": {
-    "passed": 60,
-    "files": 6
-  },
-  "browser": {
-    "passed": 17,
-    "renderSample": {
-      "samples": [
-        60.00381456202608,
-        59.980032731876534,
-        59.9953387671689,
-        59.992963629932675,
-        59.99223051051186,
-        59.98899204652504,
-        60.02968560625407,
-        59.99547054505854
-      ],
-      "info": {
-        "renderer": "WebKit WebGL",
-        "calls": 769,
-        "ratio": 1
-      }
-    },
-    "audio": {
-      "music": {
-        "cue": "victory",
-        "desired": "victory",
-        "status": "playing",
-        "error": "",
-        "track": "victory",
-        "slots": [
-          {
-            "paused": false,
-            "volume": 0.006040299539259661,
-            "ready": 4,
-            "time": 0.207565
-          },
-          {
-            "paused": false,
-            "volume": 0.009068221721912453,
-            "ready": 4,
-            "time": 0.045024
-          }
-        ]
-      },
-      "decoded": 29,
-      "voices": 0,
-      "context": "running",
-      "master": 0.4
-    }
-  },
-  "breakthrough": {
-    "ok": true,
-    "mode": "breakthrough",
-    "size": 32,
-    "tickets": 500,
-    "seed": 505,
-    "seconds": 1559.125,
-    "winner": "red",
-    "completedSectors": 3,
-    "captures": 6,
-    "deaths": 769,
-    "shots": 20507,
-    "navFailures": 0
-  },
-  "lan": {
-    "ok": true,
-    "tickRate": 20,
-    "maxHumans": 8,
-    "squadSize": 4,
-    "tests": [
-      "two actual clients and shared authoritative movement",
-      "independent ammunition and events",
-      "stale input cutoff",
-      "unknown room rejection",
-      "host-only faction assignment",
-      "AI-free 1v1",
-      "eight admitted and ninth rejected",
-      "disconnect AI takeover or disabled AI stays disabled"
-    ]
   }
 }
+
+> project-ironfront@0.10.0 test:lan
+> npm run compile:logic && node scripts/test-lan.cjs
+
+
+> project-ironfront@0.10.0 compile:logic
+> tsc -p tsconfig.logic.json && node scripts/prepare-logic.cjs
+
+LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, four-member squads, eight-player cap and ninth-player rejection.
+
+> project-ironfront@0.10.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 29 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.49 kB │ gzip:   0.32 kB
+dist/assets/index-D6PbIJNF.css   40.23 kB │ gzip:  10.47 kB
+dist/assets/index-DLasardl.js   202.61 kB │ gzip:  71.10 kB
+dist/assets/three-Ck3ghlT6.js   501.74 kB │ gzip: 126.16 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.22s
