@@ -11,7 +11,7 @@ export class LanClient {
     async connect(address: string, code: string, host: boolean, options: Record<string, unknown> = {}): Promise<Battle> {
         const url = new URL(address.includes('://') ? address : `http://${address}`);
         if (!url.port)
-            url.port = '8787';
+            url.port = '7878';
         if (!['http:', 'https:'].includes(url.protocol))
             throw new Error('请输入主机 IP:端口');
         let hostToken = '';
@@ -49,7 +49,7 @@ export class LanClient {
                 }
                 this.pending.push(...m.events);
             } };
-            ws.onerror = () => reject(new Error('无法连接。房主先运行 npm run lan，并允许本机防火墙端口 8787。'));
+            ws.onerror = () => reject(new Error('无法连接。房主先运行 npm run lan，并允许本机防火墙端口 7878。'));
             ws.onclose = () => { clearTimeout(timeout); const was = this.connected; this.connected = false; if (was)
                 this.onDisconnect();
             else

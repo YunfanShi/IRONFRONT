@@ -31,3 +31,6 @@ QA 发现并修复：AI 只按决策周期位移；载具强制清 ADS；Esc 缺
 复现：npm ci → npm run check；真实 Chrome 可设 IRONFRONT_CHROME_PATH 后 npm run test:browser；npm run lan 启动 8787 HTTP/WS 服务。详细开发与复现报告见 docs/DEVELOPMENT_REPORT.docx。
 
 DOCX 开发报告已渲染为 8 页并逐页检查，修复了末段孤页；无文字裁切或表格溢出。私人/公开 ZIP 均执行完整性检查，公开包不包含用户 MP3。
+
+## 0.10.1 端口修复
+2026-10-09：默认端口、客户端地址及 UI 改为 7878。严格 TS 与生产构建通过，实际启动默认端口并请求 /api/status 返回 0.10.1，随后关闭检查服务。保留上轮 60/17 测试结果，不宣称本补丁重跑整套测试。
