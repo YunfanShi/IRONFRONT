@@ -1,6 +1,7 @@
 import type {Point} from '../core/math';
-export type SupportId='recon'|'smoke'|'artillery'|'reinforce'|'scout'|'ifv'|'tank';
+export type SupportId='recon'|'smoke'|'artillery'|'reinforce'|'scout'|'ifv'|'tank'|'transport';
 export const SUPPORTS:Record<SupportId,{name:string;zh:string;cost:number;cooldown:number;description:string}>={
+ transport:{name:'U8 Rover',zh:'U8 武装运输车',cost:120,cooldown:30,description:'Deploy a fast four-seat transport with a gunner machine gun'},
  recon:{name:'Recon scan',zh:'侦察扫描',cost:80,cooldown:25,description:'Reveal approximate enemy contacts around a sector for 12s'},
  smoke:{name:'Smoke barrage',zh:'烟幕弹幕',cost:100,cooldown:30,description:'Block sight and targeting across a sector for 22s'},
  artillery:{name:'Artillery',zh:'炮击支援',cost:250,cooldown:65,description:'5s warning, four damaging and suppressing strikes'},

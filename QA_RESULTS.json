@@ -15,14 +15,14 @@
     {
       "size": 8,
       "winner": "blue",
-      "seconds": 192.75,
-      "captures": 4,
-      "deaths": 50,
-      "respawns": 45,
-      "shots": 892,
-      "vehicleShots": 222,
-      "vehicleDisabled": 7,
-      "vehicleRespawns": 7,
+      "seconds": 83.5,
+      "captures": 3,
+      "deaths": 6,
+      "respawns": 6,
+      "shots": 118,
+      "vehicleShots": 63,
+      "vehicleDisabled": 4,
+      "vehicleRespawns": 1,
       "majorStarts": 1,
       "artilleryImpacts": 0,
       "eventKinds": [
@@ -40,19 +40,19 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 87
+      "runtimeMs": 50
     },
     {
       "size": 16,
       "winner": "blue",
-      "seconds": 117,
+      "seconds": 92.375,
       "captures": 5,
-      "deaths": 29,
-      "respawns": 24,
-      "shots": 848,
-      "vehicleShots": 133,
-      "vehicleDisabled": 4,
-      "vehicleRespawns": 3,
+      "deaths": 15,
+      "respawns": 14,
+      "shots": 451,
+      "vehicleShots": 180,
+      "vehicleDisabled": 2,
+      "vehicleRespawns": 0,
       "majorStarts": 1,
       "artilleryImpacts": 0,
       "eventKinds": [
@@ -71,19 +71,19 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 80
+      "runtimeMs": 85
     },
     {
       "size": 32,
       "winner": "red",
-      "seconds": 100.25,
+      "seconds": 99.375,
       "captures": 5,
-      "deaths": 22,
-      "respawns": 20,
-      "shots": 1070,
-      "vehicleShots": 110,
+      "deaths": 29,
+      "respawns": 22,
+      "shots": 1118,
+      "vehicleShots": 205,
       "vehicleDisabled": 3,
-      "vehicleRespawns": 3,
+      "vehicleRespawns": 1,
       "majorStarts": 1,
       "artilleryImpacts": 4,
       "eventKinds": [
@@ -93,7 +93,6 @@
         "DEFEND",
         "ENGAGE",
         "FOLLOW_SQUAD",
-        "IDLE",
         "MOVE_TO_OBJECTIVE",
         "RESPAWN",
         "RETREAT",
@@ -102,21 +101,21 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 186
+      "runtimeMs": 205
     },
     {
       "size": 64,
       "winner": "blue",
-      "seconds": 80.125,
+      "seconds": 84.125,
       "captures": 5,
-      "deaths": 26,
-      "respawns": 21,
-      "shots": 1159,
-      "vehicleShots": 117,
-      "vehicleDisabled": 2,
-      "vehicleRespawns": 0,
+      "deaths": 24,
+      "respawns": 18,
+      "shots": 1361,
+      "vehicleShots": 135,
+      "vehicleDisabled": 3,
+      "vehicleRespawns": 1,
       "majorStarts": 1,
-      "artilleryImpacts": 1,
+      "artilleryImpacts": 2,
       "eventKinds": [
         "ARTILLERY"
       ],
@@ -133,26 +132,26 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 370
+      "runtimeMs": 436
     }
   ],
   "defaultMatch": {
     "size": 32,
     "tickets": 500,
-    "winner": "red",
-    "seconds": 615.625,
+    "winner": "blue",
+    "seconds": 424.5,
     "finalTickets": {
-      "blue": 0,
-      "red": 105.66250000001935
+      "blue": 320,
+      "red": 0
     },
-    "captures": 11,
-    "deaths": 403,
-    "respawns": 398,
-    "shots": 9975,
-    "vehicleShots": 1368,
-    "vehicleDisabled": 34,
-    "vehicleRespawns": 32,
-    "majorStarts": 5,
+    "captures": 5,
+    "deaths": 355,
+    "respawns": 345,
+    "shots": 4519,
+    "vehicleShots": 1798,
+    "vehicleDisabled": 6,
+    "vehicleRespawns": 6,
+    "majorStarts": 4,
     "artilleryImpacts": 4,
     "counterEffect": true,
     "armoredEffect": true,
@@ -162,50 +161,105 @@
       "COUNTER_OFFENSIVE"
     ],
     "navFailures": 0,
-    "runtimeMs": 1004
+    "runtimeMs": 758
   },
-  "version": "0.6.0",
+  "version": "0.8.0",
   "date": "2026-10-08",
+  "baseline": {
+    "version": "0.6.0",
+    "commit": "1d04a588c3bab75fc8a34ee54dd912ca2bd969ef",
+    "localAndRemoteSourceMatch": true
+  },
   "static": {
     "typecheck": "PASS",
-    "vitest": {
-      "status": "PASS",
-      "tests": 23
-    },
-    "productionBuild": "PASS"
+    "unitTests": 42,
+    "productionBuild": "PASS",
+    "bundleWarning": "Three.js chunk 500.74 kB exceeds 500 kB warning threshold"
   },
   "browser": {
     "status": "PASS",
-    "tests": 4,
+    "tests": 10,
     "renderSample": {
       "samples": [
-        60.00082492871253,
-        60.024458173530896,
-        60.01584153333379,
-        60.014536319343954,
-        60.00885356392529,
-        60.00787587546379,
-        60.001875520572,
-        59.991317913115466
+        60.013811045123575,
+        59.98631493502286,
+        59.98623171481813,
+        60.01262834551387,
+        60.000250719805166,
+        59.99911268883673,
+        60.01920449064667,
+        60.01927340624389
       ],
       "info": {
         "renderer": "WebKit WebGL",
-        "calls": 773,
+        "calls": 683,
         "ratio": 1
       }
+    },
+    "previousRenderSample": {
+      "samples": [
+        29.98425626575498,
+        29.984877673572228,
+        29.99169517709069,
+        29.998997808371087,
+        29.996944452784923,
+        29.9998030706439,
+        30.004794120340406,
+        29.994632281366755
+      ],
+      "info": {
+        "renderer": "WebKit WebGL",
+        "calls": 683,
+        "ratio": 1
+      }
+    },
+    "audio": {
+      "music": {
+        "cue": "victory",
+        "desired": "victory",
+        "status": "playing",
+        "error": "",
+        "track": "victory",
+        "slots": [
+          {
+            "paused": false,
+            "volume": 0.0030735360000000334,
+            "ready": 4,
+            "time": 0.035012
+          },
+          {
+            "paused": false,
+            "volume": 0.0019192319999999834,
+            "ready": 4,
+            "time": 0.021805
+          }
+        ]
+      },
+      "decoded": 22,
+      "voices": 0,
+      "context": "running",
+      "master": 0.4
     }
   },
-  "baseline": {
-    "version": "0.5.0",
-    "repository": "YunfanShi/IRONFRONT",
-    "branch": "main",
-    "commit": "ea8753db04615a5e2020f63a15d6e2e52eb29ee1",
-    "localAndRemoteSourceMatch": true
+  "breakthrough": {
+    "ok": true,
+    "mode": "breakthrough",
+    "size": 32,
+    "tickets": 500,
+    "seed": 505,
+    "seconds": 1544.75,
+    "winner": "red",
+    "completedSectors": 2,
+    "captures": 4,
+    "deaths": 560,
+    "shots": 22989,
+    "blueTickets": 0,
+    "navFailures": 0
   },
-  "document": {
-    "status": "PASS",
-    "pages": 6,
-    "chineseRendering": "verified",
-    "visualInspection": "all pages"
+  "music": {
+    "tracks": 11,
+    "distribution": "local and personal ZIP only; excluded from GitHub",
+    "streamedSlots": 2,
+    "soundSamplesDecoded": 22
   }
 }

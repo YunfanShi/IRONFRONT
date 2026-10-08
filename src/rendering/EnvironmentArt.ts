@@ -24,7 +24,7 @@ export class EnvironmentArt {
   const sky=new THREE.Mesh(new THREE.SphereGeometry(830,32,20),new THREE.ShaderMaterial({
    side:THREE.BackSide,depthWrite:false,uniforms:{},vertexShader:`varying vec3 vDir;void main(){vDir=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
    fragmentShader:`varying vec3 vDir;void main(){float h=clamp(vDir.y*0.5+0.5,0.,1.);vec3 top=vec3(0.18,0.36,0.54);vec3 mid=vec3(0.45,0.64,0.76);vec3 horizon=vec3(0.88,0.72,0.54);vec3 col=mix(horizon,mid,smoothstep(.43,.61,h));col=mix(col,top,smoothstep(.66,1.,h));vec3 sun=normalize(vec3(.58,.72,-.40));float halo=pow(max(0.,dot(normalize(vDir),sun)),14.);float disk=pow(max(0.,dot(normalize(vDir),sun)),640.);col+=vec3(1.,.64,.36)*halo*.23+vec3(1.,.92,.75)*disk*.67;gl_FragColor=vec4(col,1.);}`
-  }));sky.renderOrder=-1000;this.scene.add(sky);
+  }));sky.userData.sky=true;sky.renderOrder=-1000;this.scene.add(sky);
   const cloudTexture=this.cloudTexture();const cloudMaterial=new THREE.MeshBasicMaterial({map:cloudTexture,transparent:true,depthWrite:false,side:THREE.DoubleSide,opacity:.45,fog:false});
   const cloudPlane=new THREE.PlaneGeometry(135,48);
   for(let i=0;i<(this.high?23:11);i++){

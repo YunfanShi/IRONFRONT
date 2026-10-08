@@ -1,0 +1,25 @@
+
+> project-ironfront@0.8.0 test:browser
+> playwright test
+
+[WebServer] (node:7209) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:7213) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser.spec.ts:4:1 › menu exposes the required setup surfaces (1.5s)
+  ✓   2 tests/browser.spec.ts:12:1 › starts a battle, shows HUD, pause and diagnostics (2.7s)
+HEADLESS_32V32_FPS {"samples":[60.013811045123575,59.98631493502286,59.98623171481813,60.01262834551387,60.000250719805166,59.99911268883673,60.01920449064667,60.01927340624389],"info":{"renderer":"WebKit WebGL","calls":683,"ratio":1}}
+  ✓   3 tests/browser.spec.ts:19:1 › loadout persists, real RP support works, ADS fires and menu cleanup survives restart (7.1s)
+  ✓   4 tests/browser.spec.ts:36:1 › pointer-lock denial leaves drag look and weapon controls playable (1.6s)
+  ✓   5 tests/browser.spec.ts:41:1 › A/D strafes without accumulated camera roll, Shift slides, damage direction and equipment stay visible (4.3s)
+  ✓   6 tests/browser.spec.ts:51:1 › driver shell, gunner MG, passengers and fourth transport are playable through keyboard controls (1.8s)
+  ✓   7 tests/browser.spec.ts:58:1 › map deployment locks engaged squadmates and attacked flags and deploys beside a safe member (1.0s)
+  ✓   8 tests/browser.spec.ts:65:1 › preparation selects and persists Breakthrough and the active frontline really advances (597ms)
+AUDIO_QA {"music":{"cue":"victory","desired":"victory","status":"playing","error":"","track":"victory","slots":[{"paused":false,"volume":0.0030735360000000334,"ready":4,"time":0.035012},{"paused":false,"volume":0.0019192319999999834,"ready":4,"time":0.021805}]},"decoded":22,"voices":0,"context":"running","master":0.4}
+  ✓   9 tests/browser.spec.ts:69:1 › local MP3 playback, decoded sound effects, mixing and result cues work (7.4s)
+  ✓  10 tests/browser.spec.ts:76:1 › seven distinct first-person models render and missing music stays playable (5.3s)
+
+  10 passed (35.8s)

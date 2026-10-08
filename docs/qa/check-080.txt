@@ -1,0 +1,215 @@
+
+> project-ironfront@0.8.0 check
+> npm run typecheck && npm run test && npm run test:logic && npm run build
+
+
+> project-ironfront@0.8.0 typecheck
+> tsc --noEmit
+
+
+> project-ironfront@0.8.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository
+
+ ✓ src/tests/Presentation.test.ts (4 tests) 9ms
+ ✓ src/tests/Deployment.test.ts (15 tests) 84ms
+ ✓ src/tests/Requisition.test.ts (13 tests) 122ms
+ ✓ src/tests/Conquest.test.ts (10 tests) 1076ms
+   ✓ Autonomous battle AI > finishes the primary 32v32 battle with the default 500 tickets while the player is idle  868ms
+
+ Test Files  4 passed (4)
+      Tests  42 passed (42)
+   Start at  18:45:55
+   Duration  1.38s (transform 212ms, setup 0ms, collect 410ms, tests 1.29s, environment 0ms, prepare 231ms)
+
+
+> project-ironfront@0.8.0 test:logic
+> tsc -p tsconfig.logic.json && node scripts/verify-core.cjs
+
+{
+  "ok": true,
+  "auditory": {
+    "blocked": true,
+    "searchObserved": true
+  },
+  "vehicleControl": {
+    "entered": true,
+    "movedDistance": 2.1,
+    "enemyDisabled": true,
+    "exited": true,
+    "enemyRespawned": true
+  },
+  "reports": [
+    {
+      "size": 8,
+      "winner": "blue",
+      "seconds": 83.5,
+      "captures": 3,
+      "deaths": 6,
+      "respawns": 6,
+      "shots": 118,
+      "vehicleShots": 63,
+      "vehicleDisabled": 4,
+      "vehicleRespawns": 1,
+      "majorStarts": 1,
+      "artilleryImpacts": 0,
+      "eventKinds": [
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 50
+    },
+    {
+      "size": 16,
+      "winner": "blue",
+      "seconds": 92.375,
+      "captures": 5,
+      "deaths": 15,
+      "respawns": 14,
+      "shots": 451,
+      "vehicleShots": 180,
+      "vehicleDisabled": 2,
+      "vehicleRespawns": 0,
+      "majorStarts": 1,
+      "artilleryImpacts": 0,
+      "eventKinds": [
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 85
+    },
+    {
+      "size": 32,
+      "winner": "red",
+      "seconds": 99.375,
+      "captures": 5,
+      "deaths": 29,
+      "respawns": 22,
+      "shots": 1118,
+      "vehicleShots": 205,
+      "vehicleDisabled": 3,
+      "vehicleRespawns": 1,
+      "majorStarts": 1,
+      "artilleryImpacts": 4,
+      "eventKinds": [
+        "ARTILLERY"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 205
+    },
+    {
+      "size": 64,
+      "winner": "blue",
+      "seconds": 84.125,
+      "captures": 5,
+      "deaths": 24,
+      "respawns": 18,
+      "shots": 1361,
+      "vehicleShots": 135,
+      "vehicleDisabled": 3,
+      "vehicleRespawns": 1,
+      "majorStarts": 1,
+      "artilleryImpacts": 2,
+      "eventKinds": [
+        "ARTILLERY"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 436
+    }
+  ],
+  "defaultMatch": {
+    "size": 32,
+    "tickets": 500,
+    "winner": "blue",
+    "seconds": 424.5,
+    "finalTickets": {
+      "blue": 320,
+      "red": 0
+    },
+    "captures": 5,
+    "deaths": 355,
+    "respawns": 345,
+    "shots": 4519,
+    "vehicleShots": 1798,
+    "vehicleDisabled": 6,
+    "vehicleRespawns": 6,
+    "majorStarts": 4,
+    "artilleryImpacts": 4,
+    "counterEffect": true,
+    "armoredEffect": true,
+    "eventKinds": [
+      "ARMORED_PUSH",
+      "ARTILLERY",
+      "COUNTER_OFFENSIVE"
+    ],
+    "navFailures": 0,
+    "runtimeMs": 758
+  }
+}
+
+> project-ironfront@0.8.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 26 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.49 kB │ gzip:   0.32 kB
+dist/assets/index--svtoDcF.css   32.35 kB │ gzip:   8.75 kB
+dist/assets/index-DeP-cKN0.js   163.81 kB │ gzip:  58.06 kB
+dist/assets/three-ouq9Nfed.js   500.74 kB │ gzip: 125.91 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 852ms

@@ -10,14 +10,22 @@ export const WEAPONS:Record<WeaponId,WeaponDefinition>={
  pistol:{id:'pistol',name:'P8 Relay',zh:'P8 接力手枪',damage:29,fireInterval:.22,magazine:15,reserve:60,reload:1.3,effectiveRange:28,maxRange:75,hipSpread:.009,adsSpread:.004,recoil:.12,automatic:false,zoom:1.2}
 };
 export const WEAPON_ORDER=Object.keys(WEAPONS) as WeaponId[];
-export type GadgetId='medkit'|'repair';
+export type ClassId='assault'|'medic'|'recon'|'engineer';
+export type GadgetId='medkit'|'repair'|'ammo'|'beacon';
+export const CLASSES={
+ assault:{zh:'突击兵',name:'Assault',gadget:'ammo',description:'X 补充主副武器备弹，持续参与前线'},
+ medic:{zh:'医疗兵',name:'Medic',gadget:'medkit',description:'X 治疗自己/近处队友，优先救起阵亡队友'},
+ recon:{zh:'侦察兵',name:'Recon',gadget:'beacon',description:'X 部署一次性复活信标，阵亡后可选择信标'},
+ engineer:{zh:'工程兵',name:'Engineer',gadget:'repair',description:'X 修理己方载具，Z 发射反装甲火箭（2 发）'}
+} as const;
 export type ThrowableId='frag'|'smoke';
-export interface Loadout {primary:WeaponId;secondary:WeaponId;gadget:GadgetId;throwable:ThrowableId}
-export const DEFAULT_LOADOUT:Loadout={primary:'carbine',secondary:'marksman',gadget:'medkit',throwable:'frag'};
-/** Validate persisted/untrusted JSON before applying it to game state. */
+export interface Loadout {classId:ClassId;primary:WeaponId;secondary:WeaponId;gadget:GadgetId;throwable:ThrowableId}
+export const DEFAULT_LOADOUT:Loadout={classId:'assault',primary:'carbine',secondary:'marksman',gadget:'ammo',throwable:'frag'};
+/** Migrate legacy equipment-only saves and constrain equipment to the selected class. */
 export function validateLoadout(value:unknown):Loadout {
  const d=value&&typeof value==='object'?value as Partial<Loadout>:{};
- return {primary:WEAPON_ORDER.includes(d.primary as WeaponId)&&d.primary!=='pistol'?d.primary!:DEFAULT_LOADOUT.primary,
+ const classId:ClassId=d.classId&&Object.hasOwn(CLASSES,d.classId)?d.classId:d.gadget==='repair'?'engineer':d.gadget==='medkit'?'medic':'assault';
+ return {classId,primary:WEAPON_ORDER.includes(d.primary as WeaponId)&&d.primary!=='pistol'?d.primary!:DEFAULT_LOADOUT.primary,
  secondary:d.primary==='marksman'?'pistol':d.secondary==='pistol'||d.secondary==='marksman'?d.secondary:DEFAULT_LOADOUT.secondary,
- gadget:d.gadget==='repair'?'repair':'medkit',throwable:d.throwable==='smoke'?'smoke':'frag'};
+ gadget:CLASSES[classId].gadget,throwable:d.throwable==='smoke'?'smoke':'frag'};
 }

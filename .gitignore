@@ -9,3 +9,6 @@ coverage/
 test-results/
 playwright-report/
 __MACOSX/
+
+node_modules
+public/audio/music/*.mp3

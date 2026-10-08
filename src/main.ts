@@ -7,12 +7,12 @@ import {AudioManager} from './audio/AudioManager';
 
 const app=document.querySelector<HTMLDivElement>('#app');
 if(!app)throw new Error('Missing application mount');
-const ui=new UI(app),audio=new AudioManager();
+const ui=new UI(app),audio=new AudioManager();audio.volume=ui.settings.volume;audio.musicVolume=ui.settings.musicVolume;audio.effectsVolume=ui.settings.effectsVolume;audio.ambientVolume=ui.settings.ambientVolume;
 let lockFailed=false,recoilPitch=0,recoilYaw=0;
 let battle:Battle|null=null,world:WorldView|null=null;
 let paused=true,lookYaw=0,lookPitch=0,velocityY=0,jumpOffset=0;
 let mapVisible=false,scoreVisible=false,debugVisible=false;
-let shotPending=false;
+let shotPending=false,shiftPressedAt=0;
 let aiming=false,shooting=false,crouchToggle=false,semiLatch=false;
 let fps=60,moving=false,sprinting=false,sideLean=0,velocityX=0,velocityZ=0,actualSpeed=0;
 let stepTravel=0,eyeSmooth=1.78,lastPlayerHP=100;
@@ -24,10 +24,10 @@ function requestLock(){
 document.addEventListener('pointerlockerror',()=>{lockFailed=true;ui.controls.textContent='鼠标锁定不可用：按住鼠标拖动视角 / Hold a mouse button and drag to look';});
 function faceObjective(){if(!battle)return;const goal=battle.points.filter(p=>p.owner!=='blue').sort((a,b)=>Math.hypot(a.x-battle!.player.pos.x,a.z-battle!.player.pos.z)-Math.hypot(b.x-battle!.player.pos.x,b.z-battle!.player.pos.z))[0]??battle.points[2]!;lookYaw=Math.atan2(-(goal.x-battle.player.pos.x),-(goal.z-battle.player.pos.z));lookPitch=0;recoilPitch=0;recoilYaw=0;}
 function start(options:GameOptions){
- ui.resetBattleState();audio.unlock();audio.volume=options.volume;
+ ui.resetBattleState();audio.unlock();audio.volume=options.volume;audio.musicVolume=options.musicVolume;audio.effectsVolume=options.effectsVolume;audio.ambientVolume=options.ambientVolume;audio.music.begin('deployment');
  world?.dispose();
  if(document.pointerLockElement)document.exitPointerLock();
- battle=new Battle({size:options.size,difficulty:options.difficulty,tickets:options.tickets,killTicketPenalty:options.killTicketPenalty} satisfies BattleSettings);
+ battle=new Battle({mode:options.mode,size:options.size,difficulty:options.difficulty,tickets:options.tickets,killTicketPenalty:options.killTicketPenalty} satisfies BattleSettings);
  battle.setLoadout(ui.loadout);
  try {world=new WorldView(ui.canvas,battle,options.quality,options.fov,options.renderScale)}catch(err){
   battle=null;paused=true;ui.menu();
@@ -49,7 +49,8 @@ function respawn(at:string){if(!battle||battle.elapsed<battle.player.respawnAt)r
  }}
 ui.onStart=start;ui.onMenu=returnMenu;ui.onResume=resume;ui.onRespawn=respawn;
 ui.onSupport=(id,at)=>{if(!battle)return;const result=battle.requestSupport(id,at);ui.support(battle,result.reason)};
-ui.onChange=(options)=>{audio.volume=options.volume};
+document.addEventListener('click',e=>{if((e.target as HTMLElement).closest('button,input,select')){audio.unlock();if((e.target as HTMLElement).closest('button'))audio.click()}},{capture:true});
+ui.onChange=(options)=>{audio.volume=options.volume;audio.musicVolume=options.musicVolume;audio.effectsVolume=options.effectsVolume;audio.ambientVolume=options.ambientVolume};
 
 document.addEventListener('pointerlockchange',()=>{
  if(!battle||battle.finished||!battle.player.alive)return;
@@ -73,19 +74,22 @@ document.addEventListener('mouseup',e=>{if(e.button===0){shooting=false;semiLatc
 document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('keydown',e=>{
  if(!battle||e.target instanceof HTMLInputElement||e.target instanceof HTMLSelectElement)return;
- if(['Space','Tab','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
+ if(['Space','Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','F1','F2','F3','F4'].includes(e.code))e.preventDefault();
  keys.add(e.code);
  if(e.repeat)return;
  if(e.code==='KeyQ'&&battle.player.alive){if(ui.screen==='support'){resume();return}if(!paused){paused=true;aiming=false;shooting=false;shotPending=false;keys.clear();mapVisible=false;scoreVisible=false;ui.toggleMap(false,battle);ui.toggleScore(false,battle);ui.support(battle);if(document.pointerLockElement)document.exitPointerLock();}return}
  if(e.code==='Escape'&&ui.screen==='support'){resume();return}
  if(paused&&e.code!=='Escape'&&e.code!=='F3')return;
  if(e.code==='KeyG'&&battle.throwGrenade({x:-Math.sin(lookYaw),z:-Math.cos(lookYaw)})){world?.weapon.throw();audio.click()}
+ if((e.code==='ShiftLeft'||e.code==='ShiftRight')&&!battle.inVehicle){shiftPressedAt=performance.now();if(jumpOffset===0&&battle.startSlide({x:velocityX,z:velocityZ},Math.hypot(velocityX,velocityZ))){aiming=false;crouchToggle=false;audio.land()}}
+ if(battle.inVehicle&&['F1','F2','F3','F4'].includes(e.code)){battle.switchVehicleSeat(Number(e.code.slice(1))-1);shooting=false;shotPending=false;audio.click();return}
+ if(e.code==='KeyZ'&&battle.fireRocket({x:-Math.sin(lookYaw)*Math.cos(lookPitch),y:Math.sin(lookPitch),z:-Math.cos(lookYaw)*Math.cos(lookPitch)})){world?.weapon.throw();audio.click()}
  if(e.code==='KeyX'&&battle.useGadget())audio.click();
- if(e.code==='KeyR'&&!battle.inVehicle&&!battle.isReloading()&&battle.playerAmmo<battle.activeWeapon.magazine&&battle.playerReserveAmmo>0){battle.startReload();audio.reload()}
+ if(e.code==='KeyR'&&!battle.inVehicle&&!battle.isReloading()&&battle.playerAmmo<battle.activeWeapon.magazine&&battle.playerReserveAmmo>0){battle.startReload();audio.reload(battle.playerWeapon)}
  if(e.code==='KeyC')crouchToggle=!crouchToggle;
  if(e.code==='Digit1'&&!battle.inVehicle&&battle.switchPlayerWeapon(battle.loadout.primary)){semiLatch=false;audio.click()}
  if(e.code==='Digit2'&&!battle.inVehicle&&battle.switchPlayerWeapon(battle.loadout.secondary)){semiLatch=false;audio.click()}
- if(e.code==='KeyE'&&!paused&&battle.togglePlayerVehicle()){aiming=false;shooting=false;shotPending=false;crouchToggle=false;velocityX=0;velocityZ=0;audio.click()}
+ if(e.code==='KeyE'&&!paused&&battle.togglePlayerVehicle()){if(battle.inVehicle){lookYaw=battle.playerVehicle!.yaw-Math.PI;lookPitch=-.13;}aiming=false;shooting=false;shotPending=false;crouchToggle=false;velocityX=0;velocityZ=0;audio.click()}
  if(e.code==='Escape'){
   if(mapVisible){mapVisible=false;ui.toggleMap(false,battle);return}
   if(!paused){paused=true;shooting=false;shotPending=false;aiming=false;ui.pause();if(document.pointerLockElement)document.exitPointerLock()}
@@ -108,16 +112,18 @@ function playerMovement(dt:number){
  const magnitude=Math.hypot(horizontal,forward)||1;
  if(battle.inVehicle){
   aiming=false;sprinting=false;crouchToggle=false;moving=Math.abs(forward)>0||Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);sideLean=0;
-  battle.drivePlayerVehicle(forward,horizontal,dt);battle.aimPlayerVehicle(lookYaw);
-  const direction={x:-Math.sin(lookYaw+recoilYaw)*Math.cos(lookPitch+recoilPitch),y:Math.sin(lookPitch+recoilPitch),z:-Math.cos(lookYaw+recoilYaw)*Math.cos(lookPitch+recoilPitch)};
-  if(shooting&&world&&battle.shootPlayerVehicle(direction)){ui.hud.classList.add('firing');setTimeout(()=>ui.hud.classList.remove('firing'),110)}
+  const arrows=keys.has('ArrowUp')||keys.has('ArrowDown')||keys.has('ArrowLeft')||keys.has('ArrowRight');
+  battle.drivePlayerVehicle(arrows?(keys.has('ArrowUp')?1:0)-(keys.has('ArrowDown')?1:0):forward,arrows?(keys.has('ArrowRight')?1:0)-(keys.has('ArrowLeft')?1:0):horizontal,dt,arrows?undefined:lookYaw,keys.has('Space'));battle.aimPlayerVehicle(lookYaw);
+  const v=battle.playerVehicle!,mg=battle.playerSeat===1||v.kind==='scout';
+  if((shooting||shotPending)&&world&&battle.elapsed>=(mg?v.nextMGShot:v.nextShot)&&battle.playerSeat<2){const direction=world.vehicleAim(battle);if(battle.shootPlayerVehicle(direction)){shotPending=false;ui.hud.classList.add('firing');setTimeout(()=>ui.hud.classList.remove('firing'),110)}}
   return;
  }
- const crouching=keys.has('ControlLeft')||keys.has('ControlRight')||crouchToggle;
- sprinting=keys.has('ShiftLeft')&&!aiming&&!crouching&&forward>0;
+ const crouching=battle.sliding||keys.has('ControlLeft')||keys.has('ControlRight')||crouchToggle;
+ sprinting=(keys.has('ShiftLeft')||keys.has('ShiftRight'))&&performance.now()-shiftPressedAt>180&&!aiming&&!crouching&&forward>0;
  const maxSpeed=crouching?3.8:sprinting?13.7:aiming?5.8:8.6;
- const desiredX=(Math.cos(lookYaw)*horizontal-Math.sin(lookYaw)*forward)/magnitude*maxSpeed;
- const desiredZ=(-Math.sin(lookYaw)*horizontal-Math.cos(lookYaw)*forward)/magnitude*maxSpeed;
+ let desiredX=(Math.cos(lookYaw)*horizontal-Math.sin(lookYaw)*forward)/magnitude*maxSpeed;
+ let desiredZ=(-Math.sin(lookYaw)*horizontal-Math.cos(lookYaw)*forward)/magnitude*maxSpeed;
+ if(battle.sliding){const remaining=(battle.slideUntil-battle.elapsed)/.7,slideSpeed=7+8*remaining;desiredX=battle.slideDirection.x*slideSpeed;desiredZ=battle.slideDirection.z*slideSpeed;sprinting=false;aiming=false;}
  const tau=1-Math.exp(-dt*(horizontal||forward?13:17));
  velocityX+=(desiredX-velocityX)*tau;velocityZ+=(desiredZ-velocityZ)*tau;
  const oldX=player.pos.x,oldZ=player.pos.z;
@@ -146,13 +152,14 @@ function frame(time:number){
  requestAnimationFrame(frame);
  const rawDt=Math.max(.001,(time-framePrevious)/1000),dt=clamp(rawDt,0,.065);framePrevious=time;
  fps=fps*.92+(.08/rawDt);
+ audio.update(battle?{screen:ui.screen,elapsed:battle.elapsed,finished:battle.finished,winner:battle.winner,mode:battle.settings.mode??'conquest',blue:battle.tickets.blue,red:battle.tickets.red,initial:battle.settings.tickets,sector:battle.sectorIndex,event:battle.getMajorEvent()?.kind??null}:null,dt,paused);
  if(!battle||!world){audio.vehicleEngine(false,0);return}
  audio.vehicleEngine(battle.inVehicle&&!paused,Math.abs(battle.playerVehicle?.speed??0)/13.2);
  if(!paused&&!battle.finished){frameAccumulator=Math.min(.18,frameAccumulator+dt);
   let i=0;while(frameAccumulator>=1/60&&i++<8){playerMovement(1/60);battle.tick(1/60);frameAccumulator-=1/60}
  }
  const events=battle.events();
- if(events.length){ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw);world.showEvents(events,battle.player.pos);
+ if(events.length){for(const event of events)if(event.type==='playerHit')ui.showDamage(event.amount,event.from,battle,lookYaw);ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw);world.showEvents(events,battle.player.pos);
   if(events.some(e=>e.type==='shot'&&e.player&&e.hit))ui.showHit();
  }
  if(!battle.player.alive&&!battle.finished&&ui.screen!=='respawn'){
@@ -161,17 +168,17 @@ function frame(time:number){
  if(battle.finished&&ui.screen!=='end'){
   paused=true;shooting=false;shotPending=false;if(document.pointerLockElement)document.exitPointerLock();ui.end(battle);
  }
- const crouched=(keys.has('ControlLeft')||keys.has('ControlRight')||crouchToggle);
- const eyeTarget=crouched?1.07:1.78;eyeSmooth+=(eyeTarget-eyeSmooth)*(1-Math.exp(-dt*12));
+ const crouched=battle.sliding||(keys.has('ControlLeft')||keys.has('ControlRight')||crouchToggle);
+ const eyeTarget=battle.sliding?.72:crouched?1.07:1.78;eyeSmooth+=(eyeTarget-eyeSmooth)*(1-Math.exp(-dt*12));
  if(battle.player.hp<lastPlayerHP){audio.hurt();ui.hud.classList.remove('hurt');void ui.hud.offsetWidth;ui.hud.classList.add('hurt');setTimeout(()=>ui.hud.classList.remove('hurt'),430)}
  lastPlayerHP=battle.player.hp;
  world.render(battle,dt,{yaw:lookYaw+recoilYaw,pitch:lookPitch+recoilPitch,height:eyeSmooth+jumpOffset,ads:aiming,moving:moving&&!paused,sprint:sprinting,reload:battle.isReloading(),speed:actualSpeed,side:sideLean});
  ui.hud.classList.toggle('aiming',aiming&&!battle.isReloading()&&!battle.inVehicle);ui.hud.classList.toggle('scoped',aiming&&battle.activeWeapon.zoom>=3&&!battle.isReloading()&&!battle.inVehicle);ui.hud.style.setProperty('--ads-blend',String(world.weapon.aimBlend));ui.hud.classList.toggle('sprinting',sprinting);
- ui.drawHUD(battle,time/1000);
+ ui.drawHUD(battle,time/1000,lookYaw);
  if(mapVisible)ui.toggleMap(true,battle);
  if(debugVisible)ui.setDebug(true,battle,fps,world.renderer.info.render.calls);
 }
 requestAnimationFrame(frame);
 
 // Development-only QA diagnostics. The production bundle removes this branch.
-if(import.meta.env.DEV)Object.defineProperty(window,'__IRONFRONT_QA',{value:{get battle(){return battle},get world(){return world},get fps(){return fps},get paused(){return paused}},configurable:true});
+if(import.meta.env.DEV)Object.defineProperty(window,'__IRONFRONT_QA',{value:{get battle(){return battle},get world(){return world},get audio(){return audio.state},get fps(){return fps},get paused(){return paused}},configurable:true});

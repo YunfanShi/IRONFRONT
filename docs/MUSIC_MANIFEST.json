@@ -1,0 +1,101 @@
+[
+  {
+    "id": "main-theme",
+    "title": "Main Theme",
+    "original": "Johan Soderqvist,Patrik Andrén - Main Theme.mp3",
+    "file": "audio/music/main-theme.mp3",
+    "seconds": 151.9,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "classic-theme",
+    "title": "Battlefield Classic Theme",
+    "original": "Johan Soderqvist,Patrik Andrén - Battlefield Classic Theme  Mayhem View.mp3",
+    "file": "audio/music/classic-theme.mp3",
+    "seconds": 195.53,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "deployment",
+    "title": "Suns and Stars",
+    "original": "Johan Soderqvist,Patrik Andrén - Suns and Stars.mp3",
+    "file": "audio/music/deployment.mp3",
+    "seconds": 169.27,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "victory",
+    "title": "Tropical Storm-Victory",
+    "original": "Johan Soderqvist,Patrik Andrén - Tropical Storm-Victory.mp3",
+    "file": "audio/music/victory.mp3",
+    "seconds": 175.68,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "defeat",
+    "title": "The Aftermath",
+    "original": "Johan Soderqvist,Patrik Andrén,EA Games Soundtrack - The Aftermath.mp3",
+    "file": "audio/music/defeat.mp3",
+    "seconds": 234.87,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "critical",
+    "title": "Get Us Out Of Here",
+    "original": "Johan Soderqvist,Patrik Andrén - Get Us Out Of Here.mp3",
+    "file": "audio/music/critical.mp3",
+    "seconds": 176.37,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "combat-tropic",
+    "title": "Tropic Thunder",
+    "original": "三角洲行动,Johan Soderqvist - Tropic Thunder.mp3",
+    "file": "audio/music/combat-tropic.mp3",
+    "seconds": 182.31,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "combat-resolve",
+    "title": "Leave No Man Behind",
+    "original": "三角洲行动,Johan Soderqvist - Leave No Man Behind（《三角洲行动》全面战场烬区主题音乐）.mp3",
+    "file": "audio/music/combat-resolve.mp3",
+    "seconds": 197.05,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "barrage",
+    "title": "Steel Requiem",
+    "original": "三角洲行动,Johan Soderqvist - Steel Requiem（《三角洲行动》全面战场断轨主题音乐）.mp3",
+    "file": "audio/music/barrage.mp3",
+    "seconds": 176.14,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "counteroffensive",
+    "title": "Forged in Blood and Steel",
+    "original": "三角洲行动,Johan Soderqvist - Forged in Blood and Steel.mp3",
+    "file": "audio/music/counteroffensive.mp3",
+    "seconds": 134.67,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  },
+  {
+    "id": "armored-push",
+    "title": "The Burden of Victory",
+    "original": "三角洲行动,Johan Soderqvist - The Burden of Victory（《三角洲行动》全面战场堑壕战主题音乐）.mp3",
+    "file": "audio/music/armored-push.mp3",
+    "seconds": 199.2,
+    "source": "user-provided",
+    "redistributionPermission": "local-only; excluded from GitHub by user instruction"
+  }
+]

@@ -27,7 +27,7 @@ describe('Requisition transactions and state effects',()=>{
 });
 describe('Loadout, equipment and scoring',()=>{
  it('validates persisted configuration and provides distinct weapon statistics',()=>{
-  expect(validateLoadout({primary:'broken',secondary:'sniper',gadget:'broken',throwable:'bad'})).toEqual({primary:'carbine',secondary:'marksman',gadget:'medkit',throwable:'frag'});expect(WEAPON_ORDER).toHaveLength(7);expect(new Set(WEAPON_ORDER.map(id=>WEAPONS[id].fireInterval)).size).toBe(7);
+  expect(validateLoadout({primary:'broken',secondary:'sniper',gadget:'broken',throwable:'bad'})).toEqual({classId:'assault',primary:'carbine',secondary:'marksman',gadget:'ammo',throwable:'frag'});expect(WEAPON_ORDER).toHaveLength(7);expect(new Set(WEAPON_ORDER.map(id=>WEAPONS[id].fireInterval)).size).toBe(7);
   const b=make();expect(b.setLoadout({primary:'smg',secondary:'pistol',gadget:'repair',throwable:'smoke'})).toBe(true);expect(b.playerAmmo).toBe(36);expect(b.switchPlayerWeapon('sniper')).toBe(false);expect(b.switchPlayerWeapon('pistol')).toBe(true);expect(b.playerAmmo).toBe(15);run(b,.1);expect(b.setLoadout({primary:'sniper'})).toBe(false);
  });
  it('awards kills and defense, prevents duplicate kills, and preserves independent ammo',()=>{
@@ -38,7 +38,7 @@ describe('Loadout, equipment and scoring',()=>{
   const b=make();isolate(b);b.player.pos={x:0,z:0};b.playerAiming=true;const red=b.soldiers.find(s=>s.team==='red')!;red.pos={x:0,z:10};b.shootPlayer({x:0,y:-.063,z:.998});expect(red.hp).toBeLessThan(100);(b as unknown as {eliminate:(s:typeof red,k:typeof red)=>void}).eliminate(red,b.soldiers[1]!);expect(b.requisitionPoints).toBe(25);red.respawnAt=100;b.player.pos={x:b.points[2]!.x,z:b.points[2]!.z};run(b,8);expect(b.points[2]!.owner).toBe('blue');expect(b.requisitionPoints).toBeGreaterThanOrEqual(145);
  });
  it('medical and repair tools consume charges only when effective; grenades have a fuse',()=>{
-  const b=make();isolate(b);expect(b.useGadget()).toBe(false);b.player.hp=40;expect(b.useGadget()).toBe(true);expect(b.player.hp).toBe(85);expect(b.gadgetCharges).toBe(1);expect(b.useGadget()).toBe(false);
+  const b=make();b.setLoadout({classId:'medic'});isolate(b);expect(b.useGadget()).toBe(false);b.player.hp=40;expect(b.useGadget()).toBe(true);expect(b.player.hp).toBe(85);expect(b.gadgetCharges).toBe(1);expect(b.useGadget()).toBe(false);
   b.player.pos={x:0,z:0};const red=b.soldiers.find(s=>s.team==='red')!;red.pos={x:0,z:28};red.hp=100;expect(b.throwGrenade({x:0,z:1})).toBe(true);expect(b.grenadeCount).toBe(1);run(b,1);expect(red.alive).toBe(true);run(b,.6);expect(red.alive).toBe(false);
   const r=make();r.setLoadout({gadget:'repair'});const v=r.vehicles[0]!;r.player.pos={...v.pos};v.hp=100;expect(r.useGadget()).toBe(true);expect(v.hp).toBe(230);
  });
@@ -55,5 +55,5 @@ describe('Fair AI perception and shooting',()=>{
 
 describe('Deployment and vehicle credit regressions',()=>{
  it('prevents duplicate weapon slots and early redeployment',()=>{const b=make();expect(b.setLoadout({primary:'marksman',secondary:'marksman'})).toBe(true);expect(b.loadout.secondary).toBe('pistol');b.player.alive=false;b.player.respawnAt=4.5;expect(b.respawnPlayer('BASE')).toBe(false);run(b,4.6);expect(b.respawnPlayer('BASE')).toBe(true);expect(b.playerWeapon).toBe('marksman');expect(b.grenadeCount).toBe(2);});
- it('credits a player armor kill once and summoned armor is not freely respawned',()=>{const b=make();isolate(b);const blue=b.vehicles[0]!,red=b.vehicles[1]!;blue.pos={x:0,z:0};red.pos={x:0,z:24};red.hp=10;b.player.pos={...blue.pos};expect(b.togglePlayerVehicle()).toBe(true);expect(b.shootPlayerVehicle({x:0,y:0,z:1})).toBe(true);expect(b.requisitionPoints).toBe(150);b.togglePlayerVehicle();b.awardRP(300,'test');expect(b.requestSupport('scout','C').ok).toBe(true);const summoned=b.vehicles.at(-1)!;(b as unknown as {damageVehicle:(v:typeof summoned,n:number,t:'red')=>void}).damageVehicle(summoned,1000,'red');expect(summoned.respawnAt).toBe(Infinity);run(b,50);expect(summoned.alive).toBe(false);});
+ it('credits a player armor kill once and summoned armor is not freely respawned',()=>{const b=make();isolate(b);const blue=b.vehicles[0]!,red=b.vehicles[1]!;blue.pos={x:0,z:0};red.pos={x:0,z:24};red.hp=10;b.player.pos={...blue.pos};expect(b.togglePlayerVehicle()).toBe(true);expect(b.shootPlayerVehicle({x:0,y:0,z:1})).toBe(true);expect(b.requisitionPoints).toBe(0);run(b,.4);expect(b.requisitionPoints).toBe(150);b.togglePlayerVehicle();b.awardRP(300,'test');expect(b.requestSupport('scout','C').ok).toBe(true);const summoned=b.vehicles.at(-1)!;(b as unknown as {damageVehicle:(v:typeof summoned,n:number,t:'red')=>void}).damageVehicle(summoned,1000,'red');expect(summoned.respawnAt).toBe(Infinity);run(b,50);expect(summoned.alive).toBe(false);});
 });
