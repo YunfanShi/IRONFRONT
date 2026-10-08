@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.verification/
+.headless/
+coverage/
+.DS_Store
+*.log
+.logic-build/
+test-results/
+playwright-report/
+__MACOSX/

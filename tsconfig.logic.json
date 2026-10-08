@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "strict": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "outDir": ".logic-build",
+    "rootDir": "src",
+    "noEmit": false
+  },
+  "include": [
+    "src/core/**/*.ts",
+    "src/ai/**/*.ts",
+    "src/gameplay/**/*.ts",
+    "src/world/**/*.ts",
+    "src/combat/**/*.ts"
+  ]
+}

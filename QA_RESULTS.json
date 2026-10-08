@@ -1,0 +1,211 @@
+{
+  "ok": true,
+  "auditory": {
+    "blocked": true,
+    "searchObserved": true
+  },
+  "vehicleControl": {
+    "entered": true,
+    "movedDistance": 2.1,
+    "enemyDisabled": true,
+    "exited": true,
+    "enemyRespawned": true
+  },
+  "reports": [
+    {
+      "size": 8,
+      "winner": "blue",
+      "seconds": 192.75,
+      "captures": 4,
+      "deaths": 50,
+      "respawns": 45,
+      "shots": 892,
+      "vehicleShots": 222,
+      "vehicleDisabled": 7,
+      "vehicleRespawns": 7,
+      "majorStarts": 1,
+      "artilleryImpacts": 0,
+      "eventKinds": [
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 87
+    },
+    {
+      "size": 16,
+      "winner": "blue",
+      "seconds": 117,
+      "captures": 5,
+      "deaths": 29,
+      "respawns": 24,
+      "shots": 848,
+      "vehicleShots": 133,
+      "vehicleDisabled": 4,
+      "vehicleRespawns": 3,
+      "majorStarts": 1,
+      "artilleryImpacts": 0,
+      "eventKinds": [
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 80
+    },
+    {
+      "size": 32,
+      "winner": "red",
+      "seconds": 100.25,
+      "captures": 5,
+      "deaths": 22,
+      "respawns": 20,
+      "shots": 1070,
+      "vehicleShots": 110,
+      "vehicleDisabled": 3,
+      "vehicleRespawns": 3,
+      "majorStarts": 1,
+      "artilleryImpacts": 4,
+      "eventKinds": [
+        "ARTILLERY"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 186
+    },
+    {
+      "size": 64,
+      "winner": "blue",
+      "seconds": 80.125,
+      "captures": 5,
+      "deaths": 26,
+      "respawns": 21,
+      "shots": 1159,
+      "vehicleShots": 117,
+      "vehicleDisabled": 2,
+      "vehicleRespawns": 0,
+      "majorStarts": 1,
+      "artilleryImpacts": 1,
+      "eventKinds": [
+        "ARTILLERY"
+      ],
+      "states": [
+        "DEFEND",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 370
+    }
+  ],
+  "defaultMatch": {
+    "size": 32,
+    "tickets": 500,
+    "winner": "red",
+    "seconds": 615.625,
+    "finalTickets": {
+      "blue": 0,
+      "red": 105.66250000001935
+    },
+    "captures": 11,
+    "deaths": 403,
+    "respawns": 398,
+    "shots": 9975,
+    "vehicleShots": 1368,
+    "vehicleDisabled": 34,
+    "vehicleRespawns": 32,
+    "majorStarts": 5,
+    "artilleryImpacts": 4,
+    "counterEffect": true,
+    "armoredEffect": true,
+    "eventKinds": [
+      "ARMORED_PUSH",
+      "ARTILLERY",
+      "COUNTER_OFFENSIVE"
+    ],
+    "navFailures": 0,
+    "runtimeMs": 1004
+  },
+  "version": "0.6.0",
+  "date": "2026-10-08",
+  "static": {
+    "typecheck": "PASS",
+    "vitest": {
+      "status": "PASS",
+      "tests": 23
+    },
+    "productionBuild": "PASS"
+  },
+  "browser": {
+    "status": "PASS",
+    "tests": 4,
+    "renderSample": {
+      "samples": [
+        60.00082492871253,
+        60.024458173530896,
+        60.01584153333379,
+        60.014536319343954,
+        60.00885356392529,
+        60.00787587546379,
+        60.001875520572,
+        59.991317913115466
+      ],
+      "info": {
+        "renderer": "WebKit WebGL",
+        "calls": 773,
+        "ratio": 1
+      }
+    }
+  },
+  "baseline": {
+    "version": "0.5.0",
+    "repository": "YunfanShi/IRONFRONT",
+    "branch": "main",
+    "commit": "ea8753db04615a5e2020f63a15d6e2e52eb29ee1",
+    "localAndRemoteSourceMatch": true
+  },
+  "document": {
+    "status": "PASS",
+    "pages": 6,
+    "chineseRendering": "verified",
+    "visualInspection": "all pages"
+  }
+}
