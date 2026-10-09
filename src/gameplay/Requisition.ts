@@ -1,7 +1,8 @@
 import type {Team} from '../world/Layout';
 import type {Point} from '../core/math';
-export type SupportId='recon'|'smoke'|'artillery'|'reinforce'|'scout'|'ifv'|'tank'|'transport'|'aa'|'helicopter'|'jet';
+export type SupportId='recon'|'smoke'|'artillery'|'reinforce'|'scout'|'ifv'|'tank'|'transport'|'aa'|'helicopter'|'jet'|'motorcycle';
 export const SUPPORTS:Record<SupportId,{name:string;zh:string;cost:number;cooldown:number;description:string}>={
+ motorcycle:{name:'M2 Courier',zh:'M2 双座摩托车',cost:70,cooldown:25,description:'8s reserved airdrop · two seats · unarmed fast transport'},
  aa:{name:'A40 AA',zh:'A40 防空车',cost:260,cooldown:55,description:'Rapid anti-air cannon · reserved airdrop'},
  helicopter:{name:'H8 Kestrel',zh:'H8 武装直升机',cost:380,cooldown:70,description:'Four-seat helicopter · Space climb / Ctrl descend'},
  jet:{name:'J20 Stratus',zh:'J20 战斗机',cost:420,cooldown:80,description:'Fast aircraft · cannon · one pilot seat'},

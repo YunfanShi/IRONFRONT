@@ -66,6 +66,9 @@ else if (m.type === 'state') {
         await wait(100);
         assert.equal(e.states.at(-1).soldiers[e.id].team, 'blue');
         assert(h.states.at(-1).soldiers.filter(s => s.team === 'blue' && s.squad === 0).length <= 4);
+        assert(snapshot.recommendation);h.ws.send(JSON.stringify({type:'action',action:'recommendation',value:false}));await wait(150);assert.equal(h.states.at(-1).recommendation.status,'dismissed');
+        h.ws.send(JSON.stringify({type:'action',action:'unstuck'}));await wait(5100);h.ws.send(JSON.stringify({type:'action',action:'respawn',value:'VEHICLE-7-0'}));await wait(200);assert.equal(h.states.at(-1).soldiers[h.id].vehicleId,7);
+        for(let i=0;i<12;i++){h.ws.send(JSON.stringify({type:'input',yaw:-Math.PI,pitch:.3,forward:1,side:1,boost:true,airbrake:false}));await wait(50);}const flight=h.states.at(-1).vehicles[7];assert(flight.roll>.3&&flight.speed>3,'LAN authority did not apply jet bank/throttle');h.ws.send(JSON.stringify({type:'action',action:'enter'}));await wait(100);
         const more = [];
         for (let i = 0; i < 6; i++)
             more.push(await connect(config.code));
@@ -79,7 +82,7 @@ else if (m.type === 'state') {
         await wait(150);
         assert.equal(h.states.at(-1).soldiers.filter(s => s.alive).length, 1);
         h.ws.close();
-        console.log('LAN_IP_TEST',lanIP);console.log('LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, four-member squads, eight-player cap and ninth-player rejection.');
+        console.log('LAN_IP_TEST',lanIP);console.log('LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, commander dismissal and authoritative jet bank/boost, four-member squads, eight-player cap and ninth-player rejection.');
     }
     finally {
         host.kill();

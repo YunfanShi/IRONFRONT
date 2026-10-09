@@ -15,51 +15,14 @@
     {
       "size": 8,
       "winner": "red",
-      "seconds": 211.25,
-      "captures": 16,
-      "deaths": 19,
-      "respawns": 18,
-      "shots": 253,
-      "vehicleShots": 164,
-      "vehicleDisabled": 2,
+      "seconds": 159.875,
+      "captures": 10,
+      "deaths": 14,
+      "respawns": 14,
+      "shots": 115,
+      "vehicleShots": 251,
+      "vehicleDisabled": 3,
       "vehicleRespawns": 1,
-      "majorStarts": 3,
-      "artilleryImpacts": 4,
-      "eventKinds": [
-        "ARMORED_PUSH",
-        "ARTILLERY",
-        "COUNTER_OFFENSIVE"
-      ],
-      "states": [
-        "BOARD_VEHICLE",
-        "DEFEND",
-        "DOWNED",
-        "DRIVING",
-        "ENGAGE",
-        "FOLLOW_SQUAD",
-        "IDLE",
-        "MOVE_TO_OBJECTIVE",
-        "RESPAWN",
-        "RETREAT",
-        "REVIVE",
-        "SEARCH",
-        "SEEK_COVER",
-        "SPAWN"
-      ],
-      "navFailures": 0,
-      "runtimeMs": 97
-    },
-    {
-      "size": 16,
-      "winner": "blue",
-      "seconds": 117.75,
-      "captures": 12,
-      "deaths": 12,
-      "respawns": 9,
-      "shots": 81,
-      "vehicleShots": 440,
-      "vehicleDisabled": 5,
-      "vehicleRespawns": 2,
       "majorStarts": 2,
       "artilleryImpacts": 0,
       "eventKinds": [
@@ -73,6 +36,7 @@
         "DRIVING",
         "ENGAGE",
         "FOLLOW_SQUAD",
+        "IDLE",
         "MOVE_TO_OBJECTIVE",
         "RESPAWN",
         "RETREAT",
@@ -82,19 +46,55 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 132
+      "runtimeMs": 146
+    },
+    {
+      "size": 16,
+      "winner": "red",
+      "seconds": 177,
+      "captures": 10,
+      "deaths": 32,
+      "respawns": 31,
+      "shots": 706,
+      "vehicleShots": 461,
+      "vehicleDisabled": 13,
+      "vehicleRespawns": 6,
+      "majorStarts": 2,
+      "artilleryImpacts": 0,
+      "eventKinds": [
+        "ARMORED_PUSH",
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "BOARD_VEHICLE",
+        "DEFEND",
+        "DOWNED",
+        "DRIVING",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "REVIVE",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 1,
+      "runtimeMs": 709
     },
     {
       "size": 32,
-      "winner": "blue",
-      "seconds": 82.5,
+      "winner": "red",
+      "seconds": 84.25,
       "captures": 7,
-      "deaths": 13,
-      "respawns": 8,
-      "shots": 16,
-      "vehicleShots": 469,
-      "vehicleDisabled": 5,
-      "vehicleRespawns": 0,
+      "deaths": 6,
+      "respawns": 4,
+      "shots": 224,
+      "vehicleShots": 363,
+      "vehicleDisabled": 6,
+      "vehicleRespawns": 1,
       "majorStarts": 2,
       "artilleryImpacts": 4,
       "eventKinds": [
@@ -117,24 +117,25 @@
         "SEEK_COVER",
         "SPAWN"
       ],
-      "navFailures": 0,
-      "runtimeMs": 335
+      "navFailures": 1,
+      "runtimeMs": 968
     },
     {
       "size": 64,
       "winner": "blue",
-      "seconds": 83.625,
-      "captures": 8,
-      "deaths": 16,
-      "respawns": 15,
-      "shots": 372,
-      "vehicleShots": 281,
-      "vehicleDisabled": 9,
-      "vehicleRespawns": 0,
-      "majorStarts": 1,
+      "seconds": 126.875,
+      "captures": 7,
+      "deaths": 19,
+      "respawns": 19,
+      "shots": 1216,
+      "vehicleShots": 542,
+      "vehicleDisabled": 12,
+      "vehicleRespawns": 5,
+      "majorStarts": 2,
       "artilleryImpacts": 4,
       "eventKinds": [
-        "ARTILLERY"
+        "ARTILLERY",
+        "COUNTER_OFFENSIVE"
       ],
       "states": [
         "BOARD_VEHICLE",
@@ -152,28 +153,28 @@
         "SEEK_COVER",
         "SPAWN"
       ],
-      "navFailures": 0,
-      "runtimeMs": 999
+      "navFailures": 1,
+      "runtimeMs": 3017
     }
   ],
   "defaultMatch": {
     "size": 32,
     "tickets": 500,
     "winner": "red",
-    "seconds": 466.5,
+    "seconds": 305,
     "finalTickets": {
       "blue": 0,
-      "red": 227.34375000002353
+      "red": 459.4125000000025
     },
-    "captures": 21,
-    "deaths": 51,
-    "respawns": 48,
-    "shots": 2590,
-    "vehicleShots": 1608,
-    "vehicleDisabled": 23,
-    "vehicleRespawns": 19,
-    "majorStarts": 8,
-    "artilleryImpacts": 8,
+    "captures": 14,
+    "deaths": 26,
+    "respawns": 26,
+    "shots": 1444,
+    "vehicleShots": 1068,
+    "vehicleDisabled": 16,
+    "vehicleRespawns": 14,
+    "majorStarts": 5,
+    "artilleryImpacts": 4,
     "counterEffect": true,
     "armoredEffect": true,
     "eventKinds": [
@@ -181,61 +182,108 @@
       "ARTILLERY",
       "COUNTER_OFFENSIVE"
     ],
-    "navFailures": 0,
-    "runtimeMs": 2092
+    "navFailures": 1,
+    "runtimeMs": 2712
   },
-  "version": "0.14.0",
+  "version": "0.15.0",
   "baseline": {
-    "version": "0.13.0",
-    "commit": "9b71aeb06c8ab9eb5a819009261d8da38c2e7e9f",
-    "matchedLocalFiles": 36
+    "version": "0.14.0",
+    "commit": "6f2c23d41f07ae4c07c4340e758c22cd12c3f61a",
+    "localFoldersMatched": 5
   },
   "unitTests": {
-    "passed": 91,
-    "files": 10
+    "passed": 106,
+    "files": 12
   },
   "browser": {
-    "passed": 33,
+    "passed": 36,
     "renderSample": {
       "samples": [
-        59.994666789542926,
-        60.018438602679026,
-        60.012211139747045,
-        60.002017951697,
-        59.99999837408726,
-        60.00206668897093,
-        59.9972925738778,
-        59.9884519671913
+        60.00463185965036,
+        59.99921569387209,
+        60.000104297446,
+        59.99827381378205,
+        59.99670877418238,
+        59.98295896567111,
+        60.01287692278276,
+        60.005812095255344
       ],
       "info": {
         "renderer": "WebKit WebGL",
-        "calls": 773,
+        "calls": 782,
         "ratio": 1
       }
-    },
-    "walkContinuity": {
-      "stationaryFraction": 0,
-      "maxFrameStep": 0.29512366409639385,
-      "samples": 80
-    },
-    "finalMapAndFeatureRegression": {
-      "passed": 4,
-      "redFactionRoutesOnly": true
     }
+  },
+  "soak": {
+    "version": "0.15.0",
+    "elapsed": 1200,
+    "captures": 23,
+    "shots": 10960,
+    "deaths": 46,
+    "duplicates": 0,
+    "reportsPeak": 63,
+    "projectilesPeak": 8,
+    "navigationFailures": 0,
+    "commanderDecisions": {
+      "blue": 342,
+      "red": 342
+    },
+    "states": [
+      "SPAWN",
+      "BOARD_VEHICLE",
+      "FOLLOW_SQUAD",
+      "DRIVING",
+      "MOVE_TO_OBJECTIVE",
+      "RESPAWN",
+      "SEARCH",
+      "DOWNED",
+      "REVIVE",
+      "SEEK_COVER",
+      "ENGAGE",
+      "DEFEND",
+      "RETREAT"
+    ],
+    "runtimeMs": 9696,
+    "heapChangeMiB": 72.8,
+    "heapNote": "Transient JS heap before GC, not a leak measurement"
+  },
+  "memory": {
+    "samples": [
+      {
+        "seconds": 0,
+        "heapMiB": 4.53
+      },
+      {
+        "seconds": 300,
+        "heapMiB": 6.96,
+        "reports": 109
+      },
+      {
+        "seconds": 600,
+        "heapMiB": 6.96,
+        "reports": 82
+      },
+      {
+        "seconds": 900,
+        "heapMiB": 6.86,
+        "reports": 46
+      },
+      {
+        "seconds": 1200,
+        "heapMiB": 6.91,
+        "reports": 69
+      }
+    ],
+    "deltaMiB": 2.38,
+    "note": "Live Battle retained across forced-GC samples; single deterministic seed, not all inputs."
   },
   "lan": {
     "nativeIP": "10.100.113.195",
-    "sameLAN": true,
-    "tested": [
-      "HTTP/WS authority",
-      "eight humans, host team assignment and squads",
-      "two Chrome clients: shared grenade model and ammo crate",
-      "ready gate and countdown, production share link"
-    ],
-    "userHardwareVerified": false
+    "userTwoMachinesVerified": false
   },
   "build": {
     "passed": true,
-    "warning": "Three.js chunk above 500kB"
+    "warning": "Three.js vendor chunk exceeds 500kB"
   }
 }

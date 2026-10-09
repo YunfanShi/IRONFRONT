@@ -1,48 +1,38 @@
-# QA REPORT 0.14.0
+# 0.15.0 QA report
 
-开始前检查Main和本机0.13.0一致：9b71aeb06c8ab9eb5a819009261d8da38c2e7e9f；36个源码/版本文件逐字节一致。版本按新增模块规则升0.14.0。package-lock只改项目根版本，第三方依赖保持原版本与校验值。直接继续原项目与Main。
+## Baseline
 
-| 检查 | 最终结果 |
-|---|---|
-| 严格TypeScript | PASS |
-| 单元测试 | 91/91，10文件 |
-| 自动战局 | 8/16/32/64及500票32v32 PASS |
-| LAN HTTP/WS | 非回环IP 10.100.113.195 PASS |
-| Chrome浏览器 | 33/33 PASS |
-| Vite生产构建 | PASS，Three.js超过500kB警告保留 |
+Main/origin/main 6f2c23d41f07ae4c07c4340e758c22cd12c3f61a; five local directories byte-identical to 0.14.0 src/server/scripts/tests/docs/dist before work. Direct main upgrade to 0.15.0 under the requested feature version rule.
 
-默认32v32：466.5模拟秒，red胜；蓝0.0 : 红227.3，占点变化21，阵亡51，AI复活48，步兵射击2590，载具射击1608，载具击毁23，载具重生19。三种大事件全部出现，共8次，炮击落点8，反攻和装甲协同PASS，导航失败0。
+## Actual checks
 
-短时headless 32v32：59.99–60.02FPS，773draw calls，render ratio 1；LAN步行连续性见QA_RESULTS。
+- Strict TypeScript, 106/106 unit tests, 36/36 native Chrome browser tests, Vite production build PASS.
+- 8/16/32/64 autonomous matches PASS; small complete-match scenario uses60 tickets instead of36 to observe combat and final deaths under new scoring. No automatic-win or injected kill workaround.
+- Default32v32/500: 305 simulated seconds, red winner, 14 captures, 1444 infantry shots, 26 deaths, 1068 vehicle shots; navigation failures 1; all three major events, counterattack distribution and live occupied armor/infantry cooperation PASS. Armor regression now requires actual alive driven tank/IFV, rather than checking the first dead IFV's stale goal.
+- 1200-second soak: 23 captures, 10960 shots, 46 deaths, 0 navigation failures, report peak 63, projectile peak 8, duplicate crew0. Runtime 9696ms; heap delta before GC is observational, not a memory leak proof. Retained-Battle forced-GC sample: 4.53MiB at start; 6.96/6.96/6.86/6.91MiB at300/600/900/1200seconds, stable after warm-up.
+- LAN protocol at 10.100.113.195, max8 humans, host team permissions, ready gate, shared authority and browser multiplayer PASS. New flight inputs and recommendations carried by authority server.
+- Headless32v32 short sample 59.98–60.01FPS, 782draw calls. Not a sustained hardware benchmark.
 
-## 本轮逻辑覆盖
+## Failures caught and corrected
 
-新12项：真实投掷移动和引信；烟雾弹先飞行再遮挡；弹药箱友军补弹/敌方排除/两箱替换；30秒濒死/不能提前部署/不提前发奖；长按放弃只记一次死亡；医疗AI实际寻路救援；四座乘员随车阵亡；实际高度跳伞与无坠落伤害；开火和受击均重置回血；持续锁定、范围、CD、干扰及重新锁定；车型改装和同轴武器差异；远离目标仍攻击敌人且速度有上限。原79项保留，旧限车、坠落伤害、即时补弹、即时手雷和脱离卡死传送断言按本轮明确的新规则更新；没有把新规则硬套为旧行为通过。
+Initial commander defense preference suppressed small-match contacts; balanced attack/uncertainty utility then tested actual outcomes. Hull navigation initially joined nodes across walls, causing repeated failures; visible clearance-valid endpoints removed that error. First browser pass31/36: two obsolete count assertions, one invalid high-altitude boarding setup, and two closed browser contexts; corrected setups and a frozen-source full rerun passed36/36. Legacy vehicle/support-count expectations updated for two real new motorcycles and one support choice. Tests explicitly prove hidden obstacles create no visual report, lost contacts freeze, recommendations do not move humans, missile turn bounds, flare stages, physical jet evasion without flares, transport disembark and blocked navigation report without teleporting.
 
-## 本轮浏览器覆盖
+- 情报限制：Intelligence 仅接收复制后的目击/听觉/据点/失败报告，视觉24秒、声音8秒、据点60秒过期，置信度随时间下降。Commander 不接收 Battle 或敌方实体，也不能查询其坐标。
+- 双方独立指挥官：按未知区域、已报告据点、敌方活动估计、小队健康、路线失败、路程、票数和任务拥挤评分。任务至少保留12秒，紧急受压或路线失败允许提前调整；Easy/Normal/Hard战略间隔6/4/3秒。
+- 小队领队：每秒检查集结、移动、交战、驻守、占领和退却状态；等待掉队队员最多10秒，避免永久等候。掩体位置保留5秒，过期或阵亡释放；分批推进与停止掩护使用小队周期，狙击、医疗救援、维修和补给延续既有真实行为。
+- 玩家建议：HUD给出目标与理由，J接受、K忽略；接受由队友执行，玩家移动和武器不会被接管。建议45秒内不会重复弹出。LAN由房主确认操作，只发送本玩家阵营/小队的建议。
+- 车辆导航：按车型实际半径创建独立通行图，检查车体扫掠范围和节点连线，避免隔墙连接或无法到达却直接冲目标。路径失败报告进入小队/指挥反馈，重寻路有冷却；加减速、转弯减速及动态车辆避让仍连续逐帧执行。
+- 运输协作：运输车优先让驾驶员同小队成员使用空座，抵达目标附近后AI乘员实际下车继续任务。保留真人接管、专属空投和死亡规则，不能靠凭空设置driver让无人车开动。
+- 飞行控制拆分：喷气机持续前进，W/S推力、A/D倾斜转弯、鼠标俯仰/航向、Shift加力、Ctrl空气刹车；直升机W/S前后、A/D侧移、鼠标航向、空格上升/Ctrl下降、Shift加速，能悬停和倒飞。机体姿态、HUD数据和操作提示随车型变化。
+- 导弹两阶段提示：正在被锁定为慢警报，导弹来袭为快警报及闪烁；载具导弹和步兵防空都生效。X热诱弹在锁定时清除捕获，在来袭时移除弹体引导，5秒保护、24秒冷却；弹体继续实际飞行。
+- 机动规避：导弹寻的锥约77度、最大转向1.25rad/s；高速横向机动可能让寻的器丢失目标，不采用随机免伤或传送。AI飞机受威胁也会使用干扰和规避输入。
+- 新增M2 COURIER双座无武装摩托车：85HP、最高33m/s、小半径与较快加速，有独立双轮模型和图标。双方基地各一辆，Q菜单70RP、25秒冷却可召唤专属8秒空投。双方现各8种车型。
 
-新增4项：G取出后左键投出可见模型/烟雾与实体箱及地图偏好保存；30秒濒死/按钮呼叫/按住空格/阵亡镜头/图标无重叠；双武器与炮管/落点HUD、真正发射锁定弹、热诱弹移除其跟踪、载具爆炸直接阵亡；两Chrome客户共享手雷模型和弹药箱归属。原29项完整重跑；地图修正后重跑本轮4项，追加红方路线只显示红军的画布断言；同轴与炮塔高度修正后重新全量验证91逻辑和33浏览器。含移动ADS枪口、视角、8人阵营小队、全员准备、原生IP分享入口、音频与音乐和死亡部署。
 
-## 中间问题与修复记录
+## Limits
 
-部署图标最初用圆心欧氏距离避让，斜向图标仍相交；改按实际矩形尺寸加8px间距，浏览器验无重叠。新增回血使救起后的HP可高于55，断言改为至少55而不是固定瞬时值。第一轮两LAN用例遇到Vite在源码编辑时热重载页面，固定源码后的全量复验通过。导弹浏览器断言补强，确认实际发射带targetId的弹再验证干扰；测试中的有驾驶员飞机会真实移动并会自动释放干扰；改为独立初始化目标位置和冷却，在原子发射校验时只检查刚发射的弹，不把其他AI弹体或空弹列表当成功。复核发现驾驶员第二武器与AI机枪座共用转向，改为独立同轴炮口，跟随主炮方向而不受机枪座干扰；同时把残骸更新中抬高的正常炮塔恢复2.1m，避免弹体与模型高度不符。单元追加主炮朝侧面、机枪座朝前时同轴仍按主炮发射的断言。默认自动战局因平衡改变而可能在炮击打完前结束，事件间隔调整为15–22秒、首事件46–55秒，最后三类事件和炮击均有实绩。READY重复提交在战斗期不再绕过死亡重新出生。
+仍使用原创规则驱动AI和轻量运动模型，未达到商业游戏NPC/刚体飞行模拟的复杂度。完整RESUPPLY、ESCORT、RESERVE等战略任务、自动召集远处运输乘员、全道路车道和转弯半径规划、可点击个人任务覆盖与“换一个建议”按钮尚未完成；医疗/维修/补给是实际个体行为，不能视作这些战略模块已经实现。指挥官未知信息会导致不理想分配，属于可见的限制。浏览器FPS仅短时headless采样，不代表用户硬件长期性能；本环境两个浏览器/LAN IP验证不等于用户两台电脑已实测。大于500kB的Three.js分块警告保留。
 
-## 功能与边界
+## Deliverables
 
-- 修复手雷/烟雾弹投掷：G/4先取出，左键投出可见旋转弹体；有抛物线、墙面与地面反弹、2.4秒引信及手臂投掷动作。烟幕落点持续16秒，真实遮挡AI视线。
-- 30秒濒死：H或按钮呼叫，长按空格或按钮加速放弃。附近医疗AI寻找路径靠近并救起；超时/放弃后播放阵亡镜头，再进入地图。载具爆炸和脱离卡死直接死亡，不走救援。
-- X/3突击兵放置实体弹药箱，7m友军自动补充枪械弹药；冷却10秒，每人最多2箱，第3箱替换最早箱，180秒过期。运输车X也可投放补给箱，60秒过期。
-- 删除全场载具数量配置与上限，双方基地各7种载具全部可驾驶；空投不再受总数限制。征用积分、冷却、避障和长重生等待仍保留，征用车辆被毁不免费重生。
-- 车辆HP0立即爆炸，四座乘员直接阵亡；焦黑、倾斜并冒烟的残骸保留12秒后隐藏。任何载具都不受坠落/撞地伤害；无人飞机仍因重力下落。高空下车留在实际高度并打开可见降落伞，以5m/s下降。
-- 驾驶员1/2切两种武器：坦克/步战车主炮加同轴机枪；AA/直升机/喷气机主武器加制导导弹。侦察车仅机枪，运输车驾驶员无武器、机枪座独立。Esc设置为支持的车型选择穿甲/高爆弹药，不能给侦察/运输车装主炮。
-- 载具制导：650m捕获范围、持续瞄准1.5秒、建筑和烟幕遮挡、导弹7秒CD。被锁定有文字和警报声；X热诱弹/烟幕5秒解除锁定和已发射弹的跟踪，CD24秒；过期后可重新锁定。AA仅锁空中敌车，飞机可锁空中或地面敌车。侦察车X扫描12秒，运输车X补给。
-- 驾驶员同轴与机枪座方向分离，独立同轴模型和枪口；正常炮塔2.1m，与弹体起点恢复匹配。炮塔略加快：坦克1.2rad/s，其余主炮1.9rad/s；仍从真实炮口和当前方向发射。HUD保留瞄准准星，加实际炮管方向圆和预测落点虚线圆；屏外/镜头后不显示错误标记。
-- AI保持4人4兵种小队，任务分配更稳定，狙击手拉开距离，交替掩护推进、横向压制、掩体与退却，医疗救援和弹药箱补给。修复远离小队目标时不攻击可见敌人，以及反复切目标重置反应计时。正常移动8.6m/s、紧急移动13.7m/s与玩家相同。
-- 人物改为更清晰的原创方块头身比例，原创像素脸、眼睛、头发和胡须，蓝红制服与真人标识。地图真人显示可选关闭/仅同阵营/全部；部署地图改小图标并按实际尺寸避让，不再叠V编号和HQ大标签。
-- 步兵8秒未开火且未受伤开始25HP/s回血；开火和受击都会重新计时。原伤害反馈、枪口起点、第一/第三人称、图片配装、音乐交叉淡化、征服/前线、大事件和8人LAN保留。
-
-飞行和炮弹是简化动力学，锁定为视线/距离/锥形规则，非完整雷达热源模拟；导弹脱锁后继续弹道飞行，不保证避弹必成功。AI为规则与路径驱动的四人战术系统，不能称为COD或战地原版AI。改装目前只有适配车型的穿甲/高爆和内置第二武器，没有完整附件树。预测落点针对非制导弹道，制导轨迹受移动目标影响。方块角色与实时入场/结算镜头不是AAA模型或电影动画。尚未直接在用户两台真实电脑验收LAN，也未验证跨公网或断线续局。短时headless帧率不是长期性能承诺。
-
-## 交付与版本
-
-房主先Ctrl+C停止旧服务，再npm run lan（7878）；朋友通过0.14.0网页加入，完成配装并READY后由房主START。11首用户MP3仅本机/私人FULL_LOCAL ZIP，GitHub和公开SOURCE ZIP仅代码、音效、导入清单与报告。DOCX附本轮截图；完整日志在docs/qa，打包CRC与SHA256检查，交付同步本机源码与dist、更新Main。
+Detailed DOCX, source/private fullZIP, CRC/SHA256, updated main and local copies. User MP3s remain local/private fullZIP only. Friend needs host HTTP link/IP:7878 and room code; restart old server before npm run lan. Public code/version rejects outdated servers.

@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.clients.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.14.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
+        return res.end(JSON.stringify({ version: '0.15.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
     }
     let pathname;
     try {
@@ -143,7 +143,7 @@ wss.on('connection', (ws, req) => {
             if (!finite(m.yaw) || !finite(m.pitch))
                 return;
             const muzzleOffset=m.muzzleOffset&&['x','y','z'].every(k=>finite(m.muzzleOffset[k]))&&Math.hypot(m.muzzleOffset.x,m.muzzleOffset.y-1.78,m.muzzleOffset.z)<3?m.muzzleOffset:null;
-            c.input = { muzzleOffset,yaw: Math.max(-1000, Math.min(1000, m.yaw)), pitch: Math.max(-1.47, Math.min(1.47, m.pitch)), forward: Math.sign(m.forward) || 0, side: Math.sign(m.side) || 0, up: Math.sign(m.up) || 0, fire: m.fire === true, ads: m.ads === true, sprint: m.sprint === true, giveUp:m.giveUp===true,crouch: m.crouch === true };
+            c.input = { equipment:m.equipment==='aa'?'aa':null,muzzleOffset,yaw: Math.max(-1000, Math.min(1000, m.yaw)), pitch: Math.max(-1.47, Math.min(1.47, m.pitch)), forward: Math.sign(m.forward) || 0, side: Math.sign(m.side) || 0, up: Math.sign(m.up) || 0, fire: m.fire === true, ads: m.ads === true, sprint: m.sprint === true, boost:m.boost===true,airbrake:m.airbrake===true, giveUp:m.giveUp===true,crouch: m.crouch === true };
             c.lastInput = now;
             return;
         }
@@ -199,7 +199,7 @@ wss.on('connection', (ws, req) => {
                 case 'weapon':
                     b.switchPlayerWeapon(m.value);
                     break;
-                case 'rescue':b.callRescue();break;case 'veh-weapon':b.selectVehicleWeapon(m.value===1?1:0);break;case 'veh-ammo':if(['armor','he'].includes(m.value))b.setVehicleAmmo(m.value);break;case 'flares':b.deployFlares();break;
+                case 'recommendation':if(typeof m.value==='boolean')b.respondRecommendation(m.value);break;case 'rescue':b.callRescue();break;case 'veh-weapon':b.selectVehicleWeapon(m.value===1?1:0);break;case 'veh-ammo':if(['armor','he'].includes(m.value))b.setVehicleAmmo(m.value);break;case 'flares':b.deployFlares();break;
                 case 'grenade':
                     b.throwGrenade(d);
                     break;
@@ -265,8 +265,8 @@ setInterval(() => {
         if(r.phase==='countdown'&&Date.now()>=r.countdownAt){r.phase='battle';for(const c of r.clients.values())b.soldiers[c.id].spawnGraceUntil=b.elapsed+3;}
         for (const c of r.clients.values())
             withClient(r, c, b => { if(b.player.downedUntil>b.elapsed&&c.input.giveUp&&Date.now()-c.lastInput<250)b.giveUp(.05);if (r.phase!=='battle'||!c.ready||Date.now() - c.lastInput > 250 || !b.player.alive || b.finished)
-                return; const i = c.input, y = i.yaw, p = i.pitch, d = { x: -Math.sin(y) * Math.cos(p), y: Math.sin(p), z: -Math.cos(y) * Math.cos(p) }; b.player.yaw = y + Math.PI; b.playerAiming = i.ads; if (b.inVehicle) {
-                b.drivePlayerVehicle(i.forward, i.side, .05, y);
+                return; const i = c.input, y = i.yaw, p = i.pitch, d = { x: -Math.sin(y) * Math.cos(p), y: Math.sin(p), z: -Math.cos(y) * Math.cos(p) }; b.player.yaw = y + Math.PI; b.playerAiming = i.ads;if(i.equipment==='aa')b.warnAATarget(d); if (b.inVehicle) {
+                b.drivePlayerVehicle(i.forward,i.side,.05,y,b.playerVehicle?.kind==='jet'?i.airbrake:false,p,i.boost);
                 b.aimPlayerVehicle(y, p, .05);
                 b.changeAltitude(i.up, .05);
                 if (i.fire)
@@ -294,7 +294,7 @@ setInterval(() => {
         for (const [ws, c] of r.clients) {
             withClient(r, c, b => b.advancePlayerTimers());
             const filtered = events.filter(e => (e.type !== 'hitConfirmed'||e.owner===c.id) && (e.type !== 'rp' || e.owner === c.id) && (e.type !== 'playerHit' || e.victim === c.id)).map(e => (e.type === 'shot' || e.type === 'vehicleShot') ? { ...e, player: e.owner === c.id } : e);
-            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...r.clients.values()].map(c=>({id:c.id,ready:c.ready})), elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, grenades:b.grenades,ammoBoxes:b.ammoBoxes, player: c.state, events: filtered };
+            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...r.clients.values()].map(c=>({id:c.id,ready:c.ready})), elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, grenades:b.grenades,ammoBoxes:b.ammoBoxes, recommendation:b.commanders[b.soldiers[c.id].team].recommendations.get(b.soldiers[c.id].squad)??null,player: c.state, events: filtered };
             if (ws.readyState === WebSocket.OPEN && ws.bufferedAmount < 1024 * 1024)
                 ws.send(JSON.stringify(state));
         }

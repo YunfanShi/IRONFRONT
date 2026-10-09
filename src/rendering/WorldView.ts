@@ -240,7 +240,7 @@ export class WorldView {
   if(look.resultAge!==undefined){const t=Math.min(1,look.resultAge/4),a=look.yaw+t*.6;this.camera.position.set(p.pos.x+Math.sin(a)*10, heightAt(p.pos.x,p.pos.z)+5+t*8,p.pos.z+Math.cos(a)*10);this.camera.lookAt(p.pos.x,heightAt(p.pos.x,p.pos.z)+1.5,p.pos.z);}
   this.cameraKick=THREE.MathUtils.damp(this.cameraKick,0,17,dt);
   const aim=this.weapon.render(dt,{weapon:battle.playerWeapon,ads:look.ads&&!vehicle,sprint:look.sprint&&!vehicle,moving:look.moving,speed:look.speed,reload:look.reload,alive:p.alive&&!vehicle&&!look.equipment&&(look.infantryFirstPerson!==false||look.ads),velocitySide:look.side});
-  this.equipment.render(p.alive&&(look.infantryFirstPerson!==false||look.ads||!!vehicle)?(vehicle?(look.vehicleFirstPerson||look.ads?(battle.playerSeat===1||vehicle.kind==='scout'?'mountedMG':'cockpit'):null):look.equipment??null):null,look.equipmentAge??0,look.ads);
+  this.equipment.render(p.alive&&(look.infantryFirstPerson!==false||look.ads||!!vehicle)?(vehicle?(vehicle.kind!=='motorcycle'&&(look.vehicleFirstPerson||look.ads)?(battle.playerSeat===1||vehicle.kind==='scout'?'mountedMG':'cockpit'):null):look.equipment??null):null,look.equipmentAge??0,look.ads);
   if(vehicle&&(battle.playerSeat===1||vehicle.kind==='scout')){this.equipment.root.rotation.y=Math.atan2(Math.sin(vehicle.mgYaw-look.yaw-Math.PI),Math.cos(vehicle.mgYaw-look.yaw-Math.PI));this.equipment.root.rotation.x=vehicle.turretPitch-look.pitch;}
   const sway=look.moving?Math.sin(this.t*(look.sprint?15:11))*.011*(look.sprint?1.5:1):0;
   this.camera.position.y+=sway*(1-aim*.65);

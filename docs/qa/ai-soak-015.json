@@ -1,0 +1,33 @@
+{
+  "version": "0.15.0",
+  "elapsed": 1200,
+  "captures": 23,
+  "shots": 10960,
+  "deaths": 46,
+  "duplicates": 0,
+  "reportsPeak": 63,
+  "projectilesPeak": 8,
+  "navigationFailures": 0,
+  "commanderDecisions": {
+    "blue": 342,
+    "red": 342
+  },
+  "states": [
+    "SPAWN",
+    "BOARD_VEHICLE",
+    "FOLLOW_SQUAD",
+    "DRIVING",
+    "MOVE_TO_OBJECTIVE",
+    "RESPAWN",
+    "SEARCH",
+    "DOWNED",
+    "REVIVE",
+    "SEEK_COVER",
+    "ENGAGE",
+    "DEFEND",
+    "RETREAT"
+  ],
+  "runtimeMs": 9696,
+  "heapChangeMiB": 72.8,
+  "heapNote": "Transient JS heap before GC, not a leak measurement"
+}

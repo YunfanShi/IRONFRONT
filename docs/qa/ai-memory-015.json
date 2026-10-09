@@ -1,0 +1,30 @@
+{
+  "samples": [
+    {
+      "seconds": 0,
+      "heapMiB": 4.53
+    },
+    {
+      "seconds": 300,
+      "heapMiB": 6.96,
+      "reports": 109
+    },
+    {
+      "seconds": 600,
+      "heapMiB": 6.96,
+      "reports": 82
+    },
+    {
+      "seconds": 900,
+      "heapMiB": 6.86,
+      "reports": 46
+    },
+    {
+      "seconds": 1200,
+      "heapMiB": 6.91,
+      "reports": 69
+    }
+  ],
+  "deltaMiB": 2.38,
+  "note": "Live Battle retained across forced-GC samples; single deterministic seed, not all inputs."
+}
