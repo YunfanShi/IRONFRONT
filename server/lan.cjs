@@ -38,7 +38,8 @@ const server = http.createServer((req, res) => {
                 return res.end('Room limit');
             }
             const config = { size: [8, 16, 32, 64].includes(options.size) ? options.size : 32, difficulty: ['easy', 'normal', 'hard'].includes(options.difficulty) ? options.difficulty : 'easy', aiProfile: options.aiProfile === 'elite' ? 'elite' : 'regular', tickets: [100, 300, 500, 800].includes(options.tickets) ? options.tickets : 500, mode: options.mode === 'breakthrough' ? 'breakthrough' : 'conquest', killTicketPenalty: [0, 1, 2].includes(options.killTicketPenalty) ? options.killTicketPenalty : 1, aiEnabled: options.aiEnabled !== false, seed: 505 };
-            const code = crypto.randomBytes(3).toString('hex').toUpperCase(), hostToken = crypto.randomBytes(24).toString('hex'), battle = new Battle(config), room = { phase:'preparation',countdownAt:0,code, hostToken, battle, clients: new Map(), created: Date.now(), joinTeam: options.joinTeam === 'red' ? 'red' : options.joinTeam === 'alternate' ? 'alternate' : 'blue' };
+            let code;do{code=crypto.randomBytes(3).toString('hex').toUpperCase();}while(rooms.has(code));
+            const hostToken = crypto.randomBytes(24).toString('hex'), battle = new Battle(config), room = { phase:'preparation',countdownAt:0,code, hostToken, hostEverJoined:false, battle, clients: new Map(), reservations:new Map(), created: Date.now(), joinTeam: options.joinTeam === 'red' ? 'red' : options.joinTeam === 'alternate' ? 'alternate' : 'blue' };
             if (!config.aiEnabled)
                 for (const s of battle.soldiers) {
                     s.alive = false;
@@ -56,10 +57,10 @@ const server = http.createServer((req, res) => {
         });
         return;
     }
-    if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.clients.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,port}));}
+    if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.phase==='countdown'){res.writeHead(409);return res.end(JSON.stringify({error:'房间正在倒计时，请等待战斗开始后加入'}));}if(room.clients.size+room.reservations.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人，含短暂掉线的保留席位）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,maxPlayers:8,phase:room.phase,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.17.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
+        return res.end(JSON.stringify({ version: '0.18.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
     }
     let pathname;
     try {
@@ -84,19 +85,25 @@ const server = http.createServer((req, res) => {
 });
 const wss = new WebSocketServer({ server, path: '/play', maxPayload: 8192 });
 const withClient = (r, c, fn) => { const b = r.battle; b.controlledPlayerId = c.id; b.importPlayerState(c.state); fn(b); c.state = b.exportPlayerState(); };
+const ensureHost = room => {if(!room.hostEverJoined||[...room.clients.values()].some(c=>c.isHost)||[...room.reservations.values()].some(c=>c.isHost))return;const next=room.clients.entries().next().value;if(next){const [ws,c]=next;c.isHost=true;if(ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify({type:'role',isHost:true}));}};
 wss.on('connection', (ws, req) => {
     const url = new URL(req.url, 'http://localhost'), room = rooms.get((url.searchParams.get('room') || '').toUpperCase());
-    if (!room || room.phase==='countdown' || room.clients.size >= 8) {
-        ws.close(1008, 'Room unavailable or full');
+    const resumeToken=url.searchParams.get('resume')||'';
+    let reservation=room?.reservations.get(resumeToken);
+    if(reservation&&reservation.expires<=Date.now()){room.reservations.delete(resumeToken);reservation=null;}
+    if (!room || resumeToken&&!reservation || room.phase==='countdown'&&!reservation || room.clients.size >= 8 || !reservation&&room.clients.size+room.reservations.size>=8) {
+        ws.close(1008, resumeToken&&!reservation?'Session expired':'Room unavailable or full');
         return;
     }
-    const isHost = url.searchParams.get('token') === room.hostToken, b = room.battle, team = isHost ? 'blue' : room.joinTeam === 'alternate' ? (room.clients.size % 2 ? 'red' : 'blue') : room.joinTeam, s = b.soldiers.find(s => s.team === team && ![...room.clients.values()].some(c => c.id === s.id));
+    if(reservation)room.reservations.delete(resumeToken);
+    const isHost = reservation?reservation.isHost:!!room.hostToken&&url.searchParams.get('token') === room.hostToken, b = room.battle, team = reservation?b.soldiers[reservation.id].team:isHost ? 'blue' : room.joinTeam === 'alternate' ? (room.clients.size % 2 ? 'red' : 'blue') : room.joinTeam, s = reservation?b.soldiers[reservation.id]:b.soldiers.find(s => s.team === team && ![...room.clients.values()].some(c => c.id === s.id)&&![...room.reservations.values()].some(c=>c.id===s.id));
     if (!s) {
         ws.close(1008, 'Faction is full');
         return;
     }
     const id = s.id;
-    if (s.vehicleId !== null) {
+    if(isHost&&!reservation){room.hostEverJoined=true;room.hostToken=null;}
+    if (!reservation && s.vehicleId !== null) {
         const v = b.vehicles.find(v => v.id === s.vehicleId);
         if (v) {
             v.occupants[v.occupants.indexOf(id)] = null;
@@ -105,19 +112,17 @@ wss.on('connection', (ws, req) => {
     }
     s.vehicleId = null;
     s.player = true;
-    s.squad = Math.floor(b.soldiers.filter(o => o.team === team && o.id < s.id).length / 4);
-    s.alive = room.phase!=='battle';
-    s.hp = 100;
-    s.pos = { ...require('../.logic-build/world/Layout.js').BASES[team] };
-    s.spawnGraceUntil = b.elapsed + 3600;
+    if(!reservation){s.squad = Math.floor(b.soldiers.filter(o => o.team === team && o.id < s.id).length / 4);s.alive = room.phase!=='battle';s.hp = 100;s.pos = { ...require('../.logic-build/world/Layout.js').BASES[team] };s.spawnGraceUntil = b.elapsed + 3600;}
+    else if(b.settings.aiEnabled===false){s.alive=reservation.alive;s.hp=reservation.hp;}
     const previous = b.exportPlayerState(), old = b.controlledPlayerId;
     b.controlledPlayerId = id;
-    b.importPlayerState(new Battle({ size: 8, difficulty: 'normal', tickets: 500 }).exportPlayerState());
-    const c = { ready:false,id, isHost, state: b.exportPlayerState(), input: {}, lastInput: 0, window: Date.now(), messages: 0 };
-    b.controlledPlayerId = old;
-    b.importPlayerState(previous);
+    b.importPlayerState(reservation?reservation.state:new Battle({ size: 8, difficulty: 'normal', tickets: 500 }).exportPlayerState());
+    const c = { ready:reservation?.ready??false,id, isHost, resumeToken:reservation?.resumeToken??crypto.randomBytes(24).toString('hex'), state: b.exportPlayerState(), input: {}, lastInput: 0, window: Date.now(), messages: 0 };
+    if(reservation){const vehicle=b.vehicles.find(v=>v.id===s.vehicleId&&v.alive&&v.occupants.includes(id));if(!vehicle){s.vehicleId=null;c.state.playerVehicleId=null;c.state.playerSeat=0;}else if(vehicle.occupants[0]===id)vehicle.driver='player';}
+    b.controlledPlayerId = old;b.importPlayerState(previous);
     room.clients.set(ws, c);
-    ws.send(JSON.stringify({ type: 'welcome', id, code: room.code, settings: b.settings, isHost }));
+    ensureHost(room);
+    ws.send(JSON.stringify({ type: 'welcome', id, code: room.code, settings: b.settings, isHost:c.isHost, resumeToken:c.resumeToken, resumed:!!reservation }));
     ws.on('message', data => {
         const now = Date.now();
         if (now - c.window > 1000) {
@@ -167,7 +172,7 @@ wss.on('connection', (ws, req) => {
                                 target.state.playerVehicleId = null;
                                 target.state.playerSeat = 0;
                             }
-                            soldier.team = m.team;
+                            soldier.team = m.team;if(room.phase==='preparation')target.ready=false;
                             let squad = 0;
                             while (b.soldiers.filter(o => o !== soldier && o.team === m.team && o.squad === squad && o.player).length >= 4)
                                 squad++;
@@ -186,7 +191,7 @@ wss.on('connection', (ws, req) => {
                     if(c.ready&&room.phase!=='preparation')break;
                     if(room.phase==='preparation'){const elapsed=b.elapsed;b.elapsed=0;b.setLoadout(m.loadout);b.elapsed=elapsed;c.ready=true;}else {b.setLoadout(m.loadout);c.ready=true;b.player.alive=true;b.player.hp=100;b.player.spawnGraceUntil=b.elapsed+3;}break;
                 case 'begin':
-                    if(c.isHost&&room.phase==='preparation'&&[...room.clients.values()].every(o=>o.ready)){room.phase='countdown';room.countdownAt=Date.now()+3000;}break;
+                    if(c.isHost&&room.phase==='preparation'&&room.clients.size>0&&room.reservations.size===0&&[...room.clients.values()].every(o=>o.ready)){room.phase='countdown';room.countdownAt=Date.now()+3000;}break;
                 case 'enter':
                     b.togglePlayerVehicle();
                     break;
@@ -233,7 +238,7 @@ wss.on('connection', (ws, req) => {
                     break;
             } });
     });
-    ws.on('close', () => { room.clients.delete(ws); s.player = false; if (b.settings.aiEnabled === false) {
+    ws.on('close', code => { room.clients.delete(ws);if(code!==4000&&code!==1008)room.reservations.set(c.resumeToken,{id:c.id,isHost:c.isHost,resumeToken:c.resumeToken,state:c.state,ready:c.ready,alive:s.alive,hp:s.hp,expires:Date.now()+30000});if(room.phase==='countdown'){room.phase='preparation';room.countdownAt=0;}s.player = false; if (b.settings.aiEnabled === false) {
         s.alive = false;
         s.respawnAt = Infinity;
         if (s.vehicleId !== null) {
@@ -251,11 +256,12 @@ wss.on('connection', (ws, req) => {
         const v = b.vehicles.find(v => v.id === s.vehicleId);
         if (v)
             v.driver = 'ai';
-    } if (!room.clients.size)
-        room.emptyAt = Date.now(); });
+    } if (!room.clients.size)room.emptyAt = Date.now();ensureHost(room); });
 });
 setInterval(() => {
     for (const [code, r] of rooms) {
+        for(const [token,c] of r.reservations)if(c.expires<=Date.now())r.reservations.delete(token);
+        ensureHost(r);
         if (!r.clients.size) {
             if (Date.now() - (r.emptyAt || r.created) > 600000)
                 rooms.delete(code);
@@ -294,7 +300,7 @@ setInterval(() => {
         for (const [ws, c] of r.clients) {
             withClient(r, c, b => b.advancePlayerTimers());
             const filtered = events.filter(e => (e.type !== 'hitConfirmed'||e.owner===c.id) && (e.type !== 'rp' || e.owner === c.id) && (e.type !== 'playerHit' || e.victim === c.id)).map(e => (e.type === 'shot' || e.type === 'vehicleShot') ? { ...e, player: e.owner === c.id } : e);
-            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...r.clients.values()].map(c=>({id:c.id,ready:c.ready})), elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, grenades:b.grenades,ammoBoxes:b.ammoBoxes, recommendation:b.commanders[b.soldiers[c.id].team].recommendations.get(b.soldiers[c.id].squad)??null,player: c.state, events: filtered };
+            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...[...r.clients.values()].map(c=>({id:c.id,ready:c.ready,team:b.soldiers[c.id].team,isHost:c.isHost,connected:true})),...[...r.reservations.values()].map(c=>({id:c.id,ready:c.ready,team:b.soldiers[c.id].team,isHost:c.isHost,connected:false}))], elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, grenades:b.grenades,ammoBoxes:b.ammoBoxes, recommendation:b.commanders[b.soldiers[c.id].team].recommendations.get(b.soldiers[c.id].squad)??null,player: c.state, events: filtered };
             if (ws.readyState === WebSocket.OPEN && ws.bufferedAmount < 1024 * 1024)
                 ws.send(JSON.stringify(state));
         }

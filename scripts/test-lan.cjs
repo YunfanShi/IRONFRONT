@@ -2,8 +2,9 @@ const assert = require('node:assert/strict'), { spawn } = require('node:child_pr
 const lanIP=Object.values(require('node:os').networkInterfaces()).flat().find(n=>n&&n.family==='IPv4'&&!n.internal)?.address||'127.0.0.1';
 const port = 18787, host = spawn(process.execPath, ['server/lan.cjs'], { env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'inherit'] });
 const wait = ms => new Promise(r => setTimeout(r, ms));
-const connect = (code, token = '') => new Promise((resolve, reject) => { const ws = new WebSocket(`ws://${lanIP}:${port}/play?room=${code}&token=${token}`); const c = { ws, id: null, states: [], events: [] }; ws.on('message', data => { const m = JSON.parse(data); if (m.type === 'welcome')
-    c.id = m.id;
+const connect = (code, token = '', resume = '') => new Promise((resolve, reject) => { const ws = new WebSocket(`ws://${lanIP}:${port}/play?room=${code}&token=${token}&resume=${resume}`); const c = { ws, id: null, states: [], events: [], resumeToken:'', isHost:false }; ws.on('message', data => { const m = JSON.parse(data); if (m.type === 'welcome'){
+    c.id = m.id;c.resumeToken=m.resumeToken;c.isHost=m.isHost;
+}else if(m.type==='role')c.isHost=m.isHost;
 else if (m.type === 'state') {
     c.states.push(m);
     c.events.push(...m.events);
@@ -15,7 +16,8 @@ else if (m.type === 'state') {
     try {
         await new Promise((resolve, reject) => { const timeout = setTimeout(() => reject(new Error('LAN service did not start')), 5000); host.stdout.once('data', () => { clearTimeout(timeout); resolve(); }); host.once('exit', code => { clearTimeout(timeout); reject(new Error('LAN server exited ' + code)); }); });
         const response = await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST' }), { code, hostToken } = await response.json();
-        assert.match(code, /^[A-F0-9]{6}$/);const status=await (await fetch(`http://${lanIP}:${port}/api/status`)).json();assert.equal(status.port,port);assert(status.addresses.includes(`http://${lanIP}:${port}`));assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${code}`)).status,200);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/ZZZZZZ`)).status,404);
+        assert.match(code, /^[A-F0-9]{6}$/);const status=await (await fetch(`http://${lanIP}:${port}/api/status`)).json();assert.equal(status.port,port);assert(status.addresses.includes(`http://${lanIP}:${port}`));assert(status.rooms.every(r=>!('code' in r)),'status must not expose invite codes');assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${code}`)).status,200);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/ZZZZZZ`)).status,404);
+        const freshRoom=await (await fetch(`http://${lanIP}:${port}/api/rooms`,{method:'POST'})).json(),earlyGuest=await connect(freshRoom.code);assert.equal(earlyGuest.isHost,false,'a guest must not claim a room before its founder connects');const founder=await connect(freshRoom.code,freshRoom.hostToken);assert.equal(founder.isHost,true);founder.ws.close(4000,'leave');await wait(120);assert.equal(earlyGuest.isHost,true);const replay=await connect(freshRoom.code,freshRoom.hostToken);assert.equal(replay.isHost,false,'a used host token must not grant another host role');replay.ws.close(4000,'leave');earlyGuest.ws.close(4000,'leave');
         const a = await connect(code, hostToken), b = await connect(code);
         assert.equal(a.states.at(-1).phase,'preparation');assert.equal(a.states.at(-1).elapsed,0);
         a.ws.send(JSON.stringify({type:'action',action:'ready'}));a.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(150);assert.equal(a.states.at(-1).phase,'preparation');
@@ -47,12 +49,20 @@ else if (m.type === 'state') {
         const reject = new WebSocket(`ws://${lanIP}:${port}/play?room=NOPE`);
         const close = await new Promise(r => reject.on('close', code => r(code)));
         assert.equal(close, 1008);
-        a.ws.close();
+        const oldId=a.id,oldToken=a.resumeToken;a.ws.terminate();await wait(160);
+        assert(b.states.at(-1).roster.some(c=>c.id===oldId&&!c.connected),'dropped player should keep a visible reserved seat');
+        const resumed=await connect(code,'',oldToken);assert.equal(resumed.id,oldId);assert.equal(resumed.isHost,true);assert.equal(resumed.states.at(-1).soldiers[oldId].player,true);
+        resumed.ws.close(4000,'leave');
         await wait(150);
         assert.equal(b.states.at(-1).soldiers[a.id].player, false);
-        b.ws.close();
+        assert.equal(b.isHost,true,'remaining player should inherit the host role');b.ws.close(4000,'leave');
+        const countdownRoom=await (await fetch(`http://${lanIP}:${port}/api/rooms`,{method:'POST'})).json();
+        const captain=await connect(countdownRoom.code,countdownRoom.hostToken),mate=await connect(countdownRoom.code);
+        captain.ws.send(JSON.stringify({type:'action',action:'ready'}));mate.ws.send(JSON.stringify({type:'action',action:'ready'}));await wait(100);captain.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(100);assert.equal(captain.states.at(-1).phase,'countdown');assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${countdownRoom.code}`)).status,409);
+        mate.ws.terminate();await wait(150);assert.equal(captain.states.at(-1).phase,'preparation','a disconnect must cancel countdown');
+        const mateBack=await connect(countdownRoom.code,'',mate.resumeToken);assert.equal(mateBack.id,mate.id);assert.equal(mateBack.states.at(-1).roster.length,2);captain.ws.close(4000,'leave');mateBack.ws.close(4000,'leave');
         const config = await (await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ size: 8, difficulty: 'hard', tickets: 300, killTicketPenalty: 2, aiEnabled: false, joinTeam: 'red' }) })).json();
-        const h = await connect(config.code, config.hostToken), e = await connect(config.code);h.ws.send(JSON.stringify({type:'action',action:'ready'}));e.ws.send(JSON.stringify({type:'action',action:'ready'}));await wait(150);h.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(3200);
+        let h = await connect(config.code, config.hostToken);const e = await connect(config.code);h.ws.send(JSON.stringify({type:'action',action:'ready'}));e.ws.send(JSON.stringify({type:'action',action:'ready'}));await wait(150);h.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(3200);
         await wait(100);
         let snapshot = h.states.at(-1);
         assert.equal(snapshot.soldiers[h.id].team, 'blue');
@@ -68,7 +78,8 @@ else if (m.type === 'state') {
         assert(h.states.at(-1).soldiers.filter(s => s.team === 'blue' && s.squad === 0).length <= 4);
         assert(snapshot.recommendation);h.ws.send(JSON.stringify({type:'action',action:'recommendation',value:false}));await wait(150);assert.equal(h.states.at(-1).recommendation.status,'dismissed');
         h.ws.send(JSON.stringify({type:'action',action:'unstuck'}));await wait(5100);h.ws.send(JSON.stringify({type:'action',action:'respawn',value:'VEHICLE-7-0'}));await wait(200);assert.equal(h.states.at(-1).soldiers[h.id].vehicleId,7);
-        for(let i=0;i<12;i++){h.ws.send(JSON.stringify({type:'input',yaw:-Math.PI,pitch:.3,forward:1,side:1,boost:true,airbrake:false}));await wait(50);}const flight=h.states.at(-1).vehicles[7];assert(flight.roll>.3&&flight.speed>3,'LAN authority did not apply jet bank/throttle');h.ws.send(JSON.stringify({type:'action',action:'enter'}));await wait(100);
+        for(let i=0;i<12;i++){h.ws.send(JSON.stringify({type:'input',yaw:-Math.PI,pitch:.3,forward:1,side:1,boost:true,airbrake:false}));await wait(50);}const flight=h.states.at(-1).vehicles[7];assert(flight.roll>.3&&flight.speed>3,'LAN authority did not apply jet bank/throttle');
+        const flightId=h.id,flightToken=h.resumeToken;h.ws.terminate();await wait(150);h=await connect(config.code,'',flightToken);assert.equal(h.id,flightId);assert.equal(h.states.at(-1).soldiers[flightId].vehicleId,null);assert.equal(h.states.at(-1).player.playerVehicleId,null,'rejoin after AI-free seat release must clear stale private vehicle state');assert.equal(h.states.at(-1).soldiers[flightId].alive,true);
         const more = [];
         for (let i = 0; i < 6; i++)
             more.push(await connect(config.code));
@@ -76,13 +87,14 @@ else if (m.type === 'state') {
         assert.equal(await new Promise(r => ninth.on('close', r)), 1008);
         await wait(100);
         assert.equal(h.states.at(-1).soldiers.filter(s => s.player).length, 8);
+        const detached=more.pop();detached.ws.terminate();await wait(120);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${config.code}`)).status,409,'a disconnected reserved seat still counts toward capacity');const returned=await connect(config.code,'',detached.resumeToken);assert.equal(returned.id,detached.id);more.push(returned);
         for (const c of more)
             c.ws.close();
         e.ws.close();
         await wait(150);
         assert.equal(h.states.at(-1).soldiers.filter(s => s.alive).length, 1);
         h.ws.close();
-        console.log('LAN_IP_TEST',lanIP);console.log('LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, commander dismissal and authoritative jet bank/boost, four-member squads, eight-player cap and ninth-player rejection.');
+        console.log('LAN_IP_TEST',lanIP);console.log('LAN PASS: two real clients, authority and events, stable-seat reconnect, host handoff, countdown cancellation, AI takeover, opposing teams, host permissions, jet controls and eight-player capacity.');
     }
     finally {
         host.kill();
