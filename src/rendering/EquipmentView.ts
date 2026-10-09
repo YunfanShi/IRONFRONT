@@ -5,6 +5,7 @@ export class EquipmentView {
     readonly root = new THREE.Group();
     private models = new Map<EquipmentItem, THREE.Group>();
     private mats: THREE.Material[] = [];
+    private current:EquipmentItem|null=null;
     constructor(camera: THREE.Camera) {
         camera.add(this.root);
         this.root.position.set(.24, -.23, -.55);
@@ -19,6 +20,7 @@ export class EquipmentView {
             this.root.add(g);
             const box = (w: number, h: number, d: number, m: THREE.Material, x = 0, y = 0, z = 0) => { const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); mesh.position.set(x, y, z); g.add(mesh); return mesh; };
             const tube = (r: number, l: number, m: THREE.Material, x = 0, y = 0, z = 0) => { const mesh = new THREE.Mesh(new THREE.CylinderGeometry(r, r, l, 16), m); mesh.rotation.x = Math.PI / 2; mesh.position.set(x, y, z); g.add(mesh); return mesh; };
+            if(id!=='cockpit'){box(.085,.11,.15,black,.08,-.17,.07);box(.11,.16,.22,olive,.08,-.27,.17);box(.085,.11,.15,black,-.13,-.1,-.23);box(.11,.15,.2,olive,-.15,-.2,-.12);}
             if (id === 'at' || id === 'aa') {
                 tube(id === 'aa' ? .09 : .12, 1.05, olive, 0, 0, -.25);
                 tube(.135, .09, black, 0, 0, -.76);
@@ -92,8 +94,9 @@ export class EquipmentView {
             }
         }
     }
-    render(item: EquipmentItem | null, age: number, ads = false) { this.root.visible = item !== null; for (const [id, g] of this.models)
-        g.visible = id === item; const action = Math.sin(Math.min(1, Math.max(0, age)) * Math.PI); this.root.position.set(item === 'cockpit' ? 0 : ads && item === 'mountedMG' ? 0 : .24, item === 'cockpit' ? -.35 : -.23 - action * .04, ads && item === 'mountedMG' ? -.4 : -.55); this.root.rotation.set(action * .16, 0, action * -.07); }
+    muzzleWorldPosition(){this.root.updateWorldMatrix(true,true);const p=this.root.localToWorld(new THREE.Vector3(0,this.current==='mountedMG'?.01:0,this.current==='mountedMG'?-.98:-.805));return {x:p.x,y:p.y,z:p.z};}
+    render(item: EquipmentItem | null, age: number, ads = false) { this.current=item;this.root.visible = item !== null; for (const [id, g] of this.models)
+        g.visible = id === item; const action = Math.sin(Math.min(1, Math.max(0, age)) * Math.PI); this.root.position.set(item === 'cockpit' ? 0 : ads && (item === 'mountedMG'||item === 'at'||item === 'aa') ? 0 : .24, item === 'cockpit' ? -.35 : -.23 - action * .04, ads && (item === 'mountedMG'||item === 'at'||item === 'aa') ? -.4 : -.55); this.root.rotation.set(action * .16, 0, action * -.07); }
     dispose() { this.root.removeFromParent(); this.root.traverse(o => { if (o instanceof THREE.Mesh)
         o.geometry.dispose(); }); for (const m of this.mats)
         m.dispose(); }

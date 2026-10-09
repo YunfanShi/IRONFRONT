@@ -16,7 +16,7 @@ export interface ArmoredVehicle {
  speed:number;
  driver:'ai'|'player'|null;
  occupants:(number|null)[]; reservedFor:number|null; dropStarted:number; landAt:number; airborne:boolean;
- goal:string;movingToGoal:boolean;altitude:number;
+ goal:string;movingToGoal:boolean;altitude:number;verticalVelocity:number;enginePower:number;climbInput:number;
  route:Point[];
  nextPath:number;
  nextDecision:number;
@@ -56,7 +56,7 @@ export const VEHICLE_TYPES={
 } as const;
 export function createVehicle(id:number,team:Team,kind:VehicleKind,spawn:Point,requisitioned=false):ArmoredVehicle {
  const cfg=VEHICLE_TYPES[kind];
- return {id,team,kind,seatCount:kind==='jet'?1:kind==='scout'?2:4,spawn:{...spawn},requisitioned,pos:{...spawn},yaw:team==='blue'?0:Math.PI,turretYaw:team==='blue'?0:Math.PI,turretPitch:0,mgYaw:team==='blue'?0:Math.PI,hp:cfg.maxHp,combatUntil:0,maxHp:cfg.maxHp,alive:true,disabledAt:-999,respawnAt:0,speed:0,driver:null,occupants:Array(kind==='jet'?1:kind==='scout'?2:4).fill(null),reservedFor:requisitioned?0:null,dropStarted:0,landAt:0,airborne:false,goal:'C',movingToGoal:true,altitude:0,route:[],nextPath:0,nextDecision:.5,nextShot:0,nextMGShot:0,steering:0,stuckFor:0,lastProgress:{...spawn}};
+ return {id,team,kind,seatCount:kind==='jet'?1:kind==='scout'?2:4,spawn:{...spawn},requisitioned,pos:{...spawn},yaw:team==='blue'?0:Math.PI,turretYaw:team==='blue'?0:Math.PI,turretPitch:0,mgYaw:team==='blue'?0:Math.PI,hp:cfg.maxHp,combatUntil:0,maxHp:cfg.maxHp,alive:true,disabledAt:-999,respawnAt:0,speed:0,driver:null,occupants:Array(kind==='jet'?1:kind==='scout'?2:4).fill(null),reservedFor:requisitioned?0:null,dropStarted:0,landAt:0,airborne:false,goal:'C',movingToGoal:true,altitude:0,verticalVelocity:0,enginePower:0,climbInput:0,route:[],nextPath:0,nextDecision:.5,nextShot:0,nextMGShot:0,steering:0,stuckFor:0,lastProgress:{...spawn}};
 }
 export function createArmoredVehicles():ArmoredVehicle[]{
  // Preserve the original IFV IDs. Extra vehicles use separate parking bays.

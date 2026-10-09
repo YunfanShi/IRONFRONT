@@ -1,4 +1,5 @@
 import { Battle, type BattleEvent, type BattleSettings } from '../core/Battle';
+import {lanAddress,lanJSON} from './LanAddress';
 export class LanClient {
     private socket: WebSocket | null = null;
     private pending: BattleEvent[] = [];
@@ -14,22 +15,12 @@ export class LanClient {
     private receivedState = false;
     onDisconnect: () => void = () => { };
     async connect(address: string, code: string, host: boolean, options: Record<string, unknown> = {}): Promise<Battle> {
-        const url = new URL(address.includes('://') ? address : `http://${address}`);
-        if (!url.port)
-            url.port = '7878';
-        if (!['http:', 'https:'].includes(url.protocol))
-            throw new Error('请输入主机 IP:端口');
-        this.address = url.host;
-        try { const response = await fetch(new URL('/api/status', url)); const info = await response.json(); this.shareUrls = Array.isArray(info.addresses) ? info.addresses : []; } catch {}
-        let hostToken = '';
-        if (host) {
-            const response = await fetch(new URL('/api/rooms', url), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(options) });
-            if (!response.ok)
-                throw new Error('房间创建失败');
-            const room = await response.json();
-            code = room.code;
-            hostToken = room.hostToken;
-        }
+        const url = lanAddress(address);this.address=url.host;
+        const info=await lanJSON(new URL('/api/status',url));if(!String(info.version).startsWith('0.12.'))throw new Error(`房主服务版本 ${info.version} 与当前网页不匹配，请房主更新到0.12并停止旧进程、重新运行 npm run lan`);this.shareUrls=Array.isArray(info.addresses)?info.addresses:[];
+        if(location.protocol==='https:'&&url.protocol==='http:')throw new Error('HTTPS 页面无法连接 HTTP 主机，请打开房主分享的 HTTP 网页再加入');
+        let hostToken='';
+        if(host){const room=await lanJSON(new URL('/api/rooms',url),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(options)});code=room.code;hostToken=room.hostToken;}
+        else {code=(code||url.searchParams.get('room')||'').trim().toUpperCase();if(!/^[A-Z0-9]{6}$/.test(code))throw new Error('请输入六位房间码或完整分享链接');await lanJSON(new URL('/api/rooms/'+code,url));}
         this.code = code.trim().toUpperCase();
         const wsURL = new URL('/play', url);
         wsURL.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -45,22 +36,24 @@ export class LanClient {
                 this.isHost = m.isHost === true;
                 battle = new Battle(m.settings as BattleSettings);
                 battle.controlledPlayerId = this.id;
-                this.connected = true;
+                // Install the chosen loadout before allowing gameplay controls.
+                if(options.loadout)this.action('loadout',undefined,{loadout:options.loadout});
             }
             else if (m.type === 'state' && battle) {
                 this.apply(battle, m);
-                if (!welcomed) {
+                if (!welcomed && (!options.loadout || Object.entries(options.loadout as Record<string,unknown>).every(([key,value])=>m.player.loadout[key]===value))) {
                     welcomed = true;
+                    this.connected=true;
                     clearTimeout(timeout);
                     resolve(battle);
                 }
                 this.pending.push(...m.events);
             } };
-            ws.onerror = () => reject(new Error('无法连接。房主先运行 npm run lan，并允许本机防火墙端口 7878。'));
+            ws.onerror = () => {clearTimeout(timeout);reject(new Error(`房主网页可访问，但 WebSocket ${url.host}/play 连接失败。检查浏览器本地网络权限或代理。`));};
             ws.onclose = () => { clearTimeout(timeout); const was = this.connected; this.connected = false; if (was)
                 this.onDisconnect();
             else
-                reject(new Error('房间不存在、已满或服务不可用')); };
+                reject(new Error('房间拒绝连接：'+(ws.readyState===WebSocket.CLOSED?'可能已满或房间被关闭':'服务不可用'))); };
         });
     }
     private apply(b: Battle, m: any) {

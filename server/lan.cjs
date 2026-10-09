@@ -1,12 +1,16 @@
 // One authoritative Battle per co-op room. Clients send controls, never health/positions.
 const http = require('node:http'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto'), os = require('node:os');
 const { WebSocketServer, WebSocket } = require('ws');
+const {heightAt}=require('../.logic-build/core/math.js');
 const { Battle } = require('../.logic-build/core/Battle.js');
 const port = Number(process.env.PORT) || 7878, rooms = new Map(), dist = path.resolve(__dirname, '../dist');
-const addresses = () => [...new Set(Object.values(os.networkInterfaces()).flat().filter(n => n && n.family === 'IPv4' && !n.internal).map(n => `http://${n.address}:${port}`))];
+const addresses=()=>{const nets=Object.entries(os.networkInterfaces()).filter(([name])=>! /^(utun|tun|docker|veth|br-|bridge|tailscale|vmnet)/i.test(name)).flatMap(([,list])=>list||[]);return [...new Set(nets.filter(n=>n.family==='IPv4'&&!n.internal).map(n=>`http://${n.address}:${port}`))];};
 const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Private-Network','true');
+    res.setHeader('Cache-Control','no-store');
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
         return res.end();
@@ -52,9 +56,10 @@ const server = http.createServer((req, res) => {
         });
         return;
     }
+    if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.clients.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.11.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
+        return res.end(JSON.stringify({ version: '0.12.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
     }
     let pathname;
     try {
@@ -136,12 +141,13 @@ wss.on('connection', (ws, req) => {
         if (m.type === 'input') {
             if (!finite(m.yaw) || !finite(m.pitch))
                 return;
-            c.input = { yaw: Math.max(-1000, Math.min(1000, m.yaw)), pitch: Math.max(-1.47, Math.min(1.47, m.pitch)), forward: Math.sign(m.forward) || 0, side: Math.sign(m.side) || 0, up: Math.sign(m.up) || 0, fire: m.fire === true, ads: m.ads === true, sprint: m.sprint === true, crouch: m.crouch === true };
+            const muzzleOffset=m.muzzleOffset&&['x','y','z'].every(k=>finite(m.muzzleOffset[k]))&&Math.hypot(m.muzzleOffset.x,m.muzzleOffset.y-1.78,m.muzzleOffset.z)<3?m.muzzleOffset:null;
+            c.input = { muzzleOffset,yaw: Math.max(-1000, Math.min(1000, m.yaw)), pitch: Math.max(-1.47, Math.min(1.47, m.pitch)), forward: Math.sign(m.forward) || 0, side: Math.sign(m.side) || 0, up: Math.sign(m.up) || 0, fire: m.fire === true, ads: m.ads === true, sprint: m.sprint === true, crouch: m.crouch === true };
             c.lastInput = now;
             return;
         }
         if (m.type === 'action')
-            withClient(room, c, b => { const p = c.input, d = { x: -Math.sin(p.yaw || 0) * Math.cos(p.pitch || 0), y: Math.sin(p.pitch || 0), z: -Math.cos(p.yaw || 0) * Math.cos(p.pitch || 0) }; switch (m.action) {
+            withClient(room, c, b => { const p = c.input, d = { x: -Math.sin(p.yaw || 0) * Math.cos(p.pitch || 0), y: Math.sin(p.pitch || 0), z: -Math.cos(p.yaw || 0) * Math.cos(p.pitch || 0) }; const offset=m.muzzleOffset;const muzzle=offset&&['x','y','z'].every(k=>typeof offset[k]==='number'&&Number.isFinite(offset[k]))&&Math.hypot(offset.x,offset.y-1.65,offset.z)<3?{x:b.player.pos.x+offset.x,y:heightAt(b.player.pos.x,b.player.pos.z)+offset.y,z:b.player.pos.z+offset.z}:undefined;const direction=m.direction;if(direction&&['x','y','z'].every(k=>typeof direction[k]==='number'&&Number.isFinite(direction[k]))){const len=Math.hypot(direction.x,direction.y,direction.z);if(len>.01){d.x=direction.x/len;d.y=direction.y/len;d.z=direction.z/len;}}switch (m.action) {
                 case 'team':
                     if (c.isHost && ['blue', 'red'].includes(m.team)) {
                         const target = [...room.clients.values()].find(o => o.id === m.value);
@@ -192,10 +198,10 @@ wss.on('connection', (ws, req) => {
                     b.useGadget();
                     break;
                 case 'rocket':
-                    b.fireRocket(d);
+                    b.fireRocket(d,muzzle);
                     break;
                 case 'aa':
-                    b.fireAA(d);
+                    b.fireAA(d,muzzle);
                     break;
                 case 'unstuck':
                     b.unstuckPlayer();
@@ -264,7 +270,7 @@ setInterval(() => {
                 const old={...b.player.pos};b.movePlayer(velocity.x*.05,velocity.z*.05);
                 if(Math.hypot(b.player.pos.x-old.x,b.player.pos.z-old.z)<Math.hypot(velocity.x,velocity.z)*.05*.22){velocity.x*=.65;velocity.z*=.65;}b.player.velocity=velocity;
                 if (i.fire && (b.activeWeapon.automatic || !c.fireHeld))
-                    b.shootPlayer(d);
+                    b.shootPlayer(d,i.crouch?1.07:1.78,i.muzzleOffset?{x:b.player.pos.x+i.muzzleOffset.x,y:heightAt(b.player.pos.x,b.player.pos.z)+i.muzzleOffset.y,z:b.player.pos.z+i.muzzleOffset.z}:undefined);
                 c.fireHeld = i.fire;
             } });
         const first = [...r.clients.values()][0];
@@ -284,4 +290,5 @@ setInterval(() => {
         }
     }
 }, 50).unref();
-server.listen(port, '0.0.0.0', () => console.log(`IRONFRONT LAN http://0.0.0.0:${port} · configurable faction rooms, 8 players max`));
+server.on('error',error=>{console.error(error.code==='EADDRINUSE'?`端口 ${port} 已占用。关闭旧服务或使用 PORT=其他端口 npm run lan。`:`LAN 启动失败：${error.message}`);process.exitCode=1;});
+server.listen(port,'0.0.0.0',()=>{console.log(`IRONFRONT LAN 本机：http://localhost:${port} · 最多 8 人`);for(const url of addresses())console.log(`朋友访问：${url}（同一局域网）`);});

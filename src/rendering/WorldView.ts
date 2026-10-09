@@ -28,7 +28,7 @@ export class WorldView {
  private soldierRender:SoldierVisuals;private vehicleRender:VehicleVisuals;private art:EnvironmentArt;
  private markers:{ring:THREE.Mesh;label:THREE.Sprite;beam:THREE.Mesh}[]=[];
  private projectileMeshes=new Map<number,THREE.Mesh>();
- private tracer:{line:THREE.Line;life:number}[]=[];
+ private tracer:{line:THREE.Line;life:number;followMuzzle:boolean;equipment:boolean;fresh:boolean}[]=[];
  private blastFx:{mesh:THREE.Mesh;life:number;max:number;radius:number}[]=[];
  private particles:FX[]=[];private particleCloud:THREE.Points;
  private positionData=new Float32Array(1200*3);private colorData=new Float32Array(1200*3);
@@ -172,11 +172,11 @@ export class WorldView {
  showEvents(events:BattleEvent[],player:{x:number;z:number}){
   for(const e of events){
    if((e.type==='shot'||(e.type==='vehicleShot'&&e.weapon==='mg'))&&dist(e.from,player)<220){
-    const vehicle=e.type==='vehicleShot';const start=e.muzzle?new THREE.Vector3(e.muzzle.x,e.muzzle.y,e.muzzle.z):new THREE.Vector3(e.from.x,heightAt(e.from.x,e.from.z)+(vehicle?2.75:1.4),e.from.z);
+    const vehicle=e.type==='vehicleShot',ownMG=vehicle&&e.player===true&&this.equipment.root.visible;const ownMuzzle=ownMG?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition();const start=(e.type==='shot'&&e.player)||ownMG?new THREE.Vector3(ownMuzzle.x,ownMuzzle.y,ownMuzzle.z):e.muzzle?new THREE.Vector3(e.muzzle.x,e.muzzle.y,e.muzzle.z):new THREE.Vector3(e.from.x,heightAt(e.from.x,e.from.z)+(vehicle?2.75:1.4),e.from.z);
     const end=e.type==='shot'&&e.end?new THREE.Vector3(e.end.x,e.end.y,e.end.z):new THREE.Vector3(e.to.x,heightAt(e.to.x,e.to.z)+(vehicle ? .85 : 1.35),e.to.z);
     // Visible short-lived tracer plus a luminous projectile head; no range truncation.
     const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([start,end]),new THREE.LineBasicMaterial({color:e.team==='blue'?0xffdfa3:0xffab82,transparent:true,opacity:vehicle ? 1 : .95,depthWrite:false,blending:THREE.AdditiveBlending}));
-    this.spawnSpark(end.x,end.y,end.z,e.team==='blue'?0xffe5a0:0xff8d65,2);this.scene.add(line);this.tracer.push({line,life:vehicle?.18:.15});
+    this.spawnSpark(end.x,end.y,end.z,e.team==='blue'?0xffe5a0:0xff8d65,2);this.scene.add(line);this.tracer.push({line,life:vehicle?.18:.09,fresh:true,followMuzzle:(e.type==='shot'&&e.player===true)||ownMG,equipment:ownMG});
     if(vehicle||Math.random()<.7)this.spawnSpark(end.x,end.y,end.z,e.hit?0xf7c18a:0xdcc6a2,vehicle?20:e.hit?9:4);
    }else if(e.type==='vehicleShot'){const dir=new THREE.Vector3(e.to.x-e.from.x,0,e.to.z-e.from.z).normalize(),y=e.muzzle?.y??heightAt(e.from.x,e.from.z)+3.1;this.spawnSpark(e.from.x,y,e.from.z,0xffcd83,18);if(e.player)this.cameraKick=Math.min(.085,this.cameraKick+.04);
    }else if(e.type==='playerHit'){this.hitFlash=Math.min(1,this.hitFlash+.65+e.amount*.006);this.hitRoll=(Math.random()-.5)*.07;this.cameraKick=Math.min(.085,this.cameraKick+.018+e.amount*.00045);
@@ -252,7 +252,7 @@ export class WorldView {
   // Camera-centred shadow coverage: nearby soldiers/buildings remain readable.
   if(this.shadowEnabled){this.sun.position.set(p.pos.x+160,240,p.pos.z-125);this.sun.target.position.set(p.pos.x,0,p.pos.z);this.sun.target.updateMatrixWorld()}
   this.updateParticles(dt);this.updateBlastFx(dt);this.updateAmbientSmoke(dt);
-  for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
+  for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;if(t.followMuzzle){const m=t.equipment?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition(),positions=t.line.geometry.getAttribute('position') as THREE.BufferAttribute;positions.setXYZ(0,m.x,m.y,m.z);positions.needsUpdate=true;t.line.geometry.computeBoundingSphere();}if(t.fresh)t.fresh=false;else t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
   if(this.vignette){this.vignette.style.opacity=String(Math.max(0,(p.alive?(1-p.hp/100)*.8:0)+this.hitFlash*.85));}
   this.renderer.render(this.scene,this.camera);
  }

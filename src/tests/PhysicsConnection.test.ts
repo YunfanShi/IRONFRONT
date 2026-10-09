@@ -1,0 +1,10 @@
+import {it,expect} from 'vitest';
+import {Battle} from '../core/Battle';
+import {lanAddress} from '../network/LanAddress';
+const air=(kind:'helicopter'|'jet')=>{const b=new Battle({size:8,tickets:500,difficulty:'normal'});for(const s of b.soldiers)if(!s.player){s.alive=false;s.respawnAt=Infinity;}const v=b.vehicles.find(v=>v.kind===kind)!;v.pos={x:0,z:0};v.reservedFor=0;v.nextDecision=Infinity;v.altitude=40;return {b,v};};
+it('an empty helicopter falls and a heavy impact destroys it without a driver flag',()=>{const {b,v}=air('helicopter');for(let i=0;i<60;i++)b.tick(1/60);expect(v.altitude).toBeLessThan(37);expect(v.verticalVelocity).toBeLessThan(-8);for(let i=0;i<180;i++)b.tick(1/60);expect(v.altitude).toBe(0);expect(v.alive).toBe(false);});
+it('an abandoned jet retains momentum while falling rather than hovering or instantly stopping',()=>{const {b,v}=air('jet');v.speed=40;const z=v.pos.z;for(let i=0;i<60;i++)b.tick(1/60);expect(v.pos.z).toBeGreaterThan(z+20);expect(v.altitude).toBeLessThan(37);expect(v.speed).toBeGreaterThan(20);});
+it('an empty aircraft on the ground does not spontaneously take off',()=>{const {b,v}=air('helicopter');v.altitude=0;for(let i=0;i<30;i++)b.tick(.1);expect(v.altitude).toBe(0);expect(v.hp).toBe(v.maxHp);});
+it('preserves nondefault ports and accepts a full room share URL',()=>{expect(lanAddress('  http://192.168.1.2:8123/?room=ABC123 ').port).toBe('8123');expect(lanAddress('192.168.1.2：7878').hostname).toBe('192.168.1.2');expect(lanAddress('192.168.1.2').port).toBe('7878');});
+it('rejects a listening address or an unsupported protocol instead of a vague connection failure',()=>{expect(()=>lanAddress('0.0.0.0:7878')).toThrow('监听地址');expect(()=>lanAddress('file:///tmp/a')).toThrow('http');});
+it('launcher projectile starts at the held equipment muzzle and consumes a missile only on use',()=>{const b=new Battle({size:8,tickets:500,difficulty:'normal'});b.setLoadout({classId:'engineer'});b.player.pos={x:0,z:0};const m={x:.3,y:1.4,z:-1};expect(b.rocketCount).toBe(2);expect(b.fireRocket({x:0,y:0,z:-1},m)).toBe(true);expect(b.projectiles[0]!.pos).toEqual(m);expect(b.rocketCount).toBe(1);});

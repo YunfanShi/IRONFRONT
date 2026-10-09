@@ -186,7 +186,7 @@ export class Battle {
    const r=VEHICLE_TYPES[current.kind].radius+2.2;
    const out=Array.from({length:16},(_,i)=>{const a=current.yaw+i*Math.PI/8;return {x:current.pos.x+Math.sin(a)*r,z:current.pos.z+Math.cos(a)*r}}).find(q=>!collides(q.x,q.z,1.05)&&!this.vehicles.some(v=>v!==current&&v.alive&&dist(q,v.pos)<VEHICLE_TYPES[v.kind].radius+1));
    if(!out)return false;
-   p.pos={...out};p.vehicleId=null;current.occupants[this.playerSeat]=null;current.driver=current.occupants[0]===null?null:'ai';current.nextDecision=this.elapsed+10;current.speed=0;this.playerVehicleId=null;this.playerSeat=0;this.emit({type:'vehicleExit',id:current.id});return true;
+   p.pos={...out};p.vehicleId=null;current.occupants[this.playerSeat]=null;current.driver=current.occupants[0]===null?null:'ai';current.nextDecision=this.elapsed+10;if(current.kind!=='helicopter'&&current.kind!=='jet')current.speed=0;this.playerVehicleId=null;this.playerSeat=0;this.emit({type:'vehicleExit',id:current.id});return true;
   }
   const best=this.nearbyVehicle;if(!best)return false;
   const driver=this.soldiers.find(s=>s.id===best.occupants[0]);const seat=driver?.player?best.occupants.findIndex((id,i)=>i>0&&id===null):0;if(seat<0||!this.displaceSeat(best,seat))return false;best.occupants[seat]=p.id;p.vehicleId=best.id;if(seat===0){best.driver='player';best.speed=0;best.steering=0;}this.playerVehicleId=best.id;this.playerSeat=seat;p.pos={...best.pos};p.route=[];this.slideUntil=0;this.emit({type:'vehicleEnter',id:best.id});return true;
@@ -225,13 +225,26 @@ export class Battle {
   }
   if(!moved&&Math.abs(v.speed)<.05)v.speed=0;this.player.pos={...v.pos};
  }
- changeAltitude(direction:number,dt:number){const v=this.playerVehicle;if(v&&this.playerSeat===0&&(v.kind==='helicopter'||v.kind==='jet'))v.altitude=clamp(v.altitude+direction*18*dt,0,130);}
+ changeAltitude(direction:number,dt:number){const v=this.playerVehicle;if(v&&this.playerSeat===0&&(v.kind==='helicopter'||v.kind==='jet'))v.climbInput=clamp(direction,-1,1);}
  private flyVehicle(v:ArmoredVehicle,throttle:number,steer:number,dt:number,viewYaw?:number){
   if(viewYaw!==undefined){const desired=viewYaw+Math.PI,delta=Math.atan2(Math.sin(desired-v.yaw),Math.cos(desired-v.yaw));v.yaw+=clamp(delta,-VEHICLE_TYPES[v.kind].turnRate*dt,VEHICLE_TYPES[v.kind].turnRate*dt);}else v.yaw+=clamp(steer,-1,1)*VEHICLE_TYPES[v.kind].turnRate*dt;
-  if(v.driver==='ai')v.altitude+=clamp(55-v.altitude,-12*dt,12*dt);
+  if(v.driver==='ai')v.climbInput=clamp((55-v.altitude)/12,-1,1);
   const target=clamp(throttle,-1,1)*VEHICLE_TYPES[v.kind].maxForward;v.speed+=clamp(target-v.speed,-16*dt,16*dt);
   const q={x:clamp(v.pos.x+Math.sin(v.yaw)*v.speed*dt,-350,350),z:clamp(v.pos.z+Math.cos(v.yaw)*v.speed*dt,-350,350)};
   if(v.altitude>28||!collides(q.x,q.z,VEHICLE_TYPES[v.kind].radius))v.pos=q;else v.speed=0;
+ }
+ private updateFlightPhysics(v:ArmoredVehicle,dt:number,powered:boolean){
+  if(v.kind!=='helicopter'&&v.kind!=='jet')return;
+  const weight=1-Math.exp(-dt*(powered?3:1.6));v.enginePower+=((powered?1:0)-v.enginePower)*weight;
+  const oldAltitude=v.altitude;
+  if(!powered){const oldGround=heightAt(v.pos.x,v.pos.z);const q={x:clamp(v.pos.x+Math.sin(v.yaw)*v.speed*dt,-350,350),z:clamp(v.pos.z+Math.cos(v.yaw)*v.speed*dt,-350,350)};if(v.altitude>28||!collides(q.x,q.z,VEHICLE_TYPES[v.kind].radius)){v.pos=q;v.altitude+=oldGround-heightAt(q.x,q.z);}else v.speed*=.2;v.speed*=Math.exp(-dt*(v.kind==='jet'?.14:.5));}
+  const lift=v.kind==='helicopter'?v.enginePower:Math.min(1,Math.abs(v.speed)/32)*v.enginePower;
+  if(powered&&lift>.95){const target=v.climbInput*(v.kind==='jet'?14:12);v.verticalVelocity+=(target-v.verticalVelocity)*(1-Math.exp(-dt*4));}
+  else v.verticalVelocity-=9.81*(1-lift)*dt;
+  v.verticalVelocity*=Math.exp(-dt*.06);v.altitude=Math.min(130,v.altitude+v.verticalVelocity*dt);
+  const obstacle=BLOCKS.some(b=>Math.abs(v.pos.x-b.x)<b.w/2+1&&Math.abs(v.pos.z-b.z)<b.d/2+1&&v.altitude<b.h&&oldAltitude>0);
+  if(obstacle){this.damageVehicle(v,v.maxHp,v.team,false,v.pos);v.verticalVelocity=0;return;}
+  if(v.altitude<=0){const impact=Math.abs(v.verticalVelocity);v.altitude=0;v.verticalVelocity=0;if(oldAltitude>0&&impact>6)this.damageVehicle(v,(impact-5)*22,v.team,false,v.pos);if(!powered)v.speed=0;}
  }
  aimPlayerVehicle(yaw:number,pitch=0,dt=1/60){const v=this.playerVehicle;if(!v||this.playerSeat>1)return;this.aimTurret(v,yaw+Math.PI,pitch,dt,this.playerSeat===1||v.kind==='scout');}
  private aimTurret(v:ArmoredVehicle,yaw:number,pitch:number,dt:number,mg=false){
@@ -284,16 +297,17 @@ export class Battle {
   if(this.inVehicle||this.loadout.classId!=='engineer')return null;const len=Math.hypot(direction.x,direction.y,direction.z)||1;
   return this.vehicles.filter(v=>v.alive&&v.team!==this.player.team&&v.altitude>8&&dist(v.pos,this.player.pos)<300&&!this.sightBlocked(this.player.pos,v.pos)).find(v=>{const dx=v.pos.x-this.player.pos.x,dz=v.pos.z-this.player.pos.z,dy=v.altitude+heightAt(v.pos.x,v.pos.z)-heightAt(this.player.pos.x,this.player.pos.z),d=Math.hypot(dx,dy,dz);return (dx*direction.x+dy*direction.y+dz*direction.z)/d/len>.965;})??null;
  }
- fireAA(direction:{x:number;y:number;z:number}):boolean {
+ private equipmentOrigin(muzzle?:{x:number;y:number;z:number}){const p=this.player.pos,eye={x:p.x,y:heightAt(p.x,p.z)+1.65,z:p.z};return muzzle&&Object.values(muzzle).every(Number.isFinite)&&Math.hypot(muzzle.x-eye.x,muzzle.y-eye.y,muzzle.z-eye.z)<3?muzzle:eye;}
+ fireAA(direction:{x:number;y:number;z:number},muzzle?:{x:number;y:number;z:number}):boolean {
   if(!this.player.alive||this.finished||this.inVehicle||!this.aaCount||this.elapsed<this.aaUntil)return false;const target=this.getAATarget(direction);if(!target)return false;
   this.aaCount--;this.aaUntil=this.elapsed+3;const dx=target.pos.x-this.player.pos.x,dz=target.pos.z-this.player.pos.z,dy=target.altitude+heightAt(target.pos.x,target.pos.z)-heightAt(this.player.pos.x,this.player.pos.z),len=Math.hypot(dx,dy,dz);
-  this.launchProjectile(this.player.pos,{x:dx/len,y:dy/len,z:dz/len},'rocket',this.player.team,true,190,5,400,null);this.projectiles[this.projectiles.length-1]!.targetId=target.id;return true;
+  const origin=this.equipmentOrigin(muzzle);this.launchProjectile(origin,{x:dx/len,y:dy/len,z:dz/len},'rocket',this.player.team,true,190,5,400,null,origin.y);this.projectiles[this.projectiles.length-1]!.targetId=target.id;return true;
  }
- fireRocket(direction:{x:number;y:number;z:number}):boolean{
+ fireRocket(direction:{x:number;y:number;z:number},muzzle?:{x:number;y:number;z:number}):boolean{
   if(!this.player.alive||this.finished||this.inVehicle||this.loadout.classId!=='engineer'||!this.rocketCount||this.elapsed<this.rocketUntil||this.isReloading()||this.elapsed<this.playerThrowUntil)return false;
   const length=Math.hypot(direction.x,direction.y,direction.z);if(!Number.isFinite(length)||length<.01)return false;
   this.rocketCount--;this.rocketUntil=this.elapsed+2.5;this.playerNextShot=Math.max(this.playerNextShot,this.rocketUntil);
-  this.launchProjectile(this.player.pos,{x:direction.x/length,y:direction.y/length,z:direction.z/length},'rocket',this.player.team,true,230,5,180,null);return true;
+  const origin=this.equipmentOrigin(muzzle);this.launchProjectile(origin,{x:direction.x/length,y:direction.y/length,z:direction.z/length},'rocket',this.player.team,true,230,5,180,null,origin.y);return true;
  }
  private unstuckUntil=0;
  unstuckPlayer():boolean {
@@ -609,7 +623,7 @@ export class Battle {
   if(attacker!==v.team&&this.settings.killTicketPenalty&&(this.settings.mode!=='breakthrough'||v.team==='blue')){this.tickets[v.team]=Math.max(0,this.tickets[v.team]-.5*(this.settings.killTicketPenalty??1));this.checkFinish()}
  }
 
- private resetVehicle(v:ArmoredVehicle){const p=v.spawn;v.pos={...p};v.lastProgress={...p};v.yaw=v.team==='blue'?0:Math.PI;v.turretYaw=v.yaw;v.turretPitch=0;v.mgYaw=v.yaw;v.hp=v.maxHp;v.combatUntil=0;v.altitude=0;v.alive=true;v.speed=0;v.driver=null;v.occupants.fill(null);v.airborne=false;v.route=[];v.nextPath=0;v.nextDecision=this.elapsed+(v.team==='blue'?12:.5);v.nextShot=this.elapsed+1;v.nextMGShot=this.elapsed+1;v.steering=0;v.stuckFor=0;this.emit({type:'vehicleRespawn',team:v.team,id:v.id})}
+ private resetVehicle(v:ArmoredVehicle){const p=v.spawn;v.pos={...p};v.lastProgress={...p};v.yaw=v.team==='blue'?0:Math.PI;v.turretYaw=v.yaw;v.turretPitch=0;v.mgYaw=v.yaw;v.hp=v.maxHp;v.combatUntil=0;v.altitude=0;v.verticalVelocity=0;v.enginePower=0;v.climbInput=0;v.alive=true;v.speed=0;v.driver=null;v.occupants.fill(null);v.airborne=false;v.route=[];v.nextPath=0;v.nextDecision=this.elapsed+(v.team==='blue'?12:.5);v.nextShot=this.elapsed+1;v.nextMGShot=this.elapsed+1;v.steering=0;v.stuckFor=0;this.emit({type:'vehicleRespawn',team:v.team,id:v.id})}
 
  private vehicleMove(v:ArmoredVehicle,destination:Point,dt:number){
   if(v.kind==='helicopter'||v.kind==='jet'){const yaw=Math.atan2(destination.x-v.pos.x,destination.z-v.pos.z);this.flyVehicle(v,dist(v.pos,destination)>30?1:.2,0,dt,yaw-Math.PI);return;}
@@ -668,8 +682,8 @@ export class Battle {
   for(const v of this.vehicles){
    if(!v.alive){if(this.elapsed>=v.respawnAt)this.resetVehicle(v);continue}
    if(v.airborne){v.speed=0;if(this.elapsed>=v.landAt){if(!collides(v.pos.x,v.pos.z,VEHICLE_TYPES[v.kind].radius)&&!this.vehicles.some(o=>o!==v&&o.alive&&!o.airborne&&dist(o.pos,v.pos)<VEHICLE_TYPES[o.kind].radius+VEHICLE_TYPES[v.kind].radius)){v.airborne=false;this.emit({type:'vehicleRespawn',team:v.team,id:v.id});}else v.landAt=this.elapsed+1;}continue;}
-   const driver=this.soldiers.find(s=>s.id===v.occupants[0]&&s.alive&&s.vehicleId===v.id);
-   if(!driver){v.driver=null;v.occupants[0]=null;v.speed=0;if(v.reservedFor===null&&this.elapsed>=v.nextDecision){const crewCount=this.soldiers.filter(s=>s.alive&&!s.player&&s.team===v.team&&s.vehicleId!==null).length;const candidate=crewCount<Math.max(2,Math.min(10,Math.floor(this.settings.size*.35)))?this.soldiers.filter(s=>s.alive&&!s.player&&s.team===v.team&&s.vehicleId===null&&s.boardingUntil<=this.elapsed&&dist(s.pos,v.pos)<VEHICLE_TYPES[v.kind].radius+5).sort((a,b)=>dist(a.pos,v.pos)-dist(b.pos,v.pos))[0]:undefined;if(candidate){candidate.vehicleId=v.id;candidate.pos={...v.pos};candidate.state='DRIVING';v.occupants[0]=candidate.id;v.driver='ai';} }continue;}
+   const driver=this.soldiers.find(s=>s.id===v.occupants[0]&&s.alive&&s.vehicleId===v.id);this.updateFlightPhysics(v,dt,!!driver);if(!v.alive)continue;
+   if(!driver){v.driver=null;v.occupants[0]=null;if(v.kind!=='helicopter'&&v.kind!=='jet')v.speed=0;if(v.altitude<2&&v.reservedFor===null&&this.elapsed>=v.nextDecision){const crewCount=this.soldiers.filter(s=>s.alive&&!s.player&&s.team===v.team&&s.vehicleId!==null).length;const candidate=crewCount<Math.max(2,Math.min(10,Math.floor(this.settings.size*.35)))?this.soldiers.filter(s=>s.alive&&!s.player&&s.team===v.team&&s.vehicleId===null&&s.boardingUntil<=this.elapsed&&dist(s.pos,v.pos)<VEHICLE_TYPES[v.kind].radius+5).sort((a,b)=>dist(a.pos,v.pos)-dist(b.pos,v.pos))[0]:undefined;if(candidate){candidate.vehicleId=v.id;candidate.pos={...v.pos};candidate.state='DRIVING';v.occupants[0]=candidate.id;v.driver='ai';} }continue;}
    if(v.occupants[1]===null&&v.kind!=='jet'&&v.reservedFor===null){const count=this.soldiers.filter(s=>s.team===v.team&&s.vehicleId!==null).length;const gunner=count<Math.floor(this.settings.size*.45)?this.soldiers.find(s=>s.alive&&!s.player&&s.team===v.team&&s.vehicleId===null&&s.boardingUntil<=this.elapsed&&dist(s.pos,v.pos)<12):undefined;if(gunner){v.occupants[1]=gunner.id;gunner.vehicleId=v.id;}}
    const gunner=this.soldiers.find(s=>s.id===v.occupants[1]&&s.alive);if(gunner&&!gunner.player&&this.elapsed>=v.nextMGShot){const enemy=this.soldiers.find(s=>s.alive&&s.team!==v.team&&s.vehicleId===null&&dist(s.pos,v.pos)<100&&!this.sightBlocked(v.pos,s.pos));if(enemy){v.mgYaw=Math.atan2(enemy.pos.x-v.pos.x,enemy.pos.z-v.pos.z);const dir=norm({x:enemy.pos.x-v.pos.x,z:enemy.pos.z-v.pos.z});this.fireVehicleWeapon(v,{...dir,y:0},true,false);v.nextMGShot=this.elapsed+.32;}}
    v.driver=driver.player?'player':'ai';if(driver.player){driver.pos={...v.pos};continue;}if(this.elapsed>=v.nextDecision){v.nextDecision=this.elapsed+.22;this.vehicleAction(v,.22);}const destination=this.points.find(p=>p.id===v.goal)??this.points[2]!;if(v.movingToGoal)this.vehicleMove(v,destination,dt);else v.speed*=Math.exp(-dt*2.4);driver.pos={...v.pos};

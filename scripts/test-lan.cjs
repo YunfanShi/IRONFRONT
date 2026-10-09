@@ -1,7 +1,8 @@
 const assert = require('node:assert/strict'), { spawn } = require('node:child_process'), { WebSocket } = require('ws');
+const lanIP=Object.values(require('node:os').networkInterfaces()).flat().find(n=>n&&n.family==='IPv4'&&!n.internal)?.address||'127.0.0.1';
 const port = 18787, host = spawn(process.execPath, ['server/lan.cjs'], { env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'inherit'] });
 const wait = ms => new Promise(r => setTimeout(r, ms));
-const connect = (code, token = '') => new Promise((resolve, reject) => { const ws = new WebSocket(`ws://127.0.0.1:${port}/play?room=${code}&token=${token}`); const c = { ws, id: null, states: [], events: [] }; ws.on('message', data => { const m = JSON.parse(data); if (m.type === 'welcome')
+const connect = (code, token = '') => new Promise((resolve, reject) => { const ws = new WebSocket(`ws://${lanIP}:${port}/play?room=${code}&token=${token}`); const c = { ws, id: null, states: [], events: [] }; ws.on('message', data => { const m = JSON.parse(data); if (m.type === 'welcome')
     c.id = m.id;
 else if (m.type === 'state') {
     c.states.push(m);
@@ -13,8 +14,8 @@ else if (m.type === 'state') {
 (async () => {
     try {
         await new Promise((resolve, reject) => { const timeout = setTimeout(() => reject(new Error('LAN service did not start')), 5000); host.stdout.once('data', () => { clearTimeout(timeout); resolve(); }); host.once('exit', code => { clearTimeout(timeout); reject(new Error('LAN server exited ' + code)); }); });
-        const response = await fetch(`http://127.0.0.1:${port}/api/rooms`, { method: 'POST' }), { code, hostToken } = await response.json();
-        assert.match(code, /^[A-F0-9]{6}$/);
+        const response = await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST' }), { code, hostToken } = await response.json();
+        assert.match(code, /^[A-F0-9]{6}$/);const status=await (await fetch(`http://${lanIP}:${port}/api/status`)).json();assert.equal(status.port,port);assert(status.addresses.includes(`http://${lanIP}:${port}`));assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${code}`)).status,200);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/ZZZZZZ`)).status,404);
         const a = await connect(code, hostToken), b = await connect(code);
         assert.notEqual(a.id, b.id);
         const start = a.states.at(-1).soldiers[a.id].pos;
@@ -30,24 +31,24 @@ else if (m.type === 'state') {
         assert.equal(b.states.at(-1).soldiers[b.id].player, true);
         assert(Math.abs(a.states.at(-1).elapsed - b.states.at(-1).elapsed) <= .051);
         const ammo = b.states.at(-1).player.ammo.carbine;
-        a.ws.send(JSON.stringify({ type: 'input', yaw: 0, pitch: .5, forward: 0, side: 0, fire: true }));
+        a.ws.send(JSON.stringify({ type: 'input', yaw: 0, pitch: .5, forward: 0, side: 0, fire: true,muzzleOffset:{x:.35,y:1.4,z:-.65} }));
         await wait(150);
         assert(a.states.at(-1).player.ammo.carbine < ammo);
         assert.equal(b.states.at(-1).player.ammo.carbine, ammo);
-        assert(a.events.some(e => e.type === 'shot' && e.player));
+        const shot=a.events.find(e=>e.type==='shot'&&e.player);assert(shot);assert(Math.abs(shot.muzzle.x-shot.from.x-.35)<.0001);assert(Math.abs(shot.muzzle.z-shot.from.z+.65)<.0001);
         assert(b.events.some(e => e.type === 'shot'));
         await wait(450);
         const stopped = a.states.at(-1).soldiers[a.id].pos;
         await wait(200);
         assert.deepEqual(a.states.at(-1).soldiers[a.id].pos, stopped);
-        const reject = new WebSocket(`ws://127.0.0.1:${port}/play?room=NOPE`);
+        const reject = new WebSocket(`ws://${lanIP}:${port}/play?room=NOPE`);
         const close = await new Promise(r => reject.on('close', code => r(code)));
         assert.equal(close, 1008);
         a.ws.close();
         await wait(150);
         assert.equal(b.states.at(-1).soldiers[a.id].player, false);
         b.ws.close();
-        const config = await (await fetch(`http://127.0.0.1:${port}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ size: 8, difficulty: 'hard', tickets: 300, killTicketPenalty: 2, aiEnabled: false, joinTeam: 'red' }) })).json();
+        const config = await (await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ size: 8, difficulty: 'hard', tickets: 300, killTicketPenalty: 2, aiEnabled: false, joinTeam: 'red' }) })).json();
         const h = await connect(config.code, config.hostToken), e = await connect(config.code);
         await wait(100);
         let snapshot = h.states.at(-1);
@@ -65,7 +66,7 @@ else if (m.type === 'state') {
         const more = [];
         for (let i = 0; i < 6; i++)
             more.push(await connect(config.code));
-        const ninth = new WebSocket(`ws://127.0.0.1:${port}/play?room=${config.code}`);
+        const ninth = new WebSocket(`ws://${lanIP}:${port}/play?room=${config.code}`);
         assert.equal(await new Promise(r => ninth.on('close', r)), 1008);
         await wait(100);
         assert.equal(h.states.at(-1).soldiers.filter(s => s.player).length, 8);
@@ -75,7 +76,7 @@ else if (m.type === 'state') {
         await wait(150);
         assert.equal(h.states.at(-1).soldiers.filter(s => s.alive).length, 1);
         h.ws.close();
-        console.log('LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, four-member squads, eight-player cap and ninth-player rejection.');
+        console.log('LAN_IP_TEST',lanIP);console.log('LAN PASS: two real clients, shared authoritative movement/time/events, separate ammo, stale input stop, unknown room rejection, AI takeover on disconnect; configured AI-free opposing teams, host-only reassignment, four-member squads, eight-player cap and ninth-player rejection.');
     }
     finally {
         host.kill();
