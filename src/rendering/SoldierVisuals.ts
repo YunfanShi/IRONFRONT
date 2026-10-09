@@ -79,11 +79,11 @@ export class SoldierVisuals {
     const crouching=soldier.state==='SEEK_COVER'||(soldier.state==='DEFEND'&&soldier.id%3===0);
     state.phase+=dt*((sprinting?3.1:2.0)+state.speed*(sprinting?13.2:10.4));
     const stride=Math.sin(state.phase)*state.speed*(fighting ? .52 : 1),step=Math.abs(Math.cos(state.phase))*state.speed;
-    const footY=heightAt(state.x,state.z)+soldier.altitude,bob=step*.052*(crouching ? .45 : 1);
+    const mount=soldier.vehicleId===null?null:battle.vehicles.find(v=>v.id===soldier.vehicleId&&v.kind==='motorcycle'&&v.alive),riding=!!mount;if(mount){const seat=mount.occupants.indexOf(soldier.id),offset=seat===0?.18:-.65;state.x=mount.pos.x+Math.sin(mount.yaw)*offset;state.z=mount.pos.z+Math.cos(mount.yaw)*offset;state.yaw=mount.yaw;}const footY=heightAt(state.x,state.z)+soldier.altitude+(riding?.43:0),bob=step*.052*(crouching ? .45 : 1);
     const sY=Math.sin(state.yaw),cY=Math.cos(state.yaw);
     const deathAge=battle.elapsed-soldier.deathAt,fall=!soldier.alive?Math.min(1,Math.max(0,deathAge/.72)):0;
     const equipmentActive=!soldier.player&&(soldier.equipmentUntil??0)>battle.elapsed;const weaponId=soldier.id===battle.player.id?battle.playerWeapon:soldier.weaponId;const weaponScale=weaponId==='sniper'?1.45:weaponId==='lmg'?1.18:weaponId==='smg'?.72:1;
-    const downed=soldier.downedUntil>battle.elapsed;const corpseVisible=(soldier.id!==battle.player.id||showSelf)&&soldier.vehicleId===null&&(soldier.alive||downed||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
+    const downed=soldier.downedUntil>battle.elapsed;const corpseVisible=(soldier.id!==battle.player.id||showSelf)&&(soldier.vehicleId===null||riding)&&(soldier.alive||downed||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
     for(let j=0;j<army.parts.length;j++){
      const part=army.parts[j]!,[lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
      if(part.kind==='legL'){rx=stride*.38+(crouching ? .30 : 0);zz+=stride*.21;yy+=Math.max(0,-stride)*.09}
@@ -93,10 +93,11 @@ export class SoldierVisuals {
      else if(part.kind==='head'){rx=fighting?-.03:step*.014;rz=Math.sin(state.phase*.47)*.022}
      else if(part.kind==='rig'){yy+=bob;rz=stride*.025}
      else if(part.kind==='weapon'){yy+=bob*.7;rx=fighting?-.03:-.12}
+     if(riding){rx=part.kind==='legL'||part.kind==='legR'?1.1:part.kind==='armL'||part.kind==='armR'?-.95:0;rz=0;yy=ly;zz=lz;if(part.kind==='legL'||part.kind==='legR'){yy-=.15;zz+=.25;}if(part.kind==='armL'||part.kind==='armR'){zz+=.23;yy-=.08;}}
      if(fall>0){yy-=fall*(.45+ly*.18);rz+=state.deathLean*fall*1.15;rx+=fall*.12}
      this.object.position.set(state.x+(cY*lx+sY*zz)*.67,footY+yy*.67,state.z+(-sY*lx+cY*zz)*.67);
      this.object.rotation.set(rx,state.yaw,rz,'YXZ');this.object.scale.setScalar(corpseVisible&&(!part.humanOnly||soldier.player)?.67:0.000001);
-     if(part.kind==='weapon'){this.object.scale.z*=weaponScale;if(equipmentActive)this.object.scale.setScalar(.000001);}if(part.kind==='gadget'&&(!equipmentActive||part.gadgetType!==soldier.equipmentKind))this.object.scale.setScalar(.000001);
+     if(part.kind==='weapon'){if(riding)this.object.scale.setScalar(.000001);this.object.scale.z*=weaponScale;if(equipmentActive)this.object.scale.setScalar(.000001);}if(part.kind==='gadget'&&(!equipmentActive||part.gadgetType!==soldier.equipmentKind))this.object.scale.setScalar(.000001);
      this.object.updateMatrix();army.meshes[j]!.setMatrixAt(i,this.object.matrix);
     }
    }

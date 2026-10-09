@@ -1,0 +1,84 @@
+
+> project-ironfront@0.15.1 test:browser
+> playwright test --workers=1
+
+[WebServer] (node:55096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 37 tests using 1 worker
+
+(node:55192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser.spec.ts:7:1 › menu exposes the required setup surfaces (2.6s)
+  ✓   2 tests/browser.spec.ts:15:1 › starts a battle, shows HUD, pause and diagnostics (5.2s)
+HEADLESS_32V32_FPS {"samples":[59.9878076172126,60.00340130962379,60.00195452895858,60.00244380142169,60.025234929224005,60.01047593775049,60.0083403568783,60.0077289456184],"info":{"renderer":"WebKit WebGL","calls":782,"ratio":1}}
+  ✓   3 tests/browser.spec.ts:22:1 › loadout persists, real RP support works, ADS fires and menu cleanup survives restart (16.0s)
+  ✓   4 tests/browser.spec.ts:39:1 › pointer-lock denial leaves drag look and weapon controls playable (6.2s)
+  ✓   5 tests/browser.spec.ts:44:1 › A/D strafes without accumulated camera roll, Shift slides, damage direction and equipment stay visible (8.8s)
+  ✓   6 tests/browser.spec.ts:54:1 › driver shell, gunner MG, passengers and fourth transport are playable through keyboard controls (6.6s)
+  ✓   7 tests/browser.spec.ts:61:1 › map deployment blocks engaged squadmates and offers distant attacked flags and deploys beside a safe member (11.2s)
+  ✓   8 tests/browser.spec.ts:68:1 › preparation selects and persists Breakthrough and the active frontline really advances (4.9s)
+AUDIO_QA {"music":{"cue":"victory","desired":"victory","status":"playing","error":"","track":"victory","slots":[{"paused":false,"volume":0.05090380330803769,"ready":4,"time":0.639351},{"paused":false,"volume":0.0045290298255654645,"ready":4,"time":0.018554}]},"decoded":29,"voices":0,"context":"running","master":0.4}
+  ✓   9 tests/browser.spec.ts:72:1 › local MP3 playback, decoded sound effects, mixing and result cues work (9.1s)
+  ✓  10 tests/browser.spec.ts:79:1 › seven distinct first-person models render and missing music stays playable (9.2s)
+  ✓  11 tests/browser.spec.ts:84:1 › airdrop reserves armor for caller and actual driver exits on takeover (13.9s)
+  ✓  12 tests/browser.spec.ts:92:1 › death falls then rises into deployment instead of opening map immediately (11.4s)
+  ✓  13 tests/browser.spec.ts:98:1 › player shot event uses the rendered muzzle and damage flashes immediately (6.0s)
+  ✓  14 tests/browser.spec.ts:105:1 › vehicle RMB optics, independent MG model, capture progress, Esc resume and unstuck work (10.3s)
+  ✓  15 tests/browser.spec.ts:113:1 › LAN menu hosts and joins one authoritative room from two browser clients (7.3s)
+  ✓  16 tests/browser.spec.ts:121:1 › host configures AI-free opposing teams and changes a joining player faction (7.3s)
+  ✓  17 tests/browser.spec.ts:125:1 › deployment selects a real free vehicle seat and block characters distinguish humans and teams (10.0s)
+  ✓  18 tests/browser.spec.ts:132:1 › solo entry works without creating or joining a network room (5.5s)
+LAN_WALK_CONTINUITY {"stationaryFraction":0,"maxFrameStep":0.3133287140220969,"samples":80}
+  ✓  19 tests/browser.spec.ts:136:1 › LAN settings expose address port and code while walking remains continuous between snapshots (6.9s)
+  ✓  20 tests/browser.spec.ts:141:1 › equipment keys draw models without spending charges and left click uses the selected item (6.2s)
+  ✓  21 tests/browser.spec.ts:147:1 › real LAN IP hosts and share link joins without manually correcting host address or port (7.3s)
+  ✓  22 tests/browser.spec.ts:154:1 › LAN connection diagnostics distinguish invalid rooms from unreachable services (1.2s)
+  ✓  23 tests/browser.spec.ts:158:35 › solo tracers remain attached to the visible muzzle while walking and aiming (4.6s)
+  ✓  24 tests/browser.spec.ts:158:35 › LAN tracers remain attached to the visible muzzle while walking and aiming (4.8s)
+  ✓  25 tests/browser.spec.ts:164:1 › LAN equipment selection is nonconsuming and only a click sends a weapon action (4.6s)
+  ✓  26 tests/browser.spec.ts:169:1 › an old host process is rejected before creating an incompatible room (386ms)
+  ✓  27 tests/iteration-013.spec.ts:2:1 › four pictured class loadouts are configured after entry and simulation waits for readiness (5.3s)
+  ✓  28 tests/iteration-013.spec.ts:5:1 › infantry V switches perspective, hits report real damage and result sequence moves the camera (6.0s)
+  ✓  29 tests/iteration-013.spec.ts:8:1 › room host waits for every human loadout and guest cannot start the match (5.6s)
+  ✓  30 tests/iteration-014.spec.ts:4:1 › grenade and smoke fly as actual models, supply crate persists and map player preference is saved (9.9s)
+  ✓  31 tests/iteration-014.spec.ts:5:1 › downed screen counts thirty seconds, calls rescue and held space finishes death into separated icon deployment (12.2s)
+  ✘  32 tests/iteration-014.spec.ts:6:1 › vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles (23.9s)
+(node:55552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  33 tests/iteration-014.spec.ts:7:1 › two LAN browsers receive a real thrown model and the same supply box (5.7s)
+  ✓  34 tests/iteration-015.spec.ts:3:1 › commander advice can be dismissed and accepted through gameplay keys (4.3s)
+  ✓  35 tests/iteration-015.spec.ts:4:1 › jet and helicopter have distinct controls and warning phases; flares clear incoming (5.0s)
+  ✓  36 tests/iteration-015.spec.ts:5:1 › motorcycle has a visible separate model and two unarmed seats (4.5s)
+  ✓  37 tests/iteration-0151.spec.ts:2:1 › large missile threat and actual armor hit remain distinct and clear after impact (5.9s)
+
+
+  1) tests/iteration-014.spec.ts:6:1 › vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.vehicle-threat')
+    Expected substring: "当前 2"
+    Received string:    ""
+    Timeout: 20000ms
+
+    Call log:
+      - Expect "toContainText" locator('.vehicle-threat') with timeout 20000ms
+      - waiting for locator('.vehicle-threat')
+        43 × locator resolved to <div role="status" class="vehicle-threat hidden"></div>
+           - unexpected value ""
+
+
+      4 | test('grenade and smoke fly as actual models, supply crate persists and map player preference is saved',async({page})=>{const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await start(page);await page.keyboard.press('G');await page.mouse.click(500,350);await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.grenades.length)).toBe(1);await expect.poll(()=>page.evaluate(()=>{const q=(window as any).__IRONFRONT_QA;return q.world.scene.children.some((o:any)=>o.name.startsWith('thrown-'));})).toBe(true);await page.screenshot({path:'test-results/throw-014.png'});await page.waitForTimeout(2600);await page.keyboard.press('X');await page.mouse.click(500,350);await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.ammoBoxes.length)).toBe(1);await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.world.scene.children.some((o:any)=>o.name.startsWith('ammo-')))).toBe(true);await page.keyboard.press('Escape');await page.locator('#map-players').selectOption('all');expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('ironfront-options')!).mapPlayers)).toBe('all');await page.locator('#resume').click();await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.loadout.throwable='smoke';b.playerThrowUntil=0;});await page.keyboard.press('G');await page.mouse.click(500,350);await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.grenades.some((g:any)=>g.kind==='smoke'))).toBe(true);await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.supports.some((e:any)=>e.kind==='smoke'))).toBe(true);expect(errors).toEqual([]);});
+      5 | test('downed screen counts thirty seconds, calls rescue and held space finishes death into separated icon deployment',async({page})=>{await start(page);await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.damage(b.player,200,b.soldiers[8]);});await expect(page.locator('.downed-card')).toBeVisible();await expect(page.locator('#bleedout')).toContainText(/2[89]/);await page.locator('#call-rescue').click();await expect(page.locator('#call-rescue')).toContainText('已呼叫');await page.screenshot({path:'test-results/downed-014.png'});await page.keyboard.down('Space');await expect(page.locator('.death-caption')).toBeVisible();await page.keyboard.up('Space');await expect(page.locator('#deployment-map')).toBeVisible();const result=await page.locator('#deployment-markers button').evaluateAll(items=>{const boxes=items.map(el=>el.getBoundingClientRect());return {labels:items.map(el=>el.textContent),overlap:boxes.some((a,i)=>boxes.some((b,j)=>i<j&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top))};});expect(result.overlap).toBe(false);expect(result.labels.some(x=>/V\d|HQ/.test(x??''))).toBe(false);expect(await page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.player.deaths)).toBe(1);await page.waitForTimeout(750);await page.screenshot({path:'test-results/deployment-icons-014.png'});expect(await page.evaluate(()=>{const q=(window as any).__IRONFRONT_QA,b=q.battle,c=document.querySelector<HTMLCanvasElement>('#deployment-map')!,ctx=c.getContext('2d')!,lines:number[][]=[],old=ctx.lineTo.bind(ctx);b.player.team='red';b.getSquadTargets=()=>[{team:'blue',leaderId:1,intent:'ATTACK',approach:{x:20,z:20}},{team:'red',leaderId:8,intent:'ATTACK',approach:{x:10,z:10}}];ctx.lineTo=(x:number,y:number)=>{if(ctx.getLineDash().join(',')==='2,4')lines.push([x,y]);old(x,y);};q.ui.renderMap(c,b,true);ctx.lineTo=old;return lines.map(p=>p.map(Math.round));})).toEqual([[370,370]]);});
+    > 6 | test('vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles',async({page})=>{await start(page);await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle,v=b.vehicles[0],t=b.vehicles.find((v:any)=>v.kind==='helicopter'&&v.team==='red');v.kind='aa';v.pos={x:0,z:0};t.pos={x:0,z:100};t.altitude=25;t.occupants[0]=8;b.soldiers[8].vehicleId=t.id;});await page.keyboard.press('E');await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.inVehicle)).toBe(true);await page.keyboard.press('Digit2');await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle,v=b.playerVehicle;v.turretYaw=0;v.turretPitch=.22;b.updateVehicleLock(v,1.6);});await expect(page.locator('.vehicle-threat')).toContainText('当前 2');await page.screenshot({path:'test-results/vehicle-lock-014.png'});await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle,v=b.playerVehicle,t=b.vehicles.find((v:any)=>v.kind==='helicopter'&&v.team==='red');t.pos={x:0,z:100};t.altitude=30;t.flareUntil=0;t.nextFlare=0;t.airborne=false;v.turretYaw=0;v.turretPitch=.27;v.nextSecondary=0;b.updateVehicleLock(v,1.6);if(!b.shootPlayerVehicle({x:0,y:.22,z:1})||!b.projectiles.some((p:any)=>p.targetId===t.id))throw new Error("Locked missile was not launched");const missile=b.projectiles.find((p:any)=>p.targetId===t.id);if(!b.deployFlares(t)||missile.targetId!==undefined)throw new Error("Countermeasure did not break the launched missile guidance");});await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.damageVehicle(b.playerVehicle,9999,'red');});await expect(page.locator('.death-caption')).toBeVisible();expect(await page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.player.downedUntil)).toBe(0);await page.screenshot({path:'test-results/wreck-014.png'});});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+      7 | test('two LAN browsers receive a real thrown model and the same supply box',async({browser})=>{const context=await browser.newContext(),a=await context.newPage(),b=await context.newPage();try{await a.goto('/');await a.locator('#setup-size').selectOption('8');await a.locator('#lan-ai').uncheck();await a.locator('#lan-address').fill('127.0.0.1:18788');await a.locator('#lan-host').click();await expect(a.locator('#ready')).toBeVisible();const code=await a.evaluate(()=>(window as any).__IRONFRONT_QA.ui.connection.code);await b.goto('/');await b.locator('#lan-address').fill('127.0.0.1:18788');await b.locator('#lan-code').fill(code);await b.locator('#lan-join').click();await expect(b.locator('#ready')).toBeVisible();await a.locator('#ready').click();await b.locator('#ready').click();await expect(a.locator('#begin-match')).toBeEnabled();await a.locator('#begin-match').click();await expect(a.locator('#modal')).toHaveClass('hidden');await expect(b.locator('#modal')).toHaveClass('hidden');await a.keyboard.press('G');await a.mouse.click(500,350);await expect.poll(()=>b.evaluate(()=>(window as any).__IRONFRONT_QA.battle.grenades.length)).toBe(1);await expect.poll(()=>b.evaluate(()=>(window as any).__IRONFRONT_QA.world.scene.children.some((o:any)=>o.name.startsWith('thrown-')))).toBe(true);await a.keyboard.press('X');await a.mouse.click(500,350);await expect.poll(()=>b.evaluate(()=>(window as any).__IRONFRONT_QA.battle.ammoBoxes.length)).toBe(1);expect(await a.evaluate(()=>(window as any).__IRONFRONT_QA.battle.ammoBoxes[0].owner)).toBe(await b.evaluate(()=>(window as any).__IRONFRONT_QA.battle.ammoBoxes[0].owner));}finally{await context.close();}});
+      8 |
+        at /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository/tests/iteration-014.spec.ts:6:764
+
+    Error Context: test-results/iteration-014-vehicle-dual-cf81b-termeasures-cancel-missiles/error-context.md
+
+  1 failed
+    tests/iteration-014.spec.ts:6:1 › vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles 
+  36 passed (4.7m)

@@ -1,0 +1,14 @@
+
+> project-ironfront@0.16.0 test:browser
+> playwright test tests/iteration-016.spec.ts --workers=1
+
+[WebServer] (node:57845) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:57908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/iteration-016.spec.ts:2:1 › all eight vehicle driver interiors are distinct; controls, crew seats and exterior views follow actual seats (11.3s)
+
+  1 passed (15.9s)

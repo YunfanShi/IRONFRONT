@@ -1,0 +1,77 @@
+
+> project-ironfront@0.16.0 test:browser
+> playwright test --workers=1
+
+[WebServer] (node:58487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 38 tests using 1 worker
+
+(node:58554) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser.spec.ts:7:1 › menu exposes the required setup surfaces (2.3s)
+  ✓   2 tests/browser.spec.ts:15:1 › starts a battle, shows HUD, pause and diagnostics (4.6s)
+HEADLESS_32V32_FPS {"samples":[59.58106673294474,59.87627335275119,59.96244735024442,59.9846865424946,60.00686031875926,60.004319154463055,60.00278114734679,60.00146585496214],"info":{"renderer":"WebKit WebGL","calls":782,"ratio":1}}
+  ✓   3 tests/browser.spec.ts:22:1 › loadout persists, real RP support works, ADS fires and menu cleanup survives restart (15.1s)
+  ✓   4 tests/browser.spec.ts:39:1 › pointer-lock denial leaves drag look and weapon controls playable (5.1s)
+  ✓   5 tests/browser.spec.ts:44:1 › A/D strafes without accumulated camera roll, Shift slides, damage direction and equipment stay visible (7.7s)
+  ✓   6 tests/browser.spec.ts:54:1 › driver shell, gunner MG, passengers and fourth transport are playable through keyboard controls (4.9s)
+  ✓   7 tests/browser.spec.ts:61:1 › map deployment blocks engaged squadmates and offers distant attacked flags and deploys beside a safe member (9.7s)
+  ✓   8 tests/browser.spec.ts:68:1 › preparation selects and persists Breakthrough and the active frontline really advances (4.1s)
+AUDIO_QA {"music":{"cue":"victory","desired":"victory","status":"playing","error":"","track":"victory","slots":[{"paused":false,"volume":0.033235585719368826,"ready":4,"time":0.459034},{"paused":false,"volume":0.0060671991100143844,"ready":4,"time":0.029462}]},"decoded":29,"voices":0,"context":"running","master":0.4}
+  ✓   9 tests/browser.spec.ts:72:1 › local MP3 playback, decoded sound effects, mixing and result cues work (7.4s)
+  ✓  10 tests/browser.spec.ts:79:1 › seven distinct first-person models render and missing music stays playable (8.4s)
+  ✓  11 tests/browser.spec.ts:84:1 › airdrop reserves armor for caller and actual driver exits on takeover (12.2s)
+  ✓  12 tests/browser.spec.ts:92:1 › death falls then rises into deployment instead of opening map immediately (9.8s)
+  ✓  13 tests/browser.spec.ts:98:1 › player shot event uses the rendered muzzle and damage flashes immediately (5.1s)
+  ✓  14 tests/browser.spec.ts:105:1 › vehicle RMB optics, independent MG model, capture progress, Esc resume and unstuck work (5.2s)
+  ✓  15 tests/browser.spec.ts:113:1 › LAN menu hosts and joins one authoritative room from two browser clients (7.0s)
+  ✓  16 tests/browser.spec.ts:121:1 › host configures AI-free opposing teams and changes a joining player faction (7.3s)
+  ✓  17 tests/browser.spec.ts:125:1 › deployment selects a real free vehicle seat and block characters distinguish humans and teams (10.5s)
+  ✓  18 tests/browser.spec.ts:132:1 › solo entry works without creating or joining a network room (4.1s)
+LAN_WALK_CONTINUITY {"stationaryFraction":0.028169014084507043,"maxFrameStep":0.3086849484135309,"samples":80}
+  ✓  19 tests/browser.spec.ts:136:1 › LAN settings expose address port and code while walking remains continuous between snapshots (5.7s)
+  ✓  20 tests/browser.spec.ts:141:1 › equipment keys draw models without spending charges and left click uses the selected item (6.0s)
+  ✓  21 tests/browser.spec.ts:147:1 › real LAN IP hosts and share link joins without manually correcting host address or port (5.4s)
+  ✓  22 tests/browser.spec.ts:154:1 › LAN connection diagnostics distinguish invalid rooms from unreachable services (647ms)
+  ✓  23 tests/browser.spec.ts:158:35 › solo tracers remain attached to the visible muzzle while walking and aiming (4.7s)
+  ✓  24 tests/browser.spec.ts:158:35 › LAN tracers remain attached to the visible muzzle while walking and aiming (5.0s)
+  ✓  25 tests/browser.spec.ts:164:1 › LAN equipment selection is nonconsuming and only a click sends a weapon action (4.8s)
+  ✓  26 tests/browser.spec.ts:169:1 › an old host process is rejected before creating an incompatible room (543ms)
+  ✓  27 tests/iteration-013.spec.ts:2:1 › four pictured class loadouts are configured after entry and simulation waits for readiness (5.9s)
+  ✓  28 tests/iteration-013.spec.ts:5:1 › infantry V switches perspective, hits report real damage and result sequence moves the camera (6.4s)
+  ✓  29 tests/iteration-013.spec.ts:8:1 › room host waits for every human loadout and guest cannot start the match (6.1s)
+  ✓  30 tests/iteration-014.spec.ts:4:1 › grenade and smoke fly as actual models, supply crate persists and map player preference is saved (10.1s)
+  ✓  31 tests/iteration-014.spec.ts:5:1 › downed screen counts thirty seconds, calls rescue and held space finishes death into separated icon deployment (12.7s)
+  ✓  32 tests/iteration-014.spec.ts:6:1 › vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles (4.7s)
+  ✓  33 tests/iteration-014.spec.ts:7:1 › two LAN browsers receive a real thrown model and the same supply box (6.0s)
+  ✓  34 tests/iteration-015.spec.ts:3:1 › commander advice can be dismissed and accepted through gameplay keys (4.8s)
+  ✓  35 tests/iteration-015.spec.ts:4:1 › jet and helicopter have distinct controls and warning phases; flares clear incoming (5.2s)
+  ✓  36 tests/iteration-015.spec.ts:5:1 › motorcycle has a visible separate model and two unarmed seats (4.7s)
+  ✘  37 tests/iteration-0151.spec.ts:2:1 › large missile threat and actual armor hit remain distinct and clear after impact (4.2s)
+(node:58962) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  38 tests/iteration-016.spec.ts:2:1 › all eight vehicle driver interiors are distinct; controls, crew seats and exterior views follow actual seats (12.0s)
+
+
+  1) tests/iteration-0151.spec.ts:2:1 › large missile threat and actual armor hit remain distinct and clear after impact 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 32
+    Received:    NaN
+
+      3 |  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await page.locator('#setup-size').selectOption('8');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
+      4 |  await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;for(const s of b.soldiers)if(!s.player){s.nextAiAt=Infinity;s.nextEquipment=Infinity;s.boardingUntil=Infinity;s.pos={x:300,z:-300};}for(const v of b.vehicles)v.nextDecision=Infinity;const v=b.vehicles.find((v:any)=>v.team==='blue'&&v.kind==='tank');v.pos={x:100,z:80};b.player.pos={...v.pos};if(!b.togglePlayerVehicle())throw new Error('Boarding failed');v.warningUntil=b.elapsed+10;});
+    > 5 |  const threat=page.locator('.vehicle-threat');await expect(threat).toContainText('正在被锁定');await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.playerVehicle.incomingUntil=b.elapsed+10;});await expect(threat).toContainText('导弹来袭');expect(await threat.locator('strong').evaluate(e=>parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(32);await expect(threat).toHaveClass(/incoming/);await page.screenshot({path:'test-results/missile-alert-0151.png'});
+        |                                                                                                                                                                                                                                                                                                                                                        ^
+      6 |  await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;const v=b.vehicles.find((v:any)=>v.team==='red');b.damageVehicle(v,50,'blue',false,{x:110,z:80});});await page.waitForTimeout(100);expect(await page.locator('#damage-vignette').evaluate(e=>parseFloat(getComputedStyle(e).opacity))).toBe(0);
+      7 |  await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.damageVehicle(b.playerVehicle,60,'red',false,{x:120,z:80});});await expect(page.locator('#damage-amount')).toContainText('装甲受击 −60 ARMOR');await expect(page.locator('#damage-direction')).toBeVisible();expect(await page.locator('#damage-vignette').evaluate(e=>parseFloat(getComputedStyle(e).opacity))).toBeGreaterThan(.15);expect(await page.evaluate(()=>(window as any).__IRONFRONT_QA.world.armorShake)).toBeGreaterThan(.01);await page.screenshot({path:'test-results/armor-hit-0151.png'});
+      8 |  await page.waitForTimeout(1400);await expect(page.locator('#damage-direction')).toBeHidden();expect(await page.locator('#damage-vignette').evaluate(e=>parseFloat(getComputedStyle(e).opacity))).toBe(0);await page.keyboard.press('X');await expect(threat).toBeHidden();expect(errors).toEqual([]);
+        at /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository/tests/iteration-0151.spec.ts:5:344
+
+    Error Context: test-results/iteration-0151-large-missi-f0091-inct-and-clear-after-impact/error-context.md
+
+  1 failed
+    tests/iteration-0151.spec.ts:2:1 › large missile threat and actual armor hit remain distinct and clear after impact 
+  37 passed (4.2m)

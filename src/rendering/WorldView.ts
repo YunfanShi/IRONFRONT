@@ -1,3 +1,4 @@
+import {VehicleInterior} from './VehicleInterior';
 import * as THREE from 'three';
 import {Random,heightAt,dist} from '../core/math';
 import {MAP_SIZE,BLOCKS,OBJECTIVES,BASES,OPEN_BUILDINGS,collides,type Team} from '../world/Layout';
@@ -25,7 +26,7 @@ type FX={position:THREE.Vector3;velocity:THREE.Vector3;color:THREE.Color;life:nu
 export interface LookState {yaw:number;pitch:number;height:number;ads:boolean;moving:boolean;sprint:boolean;reload:boolean;speed:number;side:number;paused?:boolean;vehicleFirstPerson?:boolean;infantryFirstPerson?:boolean;introAge?:number;resultAge?:number;network?:boolean;equipment?:EquipmentItem|null;equipmentAge?:number;deathAge?:number}
 export class WorldView {
  readonly scene=new THREE.Scene();readonly renderer:THREE.WebGLRenderer;
- readonly camera:THREE.PerspectiveCamera;readonly weapon:WeaponView;readonly equipment:EquipmentView;
+ readonly camera:THREE.PerspectiveCamera;readonly weapon:WeaponView;readonly equipment:EquipmentView;readonly interior:VehicleInterior;
  private soldierRender:SoldierVisuals;private vehicleRender:VehicleVisuals;private art:EnvironmentArt;
  private markers:{ring:THREE.Mesh;label:THREE.Sprite;beam:THREE.Mesh}[]=[];
  readonly field=new FieldVisuals(this.scene);
@@ -37,7 +38,7 @@ export class WorldView {
  private t=0;private high:boolean;private medium:boolean;private sun:THREE.DirectionalLight;private shadowEnabled:boolean;
  private iff:{id:number;sprite:THREE.Sprite}[]=[];
  private supportSmoke=new Map<number,THREE.Sprite[]>();private supportSmokeTexture:THREE.Texture|null=null;
- private hitFlash=0;private hitRoll=0;private cameraKick=0;private vignette:HTMLDivElement|null=null;private smoke:{sprite:THREE.Sprite;baseX:number;baseY:number;baseScale:number;phase:number}[]=[];
+ private armorFlash=0;private armorShake=0;private hitFlash=0;private hitRoll=0;private cameraKick=0;private vignette:HTMLDivElement|null=null;private smoke:{sprite:THREE.Sprite;baseX:number;baseY:number;baseScale:number;phase:number}[]=[];
  constructor(private canvas:HTMLCanvasElement,battle:Battle,quality:'low'|'medium'|'high',private baseFov=79,private renderScale=1){
   this.high=quality==='high';this.medium=quality==='medium';this.shadowEnabled=quality!=='low';
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:quality!=='low',powerPreference:'high-performance',alpha:false});
@@ -53,7 +54,7 @@ export class WorldView {
   this.scene.add(this.sun,this.sun.target);
   this.buildTerrain();this.buildEnvironment();this.buildFoliage(this.high?520:this.medium?310:155);this.art=new EnvironmentArt(this.scene,this.high||this.medium);this.buildAmbientSmoke();
   this.buildMarkers();this.soldierRender=new SoldierVisuals(this.scene,battle);this.vehicleRender=new VehicleVisuals(this.scene,battle);
-  this.weapon=new WeaponView(this.camera,this.scene);this.equipment=new EquipmentView(this.camera);
+  this.weapon=new WeaponView(this.camera,this.scene);this.equipment=new EquipmentView(this.camera);this.interior=new VehicleInterior(this.camera);
   for(const s of battle.soldiers.filter(s=>s.id!==battle.player.id)){const can=document.createElement('canvas');can.width=128;can.height=48;const ctx=can.getContext('2d')!;ctx.fillStyle=s.team==='blue'?'#82d7ff':'#ffb19f';ctx.font='bold 25px sans-serif';ctx.textAlign='center';ctx.fillText(s.team==='blue'?'◆ BLU':'▲ RED',64,32);const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(can),transparent:true,depthTest:true,depthWrite:false}));sprite.scale.set(2.5,.9,1);sprite.visible=false;this.scene.add(sprite);this.iff.push({id:s.id,sprite})}
 
   const particles=new THREE.BufferGeometry();particles.setAttribute('position',new THREE.BufferAttribute(this.positionData,3));particles.setAttribute('color',new THREE.BufferAttribute(this.colorData,3));particles.setDrawRange(0,0);
@@ -184,7 +185,7 @@ export class WorldView {
    }else if(e.type==='vehicleShot'){const dir=new THREE.Vector3(e.to.x-e.from.x,0,e.to.z-e.from.z).normalize(),y=e.muzzle?.y??heightAt(e.from.x,e.from.z)+3.1;this.spawnSpark(e.from.x,y,e.from.z,0xffcd83,18);if(e.player)this.cameraKick=Math.min(.085,this.cameraKick+.04);
    }else if(e.type==='hitConfirmed'){this.spawnSpark(e.at.x,heightAt(e.at.x,e.at.z)+(e.vehicle?2:1.3),e.at.z,e.vehicle?0xffd38f:0xd1c2a4,e.killed?18:8);
    }else if(e.type==='playerHit'){this.hitFlash=Math.min(1,this.hitFlash+.65+e.amount*.006);this.hitRoll=(Math.random()-.5)*.07;this.cameraKick=Math.min(.085,this.cameraKick+.018+e.amount*.00045);
-   }else if(e.type==='vehicleHit'){const v=this.lastBattle?.vehicles.find(v=>v.id===e.id);if(v){this.spawnSpark(v.pos.x,heightAt(v.pos.x,v.pos.z)+v.altitude+2,v.pos.z,0xffbc72,16);if(v===this.lastBattle?.playerVehicle)this.cameraKick=.07;}}else if(e.type==='vehicleDisabled'){this.spawnSpark(e.at.x,heightAt(e.at.x,e.at.z)+1.7,e.at.z,0xffaa69,42);
+   }else if(e.type==='vehicleHit'){const v=this.lastBattle?.vehicles.find(v=>v.id===e.id);if(v){this.spawnSpark(v.pos.x,heightAt(v.pos.x,v.pos.z)+v.altitude+2,v.pos.z,0xffbc72,16);if(v===this.lastBattle?.playerVehicle&&e.amount>0){const strength=THREE.MathUtils.clamp(e.amount/v.maxHp,.025,.3);this.armorFlash=Math.min(1,this.armorFlash+.5+strength*1.5);this.armorShake=Math.min(.22,this.armorShake+.04+strength*.5);this.hitRoll=(Math.random()<.5?-1:1)*(.018+strength*.12);this.cameraKick=Math.min(.14,this.cameraKick+.035+strength*.2);}}}else if(e.type==='vehicleDisabled'){this.spawnSpark(e.at.x,heightAt(e.at.x,e.at.z)+1.7,e.at.z,0xffaa69,42);
    }else if(e.type==='artilleryImpact'||e.type==='projectileImpact'){const y=heightAt(e.at.x,e.at.z)+1.0;this.spawnSpark(e.at.x,y,e.at.z,0xffb063,this.high?90:58);const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,16,10),new THREE.MeshBasicMaterial({color:0xffa35b,transparent:true,opacity:.34,depthWrite:false,blending:THREE.AdditiveBlending}));mesh.position.set(e.at.x,y,e.at.z);this.scene.add(mesh);this.blastFx.push({mesh,life:.58,max:.58,radius:e.radius*.72});const d=dist(e.at,player);if(d<105)this.cameraKick=Math.min(.42,this.cameraKick+(1-d/105)*.26);
    }else if(e.type==='death'){
     // No gore; a brief dust/debris puff marks an actual soldier elimination.
@@ -226,10 +227,10 @@ export class WorldView {
   const p=battle.player,vehicle=battle.playerVehicle;
   if(vehicle){
    const gunner=look.vehicleFirstPerson||look.ads,distance=gunner?0:10;
-   let fraction=1;const pivotY=heightAt(vehicle.pos.x,vehicle.pos.z)+vehicle.altitude+3.5;
+   let fraction=1;const seatHeight=battle.playerSeat===1&&vehicle.kind!=='motorcycle'?3.35:({motorcycle:1.65,scout:1.9,transport:1.85,tank:3.15,ifv:2.65,aa:2.8,helicopter:2.45,jet:2.35}[vehicle.kind])+(battle.playerSeat>=2?-.25:0);const pivotY=heightAt(vehicle.pos.x,vehicle.pos.z)+vehicle.altitude+(gunner?seatHeight:3.5);
    if(!gunner)for(let t=.05;t<=1;t+=.05){const x=vehicle.pos.x+Math.sin(look.yaw)*distance*t,z=vehicle.pos.z+Math.cos(look.yaw)*distance*t,y=pivotY+2.15*t;if(BLOCKS.some(b=>Math.abs(x-b.x)<b.w/2+.5&&Math.abs(z-b.z)<b.d/2+.5&&y<heightAt(x,z)+b.h+.5)){fraction=Math.max(0,t-.08);break;}}
    const x=vehicle.pos.x+Math.sin(look.yaw)*distance*fraction,z=vehicle.pos.z+Math.cos(look.yaw)*distance*fraction;
-   this.camera.position.set(x,Math.max(heightAt(x,z)+1.2,pivotY+(gunner?0:2.15*fraction)),z);
+   const side=gunner?(battle.playerSeat===1?.55:battle.playerSeat>=2?(battle.playerSeat===2?-.55:.55):['scout','transport','helicopter'].includes(vehicle.kind)?-.3:0):0,forward=gunner?(battle.playerSeat>=2||vehicle.kind==='motorcycle'&&battle.playerSeat===1?-.55:.35):0;this.camera.position.set(x+Math.cos(vehicle.yaw)*side+Math.sin(vehicle.yaw)*forward,Math.max(heightAt(x,z)+1.2,pivotY+(gunner?0:2.15*fraction)),z-Math.sin(vehicle.yaw)*side+Math.cos(vehicle.yaw)*forward);
   }else {this.camera.position.set(p.pos.x,heightAt(p.pos.x,p.pos.z)+look.height,p.pos.z);if(look.infantryFirstPerson===false&&!look.ads){let fraction=1;for(let t=.1;t<=1;t+=.1){const x=p.pos.x+Math.sin(look.yaw)*4*t,z=p.pos.z+Math.cos(look.yaw)*4*t,y=heightAt(p.pos.x,p.pos.z)+look.height+.6*t;if(BLOCKS.some(b=>Math.abs(x-b.x)<b.w/2+.3&&Math.abs(z-b.z)<b.d/2+.3&&y<heightAt(x,z)+b.h)){fraction=Math.max(0,t-.1);break;}}this.camera.position.x+=Math.sin(look.yaw)*4*fraction;this.camera.position.z+=Math.cos(look.yaw)*4*fraction;this.camera.position.y+=.6*fraction;}}
   for(const object of this.scene.children)if(object.userData.sky)object.position.copy(this.camera.position);
   this.camera.rotation.order='YXZ';this.camera.rotation.y=look.yaw;this.camera.rotation.x=look.pitch-this.cameraKick;
@@ -238,9 +239,9 @@ export class WorldView {
   if(look.deathAge!==undefined){const age=look.deathAge,fall=THREE.MathUtils.smoothstep(age,0,1.15),rise=THREE.MathUtils.smoothstep(age,2,4.8);this.camera.position.set(p.pos.x*(1-rise),heightAt(p.pos.x,p.pos.z)+THREE.MathUtils.lerp(look.height,.28,fall)+rise*525,p.pos.z*(1-rise));this.camera.rotation.x=THREE.MathUtils.lerp(look.pitch-.25*fall,-Math.PI/2+.001,rise);this.camera.rotation.y=look.yaw*(1-rise);this.camera.rotation.z=.75*fall*(1-rise);}
   if(look.introAge!==undefined){const t=THREE.MathUtils.smoothstep(look.introAge,0,3);this.camera.position.y+=18*(1-t);this.camera.rotation.x-=.45*(1-t);}
   if(look.resultAge!==undefined){const t=Math.min(1,look.resultAge/4),a=look.yaw+t*.6;this.camera.position.set(p.pos.x+Math.sin(a)*10, heightAt(p.pos.x,p.pos.z)+5+t*8,p.pos.z+Math.cos(a)*10);this.camera.lookAt(p.pos.x,heightAt(p.pos.x,p.pos.z)+1.5,p.pos.z);}
-  this.cameraKick=THREE.MathUtils.damp(this.cameraKick,0,17,dt);
+  if(vehicle&&this.armorShake>0){this.camera.position.x+=Math.sin(this.t*79)*this.armorShake;this.camera.position.y+=Math.sin(this.t*97)*this.armorShake*.65;}this.armorShake=THREE.MathUtils.damp(this.armorShake,0,9,dt);this.armorFlash=Math.max(0,this.armorFlash-dt*2.2);this.cameraKick=THREE.MathUtils.damp(this.cameraKick,0,17,dt);
   const aim=this.weapon.render(dt,{weapon:battle.playerWeapon,ads:look.ads&&!vehicle,sprint:look.sprint&&!vehicle,moving:look.moving,speed:look.speed,reload:look.reload,alive:p.alive&&!vehicle&&!look.equipment&&(look.infantryFirstPerson!==false||look.ads),velocitySide:look.side});
-  this.equipment.render(p.alive&&(look.infantryFirstPerson!==false||look.ads||!!vehicle)?(vehicle?(vehicle.kind!=='motorcycle'&&(look.vehicleFirstPerson||look.ads)?(battle.playerSeat===1||vehicle.kind==='scout'?'mountedMG':'cockpit'):null):look.equipment??null):null,look.equipmentAge??0,look.ads);
+  this.equipment.render(p.alive&&(look.infantryFirstPerson!==false||look.ads||!!vehicle)?(vehicle?(vehicle.kind!=='motorcycle'&&(look.vehicleFirstPerson||look.ads)?(battle.playerSeat===1?'mountedMG':null):null):look.equipment??null):null,look.equipmentAge??0,look.ads);
   if(vehicle&&(battle.playerSeat===1||vehicle.kind==='scout')){this.equipment.root.rotation.y=Math.atan2(Math.sin(vehicle.mgYaw-look.yaw-Math.PI),Math.cos(vehicle.mgYaw-look.yaw-Math.PI));this.equipment.root.rotation.x=vehicle.turretPitch-look.pitch;}
   const sway=look.moving?Math.sin(this.t*(look.sprint?15:11))*.011*(look.sprint?1.5:1):0;
   this.camera.position.y+=sway*(1-aim*.65);
@@ -248,7 +249,7 @@ export class WorldView {
   const vehicleZoom=vehicle&&look.ads?3:1;const adsFov=THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(THREE.MathUtils.degToRad(this.baseFov/2))/battle.activeWeapon.zoom));this.camera.fov=THREE.MathUtils.damp(this.camera.fov,(vehicle?this.baseFov/vehicleZoom:THREE.MathUtils.lerp(this.baseFov,adsFov,aim))+(look.sprint?3:0),13,dt);this.camera.updateProjectionMatrix();
   for(const item of this.iff){const s=battle.soldiers[item.id]!;item.sprite.visible=s.alive&&s.vehicleId===null&&battle.canIdentify(s.pos,s.team===battle.player.team?60:35);item.sprite.position.set(s.pos.x,heightAt(s.pos.x,s.pos.z)+2.35,s.pos.z);const width=Math.max(.2,dist(p.pos,s.pos)*Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2))*.07);item.sprite.scale.set(width,width*.375,1)}
   this.updateSupportSmoke(battle);
-  this.field.update(battle,dt,this.camera);this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt,look.infantryFirstPerson===false&&!look.ads&&!vehicle);this.vehicleRender.update(dt,!!look.vehicleFirstPerson||look.ads,!!look.network);
+  this.interior.render(p.alive&&look.resultAge===undefined&&look.introAge===undefined?vehicle:null,battle.playerSeat,!!look.vehicleFirstPerson||look.ads,look.ads,dt);this.field.update(battle,dt,this.camera);this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt,vehicle?!look.vehicleFirstPerson&&!look.ads:look.infantryFirstPerson===false&&!look.ads);this.vehicleRender.update(dt,!!look.vehicleFirstPerson||look.ads,!!look.network);
   for(let i=0;i<this.markers.length;i++){
    const owner=battle.points[i]!.owner,color=owner==='blue'?blue:owner==='red'?red:0xdbddd2;
    (this.markers[i]!.ring.material as THREE.MeshBasicMaterial).color.setHex(color);
@@ -260,11 +261,11 @@ export class WorldView {
   if(this.shadowEnabled){this.sun.position.set(p.pos.x+160,240,p.pos.z-125);this.sun.target.position.set(p.pos.x,0,p.pos.z);this.sun.target.updateMatrixWorld()}
   this.updateParticles(dt);this.updateBlastFx(dt);this.updateAmbientSmoke(dt);
   for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;if(t.followMuzzle){const m=t.equipment?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition(),positions=t.line.geometry.getAttribute('position') as THREE.BufferAttribute;positions.setXYZ(0,m.x,m.y,m.z);positions.needsUpdate=true;t.line.geometry.computeBoundingSphere();t.line.computeLineDistances();}if(t.fresh)t.fresh=false;else t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
-  if(this.vignette){this.vignette.style.opacity=String(Math.max(0,(p.alive?(1-p.hp/100)*.8:0)+this.hitFlash*.85));}
+  if(this.vignette){this.vignette.classList.toggle('armor-hit',!!vehicle);this.vignette.style.opacity=String(vehicle?this.armorFlash:Math.max(0,(p.alive?(1-p.hp/100)*.8:0)+this.hitFlash*.85));}
   this.renderer.render(this.scene,this.camera);
  }
  dispose(){
-  window.removeEventListener('resize',this.resize);this.field.dispose();this.weapon.dispose();this.equipment.dispose();this.soldierRender.dispose();this.vehicleRender.dispose();this.art.dispose();
+  window.removeEventListener('resize',this.resize);this.field.dispose();this.weapon.dispose();this.equipment.dispose();this.interior.dispose();this.soldierRender.dispose();this.vehicleRender.dispose();this.art.dispose();
   // THREE.Scene.clear does not free GPU resources: release all generated assets on restart.
   const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();
   this.scene.traverse((o:THREE.Object3D)=>{

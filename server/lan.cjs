@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.clients.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.15.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
+        return res.end(JSON.stringify({ version: '0.16.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
     }
     let pathname;
     try {

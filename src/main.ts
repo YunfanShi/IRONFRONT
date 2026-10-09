@@ -186,7 +186,7 @@ function frame(time:number){
  }
  if(lan){if(paused)lan.input({forward:0,side:0,fire:false,yaw:lookYaw,pitch:lookPitch});lan.reconcile(battle,dt);}
  const events=lan?lan.events():battle.events();
- if(events.length){if(lan)for(const event of events)if(event.type==='shot'&&event.player){world.playerShot(event.weapon??battle.playerWeapon);recoilPitch=Math.min(.12,recoilPitch+battle.activeWeapon.recoil*.07);recoilYaw+=(Math.random()-.5)*battle.activeWeapon.recoil*.02;}for(const event of events)if(event.type==='playerHit'||(event.type==='vehicleHit'&&event.id===battle.playerVehicle?.id))ui.showDamage(event.amount,event.from,battle,lookYaw);ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw);world.showEvents(events,battle.player.pos);
+ if(events.length){if(lan)for(const event of events)if(event.type==='shot'&&event.player){world.playerShot(event.weapon??battle.playerWeapon);recoilPitch=Math.min(.12,recoilPitch+battle.activeWeapon.recoil*.07);recoilYaw+=(Math.random()-.5)*battle.activeWeapon.recoil*.02;}for(const event of events)if(event.type==='playerHit'||(event.type==='vehicleHit'&&event.id===battle.playerVehicle?.id))ui.showDamage(event.amount,event.from,battle,lookYaw);ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw,battle.playerVehicle?.id??null);world.showEvents(events,battle.player.pos);
   for(const e of events)if(e.type==='thrown'&&e.owner===battle.player.id){equipmentUsedAt=performance.now();world.weapon.throw();}for(const e of events)if(e.type==='hitConfirmed'&&e.owner===battle.player.id)ui.showConfirmed(e);
   if(events.some(e=>e.type==='shot'&&e.player&&e.hit))ui.showHit();
  }

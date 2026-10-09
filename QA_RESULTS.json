@@ -46,7 +46,7 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 146
+      "runtimeMs": 136
     },
     {
       "size": 16,
@@ -82,7 +82,7 @@
         "SPAWN"
       ],
       "navFailures": 1,
-      "runtimeMs": 709
+      "runtimeMs": 533
     },
     {
       "size": 32,
@@ -118,7 +118,7 @@
         "SPAWN"
       ],
       "navFailures": 1,
-      "runtimeMs": 968
+      "runtimeMs": 1007
     },
     {
       "size": 64,
@@ -154,7 +154,7 @@
         "SPAWN"
       ],
       "navFailures": 1,
-      "runtimeMs": 3017
+      "runtimeMs": 4801
     }
   ],
   "defaultMatch": {
@@ -183,107 +183,18 @@
       "COUNTER_OFFENSIVE"
     ],
     "navFailures": 1,
-    "runtimeMs": 2712
+    "runtimeMs": 3083
   },
-  "version": "0.15.0",
-  "baseline": {
-    "version": "0.14.0",
-    "commit": "6f2c23d41f07ae4c07c4340e758c22cd12c3f61a",
-    "localFoldersMatched": 5
-  },
+  "version": "0.16.0",
   "unitTests": {
-    "passed": 106,
-    "files": 12
+    "passed": 106
   },
-  "browser": {
-    "passed": 36,
-    "renderSample": {
-      "samples": [
-        60.00463185965036,
-        59.99921569387209,
-        60.000104297446,
-        59.99827381378205,
-        59.99670877418238,
-        59.98295896567111,
-        60.01287692278276,
-        60.005812095255344
-      ],
-      "info": {
-        "renderer": "WebKit WebGL",
-        "calls": 782,
-        "ratio": 1
-      }
-    }
-  },
-  "soak": {
-    "version": "0.15.0",
-    "elapsed": 1200,
-    "captures": 23,
-    "shots": 10960,
-    "deaths": 46,
-    "duplicates": 0,
-    "reportsPeak": 63,
-    "projectilesPeak": 8,
-    "navigationFailures": 0,
-    "commanderDecisions": {
-      "blue": 342,
-      "red": 342
-    },
-    "states": [
-      "SPAWN",
-      "BOARD_VEHICLE",
-      "FOLLOW_SQUAD",
-      "DRIVING",
-      "MOVE_TO_OBJECTIVE",
-      "RESPAWN",
-      "SEARCH",
-      "DOWNED",
-      "REVIVE",
-      "SEEK_COVER",
-      "ENGAGE",
-      "DEFEND",
-      "RETREAT"
-    ],
-    "runtimeMs": 9696,
-    "heapChangeMiB": 72.8,
-    "heapNote": "Transient JS heap before GC, not a leak measurement"
-  },
-  "memory": {
-    "samples": [
-      {
-        "seconds": 0,
-        "heapMiB": 4.53
-      },
-      {
-        "seconds": 300,
-        "heapMiB": 6.96,
-        "reports": 109
-      },
-      {
-        "seconds": 600,
-        "heapMiB": 6.96,
-        "reports": 82
-      },
-      {
-        "seconds": 900,
-        "heapMiB": 6.86,
-        "reports": 46
-      },
-      {
-        "seconds": 1200,
-        "heapMiB": 6.91,
-        "reports": 69
-      }
-    ],
-    "deltaMiB": 2.38,
-    "note": "Live Battle retained across forced-GC samples; single deterministic seed, not all inputs."
-  },
-  "lan": {
-    "nativeIP": "10.100.113.195",
-    "userTwoMachinesVerified": false
+  "browserTests": {
+    "passed": 38
   },
   "build": {
-    "passed": true,
-    "warning": "Three.js vendor chunk exceeds 500kB"
-  }
+    "passed": true
+  },
+  "scope": "distinct vehicle interiors, motorcycle riders, threat and armor feedback",
+  "baseline": "11f20f1766441e8a7adfbd040fcaffe39bad27ec"
 }
