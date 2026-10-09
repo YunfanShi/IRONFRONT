@@ -7,6 +7,8 @@ namespace Ironfront.UnityPrototype
     {
         private PrototypeRuntime runtime;
         private PrototypeNavigation navigation;
+        private PrototypeCommander commander;
+        private PrototypeSquad squad;
         private Vector2 spawn;
         private Vector2 objective;
         private List<Vector2> route = new List<Vector2>();
@@ -14,6 +16,10 @@ namespace Ironfront.UnityPrototype
         private float repathAt;
         private float nextShot;
         private float respawnAt;
+        private float lastReportAt;
+        private float lastRouteFailureAt;
+        private float lastProgressAt;
+        private Vector2 lastProgressPosition;
         private Renderer body;
         private Collider bodyCollider;
 
@@ -21,19 +27,40 @@ namespace Ironfront.UnityPrototype
         public bool Alive => Health > 0f;
         public float Health { get; private set; } = 100f;
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
+        public Vector2 SpawnPosition => spawn;
+        public string AssignedObjectiveId { get; private set; } = "-";
 
         public void Initialize(PrototypeRuntime game, PrototypeNavigation nav,
-            PrototypeTeam team, Vector2 spawnPoint, Vector2 assignedObjective)
+            PrototypeTeam team, Vector2 spawnPoint)
         {
             runtime = game;
             navigation = nav;
             Team = team;
             spawn = spawnPoint;
-            objective = assignedObjective;
+            objective = spawnPoint;
             body = GetComponent<Renderer>();
             bodyCollider = GetComponent<Collider>();
             body.sharedMaterial = team == PrototypeTeam.Blue ? game.BlueMaterial : game.RedMaterial;
             Respawn();
+        }
+
+        public void JoinSquad(PrototypeCommander assignedCommander, PrototypeSquad assignedSquad, int member)
+        {
+            commander = assignedCommander;
+            squad = assignedSquad;
+            name = Team + " Squad " + squad.Id + " / " + (member + 1);
+        }
+
+        public void SetObjective(Vector2 destination, string id)
+        {
+            if (AssignedObjectiveId == id && Vector2.Distance(objective, destination) < 1f) return;
+            objective = destination;
+            AssignedObjectiveId = id;
+            route.Clear();
+            waypoint = 0;
+            repathAt = 0f;
+            lastProgressAt = Time.time;
+            lastProgressPosition = MapPosition;
         }
 
         private void Update()
@@ -47,6 +74,11 @@ namespace Ironfront.UnityPrototype
 
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot, out PrototypePlayer player);
             bool inCombat = bot != null || player != null;
+            if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
+            {
+                commander.ReportEnemy(enemy, Time.time);
+                lastReportAt = Time.time;
+            }
             float enemyDistance = inCombat ? Vector2.Distance(MapPosition, enemy) : float.PositiveInfinity;
             if (inCombat && enemyDistance < 80f && Time.time >= nextShot)
             {
@@ -64,9 +96,14 @@ namespace Ironfront.UnityPrototype
             }
 
             Vector2 destination = inCombat && enemyDistance > 27f ? enemy : objective;
-            if (!inCombat && Vector2.Distance(MapPosition, objective) < 18f) return;
-            if (inCombat && enemyDistance <= 27f) return;
-            MoveToward(destination);
+            if ((!inCombat && Vector2.Distance(MapPosition, objective) < 18f) ||
+                (inCombat && enemyDistance <= 27f))
+            {
+                lastProgressAt = Time.time;
+                lastProgressPosition = MapPosition;
+                return;
+            }
+            MoveToward(destination, !inCombat);
         }
 
         private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot, out PrototypePlayer selectedPlayer)
@@ -102,27 +139,49 @@ namespace Ironfront.UnityPrototype
             return selectedPosition;
         }
 
-        private void MoveToward(Vector2 destination)
+        private void MoveToward(Vector2 destination, bool onMission)
         {
-            if (Time.time >= repathAt || route.Count == 0 ||
-                Vector2.Distance(route[route.Count - 1], destination) > 8f)
+            if (Time.time >= repathAt || (route.Count > 0 &&
+                Vector2.Distance(route[route.Count - 1], destination) > 8f))
             {
                 route = navigation.Find(MapPosition, destination);
                 waypoint = 0;
                 repathAt = Time.time + 2f;
             }
-            if (route.Count == 0) return;
+            if (route.Count == 0)
+            {
+                if (onMission) ReportRouteFailure();
+                return;
+            }
             while (waypoint < route.Count && Vector2.Distance(MapPosition, route[waypoint]) < 1.6f)
                 waypoint++;
             if (waypoint >= route.Count) return;
 
             Vector2 next = Vector2.MoveTowards(MapPosition, route[waypoint], 5.8f * Time.deltaTime);
-            if (PrototypeLayout.Collides(next, 0.5f)) { repathAt = 0f; return; }
+            if (PrototypeLayout.Collides(next, 0.5f))
+            {
+                repathAt = 0f;
+                if (onMission) ReportRouteFailure();
+                return;
+            }
             Vector3 direction = new Vector3(next.x - transform.position.x, 0f, next.y - transform.position.z);
             transform.position = new Vector3(next.x, PrototypeLayout.HeightAt(next.x, next.y) + 1f, next.y);
+            if (Vector2.Distance(MapPosition, lastProgressPosition) > 2f)
+            {
+                lastProgressPosition = MapPosition;
+                lastProgressAt = Time.time;
+            }
+            else if (onMission && Time.time - lastProgressAt > 4f) ReportRouteFailure();
             if (direction.sqrMagnitude > 0.0001f)
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,
                     Quaternion.LookRotation(direction), 280f * Time.deltaTime);
+        }
+
+        private void ReportRouteFailure()
+        {
+            if (commander == null || Time.time - lastRouteFailureAt < 5f) return;
+            lastRouteFailureAt = Time.time;
+            commander.ReportRouteFailure(squad, Time.time);
         }
 
         public void TakeDamage(float amount)
@@ -144,6 +203,9 @@ namespace Ironfront.UnityPrototype
             route.Clear();
             waypoint = 0;
             repathAt = 0f;
+            lastProgressAt = Time.time;
+            lastProgressPosition = point;
+            lastRouteFailureAt = -10f;
             if (body != null) body.enabled = true;
             if (bodyCollider != null) bodyCollider.enabled = true;
         }

@@ -20,6 +20,8 @@ namespace Ironfront.UnityPrototype
         public PrototypeMatch Match { get; private set; }
         public PrototypeNavigation Navigation { get; private set; }
         public PrototypePlayer Player { get; private set; }
+        public PrototypeCommander BlueCommander { get; private set; }
+        public PrototypeCommander RedCommander { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
@@ -42,6 +44,8 @@ namespace Ironfront.UnityPrototype
             }
             Match = new PrototypeMatch();
             Navigation = new PrototypeNavigation();
+            BlueCommander = new PrototypeCommander(PrototypeTeam.Blue);
+            RedCommander = new PrototypeCommander(PrototypeTeam.Red);
             groundMaterial = MakeMaterial(new Color(0.35f, 0.43f, 0.31f));
             buildingMaterial = MakeMaterial(new Color(0.43f, 0.42f, 0.37f));
             coverMaterial = MakeMaterial(new Color(0.34f, 0.31f, 0.27f));
@@ -62,6 +66,8 @@ namespace Ironfront.UnityPrototype
             BuildMarkers();
             BuildPlayer();
             BuildBots();
+            BlueCommander.Tick(Time.time, Match);
+            RedCommander.Tick(Time.time, Match);
         }
 
         private static Material MakeMaterial(Color color, bool unlit = false)
@@ -189,31 +195,37 @@ namespace Ironfront.UnityPrototype
 
         private void BuildBots()
         {
-            AddBot(PrototypeTeam.Blue, -80f, -120f, "B");
-            AddBot(PrototypeTeam.Blue, -76f, -103f, "B");
-            AddBot(PrototypeTeam.Blue, -30f, 70f, "C");
-            AddBot(PrototypeTeam.Blue, -41f, 78f, "C");
-            AddBot(PrototypeTeam.Red, 31f, -111f, "B");
-            AddBot(PrototypeTeam.Red, 44f, -115f, "B");
-            AddBot(PrototypeTeam.Red, 66f, 115f, "C");
-            AddBot(PrototypeTeam.Red, 70f, 95f, "C");
+            BlueCommander.Register(
+                AddBot(PrototypeTeam.Blue, -80f, -120f),
+                AddBot(PrototypeTeam.Blue, -76f, -103f));
+            BlueCommander.Register(
+                AddBot(PrototypeTeam.Blue, -30f, 70f),
+                AddBot(PrototypeTeam.Blue, -41f, 78f));
+            RedCommander.Register(
+                AddBot(PrototypeTeam.Red, 31f, -111f),
+                AddBot(PrototypeTeam.Red, 44f, -115f));
+            RedCommander.Register(
+                AddBot(PrototypeTeam.Red, 66f, 115f),
+                AddBot(PrototypeTeam.Red, 70f, 95f));
         }
 
-        private void AddBot(PrototypeTeam team, float x, float z, string objectiveId)
+        private PrototypeBot AddBot(PrototypeTeam team, float x, float z)
         {
             GameObject object3D = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            object3D.name = team + " Squad - " + objectiveId;
+            object3D.name = team + " Soldier";
             object3D.transform.SetParent(transform);
-            Vector2 goal = PrototypeLayout.Objectives[objectiveId == "B" ? 1 : 2].Position;
             PrototypeBot bot = object3D.AddComponent<PrototypeBot>();
             Bots.Add(bot);
-            bot.Initialize(this, Navigation, team, new Vector2(x, z), goal);
+            bot.Initialize(this, Navigation, team, new Vector2(x, z));
+            return bot;
         }
 
         private void Update()
         {
             if (Match == null || Player == null) return;
             Match.Tick(Mathf.Min(Time.deltaTime, 0.05f), Player, Bots);
+            BlueCommander.Tick(Time.time, Match);
+            RedCommander.Tick(Time.time, Match);
             foreach (KeyValuePair<PrototypeCapturePoint, Renderer> entry in markers)
             {
                 PrototypeCapturePoint point = entry.Key;
@@ -239,6 +251,13 @@ namespace Ironfront.UnityPrototype
         private void OnGUI()
         {
             if (Match == null || Player == null) return;
+            // The Editor's 2x Game scale can leave a small logical viewport. Lay out in
+            // a 960x600 space, then scale the whole HUD so panels and hints do not overlap.
+            float scale = Mathf.Min(1f, Screen.width / 960f, Screen.height / 600f);
+            float canvasWidth = Screen.width / scale;
+            float canvasHeight = Screen.height / scale;
+            Matrix4x4 previousMatrix = GUI.matrix;
+            GUI.matrix = Matrix4x4.Scale(new Vector3(scale, scale, 1f));
             var title = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
             title.normal.textColor = Color.white;
             var body = new GUIStyle(GUI.skin.label) { fontSize = 14 };
@@ -259,18 +278,34 @@ namespace Ironfront.UnityPrototype
                     p.Definition.Id + "  " + owner + "  " + Mathf.RoundToInt(p.Control) + "%" +
                     (p.Contested ? "  CONTESTED" : ""), body);
             }
-            GUI.Label(new Rect(12, Screen.height - 35, 750, 25),
+            float ordersX = canvasWidth - 282f;
+            float ordersY = 12f;
+            GUI.Box(new Rect(ordersX, ordersY, 270, 138), GUIContent.none);
+            GUI.Label(new Rect(ordersX + 12, ordersY + 6, 245, 25), "SQUAD ORDERS", title);
+            DrawOrders(BlueCommander, "BLUE", ordersX + 12, ordersY + 34, body);
+            DrawOrders(RedCommander, "RED", ordersX + 12, ordersY + 82, body);
+            GUI.Label(new Rect(12, canvasHeight - 35, canvasWidth - 24f, 25),
                 "WASD move  |  Mouse aim  |  Left click fire  |  R reload  |  Shift sprint  |  Space jump  |  Esc cursor", body);
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)
             {
-                float cx = Screen.width / 2f;
-                float cy = Screen.height / 2f;
+                float cx = canvasWidth / 2f;
+                float cy = canvasHeight / 2f;
                 GUI.Label(new Rect(cx - 5, cy - 10, 25, 25), "+", title);
             }
-            if (!Player.Alive) GUI.Label(new Rect(Screen.width / 2f - 120, Screen.height / 2f - 65,
+            if (!Player.Alive) GUI.Label(new Rect(canvasWidth / 2f - 120, canvasHeight / 2f - 65,
                 300, 40), "DOWN  |  Respawning...", title);
-            if (Match.Winner.HasValue) GUI.Label(new Rect(Screen.width / 2f - 145,
-                Screen.height / 2f - 80, 350, 45), Match.Winner.Value + " TEAM WINS", title);
+            if (Match.Winner.HasValue) GUI.Label(new Rect(canvasWidth / 2f - 145,
+                canvasHeight / 2f - 80, 350, 45), Match.Winner.Value + " TEAM WINS", title);
+            GUI.matrix = previousMatrix;
+        }
+
+        private static void DrawOrders(PrototypeCommander commander, string team,
+            float x, float y, GUIStyle style)
+        {
+            GUI.Label(new Rect(x, y, 245, 20), team + "  " + commander.Squads[0].ObjectiveId + " / " +
+                commander.Squads[0].Mission + "  (" + commander.Squads[0].LivingMembers + "/2)", style);
+            GUI.Label(new Rect(x, y + 21, 245, 20), "          " + commander.Squads[1].ObjectiveId + " / " +
+                commander.Squads[1].Mission + "  (" + commander.Squads[1].LivingMembers + "/2)", style);
         }
     }
 }

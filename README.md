@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.19.1
+# PROJECT IRONFRONT 0.20.0
+
+## 0.20.0 Unity 小队指挥
+
+Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属与争夺、已目击敌情和路线失败重新分配任务。小队命令显示在游戏 HUD；指挥官无法直接读取被遮挡敌人的实时位置。当前仍是单地图、步兵短局，完整兵种、载具和联机尚待移植。实现和验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md)。Unity 开发位于 `codex/unity-port` 分支，不在 `main`。
 
 ## 0.19.1 Unity 导入修复
 
@@ -8,7 +12,7 @@
 
 新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型尚不具备网页的指挥官、小队兵种、载具或联机。
 
-在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。Unity C# 脚本已通过静态编译；本机编辑器因授权客户端初始化错误，实际导入、Play 和构建仍待验证。实现内容、操作、限制与后续阶段见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.19.x`，更新时需重新启动服务。
+在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；本轮 AI 改动的运行验证状态见 [UNITY_AI_020.md](docs/UNITY_AI_020.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.20.x`，更新时需重新启动服务。
 
 ## 0.18.0 房间与联机体验
 

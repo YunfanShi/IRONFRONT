@@ -1,3 +1,11 @@
+# 0.20.0 QA：Unity 小队指挥
+
+本轮在 `codex/unity-port` 的 `c1ac5b9` 基线上开发；`main` 文件内容保持移植前状态。Unity 七个 C# 文件使用 Unity 6000.5.10f1 随附 Roslyn、.NET Standard 2.1 和 UnityEngine 引用静态编译通过。独立 .NET 场景桩运行实际指挥官代码，初始分兵、夺点后推进、路线失败改派、争夺中增援、目击影响防守五个场景通过。
+
+本机 Unity 6000.5.10f1 实际刷新脚本并 Play `SampleScene`：初始双方小队分配到 B/C，随后红队命令改变至 A；据点进度、票数、玩家 HP 和小队存活人数实际变化。首次 Play 发现 2x Game 窗口下 HUD 与底部提示重叠；加入按逻辑分辨率缩放后再次 Play，面板分开、提示完整可读。Unity Console 显示 0 错误、0 警告。仍未验收独立桌面构建和长时间平衡。
+
+网页回归：`tsc --noEmit` 通过，Vitest 13 个测试文件、117/117 测试通过，Vite 生产构建通过；构建仍提示已有 Three.js 分块超过 500 kB。LAN 双客户端自动回归通过，覆盖房主权威、重连、房主移交、倒计时取消、AI 接管、对立阵营和八人容量。本机沙盒首次禁止监听临时测试端口，允许回环端口后运行通过。
+
 # 0.19.1 QA：Unity Safe Mode 修复
 
 本轮开始前本地与 `origin/main` 均为 `e1040bc`、版本 `0.19.0`。Unity 6000.5.10f1 首次打开时出现 337 条编译错误，来自未使用的旧模板包。移除不兼容包后 Console 缩减为 5 条原型源代码错误，全部是未显式启用内置 Physics/Audio 模块；补齐后 `Assembly-CSharp.dll` 编译成功，编辑器退出 Safe Mode。
