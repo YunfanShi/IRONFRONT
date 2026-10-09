@@ -1,3 +1,9 @@
+# 0.22.0 开发进度
+
+## Unity 兵种、出击界面与构建入口
+
+四兵种默认武器和步兵支援已接入玩家与 AI；进入原型先选择兵种再开局，HUD 显示护甲、弹药和技能资源。Unity 6000.5.10f1 已实测菜单、医疗兵出击与工程护甲；macOS 桌面构建及独立程序启动、出击、护甲使用均通过。实现和当前限制见 [docs/UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建步骤见 [docs/UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。开发继续在 `codex/unity-port`。
+
 # 0.21.0 开发进度
 
 ## Unity 步兵战术

@@ -22,6 +22,8 @@ namespace Ironfront.UnityPrototype
         public PrototypePlayer Player { get; private set; }
         public PrototypeCommander BlueCommander { get; private set; }
         public PrototypeCommander RedCommander { get; private set; }
+        public bool MatchStarted { get; private set; }
+        public PrototypeFrontend Frontend { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
@@ -68,14 +70,27 @@ namespace Ironfront.UnityPrototype
             BuildBots();
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
+            Frontend = new PrototypeFrontend();
+            Frontend.Open();
         }
 
         private static Material MakeMaterial(Color color, bool unlit = false)
         {
-            Shader shader = Shader.Find(unlit ? "Universal Render Pipeline/Unlit" :
-                "Universal Render Pipeline/Lit");
-            if (shader == null) shader = Shader.Find(unlit ? "Unlit/Color" : "Standard");
-            var material = new Material(shader);
+            // Resources material assets keep the URP shaders in standalone builds.
+            // Shader.Find alone works in the Editor but may be stripped by BuildPipeline.
+            Material template = Resources.Load<Material>(unlit ?
+                "Materials/PrototypeUnlit" : "Materials/PrototypeLit");
+            Material material;
+            if (template != null) material = new Material(template);
+            else
+            {
+                Shader shader = Shader.Find(unlit ? "Universal Render Pipeline/Unlit" :
+                    "Universal Render Pipeline/Lit");
+                if (shader == null) shader = Shader.Find(unlit ? "Unlit/Color" : "Standard");
+                if (shader == null) throw new System.InvalidOperationException(
+                    "Prototype URP material asset is missing and no fallback shader was found.");
+                material = new Material(shader);
+            }
             material.color = color;
             if (material.HasProperty("_BaseColor")) material.SetColor("_BaseColor", color);
             return material;
@@ -215,14 +230,16 @@ namespace Ironfront.UnityPrototype
             object3D.name = team + " Soldier";
             object3D.transform.SetParent(transform);
             PrototypeBot bot = object3D.AddComponent<PrototypeBot>();
+            PrototypeInfantryClass role = (PrototypeInfantryClass)(Bots.Count % 4);
             Bots.Add(bot);
-            bot.Initialize(this, Navigation, team, new Vector2(x, z));
+            bot.Initialize(this, Navigation, team, new Vector2(x, z), role);
             return bot;
         }
 
         private void Update()
         {
             if (Match == null || Player == null) return;
+            if (!MatchStarted) return;
             Match.Tick(Mathf.Min(Time.deltaTime, 0.05f), Player, Bots);
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
@@ -232,6 +249,14 @@ namespace Ironfront.UnityPrototype
                 entry.Value.sharedMaterial = point.Owner == PrototypeTeam.Blue ? markerBlue :
                     point.Owner == PrototypeTeam.Red ? markerRed : markerNeutral;
             }
+        }
+
+        public void BeginBattle()
+        {
+            if (MatchStarted || Match == null || Player == null) return;
+            MatchStarted = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         public void ShowTracer(Vector3 from, Vector3 to, PrototypeTeam team)
@@ -258,6 +283,16 @@ namespace Ironfront.UnityPrototype
             float canvasHeight = Screen.height / scale;
             Matrix4x4 previousMatrix = GUI.matrix;
             GUI.matrix = Matrix4x4.Scale(new Vector3(scale, scale, 1f));
+            if (!MatchStarted)
+            {
+                if (Frontend != null && Frontend.Draw(canvasWidth, canvasHeight))
+                {
+                    Player.SelectClass(Frontend.SelectedClass);
+                    BeginBattle();
+                }
+                GUI.matrix = previousMatrix;
+                return;
+            }
             var title = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
             title.normal.textColor = Color.white;
             var body = new GUIStyle(GUI.skin.label) { fontSize = 14 };
@@ -267,7 +302,8 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(25, 55, 340, 23),
                 "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "     RED " + Mathf.CeilToInt(Match.RedTickets), body);
             GUI.Label(new Rect(25, 81, 340, 23),
-                "HP " + Mathf.CeilToInt(Player.Health) + "     IF-27 " + Player.Ammo + " / " + Player.Reserve +
+                "HP " + Mathf.CeilToInt(Player.Health) + "  ARMOR " + Mathf.CeilToInt(Player.Kit.Armor) +
+                "   " + Player.Kit.Weapon.Name + " " + Player.Ammo + " / " + Player.Reserve +
                 (Player.Reloading ? "  RELOADING" : ""), body);
             for (int i = 0; i < Match.Points.Count; i++)
             {
@@ -305,7 +341,10 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
             GUI.Label(new Rect(12, canvasHeight - 35, canvasWidth - 24f, 25),
-                "WASD move  |  Mouse aim  |  Left click fire  |  R reload  |  Shift sprint  |  Space jump  |  Esc cursor", body);
+                "WASD move  |  Mouse aim  |  LMB fire  |  R reload  |  X class ability (" +
+                Player.Kit.GadgetCharges + ")  |  Esc cursor", body);
+            if (!string.IsNullOrEmpty(Player.SupportStatus))
+                GUI.Label(new Rect(12, canvasHeight - 59, 370, 24), Player.SupportStatus, body);
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)
             {
                 float cx = canvasWidth / 2f;
