@@ -8,6 +8,7 @@ import {WeaponView} from './WeaponView';
 import {WEAPONS,type WeaponId} from '../combat/Weapons';
 import {VEHICLE_TYPES,vehicleMuzzle} from '../vehicles/Vehicle';
 import {EquipmentView,type EquipmentItem} from './EquipmentView';
+import {FieldVisuals} from './FieldVisuals';
 import {VehicleVisuals} from './VehicleVisuals';
 
 const material=(hex:number,roughness=.9,metalness=.0)=>new THREE.MeshStandardMaterial({color:hex,roughness,metalness});
@@ -27,6 +28,7 @@ export class WorldView {
  readonly camera:THREE.PerspectiveCamera;readonly weapon:WeaponView;readonly equipment:EquipmentView;
  private soldierRender:SoldierVisuals;private vehicleRender:VehicleVisuals;private art:EnvironmentArt;
  private markers:{ring:THREE.Mesh;label:THREE.Sprite;beam:THREE.Mesh}[]=[];
+ readonly field=new FieldVisuals(this.scene);
  private projectileMeshes=new Map<number,THREE.Mesh>();
  private tracer:{line:THREE.Line;life:number;followMuzzle:boolean;equipment:boolean;fresh:boolean}[]=[];
  private blastFx:{mesh:THREE.Mesh;life:number;max:number;radius:number}[]=[];
@@ -232,6 +234,7 @@ export class WorldView {
   for(const object of this.scene.children)if(object.userData.sky)object.position.copy(this.camera.position);
   this.camera.rotation.order='YXZ';this.camera.rotation.y=look.yaw;this.camera.rotation.x=look.pitch-this.cameraKick;
   this.camera.rotation.z=this.hitRoll;this.hitRoll=THREE.MathUtils.damp(this.hitRoll,0,10,dt);this.hitFlash=Math.max(0,this.hitFlash-dt*1.7);
+  if(p.downedUntil>battle.elapsed){this.camera.position.y=heightAt(p.pos.x,p.pos.z)+.35;this.camera.rotation.z=.35;}
   if(look.deathAge!==undefined){const age=look.deathAge,fall=THREE.MathUtils.smoothstep(age,0,1.15),rise=THREE.MathUtils.smoothstep(age,2,4.8);this.camera.position.set(p.pos.x*(1-rise),heightAt(p.pos.x,p.pos.z)+THREE.MathUtils.lerp(look.height,.28,fall)+rise*525,p.pos.z*(1-rise));this.camera.rotation.x=THREE.MathUtils.lerp(look.pitch-.25*fall,-Math.PI/2+.001,rise);this.camera.rotation.y=look.yaw*(1-rise);this.camera.rotation.z=.75*fall*(1-rise);}
   if(look.introAge!==undefined){const t=THREE.MathUtils.smoothstep(look.introAge,0,3);this.camera.position.y+=18*(1-t);this.camera.rotation.x-=.45*(1-t);}
   if(look.resultAge!==undefined){const t=Math.min(1,look.resultAge/4),a=look.yaw+t*.6;this.camera.position.set(p.pos.x+Math.sin(a)*10, heightAt(p.pos.x,p.pos.z)+5+t*8,p.pos.z+Math.cos(a)*10);this.camera.lookAt(p.pos.x,heightAt(p.pos.x,p.pos.z)+1.5,p.pos.z);}
@@ -245,7 +248,7 @@ export class WorldView {
   const vehicleZoom=vehicle&&look.ads?3:1;const adsFov=THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(THREE.MathUtils.degToRad(this.baseFov/2))/battle.activeWeapon.zoom));this.camera.fov=THREE.MathUtils.damp(this.camera.fov,(vehicle?this.baseFov/vehicleZoom:THREE.MathUtils.lerp(this.baseFov,adsFov,aim))+(look.sprint?3:0),13,dt);this.camera.updateProjectionMatrix();
   for(const item of this.iff){const s=battle.soldiers[item.id]!;item.sprite.visible=s.alive&&s.vehicleId===null&&battle.canIdentify(s.pos,s.team===battle.player.team?60:35);item.sprite.position.set(s.pos.x,heightAt(s.pos.x,s.pos.z)+2.35,s.pos.z);const width=Math.max(.2,dist(p.pos,s.pos)*Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2))*.07);item.sprite.scale.set(width,width*.375,1)}
   this.updateSupportSmoke(battle);
-  this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt,look.infantryFirstPerson===false&&!look.ads&&!vehicle);this.vehicleRender.update(dt,!!look.vehicleFirstPerson||look.ads,!!look.network);
+  this.field.update(battle,dt,this.camera);this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt,look.infantryFirstPerson===false&&!look.ads&&!vehicle);this.vehicleRender.update(dt,!!look.vehicleFirstPerson||look.ads,!!look.network);
   for(let i=0;i<this.markers.length;i++){
    const owner=battle.points[i]!.owner,color=owner==='blue'?blue:owner==='red'?red:0xdbddd2;
    (this.markers[i]!.ring.material as THREE.MeshBasicMaterial).color.setHex(color);
@@ -261,7 +264,7 @@ export class WorldView {
   this.renderer.render(this.scene,this.camera);
  }
  dispose(){
-  window.removeEventListener('resize',this.resize);this.weapon.dispose();this.equipment.dispose();this.soldierRender.dispose();this.vehicleRender.dispose();this.art.dispose();
+  window.removeEventListener('resize',this.resize);this.field.dispose();this.weapon.dispose();this.equipment.dispose();this.soldierRender.dispose();this.vehicleRender.dispose();this.art.dispose();
   // THREE.Scene.clear does not free GPU resources: release all generated assets on restart.
   const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();
   this.scene.traverse((o:THREE.Object3D)=>{

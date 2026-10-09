@@ -11,7 +11,7 @@ import {AudioManager} from './audio/AudioManager';
 const app=document.querySelector<HTMLDivElement>('#app');
 if(!app)throw new Error('Missing application mount');
 const ui=new UI(app),audio=new AudioManager();audio.volume=ui.settings.volume;audio.musicVolume=ui.settings.musicVolume;audio.effectsVolume=ui.settings.effectsVolume;audio.ambientVolume=ui.settings.ambientVolume;
-let waitingLateReady=false;let nextEquipmentAction=0;let selectedEquipment:EquipmentItem|null=null,equipmentUntil=0,equipmentUsedAt=-99999;
+let nextLockAlarm=0;let giveUpHeld=false;let waitingLateReady=false;let nextEquipmentAction=0;let selectedEquipment:EquipmentItem|null=null,equipmentUntil=0,equipmentUsedAt=-99999;
 let lockFailed=false,recoilPitch=0,recoilYaw=0;
 let lan:LanClient|null=null;
 let battle:Battle|null=null,world:WorldView|null=null;
@@ -60,6 +60,7 @@ ui.onAssignTeam=(id,team)=>lan?.action('team',id,{team});
 ui.onProbe=async(address)=>{const el=ui.modal.querySelector('#lan-status');if(el)el.textContent='正在测试 HTTP 服务…';try{const url=lanAddress(address),info=await lanJSON(new URL('/api/status',url));if(el)el.textContent=`服务可达：${url.host} · 版本 ${info.version} · ${info.rooms.length} 个房间`;}catch(error){if(el)el.textContent=String(error);}};
 let connecting=false;
 ui.onNetwork=async(address,code,host)=>{if(connecting)return;connecting=true;const status=ui.modal.querySelector('#lan-status');if(status)status.textContent='连接房间服务…';const client=new LanClient();try{const shared=await client.connect(address,code,host,{...ui.settings,loadout:ui.loadout,aiEnabled:ui.modal.querySelector<HTMLInputElement>('#lan-ai')?.checked!==false,joinTeam:ui.modal.querySelector<HTMLSelectElement>('#lan-team')?.value??'blue'});lan?.close();lan=client;ui.isLanHost=client.isHost;ui.isLanSession=true;ui.connection={address:client.address,code:client.code,shareUrls:client.shareUrls};client.onRelocate=()=>{velocityX=0;velocityZ=0;velocityY=0;jumpOffset=0;};client.onDisconnect=()=>{returnMenu();const el=ui.modal.querySelector('#lan-status');if(el)el.textContent='连接已断开，请重新加入房间。';};start(ui.settings,shared);client.action('loadout',undefined,{loadout:ui.loadout});ui.hud.querySelector('#lan-hud')!.textContent=`LAN ${client.code} · YOU ${client.id+1} · IP ${address}`;}catch(error){client.close();if(status)status.textContent=String(error);}finally{connecting=false;}};
+ui.onCallRescue=()=>{if(lan)lan.action('rescue');else battle?.callRescue();};ui.onGiveUp=held=>giveUpHeld=held;ui.onVehicleAmmo=mode=>{if(lan)lan.action('veh-ammo',mode);else battle?.setVehicleAmmo(mode);};
 ui.onUnstuck=()=>{if(lan){lan.action('unstuck');resume();return;}if(battle?.unstuckPlayer()){velocityX=0;velocityZ=0;velocityY=0;jumpOffset=0;resume();}};
 ui.onStart=options=>{lan?.close();lan=null;ui.isLanHost=false;ui.isLanSession=false;ui.connection=null;ui.hud.querySelector('#lan-hud')!.textContent='';start(options);};ui.onMenu=returnMenu;ui.onResume=resume;ui.onRespawn=respawn;
 ui.onSupport=(id,at)=>{if(!battle)return;if(lan){lan.action('support',id,{at});ui.support(battle,'请求已发送到房主');return;}const result=battle.requestSupport(id,at);ui.support(battle,result.reason)};
@@ -90,13 +91,14 @@ document.addEventListener('keydown',e=>{
  if(!battle||e.target instanceof HTMLInputElement||e.target instanceof HTMLSelectElement)return;
  if(['Space','Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','F1','F2','F3','F4'].includes(e.code))e.preventDefault();
  keys.add(e.code);
- if(e.repeat)return;
+ if(e.repeat)return;if(battle.player.downedUntil>battle.elapsed){if(e.code==='KeyH')ui.onCallRescue();return;}
  if(e.code==='KeyQ'&&battle.player.alive){if(ui.screen==='support'){resume();return}if(!paused){paused=true;aiming=false;shooting=false;shotPending=false;keys.clear();mapVisible=false;scoreVisible=false;ui.toggleMap(false,battle);ui.toggleScore(false,battle);ui.support(battle);if(document.pointerLockElement)document.exitPointerLock();}return}
  if(e.code==='Escape'&&ui.screen==='support'){resume();return}
  if(['preparation','intro'].includes(ui.screen))return;
  if(paused&&e.code!=='Escape'&&e.code!=='F3')return;
  const equipmentKey:Record<string,EquipmentItem>={KeyG:battle.loadout.throwable,KeyX:battle.loadout.gadget,KeyZ:'at',KeyB:'aa',Digit3:battle.loadout.gadget,Digit4:battle.loadout.throwable,Digit5:'at',Digit6:'aa'};
  if(equipmentKey[e.code]&&!battle.inVehicle){const item=equipmentKey[e.code]!;if((item==='at'||item==='aa')&&battle.loadout.classId!=='engineer')return;selectedEquipment=item;equipmentUntil=Infinity;equipmentUsedAt=-99999;shooting=false;shotPending=false;semiLatch=false;aiming=false;audio.click();return;}
+ if(battle.inVehicle&&['Digit1','Digit2','KeyX'].includes(e.code)){if(lan)lan.action(e.code==='KeyX'?'flares':'veh-weapon',e.code==='Digit2'?1:0);else if(e.code==='KeyX')battle.deployFlares();else battle.selectVehicleWeapon(e.code==='Digit2'?1:0);return;}
  if(lan&&!paused){const actions:Record<string,string>={KeyR:'reload',KeyE:'enter',Digit1:'weapon',Digit2:'weapon',F1:'seat',F2:'seat',F3:'seat',F4:'seat'};const action=actions[e.code];if(action){lan.action(action,action==='weapon'?(e.code==='Digit1'?battle.loadout.primary:battle.loadout.secondary):action==='seat'?Number(e.code.slice(1))-1:undefined);if(action==='weapon'){selectedEquipment=null;equipmentUntil=0;shooting=false;semiLatch=false;}return;}}
  if((e.code==='ShiftLeft'||e.code==='ShiftRight')&&!battle.inVehicle){shiftPressedAt=performance.now();if(jumpOffset===0&&battle.startSlide({x:velocityX,z:velocityZ},Math.hypot(velocityX,velocityZ))){aiming=false;crouchToggle=false;audio.land()}}
  if(battle.inVehicle&&['F1','F2','F3','F4'].includes(e.code)){battle.switchVehicleSeat(Number(e.code.slice(1))-1);shooting=false;shotPending=false;audio.click();return}
@@ -132,7 +134,7 @@ function playerMovement(dt:number){
   sprinting=false;crouchToggle=false;moving=Math.abs(forward)>0||Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);sideLean=0;
   const arrows=keys.has('ArrowUp')||keys.has('ArrowDown')||keys.has('ArrowLeft')||keys.has('ArrowRight');
   battle.drivePlayerVehicle(arrows?(keys.has('ArrowUp')?1:0)-(keys.has('ArrowDown')?1:0):forward,arrows?(keys.has('ArrowRight')?1:0)-(keys.has('ArrowLeft')?1:0):horizontal,dt,arrows?undefined:lookYaw,keys.has('Space'));battle.aimPlayerVehicle(lookYaw,lookPitch,dt);battle.changeAltitude((keys.has('Space')?1:0)-(keys.has('ControlLeft')?1:0),dt);
-  const v=battle.playerVehicle!,mg=battle.playerSeat===1||v.kind==='scout';
+  const v=battle.playerVehicle!,mg=battle.playerSeat===1||v.kind==='scout'||v.weaponSlot===1;
   if((shooting||shotPending)&&world&&battle.elapsed>=(mg?v.nextMGShot:v.nextShot)&&battle.playerSeat<2){const direction=world.vehicleAim(battle);if(battle.shootPlayerVehicle(direction)){shotPending=false;ui.hud.classList.add('firing');setTimeout(()=>ui.hud.classList.remove('firing'),110)}}
   return;
  }
@@ -184,12 +186,13 @@ function frame(time:number){
  if(lan){if(paused)lan.input({forward:0,side:0,fire:false,yaw:lookYaw,pitch:lookPitch});lan.reconcile(battle,dt);}
  const events=lan?lan.events():battle.events();
  if(events.length){if(lan)for(const event of events)if(event.type==='shot'&&event.player){world.playerShot(event.weapon??battle.playerWeapon);recoilPitch=Math.min(.12,recoilPitch+battle.activeWeapon.recoil*.07);recoilYaw+=(Math.random()-.5)*battle.activeWeapon.recoil*.02;}for(const event of events)if(event.type==='playerHit'||(event.type==='vehicleHit'&&event.id===battle.playerVehicle?.id))ui.showDamage(event.amount,event.from,battle,lookYaw);ui.logEvents(events,battle);audio.play(events,battle.player.pos,lookYaw);world.showEvents(events,battle.player.pos);
-  for(const e of events)if(e.type==='hitConfirmed'&&e.owner===battle.player.id)ui.showConfirmed(e);
+  for(const e of events)if(e.type==='thrown'&&e.owner===battle.player.id){equipmentUsedAt=performance.now();world.weapon.throw();}for(const e of events)if(e.type==='hitConfirmed'&&e.owner===battle.player.id)ui.showConfirmed(e);
   if(events.some(e=>e.type==='shot'&&e.player&&e.hit))ui.showHit();
  }
- if(!['preparation','intro'].includes(ui.screen)&&!battle.player.alive&&!battle.finished&&deathAge===null){
+ if(!['preparation','intro'].includes(ui.screen)&&!battle.player.alive&&battle.player.downedUntil<=battle.elapsed&&!battle.finished&&deathAge===null){
   paused=false;shooting=false;shotPending=false;if(document.pointerLockElement)document.exitPointerLock();deathAge=0;ui.beginDeath();
  }
+ if(battle.player.downedUntil>battle.elapsed){paused=false;shooting=false;shotPending=false;ui.downed(battle);if(document.pointerLockElement)document.exitPointerLock();if(lan)lan.input({yaw:lookYaw,pitch:lookPitch,forward:0,side:0,fire:false,giveUp:keys.has('Space')||giveUpHeld});else if(keys.has('Space')||giveUpHeld)battle.giveUp(dt);}else if(battle.player.alive&&ui.screen==='downed'){giveUpHeld=false;ui.hideOverlay();requestLock();}
  if(deathAge!==null&&!battle.player.alive&&!battle.finished){deathAge+=dt;if(deathAge>=4.8&&ui.screen!=='respawn')ui.dead(battle);}else if(battle.player.alive){if(deathAge!==null){selectedEquipment=null;equipmentUntil=0;paused=false;ui.hideOverlay();faceObjective();requestLock();}deathAge=null;}
  if(battle.finished&&ui.screen!=='end'){
   paused=true;shooting=false;shotPending=false;if(document.pointerLockElement)document.exitPointerLock();resultStarted=performance.now();ui.end(battle);
@@ -198,8 +201,9 @@ function frame(time:number){
  const eyeTarget=battle.sliding?.72:crouched?1.07:1.78;eyeSmooth+=(eyeTarget-eyeSmooth)*(1-Math.exp(-dt*12));
  if(battle.player.hp<lastPlayerHP){audio.hurt();ui.hud.classList.remove('hurt');void ui.hud.offsetWidth;ui.hud.classList.add('hurt');setTimeout(()=>ui.hud.classList.remove('hurt'),430)}
  lastPlayerHP=battle.player.hp;
- world.render(battle,dt,{yaw:lookYaw+recoilYaw,pitch:lookPitch+recoilPitch,height:eyeSmooth+jumpOffset,ads:aiming,moving:moving&&!paused,sprint:sprinting,reload:battle.isReloading(),speed:actualSpeed,side:sideLean,vehicleFirstPerson,infantryFirstPerson,introAge:ui.screen==='intro'?3-(lan?lan.countdown:introRemaining):undefined,resultAge:ui.screen==='end'?(performance.now()-resultStarted)/1000:undefined,network:!!lan,equipment:selectedEquipment,equipmentAge:Math.min(1,Math.max(0,(performance.now()-equipmentUsedAt)/700)),deathAge:deathAge??undefined});
+ world.render(battle,dt,{yaw:lookYaw+recoilYaw,pitch:lookPitch+recoilPitch,height:eyeSmooth+jumpOffset+battle.player.altitude,ads:aiming,moving:moving&&!paused,sprint:sprinting,reload:battle.isReloading(),speed:actualSpeed,side:sideLean,vehicleFirstPerson,infantryFirstPerson,introAge:ui.screen==='intro'?3-(lan?lan.countdown:introRemaining):undefined,resultAge:ui.screen==='end'?(performance.now()-resultStarted)/1000:undefined,network:!!lan,equipment:selectedEquipment,equipmentAge:Math.min(1,Math.max(0,(performance.now()-equipmentUsedAt)/700)),deathAge:deathAge??undefined});
  ui.hud.classList.toggle('vehicle-optics',aiming&&battle.inVehicle);ui.hud.classList.toggle('aiming',aiming&&!battle.isReloading()&&!battle.inVehicle);ui.hud.classList.toggle('scoped',aiming&&battle.activeWeapon.zoom>=3&&!battle.isReloading()&&!battle.inVehicle);ui.hud.style.setProperty('--ads-blend',String(world.weapon.aimBlend));ui.hud.classList.toggle('sprinting',sprinting);
+ if(battle.playerVehicle&&battle.playerVehicle.warningUntil>battle.elapsed&&performance.now()>nextLockAlarm){audio.warning();nextLockAlarm=performance.now()+650;}
  const aa=ui.hud.querySelector<HTMLElement>('#aa-status')!;aa.classList.toggle('hidden',selectedEquipment!=='aa');if(selectedEquipment==='aa'){const target=battle.getAATarget({x:-Math.sin(lookYaw)*Math.cos(lookPitch),y:Math.sin(lookPitch),z:-Math.cos(lookYaw)*Math.cos(lookPitch)});aa.textContent=!battle.aaCount?'导弹耗尽':battle.aaUntil>battle.elapsed?'装填中 · '+(battle.aaUntil-battle.elapsed).toFixed(1)+'s':target?'◇ 目标捕获 · 左键发射 · '+Math.round(Math.hypot(target.pos.x-battle.player.pos.x,target.pos.z-battle.player.pos.z))+'m':'对准空中敌方载具 · 450m · 右键瞄准';aa.classList.toggle('locked',!!target);}
  const hit=ui.hud.querySelector('#hit-feedback')!;if(performance.now()-(ui as any).confirmedAt>1000)hit.classList.add('hidden');
  ui.heldEquipment=selectedEquipment;ui.drawHUD(battle,time/1000,lookYaw);

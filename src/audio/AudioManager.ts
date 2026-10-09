@@ -22,6 +22,7 @@ export class AudioManager {
  vehicleCannon(loudness=1,pan=0){this.duckUntil=performance.now()+800;if(this.sample('cannon',loudness,pan))return;this.beep(74,.26,.20*loudness,28,'sawtooth',pan);this.noiseBurst(.31,.43*loudness,1800,pan)}
  vehicleEngine(active:boolean,speed01:number){const c=this.context;if(!c||c.state!=='running')return;if(!this.engineOsc){this.engineOsc=c.createOscillator();this.engineGain=c.createGain();this.engineOsc.type='sawtooth';this.engineOsc.frequency.value=48;this.engineGain.gain.value=.0001;this.engineOsc.connect(this.engineGain).connect(c.destination);this.engineOsc.start()}const now=c.currentTime,target=active&&this.volume>0?(.012+.023*clamp(speed01,0,1))*this.volume*this.effectsVolume:.0001;this.engineOsc.frequency.setTargetAtTime(48+54*clamp(speed01,0,1),now,.08);this.engineGain!.gain.setTargetAtTime(target,now,.10)}
  hit(){this.beep(820,.07,.07,370,'triangle')}
+ warning(){this.beep(1050,.12,.12,1050,'square');}
  click(){if(this.sample('ui-click',.35))return;this.beep(550,.045,.05,800,'square')}
  reload(weapon:WeaponId='carbine'){if(this.sample(weapon==='pistol'?'pistol-reload':'rifle-reload',.45))return;this.beep(680,.06,.045,410,'triangle');setTimeout(()=>this.beep(450,.09,.06,580,'triangle'),450)}
  footstep(loudness=1){if(this.sample('foot-gravel',loudness*.32))return;this.noiseBurst(.082,.12*loudness,620)}

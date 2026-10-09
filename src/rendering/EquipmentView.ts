@@ -96,7 +96,7 @@ export class EquipmentView {
     }
     muzzleWorldPosition(){this.root.updateWorldMatrix(true,true);const p=this.root.localToWorld(new THREE.Vector3(0,this.current==='mountedMG'?.01:0,this.current==='mountedMG'?-.98:-.805));return {x:p.x,y:p.y,z:p.z};}
     render(item: EquipmentItem | null, age: number, ads = false) { this.current=item;this.root.visible = item !== null; for (const [id, g] of this.models)
-        g.visible = id === item; const action = Math.sin(Math.min(1, Math.max(0, age)) * Math.PI); this.root.position.set(item === 'cockpit' ? 0 : ads && (item === 'mountedMG'||item === 'at'||item === 'aa') ? 0 : .24, item === 'cockpit' ? -.35 : -.23 - action * .04, ads && (item === 'mountedMG'||item === 'at'||item === 'aa') ? -.4 : -.55); this.root.rotation.set(action * .16, 0, action * -.07); }
+        g.visible = id === item; const action = Math.sin(Math.min(1, Math.max(0, age)) * Math.PI); this.root.position.set(item === 'cockpit' ? 0 : ads && (item === 'mountedMG'||item === 'at'||item === 'aa') ? 0 : .24, item === 'cockpit' ? -.35 : -.23 + action * .16, ads && (item === 'mountedMG'||item === 'at'||item === 'aa') ? -.4 : -.55 - ((item==='frag'||item==='smoke')?action*.65:0)); this.root.rotation.set(action * ((item==='frag'||item==='smoke')?-1.2:.16), 0, action * -.07); }
     dispose() { this.root.removeFromParent(); this.root.traverse(o => { if (o instanceof THREE.Mesh)
         o.geometry.dispose(); }); for (const m of this.mats)
         m.dispose(); }

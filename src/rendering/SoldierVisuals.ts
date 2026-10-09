@@ -4,7 +4,7 @@ import {heightAt} from '../core/math';
 import type {Team} from '../world/Layout';
 
 type PartKind='rig'|'head'|'armL'|'armR'|'legL'|'legR'|'weapon'|'gadget';
-type Part={offset:[number,number,number];kind:PartKind;geometry:THREE.BufferGeometry;material:THREE.Material;humanOnly?:boolean;gadgetType?:Soldier['equipmentKind']};
+type Part={offset:[number,number,number];kind:PartKind;geometry:THREE.BufferGeometry;material:THREE.Material|THREE.Material[];humanOnly?:boolean;gadgetType?:Soldier['equipmentKind']};
 type Army={team:Team;meshes:THREE.InstancedMesh[];soldiers:Soldier[];parts:Part[]};
 type VisualState={x:number;z:number;yaw:number;phase:number;speed:number;deathLean:number};
 
@@ -27,28 +27,22 @@ export class SoldierVisuals {
   const geoBox=(w:number,h:number,d:number)=>new THREE.BoxGeometry(w,h,d);
   for(const team of ['blue','red'] as Team[]){
    const suit=new THREE.MeshStandardMaterial({color:team==='blue'?0x3577a0:0xa64f46,roughness:.96});
+   const cloth=document.createElement('canvas');cloth.width=cloth.height=16;const cc=cloth.getContext('2d')!;cc.fillStyle=team==='blue'?'#3577a0':'#a64f46';cc.fillRect(0,0,16,16);cc.fillStyle=team==='blue'?'#316b90':'#95473f';for(let i=0;i<12;i++)cc.fillRect((i*7)%16,(i*5)%16,2,2);cc.fillStyle='#283942';cc.fillRect(6,9,4,3);const clothMap=new THREE.CanvasTexture(cloth);clothMap.magFilter=THREE.NearestFilter;clothMap.minFilter=THREE.NearestFilter;clothMap.colorSpace=THREE.SRGBColorSpace;suit.map=clothMap;
    const trim=new THREE.MeshStandardMaterial({color:team==='blue'?0x6d9eae:0xaa826b,roughness:.84});
+   const face=document.createElement('canvas');face.width=face.height=8;const c=face.getContext('2d')!;c.fillStyle='#be9873';c.fillRect(0,0,8,8);c.fillStyle='#49352a';c.fillRect(0,0,8,2);c.fillRect(0,2,1,2);c.fillRect(7,2,1,2);c.fillStyle='#eee8da';c.fillRect(1,3,2,1);c.fillRect(5,3,2,1);c.fillStyle=team==='blue'?'#385f9a':'#779545';c.fillRect(2,3,1,1);c.fillRect(5,3,1,1);c.fillStyle='#976946';c.fillRect(3,4,2,2);c.fillStyle='#60402e';c.fillRect(2,6,4,2);c.fillStyle='#c2997a';c.fillRect(3,6,2,1);const tx=new THREE.CanvasTexture(face);tx.magFilter=THREE.NearestFilter;tx.minFilter=THREE.NearestFilter;tx.colorSpace=THREE.SRGBColorSpace;const faceMat=new THREE.MeshStandardMaterial({map:tx,roughness:1}),hair=new THREE.MeshStandardMaterial({color:0x49352a,roughness:1});
    const parts:Part[]=[
-    {geometry:geoBox(.18,.20,.07),material:trim,offset:[-.38,1.78,.27],kind:'rig'},
-    {geometry:geoBox(.18,.20,.07),material:trim,offset:[.38,1.78,.27],kind:'rig'},
-    {geometry:geoBox(.60,.25,.19),material:plate,offset:[0,1.22,.33],kind:'rig'},
-    {geometry:geoBox(.22,.18,.16),material:plate,offset:[-.26,.69,.23],kind:'legL'},
-    {geometry:geoBox(.22,.18,.16),material:plate,offset:[.26,.69,.23],kind:'legR'},
-    {geometry:geoBox(.78,1.02,.43),material:suit,offset:[0,1.45,0],kind:'rig'},
-    {geometry:geoBox(.82,.39,.50),material:plate,offset:[0,1.55,.04],kind:'rig'},
-    {geometry:geoBox(.66,.14,.62),material:trim,offset:[0,2.63,0],kind:'head'},
-    {geometry:geoBox(.62,.62,.58),material:skin,offset:[0,2.30,0],kind:'head'},
-    {geometry:geoBox(.08,.07,.015),material:visor,offset:[-.15,2.34,.30],kind:'head'},
-    {geometry:geoBox(.08,.07,.015),material:visor,offset:[.15,2.34,.30],kind:'head'},
-    {geometry:geoBox(.16,.04,.02),material:plate,offset:[0,2.15,.30],kind:'head'},
-    {geometry:geoBox(.32,.22,.025),material:badge,offset:[0,1.62,.31],kind:'rig',humanOnly:true},
-    {geometry:geoBox(.34,.80,.38),material:suit,offset:[-.60,1.46,.07],kind:'armL'},
-    {geometry:geoBox(.34,.80,.38),material:suit,offset:[.60,1.46,.07],kind:'armR'},
-    {geometry:geoBox(.40,.99,.40),material:suit,offset:[-.26,.65,0],kind:'legL'},
-    {geometry:geoBox(.40,.99,.40),material:suit,offset:[.26,.65,0],kind:'legR'},
-    {geometry:geoBox(.45,.23,.60),material:boots,offset:[-.26,.15,.12],kind:'legL'},
-    {geometry:geoBox(.45,.23,.60),material:boots,offset:[.26,.15,.12],kind:'legR'},
-    {geometry:geoBox(.67,.81,.36),material:plate,offset:[0,1.37,-.39],kind:'rig'},
+    {geometry:geoBox(.8,1.2,.4),material:suit,offset:[0,1.45,0],kind:'rig'},
+    {geometry:geoBox(.8,.8,.8),material:[hair,hair,hair,skin,faceMat,hair],offset:[0,2.45,0],kind:'head'},
+    {geometry:geoBox(.24,.18,.02),material:badge,offset:[0,1.68,.215],kind:'rig',humanOnly:true},
+    {geometry:geoBox(.4,1.2,.4),material:suit,offset:[-.6,1.45,0],kind:'armL'},
+    {geometry:geoBox(.4,1.2,.4),material:suit,offset:[.6,1.45,0],kind:'armR'},
+    {geometry:geoBox(.4,.3,.41),material:skin,offset:[-.6,1.0,0],kind:'armL'},
+    {geometry:geoBox(.4,.3,.41),material:skin,offset:[.6,1.0,0],kind:'armR'},
+    {geometry:geoBox(.4,1.2,.4),material:trim,offset:[-.2,.65,0],kind:'legL'},
+    {geometry:geoBox(.4,1.2,.4),material:trim,offset:[.2,.65,0],kind:'legR'},
+    {geometry:geoBox(.41,.22,.44),material:boots,offset:[-.2,.15,.015],kind:'legL'},
+    {geometry:geoBox(.41,.22,.44),material:boots,offset:[.2,.15,.015],kind:'legR'},
+    {geometry:geoBox(.46,.56,.18),material:plate,offset:[0,1.4,-.28],kind:'rig'},
     {geometry:geoBox(.23,.25,.95),material:steel,offset:[.15,1.52,.59],kind:'weapon'},
     {geometry:geoBox(.31,.27,.36),material:trim,offset:[.40,1.12,.10],kind:'armR'},
     {geometry:geoBox(.13,.16,.43),material:steel,offset:[.15,1.55,1.14],kind:'weapon'},
@@ -85,11 +79,11 @@ export class SoldierVisuals {
     const crouching=soldier.state==='SEEK_COVER'||(soldier.state==='DEFEND'&&soldier.id%3===0);
     state.phase+=dt*((sprinting?3.1:2.0)+state.speed*(sprinting?13.2:10.4));
     const stride=Math.sin(state.phase)*state.speed*(fighting ? .52 : 1),step=Math.abs(Math.cos(state.phase))*state.speed;
-    const footY=heightAt(state.x,state.z),bob=step*.052*(crouching ? .45 : 1);
+    const footY=heightAt(state.x,state.z)+soldier.altitude,bob=step*.052*(crouching ? .45 : 1);
     const sY=Math.sin(state.yaw),cY=Math.cos(state.yaw);
     const deathAge=battle.elapsed-soldier.deathAt,fall=!soldier.alive?Math.min(1,Math.max(0,deathAge/.72)):0;
     const equipmentActive=!soldier.player&&(soldier.equipmentUntil??0)>battle.elapsed;const weaponId=soldier.id===battle.player.id?battle.playerWeapon:soldier.weaponId;const weaponScale=weaponId==='sniper'?1.45:weaponId==='lmg'?1.18:weaponId==='smg'?.72:1;
-    const corpseVisible=(soldier.id!==battle.player.id||showSelf)&&soldier.vehicleId===null&&(soldier.alive||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
+    const downed=soldier.downedUntil>battle.elapsed;const corpseVisible=(soldier.id!==battle.player.id||showSelf)&&soldier.vehicleId===null&&(soldier.alive||downed||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
     for(let j=0;j<army.parts.length;j++){
      const part=army.parts[j]!,[lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
      if(part.kind==='legL'){rx=stride*.38+(crouching ? .30 : 0);zz+=stride*.21;yy+=Math.max(0,-stride)*.09}
@@ -111,7 +105,7 @@ export class SoldierVisuals {
  }
  dispose(){
   const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>();
-  for(const army of this.armies)for(const m of army.meshes){this.scene.remove(m);geometries.add(m.geometry);materials.add(m.material as THREE.Material)}
-  for(const g of geometries)g.dispose();for(const m of materials)m.dispose();
+  for(const army of this.armies)for(const m of army.meshes){this.scene.remove(m);geometries.add(m.geometry);for(const mat of Array.isArray(m.material)?m.material:[m.material])materials.add(mat)}
+  for(const g of geometries)g.dispose();for(const m of materials){(m as THREE.MeshStandardMaterial).map?.dispose();m.dispose();}
  }
 }

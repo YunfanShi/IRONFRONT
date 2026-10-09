@@ -37,11 +37,11 @@ export class MenuPreview {
             arm.rotation.z = x < 0 ? -.28 : .35;
             box(.15, .16, .18, dark, x * 1.3, 1.04, .38);
         }
-        box(.42, .42, .38, skin, 0, 1.93, 0);
-        box(.3, .13, .27, dark, 0, 1.84, .025);
-        box(.45, .12, .42, cloth, 0, 2.1, 0);
-        box(.07, .045, .02, glass, -.11, 1.98, .20);
-        box(.07, .045, .02, glass, .11, 1.98, .20);
+        box(.55, .55, .55, skin, 0, 1.99, 0);
+        box(.55,.13,.55,dark,0,2.23,0);box(.32,.1,.02,dark,0,1.80,.282);
+
+        box(.10,.06,.015,glass,-.14,2.04,.282);
+        box(.10,.06,.015,glass,.14,2.04,.282);
         box(.035, .12, .03, tan, 0, 2.17, .17);
         box(.07, .1, .04, loadout.classId === 'medic' ? mat(0xcb6955) : mat(0x90bfd0), .33, 1.5, .2);
         const weapon = buildWeaponModel(loadout.primary, { steel: metal, matte: dark, grip: dark, tan, glove: dark, gold: tan, glass });

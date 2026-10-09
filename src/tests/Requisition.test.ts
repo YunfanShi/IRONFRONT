@@ -20,9 +20,9 @@ describe('Requisition transactions and state effects',()=>{
  it('rapid reinforcement accelerates allied AI respawns without inflating the army',()=>{
   const b=make();isolate(b);b.awardRP(500,'test');const blue=b.soldiers[1]!;blue.alive=false;blue.respawnAt=100;expect(b.requestSupport('reinforce','C').ok).toBe(true);run(b,1.2);expect(blue.alive).toBe(true);expect(b.soldiers).toHaveLength(16);expect(blue.morale).toBeGreaterThanOrEqual(.8);
  });
- it('summons three distinct vehicles, caps capacity and allows driving',()=>{
+ it('summons distinct vehicles without a global cap and allows driving',()=>{
   const b=make();b.awardRP(2000,'test');for(const kind of ['scout','ifv','tank'] as const){expect(b.requestSupport(kind,'C').ok).toBe(true);const v=b.vehicles.at(-1)!;expect(v.kind).toBe(kind);expect(v.hp).toBe(VEHICLE_TYPES[kind].maxHp);expect(v.driver).toBe(null);b.player.pos={...v.pos};expect(b.togglePlayerVehicle()).toBe(false);expect(v.airborne).toBe(true);run(b,8.1);expect(v.airborne).toBe(false);expect(b.togglePlayerVehicle()).toBe(true);const old={...v.pos};b.drivePlayerVehicle(1,0,.5);expect(Math.hypot(v.pos.x-old.x,v.pos.z-old.z)).toBeGreaterThan(0);expect(b.togglePlayerVehicle()).toBe(true);}
-  run(b,41);const before=b.requisitionPoints;expect(b.requestSupport('scout','C').ok).toBe(false);expect(b.requisitionPoints).toBe(before);
+  run(b,41);const before=b.requisitionPoints;expect(b.requestSupport('scout','C').ok).toBe(true);expect(b.requisitionPoints).toBe(before-SUPPORTS.scout.cost);
  });
 });
 describe('Loadout, equipment and scoring',()=>{
@@ -32,14 +32,14 @@ describe('Loadout, equipment and scoring',()=>{
  });
  it('awards kills and defense, prevents duplicate kills, and preserves independent ammo',()=>{
   const b=make();isolate(b);b.player.pos={x:0,z:0};b.playerAiming=true;const red=b.soldiers.find(s=>s.team==='red')!;red.pos={x:0,z:10};red.hp=20;const point=b.points[2]!;point.x=0;point.z=0;point.owner='blue';point.control=100;
-  expect(b.shootPlayer({x:0,y:-.063,z:.998})).toBe(true);expect(red.alive).toBe(false);expect(b.requisitionPoints).toBe(90);run(b,.2);b.shootPlayer({x:0,y:-.063,z:.998});expect(b.requisitionPoints).toBe(90);expect(b.playerAmmo).toBe(28);b.switchPlayerWeapon('marksman');expect(b.playerAmmo).toBe(12);
+  expect(b.shootPlayer({x:0,y:-.063,z:.998})).toBe(true);expect(red.alive).toBe(false);expect(red.downedUntil).toBeGreaterThan(b.elapsed);(b as any).eliminate(red,b.player);expect(b.requisitionPoints).toBe(90);run(b,.2);b.shootPlayer({x:0,y:-.063,z:.998});expect(b.requisitionPoints).toBe(90);expect(b.playerAmmo).toBe(28);b.switchPlayerWeapon('marksman');expect(b.playerAmmo).toBe(12);
  });
  it('awards real capture participation and player assists',()=>{
   const b=make();isolate(b);b.player.pos={x:0,z:0};b.playerAiming=true;const red=b.soldiers.find(s=>s.team==='red')!;red.pos={x:0,z:10};b.shootPlayer({x:0,y:-.063,z:.998});expect(red.hp).toBeLessThan(100);(b as unknown as {eliminate:(s:typeof red,k:typeof red)=>void}).eliminate(red,b.soldiers[1]!);expect(b.requisitionPoints).toBe(25);red.respawnAt=100;b.player.pos={x:b.points[2]!.x,z:b.points[2]!.z};run(b,8);expect(b.points[2]!.owner).toBe('blue');expect(b.requisitionPoints).toBeGreaterThanOrEqual(145);
  });
  it('medical and repair tools consume charges only when effective; grenades have a fuse',()=>{
   const b=make();b.setLoadout({classId:'medic'});isolate(b);expect(b.useGadget()).toBe(false);b.player.hp=40;expect(b.useGadget()).toBe(true);expect(b.player.hp).toBe(85);expect(b.gadgetCharges).toBe(1);expect(b.useGadget()).toBe(false);
-  b.player.pos={x:0,z:0};const red=b.soldiers.find(s=>s.team==='red')!;red.pos={x:0,z:28};red.hp=100;expect(b.throwGrenade({x:0,z:1})).toBe(true);expect(b.grenadeCount).toBe(1);run(b,1);expect(red.alive).toBe(true);run(b,.6);expect(red.alive).toBe(false);
+  b.player.pos={x:0,z:0};const red=b.soldiers.find(s=>s.team==='red')!;red.pos={x:0,z:28};red.hp=100;expect(b.throwGrenade({x:0,z:1})).toBe(true);expect(b.grenadeCount).toBe(1);run(b,2.2);expect(red.alive).toBe(true);const grenade=b.grenades[0]!;red.pos={x:grenade.pos.x,z:grenade.pos.z};red.hp=50;red.combatUntil=100;run(b,.3);expect(red.alive).toBe(false);expect(red.downedUntil).toBeGreaterThan(b.elapsed);
   const r=make();r.setLoadout({gadget:'repair'});const v=r.vehicles[0]!;r.player.pos={...v.pos};v.hp=100;expect(r.useGadget()).toBe(true);expect(v.hp).toBe(230);
  });
 });

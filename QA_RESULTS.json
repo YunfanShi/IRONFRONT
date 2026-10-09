@@ -15,22 +15,25 @@
     {
       "size": 8,
       "winner": "red",
-      "seconds": 119.25,
-      "captures": 10,
-      "deaths": 21,
-      "respawns": 20,
-      "shots": 35,
-      "vehicleShots": 149,
-      "vehicleDisabled": 1,
-      "vehicleRespawns": 0,
-      "majorStarts": 1,
-      "artilleryImpacts": 0,
+      "seconds": 211.25,
+      "captures": 16,
+      "deaths": 19,
+      "respawns": 18,
+      "shots": 253,
+      "vehicleShots": 164,
+      "vehicleDisabled": 2,
+      "vehicleRespawns": 1,
+      "majorStarts": 3,
+      "artilleryImpacts": 4,
       "eventKinds": [
+        "ARMORED_PUSH",
+        "ARTILLERY",
         "COUNTER_OFFENSIVE"
       ],
       "states": [
         "BOARD_VEHICLE",
         "DEFEND",
+        "DOWNED",
         "DRIVING",
         "ENGAGE",
         "FOLLOW_SQUAD",
@@ -38,62 +41,70 @@
         "MOVE_TO_OBJECTIVE",
         "RESPAWN",
         "RETREAT",
+        "REVIVE",
         "SEARCH",
         "SEEK_COVER",
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 58
+      "runtimeMs": 97
     },
     {
       "size": 16,
-      "winner": "red",
-      "seconds": 89.75,
-      "captures": 11,
-      "deaths": 41,
-      "respawns": 36,
-      "shots": 87,
-      "vehicleShots": 506,
-      "vehicleDisabled": 4,
-      "vehicleRespawns": 0,
-      "majorStarts": 1,
+      "winner": "blue",
+      "seconds": 117.75,
+      "captures": 12,
+      "deaths": 12,
+      "respawns": 9,
+      "shots": 81,
+      "vehicleShots": 440,
+      "vehicleDisabled": 5,
+      "vehicleRespawns": 2,
+      "majorStarts": 2,
       "artilleryImpacts": 0,
       "eventKinds": [
+        "ARMORED_PUSH",
         "COUNTER_OFFENSIVE"
       ],
       "states": [
         "BOARD_VEHICLE",
         "DEFEND",
+        "DOWNED",
         "DRIVING",
         "ENGAGE",
         "FOLLOW_SQUAD",
-        "IDLE",
         "MOVE_TO_OBJECTIVE",
         "RESPAWN",
         "RETREAT",
+        "REVIVE",
         "SEARCH",
         "SEEK_COVER",
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 209
+      "runtimeMs": 132
     },
     {
       "size": 32,
-      "winner": "red",
-      "seconds": 67.75,
-      "captures": 4,
-      "deaths": 55,
-      "respawns": 36,
-      "shots": 32,
-      "vehicleShots": 519,
-      "vehicleDisabled": 2,
+      "winner": "blue",
+      "seconds": 82.5,
+      "captures": 7,
+      "deaths": 13,
+      "respawns": 8,
+      "shots": 16,
+      "vehicleShots": 469,
+      "vehicleDisabled": 5,
       "vehicleRespawns": 0,
-      "majorStarts": 0,
-      "artilleryImpacts": 0,
-      "eventKinds": [],
+      "majorStarts": 2,
+      "artilleryImpacts": 4,
+      "eventKinds": [
+        "ARTILLERY",
+        "COUNTER_OFFENSIVE"
+      ],
       "states": [
         "BOARD_VEHICLE",
+        "DEFEND",
+        "DOWNED",
         "DRIVING",
         "ENGAGE",
         "FOLLOW_SQUAD",
@@ -101,32 +112,34 @@
         "MOVE_TO_OBJECTIVE",
         "RESPAWN",
         "RETREAT",
+        "REVIVE",
         "SEARCH",
         "SEEK_COVER",
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 317
+      "runtimeMs": 335
     },
     {
       "size": 64,
       "winner": "blue",
-      "seconds": 79,
-      "captures": 6,
-      "deaths": 35,
-      "respawns": 26,
-      "shots": 68,
-      "vehicleShots": 514,
-      "vehicleDisabled": 5,
+      "seconds": 83.625,
+      "captures": 8,
+      "deaths": 16,
+      "respawns": 15,
+      "shots": 372,
+      "vehicleShots": 281,
+      "vehicleDisabled": 9,
       "vehicleRespawns": 0,
       "majorStarts": 1,
-      "artilleryImpacts": 1,
+      "artilleryImpacts": 4,
       "eventKinds": [
         "ARTILLERY"
       ],
       "states": [
         "BOARD_VEHICLE",
         "DEFEND",
+        "DOWNED",
         "DRIVING",
         "ENGAGE",
         "FOLLOW_SQUAD",
@@ -134,31 +147,32 @@
         "MOVE_TO_OBJECTIVE",
         "RESPAWN",
         "RETREAT",
+        "REVIVE",
         "SEARCH",
         "SEEK_COVER",
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 944
+      "runtimeMs": 999
     }
   ],
   "defaultMatch": {
     "size": 32,
     "tickets": 500,
     "winner": "red",
-    "seconds": 488.875,
+    "seconds": 466.5,
     "finalTickets": {
       "blue": 0,
-      "red": 33.31875000000328
+      "red": 227.34375000002353
     },
-    "captures": 25,
-    "deaths": 364,
-    "respawns": 360,
-    "shots": 2059,
-    "vehicleShots": 2746,
-    "vehicleDisabled": 22,
-    "vehicleRespawns": 18,
-    "majorStarts": 7,
+    "captures": 21,
+    "deaths": 51,
+    "respawns": 48,
+    "shots": 2590,
+    "vehicleShots": 1608,
+    "vehicleDisabled": 23,
+    "vehicleRespawns": 19,
+    "majorStarts": 8,
     "artilleryImpacts": 8,
     "counterEffect": true,
     "armoredEffect": true,
@@ -168,51 +182,55 @@
       "COUNTER_OFFENSIVE"
     ],
     "navFailures": 0,
-    "runtimeMs": 1795
+    "runtimeMs": 2092
   },
-  "version": "0.13.0",
+  "version": "0.14.0",
   "baseline": {
-    "version": "0.12.0",
-    "commit": "1ed27ed626b1972f2468fa0a341bb4bbb1147c45",
-    "matchedLocalFiles": 34
+    "version": "0.13.0",
+    "commit": "9b71aeb06c8ab9eb5a819009261d8da38c2e7e9f",
+    "matchedLocalFiles": 36
   },
   "unitTests": {
-    "passed": 79,
-    "files": 9
+    "passed": 91,
+    "files": 10
   },
   "browser": {
-    "passed": 29,
+    "passed": 33,
     "renderSample": {
       "samples": [
-        30.003574080574612,
-        29.998564556919487,
-        30.003047018803745,
-        30.000046086832405,
-        30.00152713642798,
-        30.005439439927184,
-        30.000180567019648,
-        30.00426131475909
+        59.994666789542926,
+        60.018438602679026,
+        60.012211139747045,
+        60.002017951697,
+        59.99999837408726,
+        60.00206668897093,
+        59.9972925738778,
+        59.9884519671913
       ],
       "info": {
         "renderer": "WebKit WebGL",
-        "calls": 767,
+        "calls": 773,
         "ratio": 1
       }
     },
     "walkContinuity": {
       "stationaryFraction": 0,
-      "maxFrameStep": 0.45079922645502446,
+      "maxFrameStep": 0.29512366409639385,
       "samples": 80
+    },
+    "finalMapAndFeatureRegression": {
+      "passed": 4,
+      "redFactionRoutesOnly": true
     }
   },
   "lan": {
     "nativeIP": "10.100.113.195",
     "sameLAN": true,
     "tested": [
-      "HTTP WS authority",
-      "readiness gate and countdown",
-      "two browsers and production share URL",
-      "eight players and host team assignment"
+      "HTTP/WS authority",
+      "eight humans, host team assignment and squads",
+      "two Chrome clients: shared grenade model and ammo crate",
+      "ready gate and countdown, production share link"
     ],
     "userHardwareVerified": false
   },

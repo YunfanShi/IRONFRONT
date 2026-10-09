@@ -1,0 +1,17 @@
+
+> project-ironfront@0.14.0 test:browser
+> playwright test tests/iteration-014.spec.ts --workers=1
+
+[WebServer] (node:45248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:45311) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/iteration-014.spec.ts:4:1 › grenade and smoke fly as actual models, supply crate persists and map player preference is saved (12.2s)
+  ✓  2 tests/iteration-014.spec.ts:5:1 › downed screen counts thirty seconds, calls rescue and held space finishes death into separated icon deployment (13.2s)
+  ✓  3 tests/iteration-014.spec.ts:6:1 › vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles (6.0s)
+  ✓  4 tests/iteration-014.spec.ts:7:1 › two LAN browsers receive a real thrown model and the same supply box (6.7s)
+
+  4 passed (44.4s)
