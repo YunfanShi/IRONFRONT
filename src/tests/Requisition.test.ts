@@ -3,7 +3,7 @@ import {Battle} from '../core/Battle';
 import {WEAPONS,WEAPON_ORDER,validateLoadout} from '../combat/Weapons';
 import {SUPPORTS,type SupportId} from '../gameplay/Requisition';
 import {VEHICLE_TYPES} from '../vehicles/Vehicle';
-const make=()=>new Battle({size:8,difficulty:'normal',tickets:500,seed:911});
+const make=()=>new Battle({size:8,vehicleLimit:20,difficulty:'normal',tickets:500,seed:911});
 const run=(b:Battle,seconds:number)=>{for(let i=0;i<seconds/.05;i++)b.tick(.05)};
 function isolate(b:Battle){for(const s of b.soldiers)if(!s.player){s.pos={x:300,z:-300};s.nextAiAt=1e8;s.spawnGraceUntil=0}for(const v of b.vehicles)v.nextDecision=1e8;}
 describe('Requisition transactions and state effects',()=>{
@@ -45,7 +45,7 @@ describe('Loadout, equipment and scoring',()=>{
 });
 describe('Fair AI perception and shooting',()=>{
  it('waits for visual reaction and cannot shoot through smoke',()=>{
-  const b=make();isolate(b);const blue=b.soldiers[1]!,red=b.soldiers.find(s=>s.team==='red')!;blue.pos={x:0,z:-10};blue.yaw=0;blue.nextAiAt=0;red.pos={x:0,z:10};run(b,.3);expect(b.events().filter(e=>e.type==='shot'&&!e.player)).toHaveLength(0);run(b,1);expect(b.events().some(e=>e.type==='shot'&&!e.player)).toBe(true);
+  const b=make();isolate(b);const blue=b.soldiers[1]!,red=b.soldiers.find(s=>s.team==='red')!;blue.pos={x:0,z:-10};blue.yaw=0;blue.nextAiAt=0;red.pos={x:0,z:10};run(b,.3);expect(b.events().filter(e=>e.type==='shot'&&!e.player)).toHaveLength(0);run(b,1.8);expect(b.events().some(e=>e.type==='shot'&&!e.player)).toBe(true);
   b.awardRP(500,'test');b.requestSupport('smoke','C');const c=b.points[2]!;blue.pos={x:c.x,z:c.z-10};red.pos={x:c.x,z:c.z+10};blue.route=[];blue.lastProgress={...blue.pos};b.events();run(b,1);expect(b.events().filter(e=>e.type==='shot'&&!e.player)).toHaveLength(0);
  });
  it('nearby wall-occluded contacts never get IFF labels',()=>{

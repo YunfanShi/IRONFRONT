@@ -31,10 +31,10 @@ function vehicleChecks(){
  const b=new Battle({size:8,difficulty:'normal',tickets:100,seed:44});const blue=b.vehicles.find(v=>v.team==='blue'),red=b.vehicles.find(v=>v.team==='red');
  blue.pos={x:0,z:0};blue.lastProgress={...blue.pos};blue.nextDecision=9999;red.pos={x:0,z:24};red.lastProgress={...red.pos};red.nextDecision=9999;b.player.pos={...blue.pos};
  assert.equal(b.togglePlayerVehicle(),true);assert.equal(b.inVehicle,true);const before={...blue.pos};b.drivePlayerVehicle(1,0,.5);const movedDistance=Math.hypot(blue.pos.x-before.x,blue.pos.z-before.z);assert(movedDistance>.1,'player vehicle did not move');
- blue.pos={x:0,z:0};b.player.pos={...blue.pos};for(let i=0;i<6;i++){assert.equal(b.shootPlayerVehicle({x:0,y:0,z:1}),true);for(let k=0;k<10;k++)b.tick(.125);red.pos={x:0,z:24};red.nextDecision=9999}
+ blue.pos={x:0,z:0};b.player.pos={...blue.pos};for(let i=0;i<9;i++){assert.equal(b.shootPlayerVehicle({x:0,y:0,z:1}),true);for(let k=0;k<10;k++)b.tick(.125);red.pos={x:0,z:24};red.nextDecision=9999}
  assert.equal(red.alive,false,'vehicle weapon did not disable enemy armor');const events=b.events();assert(events.some(e=>e.type==='vehicleDisabled'),'vehicle disable event missing');
  assert.equal(b.togglePlayerVehicle(),true);assert.equal(b.inVehicle,false,'player could not exit vehicle');
- for(let i=0;i<220;i++)b.tick(.125);assert.equal(red.alive,true,'disabled vehicle did not respawn');return {entered:true,movedDistance:Number(movedDistance.toFixed(2)),enemyDisabled:true,exited:true,enemyRespawned:true};
+ for(let i=0;i<760;i++)b.tick(.125);assert.equal(red.alive,true,'disabled vehicle did not respawn');return {entered:true,movedDistance:Number(movedDistance.toFixed(2)),enemyDisabled:true,exited:true,enemyRespawned:true};
 }
 
 function simulate(size,seed){

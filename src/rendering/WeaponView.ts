@@ -7,7 +7,7 @@ export class WeaponView {
  readonly group=new THREE.Group();
  private models:Record<WeaponId,THREE.Group>={} as Record<WeaponId,THREE.Group>;
  private flash:THREE.Sprite;private flashLight:THREE.PointLight;
- private animation=0;private recoil=0;private swayX=0;private swayY=0;private adsBlend=0;private sprintBlend=0;private bob=0;private flashLife=0;
+ private boltAge=99;private animation=0;private recoil=0;private swayX=0;private swayY=0;private adsBlend=0;private sprintBlend=0;private bob=0;private flashLife=0;
  private throwMotion=0;
  muzzleWorldPosition(){this.camera.updateMatrixWorld(true);this.group.updateWorldMatrix(true,false);return this.group.localToWorld(new THREE.Vector3(0,.02,MODEL_PROFILES[this.current].muzzle));}
  get aimBlend(){return this.adsBlend}
@@ -27,14 +27,15 @@ export class WeaponView {
  private mat(color:number,roughness:number,metalness=0){const m=new THREE.MeshStandardMaterial({color,roughness,metalness});this.materials.push(m);return m}
  setWeapon(id:WeaponId){if(id===this.current)return;this.current=id;for(const key of WEAPON_ORDER)this.models[key].visible=key===id;this.swapMotion=1;this.adsBlend=0;this.recoil=0;const muzzle=MODEL_PROFILES[id].muzzle;this.flash.position.z=muzzle;this.flashLight.position.z=muzzle}
  onMouse(dx:number,dy:number){this.swayX=THREE.MathUtils.clamp(this.swayX-dx*.00011,-.028,.028);this.swayY=THREE.MathUtils.clamp(this.swayY+dy*.00010,-.023,.023)}
- shoot(id:WeaponId){this.setWeapon(id);this.flashLife=.085;this.recoil=Math.min(.42,this.recoil+WEAPONS[id].recoil);this.spawnShell()}
+ shoot(id:WeaponId){this.setWeapon(id);this.boltAge=0;this.flashLife=.085;this.recoil=Math.min(.42,this.recoil+WEAPONS[id].recoil);this.spawnShell()}
  private spawnShell(){
   if(this.shells.length>=14){const old=this.shells.shift()!;this.shellGroup.remove(old.mesh);old.mesh.geometry.dispose();(old.mesh.material as THREE.Material).dispose()}
   const metal=new THREE.MeshStandardMaterial({color:0xb79b5b,metalness:.9,roughness:.24});const casing=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.13,8),metal);
   casing.position.set(.30,-.20,-.72);casing.rotation.z=Math.PI*.3;this.shellGroup.add(casing);this.shells.push({mesh:casing,vel:new THREE.Vector3(2.6+Math.random(),1.6+Math.random()*.5,-.5),age:0});
  }
  render(dt:number,params:{weapon:WeaponId;ads:boolean;sprint:boolean;moving:boolean;speed:number;reload:boolean;alive:boolean;velocitySide:number}){
-  dt=Math.min(dt,.065);this.throwMotion=Math.max(0,this.throwMotion-dt*1.8);this.setWeapon(params.weapon);const t=1-Math.exp(-dt*12);this.group.visible=params.alive;
+  dt=Math.min(dt,.065);this.boltAge+=dt;const model=this.models[this.current],bolt=model.getObjectByName(this.current==='pistol'?'slide':'bolt-handle');if(bolt){bolt.userData.restZ??=bolt.position.z;const t=Math.min(1,this.boltAge/(this.current==='sniper'?.55:.12));bolt.position.z=bolt.userData.restZ+Math.sin(t*Math.PI)*.075;}
+this.throwMotion=Math.max(0,this.throwMotion-dt*1.8);this.setWeapon(params.weapon);const t=1-Math.exp(-dt*12);this.group.visible=params.alive;
   const targetAim=params.ads&&!params.sprint&&!params.reload&&this.swapMotion<.3&&this.throwMotion===0?1:0;this.adsBlend=THREE.MathUtils.lerp(this.adsBlend,targetAim,t);for(const id of WEAPON_ORDER)this.models[id].visible=id===this.current&&!(WEAPONS[id].zoom>=3&&this.adsBlend>.72);this.sprintBlend=THREE.MathUtils.lerp(this.sprintBlend,params.sprint&&params.moving?1:0,t*.75);
   if(params.reload&&!this.lastReloading)this.reloadMotion=0;if(params.reload)this.reloadMotion=Math.min(1,this.reloadMotion+dt/WEAPONS[params.weapon].reload);else this.reloadMotion=THREE.MathUtils.lerp(this.reloadMotion,0,t*.5);this.lastReloading=params.reload;
   this.swapMotion=Math.max(0,this.swapMotion-dt*2.55);const swapArc=Math.sin(Math.min(1,this.swapMotion)*Math.PI),reloadArc=params.reload?Math.sin(this.reloadMotion*Math.PI):0;

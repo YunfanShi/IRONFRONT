@@ -37,8 +37,8 @@ const server = http.createServer((req, res) => {
                 res.writeHead(503);
                 return res.end('Room limit');
             }
-            const config = { size: [8, 16, 32, 64].includes(options.size) ? options.size : 32, difficulty: ['easy', 'normal', 'hard'].includes(options.difficulty) ? options.difficulty : 'normal', tickets: [100, 300, 500, 800].includes(options.tickets) ? options.tickets : 500, mode: options.mode === 'breakthrough' ? 'breakthrough' : 'conquest', killTicketPenalty: [0, 1, 2].includes(options.killTicketPenalty) ? options.killTicketPenalty : 1, aiEnabled: options.aiEnabled !== false, seed: 505 };
-            const code = crypto.randomBytes(3).toString('hex').toUpperCase(), hostToken = crypto.randomBytes(24).toString('hex'), battle = new Battle(config), room = { code, hostToken, battle, clients: new Map(), created: Date.now(), joinTeam: options.joinTeam === 'red' ? 'red' : options.joinTeam === 'alternate' ? 'alternate' : 'blue' };
+            const config = { size: [8, 16, 32, 64].includes(options.size) ? options.size : 32, difficulty: ['easy', 'normal', 'hard'].includes(options.difficulty) ? options.difficulty : 'easy', tickets: [100, 300, 500, 800].includes(options.tickets) ? options.tickets : 500, mode: options.mode === 'breakthrough' ? 'breakthrough' : 'conquest', killTicketPenalty: [0, 1, 2].includes(options.killTicketPenalty) ? options.killTicketPenalty : 1, vehicleLimit:Math.max(0,Math.min(20,Math.floor(Number(options.vehicleLimit)||(options.vehicleLimit===0?0:8)))),aiEnabled: options.aiEnabled !== false, seed: 505 };
+            const code = crypto.randomBytes(3).toString('hex').toUpperCase(), hostToken = crypto.randomBytes(24).toString('hex'), battle = new Battle(config), room = { phase:'preparation',countdownAt:0,code, hostToken, battle, clients: new Map(), created: Date.now(), joinTeam: options.joinTeam === 'red' ? 'red' : options.joinTeam === 'alternate' ? 'alternate' : 'blue' };
             if (!config.aiEnabled)
                 for (const s of battle.soldiers) {
                     s.alive = false;
@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.clients.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.12.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
+        return res.end(JSON.stringify({ version: '0.13.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ code: r.code, players: r.clients.size })) }));
     }
     let pathname;
     try {
@@ -86,7 +86,7 @@ const wss = new WebSocketServer({ server, path: '/play', maxPayload: 8192 });
 const withClient = (r, c, fn) => { const b = r.battle; b.controlledPlayerId = c.id; b.importPlayerState(c.state); fn(b); c.state = b.exportPlayerState(); };
 wss.on('connection', (ws, req) => {
     const url = new URL(req.url, 'http://localhost'), room = rooms.get((url.searchParams.get('room') || '').toUpperCase());
-    if (!room || room.clients.size >= 8) {
+    if (!room || room.phase==='countdown' || room.clients.size >= 8) {
         ws.close(1008, 'Room unavailable or full');
         return;
     }
@@ -106,14 +106,14 @@ wss.on('connection', (ws, req) => {
     s.vehicleId = null;
     s.player = true;
     s.squad = Math.floor(b.soldiers.filter(o => o.team === team && o.id < s.id).length / 4);
-    s.alive = true;
+    s.alive = room.phase!=='battle';
     s.hp = 100;
     s.pos = { ...require('../.logic-build/world/Layout.js').BASES[team] };
-    s.spawnGraceUntil = b.elapsed + 1.2;
+    s.spawnGraceUntil = b.elapsed + 3600;
     const previous = b.exportPlayerState(), old = b.controlledPlayerId;
     b.controlledPlayerId = id;
     b.importPlayerState(new Battle({ size: 8, difficulty: 'normal', tickets: 500 }).exportPlayerState());
-    const c = { id, isHost, state: b.exportPlayerState(), input: {}, lastInput: 0, window: Date.now(), messages: 0 };
+    const c = { ready:false,id, isHost, state: b.exportPlayerState(), input: {}, lastInput: 0, window: Date.now(), messages: 0 };
     b.controlledPlayerId = old;
     b.importPlayerState(previous);
     room.clients.set(ws, c);
@@ -137,6 +137,7 @@ wss.on('connection', (ws, req) => {
         }
         if (!m || typeof m !== 'object')
             return;
+        if(m.type==='action'&&room.phase!=='battle'&&!['unready','ready','begin','loadout','team'].includes(m.action))return;
         const finite = v => typeof v === 'number' && Number.isFinite(v);
         if (m.type === 'input') {
             if (!finite(m.yaw) || !finite(m.pitch))
@@ -179,6 +180,12 @@ wss.on('connection', (ws, req) => {
                         }
                     }
                     break;
+                case 'unready':
+                    if(room.phase==='preparation')c.ready=false;break;
+                case 'ready':
+                    if(room.phase==='preparation'){const elapsed=b.elapsed;b.elapsed=0;b.setLoadout(m.loadout);b.elapsed=elapsed;c.ready=true;}else {b.setLoadout(m.loadout);c.ready=true;b.player.alive=true;b.player.hp=100;b.player.spawnGraceUntil=b.elapsed+3;}break;
+                case 'begin':
+                    if(c.isHost&&room.phase==='preparation'&&[...room.clients.values()].every(o=>o.ready)){room.phase='countdown';room.countdownAt=Date.now()+3000;}break;
                 case 'enter':
                     b.togglePlayerVehicle();
                     break;
@@ -214,7 +221,7 @@ wss.on('connection', (ws, req) => {
                     b.respawnPlayer(m.value);
                     break;
                 case 'loadout':
-                    if (!c.loadoutSet) {
+                    if (room.phase==='preparation'||!c.loadoutSet) {
                         const elapsed = b.elapsed;
                         b.elapsed = 0;
                         b.setLoadout(m.loadout);
@@ -253,8 +260,9 @@ setInterval(() => {
             continue;
         }
         const b = r.battle;
+        if(r.phase==='countdown'&&Date.now()>=r.countdownAt){r.phase='battle';for(const c of r.clients.values())b.soldiers[c.id].spawnGraceUntil=b.elapsed+3;}
         for (const c of r.clients.values())
-            withClient(r, c, b => { if (Date.now() - c.lastInput > 250 || !b.player.alive || b.finished)
+            withClient(r, c, b => { if (r.phase!=='battle'||!c.ready||Date.now() - c.lastInput > 250 || !b.player.alive || b.finished)
                 return; const i = c.input, y = i.yaw, p = i.pitch, d = { x: -Math.sin(y) * Math.cos(p), y: Math.sin(p), z: -Math.cos(y) * Math.cos(p) }; b.player.yaw = y + Math.PI; b.playerAiming = i.ads; if (b.inVehicle) {
                 b.drivePlayerVehicle(i.forward, i.side, .05, y);
                 b.aimPlayerVehicle(y, p, .05);
@@ -274,7 +282,7 @@ setInterval(() => {
                 c.fireHeld = i.fire;
             } });
         const first = [...r.clients.values()][0];
-        withClient(r, first, b => b.tick(.05));
+        if(r.phase==='battle')withClient(r, first, b => b.tick(.05));
         const events = b.events();
         for (const event of events)
             if (event.type === 'capture' && event.owner !== null)
@@ -283,8 +291,8 @@ setInterval(() => {
                         c.state.requisitionPoints = Math.min(9999, c.state.requisitionPoints + 120);
         for (const [ws, c] of r.clients) {
             withClient(r, c, b => b.advancePlayerTimers());
-            const filtered = events.filter(e => (e.type !== 'rp' || e.owner === c.id) && (e.type !== 'playerHit' || e.victim === c.id)).map(e => (e.type === 'shot' || e.type === 'vehicleShot') ? { ...e, player: e.owner === c.id } : e);
-            const state = { type: 'state', elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, player: c.state, events: filtered };
+            const filtered = events.filter(e => (e.type !== 'hitConfirmed'||e.owner===c.id) && (e.type !== 'rp' || e.owner === c.id) && (e.type !== 'playerHit' || e.victim === c.id)).map(e => (e.type === 'shot' || e.type === 'vehicleShot') ? { ...e, player: e.owner === c.id } : e);
+            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...r.clients.values()].map(c=>({id:c.id,ready:c.ready})), elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, player: c.state, events: filtered };
             if (ws.readyState === WebSocket.OPEN && ws.bufferedAmount < 1024 * 1024)
                 ws.send(JSON.stringify(state));
         }

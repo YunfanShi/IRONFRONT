@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {Battle} from '../core/Battle';
 import {validateLoadout,CLASSES} from '../combat/Weapons';
-const make=()=>new Battle({size:8,difficulty:'normal',tickets:500,seed:911});
+const make=()=>new Battle({size:8,vehicleLimit:20,difficulty:'normal',tickets:500,seed:911});
 const run=(b:Battle,t:number)=>{for(let i=0;i<t/.025;i++)b.tick(.025)};
 function isolate(b:Battle){for(const s of b.soldiers)if(!s.player){s.pos={x:320,z:-300};s.nextAiAt=1e9;s.spawnGraceUntil=0;}for(const v of b.vehicles){v.nextDecision=1e9;v.pos={x:v.team==='red'?320:-320,z:320};}}
 function die(b:Battle){b.player.alive=false;b.player.respawnAt=0;}

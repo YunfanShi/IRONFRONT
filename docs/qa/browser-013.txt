@@ -1,0 +1,45 @@
+
+> project-ironfront@0.13.0 test:browser
+> playwright test --workers=1
+
+[WebServer] (node:36049) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 29 tests using 1 worker
+
+(node:36125) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser.spec.ts:7:1 › menu exposes the required setup surfaces (1.7s)
+  ✓   2 tests/browser.spec.ts:15:1 › starts a battle, shows HUD, pause and diagnostics (4.3s)
+HEADLESS_32V32_FPS {"samples":[30.003574080574612,29.998564556919487,30.003047018803745,30.000046086832405,30.00152713642798,30.005439439927184,30.000180567019648,30.00426131475909],"info":{"renderer":"WebKit WebGL","calls":767,"ratio":1}}
+  ✓   3 tests/browser.spec.ts:22:1 › loadout persists, real RP support works, ADS fires and menu cleanup survives restart (14.3s)
+  ✓   4 tests/browser.spec.ts:39:1 › pointer-lock denial leaves drag look and weapon controls playable (5.4s)
+  ✓   5 tests/browser.spec.ts:44:1 › A/D strafes without accumulated camera roll, Shift slides, damage direction and equipment stay visible (7.8s)
+  ✓   6 tests/browser.spec.ts:54:1 › driver shell, gunner MG, passengers and fourth transport are playable through keyboard controls (5.4s)
+  ✓   7 tests/browser.spec.ts:61:1 › map deployment blocks engaged squadmates and offers distant attacked flags and deploys beside a safe member (9.9s)
+  ✓   8 tests/browser.spec.ts:68:1 › preparation selects and persists Breakthrough and the active frontline really advances (4.1s)
+AUDIO_QA {"music":{"cue":"victory","desired":"victory","status":"playing","error":"","track":"victory","slots":[{"paused":false,"volume":0.03638697453510646,"ready":4,"time":0.465602},{"paused":false,"volume":0.006104013097737927,"ready":4,"time":0.013129}]},"decoded":29,"voices":0,"context":"running","master":0.4}
+  ✓   9 tests/browser.spec.ts:72:1 › local MP3 playback, decoded sound effects, mixing and result cues work (7.5s)
+  ✓  10 tests/browser.spec.ts:79:1 › seven distinct first-person models render and missing music stays playable (8.6s)
+  ✓  11 tests/browser.spec.ts:84:1 › airdrop reserves armor for caller and actual driver exits on takeover (12.4s)
+  ✓  12 tests/browser.spec.ts:92:1 › death falls then rises into deployment instead of opening map immediately (9.9s)
+  ✓  13 tests/browser.spec.ts:98:1 › player shot event uses the rendered muzzle and damage flashes immediately (4.4s)
+  ✓  14 tests/browser.spec.ts:105:1 › vehicle RMB optics, independent MG model, capture progress, Esc resume and unstuck work (4.9s)
+  ✓  15 tests/browser.spec.ts:113:1 › LAN menu hosts and joins one authoritative room from two browser clients (5.8s)
+  ✓  16 tests/browser.spec.ts:121:1 › host configures AI-free opposing teams and changes a joining player faction (5.2s)
+  ✓  17 tests/browser.spec.ts:125:1 › deployment selects a real free vehicle seat and block characters distinguish humans and teams (9.4s)
+  ✓  18 tests/browser.spec.ts:132:1 › solo entry works without creating or joining a network room (3.9s)
+LAN_WALK_CONTINUITY {"stationaryFraction":0,"maxFrameStep":0.45079922645502446,"samples":80}
+  ✓  19 tests/browser.spec.ts:136:1 › LAN settings expose address port and code while walking remains continuous between snapshots (7.0s)
+  ✓  20 tests/browser.spec.ts:141:1 › equipment keys draw models without spending charges and left click uses the selected item (5.8s)
+  ✓  21 tests/browser.spec.ts:147:1 › real LAN IP hosts and share link joins without manually correcting host address or port (5.0s)
+  ✓  22 tests/browser.spec.ts:154:1 › LAN connection diagnostics distinguish invalid rooms from unreachable services (626ms)
+  ✓  23 tests/browser.spec.ts:158:35 › solo tracers remain attached to the visible muzzle while walking and aiming (5.2s)
+  ✓  24 tests/browser.spec.ts:158:35 › LAN tracers remain attached to the visible muzzle while walking and aiming (5.5s)
+  ✓  25 tests/browser.spec.ts:164:1 › LAN equipment selection is nonconsuming and only a click sends a weapon action (4.7s)
+  ✓  26 tests/browser.spec.ts:169:1 › an old host process is rejected before creating an incompatible room (465ms)
+  ✓  27 tests/iteration-013.spec.ts:2:1 › four pictured class loadouts are configured after entry and simulation waits for readiness (5.5s)
+  ✓  28 tests/iteration-013.spec.ts:5:1 › infantry V switches perspective, hits report real damage and result sequence moves the camera (6.1s)
+  ✓  29 tests/iteration-013.spec.ts:8:1 › room host waits for every human loadout and guest cannot start the match (5.5s)
+
+  29 passed (3.0m)

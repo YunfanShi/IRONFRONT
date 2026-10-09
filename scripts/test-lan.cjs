@@ -17,6 +17,9 @@ else if (m.type === 'state') {
         const response = await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST' }), { code, hostToken } = await response.json();
         assert.match(code, /^[A-F0-9]{6}$/);const status=await (await fetch(`http://${lanIP}:${port}/api/status`)).json();assert.equal(status.port,port);assert(status.addresses.includes(`http://${lanIP}:${port}`));assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${code}`)).status,200);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/ZZZZZZ`)).status,404);
         const a = await connect(code, hostToken), b = await connect(code);
+        assert.equal(a.states.at(-1).phase,'preparation');assert.equal(a.states.at(-1).elapsed,0);
+        a.ws.send(JSON.stringify({type:'action',action:'ready'}));a.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(150);assert.equal(a.states.at(-1).phase,'preparation');
+        b.ws.send(JSON.stringify({type:'action',action:'ready'}));await wait(100);a.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(3200);assert.equal(a.states.at(-1).phase,'battle');
         assert.notEqual(a.id, b.id);
         const start = a.states.at(-1).soldiers[a.id].pos;
         for (let i = 0; i < 12; i++) {
@@ -49,7 +52,7 @@ else if (m.type === 'state') {
         assert.equal(b.states.at(-1).soldiers[a.id].player, false);
         b.ws.close();
         const config = await (await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ size: 8, difficulty: 'hard', tickets: 300, killTicketPenalty: 2, aiEnabled: false, joinTeam: 'red' }) })).json();
-        const h = await connect(config.code, config.hostToken), e = await connect(config.code);
+        const h = await connect(config.code, config.hostToken), e = await connect(config.code);h.ws.send(JSON.stringify({type:'action',action:'ready'}));e.ws.send(JSON.stringify({type:'action',action:'ready'}));await wait(150);h.ws.send(JSON.stringify({type:'action',action:'begin'}));await wait(3200);
         await wait(100);
         let snapshot = h.states.at(-1);
         assert.equal(snapshot.soldiers[h.id].team, 'blue');

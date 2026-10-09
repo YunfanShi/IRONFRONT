@@ -3,8 +3,8 @@ import type {Battle,Soldier} from '../core/Battle';
 import {heightAt} from '../core/math';
 import type {Team} from '../world/Layout';
 
-type PartKind='rig'|'head'|'armL'|'armR'|'legL'|'legR'|'weapon';
-type Part={offset:[number,number,number];kind:PartKind;geometry:THREE.BufferGeometry;material:THREE.Material;humanOnly?:boolean};
+type PartKind='rig'|'head'|'armL'|'armR'|'legL'|'legR'|'weapon'|'gadget';
+type Part={offset:[number,number,number];kind:PartKind;geometry:THREE.BufferGeometry;material:THREE.Material;humanOnly?:boolean;gadgetType?:Soldier['equipmentKind']};
 type Army={team:Team;meshes:THREE.InstancedMesh[];soldiers:Soldier[];parts:Part[]};
 type VisualState={x:number;z:number;yaw:number;phase:number;speed:number;deathLean:number};
 
@@ -52,6 +52,11 @@ export class SoldierVisuals {
     {geometry:geoBox(.23,.25,.95),material:steel,offset:[.15,1.52,.59],kind:'weapon'},
     {geometry:geoBox(.31,.27,.36),material:trim,offset:[.40,1.12,.10],kind:'armR'},
     {geometry:geoBox(.13,.16,.43),material:steel,offset:[.15,1.55,1.14],kind:'weapon'},
+    {geometry:geoBox(.4,.3,.3),material:trim,offset:[.15,1.35,.6],kind:'gadget',gadgetType:'medical'},
+    {geometry:geoBox(.13,.28,.45),material:steel,offset:[.15,1.35,.6],kind:'gadget',gadgetType:'repair'},
+    {geometry:geoBox(.4,.32,.4),material:plate,offset:[.15,1.35,.6],kind:'gadget',gadgetType:'ammo'},
+    {geometry:new THREE.CylinderGeometry(.1,.1,1.5,8).rotateX(Math.PI/2),material:plate,offset:[.15,1.6,.6],kind:'gadget',gadgetType:'rocket'},
+    {geometry:new THREE.CylinderGeometry(.1,.1,.3,8),material:trim,offset:[.15,1.35,.6],kind:'gadget',gadgetType:'smoke'},
     {geometry:geoBox(.14,.16,.17),material:trim,offset:[-.40,1.26,.33],kind:'armL'}
    ];
    const soldiers=battle.soldiers.filter(s=>s.team===team);
@@ -63,7 +68,7 @@ export class SoldierVisuals {
    this.armies.push({team,meshes,soldiers,parts});
   }
  }
- update(battle:Battle,dt:number){
+ update(battle:Battle,dt:number,showSelf=false){
   const blend=1-Math.exp(-dt*13);
   for(const army of this.armies){
    army.soldiers=battle.soldiers.filter(s=>s.team===army.team);for(const mesh of army.meshes)mesh.count=army.soldiers.length;
@@ -83,7 +88,8 @@ export class SoldierVisuals {
     const footY=heightAt(state.x,state.z),bob=step*.052*(crouching ? .45 : 1);
     const sY=Math.sin(state.yaw),cY=Math.cos(state.yaw);
     const deathAge=battle.elapsed-soldier.deathAt,fall=!soldier.alive?Math.min(1,Math.max(0,deathAge/.72)):0;
-    const corpseVisible=soldier.id!==battle.player.id&&soldier.vehicleId===null&&(soldier.alive||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
+    const equipmentActive=!soldier.player&&(soldier.equipmentUntil??0)>battle.elapsed;const weaponId=soldier.id===battle.player.id?battle.playerWeapon:soldier.weaponId;const weaponScale=weaponId==='sniper'?1.45:weaponId==='lmg'?1.18:weaponId==='smg'?.72:1;
+    const corpseVisible=(soldier.id!==battle.player.id||showSelf)&&soldier.vehicleId===null&&(soldier.alive||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
     for(let j=0;j<army.parts.length;j++){
      const part=army.parts[j]!,[lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
      if(part.kind==='legL'){rx=stride*.38+(crouching ? .30 : 0);zz+=stride*.21;yy+=Math.max(0,-stride)*.09}
@@ -96,6 +102,7 @@ export class SoldierVisuals {
      if(fall>0){yy-=fall*(.45+ly*.18);rz+=state.deathLean*fall*1.15;rx+=fall*.12}
      this.object.position.set(state.x+(cY*lx+sY*zz)*.67,footY+yy*.67,state.z+(-sY*lx+cY*zz)*.67);
      this.object.rotation.set(rx,state.yaw,rz,'YXZ');this.object.scale.setScalar(corpseVisible&&(!part.humanOnly||soldier.player)?.67:0.000001);
+     if(part.kind==='weapon'){this.object.scale.z*=weaponScale;if(equipmentActive)this.object.scale.setScalar(.000001);}if(part.kind==='gadget'&&(!equipmentActive||part.gadgetType!==soldier.equipmentKind))this.object.scale.setScalar(.000001);
      this.object.updateMatrix();army.meshes[j]!.setMatrixAt(i,this.object.matrix);
     }
    }

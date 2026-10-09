@@ -15,13 +15,13 @@
     {
       "size": 8,
       "winner": "red",
-      "seconds": 102.625,
-      "captures": 13,
-      "deaths": 12,
-      "respawns": 12,
-      "shots": 17,
-      "vehicleShots": 91,
-      "vehicleDisabled": 0,
+      "seconds": 119.25,
+      "captures": 10,
+      "deaths": 21,
+      "respawns": 20,
+      "shots": 35,
+      "vehicleShots": 149,
+      "vehicleDisabled": 1,
       "vehicleRespawns": 0,
       "majorStarts": 1,
       "artilleryImpacts": 0,
@@ -43,19 +43,19 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 69
+      "runtimeMs": 58
     },
     {
       "size": 16,
       "winner": "red",
-      "seconds": 77.25,
-      "captures": 7,
-      "deaths": 31,
-      "respawns": 24,
-      "shots": 4,
-      "vehicleShots": 273,
-      "vehicleDisabled": 2,
-      "vehicleRespawns": 2,
+      "seconds": 89.75,
+      "captures": 11,
+      "deaths": 41,
+      "respawns": 36,
+      "shots": 87,
+      "vehicleShots": 506,
+      "vehicleDisabled": 4,
+      "vehicleRespawns": 0,
       "majorStarts": 1,
       "artilleryImpacts": 0,
       "eventKinds": [
@@ -76,25 +76,24 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 110
+      "runtimeMs": 209
     },
     {
       "size": 32,
-      "winner": "blue",
-      "seconds": 65.375,
+      "winner": "red",
+      "seconds": 67.75,
       "captures": 4,
-      "deaths": 52,
-      "respawns": 37,
-      "shots": 262,
-      "vehicleShots": 495,
-      "vehicleDisabled": 6,
-      "vehicleRespawns": 4,
+      "deaths": 55,
+      "respawns": 36,
+      "shots": 32,
+      "vehicleShots": 519,
+      "vehicleDisabled": 2,
+      "vehicleRespawns": 0,
       "majorStarts": 0,
       "artilleryImpacts": 0,
       "eventKinds": [],
       "states": [
         "BOARD_VEHICLE",
-        "DEFEND",
         "DRIVING",
         "ENGAGE",
         "FOLLOW_SQUAD",
@@ -107,22 +106,24 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 232
+      "runtimeMs": 317
     },
     {
       "size": 64,
       "winner": "blue",
-      "seconds": 61.125,
-      "captures": 5,
-      "deaths": 33,
-      "respawns": 17,
-      "shots": 57,
-      "vehicleShots": 504,
-      "vehicleDisabled": 4,
-      "vehicleRespawns": 3,
-      "majorStarts": 0,
-      "artilleryImpacts": 0,
-      "eventKinds": [],
+      "seconds": 79,
+      "captures": 6,
+      "deaths": 35,
+      "respawns": 26,
+      "shots": 68,
+      "vehicleShots": 514,
+      "vehicleDisabled": 5,
+      "vehicleRespawns": 0,
+      "majorStarts": 1,
+      "artilleryImpacts": 1,
+      "eventKinds": [
+        "ARTILLERY"
+      ],
       "states": [
         "BOARD_VEHICLE",
         "DEFEND",
@@ -138,27 +139,27 @@
         "SPAWN"
       ],
       "navFailures": 0,
-      "runtimeMs": 574
+      "runtimeMs": 944
     }
   ],
   "defaultMatch": {
     "size": 32,
     "tickets": 500,
     "winner": "red",
-    "seconds": 270.375,
+    "seconds": 488.875,
     "finalTickets": {
       "blue": 0,
-      "red": 361.5
+      "red": 33.31875000000328
     },
-    "captures": 31,
-    "deaths": 349,
-    "respawns": 340,
-    "shots": 1053,
-    "vehicleShots": 3557,
-    "vehicleDisabled": 26,
-    "vehicleRespawns": 24,
-    "majorStarts": 3,
-    "artilleryImpacts": 4,
+    "captures": 25,
+    "deaths": 364,
+    "respawns": 360,
+    "shots": 2059,
+    "vehicleShots": 2746,
+    "vehicleDisabled": 22,
+    "vehicleRespawns": 18,
+    "majorStarts": 7,
+    "artilleryImpacts": 8,
     "counterEffect": true,
     "armoredEffect": true,
     "eventKinds": [
@@ -167,102 +168,56 @@
       "COUNTER_OFFENSIVE"
     ],
     "navFailures": 0,
-    "runtimeMs": 870
+    "runtimeMs": 1795
   },
-  "version": "0.12.0",
+  "version": "0.13.0",
   "baseline": {
-    "version": "0.11.0",
-    "commit": "7af1154f15f0a5bfc488ec8aabff7e68b57e890e",
+    "version": "0.12.0",
+    "commit": "1ed27ed626b1972f2468fa0a341bb4bbb1147c45",
     "matchedLocalFiles": 34
   },
   "unitTests": {
-    "passed": 70,
-    "files": 8
+    "passed": 79,
+    "files": 9
   },
   "browser": {
-    "passed": 26,
+    "passed": 29,
     "renderSample": {
       "samples": [
-        59.99255127412924,
-        59.990570285322406,
-        60.02157747288624,
-        59.98933614072811,
-        60.003818816307586,
-        59.99973305380814,
-        60.02551444308126,
-        59.98987090090213
+        30.003574080574612,
+        29.998564556919487,
+        30.003047018803745,
+        30.000046086832405,
+        30.00152713642798,
+        30.005439439927184,
+        30.000180567019648,
+        30.00426131475909
       ],
       "info": {
         "renderer": "WebKit WebGL",
-        "calls": 769,
+        "calls": 767,
         "ratio": 1
       }
     },
-    "audio": {
-      "music": {
-        "cue": "victory",
-        "desired": "victory",
-        "status": "playing",
-        "error": "",
-        "track": "victory",
-        "slots": [
-          {
-            "paused": false,
-            "volume": 0.007563488791893854,
-            "ready": 4,
-            "time": 0.233237
-          },
-          {
-            "paused": false,
-            "volume": 0.00906822174091075,
-            "ready": 4,
-            "time": 0.047471
-          }
-        ]
-      },
-      "decoded": 29,
-      "voices": 0,
-      "context": "running",
-      "master": 0.4
-    },
     "walkContinuity": {
       "stationaryFraction": 0,
-      "maxFrameStep": 0.15674910994716024,
+      "maxFrameStep": 0.45079922645502446,
       "samples": 80
     }
   },
-  "breakthrough": {
-    "ok": true,
-    "mode": "breakthrough",
-    "size": 32,
-    "tickets": 500,
-    "seed": 505,
-    "seconds": 1559.125,
-    "winner": "red",
-    "completedSectors": 3,
-    "captures": 6,
-    "deaths": 769,
-    "shots": 20507,
-    "navFailures": 0
-  },
   "lan": {
-    "ok": true,
-    "tickRate": 20,
-    "maxHumans": 8,
-    "squadSize": 4,
-    "tests": [
-      "two actual clients and shared authoritative movement",
-      "independent ammunition and events",
-      "stale input cutoff",
-      "unknown room rejection",
-      "host-only faction assignment",
-      "AI-free 1v1",
-      "eight admitted and ninth rejected",
-      "disconnect AI takeover or disabled AI stays disabled",
-      "nonloopback interface HTTP and WebSocket",
-      "room preflight and server muzzle offset",
-      "share link joining and loadout acknowledgement"
+    "nativeIP": "10.100.113.195",
+    "sameLAN": true,
+    "tested": [
+      "HTTP WS authority",
+      "readiness gate and countdown",
+      "two browsers and production share URL",
+      "eight players and host team assignment"
     ],
-    "nativeIP": "10.100.113.195"
+    "userHardwareVerified": false
+  },
+  "build": {
+    "passed": true,
+    "warning": "Three.js chunk above 500kB"
   }
 }

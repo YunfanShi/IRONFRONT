@@ -2,7 +2,7 @@ import {describe,it,expect} from 'vitest';
 import {Battle} from '../core/Battle';
 import {heightAt} from '../core/math';
 import {vehicleMuzzle} from '../vehicles/Vehicle';
-const make=()=>new Battle({size:8,difficulty:'normal',tickets:500,seed:911});
+const make=()=>new Battle({size:8,vehicleLimit:20,difficulty:'normal',tickets:500,seed:911});
 const run=(b:Battle,t:number)=>{for(let i=0;i<t/.05;i++)b.tick(.05)};
 describe('Actual occupants and player-reserved airdrops',()=>{
  it('empty vehicles remain stationary even if a legacy AI flag is set',()=>{const b=make();for(const s of b.soldiers)if(!s.player){s.pos={x:320,z:-300};s.nextAiAt=1e9;}const v=b.vehicles[0]!;v.driver='ai';v.nextDecision=0;const pos={...v.pos};run(b,2);expect(v.pos).toEqual(pos);expect(v.driver).toBe(null);});

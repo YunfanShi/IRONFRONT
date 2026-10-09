@@ -21,7 +21,7 @@ function makeFlag(label:string):THREE.Sprite {
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(can),transparent:true,depthTest:false}));sprite.scale.set(14,14,1);return sprite;
 }
 type FX={position:THREE.Vector3;velocity:THREE.Vector3;color:THREE.Color;life:number;max:number};
-export interface LookState {yaw:number;pitch:number;height:number;ads:boolean;moving:boolean;sprint:boolean;reload:boolean;speed:number;side:number;paused?:boolean;vehicleFirstPerson?:boolean;network?:boolean;equipment?:EquipmentItem|null;equipmentAge?:number;deathAge?:number}
+export interface LookState {yaw:number;pitch:number;height:number;ads:boolean;moving:boolean;sprint:boolean;reload:boolean;speed:number;side:number;paused?:boolean;vehicleFirstPerson?:boolean;infantryFirstPerson?:boolean;introAge?:number;resultAge?:number;network?:boolean;equipment?:EquipmentItem|null;equipmentAge?:number;deathAge?:number}
 export class WorldView {
  readonly scene=new THREE.Scene();readonly renderer:THREE.WebGLRenderer;
  readonly camera:THREE.PerspectiveCamera;readonly weapon:WeaponView;readonly equipment:EquipmentView;
@@ -161,6 +161,7 @@ export class WorldView {
    this.markers.push({ring,label,beam});
   }
  }
+ playerMuzzle(battle:Battle,firstPerson=true){if(firstPerson)return this.weapon.muzzleWorldPosition();const a=battle.player.yaw,p=battle.player.pos;return {x:p.x+Math.sin(a)*.8,y:heightAt(p.x,p.z)+1.09,z:p.z+Math.cos(a)*.8};}
  onMouse(dx:number,dy:number){this.weapon.onMouse(dx,dy)}
  playerShot(weapon:WeaponId){this.weapon.shoot(weapon);/* Ballistic recoil is applied by the controller to both camera and aim ray. */}
  private spawnSpark(x:number,y:number,z:number,color:number,count:number){
@@ -172,13 +173,14 @@ export class WorldView {
  showEvents(events:BattleEvent[],player:{x:number;z:number}){
   for(const e of events){
    if((e.type==='shot'||(e.type==='vehicleShot'&&e.weapon==='mg'))&&dist(e.from,player)<220){
-    const vehicle=e.type==='vehicleShot',ownMG=vehicle&&e.player===true&&this.equipment.root.visible;const ownMuzzle=ownMG?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition();const start=(e.type==='shot'&&e.player)||ownMG?new THREE.Vector3(ownMuzzle.x,ownMuzzle.y,ownMuzzle.z):e.muzzle?new THREE.Vector3(e.muzzle.x,e.muzzle.y,e.muzzle.z):new THREE.Vector3(e.from.x,heightAt(e.from.x,e.from.z)+(vehicle?2.75:1.4),e.from.z);
+    const vehicle=e.type==='vehicleShot',ownMG=vehicle&&e.player===true&&this.equipment.root.visible;const ownMuzzle=ownMG?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition();const start=(e.type==='shot'&&e.player&&this.weapon.group.visible)||ownMG?new THREE.Vector3(ownMuzzle.x,ownMuzzle.y,ownMuzzle.z):e.muzzle?new THREE.Vector3(e.muzzle.x,e.muzzle.y,e.muzzle.z):new THREE.Vector3(e.from.x,heightAt(e.from.x,e.from.z)+(vehicle?2.75:1.4),e.from.z);
     const end=e.type==='shot'&&e.end?new THREE.Vector3(e.end.x,e.end.y,e.end.z):new THREE.Vector3(e.to.x,heightAt(e.to.x,e.to.z)+(vehicle ? .85 : 1.35),e.to.z);
     // Visible short-lived tracer plus a luminous projectile head; no range truncation.
-    const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([start,end]),new THREE.LineBasicMaterial({color:e.team==='blue'?0xffdfa3:0xffab82,transparent:true,opacity:vehicle ? 1 : .95,depthWrite:false,blending:THREE.AdditiveBlending}));
-    this.spawnSpark(end.x,end.y,end.z,e.team==='blue'?0xffe5a0:0xff8d65,2);this.scene.add(line);this.tracer.push({line,life:vehicle?.18:.09,fresh:true,followMuzzle:(e.type==='shot'&&e.player===true)||ownMG,equipment:ownMG});
+    const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([start,end]),new THREE.LineDashedMaterial({dashSize:2.5,gapSize:9,color:0xffd5a0,transparent:true,opacity:vehicle ? .85 : .5,depthWrite:false,blending:THREE.AdditiveBlending}));
+    const flight=end.clone().sub(start).normalize().multiplyScalar(170);this.particles.push({position:start.clone(),velocity:flight,color:new THREE.Color(0xffce85),life:Math.min(.18,start.distanceTo(end)/170),max:.18});line.computeLineDistances();this.scene.add(line);this.tracer.push({line,life:vehicle?.18:.09,fresh:true,followMuzzle:(e.type==='shot'&&e.player===true&&this.weapon.group.visible)||ownMG,equipment:ownMG});
     if(vehicle||Math.random()<.7)this.spawnSpark(end.x,end.y,end.z,e.hit?0xf7c18a:0xdcc6a2,vehicle?20:e.hit?9:4);
    }else if(e.type==='vehicleShot'){const dir=new THREE.Vector3(e.to.x-e.from.x,0,e.to.z-e.from.z).normalize(),y=e.muzzle?.y??heightAt(e.from.x,e.from.z)+3.1;this.spawnSpark(e.from.x,y,e.from.z,0xffcd83,18);if(e.player)this.cameraKick=Math.min(.085,this.cameraKick+.04);
+   }else if(e.type==='hitConfirmed'){this.spawnSpark(e.at.x,heightAt(e.at.x,e.at.z)+(e.vehicle?2:1.3),e.at.z,e.vehicle?0xffd38f:0xd1c2a4,e.killed?18:8);
    }else if(e.type==='playerHit'){this.hitFlash=Math.min(1,this.hitFlash+.65+e.amount*.006);this.hitRoll=(Math.random()-.5)*.07;this.cameraKick=Math.min(.085,this.cameraKick+.018+e.amount*.00045);
    }else if(e.type==='vehicleHit'){const v=this.lastBattle?.vehicles.find(v=>v.id===e.id);if(v){this.spawnSpark(v.pos.x,heightAt(v.pos.x,v.pos.z)+v.altitude+2,v.pos.z,0xffbc72,16);if(v===this.lastBattle?.playerVehicle)this.cameraKick=.07;}}else if(e.type==='vehicleDisabled'){this.spawnSpark(e.at.x,heightAt(e.at.x,e.at.z)+1.7,e.at.z,0xffaa69,42);
    }else if(e.type==='artilleryImpact'||e.type==='projectileImpact'){const y=heightAt(e.at.x,e.at.z)+1.0;this.spawnSpark(e.at.x,y,e.at.z,0xffb063,this.high?90:58);const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,16,10),new THREE.MeshBasicMaterial({color:0xffa35b,transparent:true,opacity:.34,depthWrite:false,blending:THREE.AdditiveBlending}));mesh.position.set(e.at.x,y,e.at.z);this.scene.add(mesh);this.blastFx.push({mesh,life:.58,max:.58,radius:e.radius*.72});const d=dist(e.at,player);if(d<105)this.cameraKick=Math.min(.42,this.cameraKick+(1-d/105)*.26);
@@ -221,19 +223,21 @@ export class WorldView {
   this.lastBattle=battle;this.t+=dt;if(this.scene.fog instanceof THREE.FogExp2)this.scene.fog.density=(this.high?.00255:this.medium?.00315:.00415)*(1-.88*THREE.MathUtils.smoothstep(look.deathAge??0,2,4.8));
   const p=battle.player,vehicle=battle.playerVehicle;
   if(vehicle){
-   const gunner=battle.playerSeat===1||look.vehicleFirstPerson||look.ads,distance=gunner?0:10;
+   const gunner=look.vehicleFirstPerson||look.ads,distance=gunner?0:10;
    let fraction=1;const pivotY=heightAt(vehicle.pos.x,vehicle.pos.z)+vehicle.altitude+3.5;
    if(!gunner)for(let t=.05;t<=1;t+=.05){const x=vehicle.pos.x+Math.sin(look.yaw)*distance*t,z=vehicle.pos.z+Math.cos(look.yaw)*distance*t,y=pivotY+2.15*t;if(BLOCKS.some(b=>Math.abs(x-b.x)<b.w/2+.5&&Math.abs(z-b.z)<b.d/2+.5&&y<heightAt(x,z)+b.h+.5)){fraction=Math.max(0,t-.08);break;}}
    const x=vehicle.pos.x+Math.sin(look.yaw)*distance*fraction,z=vehicle.pos.z+Math.cos(look.yaw)*distance*fraction;
    this.camera.position.set(x,Math.max(heightAt(x,z)+1.2,pivotY+(gunner?0:2.15*fraction)),z);
-  }else this.camera.position.set(p.pos.x,heightAt(p.pos.x,p.pos.z)+look.height,p.pos.z);
+  }else {this.camera.position.set(p.pos.x,heightAt(p.pos.x,p.pos.z)+look.height,p.pos.z);if(look.infantryFirstPerson===false&&!look.ads){let fraction=1;for(let t=.1;t<=1;t+=.1){const x=p.pos.x+Math.sin(look.yaw)*4*t,z=p.pos.z+Math.cos(look.yaw)*4*t,y=heightAt(p.pos.x,p.pos.z)+look.height+.6*t;if(BLOCKS.some(b=>Math.abs(x-b.x)<b.w/2+.3&&Math.abs(z-b.z)<b.d/2+.3&&y<heightAt(x,z)+b.h)){fraction=Math.max(0,t-.1);break;}}this.camera.position.x+=Math.sin(look.yaw)*4*fraction;this.camera.position.z+=Math.cos(look.yaw)*4*fraction;this.camera.position.y+=.6*fraction;}}
   for(const object of this.scene.children)if(object.userData.sky)object.position.copy(this.camera.position);
   this.camera.rotation.order='YXZ';this.camera.rotation.y=look.yaw;this.camera.rotation.x=look.pitch-this.cameraKick;
   this.camera.rotation.z=this.hitRoll;this.hitRoll=THREE.MathUtils.damp(this.hitRoll,0,10,dt);this.hitFlash=Math.max(0,this.hitFlash-dt*1.7);
   if(look.deathAge!==undefined){const age=look.deathAge,fall=THREE.MathUtils.smoothstep(age,0,1.15),rise=THREE.MathUtils.smoothstep(age,2,4.8);this.camera.position.set(p.pos.x*(1-rise),heightAt(p.pos.x,p.pos.z)+THREE.MathUtils.lerp(look.height,.28,fall)+rise*525,p.pos.z*(1-rise));this.camera.rotation.x=THREE.MathUtils.lerp(look.pitch-.25*fall,-Math.PI/2+.001,rise);this.camera.rotation.y=look.yaw*(1-rise);this.camera.rotation.z=.75*fall*(1-rise);}
+  if(look.introAge!==undefined){const t=THREE.MathUtils.smoothstep(look.introAge,0,3);this.camera.position.y+=18*(1-t);this.camera.rotation.x-=.45*(1-t);}
+  if(look.resultAge!==undefined){const t=Math.min(1,look.resultAge/4),a=look.yaw+t*.6;this.camera.position.set(p.pos.x+Math.sin(a)*10, heightAt(p.pos.x,p.pos.z)+5+t*8,p.pos.z+Math.cos(a)*10);this.camera.lookAt(p.pos.x,heightAt(p.pos.x,p.pos.z)+1.5,p.pos.z);}
   this.cameraKick=THREE.MathUtils.damp(this.cameraKick,0,17,dt);
-  const aim=this.weapon.render(dt,{weapon:battle.playerWeapon,ads:look.ads&&!vehicle,sprint:look.sprint&&!vehicle,moving:look.moving,speed:look.speed,reload:look.reload,alive:p.alive&&!vehicle&&!look.equipment,velocitySide:look.side});
-  this.equipment.render(p.alive?(vehicle?(battle.playerSeat===1||vehicle.kind==='scout'?'mountedMG':look.vehicleFirstPerson||look.ads?'cockpit':null):look.equipment??null):null,look.equipmentAge??0,look.ads);
+  const aim=this.weapon.render(dt,{weapon:battle.playerWeapon,ads:look.ads&&!vehicle,sprint:look.sprint&&!vehicle,moving:look.moving,speed:look.speed,reload:look.reload,alive:p.alive&&!vehicle&&!look.equipment&&(look.infantryFirstPerson!==false||look.ads),velocitySide:look.side});
+  this.equipment.render(p.alive&&(look.infantryFirstPerson!==false||look.ads||!!vehicle)?(vehicle?(look.vehicleFirstPerson||look.ads?(battle.playerSeat===1||vehicle.kind==='scout'?'mountedMG':'cockpit'):null):look.equipment??null):null,look.equipmentAge??0,look.ads);
   if(vehicle&&(battle.playerSeat===1||vehicle.kind==='scout')){this.equipment.root.rotation.y=Math.atan2(Math.sin(vehicle.mgYaw-look.yaw-Math.PI),Math.cos(vehicle.mgYaw-look.yaw-Math.PI));this.equipment.root.rotation.x=vehicle.turretPitch-look.pitch;}
   const sway=look.moving?Math.sin(this.t*(look.sprint?15:11))*.011*(look.sprint?1.5:1):0;
   this.camera.position.y+=sway*(1-aim*.65);
@@ -241,7 +245,7 @@ export class WorldView {
   const vehicleZoom=vehicle&&look.ads?3:1;const adsFov=THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(THREE.MathUtils.degToRad(this.baseFov/2))/battle.activeWeapon.zoom));this.camera.fov=THREE.MathUtils.damp(this.camera.fov,(vehicle?this.baseFov/vehicleZoom:THREE.MathUtils.lerp(this.baseFov,adsFov,aim))+(look.sprint?3:0),13,dt);this.camera.updateProjectionMatrix();
   for(const item of this.iff){const s=battle.soldiers[item.id]!;item.sprite.visible=s.alive&&s.vehicleId===null&&battle.canIdentify(s.pos,s.team===battle.player.team?60:35);item.sprite.position.set(s.pos.x,heightAt(s.pos.x,s.pos.z)+2.35,s.pos.z);const width=Math.max(.2,dist(p.pos,s.pos)*Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2))*.07);item.sprite.scale.set(width,width*.375,1)}
   this.updateSupportSmoke(battle);
-  this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt);this.vehicleRender.update(dt,!!look.vehicleFirstPerson||look.ads,!!look.network);
+  this.updateProjectileMeshes(battle);this.soldierRender.update(battle,dt,look.infantryFirstPerson===false&&!look.ads&&!vehicle);this.vehicleRender.update(dt,!!look.vehicleFirstPerson||look.ads,!!look.network);
   for(let i=0;i<this.markers.length;i++){
    const owner=battle.points[i]!.owner,color=owner==='blue'?blue:owner==='red'?red:0xdbddd2;
    (this.markers[i]!.ring.material as THREE.MeshBasicMaterial).color.setHex(color);
@@ -252,7 +256,7 @@ export class WorldView {
   // Camera-centred shadow coverage: nearby soldiers/buildings remain readable.
   if(this.shadowEnabled){this.sun.position.set(p.pos.x+160,240,p.pos.z-125);this.sun.target.position.set(p.pos.x,0,p.pos.z);this.sun.target.updateMatrixWorld()}
   this.updateParticles(dt);this.updateBlastFx(dt);this.updateAmbientSmoke(dt);
-  for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;if(t.followMuzzle){const m=t.equipment?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition(),positions=t.line.geometry.getAttribute('position') as THREE.BufferAttribute;positions.setXYZ(0,m.x,m.y,m.z);positions.needsUpdate=true;t.line.geometry.computeBoundingSphere();}if(t.fresh)t.fresh=false;else t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
+  for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;if(t.followMuzzle){const m=t.equipment?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition(),positions=t.line.geometry.getAttribute('position') as THREE.BufferAttribute;positions.setXYZ(0,m.x,m.y,m.z);positions.needsUpdate=true;t.line.geometry.computeBoundingSphere();t.line.computeLineDistances();}if(t.fresh)t.fresh=false;else t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
   if(this.vignette){this.vignette.style.opacity=String(Math.max(0,(p.alive?(1-p.hp/100)*.8:0)+this.hitFlash*.85));}
   this.renderer.render(this.scene,this.camera);
  }
