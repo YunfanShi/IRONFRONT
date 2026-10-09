@@ -1,4 +1,10 @@
-# PROJECT IRONFRONT 0.18.0
+# PROJECT IRONFRONT 0.19.0
+
+## 0.19.0 Unity 首轮移植原型
+
+新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型尚不具备网页的指挥官、小队兵种、载具或联机。
+
+在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。Unity C# 脚本已通过静态编译；本机编辑器因授权客户端初始化错误，实际导入、Play 和构建仍待验证。实现内容、操作、限制与后续阶段见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.19.x`，更新时需重新启动服务。
 
 ## 0.18.0 房间与联机体验
 

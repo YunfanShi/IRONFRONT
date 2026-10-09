@@ -176,3 +176,8 @@ AI 射击加入视觉反应时间、运动预测、几何命中、压制/士气/
 ## 0.5.0 — 原版
 
 保留 ATTACK/DEFEND/FLANK/REINFORCE、小队掩体/撤退、独立视觉/听觉搜索、局部脱困、ARTILLERY/COUNTER_OFFENSIVE/ARMORED_PUSH 与 Conquest 自动战局。
+# 0.19.0
+
+- 新增独立 `UnityProject/`：Unity 6000.5.10f1 / URP 工程与首轮单人步兵原型。移植现有 720 米地图、五据点、16 米寻路网格、基础征服票数规则和 IF-27 主要参数，加入第一人称玩家与蓝红各四名简化 AI。
+- 网页包、房间状态接口、客户端版本检查和菜单展示同步升至 0.19.0；网页现有玩法逻辑没有随 Unity 原型重写。旧 0.18.x 网页与 0.19.x 房主服务不能混用。
+- Unity C# 脚本静态编译通过；本机 Unity 编辑器授权客户端初始化错误阻断实际导入和 Play 验证。范围和后续验收见 [docs/UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。
