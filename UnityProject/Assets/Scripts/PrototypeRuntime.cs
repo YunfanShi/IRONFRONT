@@ -280,10 +280,30 @@ namespace Ironfront.UnityPrototype
             }
             float ordersX = canvasWidth - 282f;
             float ordersY = 12f;
-            GUI.Box(new Rect(ordersX, ordersY, 270, 138), GUIContent.none);
+            GUI.Box(new Rect(ordersX, ordersY, 270, 176), GUIContent.none);
             GUI.Label(new Rect(ordersX + 12, ordersY + 6, 245, 25), "SQUAD ORDERS", title);
             DrawOrders(BlueCommander, "BLUE", ordersX + 12, ordersY + 34, body);
             DrawOrders(RedCommander, "RED", ordersX + 12, ordersY + 82, body);
+            int blueCover = 0, redCover = 0, blueSearch = 0, redSearch = 0;
+            foreach (PrototypeBot bot in Bots)
+            {
+                bool covering = bot.TacticalState == PrototypeTacticalState.SeekCover ||
+                    bot.TacticalState == PrototypeTacticalState.InCover;
+                if (bot.Team == PrototypeTeam.Blue)
+                {
+                    if (covering) blueCover++;
+                    if (bot.TacticalState == PrototypeTacticalState.Search) blueSearch++;
+                }
+                else
+                {
+                    if (covering) redCover++;
+                    if (bot.TacticalState == PrototypeTacticalState.Search) redSearch++;
+                }
+            }
+            GUI.Label(new Rect(ordersX + 12, ordersY + 128, 245, 20),
+                "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
+            GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
+                "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
             GUI.Label(new Rect(12, canvasHeight - 35, canvasWidth - 24f, 25),
                 "WASD move  |  Mouse aim  |  Left click fire  |  R reload  |  Shift sprint  |  Space jump  |  Esc cursor", body);
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)

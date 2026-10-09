@@ -13,6 +13,8 @@ namespace Ironfront.UnityPrototype
         public string ObjectiveId { get; internal set; }
         public PrototypeMission Mission { get; internal set; }
         public string Reason { get; internal set; }
+        public Vector2 LastKnownEnemy { get; private set; }
+        public float LastSeenAt { get; private set; } = -100f;
         internal float AssignedAt;
         internal readonly Dictionary<string, float> BlockedUntil = new Dictionary<string, float>();
 
@@ -46,6 +48,20 @@ namespace Ironfront.UnityPrototype
                 return count > 0 ? total / count : Members[0].SpawnPosition;
             }
         }
+
+        public void ReportContact(Vector2 position, float now)
+        {
+            LastKnownEnemy = position;
+            LastSeenAt = now;
+        }
+
+        public bool TryRecentContact(float now, out Vector2 position)
+        {
+            position = LastKnownEnemy;
+            return now - LastSeenAt < 7f;
+        }
+
+        public void ClearContact() { LastSeenAt = -100f; }
     }
 
     // Receives value-only observations from friendly soldiers. Enemy objects never enter this class.

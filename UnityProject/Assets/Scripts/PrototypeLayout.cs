@@ -170,6 +170,14 @@ namespace Ironfront.UnityPrototype
                 new Vector2(132,-119),new Vector2(-4,240),new Vector2(108,12),
                 new Vector2(-285,-30),new Vector2(275,-46),new Vector2(260,-147) })
                 Add(p.x, p.y, 10, 5, 3, "crate");
+
+            // Low cover just outside the B/C capture circles gives both teams a
+            // reachable position to fight from without sealing the objectives.
+            foreach (Vector2 p in new[] {
+                new Vector2(-48,-91), new Vector2(10,-102), new Vector2(-18,-125),
+                new Vector2(-14,75), new Vector2(44,88), new Vector2(12,47),
+                new Vector2(58,100) })
+                Add(p.x, p.y, 7, 4, 2.8f, "crate");
             return blocks;
         }
     }

@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.20.0
+# PROJECT IRONFRONT 0.21.0
+
+## 0.21.0 Unity 步兵战术
+
+Unity 小队现会共享短时目击位置：前排队员可前往最后目击点搜索，后排继续执行据点任务；受击或低血量的士兵会寻找真实遮挡、路径可达的掩体。B/C 外围增加低矮箱体，HUD 显示双方掩体与搜索人数。详情见 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。这部分仍在 `codex/unity-port` 开发分支。
 
 ## 0.20.0 Unity 小队指挥
 
@@ -12,7 +16,7 @@ Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属�
 
 新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型尚不具备网页的指挥官、小队兵种、载具或联机。
 
-在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；本轮 AI 改动的运行验证状态见 [UNITY_AI_020.md](docs/UNITY_AI_020.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.20.x`，更新时需重新启动服务。
+在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.21.x`，更新时需重新启动服务。
 
 ## 0.18.0 房间与联机体验
 

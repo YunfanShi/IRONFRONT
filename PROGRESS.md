@@ -1,3 +1,9 @@
+# 0.21.0 开发进度
+
+## Unity 步兵战术
+
+小队会共享短时目击位置，分工搜索与执行据点任务；低血量或受击士兵可寻找遮挡敌方视线且路径可达的掩体。B/C 据点已补充低矮箱体，HUD 提供战术状态计数。Unity 实际 Play 与当前限制见 [docs/UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。开发分支为 `codex/unity-port`。
+
 # 0.20.0 开发进度
 
 ## Unity 小队指挥

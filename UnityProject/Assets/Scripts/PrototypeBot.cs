@@ -3,12 +3,15 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
+    public enum PrototypeTacticalState { Advance, Hold, Engage, Search, SeekCover, InCover, Down }
+
     public sealed class PrototypeBot : MonoBehaviour
     {
         private PrototypeRuntime runtime;
         private PrototypeNavigation navigation;
         private PrototypeCommander commander;
         private PrototypeSquad squad;
+        private int memberIndex;
         private Vector2 spawn;
         private Vector2 objective;
         private List<Vector2> route = new List<Vector2>();
@@ -20,6 +23,10 @@ namespace Ironfront.UnityPrototype
         private float lastRouteFailureAt;
         private float lastProgressAt;
         private Vector2 lastProgressPosition;
+        private float underFireUntil;
+        private float nextCoverSearch;
+        private float coverUntil;
+        private Vector2 coverPoint;
         private Renderer body;
         private Collider bodyCollider;
 
@@ -29,6 +36,8 @@ namespace Ironfront.UnityPrototype
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public Vector2 SpawnPosition => spawn;
         public string AssignedObjectiveId { get; private set; } = "-";
+        public PrototypeTacticalState TacticalState { get; private set; } = PrototypeTacticalState.Advance;
+        public Vector2 ReservedCover => coverUntil > Time.time ? coverPoint : MapPosition;
 
         public void Initialize(PrototypeRuntime game, PrototypeNavigation nav,
             PrototypeTeam team, Vector2 spawnPoint)
@@ -48,6 +57,7 @@ namespace Ironfront.UnityPrototype
         {
             commander = assignedCommander;
             squad = assignedSquad;
+            memberIndex = member;
             name = Team + " Squad " + squad.Id + " / " + (member + 1);
         }
 
@@ -68,12 +78,14 @@ namespace Ironfront.UnityPrototype
             if (runtime == null || runtime.Match.Winner.HasValue) return;
             if (!Alive)
             {
+                TacticalState = PrototypeTacticalState.Down;
                 if (Time.time >= respawnAt) Respawn();
                 return;
             }
 
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot, out PrototypePlayer player);
             bool inCombat = bot != null || player != null;
+            if (inCombat && squad != null) squad.ReportContact(enemy, Time.time);
             if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
             {
                 commander.ReportEnemy(enemy, Time.time);
@@ -95,15 +107,82 @@ namespace Ironfront.UnityPrototype
                 }
             }
 
-            Vector2 destination = inCombat && enemyDistance > 27f ? enemy : objective;
-            if ((!inCombat && Vector2.Distance(MapPosition, objective) < 18f) ||
-                (inCombat && enemyDistance <= 27f))
+            Vector2 threat = enemy;
+            bool recentContact = !inCombat && squad != null &&
+                squad.TryRecentContact(Time.time, out threat);
+            if (inCombat && coverUntil > Time.time &&
+                !PrototypeLayout.LineBlocked(coverPoint, enemy, 0.1f))
+            {
+                coverUntil = 0f;
+                route.Clear();
+                repathAt = 0f;
+            }
+            if ((inCombat || recentContact) &&
+                (Health < 65f || Time.time < underFireUntil) &&
+                Time.time >= nextCoverSearch && coverUntil <= Time.time)
+            {
+                nextCoverSearch = Time.time + 3.5f;
+                Vector2 mate = squad.Members[1 - memberIndex].ReservedCover;
+                if (PrototypeTactics.TryFindCover(MapPosition, threat, objective, mate,
+                    navigation, out Vector2 chosen))
+                {
+                    coverPoint = chosen;
+                    coverUntil = Time.time + 5f;
+                    route.Clear();
+                    repathAt = 0f;
+                }
+            }
+            if (coverUntil > Time.time)
+            {
+                if (Vector2.Distance(MapPosition, coverPoint) > 1.8f)
+                {
+                    TacticalState = PrototypeTacticalState.SeekCover;
+                    MoveToward(coverPoint, false);
+                }
+                else
+                {
+                    TacticalState = PrototypeTacticalState.InCover;
+                    lastProgressAt = Time.time;
+                    lastProgressPosition = MapPosition;
+                }
+                return;
+            }
+
+            if (!inCombat && recentContact && memberIndex == 0 &&
+                Vector2.Distance(threat, objective) < 70f &&
+                Vector2.Distance(MapPosition, threat) < 55f)
+            {
+                if (Vector2.Distance(MapPosition, threat) > 5f)
+                {
+                    TacticalState = PrototypeTacticalState.Search;
+                    MoveToward(threat, false);
+                    return;
+                }
+                squad.ClearContact();
+            }
+
+            if (inCombat)
+            {
+                TacticalState = PrototypeTacticalState.Engage;
+                float preferredRange = memberIndex == 0 ? 24f : 38f;
+                if (enemyDistance > preferredRange) MoveToward(enemy, false);
+                else { lastProgressAt = Time.time; lastProgressPosition = MapPosition; }
+                return;
+            }
+
+            if (TacticalState != PrototypeTacticalState.Advance &&
+                TacticalState != PrototypeTacticalState.Hold)
             {
                 lastProgressAt = Time.time;
                 lastProgressPosition = MapPosition;
+            }
+            if (Vector2.Distance(MapPosition, objective) < 18f)
+            {
+                TacticalState = PrototypeTacticalState.Hold;
                 return;
             }
-            MoveToward(destination, !inCombat);
+            TacticalState = PrototypeTacticalState.Advance;
+            MoveToward(objective, true);
         }
 
         private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot, out PrototypePlayer selectedPlayer)
@@ -188,11 +267,13 @@ namespace Ironfront.UnityPrototype
         {
             if (!Alive) return;
             Health = Mathf.Max(0f, Health - amount);
+            underFireUntil = Time.time + 4f;
             if (Alive) return;
             runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 6f;
             body.enabled = false;
             bodyCollider.enabled = false;
+            TacticalState = PrototypeTacticalState.Down;
         }
 
         private void Respawn()
@@ -206,6 +287,10 @@ namespace Ironfront.UnityPrototype
             lastProgressAt = Time.time;
             lastProgressPosition = point;
             lastRouteFailureAt = -10f;
+            underFireUntil = 0f;
+            nextCoverSearch = 0f;
+            coverUntil = 0f;
+            TacticalState = PrototypeTacticalState.Advance;
             if (body != null) body.enabled = true;
             if (bodyCollider != null) bodyCollider.enabled = true;
         }
