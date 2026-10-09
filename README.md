@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.19.0
+# PROJECT IRONFRONT 0.19.1
+
+## 0.19.1 Unity 导入修复
+
+修复 Unity 6000.5.10f1 首次打开 `UnityProject` 时进入 Safe Mode 的问题：清除未使用且与 Unity 6.5 不兼容的模板包，启用原型需要的内置 Physics 与 Audio 模块，并接受编辑器自动完成的 URP 工程升级。已在本机 Unity 编辑器打开 `SampleScene` 并实际 Play：地形、玩家、AI、占点与票数运行，Console 为 0 错误。详情见 [UNITY_SAFE_MODE_0191.md](docs/UNITY_SAFE_MODE_0191.md)。独立构建和完整移植仍待后续验收。
 
 ## 0.19.0 Unity 首轮移植原型
 

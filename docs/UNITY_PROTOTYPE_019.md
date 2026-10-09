@@ -1,5 +1,7 @@
 # 0.19.0 Unity 可运行切片：首轮移植
 
+后续 `0.19.1` 已修复首次导入的 Safe Mode，并在 Unity 6000.5.10f1 中实际 Play。以下“未验证”段落记录的是 `0.19.0` 提交时的状态；当前结果见 [UNITY_SAFE_MODE_0191.md](UNITY_SAFE_MODE_0191.md)。
+
 ## 目标与基线
 
 本轮是 Unity 移植的第一阶段。开始前本地 `main` 与 GitHub `origin/main` 均为 `55eecbb`、版本 `0.18.0`，工作区干净。现有 Three.js 游戏是玩法和数值的参考实现；本轮增加独立的 `UnityProject/`，先建立可以导入的工程与单人步兵战斗切片。`FurtherPlan.md` 所列多地图、新载具、新模式仍属于原网页游戏后续计划，本轮没有把它们标为已完成。

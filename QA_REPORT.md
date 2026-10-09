@@ -1,3 +1,28 @@
+# 0.19.1 QA：Unity Safe Mode 修复
+
+本轮开始前本地与 `origin/main` 均为 `e1040bc`、版本 `0.19.0`。Unity 6000.5.10f1 首次打开时出现 337 条编译错误，来自未使用的旧模板包。移除不兼容包后 Console 缩减为 5 条原型源代码错误，全部是未显式启用内置 Physics/Audio 模块；补齐后 `Assembly-CSharp.dll` 编译成功，编辑器退出 Safe Mode。
+
+在 Unity Editor 打开 `Assets/Scenes/SampleScene.unity` 并 Play，观察到地形、建筑、枪模与 HUD；双方票数从 100 变化，B/C 据点进度变化、玩家 HP 下降。运行中 Console 为 0 错误、0 警告。网页 TypeScript 检查、Vitest 13 文件 117/117、Vite 生产构建及真实双客户端 LAN 集成测试均通过；现有约 502 kB 的 Three.js 分块提示仍在。独立构建、长期性能、玩家输入与跨机联机未验证。工程修复过程见 [docs/UNITY_SAFE_MODE_0191.md](docs/UNITY_SAFE_MODE_0191.md)。
+
+---
+
+# 0.19.0 QA：Unity 首轮移植原型
+
+## 基线与范围
+
+开始前本地 `main` 与 `origin/main` 均为 `55eecbb`，网页版本 `0.18.0`。新增 Unity 模块按 `ForAgent.md` 升至 `0.19.0`。详细设计和运行方法见 [docs/UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。本轮的 Unity 代码是实验性首轮原型，网页游戏继续运行。
+
+## 实际验证与限制
+
+- Unity 六个 C# 源文件使用 Unity 6000.5.10f1 安装目录自带的 .NET SDK、Roslyn、UnityEngine 与 .NET Standard 引用进行静态编译，通过。
+- 网页 `tsc --noEmit` 通过；Vitest 13 个文件、117/117 项通过；Vite 生产构建通过。约 502 kB 的 Three.js 分块仍有既有的体积提示。
+- 网页逻辑脚本通过：8、16、32、64 人战局均结束，导航失败为 0；默认 32v32、500 票战局模拟 780.5 秒结束，导航失败为 0。
+- LAN 集成脚本在允许本地监听端口后通过：两个真实 WebSocket 客户端、权威事件、同席位重连、房主移交、倒计时取消、AI 接管、对立阵营、权限和八人上限。初次在受限沙盒中运行时因端口 `EPERM` 停止；放宽本地端口限制后重跑通过。
+- 本机 Unity Editor 命令行导入未完成：第一次 Package Manager 本地 socket 被沙盒拒绝；第二次可连接 Package Manager，但 `Unity.Licensing.Client` 初始化反复报 `System.ObjectDisposedException: IServiceProvider`。因此 Unity 编辑器导入、Play、图形和打包 **未验证**。
+- Unity 原型不宣称通过网页游戏的玩法回归测试；网页浏览器可视化套件本轮未重跑，因为网页界面只改了展示版本号。
+
+---
+
 # 0.18.0 QA：房间界面与局域网连接恢复
 
 ## 基线
@@ -105,19 +130,3 @@ Initial commander defense preference suppressed small-match contacts; balanced a
 ## Deliverables
 
 Detailed DOCX, source/private fullZIP, CRC/SHA256, updated main and local copies. User MP3s remain local/private fullZIP only. Friend needs host HTTP link/IP:7878 and room code; restart old server before npm run lan. Public code/version rejects outdated servers.
-# 0.19.0 QA：Unity 首轮移植原型
-
-## 基线与范围
-
-开始前本地 `main` 与 `origin/main` 均为 `55eecbb`，网页版本 `0.18.0`。新增 Unity 模块按 `ForAgent.md` 升至 `0.19.0`。详细设计和运行方法见 [docs/UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。本轮的 Unity 代码是实验性首轮原型，网页游戏继续运行。
-
-## 实际验证与限制
-
-- Unity 六个 C# 源文件使用 Unity 6000.5.10f1 安装目录自带的 .NET SDK、Roslyn、UnityEngine 与 .NET Standard 引用进行静态编译，通过。
-- 网页 `tsc --noEmit` 通过；Vitest 13 个文件、117/117 项通过；Vite 生产构建通过。约 502 kB 的 Three.js 分块仍有既有的体积提示。
-- 网页逻辑脚本通过：8、16、32、64 人战局均结束，导航失败为 0；默认 32v32、500 票战局模拟 780.5 秒结束，导航失败为 0。
-- LAN 集成脚本在允许本地监听端口后通过：两个真实 WebSocket 客户端、权威事件、同席位重连、房主移交、倒计时取消、AI 接管、对立阵营、权限和八人上限。初次在受限沙盒中运行时因端口 `EPERM` 停止；放宽本地端口限制后重跑通过。
-- 本机 Unity Editor 命令行导入未完成：第一次 Package Manager 本地 socket 被沙盒拒绝；第二次可连接 Package Manager，但 `Unity.Licensing.Client` 初始化反复报 `System.ObjectDisposedException: IServiceProvider`。因此 Unity 编辑器导入、Play、图形和打包 **未验证**。
-- Unity 原型不宣称通过网页游戏的玩法回归测试；网页浏览器可视化套件本轮未重跑，因为网页界面只改了展示版本号。
-
----
