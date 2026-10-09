@@ -18,31 +18,50 @@ export class SoldierVisuals {
  private states=new Map<number,VisualState>();
  private object=new THREE.Object3D();
  constructor(private scene:THREE.Scene,battle:Battle){
-  const plate=new THREE.MeshStandardMaterial({color:0x263339,roughness:.92,metalness:.05});
+  const plate=new THREE.MeshStandardMaterial({color:0x3b4648,roughness:.94,metalness:.04});
   const boots=new THREE.MeshStandardMaterial({color:0x202527,roughness:.99});
+  const gloves=new THREE.MeshStandardMaterial({color:0x303635,roughness:.96});
   const badge=new THREE.MeshStandardMaterial({color:0xf0d46c,roughness:.8});
-  const skin=new THREE.MeshStandardMaterial({color:0x806e5d,roughness:1});
-  const visor=new THREE.MeshStandardMaterial({color:0x132830,metalness:.34,roughness:.27});
+  const skin=new THREE.MeshStandardMaterial({color:0xb18b70,roughness:.94});
+  const visor=new THREE.MeshStandardMaterial({color:0x17272a,metalness:.12,roughness:.47});
   const steel=new THREE.MeshStandardMaterial({color:0x20292f,metalness:.74,roughness:.38});
   const geoBox=(w:number,h:number,d:number)=>new THREE.BoxGeometry(w,h,d);
+  const rounded=(w:number,h:number,d:number)=>new THREE.SphereGeometry(1,12,8).scale(w/2,h/2,d/2);
   for(const team of ['blue','red'] as Team[]){
-   const suit=new THREE.MeshStandardMaterial({color:team==='blue'?0x3577a0:0xa64f46,roughness:.96});
-   const cloth=document.createElement('canvas');cloth.width=cloth.height=16;const cc=cloth.getContext('2d')!;cc.fillStyle=team==='blue'?'#3577a0':'#a64f46';cc.fillRect(0,0,16,16);cc.fillStyle=team==='blue'?'#316b90':'#95473f';for(let i=0;i<12;i++)cc.fillRect((i*7)%16,(i*5)%16,2,2);cc.fillStyle='#283942';cc.fillRect(6,9,4,3);const clothMap=new THREE.CanvasTexture(cloth);clothMap.magFilter=THREE.NearestFilter;clothMap.minFilter=THREE.NearestFilter;clothMap.colorSpace=THREE.SRGBColorSpace;suit.map=clothMap;
-   const trim=new THREE.MeshStandardMaterial({color:team==='blue'?0x6d9eae:0xaa826b,roughness:.84});
-   const face=document.createElement('canvas');face.width=face.height=8;const c=face.getContext('2d')!;c.fillStyle='#be9873';c.fillRect(0,0,8,8);c.fillStyle='#49352a';c.fillRect(0,0,8,2);c.fillRect(0,2,1,2);c.fillRect(7,2,1,2);c.fillStyle='#eee8da';c.fillRect(1,3,2,1);c.fillRect(5,3,2,1);c.fillStyle=team==='blue'?'#385f9a':'#779545';c.fillRect(2,3,1,1);c.fillRect(5,3,1,1);c.fillStyle='#976946';c.fillRect(3,4,2,2);c.fillStyle='#60402e';c.fillRect(2,6,4,2);c.fillStyle='#c2997a';c.fillRect(3,6,2,1);const tx=new THREE.CanvasTexture(face);tx.magFilter=THREE.NearestFilter;tx.minFilter=THREE.NearestFilter;tx.colorSpace=THREE.SRGBColorSpace;const faceMat=new THREE.MeshStandardMaterial({map:tx,roughness:1}),hair=new THREE.MeshStandardMaterial({color:0x49352a,roughness:1});
+   const suit=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.98});
+   const cloth=document.createElement('canvas');cloth.width=cloth.height=32;const cc=cloth.getContext('2d')!;cc.fillStyle=team==='blue'?'#3f5059':'#5e524d';cc.fillRect(0,0,32,32);cc.fillStyle=team==='blue'?'#37464e':'#504843';for(let i=0;i<48;i++)cc.fillRect((i*17)%32,(i*11)%32,2,2);const clothMap=new THREE.CanvasTexture(cloth);clothMap.magFilter=THREE.LinearFilter;clothMap.minFilter=THREE.LinearMipmapLinearFilter;clothMap.colorSpace=THREE.SRGBColorSpace;suit.map=clothMap;
+   const trim=new THREE.MeshStandardMaterial({color:team==='blue'?0x47535a:0x604f48,roughness:.9});
+   const helmet=new THREE.MeshStandardMaterial({color:team==='blue'?0x344753:0x554b47,roughness:.86,metalness:.08});
    const parts:Part[]=[
-    {geometry:geoBox(.8,1.2,.4),material:suit,offset:[0,1.45,0],kind:'rig'},
-    {geometry:geoBox(.8,.8,.8),material:[hair,hair,hair,skin,faceMat,hair],offset:[0,2.45,0],kind:'head'},
+    {geometry:new THREE.CylinderGeometry(.37,.46,1.2,10),material:suit,offset:[0,1.45,0],kind:'rig'},
+    {geometry:rounded(.54,.66,.52),material:skin,offset:[0,2.39,0],kind:'head'},
+    {geometry:new THREE.SphereGeometry(.34,12,8,0,Math.PI*2,0,Math.PI*.65),material:helmet,offset:[0,2.53,-.015],kind:'head'},
+    {geometry:rounded(.45,.12,.12),material:visor,offset:[0,2.48,.27],kind:'head'},
+    {geometry:rounded(.46,.19,.12),material:trim,offset:[0,2.30,.26],kind:'head'},
+    {geometry:rounded(.14,.21,.21),material:helmet,offset:[-.31,2.43,0],kind:'head'},
+    {geometry:rounded(.14,.21,.21),material:helmet,offset:[.31,2.43,0],kind:'head'},
     {geometry:geoBox(.24,.18,.02),material:badge,offset:[0,1.68,.215],kind:'rig',humanOnly:true},
-    {geometry:geoBox(.4,1.2,.4),material:suit,offset:[-.6,1.45,0],kind:'armL'},
-    {geometry:geoBox(.4,1.2,.4),material:suit,offset:[.6,1.45,0],kind:'armR'},
-    {geometry:geoBox(.4,.3,.41),material:skin,offset:[-.6,1.0,0],kind:'armL'},
-    {geometry:geoBox(.4,.3,.41),material:skin,offset:[.6,1.0,0],kind:'armR'},
-    {geometry:geoBox(.4,1.2,.4),material:trim,offset:[-.2,.65,0],kind:'legL'},
-    {geometry:geoBox(.4,1.2,.4),material:trim,offset:[.2,.65,0],kind:'legR'},
+    {geometry:new THREE.CylinderGeometry(.17,.21,1.2,8),material:suit,offset:[-.58,1.45,0],kind:'armL'},
+    {geometry:new THREE.CylinderGeometry(.17,.21,1.2,8),material:suit,offset:[.58,1.45,0],kind:'armR'},
+    {geometry:rounded(.39,.28,.36),material:suit,offset:[-.53,1.93,0],kind:'armL'},
+    {geometry:rounded(.39,.28,.36),material:suit,offset:[.53,1.93,0],kind:'armR'},
+    {geometry:geoBox(.34,.27,.36),material:gloves,offset:[-.6,1.0,0],kind:'armL'},
+    {geometry:geoBox(.34,.27,.36),material:gloves,offset:[.6,1.0,0],kind:'armR'},
+    {geometry:new THREE.CylinderGeometry(.18,.22,1.2,8),material:trim,offset:[-.2,.65,0],kind:'legL'},
+    {geometry:new THREE.CylinderGeometry(.18,.22,1.2,8),material:trim,offset:[.2,.65,0],kind:'legR'},
+    {geometry:rounded(.31,.24,.25),material:plate,offset:[-.2,.48,.14],kind:'legL'},
+    {geometry:rounded(.31,.24,.25),material:plate,offset:[.2,.48,.14],kind:'legR'},
     {geometry:geoBox(.41,.22,.44),material:boots,offset:[-.2,.15,.015],kind:'legL'},
     {geometry:geoBox(.41,.22,.44),material:boots,offset:[.2,.15,.015],kind:'legR'},
-    {geometry:geoBox(.46,.56,.18),material:plate,offset:[0,1.4,-.28],kind:'rig'},
+    {geometry:new THREE.CylinderGeometry(.40,.45,.78,10),material:plate,offset:[0,1.52,0],kind:'rig'},
+    {geometry:geoBox(.68,.68,.22),material:plate,offset:[0,1.48,-.35],kind:'rig'},
+    {geometry:geoBox(.69,.64,.14),material:plate,offset:[0,1.49,.36],kind:'rig'},
+    {geometry:geoBox(.86,.13,.43),material:gloves,offset:[0,1.03,0],kind:'rig'},
+    {geometry:geoBox(.18,.25,.17),material:trim,offset:[-.26,1.32,.45],kind:'rig'},
+    {geometry:geoBox(.18,.25,.17),material:trim,offset:[0,1.32,.45],kind:'rig'},
+    {geometry:geoBox(.18,.25,.17),material:trim,offset:[.26,1.32,.45],kind:'rig'},
+    {geometry:geoBox(.25,.31,.15),material:trim,offset:[-.51,1.18,0],kind:'rig'},
+    {geometry:geoBox(.25,.31,.15),material:trim,offset:[.51,1.18,0],kind:'rig'},
     {geometry:geoBox(.23,.25,.95),material:steel,offset:[.15,1.52,.59],kind:'weapon'},
     {geometry:geoBox(.31,.27,.36),material:trim,offset:[.40,1.12,.10],kind:'armR'},
     {geometry:geoBox(.13,.16,.43),material:steel,offset:[.15,1.55,1.14],kind:'weapon'},
@@ -74,9 +93,11 @@ export class SoldierVisuals {
     const angle=Math.atan2(Math.sin(soldier.yaw-state.yaw),Math.cos(soldier.yaw-state.yaw));state.yaw+=angle*blend;
     const moveSpeed=Math.hypot(state.x-priorX,state.z-priorZ)/Math.max(dt,.001);
     state.speed=THREE.MathUtils.damp(state.speed,Math.min(1,moveSpeed/8.2),8,dt);
-    const sprinting=soldier.state==='RETREAT'||soldier.state==='MOVE_TO_OBJECTIVE'||soldier.state==='FOLLOW_SQUAD';
+    const sprinting=soldier.state==='RETREAT'||soldier.state==='MOVE_TO_OBJECTIVE'||soldier.state==='FOLLOW_SQUAD'||soldier.state==='BOARD_VEHICLE';
     const fighting=soldier.state==='ENGAGE'||soldier.state==='SEEK_COVER';
-    const crouching=soldier.state==='SEEK_COVER'||(soldier.state==='DEFEND'&&soldier.id%3===0);
+    const interacting=soldier.state==='REVIVE';
+    const observing=soldier.state==='SEARCH'||soldier.state==='DEFEND';
+    const crouching=soldier.state==='SEEK_COVER'||interacting||(soldier.state==='DEFEND'&&soldier.id%3===0);
     state.phase+=dt*((sprinting?3.1:2.0)+state.speed*(sprinting?13.2:10.4));
     const stride=Math.sin(state.phase)*state.speed*(fighting ? .52 : 1),step=Math.abs(Math.cos(state.phase))*state.speed;
     const mount=soldier.vehicleId===null?null:battle.vehicles.find(v=>v.id===soldier.vehicleId&&v.kind==='motorcycle'&&v.alive),riding=!!mount;if(mount){const seat=mount.occupants.indexOf(soldier.id),offset=seat===0?.18:-.65;state.x=mount.pos.x+Math.sin(mount.yaw)*offset;state.z=mount.pos.z+Math.cos(mount.yaw)*offset;state.yaw=mount.yaw;}const footY=heightAt(state.x,state.z)+soldier.altitude+(riding?.43:0),bob=step*.052*(crouching ? .45 : 1);
@@ -88,9 +109,9 @@ export class SoldierVisuals {
      const part=army.parts[j]!,[lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
      if(part.kind==='legL'){rx=stride*.38+(crouching ? .30 : 0);zz+=stride*.21;yy+=Math.max(0,-stride)*.09}
      else if(part.kind==='legR'){rx=-stride*.38+(crouching ? .30 : 0);zz-=stride*.21;yy+=Math.max(0,stride)*.09}
-     else if(part.kind==='armL'){rx=fighting?-.78:-stride*.17-.45;zz+=fighting ? .25 : .13;yy-=.035}
-     else if(part.kind==='armR'){rx=fighting?-.70:stride*.14-.44;zz+=fighting ? .24 : .12;yy-=.035}
-     else if(part.kind==='head'){rx=fighting?-.03:step*.014;rz=Math.sin(state.phase*.47)*.022}
+     else if(part.kind==='armL'){rx=interacting?-.95:fighting?-.78:-stride*.17-.45;zz+=interacting?.31:fighting?.25:.13;yy-=.035}
+     else if(part.kind==='armR'){rx=interacting?-1.05:fighting?-.70:stride*.14-.44;zz+=interacting?.35:fighting?.24:.12;yy-=.035}
+     else if(part.kind==='head'){rx=fighting?-.03:step*.014;rz=observing&&state.speed<.15?Math.sin(battle.elapsed*1.2+soldier.id)*.055:Math.sin(state.phase*.47)*.022}
      else if(part.kind==='rig'){yy+=bob;rz=stride*.025}
      else if(part.kind==='weapon'){yy+=bob*.7;rx=fighting?-.03:-.12}
      if(riding){rx=part.kind==='legL'||part.kind==='legR'?1.1:part.kind==='armL'||part.kind==='armR'?-.95:0;rz=0;yy=ly;zz=lz;if(part.kind==='legL'||part.kind==='legR'){yy-=.15;zz+=.25;}if(part.kind==='armL'||part.kind==='armR'){zz+=.23;yy-=.08;}}

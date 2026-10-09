@@ -33,7 +33,7 @@ function start(options:GameOptions,shared?:Battle){
  ui.resetBattleState();audio.unlock();audio.volume=options.volume;audio.musicVolume=options.musicVolume;audio.effectsVolume=options.effectsVolume;audio.ambientVolume=options.ambientVolume;audio.music.begin('deployment');
  world?.dispose();
  if(document.pointerLockElement)document.exitPointerLock();
- battle=shared??new Battle({mode:options.mode,size:options.size,difficulty:options.difficulty,tickets:options.tickets,vehicleLimit:options.vehicleLimit,killTicketPenalty:options.killTicketPenalty} satisfies BattleSettings);
+ battle=shared??new Battle({mode:options.mode,size:options.size,difficulty:options.difficulty,aiProfile:options.aiProfile,tickets:options.tickets,vehicleLimit:options.vehicleLimit,killTicketPenalty:options.killTicketPenalty} satisfies BattleSettings);
  battle.setLoadout(ui.loadout);
  try {world=new WorldView(ui.canvas,battle,options.quality,options.fov,options.renderScale)}catch(err){
   battle=null;paused=true;ui.menu();
