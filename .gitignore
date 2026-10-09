@@ -12,15 +12,3 @@ __MACOSX/
 
 node_modules
 public/audio/music/*.mp3
-
-# Unity prototype: keep source assets and settings, discard generated caches.
-UnityProject/Library/
-UnityProject/Temp/
-UnityProject/Obj/
-UnityProject/Logs/
-UnityProject/UserSettings/
-UnityProject/Builds/
-UnityProject/MemoryCaptures/
-UnityProject/Recordings/
-UnityProject/*.csproj
-UnityProject/*.sln

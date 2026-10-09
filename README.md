@@ -1,14 +1,4 @@
-# PROJECT IRONFRONT 0.19.1
-
-## 0.19.1 Unity 导入修复
-
-修复 Unity 6000.5.10f1 首次打开 `UnityProject` 时进入 Safe Mode 的问题：清除未使用且与 Unity 6.5 不兼容的模板包，启用原型需要的内置 Physics 与 Audio 模块，并接受编辑器自动完成的 URP 工程升级。已在本机 Unity 编辑器打开 `SampleScene` 并实际 Play：地形、玩家、AI、占点与票数运行，Console 为 0 错误。详情见 [UNITY_SAFE_MODE_0191.md](docs/UNITY_SAFE_MODE_0191.md)。独立构建和完整移植仍待后续验收。
-
-## 0.19.0 Unity 首轮移植原型
-
-新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型尚不具备网页的指挥官、小队兵种、载具或联机。
-
-在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。Unity C# 脚本已通过静态编译；本机编辑器因授权客户端初始化错误，实际导入、Play 和构建仍待验证。实现内容、操作、限制与后续阶段见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.19.x`，更新时需重新启动服务。
+# PROJECT IRONFRONT 0.18.0
 
 ## 0.18.0 房间与联机体验
 

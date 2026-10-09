@@ -1,15 +1,3 @@
-# 0.19.1 开发进度
-
-## Unity 首次编辑器验收
-
-修复模板包不兼容和内置 Physics/Audio 模块缺失导致的 Safe Mode。Unity 6000.5.10f1 已成功打开 `SampleScene` 并 Play；运行中 AI 改变据点、票数及玩家 HP，Console 0 错误。独立桌面构建、输入全流程及完整 AI/载具/联机仍需后续阶段。详见 [docs/UNITY_SAFE_MODE_0191.md](docs/UNITY_SAFE_MODE_0191.md)。
-
-# 0.19.0 开发进度
-
-## Unity 首轮移植原型
-
-独立 URP 工程、地图/据点/步兵导航、第一人称玩家、IF-27、基础 AI 与征服短局源代码已提交。Unity C# 静态编译通过；编辑器导入、Play 和构建因本机授权客户端错误尚未验收。下一阶段先解决编辑器运行，再移植完整 AI、小队、载具、UI 和联机。详细范围见 [docs/UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。
-
 # 0.18.0 开发进度
 
 ## 房间 UI 与局域网连接恢复
