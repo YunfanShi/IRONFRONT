@@ -49,11 +49,11 @@ namespace Ironfront.UnityPrototype
         private static readonly Color Accent = new Color(0.29f, 0.82f, 0.85f, 1f);
         private static readonly Color Muted = new Color(0.62f, 0.72f, 0.78f, 1f);
         private static readonly Color Divider = new Color(0.20f, 0.32f, 0.39f, 1f);
-        private static readonly Color StartBackground = new Color(.002f, .005f, .008f, 1f);
-        private static readonly Color MenuPanel = new Color(.004f, .010f, .015f, 1f);
-        private static readonly Color MenuCard = new Color(.008f, .018f, .025f, 1f);
-        private static readonly Color MenuSelected = new Color(.014f, .042f, .055f, 1f);
-        private static readonly Color MenuAccent = new Color(.19f, .55f, .61f, 1f);
+        private static readonly Color StartBackground = new Color(.025f, .045f, .050f, 1f);
+        private static readonly Color MenuPanel = new Color(.006f, .020f, .026f, .88f);
+        private static readonly Color MenuCard = new Color(.018f, .043f, .052f, .87f);
+        private static readonly Color MenuSelected = new Color(.035f, .095f, .110f, .92f);
+        private static readonly Color MenuAccent = new Color(.48f, .77f, .80f, 1f);
         private static readonly Color MenuDivider = new Color(.018f, .036f, .043f, 1f);
         private static readonly Color WarmAccent = new Color(0.95f, 0.53f, 0.30f, 1f);
         private const string PlayerNameKey = "ironfront.unity.playerName";
@@ -78,6 +78,8 @@ namespace Ironfront.UnityPrototype
 
         private readonly PrototypeRuntime runtime;
         private PrototypeMenuPreview menuPreview;
+        private Texture2D menuVeil;
+        private Texture2D tacticalMapTexture;
         private MenuTab menuTab;
         private float volume;
 
@@ -119,7 +121,14 @@ namespace Ironfront.UnityPrototype
             Cursor.visible = false;
         }
 
-        public void Dispose() { DisposePreview(); }
+        public void Dispose()
+        {
+            DisposePreview();
+            if (menuVeil != null) Object.Destroy(menuVeil);
+            if (tacticalMapTexture != null) Object.Destroy(tacticalMapTexture);
+            menuVeil = null;
+            tacticalMapTexture = null;
+        }
 
         public void OpenDowned()
         {
@@ -178,14 +187,17 @@ namespace Ironfront.UnityPrototype
                 GUI.FocusControl(null);
                 inputEvent.Use();
             }
-            float leftX = 40f;
-            float leftW = Mathf.Min(515f, canvasWidth * .56f);
-            float rightX = leftX + leftW + 24f;
-            float rightW = canvasWidth - rightX - 24f;
+            float leftX = 48f;
+            float leftW = Mathf.Min(492f, canvasWidth * .54f);
             DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), StartBackground);
-            DrawRect(new Rect(rightX - 15f, 66f, canvasWidth - rightX + 15f,
-                canvasHeight - 162f), new Color(.004f, .009f, .012f));
-            DrawMenuPreview(rightX, rightW, canvasHeight);
+            DrawMenuPreview(canvasWidth, canvasHeight);
+            DrawMenuVeil(canvasWidth, canvasHeight);
+            if (menuTab != MenuTab.Lobby)
+            {
+                DrawRect(new Rect(30f, 88f, leftW + 36f, canvasHeight - 188f),
+                    new Color(.003f, .015f, .022f, .77f));
+                DrawRect(new Rect(30f, 88f, leftW + 36f, 2f), MenuAccent);
+            }
             DrawMenuHeader(canvasWidth);
             switch (menuTab)
             {
@@ -194,6 +206,7 @@ namespace Ironfront.UnityPrototype
                 case MenuTab.Loadout: DrawLoadout(leftX, leftW); break;
                 case MenuTab.Settings: DrawSettings(leftX, leftW); break;
             }
+            DrawMenuCaption(canvasWidth, canvasHeight);
             bool deploy = DrawMenuFooter(canvasWidth, canvasHeight);
             HandleKeyboard(ref deploy);
             if (deploy || LanRequested) SavePlayerName();
@@ -222,7 +235,7 @@ namespace Ironfront.UnityPrototype
                 "UNITY  /  " + Application.version, smallStyle);
         }
 
-        private void DrawMenuPreview(float x, float width, float canvasHeight)
+        private void DrawMenuPreview(float canvasWidth, float canvasHeight)
         {
             if (menuPreview == null && runtime != null)
                 menuPreview = new PrototypeMenuPreview(runtime);
@@ -230,18 +243,39 @@ namespace Ironfront.UnityPrototype
             {
                 menuPreview.SetVisible(true);
                 menuPreview.SetClass(SelectedClass);
-                Color previous = GUI.color;
-                GUI.color = new Color(.72f, .76f, .60f, 1f);
-                GUI.DrawTexture(new Rect(x, 78f, width, canvasHeight - 183f),
-                    menuPreview.Texture, ScaleMode.ScaleAndCrop, false);
-                GUI.color = previous;
+                GUI.DrawTexture(new Rect(0f, 0f, canvasWidth, canvasHeight),
+                    menuPreview.Texture, ScaleMode.StretchToFill, false);
             }
-            DrawRect(new Rect(x, canvasHeight - 151f, width, 42f),
-                new Color(.004f, .013f, .016f, .94f));
-            DrawRect(new Rect(x, canvasHeight - 151f, 3f, 42f), MenuAccent);
-            GUI.Label(new Rect(x + 15f, canvasHeight - 144f, width - 28f, 21f),
+        }
+
+        private void DrawMenuVeil(float canvasWidth, float canvasHeight)
+        {
+            if (menuVeil == null)
+            {
+                menuVeil = new Texture2D(256, 1, TextureFormat.RGBA32, false);
+                menuVeil.wrapMode = TextureWrapMode.Clamp;
+                menuVeil.filterMode = FilterMode.Bilinear;
+                for (int i = 0; i < 256; i++)
+                {
+                    float t = i / 255f;
+                    float opacity = Mathf.Lerp(.94f, .16f,
+                        Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / .75f)));
+                    menuVeil.SetPixel(i, 0, new Color(.005f, .014f, .019f, opacity));
+                }
+                menuVeil.Apply();
+            }
+            GUI.DrawTexture(new Rect(0f, 66f, canvasWidth, canvasHeight - 66f),
+                menuVeil, ScaleMode.StretchToFill, true);
+        }
+
+        private void DrawMenuCaption(float canvasWidth, float canvasHeight)
+        {
+            float x = canvasWidth - 198f;
+            float y = canvasHeight - 156f;
+            DrawRect(new Rect(x, y, 116f, 2f), MenuAccent);
+            GUI.Label(new Rect(x, y + 11f, 190f, 21f),
                 "OPERATOR  /  " + ClassNames[(int)SelectedClass], smallStyle);
-            GUI.Label(new Rect(x + 15f, canvasHeight - 127f, width - 28f, 20f),
+            GUI.Label(new Rect(x, y + 33f, 190f, 20f),
                 "当前兵种：" + ClassNamesChinese[(int)SelectedClass], labelStyle);
         }
 
@@ -254,14 +288,14 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(x, 210f, width, 38f),
                 "选择任务，与 AI 队友一起进入战场。", menuSubtitleStyle);
 
-            Rect operation = new Rect(x, 270f, width, 126f);
+            Rect operation = new Rect(x, 248f, width, 126f);
             DrawRect(operation, MenuPanel);
-            DrawRect(new Rect(x, 270f, 3f, 126f), MenuAccent);
-            GUI.Label(new Rect(x + 20f, 284f, width - 40f, 20f),
+            DrawRect(new Rect(x, 248f, 3f, 126f), MenuAccent);
+            GUI.Label(new Rect(x + 20f, 262f, width - 40f, 20f),
                 "当前行动  /  OPERATION 01", smallStyle);
-            GUI.Label(new Rect(x + 20f, 312f, width - 40f, 36f),
+            GUI.Label(new Rect(x + 20f, 290f, width - 40f, 36f),
                 "工业前线", menuTitleStyle);
-            GUI.Label(new Rect(x + 20f, 354f, width - 40f, 22f),
+            GUI.Label(new Rect(x + 20f, 332f, width - 40f, 22f),
                 "征服模式  ·  五个据点  ·  AI 战场", labelStyle);
             if (GUI.Button(operation, GUIContent.none, GUIStyle.none))
                 menuTab = MenuTab.Operations;
@@ -333,9 +367,9 @@ namespace Ironfront.UnityPrototype
                 bool selected = SelectedClass == Classes[i];
                 DrawRect(card, selected ? MenuSelected : MenuCard);
                 if (selected) DrawRect(new Rect(card.x, card.y, 3f, card.height), MenuAccent);
-                GUI.Label(new Rect(card.x + 13f, card.y + 9f, cardW - 20f, 22f),
+                GUI.Label(new Rect(card.x + 13f, card.y + 5f, cardW - 20f, 30f),
                     (i + 1).ToString("00") + "  " + ClassNamesChinese[i], headingStyle);
-                GUI.Label(new Rect(card.x + 13f, card.y + 38f, cardW - 20f, 20f),
+                GUI.Label(new Rect(card.x + 13f, card.y + 36f, cardW - 20f, 24f),
                     ClassAbilities[i], smallStyle);
                 if (GUI.Button(card, GUIContent.none, GUIStyle.none)) SelectedClass = Classes[i];
             }
@@ -387,7 +421,7 @@ namespace Ironfront.UnityPrototype
         {
             float y = canvasHeight - 96f;
             DrawRect(new Rect(0f, y, canvasWidth, 96f),
-                new Color(.003f, .008f, .011f, 1f));
+                new Color(.003f, .010f, .014f, .90f));
             DrawRect(new Rect(0f, y, canvasWidth, 1f), MenuDivider);
             GUI.Label(new Rect(40f, y + 12f, 220f, 19f),
                 "玩家代号  /  PLAYER NAME", smallStyle);
@@ -414,26 +448,75 @@ namespace Ironfront.UnityPrototype
             return deploy;
         }
 
-        private static void DrawTacticalMap(Rect map)
+        private void DrawTacticalMap(Rect map)
         {
-            DrawRect(map, new Color(.008f, .019f, .024f));
-            for (int i = 1; i < 5; i++)
-            {
-                DrawRect(new Rect(map.x + map.width * i / 5f, map.y,
-                    1f, map.height), MenuDivider);
-                DrawRect(new Rect(map.x, map.y + map.height * i / 5f,
-                    map.width, 1f), MenuDivider);
-            }
+            if (tacticalMapTexture == null) tacticalMapTexture = BuildTacticalMapTexture();
+            GUI.DrawTexture(map, tacticalMapTexture, ScaleMode.StretchToFill, false);
+            DrawRect(new Rect(map.x, map.y, map.width, 1f), MenuDivider);
+            DrawRect(new Rect(map.x, map.y + map.height - 1f, map.width, 1f), MenuDivider);
             foreach (PrototypeLayout.Objective objective in PrototypeLayout.Objectives)
             {
                 float mx = map.x + (objective.Position.x / PrototypeLayout.MapSize + .5f) *
                     map.width;
                 float my = map.y + (objective.Position.y / PrototypeLayout.MapSize + .5f) *
                     map.height;
-                DrawRect(new Rect(mx - 8f, my - 8f, 16f, 16f), MenuAccent);
-                GUI.Label(new Rect(mx - 5f, my - 8f, 16f, 16f), objective.Id,
-                    new GUIStyle(GUI.skin.label) { fontSize = 10, fontStyle = FontStyle.Bold });
+                DrawRect(new Rect(mx - 7f, my - 8f, 14f, 16f), MenuAccent);
+                GUI.Label(new Rect(mx - 5f, my - 8f, 16f, 19f), objective.Id,
+                    new GUIStyle(GUI.skin.label) { fontSize = 10, fontStyle = FontStyle.Bold,
+                        alignment = TextAnchor.MiddleCenter });
             }
+        }
+
+        private static Texture2D BuildTacticalMapTexture()
+        {
+            const int textureWidth = 256;
+            const int textureHeight = 128;
+            var pixels = new Color[textureWidth * textureHeight];
+            for (int y = 0; y < textureHeight; y++)
+            {
+                float wz = (y / (float)(textureHeight - 1) - .5f) * PrototypeLayout.MapSize;
+                for (int x = 0; x < textureWidth; x++)
+                {
+                    float wx = (x / (float)(textureWidth - 1) - .5f) * PrototypeLayout.MapSize;
+                    float noise = Mathf.PerlinNoise(x * .055f + .8f, y * .11f + 1.7f);
+                    Color ground = Color.Lerp(new Color(.075f, .115f, .075f),
+                        new Color(.17f, .22f, .14f), noise);
+                    float highway = Mathf.Abs(wz - wx * .62f - 6f);
+                    float crossroad = Mathf.Abs(wx + wz * .35f + 58f);
+                    if (highway < 11f || crossroad < 8f)
+                        ground = new Color(.30f, .32f, .26f);
+                    else if (highway < 16f || crossroad < 13f)
+                        ground = new Color(.19f, .23f, .19f);
+                    if (noise > .69f && highway > 19f && crossroad > 16f)
+                        ground = new Color(.052f, .12f, .075f);
+                    pixels[y * textureWidth + x] = ground;
+                }
+            }
+            foreach (PrototypeLayout.Block block in PrototypeLayout.Blocks)
+            {
+                int minX = Mathf.Clamp(Mathf.FloorToInt((block.Position.x - block.Width / 2f) /
+                    PrototypeLayout.MapSize * textureWidth + textureWidth / 2f), 0, textureWidth - 1);
+                int maxX = Mathf.Clamp(Mathf.CeilToInt((block.Position.x + block.Width / 2f) /
+                    PrototypeLayout.MapSize * textureWidth + textureWidth / 2f), 0, textureWidth - 1);
+                int minY = Mathf.Clamp(Mathf.FloorToInt((block.Position.y - block.Depth / 2f) /
+                    PrototypeLayout.MapSize * textureHeight + textureHeight / 2f), 0, textureHeight - 1);
+                int maxY = Mathf.Clamp(Mathf.CeilToInt((block.Position.y + block.Depth / 2f) /
+                    PrototypeLayout.MapSize * textureHeight + textureHeight / 2f), 0, textureHeight - 1);
+                Color roof = block.Kind == "factory" || block.Kind == "barracks"
+                    ? new Color(.24f, .29f, .25f) : new Color(.33f, .34f, .27f);
+                for (int y = minY; y <= maxY; y++)
+                    for (int x = minX; x <= maxX; x++)
+                        pixels[y * textureWidth + x] = roof;
+            }
+            var result = new Texture2D(textureWidth, textureHeight, TextureFormat.RGB24, false)
+            {
+                name = "Industrial Frontline menu map",
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp
+            };
+            result.SetPixels(pixels);
+            result.Apply();
+            return result;
         }
 
         private void DisposePreview()
@@ -620,7 +703,7 @@ namespace Ironfront.UnityPrototype
             cardDescriptionStyle.wordWrap = true;
             buttonStyle = MakeStyle(18, FontStyle.Bold, new Color(0.03f, 0.12f, 0.15f, 1f));
             buttonStyle.alignment = TextAnchor.MiddleCenter;
-            heroStyle = MakeStyle(66, FontStyle.Bold, Color.white);
+            heroStyle = MakeStyle(48, FontStyle.Bold, Color.white);
             nameFieldStyle = new GUIStyle(GUIStyle.none)
             {
                 fontSize = 19,
@@ -636,8 +719,8 @@ namespace Ironfront.UnityPrototype
             darkButtonStyle.focused.textColor = StartBackground;
             lightButtonStyle = MakeStyle(17, FontStyle.Bold, Color.white);
             lightButtonStyle.alignment = TextAnchor.MiddleCenter;
-            menuTitleStyle = MakeStyle(36, FontStyle.Bold, Color.white);
-            menuSubtitleStyle = MakeStyle(18, FontStyle.Normal, Muted);
+            menuTitleStyle = MakeStyle(31, FontStyle.Bold, Color.white);
+            menuSubtitleStyle = MakeStyle(17, FontStyle.Normal, Muted);
             navStyle = MakeStyle(17, FontStyle.Normal, Muted);
             navStyle.alignment = TextAnchor.MiddleCenter;
             navSelectedStyle = MakeStyle(17, FontStyle.Bold, Color.white);
