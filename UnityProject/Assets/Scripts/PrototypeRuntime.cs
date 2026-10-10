@@ -110,7 +110,7 @@ namespace Ironfront.UnityPrototype
             BuildTransports();
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
-            Frontend = new PrototypeFrontend();
+            Frontend = new PrototypeFrontend(this);
             Frontend.Open();
             lan = new PrototypeLanClient();
         }
@@ -700,7 +700,11 @@ namespace Ironfront.UnityPrototype
                 !Match.Winner.HasValue) Frontend.Open(true);
         }
 
-        private void OnDestroy() { lan?.Close(); }
+        private void OnDestroy()
+        {
+            Frontend?.Dispose();
+            lan?.Close();
+        }
 
         public void ShowTracer(Vector3 from, Vector3 to, PrototypeTeam team)
         {

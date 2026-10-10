@@ -28,6 +28,20 @@ namespace Ironfront.UnityPrototype
             "Fortify allies  /  issue armor plates"
         };
 
+        private static readonly string[] ClassNamesChinese =
+            { "突击兵", "医疗兵", "侦察兵", "工程兵" };
+        private static readonly string[] ClassAbilities =
+        {
+            "弹药补给  /  持续推进前线",
+            "治疗友军  /  优先救援队友",
+            "侦测敌情  /  扩大视野范围",
+            "装甲补给  /  加固友军防线"
+        };
+
+        private enum MenuTab { Lobby, Operations, Loadout, Settings }
+        private static readonly string[] MenuTabs =
+            { "大厅", "作战", "配装", "设置" };
+
         private static readonly Color Background = new Color(0.025f, 0.055f, 0.09f, 0.96f);
         private static readonly Color Panel = new Color(0.065f, 0.11f, 0.16f, 1f);
         private static readonly Color Card = new Color(0.10f, 0.17f, 0.23f, 1f);
@@ -35,9 +49,15 @@ namespace Ironfront.UnityPrototype
         private static readonly Color Accent = new Color(0.29f, 0.82f, 0.85f, 1f);
         private static readonly Color Muted = new Color(0.62f, 0.72f, 0.78f, 1f);
         private static readonly Color Divider = new Color(0.20f, 0.32f, 0.39f, 1f);
-        private static readonly Color StartBackground = new Color(0.025f, 0.045f, 0.065f, 1f);
+        private static readonly Color StartBackground = new Color(.002f, .005f, .008f, 1f);
+        private static readonly Color MenuPanel = new Color(.004f, .010f, .015f, 1f);
+        private static readonly Color MenuCard = new Color(.008f, .018f, .025f, 1f);
+        private static readonly Color MenuSelected = new Color(.014f, .042f, .055f, 1f);
+        private static readonly Color MenuAccent = new Color(.19f, .55f, .61f, 1f);
+        private static readonly Color MenuDivider = new Color(.018f, .036f, .043f, 1f);
         private static readonly Color WarmAccent = new Color(0.95f, 0.53f, 0.30f, 1f);
         private const string PlayerNameKey = "ironfront.unity.playerName";
+        private const string VolumeKey = "ironfront.unity.masterVolume";
 
         private GUIStyle logoStyle;
         private GUIStyle headingStyle;
@@ -50,6 +70,16 @@ namespace Ironfront.UnityPrototype
         private GUIStyle nameFieldStyle;
         private GUIStyle darkButtonStyle;
         private GUIStyle lightButtonStyle;
+        private GUIStyle menuTitleStyle;
+        private GUIStyle menuSubtitleStyle;
+        private GUIStyle navStyle;
+        private GUIStyle navSelectedStyle;
+        private GUIStyle statStyle;
+
+        private readonly PrototypeRuntime runtime;
+        private PrototypeMenuPreview menuPreview;
+        private MenuTab menuTab;
+        private float volume;
 
         private bool redeploy;
         private string selectedLocation = "BASE";
@@ -61,9 +91,12 @@ namespace Ironfront.UnityPrototype
         public string SelectedClassName => ClassNames[ClassIndex(SelectedClass)];
         public string PlayerName { get; private set; } = "Player";
 
-        public PrototypeFrontend()
+        public PrototypeFrontend(PrototypeRuntime game)
         {
+            runtime = game;
             PlayerName = CleanPlayerName(PlayerPrefs.GetString(PlayerNameKey, "Player"));
+            volume = Mathf.Clamp01(PlayerPrefs.GetFloat(VolumeKey, 1f));
+            AudioListener.volume = volume;
         }
 
         public void Open(bool isRespawn = false)
@@ -81,9 +114,12 @@ namespace Ironfront.UnityPrototype
         {
             IsOpen = false;
             IsDownedScreen = false;
+            DisposePreview();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        public void Dispose() { DisposePreview(); }
 
         public void OpenDowned()
         {
@@ -142,97 +178,269 @@ namespace Ironfront.UnityPrototype
                 GUI.FocusControl(null);
                 inputEvent.Use();
             }
-            // Both columns and the background use the logical canvas bounds, so the
-            // opening screen covers every aspect ratio rather than a centered card.
+            float leftX = 40f;
+            float leftW = Mathf.Min(515f, canvasWidth * .56f);
+            float rightX = leftX + leftW + 24f;
+            float rightW = canvasWidth - rightX - 24f;
             DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), StartBackground);
-            float panelX = canvasWidth - 390f;
-            float panelY = 72f;
-            float panelH = canvasHeight - 124f;
-            DrawRect(new Rect(0f, 0f, canvasWidth, 5f), Accent);
-            DrawRect(new Rect(panelX - 21f, 0f, canvasWidth - panelX + 21f, canvasHeight),
-                new Color(.045f, .075f, .10f, 1f));
-            DrawRect(new Rect(0f, canvasHeight - 56f, canvasWidth, 1f), Divider);
-            GUI.Label(new Rect(38f, 23f, 310f, 30f), "IF  /  IRONFRONT", headingStyle);
-            GUI.Label(new Rect(canvasWidth - 315f, 27f, 280f, 20f),
-                "UNITY EDITION     //     0.31.0", smallStyle);
-
-            float heroW = panelX - 76f;
-            GUI.Label(new Rect(39f, 109f, heroW, 25f),
-                "OPERATION 01   /   FRONTLINE", smallStyle);
-            GUI.Label(new Rect(34f, 145f, heroW + 28f, 93f), "IRONFRONT", heroStyle);
-            DrawRect(new Rect(39f, 242f, 70f, 4f), WarmAccent);
-            GUI.Label(new Rect(39f, 265f, heroW, 68f),
-                "五个据点，一条战线。\n选择你的身份，进入持续争夺的战场。", labelStyle);
-
-            // A quiet tactical map provides atmosphere without loading extra art.
-            float mapY = canvasHeight - 236f;
-            float mapH = 155f;
-            DrawRect(new Rect(39f, mapY, heroW, mapH),
-                new Color(.055f, .10f, .13f, 1f));
-            for (int i = 1; i < 6; i++)
-                DrawRect(new Rect(39f + i * heroW / 6f, mapY, 1f, mapH), Divider);
-            for (int i = 1; i < 4; i++)
-                DrawRect(new Rect(39f, mapY + i * mapH / 4f, heroW, 1f), Divider);
-            float routeY = mapY + mapH * .52f;
-            DrawRect(new Rect(66f, routeY, heroW - 54f, 2f), Accent);
-            for (int i = 0; i < 5; i++)
+            DrawRect(new Rect(rightX - 15f, 66f, canvasWidth - rightX + 15f,
+                canvasHeight - 162f), new Color(.004f, .009f, .012f));
+            DrawMenuPreview(rightX, rightW, canvasHeight);
+            DrawMenuHeader(canvasWidth);
+            switch (menuTab)
             {
-                float markerX = 71f + i * (heroW - 63f) / 4f;
-                DrawRect(new Rect(markerX - 8f, routeY - 7f, 17f, 17f),
-                    i == 2 ? WarmAccent : Accent);
-                GUI.Label(new Rect(markerX - 7f, routeY - 29f, 32f, 20f),
-                    ((char)('A' + i)).ToString(), smallStyle);
+                case MenuTab.Lobby: DrawLobby(leftX, leftW); break;
+                case MenuTab.Operations: DrawOperations(leftX, leftW); break;
+                case MenuTab.Loadout: DrawLoadout(leftX, leftW); break;
+                case MenuTab.Settings: DrawSettings(leftX, leftW); break;
             }
-            GUI.Label(new Rect(54f, mapY + 11f, heroW - 30f, 21f),
-                "TACTICAL THEATER  /  05 CONTROL SECTORS", smallStyle);
-            GUI.Label(new Rect(39f, canvasHeight - 42f, heroW, 20f),
-                "SOLO  /  AI BATTLEFIELD          LAN  /  HOST CONTROLLED", smallStyle);
-
-            float contentX = panelX + 20f;
-            float contentW = 342f;
-            DrawRect(new Rect(panelX, panelY, 382f, panelH), Panel);
-            DrawRect(new Rect(panelX, panelY, 382f, 3f), WarmAccent);
-            GUI.Label(new Rect(contentX, panelY + 20f, contentW, 28f),
-                "准备出击", headingStyle);
-            GUI.Label(new Rect(contentX, panelY + 54f, contentW, 42f),
-                "输入玩家代号，选择单人兵种；\n联机房间中将显示你的代号。", smallStyle);
-
-            GUI.Label(new Rect(contentX, panelY + 101f, contentW, 23f),
-                "PLAYER NAME  /  玩家代号", smallStyle);
-            Rect nameRect = new Rect(contentX, panelY + 126f, contentW, 42f);
-            DrawRect(nameRect, Card);
-            GUI.SetNextControlName("PlayerName");
-            PlayerName = GUI.TextField(new Rect(nameRect.x + 12f, nameRect.y + 7f,
-                nameRect.width - 24f, 29f), PlayerName, 20, nameFieldStyle);
-            GUI.Label(new Rect(contentX, panelY + 181f, contentW, 24f),
-                "SOLO CLASS  /  单人兵种", smallStyle);
-            float roleY = panelY + 210f;
-            for (int i = 0; i < Classes.Length; i++)
-            {
-                Rect role = new Rect(contentX + (i % 2) * 173f,
-                    roleY + (i / 2) * 51f, 169f, 45f);
-                DrawRect(role, SelectedClass == Classes[i] ? SelectedCard : Card);
-                if (SelectedClass == Classes[i])
-                    DrawRect(new Rect(role.x, role.y, 3f, role.height), Accent);
-                GUI.Label(new Rect(role.x + 12f, role.y + 9f, 150f, 29f),
-                    (i + 1).ToString("00") + "  " + ClassNames[i], labelStyle);
-                if (GUI.Button(role, GUIContent.none, GUIStyle.none)) SelectedClass = Classes[i];
-            }
-
-            float actionY = panelY + panelH - 112f;
-            Rect start = new Rect(contentX, actionY, contentW, 48f);
-            DrawRect(start, Accent);
-            GUI.Label(start, "开始游戏   /   SOLO  →", darkButtonStyle);
-            bool deploy = GUI.Button(start, GUIContent.none, GUIStyle.none);
-            Rect lanButton = new Rect(contentX, actionY + 55f, contentW, 43f);
-            DrawRect(lanButton, Card);
-            GUI.Label(lanButton, "联机房间   /   CREATE OR JOIN  →", lightButtonStyle);
-            if (GUI.Button(lanButton, GUIContent.none, GUIStyle.none)) LanRequested = true;
+            bool deploy = DrawMenuFooter(canvasWidth, canvasHeight);
             HandleKeyboard(ref deploy);
             if (deploy || LanRequested) SavePlayerName();
             if (!deploy) return false;
             Close();
             return true;
+        }
+
+        private void DrawMenuHeader(float canvasWidth)
+        {
+            DrawRect(new Rect(0f, 0f, canvasWidth, 66f),
+                new Color(.003f, .008f, .011f, 1f));
+            DrawRect(new Rect(0f, 65f, canvasWidth, 1f), MenuDivider);
+            GUI.Label(new Rect(40f, 19f, 260f, 35f), "IRONFRONT", headingStyle);
+            DrawRect(new Rect(165f, 24f, 28f, 2f), MenuAccent);
+            float tabsX = canvasWidth * .5f - 170f;
+            for (int i = 0; i < MenuTabs.Length; i++)
+            {
+                Rect tab = new Rect(tabsX + i * 85f, 10f, 80f, 50f);
+                bool selected = (int)menuTab == i;
+                GUI.Label(tab, MenuTabs[i], selected ? navSelectedStyle : navStyle);
+                if (selected) DrawRect(new Rect(tab.x + 13f, 62f, 54f, 3f), MenuAccent);
+                if (GUI.Button(tab, GUIContent.none, GUIStyle.none)) menuTab = (MenuTab)i;
+            }
+            GUI.Label(new Rect(canvasWidth - 168f, 24f, 143f, 20f),
+                "UNITY  /  " + Application.version, smallStyle);
+        }
+
+        private void DrawMenuPreview(float x, float width, float canvasHeight)
+        {
+            if (menuPreview == null && runtime != null)
+                menuPreview = new PrototypeMenuPreview(runtime);
+            if (menuPreview != null)
+            {
+                menuPreview.SetVisible(true);
+                menuPreview.SetClass(SelectedClass);
+                Color previous = GUI.color;
+                GUI.color = new Color(.72f, .76f, .60f, 1f);
+                GUI.DrawTexture(new Rect(x, 78f, width, canvasHeight - 183f),
+                    menuPreview.Texture, ScaleMode.ScaleAndCrop, false);
+                GUI.color = previous;
+            }
+            DrawRect(new Rect(x, canvasHeight - 151f, width, 42f),
+                new Color(.004f, .013f, .016f, .94f));
+            DrawRect(new Rect(x, canvasHeight - 151f, 3f, 42f), MenuAccent);
+            GUI.Label(new Rect(x + 15f, canvasHeight - 144f, width - 28f, 21f),
+                "OPERATOR  /  " + ClassNames[(int)SelectedClass], smallStyle);
+            GUI.Label(new Rect(x + 15f, canvasHeight - 127f, width - 28f, 20f),
+                "当前兵种：" + ClassNamesChinese[(int)SelectedClass], labelStyle);
+        }
+
+        private void DrawLobby(float x, float width)
+        {
+            GUI.Label(new Rect(x, 105f, width, 22f),
+                "联合特遣队  /  TASK FORCE", smallStyle);
+            GUI.Label(new Rect(x - 4f, 133f, width + 12f, 74f),
+                "准备行动", heroStyle);
+            GUI.Label(new Rect(x, 210f, width, 38f),
+                "选择任务，与 AI 队友一起进入战场。", menuSubtitleStyle);
+
+            Rect operation = new Rect(x, 270f, width, 126f);
+            DrawRect(operation, MenuPanel);
+            DrawRect(new Rect(x, 270f, 3f, 126f), MenuAccent);
+            GUI.Label(new Rect(x + 20f, 284f, width - 40f, 20f),
+                "当前行动  /  OPERATION 01", smallStyle);
+            GUI.Label(new Rect(x + 20f, 312f, width - 40f, 36f),
+                "工业前线", menuTitleStyle);
+            GUI.Label(new Rect(x + 20f, 354f, width - 40f, 22f),
+                "征服模式  ·  五个据点  ·  AI 战场", labelStyle);
+            if (GUI.Button(operation, GUIContent.none, GUIStyle.none))
+                menuTab = MenuTab.Operations;
+
+            GUI.Label(new Rect(x, 419f, width, 20f), "小队部署  /  SQUAD", smallStyle);
+            float cardW = (width - 18f) / 4f;
+            for (int i = 0; i < 4; i++)
+            {
+                Rect card = new Rect(x + i * (cardW + 6f), 443f, cardW, 45f);
+                DrawRect(card, i == 0 ? MenuSelected : MenuCard);
+                GUI.Label(new Rect(card.x + 10f, card.y + 5f, cardW - 12f, 17f),
+                    (i + 1).ToString("00") + (i == 0 ? " / YOU" : " / AI"), smallStyle);
+                GUI.Label(new Rect(card.x + 10f, card.y + 23f, cardW - 12f, 19f),
+                    i == 0 ? ClassNamesChinese[(int)SelectedClass] : "队友", labelStyle);
+            }
+        }
+
+        private void DrawOperations(float x, float width)
+        {
+            GUI.Label(new Rect(x, 100f, width, 21f), "选择战场  /  OPERATIONS", smallStyle);
+            GUI.Label(new Rect(x, 127f, width, 48f), "工业前线", menuTitleStyle);
+            GUI.Label(new Rect(x, 180f, width, 23f),
+                "现有可游玩战场  ·  720 × 720  ·  五个据点", labelStyle);
+
+            float cardW = (width - 12f) / 2f;
+            Rect liveMap = new Rect(x, 218f, cardW, 121f);
+            Rect futureMap = new Rect(x + cardW + 12f, 218f, cardW, 121f);
+            DrawRect(liveMap, MenuSelected);
+            DrawRect(new Rect(liveMap.x, liveMap.y, liveMap.width, 2f), MenuAccent);
+            DrawTacticalMap(new Rect(liveMap.x + 11f, liveMap.y + 11f,
+                liveMap.width - 22f, 69f));
+            GUI.Label(new Rect(liveMap.x + 11f, liveMap.y + 87f, cardW - 22f, 24f),
+                "工业前线  /  可游玩", labelStyle);
+            DrawRect(futureMap, MenuCard);
+            GUI.Label(new Rect(futureMap.x + 14f, futureMap.y + 24f,
+                cardW - 26f, 26f), "赤砂走廊", headingStyle);
+            GUI.Label(new Rect(futureMap.x + 14f, futureMap.y + 62f,
+                cardW - 26f, 43f), "地形与场景概念已保留\n开发中，暂不可选择", smallStyle);
+
+            GUI.Label(new Rect(x, 356f, width, 20f), "模式  /  GAME MODE", smallStyle);
+            Rect mode = new Rect(x, 380f, cardW, 68f);
+            Rect futureMode = new Rect(x + cardW + 12f, 380f, cardW, 68f);
+            DrawRect(mode, MenuSelected);
+            DrawRect(new Rect(mode.x, mode.y, 3f, mode.height), MenuAccent);
+            GUI.Label(new Rect(mode.x + 14f, mode.y + 10f, cardW - 25f, 24f),
+                "征服  /  CONQUEST", headingStyle);
+            GUI.Label(new Rect(mode.x + 14f, mode.y + 38f, cardW - 25f, 20f),
+                "争夺五处据点，耗尽敌方兵力", smallStyle);
+            DrawRect(futureMode, MenuCard);
+            GUI.Label(new Rect(futureMode.x + 14f, futureMode.y + 10f,
+                cardW - 25f, 24f), "攻防  /  BREAKTHROUGH", labelStyle);
+            GUI.Label(new Rect(futureMode.x + 14f, futureMode.y + 38f,
+                cardW - 25f, 20f), "开发中，暂不可选择", smallStyle);
+            GUI.Label(new Rect(x, 465f, width, 22f),
+                "当前选择：工业前线 · 征服模式", smallStyle);
+        }
+
+        private void DrawLoadout(float x, float width)
+        {
+            GUI.Label(new Rect(x, 100f, width, 21f), "兵种与配装  /  LOADOUT", smallStyle);
+            GUI.Label(new Rect(x, 126f, width, 42f), "选择你的兵种", menuTitleStyle);
+            GUI.Label(new Rect(x, 165f, width, 21f),
+                "点击兵种，预览当前默认武器与战场能力。", smallStyle);
+            float cardW = (width - 10f) / 2f;
+            for (int i = 0; i < Classes.Length; i++)
+            {
+                Rect card = new Rect(x + (i % 2) * (cardW + 10f),
+                    197f + (i / 2) * 74f, cardW, 66f);
+                bool selected = SelectedClass == Classes[i];
+                DrawRect(card, selected ? MenuSelected : MenuCard);
+                if (selected) DrawRect(new Rect(card.x, card.y, 3f, card.height), MenuAccent);
+                GUI.Label(new Rect(card.x + 13f, card.y + 9f, cardW - 20f, 22f),
+                    (i + 1).ToString("00") + "  " + ClassNamesChinese[i], headingStyle);
+                GUI.Label(new Rect(card.x + 13f, card.y + 38f, cardW - 20f, 20f),
+                    ClassAbilities[i], smallStyle);
+                if (GUI.Button(card, GUIContent.none, GUIStyle.none)) SelectedClass = Classes[i];
+            }
+
+            PrototypeWeaponDefinition weapon = PrototypeInfantryRoles.GetWeapon(
+                PrototypeInfantryRoles.DefaultWeapon(SelectedClass));
+            Rect equipment = new Rect(x, 356f, width, 123f);
+            DrawRect(equipment, MenuPanel);
+            DrawRect(new Rect(x, 356f, width, 2f), MenuAccent);
+            GUI.Label(new Rect(x + 16f, 367f, width - 32f, 20f),
+                "当前默认装备  /  PRIMARY WEAPON", smallStyle);
+            GUI.Label(new Rect(x + 16f, 392f, width - 32f, 29f),
+                weapon.ChineseName, headingStyle);
+            string stats = "伤害 " + weapon.Damage.ToString("0") +
+                "     射速 " + Mathf.RoundToInt(60f / weapon.FireInterval) + " RPM" +
+                "     弹匣 " + weapon.Magazine +
+                "     有效射程 " + weapon.EffectiveRange.ToString("0") + "m";
+            GUI.Label(new Rect(x + 16f, 441f, width - 32f, 25f), stats, statStyle);
+        }
+
+        private void DrawSettings(float x, float width)
+        {
+            GUI.Label(new Rect(x, 100f, width, 21f), "系统设置  /  SETTINGS", smallStyle);
+            GUI.Label(new Rect(x, 128f, width, 43f), "出击前设置", menuTitleStyle);
+            DrawRect(new Rect(x, 188f, width, 110f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 206f, width - 36f, 23f),
+                "主音量  /  MASTER VOLUME", headingStyle);
+            float nextVolume = GUI.HorizontalSlider(
+                new Rect(x + 20f, 252f, width - 110f, 18f), volume, 0f, 1f);
+            GUI.Label(new Rect(x + width - 74f, 244f, 55f, 25f),
+                Mathf.RoundToInt(volume * 100f) + "%", labelStyle);
+            if (!Mathf.Approximately(nextVolume, volume))
+            {
+                volume = nextVolume;
+                AudioListener.volume = volume;
+                PlayerPrefs.SetFloat(VolumeKey, volume);
+                PlayerPrefs.Save();
+            }
+            DrawRect(new Rect(x, 319f, width, 160f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 335f, width - 36f, 23f),
+                "操作提示  /  CONTROLS", headingStyle);
+            GUI.Label(new Rect(x + 18f, 375f, width - 36f, 95f),
+                "W A S D  移动       鼠标  瞄准 / 射击\n" +
+                "F1–F4  切换页面       1–4  快速选兵种\n" +
+                "ENTER  开始游戏       L  打开联机房间", labelStyle);
+        }
+
+        private bool DrawMenuFooter(float canvasWidth, float canvasHeight)
+        {
+            float y = canvasHeight - 96f;
+            DrawRect(new Rect(0f, y, canvasWidth, 96f),
+                new Color(.003f, .008f, .011f, 1f));
+            DrawRect(new Rect(0f, y, canvasWidth, 1f), MenuDivider);
+            GUI.Label(new Rect(40f, y + 12f, 220f, 19f),
+                "玩家代号  /  PLAYER NAME", smallStyle);
+            Rect nameRect = new Rect(40f, y + 36f, 215f, 42f);
+            DrawRect(nameRect, MenuCard);
+            GUI.SetNextControlName("PlayerName");
+            PlayerName = GUI.TextField(new Rect(nameRect.x + 12f, nameRect.y + 7f,
+                nameRect.width - 24f, 29f), PlayerName, 20, nameFieldStyle);
+
+            Rect solo = new Rect(274f, y + 26f, 225f, 52f);
+            DrawRect(solo, MenuAccent);
+            GUI.Label(solo, "单人游戏  /  SOLO  ↗", darkButtonStyle);
+            bool deploy = GUI.Button(solo, GUIContent.none, GUIStyle.none);
+            Rect lanButton = new Rect(510f, y + 26f, 220f, 52f);
+            DrawRect(lanButton, MenuCard);
+            GUI.Label(lanButton, "联机房间  /  LAN ROOM", lightButtonStyle);
+            if (GUI.Button(lanButton, GUIContent.none, GUIStyle.none))
+            {
+                LanRequested = true;
+                if (menuPreview != null) menuPreview.SetVisible(false);
+            }
+            GUI.Label(new Rect(750f, y + 34f, canvasWidth - 767f, 42f),
+                "单人模式无需联网\n按 ENTER 直接出击", smallStyle);
+            return deploy;
+        }
+
+        private static void DrawTacticalMap(Rect map)
+        {
+            DrawRect(map, new Color(.008f, .019f, .024f));
+            for (int i = 1; i < 5; i++)
+            {
+                DrawRect(new Rect(map.x + map.width * i / 5f, map.y,
+                    1f, map.height), MenuDivider);
+                DrawRect(new Rect(map.x, map.y + map.height * i / 5f,
+                    map.width, 1f), MenuDivider);
+            }
+            foreach (PrototypeLayout.Objective objective in PrototypeLayout.Objectives)
+            {
+                float mx = map.x + (objective.Position.x / PrototypeLayout.MapSize + .5f) *
+                    map.width;
+                float my = map.y + (objective.Position.y / PrototypeLayout.MapSize + .5f) *
+                    map.height;
+                DrawRect(new Rect(mx - 8f, my - 8f, 16f, 16f), MenuAccent);
+                GUI.Label(new Rect(mx - 5f, my - 8f, 16f, 16f), objective.Id,
+                    new GUIStyle(GUI.skin.label) { fontSize = 10, fontStyle = FontStyle.Bold });
+            }
+        }
+
+        private void DisposePreview()
+        {
+            if (menuPreview == null) return;
+            menuPreview.Dispose();
+            menuPreview = null;
         }
 
         private void SavePlayerName()
@@ -374,6 +582,12 @@ namespace Ironfront.UnityPrototype
             Event current = Event.current;
             if (current == null || current.type != EventType.KeyDown) return;
             if (GUI.GetNameOfFocusedControl() == "PlayerName") return;
+            if (!redeploy && current.keyCode >= KeyCode.F1 && current.keyCode <= KeyCode.F4)
+            {
+                menuTab = (MenuTab)((int)current.keyCode - (int)KeyCode.F1);
+                current.Use();
+                return;
+            }
             if (!redeploy && current.keyCode == KeyCode.L)
             {
                 LanRequested = true;
@@ -422,6 +636,13 @@ namespace Ironfront.UnityPrototype
             darkButtonStyle.focused.textColor = StartBackground;
             lightButtonStyle = MakeStyle(17, FontStyle.Bold, Color.white);
             lightButtonStyle.alignment = TextAnchor.MiddleCenter;
+            menuTitleStyle = MakeStyle(36, FontStyle.Bold, Color.white);
+            menuSubtitleStyle = MakeStyle(18, FontStyle.Normal, Muted);
+            navStyle = MakeStyle(17, FontStyle.Normal, Muted);
+            navStyle.alignment = TextAnchor.MiddleCenter;
+            navSelectedStyle = MakeStyle(17, FontStyle.Bold, Color.white);
+            navSelectedStyle.alignment = TextAnchor.MiddleCenter;
+            statStyle = MakeStyle(13, FontStyle.Bold, MenuAccent);
         }
 
         private static GUIStyle MakeStyle(int size, FontStyle weight, Color textColor)
