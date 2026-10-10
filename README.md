@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.31.0
+# PROJECT IRONFRONT 0.31.1
+
+## 0.31.1 Unity 重连状态与载具接管修复
+
+Unity 房间访客短暂掉线后，房主保留原战场角色及其位置、生命和弹药；恢复同一席位时继续使用该角色。重连失败会在 HUD 明确提示。单人或房主玩家现在可以接管己方原由 AI 控制的 R4 与 U8，离座后 AI 从当前位置重新规划。房主权限仍由服务器核验，Unity 协议保持 `unity-3`。实现、验证和限制见 [UNITY_STABILITY_0311.md](docs/UNITY_STABILITY_0311.md)。开发保留在 `codex/unity-port`。
 
 ## 0.31.0 Unity 全屏启动页与玩家代号
 

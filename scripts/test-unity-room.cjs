@@ -9,8 +9,9 @@ const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function awaitEvent(client,predicate,timeout=1500) {
     const existing=client.events.find(predicate);
     if (existing) return Promise.resolve(existing);
+    const timeoutError=new Error('Timed out waiting for Unity message');
     return new Promise((resolve,reject)=>{
-        const timer=setTimeout(()=>{client.waiters.delete(onEvent);reject(new Error('Timed out waiting for Unity message'));},timeout);
+        const timer=setTimeout(()=>{client.waiters.delete(onEvent);reject(timeoutError);},timeout);
         const onEvent=event=>{if(!predicate(event))return;clearTimeout(timer);client.waiters.delete(onEvent);resolve(event);};
         client.waiters.add(onEvent);
     });
@@ -52,7 +53,7 @@ async function run() {
     assert.equal(room.protocol,'unity-3');
     assert.match(room.code,/^[A-F0-9]{6}$/);
     assert.equal((await status(room.code)).phase,'preparation');
-    const guest=await connect(room.code,'','','  Alpha\nScout  ');
+    let guest=await connect(room.code,'','','  Alpha\nScout  ');
     assert.equal(guest.welcome.host,false);
     assert(Number.isInteger(guest.welcome.id));
     guest.ws.send(JSON.stringify({type:'start',host:true}));
@@ -143,6 +144,29 @@ async function run() {
     assert.deepEqual({id:rescue.id,action:rescue.action},
         {id:guest.welcome.id,action:'rescue'});
 
+    const guestSession={id:guest.welcome.id,
+        team:(await status(room.code)).roster.find(c=>c.id===guest.welcome.id).team,
+        resumeToken:guest.welcome.resumeToken};
+    guest.ws.terminate();
+    await awaitEvent(captain,e=>e.type==='room'&&e.roster.find(c=>c.id===guestSession.id)?.connected===false);
+    const disconnected=(await status(room.code)).roster.find(c=>c.id===guestSession.id);
+    assert.deepEqual({name:disconnected.name,team:disconnected.team,connected:disconnected.connected,host:disconnected.host},
+        {name:'AlphaScout',team:guestSession.team,connected:false,host:false});
+    guest=await connect(room.code,'',guestSession.resumeToken,'Impostor');
+    assert.deepEqual({id:guest.welcome.id,team:guest.welcome.team,host:guest.welcome.host,resumed:guest.welcome.resumed},
+        {id:guestSession.id,team:guestSession.team,host:false,resumed:true});
+    const reconnected=(await status(room.code)).roster.find(c=>c.id===guestSession.id);
+    assert.deepEqual({name:reconnected.name,team:reconnected.team,connected:reconnected.connected,host:reconnected.host},
+        {name:'AlphaScout',team:guestSession.team,connected:true,host:false});
+    await denied({type:'settings',tickets:800,host:true});
+    await denied({type:'start',host:true});
+    await denied({type:'kick',targetId:captain.welcome.id,host:true});
+    await denied({...snapshot,tick:2,host:true});
+    assert.equal((await status(room.code)).phase,'battle');
+    assert.equal((await status(room.code)).settings.tickets,300);
+    captain.ws.send(JSON.stringify({...snapshot,tick:2}));
+    await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===2);
+
     captain.ws.terminate();
     await awaitEvent(guest,e=>e.type==='room'&&e.paused===true);
     assert.equal((await status(room.code)).paused,true);
@@ -153,14 +177,15 @@ async function run() {
     assert.equal(resumed.welcome.resumed,true);
     assert.equal((await status(room.code)).roster.find(c=>c.id===captain.welcome.id).name,'Commander');
     await awaitEvent(guest,e=>e.type==='room'&&e.paused===false);
-    resumed.ws.send(JSON.stringify({...snapshot,tick:2}));
-    await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===2);
+    await wait(25);
+    resumed.ws.send(JSON.stringify({...snapshot,tick:3}));
+    await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===3);
     resumed.ws.send(JSON.stringify({type:'kick',targetId:guest.welcome.id}));
     assert.equal(await new Promise(resolve=>guest.ws.once('close',resolve)),4003);
     assert.equal(await rejectSocket(`ws://127.0.0.1:${port}/unity?room=${room.code}&resume=${guest.welcome.resumeToken}`),1008);
     resumed.ws.send(JSON.stringify({type:'leave'}));
     await new Promise(resolve=>resumed.ws.once('close',resolve));
     assert.equal((await fetch(`${base}/api/unity/rooms/${room.code}`)).status,404,'host voluntary leave must close room');
-    console.log('Unity room PASS: host-only controls and snapshots, server-bound movement, deployment and downed actions, rate limits, host resume without promotion, kick, and voluntary host leave.');
+    console.log('Unity room PASS: host-only controls and snapshots, server-bound movement, deployment and downed actions, rate limits, guest and host resume without promotion, kick, and voluntary host leave.');
 }
 run().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>host.kill());

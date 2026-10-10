@@ -1,3 +1,7 @@
+# 0.31.1 开发进度
+
+Unity 房间的访客意外断线现在保留原战场状态，重连恢复同一角色；客户端显示最终恢复失败。己方玩家可临时接管原本由 AI 驾驶的 R4/U8，离座后 AI 重新规划。房间权限和 `unity-3` 协议保持不变；验证记录与剩余限制见 [docs/UNITY_STABILITY_0311.md](docs/UNITY_STABILITY_0311.md)。开发保留在 `codex/unity-port`。
+
 # 0.31.0 开发进度
 
 Unity 全屏启动页已加入玩家代号、四兵种选择、单人开始和局域网房间入口。代号本机保存，进入战斗后显示在 HUD，联机房间名单由服务端回传名字与真实房主标识；房主权限仍按连接身份执行。Unity 协议升至 `unity-3`，更新后需重启房主服务。详细操作、验证和剩余限制见 [docs/UNITY_START_SCREEN_031.md](docs/UNITY_START_SCREEN_031.md)。开发分支为 `codex/unity-port`。

@@ -20,6 +20,7 @@ namespace Ironfront.UnityPrototype
 
         public int Id { get; private set; }
         public PrototypeTeam Team { get; private set; }
+        public bool IsConnected { get; private set; } = true;
         public float Health { get; private set; } = 100f;
         public int Ammo => kit.Ammo;
         public int Reserve => kit.Reserve;
@@ -45,12 +46,21 @@ namespace Ironfront.UnityPrototype
             Respawn();
         }
 
+        public void SetConnected(bool connected)
+        {
+            if (IsConnected == connected) return;
+            IsConnected = connected;
+            // A held trigger must not keep firing after its owner loses the socket.
+            if (!connected) fireHeld = false;
+        }
+
         // Called by the host after validating the connection's player ID. Never accepts
         // client position, health, hit target or claimed team as an authority source.
         public void ApplyInput(float forward, float side, float yaw, float aimPitch,
             bool sprint, bool fire, float dt)
         {
-            if (runtime == null || runtime.IsNetworkReplica || !runtime.MatchStarted ||
+            if (runtime == null || runtime.IsNetworkReplica || !IsConnected ||
+                !runtime.MatchStarted ||
                 runtime.Match.Winner.HasValue || !Alive) return;
             if (!IsFinite(forward) || !IsFinite(side) || !IsFinite(yaw) ||
                 !IsFinite(aimPitch) || !IsFinite(dt)) return;
@@ -103,23 +113,24 @@ namespace Ironfront.UnityPrototype
                 if (downedUntil > 0f && Time.time >= downedUntil) Eliminate();
                 return;
             }
-            if (fireHeld && Time.unscaledTime - lastInputAt <= 0.2f) Fire();
+            if (IsConnected && fireHeld && Time.unscaledTime - lastInputAt <= 0.2f) Fire();
         }
 
         public void RequestRescue()
         {
-            if (IsDowned) rescueCalled = true;
+            if (IsConnected && IsDowned) rescueCalled = true;
         }
 
         public void GiveUp(float dt)
         {
+            if (!IsConnected) return;
             if (IsDowned) downedUntil -= Mathf.Clamp(dt, 0f, .15f) * 12f;
             if (downedUntil > 0f && Time.time >= downedUntil) Eliminate();
         }
 
         public void GiveUpImmediately()
         {
-            if (IsDowned) Eliminate();
+            if (IsConnected && IsDowned) Eliminate();
         }
 
         public bool TryRevive(PrototypeBot medic)
@@ -146,7 +157,7 @@ namespace Ironfront.UnityPrototype
 
         public bool TryDeploy(string locationId)
         {
-            if (runtime == null || runtime.IsNetworkReplica || Alive ||
+            if (runtime == null || runtime.IsNetworkReplica || !IsConnected || Alive ||
                 downedUntil > 0f ||
                 !runtime.MatchStarted || runtime.Match.Winner.HasValue ||
                 Time.time < respawnAt ||

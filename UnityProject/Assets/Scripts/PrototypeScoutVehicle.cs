@@ -100,9 +100,12 @@ namespace Ironfront.UnityPrototype
         public bool TrySetDriver(PrototypePlayer player)
         {
             if (runtime == null || runtime.IsNetworkReplica || !Alive || player == null ||
-                Team != player.Team || aiControlled || Driver != null || !player.Alive ||
+                Team != player.Team || Driver != null || !player.Alive ||
+                player.CurrentVehicle != null ||
                 player != runtime.Player || !runtime.MatchStarted ||
                 runtime.Match.Winner.HasValue) return false;
+            // The player takes priority over the autonomous driver in Update().
+            // Keep aiControlled so the vehicle resumes its patrol after exit.
             Driver = player;
             Speed = 0f;
             return true;
@@ -110,8 +113,13 @@ namespace Ironfront.UnityPrototype
 
         public void RemoveDriver(PrototypePlayer player)
         {
-            if (Driver == player) Driver = null;
+            if (Driver != player) return;
+            Driver = null;
             Speed = 0f;
+            nextPlan = 0f;
+            blockedUntil = 0f;
+            route.Clear();
+            routeIndex = 0;
         }
 
         public void TakeDamage(float amount)

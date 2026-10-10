@@ -32,6 +32,7 @@ namespace Ironfront.UnityPrototype
         private float lastDownedSendAt = -1f;
 
         public bool IsConnected { get; private set; }
+        public bool ReconnectFailed { get; private set; }
         public bool IsHost { get; private set; }
         public int LocalId { get; private set; } = -1;
         public string Code { get; private set; } = "";
@@ -52,6 +53,7 @@ namespace Ironfront.UnityPrototype
             public string json;
             public string error;
             public bool disconnected;
+            public bool reconnectFailed;
         }
 
         private void Push(Incoming value)
@@ -127,10 +129,12 @@ namespace Ironfront.UnityPrototype
                 {
                     IsConnected = false;
                     IsHost = false;
+                    ReconnectFailed = false;
                     PeerInputs.Clear();
                     PeerDeployments.Clear();
                     PeerDownedActions.Clear();
                 }
+                if (item.reconnectFailed) ReconnectFailed = true;
                 if (!string.IsNullOrEmpty(item.error)) Error = item.error;
                 if (string.IsNullOrEmpty(item.json)) continue;
                 try
@@ -153,6 +157,7 @@ namespace Ironfront.UnityPrototype
                             resumeToken = welcome.resumeToken ?? "";
                             IsHost = welcome.host || welcome.isHost;
                             IsConnected = true;
+                            ReconnectFailed = false;
                             Error = "";
                             break;
                         case "role":
@@ -303,6 +308,7 @@ namespace Ironfront.UnityPrototype
             PeerDeployments.Clear();
             PeerDownedActions.Clear();
             IsConnected = false;
+            ReconnectFailed = false;
             IsHost = false;
             LocalId = -1;
             Code = "";
@@ -437,12 +443,15 @@ namespace Ironfront.UnityPrototype
                 if (string.IsNullOrEmpty(resumeToken)) break;
                 DateTime deadline = DateTime.UtcNow.AddSeconds(30);
                 bool restored = false;
-                foreach (int delay in new[] { 250, 500, 1000, 1500, 2500, 3500, 4500 })
+                int[] delays = { 250, 500, 1000, 1500, 2500, 3500, 4500 };
+                int attempt = 0;
+                while (DateTime.UtcNow < deadline)
                 {
-                    if (DateTime.UtcNow >= deadline) break;
                     try
                     {
-                        await Task.Delay(delay, token);
+                        int delay = delays[Math.Min(attempt++, delays.Length - 1)];
+                        await Task.Delay(Math.Min(delay, Math.Max(1,
+                            (int)(deadline - DateTime.UtcNow).TotalMilliseconds)), token);
                         var next = new ClientWebSocket();
                         try
                         {
@@ -452,7 +461,14 @@ namespace Ironfront.UnityPrototype
                                 Query = "room=" + Uri.EscapeDataString(Code) +
                                     "&resume=" + Uri.EscapeDataString(resumeToken)
                             }.Uri;
-                            await next.ConnectAsync(uri, token);
+                            using (var attemptCancellation =
+                                CancellationTokenSource.CreateLinkedTokenSource(token))
+                            {
+                                attemptCancellation.CancelAfter(TimeSpan.FromMilliseconds(
+                                    Math.Min(5000, Math.Max(1,
+                                        (deadline - DateTime.UtcNow).TotalMilliseconds))));
+                                await next.ConnectAsync(uri, attemptCancellation.Token);
+                            }
                             if (current != generation || token.IsCancellationRequested)
                             {
                                 next.Dispose();
@@ -464,11 +480,17 @@ namespace Ironfront.UnityPrototype
                         }
                         catch { next.Dispose(); throw; }
                     }
-                    catch (OperationCanceledException) { return; }
+                    catch (OperationCanceledException)
+                    {
+                        if (token.IsCancellationRequested) return;
+                    }
                     catch { }
                 }
                 if (!restored) break;
             }
+            if (!token.IsCancellationRequested && current == generation)
+                Push(new Incoming { generation = current, disconnected = true,
+                    reconnectFailed = true });
         }
 
         private async Task<string> ReceiveMessages(ClientWebSocket connected, int current,

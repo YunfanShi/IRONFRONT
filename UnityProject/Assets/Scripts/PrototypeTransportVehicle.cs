@@ -124,11 +124,15 @@ namespace Ironfront.UnityPrototype
         public bool TrySetPlayerSeat(PrototypePlayer player, int seat)
         {
             if (runtime == null || runtime.IsNetworkReplica || !Alive ||
-                player == null || Team != player.Team || aiControlled ||
+                player == null || Team != player.Team ||
                 player != runtime.Player || !player.Alive ||
+                (player.CurrentVehicle != null &&
+                    !object.ReferenceEquals(player.CurrentVehicle, this)) ||
                 (occupant != null && occupant != player) ||
                 (seat != 0 && seat != 1) || !runtime.MatchStarted ||
                 runtime.Match.Winner.HasValue) return false;
+            // A human in either front seat suspends autonomous driving and fire.
+            // Rear AI passengers stay aboard and can still disembark normally.
             occupant = player;
             playerSeat = seat;
             Speed = 0f;
@@ -143,6 +147,10 @@ namespace Ironfront.UnityPrototype
             occupant = null;
             playerSeat = -1;
             Speed = 0f;
+            nextPlan = 0f;
+            blockedUntil = 0f;
+            route.Clear();
+            routeIndex = 0;
         }
 
         public bool TryBoardPassenger(PrototypeBot bot)

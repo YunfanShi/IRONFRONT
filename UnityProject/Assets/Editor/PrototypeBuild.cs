@@ -45,6 +45,7 @@ namespace Ironfront.UnityPrototype.Editor
                 EnsurePrototypeMaterials();
                 string[] scenes = ValidateProject();
                 string projectRoot = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+                SyncBundleVersion(projectRoot);
                 string outputPath = Path.Combine(projectRoot, "Builds", "macOS", "IRONFRONT.app");
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
 
@@ -82,6 +83,27 @@ namespace Ironfront.UnityPrototype.Editor
                     EditorUtility.DisplayDialog("IRONFRONT build failed", exception.Message, "OK");
                 throw;
             }
+        }
+
+        [Serializable]
+        private sealed class PackageVersion
+        {
+            public string version;
+        }
+
+        private static void SyncBundleVersion(string projectRoot)
+        {
+            // A copied UnityProject can build on its own. In this repository,
+            // package.json is the release version shared with the LAN server.
+            string packagePath = Path.GetFullPath(Path.Combine(projectRoot, "..", "package.json"));
+            if (!File.Exists(packagePath)) return;
+            PackageVersion package = JsonUtility.FromJson<PackageVersion>(
+                File.ReadAllText(packagePath));
+            if (package == null || string.IsNullOrWhiteSpace(package.version))
+                throw new InvalidOperationException("package.json has no release version.");
+            if (PlayerSettings.bundleVersion == package.version) return;
+            PlayerSettings.bundleVersion = package.version;
+            Debug.Log("IRONFRONT macOS bundle version: " + package.version);
         }
 
         private static string[] ValidateProject()

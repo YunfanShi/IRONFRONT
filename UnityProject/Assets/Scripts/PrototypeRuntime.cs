@@ -499,16 +499,26 @@ namespace Ironfront.UnityPrototype
                 PrototypeRemotePlayer remote = RemotePlayers[i];
                 bool keep = false;
                 foreach (PrototypeLanRosterMember member in roster)
-                    if (member.id == remote.Id && member.connected &&
+                    if (member.id == remote.Id &&
                         member.team == (remote.Team == PrototypeTeam.Blue ? "blue" : "red"))
-                    { keep = true; break; }
+                    {
+                        keep = true;
+                        if (remote.IsConnected != member.connected)
+                        {
+                            remote.SetConnected(member.connected);
+                            lastRemoteInputAt.Remove(remote.Id);
+                        }
+                        break;
+                    }
                 if (keep) continue;
                 RemotePlayers.RemoveAt(i);
+                lastRemoteInputAt.Remove(remote.Id);
                 Destroy(remote.gameObject);
             }
             foreach (PrototypeLanRosterMember member in roster)
             {
-                if (!member.connected || member.id == lan.LocalId) continue;
+                if (!member.connected || member.id == lan.LocalId ||
+                    (member.team != "blue" && member.team != "red")) continue;
                 bool exists = false;
                 foreach (PrototypeRemotePlayer remote in RemotePlayers)
                     if (remote.Id == member.id) { exists = true; break; }
@@ -532,7 +542,7 @@ namespace Ironfront.UnityPrototype
                 if (lastRemoteInputAt.TryGetValue(peer.id, out float previous) &&
                     Time.unscaledTime - previous < 0.045f) continue;
                 foreach (PrototypeRemotePlayer remote in RemotePlayers)
-                    if (remote.Id == peer.id)
+                    if (remote.Id == peer.id && remote.IsConnected)
                     {
                         float dt = lastRemoteInputAt.TryGetValue(peer.id, out float prior) ?
                             Mathf.Clamp(Time.unscaledTime - prior, 0f, 0.1f) : 0.05f;
@@ -552,7 +562,7 @@ namespace Ironfront.UnityPrototype
                 PrototypeLanPeerDeploy request = lan.PeerDeployments.Dequeue();
                 if (string.IsNullOrEmpty(request.location)) continue;
                 foreach (PrototypeRemotePlayer remote in RemotePlayers)
-                    if (remote.Id == request.id)
+                    if (remote.Id == request.id && remote.IsConnected)
                     {
                         remote.TryDeploy(request.location);
                         break;
@@ -562,7 +572,7 @@ namespace Ironfront.UnityPrototype
             {
                 PrototypeLanPeerDowned request = lan.PeerDownedActions.Dequeue();
                 foreach (PrototypeRemotePlayer remote in RemotePlayers)
-                    if (remote.Id == request.id)
+                    if (remote.Id == request.id && remote.IsConnected)
                     {
                         if (request.action == "rescue") remote.RequestRescue();
                         else if (request.action == "giveUp") remote.GiveUpImmediately();
@@ -730,6 +740,15 @@ namespace Ironfront.UnityPrototype
                 GUI.matrix = previousMatrix;
                 return;
             }
+            if (networkModeActive && lan != null && !lan.IsConnected)
+            {
+                string connectionNotice = lan.ReconnectFailed ?
+                    "Connection lost. Session could not be restored." :
+                    "Reconnecting to room...";
+                float noticeX = canvasWidth / 2f - 190f;
+                GUI.Box(new Rect(noticeX, 12f, 380f, 35f), GUIContent.none);
+                GUI.Label(new Rect(noticeX + 12f, 19f, 356f, 22f), connectionNotice);
+            }
             if (Frontend != null && Frontend.IsDownedScreen && Player.IsDowned &&
                 !Match.Winner.HasValue)
             {
@@ -778,7 +797,7 @@ namespace Ironfront.UnityPrototype
                     (networkHost ? "HOST" : "PLAYER") + "  |  " +
                     (lan != null && lan.IsConnected ?
                         lan.LastRoom != null && lan.LastRoom.paused ? "PAUSED" : "CONNECTED" :
-                        "RECONNECTING"), body);
+                        lan != null && lan.ReconnectFailed ? "SESSION ENDED" : "RECONNECTING"), body);
             if (Player.CurrentVehicle != null)
                 GUI.Label(new Rect(25, 81, 340, 23),
                     Player.CurrentVehicle.VehicleName + "  ARMOR " +
