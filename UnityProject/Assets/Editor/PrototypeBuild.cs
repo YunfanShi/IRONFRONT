@@ -31,7 +31,8 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeRoomMenu.cs",
             "PrototypeRemotePlayer.cs",
             "PrototypeSoldierVisual.cs",
-            "PrototypeTankVisual.cs"
+            "PrototypeTankVisual.cs",
+            "PrototypeWorldVisual.cs"
         };
 
         [MenuItem(MenuPath)]

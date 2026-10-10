@@ -1,3 +1,7 @@
+# 0.29.0 开发进度
+
+Unity 地图美术已按网页 `main` 的道路、铁路和建筑分区扩展。五据点及已有建筑占地保持原坐标，新增村庄坡屋顶、厂房与兵营外立面、铁路站、棚屋、通信设施、树林和地面细节；可通行路口与遮挡仍由原有 `PrototypeLayout` 控制。编辑器 Play 已看到道路、林木、铁路与建筑组合，详细实现和验证见 [docs/UNITY_MAP_VISUAL_029.md](docs/UNITY_MAP_VISUAL_029.md)。开发在 `codex/unity-port`，不并入 `main`。
+
 # 0.28.0 开发进度
 
 网页端 `main` 已有可驾驶 T90 BASTION；Unity 原型原先没有坦克。本轮先在 Unity 双方阵营加入 T90 外观预览：斜面车体和炮塔、履带/负重轮、主炮、装甲裙板、舱盖、观瞄和附属件；战场中的预览有碰撞并作为 AI 寻路障碍。它目前不能上车、移动或开火，联机快照中也不作为载具存在。实现和验证见 [docs/UNITY_TANK_VISUAL_028.md](docs/UNITY_TANK_VISUAL_028.md)。开发继续在 `codex/unity-port`，不并入 `main`。

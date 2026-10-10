@@ -9,8 +9,6 @@ namespace Ironfront.UnityPrototype
         private readonly Dictionary<PrototypeCapturePoint, Renderer> markers =
             new Dictionary<PrototypeCapturePoint, Renderer>();
         private Material groundMaterial;
-        private Material buildingMaterial;
-        private Material coverMaterial;
         private Material markerNeutral;
         private Material markerBlue;
         private Material markerRed;
@@ -79,8 +77,6 @@ namespace Ironfront.UnityPrototype
             BlueCommander = new PrototypeCommander(PrototypeTeam.Blue);
             RedCommander = new PrototypeCommander(PrototypeTeam.Red);
             groundMaterial = MakeMaterial(new Color(0.35f, 0.43f, 0.31f));
-            buildingMaterial = MakeMaterial(new Color(0.43f, 0.42f, 0.37f));
-            coverMaterial = MakeMaterial(new Color(0.34f, 0.31f, 0.27f));
             BlueMaterial = MakeMaterial(new Color(0.31f, 0.42f, 0.44f));
             RedMaterial = MakeMaterial(new Color(0.46f, 0.35f, 0.32f));
             GunMaterial = MakeMaterial(new Color(0.12f, 0.15f, 0.16f));
@@ -107,6 +103,7 @@ namespace Ironfront.UnityPrototype
             RenderSettings.fogDensity = 0.0027f;
             BuildGround();
             BuildStructures();
+            BuildWorldVisual();
             BuildTankPreviews();
             BuildMarkers();
             BuildPlayer();
@@ -187,15 +184,21 @@ namespace Ironfront.UnityPrototype
             {
                 if (block.Kind == "tank-preview") continue;
                 GameObject object3D = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                object3D.name = block.Kind;
+                object3D.name = block.Kind + " collision";
                 object3D.transform.SetParent(transform);
                 object3D.transform.position = new Vector3(block.Position.x,
                     PrototypeLayout.HeightAt(block.Position.x, block.Position.y) + block.Height / 2f,
                     block.Position.y);
                 object3D.transform.localScale = new Vector3(block.Width, block.Height, block.Depth);
-                object3D.GetComponent<Renderer>().sharedMaterial = block.Kind == "crate" ||
-                    block.Kind == "container" ? coverMaterial : buildingMaterial;
+                object3D.GetComponent<Renderer>().enabled = false;
             }
+        }
+
+        private void BuildWorldVisual()
+        {
+            var details = new GameObject("Browser-map architecture and roads");
+            details.transform.SetParent(transform, false);
+            details.AddComponent<PrototypeWorldVisual>().Initialize();
         }
 
         private void BuildMarkers()
