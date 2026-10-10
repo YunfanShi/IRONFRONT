@@ -1,6 +1,6 @@
 {
   "name": "project-ironfront",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "compile:logic": "tsc -p tsconfig.logic.json && node scripts/prepare-logic.cjs",
     "lan": "npm run compile:logic && npm run build && node server/lan.cjs",
     "lan:serve": "node server/lan.cjs",
-    "test:lan": "npm run compile:logic && node scripts/test-lan.cjs"
+    "test:lan": "npm run compile:logic && node scripts/test-lan.cjs",
+    "test:unity-lan": "npm run compile:logic && node scripts/test-unity-room.cjs"
   },
   "dependencies": {
     "three": "^0.180.0",

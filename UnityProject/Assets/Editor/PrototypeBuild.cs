@@ -26,7 +26,10 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeInfantryRoles.cs",
             "IPrototypeVehicle.cs",
             "PrototypeScoutVehicle.cs",
-            "PrototypeTransportVehicle.cs"
+            "PrototypeTransportVehicle.cs",
+            "PrototypeLanClient.cs",
+            "PrototypeRoomMenu.cs",
+            "PrototypeRemotePlayer.cs"
         };
 
         [MenuItem(MenuPath)]

@@ -21,6 +21,7 @@ namespace Ironfront.UnityPrototype
         private float supportStatusUntil;
 
         public bool Alive => Health > 0f;
+        public PrototypeTeam Team { get; private set; } = PrototypeTeam.Blue;
         public float Health { get; private set; } = 100f;
         public int Ammo => kit.Ammo;
         public int Reserve => kit.Reserve;
@@ -73,6 +74,32 @@ namespace Ironfront.UnityPrototype
             Health = 100f;
         }
 
+        public void SetTeam(PrototypeTeam team)
+        {
+            if (Team == team) return;
+            Team = team;
+            if (runtime != null && CurrentVehicle == null) Respawn();
+        }
+
+        // Guest snapshots are cosmetic. Health, position and respawn are decided
+        // by the host; local input may still move the camera between snapshots.
+        public void ApplyNetworkState(Vector3 position, float yaw, float health, bool alive,
+            int ammo, int reserve)
+        {
+            if (runtime == null || !runtime.IsNetworkReplica ||
+                float.IsNaN(position.x) || float.IsNaN(position.y) || float.IsNaN(position.z) ||
+                float.IsInfinity(position.x) || float.IsInfinity(position.y) ||
+                float.IsInfinity(position.z) || float.IsNaN(yaw) || float.IsInfinity(yaw) ||
+                float.IsNaN(health) || float.IsInfinity(health)) return;
+            if (CurrentVehicle != null) ForceExitVehicle();
+            if (controller != null) controller.enabled = false;
+            transform.position = position;
+            transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+            Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
+            kit.ApplyNetworkAmmo(ammo, reserve);
+            if (controller != null) controller.enabled = alive;
+        }
+
         private void Update()
         {
             if (runtime == null) return;
@@ -89,7 +116,8 @@ namespace Ironfront.UnityPrototype
             }
             if (!Alive)
             {
-                if (Time.time >= respawnAt && !runtime.Match.Winner.HasValue) Respawn();
+                if (!runtime.IsNetworkReplica && Time.time >= respawnAt &&
+                    !runtime.Match.Winner.HasValue) Respawn();
                 return;
             }
             if (Cursor.lockState != CursorLockMode.Locked)
@@ -130,15 +158,18 @@ namespace Ironfront.UnityPrototype
             float speed = sprint ? SprintSpeed : WalkSpeed;
             Vector3 horizontal = (transform.right * input.x + transform.forward * input.y) * speed;
             if (controller.isGrounded && verticalSpeed < 0f) verticalSpeed = -2f;
-            if (controller.isGrounded && Input.GetKeyDown(KeyCode.Space)) verticalSpeed = 6.2f;
+            if (!runtime.IsNetworkReplica && controller.isGrounded &&
+                Input.GetKeyDown(KeyCode.Space)) verticalSpeed = 6.2f;
             verticalSpeed -= 22f * Time.deltaTime;
             controller.Move((horizontal + Vector3.up * verticalSpeed) * Time.deltaTime);
 
-            if (Input.GetKeyDown(KeyCode.E)) TryEnterVehicle();
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.E)) TryEnterVehicle();
             if (CurrentVehicle != null) return;
-            if (Input.GetKeyDown(KeyCode.R)) kit.StartReload(Time.time);
-            if (Input.GetKeyDown(KeyCode.X)) UseSupport();
-            if (kit.Weapon.Automatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0)) Fire();
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.R))
+                kit.StartReload(Time.time);
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.X)) UseSupport();
+            if (!runtime.IsNetworkReplica &&
+                (kit.Weapon.Automatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0))) Fire();
         }
 
         private void LateUpdate()
@@ -148,12 +179,13 @@ namespace Ironfront.UnityPrototype
 
         private void TryEnterVehicle()
         {
-            if (runtime == null || !Alive || runtime.Match.Winner.HasValue) return;
+            if (runtime == null || runtime.IsNetworkReplica || !Alive ||
+                runtime.Match.Winner.HasValue) return;
             IPrototypeVehicle closest = null;
             float nearest = 5.5f;
             foreach (IPrototypeVehicle candidate in runtime.Vehicles)
             {
-                if (candidate == null || !candidate.Alive || candidate.Team != PrototypeTeam.Blue ||
+                if (candidate == null || !candidate.Alive || candidate.Team != Team ||
                     candidate.Occupant != null) continue;
                 float distance = Vector2.Distance(MapPosition, candidate.MapPosition);
                 if (distance >= nearest ||
@@ -224,7 +256,8 @@ namespace Ironfront.UnityPrototype
                     if (ExitIsClear(candidate)) return candidate;
                 }
             // The infantry spawn is a known clear point if the vehicle is boxed in.
-            Vector2 spawn = new Vector2(-64f, -108f);
+            Vector2 spawn = Team == PrototypeTeam.Blue ?
+                new Vector2(-64f, -108f) : new Vector2(64f, 108f);
             return new Vector3(spawn.x,
                 PrototypeLayout.HeightAt(spawn.x, spawn.y) + 0.3f, spawn.y);
         }
@@ -256,17 +289,24 @@ namespace Ironfront.UnityPrototype
             {
                 end = hit.point;
                 PrototypeBot bot = hit.collider.GetComponent<PrototypeBot>();
-                if (bot != null && bot.Team == PrototypeTeam.Red)
+                if (bot != null && bot.Team != Team)
                     bot.TakeDamage(kit.Weapon.DamageAtRange(hit.distance));
                 else
                 {
-                    IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit.collider);
-                    if (vehicle != null && vehicle.Team == PrototypeTeam.Red)
-                        vehicle.TakeDamage(kit.Weapon.DamageAtRange(hit.distance) * 0.55f);
+                    PrototypeRemotePlayer remote =
+                        hit.collider.GetComponentInParent<PrototypeRemotePlayer>();
+                    if (remote != null && remote.Team != Team)
+                        remote.TakeDamage(kit.Weapon.DamageAtRange(hit.distance));
+                    else
+                    {
+                        IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit.collider);
+                        if (vehicle != null && vehicle.Team != Team)
+                            vehicle.TakeDamage(kit.Weapon.DamageAtRange(hit.distance) * 0.55f);
+                    }
                 }
             }
             runtime.ShowTracer(origin + viewCamera.transform.right * 0.25f - viewCamera.transform.up * 0.15f,
-                end, PrototypeTeam.Blue);
+                end, Team);
             if (kit.Ammo == 0) kit.StartReload(Time.time);
         }
 
@@ -280,7 +320,7 @@ namespace Ironfront.UnityPrototype
                 if (!used)
                     foreach (PrototypeBot bot in runtime.Bots)
                     {
-                        if (!bot.Alive || bot.Team != PrototypeTeam.Blue) continue;
+                        if (!bot.Alive || bot.Team != Team) continue;
                         if (kit.TryResupply(now, bot.Kit,
                             Vector2.Distance(MapPosition, bot.MapPosition))) { used = true; break; }
                     }
@@ -295,7 +335,7 @@ namespace Ironfront.UnityPrototype
                 else
                     foreach (PrototypeBot bot in runtime.Bots)
                     {
-                        if (!bot.Alive || bot.Team != PrototypeTeam.Blue) continue;
+                        if (!bot.Alive || bot.Team != Team) continue;
                         if (kit.TryHeal(now, bot.Health,
                             Vector2.Distance(MapPosition, bot.MapPosition), out healed))
                         {
@@ -311,7 +351,7 @@ namespace Ironfront.UnityPrototype
                 if (!used)
                     foreach (PrototypeBot bot in runtime.Bots)
                     {
-                        if (!bot.Alive || bot.Team != PrototypeTeam.Blue) continue;
+                        if (!bot.Alive || bot.Team != Team) continue;
                         if (kit.TryApplyArmor(now, bot.Kit,
                             Vector2.Distance(MapPosition, bot.MapPosition))) { used = true; break; }
                     }
@@ -322,7 +362,7 @@ namespace Ironfront.UnityPrototype
                 float nearest = kit.DetectionRange;
                 foreach (PrototypeBot bot in runtime.Bots)
                 {
-                    if (!bot.Alive || bot.Team != PrototypeTeam.Red) continue;
+                    if (!bot.Alive || bot.Team == Team) continue;
                     Vector2 target = bot.MapPosition;
                     float distance = Vector2.Distance(MapPosition, target);
                     if (distance >= nearest ||
@@ -334,7 +374,8 @@ namespace Ironfront.UnityPrototype
                 }
                 if (spotted != null && kit.TrySpot(now))
                 {
-                    runtime.BlueCommander.ReportEnemy(spotted.MapPosition, now);
+                    (Team == PrototypeTeam.Blue ? runtime.BlueCommander :
+                        runtime.RedCommander).ReportEnemy(spotted.MapPosition, now);
                     used = true;
                 }
             }
@@ -344,11 +385,12 @@ namespace Ironfront.UnityPrototype
 
         public void TakeDamage(float amount)
         {
-            if (!Alive || runtime.Match.Winner.HasValue) return;
+            if (runtime == null || runtime.IsNetworkReplica || !Alive ||
+                runtime.Match.Winner.HasValue) return;
             Health = Mathf.Max(0f, Health - kit.AbsorbDamage(amount));
             if (Alive) return;
             ForceExitVehicle();
-            runtime.Match.RecordDeath(PrototypeTeam.Blue);
+            runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 5f;
         }
 
@@ -361,10 +403,12 @@ namespace Ironfront.UnityPrototype
         {
             ForceExitVehicle();
             if (controller != null) controller.enabled = false;
-            Vector2 point = new Vector2(-64f, -108f);
+            Vector2 point = Team == PrototypeTeam.Blue ?
+                new Vector2(-64f, -108f) : new Vector2(64f, 108f);
             transform.position = new Vector3(point.x,
                 PrototypeLayout.HeightAt(point.x, point.y) + 0.3f, point.y);
-            transform.rotation = Quaternion.Euler(0f, 48f, 0f);
+            transform.rotation = Quaternion.Euler(0f,
+                Team == PrototypeTeam.Blue ? 48f : 228f, 0f);
             pitch = 0f;
             verticalSpeed = 0f;
             Health = 100f;

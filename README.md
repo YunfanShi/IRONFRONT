@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.25.0
+# PROJECT IRONFRONT 0.26.0
+
+## 0.26.0 Unity 局域网房间与房主权限
+
+Unity 原型现在可通过独立的 Unity 房间协议创建或加入最多 8 人的局域网战局。房主运行 `npm run lan`，在 Unity 出击界面选择 `LAN ROOM` 创建房间；其他 Unity 玩家填写房主的局域网地址和六位房间码加入。房主可设置 100/300/500/800 票、移动玩家阵营、踢出玩家并在全员准备后开局。服务端核验房主身份，普通玩家不能执行这些操作，也不能发布战场快照。首轮联机包含步兵移动和射击、双方 8 名 AI、车辆与据点状态同步；多人载具座位和职业能力仍需后续移植。实现、权限规则、验证和限制见 [UNITY_LAN_026.md](docs/UNITY_LAN_026.md)。开发只在 `codex/unity-port` 分支。
 
 ## 0.25.0 Unity U8 后排 AI 乘员
 
@@ -14,7 +18,7 @@ Unity 原型增加蓝方 R4 侦察车与红方 AI 侦察车。出击后靠近蓝
 
 ## 0.22.0 Unity 兵种与出击界面
 
-Unity 原型加入四兵种的不同主武器与有限次数的步兵支援、开局出击选择界面，以及 macOS 独立构建入口。编辑器和独立程序均已实测选兵种、进入战局和工程护甲；完整范围与限制见 [UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建方法见 [UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。Unity 开发继续保留在 `codex/unity-port` 分支。网页房主服务和客户端目前已同步为 `0.24.x`，升级房主时需重新启动服务。
+Unity 原型加入四兵种的不同主武器与有限次数的步兵支援、开局出击选择界面，以及 macOS 独立构建入口。编辑器和独立程序均已实测选兵种、进入战局和工程护甲；完整范围与限制见 [UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建方法见 [UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。Unity 开发继续保留在 `codex/unity-port` 分支。网页房主服务和客户端目前已同步为 `0.26.x`，升级房主时需重新启动服务。
 
 ## 0.21.0 Unity 步兵战术
 
@@ -32,7 +36,7 @@ Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属�
 
 新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型后来加入小队指挥、四兵种、R4 侦察车和 U8 运输车，但尚不具备网页的完整载具或联机玩法。
 
-在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.24.x`，更新时需重新启动服务。
+在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.26.x`，更新时需重新启动服务。
 
 ## 0.18.0 房间与联机体验
 

@@ -16,6 +16,16 @@ namespace Ironfront.UnityPrototype
         private Material markerRed;
         private Material blueTracer;
         private Material redTracer;
+        private PrototypeLanClient lan;
+        private readonly PrototypeRoomMenu roomMenu = new PrototypeRoomMenu();
+        private readonly Dictionary<int, float> lastRemoteInputAt = new Dictionary<int, float>();
+        private bool roomMenuOpen;
+        private float nextLanSend;
+        private int snapshotTick;
+        private int lastAppliedTick = -1;
+        private bool networkModeActive;
+        private bool networkHost;
+        private string roomStatus = "";
 
         public PrototypeMatch Match { get; private set; }
         public PrototypeNavigation Navigation { get; private set; }
@@ -23,6 +33,11 @@ namespace Ironfront.UnityPrototype
         public PrototypeCommander BlueCommander { get; private set; }
         public PrototypeCommander RedCommander { get; private set; }
         public bool MatchStarted { get; private set; }
+        public bool IsNetworkReplica => networkModeActive &&
+            (!networkHost || lan == null || !lan.IsConnected ||
+             (lan.LastRoom != null && lan.LastRoom.paused));
+        public readonly List<PrototypeRemotePlayer> RemotePlayers =
+            new List<PrototypeRemotePlayer>();
         public PrototypeFrontend Frontend { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
         public readonly List<IPrototypeVehicle> Vehicles = new List<IPrototypeVehicle>();
@@ -75,6 +90,7 @@ namespace Ironfront.UnityPrototype
             RedCommander.Tick(Time.time, Match);
             Frontend = new PrototypeFrontend();
             Frontend.Open();
+            lan = new PrototypeLanClient();
         }
 
         private static Material MakeMaterial(Color color, bool unlit = false)
@@ -275,10 +291,60 @@ namespace Ironfront.UnityPrototype
         private void Update()
         {
             if (Match == null || Player == null) return;
+            lan?.Poll();
+            if (networkModeActive && lan != null && lan.IsConnected)
+            {
+                if (lan.IsHost) networkHost = true;
+                PrototypeLanRosterMember[] members = lan.LastRoom?.roster;
+                if (members != null)
+                    foreach (PrototypeLanRosterMember member in members)
+                        if (member.id == lan.LocalId)
+                        {
+                            Player.SetTeam(member.team == "red" ? PrototypeTeam.Red :
+                                PrototypeTeam.Blue);
+                            break;
+                        }
+                SyncRemoteRoster();
+                if (!MatchStarted && lan.Phase == "battle")
+                {
+                    if (networkHost && lan.LastRoom?.settings != null)
+                    {
+                        int tickets = lan.LastRoom.settings.tickets;
+                        Match.SetNetworkTickets(tickets, tickets);
+                    }
+                    Player.SelectClass(PrototypeInfantryClass.Assault);
+                    Frontend.Close();
+                    roomMenuOpen = false;
+                    BeginBattle();
+                }
+            }
             if (!MatchStarted) return;
-            Match.Tick(Mathf.Min(Time.deltaTime, 0.05f), Player, Bots);
+            if (networkModeActive && IsNetworkReplica)
+            {
+                if (lan != null && lan.IsConnected)
+                {
+                    ApplyLatestSnapshot();
+                    SendLocalInput();
+                }
+                UpdateMarkerMaterials();
+                return;
+            }
+            if (networkModeActive) ProcessPeerInputs();
+            Match.Tick(Mathf.Min(Time.deltaTime, 0.05f), Player, Bots,
+                networkModeActive ? RemotePlayers : null);
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
+            UpdateMarkerMaterials();
+            if (networkModeActive && lan != null && lan.IsConnected &&
+                Time.unscaledTime >= nextLanSend)
+            {
+                nextLanSend = Time.unscaledTime + 0.05f;
+                lan.SendSnapshot(CaptureSnapshot());
+            }
+        }
+
+        private void UpdateMarkerMaterials()
+        {
             foreach (KeyValuePair<PrototypeCapturePoint, Renderer> entry in markers)
             {
                 PrototypeCapturePoint point = entry.Key;
@@ -294,6 +360,249 @@ namespace Ironfront.UnityPrototype
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        private void DrawRoomMenu(float canvasWidth, float canvasHeight)
+        {
+            PrototypeLanRoom room = lan?.LastRoom;
+            PrototypeLanRosterMember[] members = room?.roster;
+            int count = members == null ? 0 : members.Length;
+            var lines = new string[count];
+            var ids = new int[count];
+            var blue = new bool[count];
+            bool localReady = false;
+            for (int i = 0; i < count; i++)
+            {
+                PrototypeLanRosterMember member = members[i];
+                ids[i] = member.id;
+                blue[i] = member.team == "blue";
+                lines[i] = (member.host || member.isHost ? "HOST" : "PLAYER") +
+                    "  #" + member.id + "  " + (member.team ?? "blue").ToUpperInvariant() +
+                    (member.ready ? "  READY" : "  WAITING") +
+                    (member.connected ? "" : "  DISCONNECTED");
+                if (member.id == lan.LocalId)
+                {
+                    localReady = member.ready;
+                    Player.SetTeam(member.team == "red" ? PrototypeTeam.Red : PrototypeTeam.Blue);
+                }
+            }
+            string notice = lan != null && !string.IsNullOrEmpty(lan.Error) ? lan.Error : roomStatus;
+            if (room != null && room.paused) notice = "Host disconnected. Room paused for host reconnect.";
+            PrototypeRoomAction action = roomMenu.Draw(canvasWidth, canvasHeight,
+                lan != null && lan.IsConnected, lan != null && lan.IsHost,
+                localReady, lan?.Phase ?? "preparation", lan?.Code ?? "", notice,
+                lan?.LocalId ?? -1, lines, ids, blue, room?.settings?.tickets ?? 100);
+            switch (action.Kind)
+            {
+                case PrototypeRoomActionKind.Create:
+                    roomStatus = "Creating room...";
+                    CreateLanRoom();
+                    break;
+                case PrototypeRoomActionKind.Join:
+                    roomStatus = "Joining room...";
+                    JoinLanRoom();
+                    break;
+                case PrototypeRoomActionKind.Leave:
+                    lan?.Close();
+                    networkModeActive = false;
+                    networkHost = false;
+                    roomMenuOpen = false;
+                    roomStatus = "";
+                    Frontend.Open();
+                    break;
+                case PrototypeRoomActionKind.Ready: lan?.SendReady(true); break;
+                case PrototypeRoomActionKind.Unready: lan?.SendReady(false); break;
+                case PrototypeRoomActionKind.Start: lan?.SendStart(); break;
+                case PrototypeRoomActionKind.Blue: lan?.SendTeam("blue"); break;
+                case PrototypeRoomActionKind.Red: lan?.SendTeam("red"); break;
+                case PrototypeRoomActionKind.Kick: lan?.SendKick(action.TargetId); break;
+                case PrototypeRoomActionKind.MoveBlue:
+                    lan?.SendTeam("blue", action.TargetId); break;
+                case PrototypeRoomActionKind.MoveRed:
+                    lan?.SendTeam("red", action.TargetId); break;
+                case PrototypeRoomActionKind.SetTickets:
+                    lan?.SendSettings(action.TargetId, 8); break;
+            }
+        }
+
+        private async void CreateLanRoom()
+        {
+            try
+            {
+                await lan.CreateRoom(roomMenu.Address);
+                networkModeActive = true;
+                roomStatus = "Share room code " + lan.Code + " with another Unity player.";
+            }
+            catch (System.Exception exception) { roomStatus = exception.Message; }
+        }
+
+        private async void JoinLanRoom()
+        {
+            try
+            {
+                await lan.JoinRoom(roomMenu.Address, roomMenu.JoinCode);
+                networkModeActive = true;
+                roomStatus = "Connected. Choose your team and press READY.";
+            }
+            catch (System.Exception exception) { roomStatus = exception.Message; }
+        }
+
+        private void SyncRemoteRoster()
+        {
+            PrototypeLanRosterMember[] roster = lan.LastRoom?.roster;
+            if (roster == null) return;
+            for (int i = RemotePlayers.Count - 1; i >= 0; i--)
+            {
+                PrototypeRemotePlayer remote = RemotePlayers[i];
+                bool keep = false;
+                foreach (PrototypeLanRosterMember member in roster)
+                    if (member.id == remote.Id && member.connected &&
+                        member.team == (remote.Team == PrototypeTeam.Blue ? "blue" : "red"))
+                    { keep = true; break; }
+                if (keep) continue;
+                RemotePlayers.RemoveAt(i);
+                Destroy(remote.gameObject);
+            }
+            foreach (PrototypeLanRosterMember member in roster)
+            {
+                if (!member.connected || member.id == lan.LocalId) continue;
+                bool exists = false;
+                foreach (PrototypeRemotePlayer remote in RemotePlayers)
+                    if (remote.Id == member.id) { exists = true; break; }
+                if (exists) continue;
+                var actor = new GameObject("Remote Player " + member.id);
+                actor.transform.SetParent(transform);
+                PrototypeRemotePlayer component = actor.AddComponent<PrototypeRemotePlayer>();
+                component.Initialize(this, member.id,
+                    member.team == "red" ? PrototypeTeam.Red : PrototypeTeam.Blue);
+                RemotePlayers.Add(component);
+            }
+        }
+
+        private void ProcessPeerInputs()
+        {
+            while (lan.PeerInputs.Count > 0)
+            {
+                PrototypeLanPeerInput peer = lan.PeerInputs.Dequeue();
+                PrototypeLanInput input = peer.input;
+                if (input == null) continue;
+                if (lastRemoteInputAt.TryGetValue(peer.id, out float previous) &&
+                    Time.unscaledTime - previous < 0.045f) continue;
+                foreach (PrototypeRemotePlayer remote in RemotePlayers)
+                    if (remote.Id == peer.id)
+                    {
+                        float dt = lastRemoteInputAt.TryGetValue(peer.id, out float prior) ?
+                            Mathf.Clamp(Time.unscaledTime - prior, 0f, 0.1f) : 0.05f;
+                        lastRemoteInputAt[peer.id] = Time.unscaledTime;
+                        remote.ApplyInput(input.forward, input.side, input.yaw,
+                            input.pitch, input.sprint, input.fire, dt);
+                        break;
+                    }
+            }
+        }
+
+        private void SendLocalInput()
+        {
+            if (Time.unscaledTime < nextLanSend) return;
+            nextLanSend = Time.unscaledTime + 0.05f;
+            bool active = Cursor.lockState == CursorLockMode.Locked && Player.Alive;
+            float pitch = Player.ViewCamera.transform.eulerAngles.x;
+            if (pitch > 180f) pitch -= 360f;
+            lan.SendInput(new PrototypeLanInput {
+                forward = active ? Input.GetAxisRaw("Vertical") : 0f,
+                side = active ? Input.GetAxisRaw("Horizontal") : 0f,
+                yaw = Player.transform.eulerAngles.y,
+                pitch = pitch,
+                sprint = active && Input.GetKey(KeyCode.LeftShift),
+                fire = active && Input.GetMouseButton(0)
+            });
+        }
+
+        private PrototypeLanSnapshot CaptureSnapshot()
+        {
+            var players = new PrototypeLanActor[RemotePlayers.Count + 1];
+            players[0] = CaptureActor(lan.LocalId, Player.transform,
+                Player.Health, Player.Alive, Player.Team);
+            players[0].ammo = Player.Ammo;
+            players[0].reserve = Player.Reserve;
+            for (int i = 0; i < RemotePlayers.Count; i++)
+            {
+                PrototypeRemotePlayer remote = RemotePlayers[i];
+                players[i + 1] = CaptureActor(remote.Id, remote.transform,
+                    remote.Health, remote.Alive, remote.Team);
+                players[i + 1].ammo = remote.Ammo;
+                players[i + 1].reserve = remote.Reserve;
+            }
+            var bots = new PrototypeLanActor[Bots.Count];
+            for (int i = 0; i < Bots.Count; i++)
+                bots[i] = CaptureActor(i, Bots[i].transform, Bots[i].Health,
+                    Bots[i].Alive, Bots[i].Team);
+            var vehicles = new PrototypeLanActor[Vehicles.Count];
+            for (int i = 0; i < Vehicles.Count; i++)
+                vehicles[i] = CaptureActor(i, Vehicles[i].VehicleTransform,
+                    Vehicles[i].Health, Vehicles[i].Alive, Vehicles[i].Team);
+            var points = new PrototypeLanPoint[Match.Points.Count];
+            for (int i = 0; i < Match.Points.Count; i++)
+            {
+                PrototypeCapturePoint point = Match.Points[i];
+                points[i] = new PrototypeLanPoint { id = point.Definition.Id,
+                    control = point.Control,
+                    owner = point.Owner == PrototypeTeam.Blue ? "blue" :
+                        point.Owner == PrototypeTeam.Red ? "red" : "" };
+            }
+            return new PrototypeLanSnapshot { tick = ++snapshotTick, players = players,
+                bots = bots, vehicles = vehicles, points = points,
+                blueTickets = Match.BlueTickets, redTickets = Match.RedTickets };
+        }
+
+        private static PrototypeLanActor CaptureActor(int id, Transform actor,
+            float health, bool alive, PrototypeTeam team)
+        {
+            Vector3 position = actor.position;
+            return new PrototypeLanActor { id = id, x = position.x, y = position.y,
+                z = position.z, yaw = actor.eulerAngles.y, hp = health, alive = alive,
+                team = team == PrototypeTeam.Blue ? "blue" : "red" };
+        }
+
+        private void ApplyLatestSnapshot()
+        {
+            PrototypeLanSnapshot state = lan.LastSnapshot;
+            if (state == null || state.tick <= lastAppliedTick) return;
+            lastAppliedTick = state.tick;
+            Match.SetNetworkTickets(state.blueTickets, state.redTickets);
+            if (state.points != null)
+                foreach (PrototypeLanPoint point in state.points)
+                    Match.SetNetworkPoint(point.id, point.control,
+                        point.owner == "blue" ? 0 : point.owner == "red" ? 1 : -1);
+            if (state.players != null)
+                foreach (PrototypeLanActor actor in state.players)
+                {
+                    Vector3 position = new Vector3(actor.x, actor.y, actor.z);
+                    if (actor.id == lan.LocalId)
+                        Player.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive,
+                            actor.ammo, actor.reserve);
+                    else
+                        foreach (PrototypeRemotePlayer remote in RemotePlayers)
+                            if (remote.Id == actor.id)
+                            { remote.SetNetworkState(position, actor.yaw, actor.hp, actor.alive); break; }
+                }
+            if (state.bots != null)
+                foreach (PrototypeLanActor actor in state.bots)
+                    if (actor.id >= 0 && actor.id < Bots.Count)
+                        Bots[actor.id].ApplyNetworkState(new Vector3(actor.x, actor.y, actor.z),
+                            actor.yaw, actor.hp, actor.alive);
+            if (state.vehicles != null)
+                foreach (PrototypeLanActor actor in state.vehicles)
+                    if (actor.id >= 0 && actor.id < Vehicles.Count)
+                    {
+                        Vector3 position = new Vector3(actor.x, actor.y, actor.z);
+                        if (Vehicles[actor.id] is PrototypeScoutVehicle scout)
+                            scout.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
+                        else if (Vehicles[actor.id] is PrototypeTransportVehicle transport)
+                            transport.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
+                    }
+        }
+
+        private void OnDestroy() { lan?.Close(); }
 
         public void ShowTracer(Vector3 from, Vector3 to, PrototypeTeam team)
         {
@@ -321,11 +630,15 @@ namespace Ironfront.UnityPrototype
             GUI.matrix = Matrix4x4.Scale(new Vector3(scale, scale, 1f));
             if (!MatchStarted)
             {
-                if (Frontend != null && Frontend.Draw(canvasWidth, canvasHeight))
+                if (roomMenuOpen)
+                    DrawRoomMenu(canvasWidth, canvasHeight);
+                else if (Frontend != null && Frontend.Draw(canvasWidth, canvasHeight))
                 {
                     Player.SelectClass(Frontend.SelectedClass);
                     BeginBattle();
                 }
+                else if (Frontend != null && Frontend.LanRequested)
+                    roomMenuOpen = true;
                 GUI.matrix = previousMatrix;
                 return;
             }
@@ -333,10 +646,18 @@ namespace Ironfront.UnityPrototype
             title.normal.textColor = Color.white;
             var body = new GUIStyle(GUI.skin.label) { fontSize = 14 };
             body.normal.textColor = Color.white;
-            GUI.Box(new Rect(12, 12, 370, 210), GUIContent.none);
+            GUI.Box(new Rect(12, 12, 370, networkModeActive ? 225 : 210),
+                GUIContent.none);
             GUI.Label(new Rect(25, 20, 340, 30), "IRONFRONT  |  UNITY PROTOTYPE", title);
             GUI.Label(new Rect(25, 55, 340, 23),
                 "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "     RED " + Mathf.CeilToInt(Match.RedTickets), body);
+            if (networkModeActive)
+                GUI.Label(new Rect(25, 206, 340, 23),
+                    "ROOM " + (lan?.Code ?? "------") + "  |  " +
+                    (networkHost ? "HOST" : "PLAYER") + "  |  " +
+                    (lan != null && lan.IsConnected ?
+                        lan.LastRoom != null && lan.LastRoom.paused ? "PAUSED" : "CONNECTED" :
+                        "RECONNECTING"), body);
             if (Player.CurrentVehicle != null)
                 GUI.Label(new Rect(25, 81, 340, 23),
                     Player.CurrentVehicle.VehicleName + "  ARMOR " +

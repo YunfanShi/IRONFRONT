@@ -163,6 +163,14 @@ namespace Ironfront.UnityPrototype
             nextGadgetAt = 0f;
         }
 
+        public void ApplyNetworkAmmo(int ammo, int reserve)
+        {
+            if (ammo < 0 || ammo > Weapon.Magazine ||
+                reserve < 0 || reserve > Weapon.Reserve) return;
+            Ammo = ammo;
+            Reserve = reserve;
+        }
+
         public void Tick(float now)
         {
             if (reloadEndsAt <= 0f || now < reloadEndsAt) return;

@@ -85,9 +85,26 @@ namespace Ironfront.UnityPrototype
             lastProgressPosition = MapPosition;
         }
 
+        public void ApplyNetworkState(Vector3 position, float yaw, float health, bool alive)
+        {
+            if (runtime == null || !runtime.IsNetworkReplica ||
+                float.IsNaN(position.x) || float.IsNaN(position.y) || float.IsNaN(position.z) ||
+                float.IsNaN(yaw) || float.IsNaN(health) ||
+                float.IsInfinity(position.x) || float.IsInfinity(position.y) ||
+                float.IsInfinity(position.z) || float.IsInfinity(yaw) ||
+                float.IsInfinity(health)) return;
+            transform.position = position;
+            transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+            Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
+            if (body != null) body.enabled = alive;
+            if (bodyCollider != null) bodyCollider.enabled = alive;
+            TacticalState = alive ? PrototypeTacticalState.Advance : PrototypeTacticalState.Down;
+        }
+
         private void Update()
         {
-            if (runtime == null || !runtime.MatchStarted || runtime.Match.Winner.HasValue) return;
+            if (runtime == null || runtime.IsNetworkReplica || !runtime.MatchStarted ||
+                runtime.Match.Winner.HasValue) return;
             if (!Alive)
             {
                 TacticalState = PrototypeTacticalState.Down;
@@ -107,8 +124,9 @@ namespace Ironfront.UnityPrototype
             if (TryBoardNearbyTransport()) return;
 
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot,
-                out PrototypePlayer player, out IPrototypeVehicle vehicle);
-            bool inCombat = bot != null || player != null || vehicle != null;
+                out PrototypePlayer player, out IPrototypeVehicle vehicle,
+                out PrototypeRemotePlayer remote);
+            bool inCombat = bot != null || player != null || vehicle != null || remote != null;
             if (inCombat && squad != null) squad.ReportContact(enemy, Time.time);
             if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
             {
@@ -122,7 +140,8 @@ namespace Ironfront.UnityPrototype
                 nextShot = Time.time + Mathf.Max(kit.Weapon.FireInterval,
                     Random.Range(0.38f, 0.62f));
                 Vector3 origin = transform.position + Vector3.up * 0.55f;
-                float targetHeight = player != null ? 1.25f : vehicle != null ? 1.1f : 0.45f;
+                float targetHeight = player != null || remote != null ? 1.25f :
+                    vehicle != null ? 1.1f : 0.45f;
                 Vector3 impact = new Vector3(enemy.x,
                     PrototypeLayout.HeightAt(enemy.x, enemy.y) + 1f + targetHeight, enemy.y);
                 runtime.ShowTracer(origin, impact, Team);
@@ -130,6 +149,7 @@ namespace Ironfront.UnityPrototype
                 {
                     float damage = kit.Weapon.DamageAtRange(enemyDistance) * 0.29f;
                     if (player != null) player.TakeDamage(damage);
+                    else if (remote != null) remote.TakeDamage(damage);
                     else if (bot != null) bot.TakeDamage(damage);
                     else vehicle.TakeDamage(damage * 0.55f);
                 }
@@ -214,16 +234,18 @@ namespace Ironfront.UnityPrototype
         }
 
         private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot,
-            out PrototypePlayer selectedPlayer, out IPrototypeVehicle selectedVehicle)
+            out PrototypePlayer selectedPlayer, out IPrototypeVehicle selectedVehicle,
+            out PrototypeRemotePlayer selectedRemote)
         {
             selectedBot = null;
             selectedPlayer = null;
             selectedVehicle = null;
+            selectedRemote = null;
             Vector2 position = MapPosition;
             Vector2 selectedPosition = Vector2.zero;
             float bestDistance = kit.DetectionRange;
 
-            if (Team == PrototypeTeam.Red && runtime.Player != null && runtime.Player.Alive &&
+            if (runtime.Player != null && runtime.Player.Team != Team && runtime.Player.Alive &&
                 runtime.Player.CurrentVehicle == null)
             {
                 Vector2 point = runtime.Player.MapPosition;
@@ -234,6 +256,20 @@ namespace Ironfront.UnityPrototype
                     selectedPosition = point;
                     selectedPlayer = runtime.Player;
                 }
+            }
+            foreach (PrototypeRemotePlayer candidate in runtime.RemotePlayers)
+            {
+                if (candidate == null || !candidate.Alive || candidate.Team == Team) continue;
+                Vector2 point = candidate.MapPosition;
+                float distance = Vector2.Distance(position, point);
+                if (distance >= bestDistance ||
+                    PrototypeLayout.LineBlocked(position, point, 0.1f)) continue;
+                bestDistance = distance;
+                selectedPosition = point;
+                selectedBot = null;
+                selectedPlayer = null;
+                selectedVehicle = null;
+                selectedRemote = candidate;
             }
             foreach (PrototypeBot candidate in runtime.Bots)
             {
@@ -246,6 +282,8 @@ namespace Ironfront.UnityPrototype
                 selectedPosition = point;
                 selectedBot = candidate;
                 selectedPlayer = null;
+                selectedVehicle = null;
+                selectedRemote = null;
             }
             foreach (IPrototypeVehicle candidate in runtime.Vehicles)
             {
@@ -259,6 +297,7 @@ namespace Ironfront.UnityPrototype
                 selectedBot = null;
                 selectedPlayer = null;
                 selectedVehicle = candidate;
+                selectedRemote = null;
             }
             return selectedPosition;
         }
@@ -348,7 +387,7 @@ namespace Ironfront.UnityPrototype
                 PrototypeBot woundedBot = null;
                 float lowestHealth = Health;
                 bool helpPlayer = false;
-                if (Team == PrototypeTeam.Blue && runtime.Player != null && runtime.Player.Alive &&
+                if (runtime.Player != null && runtime.Player.Team == Team && runtime.Player.Alive &&
                     Vector2.Distance(MapPosition, runtime.Player.MapPosition) <= 8f &&
                     runtime.Player.Health < lowestHealth)
                 {
@@ -374,7 +413,7 @@ namespace Ironfront.UnityPrototype
             else if (kit.Role == PrototypeInfantryClass.Assault)
             {
                 if (kit.TryResupply(now, kit, 0f)) return;
-                if (Team == PrototypeTeam.Blue && runtime.Player != null && runtime.Player.Alive &&
+                if (runtime.Player != null && runtime.Player.Team == Team && runtime.Player.Alive &&
                     kit.TryResupply(now, runtime.Player.Kit,
                         Vector2.Distance(MapPosition, runtime.Player.MapPosition))) return;
                 foreach (PrototypeBot ally in runtime.Bots)
@@ -387,7 +426,7 @@ namespace Ironfront.UnityPrototype
             else if (kit.Role == PrototypeInfantryClass.Engineer)
             {
                 if (kit.TryApplyArmor(now, kit, 0f)) return;
-                if (Team == PrototypeTeam.Blue && runtime.Player != null && runtime.Player.Alive &&
+                if (runtime.Player != null && runtime.Player.Team == Team && runtime.Player.Alive &&
                     kit.TryApplyArmor(now, runtime.Player.Kit,
                         Vector2.Distance(MapPosition, runtime.Player.MapPosition))) return;
                 foreach (PrototypeBot ally in runtime.Bots)
@@ -451,7 +490,7 @@ namespace Ironfront.UnityPrototype
 
         public void TakeDamage(float amount)
         {
-            if (!Alive || IsPassenger) return;
+            if (runtime == null || runtime.IsNetworkReplica || !Alive || IsPassenger) return;
             Health = Mathf.Max(0f, Health - kit.AbsorbDamage(amount));
             underFireUntil = Time.time + 4f;
             if (Alive) return;

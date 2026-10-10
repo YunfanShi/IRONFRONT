@@ -44,12 +44,14 @@ namespace Ironfront.UnityPrototype
         private bool redeploy;
 
         public bool IsOpen { get; private set; }
+        public bool LanRequested { get; private set; }
         public PrototypeInfantryClass SelectedClass { get; private set; } = PrototypeInfantryClass.Assault;
         public string SelectedClassName => ClassNames[ClassIndex(SelectedClass)];
 
         public void Open(bool isRespawn = false)
         {
             redeploy = isRespawn;
+            LanRequested = false;
             IsOpen = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -89,7 +91,7 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(x + 25f, y + 65f, 510f, 22f),
                 "UNITY PROTOTYPE   /   FRONTLINE DEPLOYMENT", smallStyle);
             GUI.Label(new Rect(x + 644f, y + 39f, 248f, 27f),
-                "LOCAL CONQUEST  |  BLUE TEAM", labelStyle);
+                "SOLO CONQUEST  |  UNITY LAN", labelStyle);
 
             GUI.Label(new Rect(x + 25f, y + 111f, 400f, 28f),
                 "SELECT YOUR CLASS", headingStyle);
@@ -127,10 +129,12 @@ namespace Ironfront.UnityPrototype
             string buttonLabel = redeploy ? "REDEPLOY  >" : "DEPLOY  >";
             GUI.Label(deployButton, buttonLabel, buttonStyle);
             bool deploy = GUI.Button(deployButton, GUIContent.none, GUIStyle.none);
+            if (!redeploy && GUI.Button(new Rect(x + 25f, y + 463f, 270f, 37f),
+                "LAN ROOM  /  CREATE OR JOIN  [L]")) LanRequested = true;
             HandleKeyboard(ref deploy);
 
             GUI.Label(new Rect(x + 25f, y + 504f, 845f, 20f),
-                "SOLO PROTOTYPE   //   More maps, vehicle types and modes are in development.", smallStyle);
+                "SOLO OR UNITY LAN   //   LAN uses ASSAULT; the host controls the match.", smallStyle);
 
             if (!deploy) return false;
             Close();
@@ -161,6 +165,12 @@ namespace Ironfront.UnityPrototype
         {
             Event current = Event.current;
             if (current == null || current.type != EventType.KeyDown) return;
+            if (!redeploy && current.keyCode == KeyCode.L)
+            {
+                LanRequested = true;
+                current.Use();
+                return;
+            }
             if (current.keyCode >= KeyCode.Alpha1 && current.keyCode <= KeyCode.Alpha4)
             {
                 SelectedClass = Classes[(int)current.keyCode - (int)KeyCode.Alpha1];

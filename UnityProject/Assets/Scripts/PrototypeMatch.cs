@@ -47,7 +47,8 @@ namespace Ironfront.UnityPrototype
             CheckWinner();
         }
 
-        public void Tick(float dt, PrototypePlayer player, IReadOnlyList<PrototypeBot> bots)
+        public void Tick(float dt, PrototypePlayer player, IReadOnlyList<PrototypeBot> bots,
+            IReadOnlyList<PrototypeRemotePlayer> remotePlayers = null)
         {
             if (Winner.HasValue) return;
             foreach (PrototypeCapturePoint point in Points)
@@ -56,7 +57,19 @@ namespace Ironfront.UnityPrototype
                 int red = 0;
                 Vector2 position = point.Definition.Position;
                 if (player != null && player.Alive &&
-                    Vector2.Distance(player.MapPosition, position) < 25f) blue++;
+                    Vector2.Distance(player.MapPosition, position) < 25f)
+                {
+                    if (player.Team == PrototypeTeam.Blue) blue++;
+                    else red++;
+                }
+                if (remotePlayers != null)
+                    foreach (PrototypeRemotePlayer remote in remotePlayers)
+                    {
+                        if (remote == null || !remote.Alive ||
+                            Vector2.Distance(remote.MapPosition, position) >= 25f) continue;
+                        if (remote.Team == PrototypeTeam.Blue) blue++;
+                        else red++;
+                    }
                 foreach (PrototypeBot bot in bots)
                 {
                     if (!bot.Alive || bot.IsPassenger ||
@@ -89,6 +102,33 @@ namespace Ironfront.UnityPrototype
             if (redOwned > blueOwned) BlueTickets = Mathf.Max(0f, BlueTickets - (redOwned - blueOwned) * 0.85f * dt);
             if (blueOwned > redOwned) RedTickets = Mathf.Max(0f, RedTickets - (blueOwned - redOwned) * 0.85f * dt);
             CheckWinner();
+        }
+
+        public void SetNetworkTickets(float blue, float red)
+        {
+            if (float.IsNaN(blue) || float.IsInfinity(blue) ||
+                float.IsNaN(red) || float.IsInfinity(red)) return;
+            BlueTickets = Mathf.Clamp(blue, 0f, 800f);
+            RedTickets = Mathf.Clamp(red, 0f, 800f);
+            Winner = null;
+            CheckWinner();
+        }
+
+        public void SetNetworkPoint(string id, float control, int owner)
+        {
+            if (string.IsNullOrEmpty(id) || float.IsNaN(control) ||
+                float.IsInfinity(control)) return;
+            foreach (PrototypeCapturePoint point in Points)
+            {
+                if (point.Definition.Id != id) continue;
+                point.Control = Mathf.Clamp(control, -100f, 100f);
+                point.Owner = owner == 0 ? PrototypeTeam.Blue :
+                    owner == 1 ? PrototypeTeam.Red : (PrototypeTeam?)null;
+                point.Contested = false;
+                point.BlueCount = 0;
+                point.RedCount = 0;
+                return;
+            }
         }
 
         private void CheckWinner()

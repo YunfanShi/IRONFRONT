@@ -1,9 +1,11 @@
 // One authoritative Battle per co-op room. Clients send controls, never health/positions.
 const http = require('node:http'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto'), os = require('node:os');
 const { WebSocketServer, WebSocket } = require('ws');
+const { createUnityRooms } = require('./unity-room.cjs');
 const {heightAt}=require('../.logic-build/core/math.js');
 const { Battle } = require('../.logic-build/core/Battle.js');
 const port = Number(process.env.PORT) || 7878, rooms = new Map(), dist = path.resolve(__dirname, '../dist');
+let unityRooms;
 const addresses=()=>{const nets=Object.entries(os.networkInterfaces()).filter(([name])=>! /^(utun|tun|docker|veth|br-|bridge|tailscale|vmnet)/i.test(name)).flatMap(([,list])=>list||[]);return [...new Set(nets.filter(n=>n.family==='IPv4'&&!n.internal).map(n=>`http://${n.address}:${port}`))];};
 const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,6 +17,7 @@ const server = http.createServer((req, res) => {
         res.writeHead(204);
         return res.end();
     }
+    if (unityRooms.handleHttp(req, res)) return;
     if (req.url === '/api/rooms' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk; if (body.length > 8192) {
@@ -60,7 +63,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.phase==='countdown'){res.writeHead(409);return res.end(JSON.stringify({error:'房间正在倒计时，请等待战斗开始后加入'}));}if(room.clients.size+room.reservations.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人，含短暂掉线的保留席位）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,maxPlayers:8,phase:room.phase,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.25.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
+        return res.end(JSON.stringify({ version: '0.26.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
     }
     let pathname;
     try {
@@ -83,7 +86,16 @@ const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', ({ '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.json': 'application/json' })[ext] || 'application/octet-stream');
     fs.createReadStream(file).pipe(res);
 });
-const wss = new WebSocketServer({ server, path: '/play', maxPayload: 8192 });
+const wss = new WebSocketServer({ noServer:true, maxPayload:8192 });
+unityRooms = createUnityRooms(server);
+server.on('upgrade',(req,socket,head)=>{
+    let pathname;
+    try { pathname=new URL(req.url,'http://localhost').pathname; }
+    catch { socket.destroy(); return; }
+    if (pathname==='/unity') { unityRooms.handleUpgrade(req,socket,head); return; }
+    if (pathname==='/play') { wss.handleUpgrade(req,socket,head,ws=>wss.emit('connection',ws,req)); return; }
+    socket.destroy();
+});
 const withClient = (r, c, fn) => { const b = r.battle; b.controlledPlayerId = c.id; b.importPlayerState(c.state); fn(b); c.state = b.exportPlayerState(); };
 const ensureHost = room => {if(!room.hostEverJoined||[...room.clients.values()].some(c=>c.isHost)||[...room.reservations.values()].some(c=>c.isHost))return;const next=room.clients.entries().next().value;if(next){const [ws,c]=next;c.isHost=true;if(ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify({type:'role',isHost:true}));}};
 wss.on('connection', (ws, req) => {
