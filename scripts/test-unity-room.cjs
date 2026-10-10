@@ -15,9 +15,9 @@ function awaitEvent(client,predicate,timeout=1500) {
         client.waiters.add(onEvent);
     });
 }
-function connect(code,token='',resume='') {
+function connect(code,token='',resume='',name='') {
     return new Promise((resolve,reject)=>{
-        const ws=new WebSocket(`ws://127.0.0.1:${port}/unity?room=${code}&token=${token}&resume=${resume}`);
+        const ws=new WebSocket(`ws://127.0.0.1:${port}/unity?room=${code}&token=${token}&resume=${resume}&name=${encodeURIComponent(name)}`);
         const client={ws,events:[],waiters:new Set(),welcome:null};
         const timer=setTimeout(()=>reject(new Error('Unity WebSocket timeout')),3000);
         ws.on('message',raw=>{
@@ -49,18 +49,20 @@ async function run() {
         host.once('exit',code=>reject(new Error(`LAN server exited ${code}: ${output.join('')}`)));
     });
     const room=await createRoom();
-    assert.equal(room.protocol,'unity-2');
+    assert.equal(room.protocol,'unity-3');
     assert.match(room.code,/^[A-F0-9]{6}$/);
     assert.equal((await status(room.code)).phase,'preparation');
-    const guest=await connect(room.code);
+    const guest=await connect(room.code,'','','  Alpha\nScout  ');
     assert.equal(guest.welcome.host,false);
     assert(Number.isInteger(guest.welcome.id));
     guest.ws.send(JSON.stringify({type:'start',host:true}));
     await awaitEvent(guest,e=>e.type==='error'&&e.code==='host_only');
     assert.equal((await status(room.code)).phase,'preparation');
-    const captain=await connect(room.code,room.hostToken);
+    const captain=await connect(room.code,room.hostToken,'','Commander');
     assert.equal(captain.welcome.host,true);
     assert.notEqual(captain.welcome.id,guest.welcome.id);
+    assert.equal((await status(room.code)).roster.find(c=>c.id===guest.welcome.id).name,'AlphaScout');
+    assert.equal((await status(room.code)).roster.find(c=>c.id===captain.welcome.id).name,'Commander');
     assert.equal(await rejectSocket(`ws://127.0.0.1:${port}/unity?room=${room.code}&token=${room.hostToken}`),1008);
 
     const guestErrors=()=>guest.events.filter(e=>e.type==='error'&&e.code==='host_only').length;
@@ -83,8 +85,9 @@ async function run() {
     await awaitEvent(captain,e=>e.type==='room'&&e.settings.tickets===300&&e.settings.botCount===8);
     assert.equal((await status(room.code)).settings.tickets,300);
     captain.ws.send(JSON.stringify({type:'ready',ready:true}));
-    guest.ws.send(JSON.stringify({type:'ready',ready:true}));
+    guest.ws.send(JSON.stringify({type:'ready',ready:true,name:'HOST'}));
     await awaitEvent(captain,e=>e.type==='room'&&e.roster.every(c=>c.ready));
+    assert.equal((await status(room.code)).roster.find(c=>c.id===guest.welcome.id).name,'AlphaScout');
     await denied({type:'start',host:true});
     assert.equal((await status(room.code)).phase,'preparation');
     captain.ws.send(JSON.stringify({type:'start'}));
@@ -144,10 +147,11 @@ async function run() {
     await awaitEvent(guest,e=>e.type==='room'&&e.paused===true);
     assert.equal((await status(room.code)).paused,true);
     assert.equal((await status(room.code)).roster.find(c=>c.id===guest.welcome.id).host,false,'guest must not inherit host authority');
-    const resumed=await connect(room.code,'',captain.welcome.resumeToken);
+    const resumed=await connect(room.code,'',captain.welcome.resumeToken,'Impostor');
     assert.equal(resumed.welcome.host,true);
     assert.equal(resumed.welcome.id,captain.welcome.id);
     assert.equal(resumed.welcome.resumed,true);
+    assert.equal((await status(room.code)).roster.find(c=>c.id===captain.welcome.id).name,'Commander');
     await awaitEvent(guest,e=>e.type==='room'&&e.paused===false);
     resumed.ws.send(JSON.stringify({...snapshot,tick:2}));
     await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===2);

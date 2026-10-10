@@ -419,7 +419,8 @@ namespace Ironfront.UnityPrototype
                 ids[i] = member.id;
                 blue[i] = member.team == "blue";
                 lines[i] = (member.host || member.isHost ? "HOST" : "PLAYER") +
-                    "  #" + member.id + "  " + (member.team ?? "blue").ToUpperInvariant() +
+                    "  " + (string.IsNullOrEmpty(member.name) ? "#" + member.id : member.name) +
+                    "  " + (member.team ?? "blue").ToUpperInvariant() +
                     (member.ready ? "  READY" : "  WAITING") +
                     (member.connected ? "" : "  DISCONNECTED");
                 if (member.id == lan.LocalId)
@@ -471,7 +472,7 @@ namespace Ironfront.UnityPrototype
         {
             try
             {
-                await lan.CreateRoom(roomMenu.Address);
+                await lan.CreateRoom(roomMenu.Address, Frontend.PlayerName);
                 networkModeActive = true;
                 roomStatus = "Share room code " + lan.Code + " with another Unity player.";
             }
@@ -482,7 +483,7 @@ namespace Ironfront.UnityPrototype
         {
             try
             {
-                await lan.JoinRoom(roomMenu.Address, roomMenu.JoinCode);
+                await lan.JoinRoom(roomMenu.Address, roomMenu.JoinCode, Frontend.PlayerName);
                 networkModeActive = true;
                 roomStatus = "Connected. Choose your team and press READY.";
             }
@@ -768,7 +769,7 @@ namespace Ironfront.UnityPrototype
             body.normal.textColor = Color.white;
             GUI.Box(new Rect(12, 12, 370, networkModeActive ? 225 : 210),
                 GUIContent.none);
-            GUI.Label(new Rect(25, 20, 340, 30), "IRONFRONT  |  UNITY PROTOTYPE", title);
+            GUI.Label(new Rect(25, 20, 340, 30), "IRONFRONT  |  " + Frontend.PlayerName, title);
             GUI.Label(new Rect(25, 55, 340, 23),
                 "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "     RED " + Mathf.CeilToInt(Match.RedTickets), body);
             if (networkModeActive)

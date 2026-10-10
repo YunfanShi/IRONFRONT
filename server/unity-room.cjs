@@ -2,7 +2,7 @@
 const crypto = require('node:crypto');
 const { WebSocketServer, WebSocket } = require('ws');
 
-const PROTOCOL = 'unity-2';
+const PROTOCOL = 'unity-3';
 const MAX_PLAYERS = 8;
 const RESUME_MS = 30000;
 const ROOM_IDLE_MS = 600000;
@@ -10,6 +10,10 @@ const SEND_BUFFER_LIMIT = 1024 * 1024;
 const allowedTickets = new Set([100,300,500,800]);
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
+const cleanName = value => {
+    const cleaned = [...String(value || '').trim().replace(/[\p{Cc}\p{Cf}]/gu, '')].slice(0, 20).join('');
+    return cleaned || 'Player';
+};
 
 function createUnityRooms(server) {
     const rooms = new Map();
@@ -23,7 +27,8 @@ function createUnityRooms(server) {
         return [...room.clients.values(), ...room.reservations.values()];
     }
     function roster(room) {
-        return members(room).map(c => ({ id:c.id, host:c.host, ready:c.ready, team:c.team, connected:room.clients.has(c.ws) }));
+        return members(room).map(c => ({ id:c.id, name:c.name, host:c.host, ready:c.ready,
+            team:c.team, connected:room.clients.has(c.ws) }));
     }
     function state(room) {
         return { type:'room', code:room.code, protocol:PROTOCOL, phase:room.phase,
@@ -218,7 +223,8 @@ function createUnityRooms(server) {
         else {
             const players=members(room);
             const id=Array.from({length:MAX_PLAYERS},(_,index)=>index+1).find(candidate=>!players.some(p=>p.id===candidate));
-            c={ id, host:claimHost, team:claimHost?'blue':players.filter(p=>p.team==='blue').length<=players.filter(p=>p.team==='red').length?'blue':'red',
+            c={ id, name:cleanName(url.searchParams.get('name')), host:claimHost,
+                team:claimHost?'blue':players.filter(p=>p.team==='blue').length<=players.filter(p=>p.team==='red').length?'blue':'red',
                 ready:false, ws, resumeToken:crypto.randomBytes(24).toString('hex'), lastSeq:-1,
                 lastInputAt:0, lastSnapshotAt:0, windowAt:Date.now(), messages:0, kicked:false };
         }

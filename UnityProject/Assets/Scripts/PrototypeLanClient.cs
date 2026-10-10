@@ -14,7 +14,7 @@ namespace Ironfront.UnityPrototype
     // The server assigns host authority; a local room button never grants it.
     public sealed class PrototypeLanClient : IDisposable
     {
-        private const string Protocol = "unity-2";
+        private const string Protocol = "unity-3";
         private const int MaxMessageBytes = 65536;
         private readonly ConcurrentQueue<Incoming> incoming = new ConcurrentQueue<Incoming>();
         private readonly SemaphoreSlim sendGate = new SemaphoreSlim(1, 1);
@@ -23,6 +23,7 @@ namespace Ironfront.UnityPrototype
         private Uri baseAddress;
         private string hostToken = "";
         private string resumeToken = "";
+        private string playerName = "Player";
         private int generation;
         private int nextSequence;
         private float lastInputSendAt = -1f;
@@ -59,11 +60,12 @@ namespace Ironfront.UnityPrototype
             while (incoming.Count > 512) incoming.TryDequeue(out _);
         }
 
-        public async Task CreateRoom(string address)
+        public async Task CreateRoom(string address, string name)
         {
             Close();
             int current = generation;
             cancellation = new CancellationTokenSource();
+            playerName = name;
             try
             {
                 baseAddress = ParseAddress(address);
@@ -85,11 +87,12 @@ namespace Ironfront.UnityPrototype
             }
         }
 
-        public async Task JoinRoom(string address, string code)
+        public async Task JoinRoom(string address, string code, string name)
         {
             Close();
             int current = generation;
             cancellation = new CancellationTokenSource();
+            playerName = name;
             try
             {
                 baseAddress = ParseAddress(address);
@@ -387,7 +390,8 @@ namespace Ironfront.UnityPrototype
                 Query = "room=" + Uri.EscapeDataString(Code) +
                     (resume ? "&resume=" + Uri.EscapeDataString(resumeToken) :
                     string.IsNullOrEmpty(hostToken) ? "" :
-                    "&token=" + Uri.EscapeDataString(hostToken))
+                    "&token=" + Uri.EscapeDataString(hostToken)) +
+                    (resume ? "" : "&name=" + Uri.EscapeDataString(playerName ?? "Player"))
             }.Uri;
             var connected = new ClientWebSocket();
             try
@@ -565,6 +569,7 @@ namespace Ironfront.UnityPrototype
     public sealed class PrototypeLanRosterMember
     {
         public int id;
+        public string name;
         public bool host;
         public bool isHost;
         public bool ready;

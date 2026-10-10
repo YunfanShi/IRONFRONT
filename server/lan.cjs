@@ -63,7 +63,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.phase==='countdown'){res.writeHead(409);return res.end(JSON.stringify({error:'房间正在倒计时，请等待战斗开始后加入'}));}if(room.clients.size+room.reservations.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人，含短暂掉线的保留席位）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,maxPlayers:8,phase:room.phase,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.30.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
+        return res.end(JSON.stringify({ version: '0.31.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
     }
     let pathname;
     try {

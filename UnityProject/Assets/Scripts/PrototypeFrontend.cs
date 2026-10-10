@@ -5,7 +5,7 @@ namespace Ironfront.UnityPrototype
 {
     public enum PrototypeDownedAction { None, Rescue, GiveUp }
 
-    // IMGUI deploy screen. PrototypeRuntime owns the match lifecycle and calls Draw
+    // IMGUI start and deployment screens. PrototypeRuntime owns the match lifecycle and calls Draw
     // after applying the same logical 960x600 GUI matrix used by the in-game HUD.
     public sealed class PrototypeFrontend
     {
@@ -35,6 +35,9 @@ namespace Ironfront.UnityPrototype
         private static readonly Color Accent = new Color(0.29f, 0.82f, 0.85f, 1f);
         private static readonly Color Muted = new Color(0.62f, 0.72f, 0.78f, 1f);
         private static readonly Color Divider = new Color(0.20f, 0.32f, 0.39f, 1f);
+        private static readonly Color StartBackground = new Color(0.025f, 0.045f, 0.065f, 1f);
+        private static readonly Color WarmAccent = new Color(0.95f, 0.53f, 0.30f, 1f);
+        private const string PlayerNameKey = "ironfront.unity.playerName";
 
         private GUIStyle logoStyle;
         private GUIStyle headingStyle;
@@ -43,6 +46,10 @@ namespace Ironfront.UnityPrototype
         private GUIStyle cardTitleStyle;
         private GUIStyle cardDescriptionStyle;
         private GUIStyle buttonStyle;
+        private GUIStyle heroStyle;
+        private GUIStyle nameFieldStyle;
+        private GUIStyle darkButtonStyle;
+        private GUIStyle lightButtonStyle;
 
         private bool redeploy;
         private string selectedLocation = "BASE";
@@ -52,6 +59,12 @@ namespace Ironfront.UnityPrototype
         public bool LanRequested { get; private set; }
         public PrototypeInfantryClass SelectedClass { get; private set; } = PrototypeInfantryClass.Assault;
         public string SelectedClassName => ClassNames[ClassIndex(SelectedClass)];
+        public string PlayerName { get; private set; } = "Player";
+
+        public PrototypeFrontend()
+        {
+            PlayerName = CleanPlayerName(PlayerPrefs.GetString(PlayerNameKey, "Player"));
+        }
 
         public void Open(bool isRespawn = false)
         {
@@ -121,71 +134,124 @@ namespace Ironfront.UnityPrototype
         {
             if (!IsOpen) return false;
             EnsureStyles();
+            Event inputEvent = Event.current;
+            if (inputEvent != null && inputEvent.type == EventType.KeyDown &&
+                (inputEvent.keyCode == KeyCode.Return || inputEvent.keyCode == KeyCode.KeypadEnter) &&
+                GUI.GetNameOfFocusedControl() == "PlayerName")
+            {
+                GUI.FocusControl(null);
+                inputEvent.Use();
+            }
+            // Both columns and the background use the logical canvas bounds, so the
+            // opening screen covers every aspect ratio rather than a centered card.
+            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), StartBackground);
+            float panelX = canvasWidth - 390f;
+            float panelY = 72f;
+            float panelH = canvasHeight - 124f;
+            DrawRect(new Rect(0f, 0f, canvasWidth, 5f), Accent);
+            DrawRect(new Rect(panelX - 21f, 0f, canvasWidth - panelX + 21f, canvasHeight),
+                new Color(.045f, .075f, .10f, 1f));
+            DrawRect(new Rect(0f, canvasHeight - 56f, canvasWidth, 1f), Divider);
+            GUI.Label(new Rect(38f, 23f, 310f, 30f), "IF  /  IRONFRONT", headingStyle);
+            GUI.Label(new Rect(canvasWidth - 315f, 27f, 280f, 20f),
+                "UNITY EDITION     //     0.31.0", smallStyle);
 
-            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), Background);
+            float heroW = panelX - 76f;
+            GUI.Label(new Rect(39f, 109f, heroW, 25f),
+                "OPERATION 01   /   FRONTLINE", smallStyle);
+            GUI.Label(new Rect(34f, 145f, heroW + 28f, 93f), "IRONFRONT", heroStyle);
+            DrawRect(new Rect(39f, 242f, 70f, 4f), WarmAccent);
+            GUI.Label(new Rect(39f, 265f, heroW, 68f),
+                "五个据点，一条战线。\n选择你的身份，进入持续争夺的战场。", labelStyle);
 
-            const float width = 920f;
-            const float height = 530f;
-            float x = (canvasWidth - width) * 0.5f;
-            float y = (canvasHeight - height) * 0.5f;
-            DrawRect(new Rect(x, y, width, height), Panel);
-            DrawRect(new Rect(x, y, width, 4f), Accent);
-            DrawRect(new Rect(x + 606f, y + 105f, 1f, 391f), Divider);
-            DrawRect(new Rect(x + 20f, y + 95f, width - 40f, 1f), Divider);
+            // A quiet tactical map provides atmosphere without loading extra art.
+            float mapY = canvasHeight - 236f;
+            float mapH = 155f;
+            DrawRect(new Rect(39f, mapY, heroW, mapH),
+                new Color(.055f, .10f, .13f, 1f));
+            for (int i = 1; i < 6; i++)
+                DrawRect(new Rect(39f + i * heroW / 6f, mapY, 1f, mapH), Divider);
+            for (int i = 1; i < 4; i++)
+                DrawRect(new Rect(39f, mapY + i * mapH / 4f, heroW, 1f), Divider);
+            float routeY = mapY + mapH * .52f;
+            DrawRect(new Rect(66f, routeY, heroW - 54f, 2f), Accent);
+            for (int i = 0; i < 5; i++)
+            {
+                float markerX = 71f + i * (heroW - 63f) / 4f;
+                DrawRect(new Rect(markerX - 8f, routeY - 7f, 17f, 17f),
+                    i == 2 ? WarmAccent : Accent);
+                GUI.Label(new Rect(markerX - 7f, routeY - 29f, 32f, 20f),
+                    ((char)('A' + i)).ToString(), smallStyle);
+            }
+            GUI.Label(new Rect(54f, mapY + 11f, heroW - 30f, 21f),
+                "TACTICAL THEATER  /  05 CONTROL SECTORS", smallStyle);
+            GUI.Label(new Rect(39f, canvasHeight - 42f, heroW, 20f),
+                "SOLO  /  AI BATTLEFIELD          LAN  /  HOST CONTROLLED", smallStyle);
 
-            GUI.Label(new Rect(x + 24f, y + 17f, 425f, 49f), "IRONFRONT", logoStyle);
-            GUI.Label(new Rect(x + 25f, y + 65f, 510f, 22f),
-                "UNITY PROTOTYPE   /   FRONTLINE DEPLOYMENT", smallStyle);
-            GUI.Label(new Rect(x + 644f, y + 39f, 248f, 27f),
-                "SOLO CONQUEST  |  UNITY LAN", labelStyle);
+            float contentX = panelX + 20f;
+            float contentW = 342f;
+            DrawRect(new Rect(panelX, panelY, 382f, panelH), Panel);
+            DrawRect(new Rect(panelX, panelY, 382f, 3f), WarmAccent);
+            GUI.Label(new Rect(contentX, panelY + 20f, contentW, 28f),
+                "准备出击", headingStyle);
+            GUI.Label(new Rect(contentX, panelY + 54f, contentW, 42f),
+                "输入玩家代号，选择单人兵种；\n联机房间中将显示你的代号。", smallStyle);
 
-            GUI.Label(new Rect(x + 25f, y + 111f, 400f, 28f),
-                "SELECT YOUR CLASS", headingStyle);
-            GUI.Label(new Rect(x + 25f, y + 414f, 560f, 42f),
-                "Your role changes what you bring to the battlefield.\nPick a class, then deploy with your squad.", smallStyle);
-
+            GUI.Label(new Rect(contentX, panelY + 101f, contentW, 23f),
+                "PLAYER NAME  /  玩家代号", smallStyle);
+            Rect nameRect = new Rect(contentX, panelY + 126f, contentW, 42f);
+            DrawRect(nameRect, Card);
+            GUI.SetNextControlName("PlayerName");
+            PlayerName = GUI.TextField(new Rect(nameRect.x + 12f, nameRect.y + 7f,
+                nameRect.width - 24f, 29f), PlayerName, 20, nameFieldStyle);
+            GUI.Label(new Rect(contentX, panelY + 181f, contentW, 24f),
+                "SOLO CLASS  /  单人兵种", smallStyle);
+            float roleY = panelY + 210f;
             for (int i = 0; i < Classes.Length; i++)
             {
-                float cardX = x + 25f + (i % 2) * 282f;
-                float cardY = y + 148f + (i / 2) * 132f;
-                DrawClassCard(new Rect(cardX, cardY, 270f, 119f), i);
+                Rect role = new Rect(contentX + (i % 2) * 173f,
+                    roleY + (i / 2) * 51f, 169f, 45f);
+                DrawRect(role, SelectedClass == Classes[i] ? SelectedCard : Card);
+                if (SelectedClass == Classes[i])
+                    DrawRect(new Rect(role.x, role.y, 3f, role.height), Accent);
+                GUI.Label(new Rect(role.x + 12f, role.y + 9f, 150f, 29f),
+                    (i + 1).ToString("00") + "  " + ClassNames[i], labelStyle);
+                if (GUI.Button(role, GUIContent.none, GUIStyle.none)) SelectedClass = Classes[i];
             }
 
-            float rightX = x + 628f;
-            GUI.Label(new Rect(rightX, y + 113f, 260f, 31f), "MISSION BRIEF", headingStyle);
-            GUI.Label(new Rect(rightX, y + 154f, 258f, 60f),
-                "Capture the objectives.\nHold more sectors to drain enemy tickets.", labelStyle);
-            DrawRect(new Rect(rightX, y + 227f, 260f, 1f), Divider);
-            GUI.Label(new Rect(rightX, y + 240f, 258f, 26f), "FIELD CONTROLS", headingStyle);
-            GUI.Label(new Rect(rightX, y + 272f, 258f, 158f),
-                "WASD  Move\n" +
-                "MOUSE  Aim\n" +
-                "LMB  Fire\n" +
-                "R  Reload\n" +
-                "SHIFT  Sprint\n" +
-                "SPACE  Jump\n" +
-                "X  Class ability\n" +
-                "E  Enter / exit vehicle\n" +
-                "F1 / F2  Rover driver / gunner\n" +
-                "T90  WASD drive / LMB cannon\n" +
-                "ESC  Unlock cursor",
-                smallStyle);
-
-            Rect deployButton = new Rect(rightX, y + 438f, 260f, 52f);
-            DrawRect(deployButton, Accent);
-            string buttonLabel = redeploy ? "REDEPLOY  >" : "DEPLOY  >";
-            GUI.Label(deployButton, buttonLabel, buttonStyle);
-            bool deploy = GUI.Button(deployButton, GUIContent.none, GUIStyle.none);
-            if (!redeploy && GUI.Button(new Rect(x + 25f, y + 463f, 270f, 37f),
-                "LAN ROOM  /  CREATE OR JOIN  [L]")) LanRequested = true;
+            float actionY = panelY + panelH - 112f;
+            Rect start = new Rect(contentX, actionY, contentW, 48f);
+            DrawRect(start, Accent);
+            GUI.Label(start, "开始游戏   /   SOLO  →", darkButtonStyle);
+            bool deploy = GUI.Button(start, GUIContent.none, GUIStyle.none);
+            Rect lanButton = new Rect(contentX, actionY + 55f, contentW, 43f);
+            DrawRect(lanButton, Card);
+            GUI.Label(lanButton, "联机房间   /   CREATE OR JOIN  →", lightButtonStyle);
+            if (GUI.Button(lanButton, GUIContent.none, GUIStyle.none)) LanRequested = true;
             HandleKeyboard(ref deploy);
-
-            GUI.Label(new Rect(x + 25f, y + 504f, 845f, 20f),
-                "SOLO OR UNITY LAN   //   LAN uses ASSAULT; the host controls the match.", smallStyle);
-
+            if (deploy || LanRequested) SavePlayerName();
             if (!deploy) return false;
             Close();
             return true;
+        }
+
+        private void SavePlayerName()
+        {
+            PlayerName = CleanPlayerName(PlayerName);
+            PlayerPrefs.SetString(PlayerNameKey, PlayerName);
+            PlayerPrefs.Save();
+        }
+
+        private static string CleanPlayerName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return "Player";
+            var result = new System.Text.StringBuilder(20);
+            foreach (char value in name.Trim())
+            {
+                if (result.Length >= 20) break;
+                if (!char.IsControl(value)) result.Append(value);
+            }
+            return result.Length == 0 ? "Player" : result.ToString();
         }
 
         // Returns a requested location. The runtime/host validates it again
@@ -307,6 +373,7 @@ namespace Ironfront.UnityPrototype
         {
             Event current = Event.current;
             if (current == null || current.type != EventType.KeyDown) return;
+            if (GUI.GetNameOfFocusedControl() == "PlayerName") return;
             if (!redeploy && current.keyCode == KeyCode.L)
             {
                 LanRequested = true;
@@ -339,6 +406,22 @@ namespace Ironfront.UnityPrototype
             cardDescriptionStyle.wordWrap = true;
             buttonStyle = MakeStyle(18, FontStyle.Bold, new Color(0.03f, 0.12f, 0.15f, 1f));
             buttonStyle.alignment = TextAnchor.MiddleCenter;
+            heroStyle = MakeStyle(66, FontStyle.Bold, Color.white);
+            nameFieldStyle = new GUIStyle(GUIStyle.none)
+            {
+                fontSize = 19,
+                alignment = TextAnchor.MiddleLeft,
+                clipping = TextClipping.Clip
+            };
+            nameFieldStyle.normal.textColor = Color.white;
+            nameFieldStyle.focused.textColor = Color.white;
+            darkButtonStyle = MakeStyle(19, FontStyle.Bold, StartBackground);
+            darkButtonStyle.alignment = TextAnchor.MiddleCenter;
+            darkButtonStyle.hover.textColor = StartBackground;
+            darkButtonStyle.active.textColor = StartBackground;
+            darkButtonStyle.focused.textColor = StartBackground;
+            lightButtonStyle = MakeStyle(17, FontStyle.Bold, Color.white);
+            lightButtonStyle.alignment = TextAnchor.MiddleCenter;
         }
 
         private static GUIStyle MakeStyle(int size, FontStyle weight, Color textColor)
