@@ -58,9 +58,9 @@ export function lineBlocked(a:Point,b:Point,blocks:readonly Block[]=BLOCKS,pad=0
  // Segment against expanded 2-D building AABBs; ignore the departure/end collision.
  const dx=b.x-a.x,dz=b.z-a.z;
  for(const o of blocks){let tmin=0,tmax=1;const minx=o.x-o.w/2-pad,maxx=o.x+o.w/2+pad,minz=o.z-o.d/2-pad,maxz=o.z+o.d/2+pad;
-  for(const [origin,d,min,max] of [[a.x,dx,minx,maxx],[a.z,dz,minz,maxz]] as [number,number,number,number][]){
-   if(Math.abs(d)<1e-8){if(origin<min||origin>max){tmin=2;break}}else{let t1=(min-origin)/d,t2=(max-origin)/d;if(t1>t2)[t1,t2]=[t2,t1];tmin=Math.max(tmin,t1);tmax=Math.min(tmax,t2);if(tmin>tmax)break}
-  }
+  // Unrolled slabs avoid temporary axis arrays for every block in every LOS query.
+  if(Math.abs(dx)<1e-8){if(a.x<minx||a.x>maxx)continue;}else{let t1=(minx-a.x)/dx,t2=(maxx-a.x)/dx;if(t1>t2){const swap=t1;t1=t2;t2=swap;}tmin=Math.max(tmin,t1);tmax=Math.min(tmax,t2);if(tmin>tmax)continue;}
+  if(Math.abs(dz)<1e-8){if(a.z<minz||a.z>maxz)continue;}else{let t1=(minz-a.z)/dz,t2=(maxz-a.z)/dz;if(t1>t2){const swap=t1;t1=t2;t2=swap;}tmin=Math.max(tmin,t1);tmax=Math.min(tmax,t2);if(tmin>tmax)continue;}
   if(tmin<=tmax&&tmax>0.02&&tmin<0.98)return true;
  }
  return false;

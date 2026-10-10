@@ -1,0 +1,11 @@
+[WebServer] (node:32264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:32331) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SOLDIER_PERFORMANCE {"times":[32.19999999552965,24.200000002980232,25.899999998509884,25.700000002980232,25.19999999552965],"armies":[{"team":"blue","meshes":38,"activeMeshes":32,"instances":992,"gadgetInstances":0},{"team":"red","meshes":38,"activeMeshes":32,"instances":1024,"gadgetInstances":0}]}
+  ✓  1 tests/performance-0181.spec.ts:4:1 › soldier instances omit inactive equipment and recover after seat, team and equipment changes (5.8s)
+
+  1 passed (12.0s)

@@ -1,3 +1,9 @@
+## 0.18.1 QA
+
+120项单元测试、43项Chrome浏览器、Strict TypeScript、自动战局、LAN及生产构建全部通过。冻结0.18.0的70条路径和250条遮挡结果一致；315次路径与32v32/64v64固定120秒状态hash一致。原始样本、范围与复现见docs/PERFORMANCE_0181.md和docs/qa/performance-0181.json。
+
+---
+
 # 0.18.0 QA：房间界面与局域网连接恢复
 
 ## 基线

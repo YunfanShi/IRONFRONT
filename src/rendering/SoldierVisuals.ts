@@ -5,7 +5,7 @@ import type {Team} from '../world/Layout';
 
 type PartKind='rig'|'head'|'armL'|'armR'|'legL'|'legR'|'weapon'|'gadget';
 type Part={offset:[number,number,number];kind:PartKind;geometry:THREE.BufferGeometry;material:THREE.Material|THREE.Material[];humanOnly?:boolean;gadgetType?:Soldier['equipmentKind']};
-type Army={team:Team;meshes:THREE.InstancedMesh[];soldiers:Soldier[];parts:Part[]};
+type Army={team:Team;meshes:THREE.InstancedMesh[];soldiers:Soldier[];parts:Part[];counts:Uint16Array};
 type VisualState={x:number;z:number;yaw:number;phase:number;speed:number;deathLean:number};
 
 /**
@@ -78,13 +78,13 @@ export class SoldierVisuals {
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.frustumCulled=false;mesh.castShadow=false;mesh.receiveShadow=true;this.scene.add(mesh);return mesh
    });
    for(const s of soldiers)this.states.set(s.id,{x:s.pos.x,z:s.pos.z,yaw:s.yaw,phase:s.id*.87,speed:0,deathLean:s.id%2?1:-1});
-   this.armies.push({team,meshes,soldiers,parts});
+   this.armies.push({team,meshes,soldiers,parts,counts:new Uint16Array(parts.length)});
   }
  }
  update(battle:Battle,dt:number,showSelf=false){
   const blend=1-Math.exp(-dt*13);
   for(const army of this.armies){
-   army.soldiers=battle.soldiers.filter(s=>s.team===army.team);for(const mesh of army.meshes)mesh.count=army.soldiers.length;
+   army.soldiers.length=0;for(const soldier of battle.soldiers)if(soldier.team===army.team)army.soldiers.push(soldier);army.counts.fill(0);
    for(let i=0;i<army.soldiers.length;i++){
     const soldier=army.soldiers[i]!,state=this.states.get(soldier.id)!;
     if(Math.hypot(soldier.pos.x-state.x,soldier.pos.z-state.z)>42){state.x=soldier.pos.x;state.z=soldier.pos.z;state.speed=0}
@@ -106,7 +106,10 @@ export class SoldierVisuals {
     const equipmentActive=!soldier.player&&(soldier.equipmentUntil??0)>battle.elapsed;const weaponId=soldier.id===battle.player.id?battle.playerWeapon:soldier.weaponId;const weaponScale=weaponId==='sniper'?1.45:weaponId==='lmg'?1.18:weaponId==='smg'?.72:1;
     const downed=soldier.downedUntil>battle.elapsed;const corpseVisible=(soldier.id!==battle.player.id||showSelf)&&(soldier.vehicleId===null||riding)&&(soldier.alive||downed||deathAge<3.7);const crouchDrop=crouching ? .38 : 0;
     for(let j=0;j<army.parts.length;j++){
-     const part=army.parts[j]!,[lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
+     const part=army.parts[j]!;
+     // Compact active instances: hidden bodies/equipment never compose or upload matrices.
+     if(!corpseVisible||part.humanOnly&&!soldier.player||part.kind==='weapon'&&(riding||equipmentActive)||part.kind==='gadget'&&(!equipmentActive||part.gadgetType!==soldier.equipmentKind))continue;
+     const [lx,ly,lz]=part.offset;let zz=lz,yy=ly-crouchDrop,rx=0,rz=0;
      if(part.kind==='legL'){rx=stride*.38+(crouching ? .30 : 0);zz+=stride*.21;yy+=Math.max(0,-stride)*.09}
      else if(part.kind==='legR'){rx=-stride*.38+(crouching ? .30 : 0);zz-=stride*.21;yy+=Math.max(0,stride)*.09}
      else if(part.kind==='armL'){rx=interacting?-.95:fighting?-.78:-stride*.17-.45;zz+=interacting?.31:fighting?.25:.13;yy-=.035}
@@ -117,12 +120,12 @@ export class SoldierVisuals {
      if(riding){rx=part.kind==='legL'||part.kind==='legR'?1.1:part.kind==='armL'||part.kind==='armR'?-.95:0;rz=0;yy=ly;zz=lz;if(part.kind==='legL'||part.kind==='legR'){yy-=.15;zz+=.25;}if(part.kind==='armL'||part.kind==='armR'){zz+=.23;yy-=.08;}}
      if(fall>0){yy-=fall*(.45+ly*.18);rz+=state.deathLean*fall*1.15;rx+=fall*.12}
      this.object.position.set(state.x+(cY*lx+sY*zz)*.67,footY+yy*.67,state.z+(-sY*lx+cY*zz)*.67);
-     this.object.rotation.set(rx,state.yaw,rz,'YXZ');this.object.scale.setScalar(corpseVisible&&(!part.humanOnly||soldier.player)?.67:0.000001);
-     if(part.kind==='weapon'){if(riding)this.object.scale.setScalar(.000001);this.object.scale.z*=weaponScale;if(equipmentActive)this.object.scale.setScalar(.000001);}if(part.kind==='gadget'&&(!equipmentActive||part.gadgetType!==soldier.equipmentKind))this.object.scale.setScalar(.000001);
-     this.object.updateMatrix();army.meshes[j]!.setMatrixAt(i,this.object.matrix);
+     this.object.rotation.set(rx,state.yaw,rz,'YXZ');this.object.scale.setScalar(.67);
+     if(part.kind==='weapon')this.object.scale.z*=weaponScale;
+     this.object.updateMatrix();army.meshes[j]!.setMatrixAt(army.counts[j]!,this.object.matrix);army.counts[j]=army.counts[j]!+1;
     }
    }
-   for(const mesh of army.meshes)mesh.instanceMatrix.needsUpdate=true;
+   for(let j=0;j<army.meshes.length;j++){const mesh=army.meshes[j]!,count=army.counts[j]!;mesh.count=count;mesh.visible=count>0;if(count){mesh.instanceMatrix.clearUpdateRanges();mesh.instanceMatrix.addUpdateRange(0,count*16);mesh.instanceMatrix.needsUpdate=true;}}
   }
  }
  dispose(){
