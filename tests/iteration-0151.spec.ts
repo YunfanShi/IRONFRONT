@@ -1,6 +1,8 @@
-import {test,expect} from '@playwright/test';
+import {showMenuControl} from './menu-navigation';
+import {test} from './fixtures';
+import {expect} from '@playwright/test';
 test('large missile threat and actual armor hit remain distinct and clear after impact',async({page})=>{
- const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await page.locator('#setup-size').selectOption('8');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await showMenuControl(page,'#setup-size');await page.locator('#setup-size').selectOption('8');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
  await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;for(const s of b.soldiers)if(!s.player){s.nextAiAt=Infinity;s.nextEquipment=Infinity;s.boardingUntil=Infinity;s.pos={x:300,z:-300};}for(const v of b.vehicles)v.nextDecision=Infinity;const v=b.vehicles.find((v:any)=>v.team==='blue'&&v.kind==='tank');v.pos={x:100,z:80};b.player.pos={...v.pos};if(!b.togglePlayerVehicle())throw new Error('Boarding failed');v.warningUntil=b.elapsed+10;});
  const threat=page.locator('.vehicle-threat');await expect(threat).toContainText('正在被锁定');await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.playerVehicle.incomingUntil=b.elapsed+10;});await expect(threat).toContainText('导弹来袭');expect(await threat.locator('strong').evaluate(e=>parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(32);await expect(threat).toHaveClass(/incoming/);await page.screenshot({path:'test-results/missile-alert-0151.png'});
  await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;const v=b.vehicles.find((v:any)=>v.team==='red');b.damageVehicle(v,50,'blue',false,{x:110,z:80});});await page.waitForTimeout(100);expect(await page.locator('#damage-vignette').evaluate(e=>parseFloat(getComputedStyle(e).opacity))).toBe(0);

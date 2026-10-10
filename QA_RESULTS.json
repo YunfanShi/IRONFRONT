@@ -1,170 +1,14 @@
 {
-  "version": "0.18.1",
-  "baseline": "34637fd9611b9f53bea4b637e165e1142b3df871",
-  "cpuBefore": {
-    "node": "v24.15.0",
-    "seed": 505,
-    "passes": 5,
-    "simulatedSeconds": 120,
-    "geometry": {
-      "hits": 6300,
-      "queries": 20000,
-      "medianMs": 16.551917000000003,
-      "samplesMs": [
-        16.529166000000004,
-        16.603916999999996,
-        16.511916,
-        16.55616599999999,
-        16.551917000000003
-      ]
-    },
-    "navigation": {
-      "hash": "7ebc088b9430d2f6795a2729665120b1efea9afcc205cb799d8d98f72dc686ff",
-      "routes": 315,
-      "medianMs": 68.06874999999997,
-      "samplesMs": [
-        71.19070899999997,
-        69.35804199999995,
-        68.06874999999997,
-        66.85374999999999,
-        65.25241700000004
-      ]
-    },
-    "battle32": {
-      "hash": "4fff970f6d9b3536cd802331ba5daad7a5145d938a0627525836e33b70dc4792",
-      "elapsed": 120,
-      "medianMs": 1109.633041,
-      "samplesMs": [
-        1109.633041,
-        1127.155875,
-        1072.2573750000001,
-        1154.9741250000006,
-        1064.1840839999995
-      ]
-    },
-    "battle64": {
-      "hash": "03f5589e277a997ef74d4ea317e2410fdcf9535ae6caed7f8d486cecd97713b9",
-      "elapsed": 120,
-      "medianMs": 2653.998125000002,
-      "samplesMs": [
-        2636.083333999999,
-        2686.450666999999,
-        2653.998125000002,
-        2681.1337920000005,
-        2604.2458750000005
-      ]
-    }
-  },
-  "cpuAfter": {
-    "node": "v24.15.0",
-    "seed": 505,
-    "passes": 5,
-    "simulatedSeconds": 120,
-    "geometry": {
-      "hits": 6300,
-      "queries": 20000,
-      "medianMs": 3.4377920000000017,
-      "samplesMs": [
-        3.697542000000002,
-        3.4377920000000017,
-        3.647874999999999,
-        3.4049169999999975,
-        3.391582999999997
-      ]
-    },
-    "navigation": {
-      "hash": "7ebc088b9430d2f6795a2729665120b1efea9afcc205cb799d8d98f72dc686ff",
-      "routes": 315,
-      "medianMs": 27.25408299999998,
-      "samplesMs": [
-        27.148584,
-        27.25408299999998,
-        27.259500000000003,
-        26.877083999999996,
-        27.55241699999999
-      ]
-    },
-    "battle32": {
-      "hash": "4fff970f6d9b3536cd802331ba5daad7a5145d938a0627525836e33b70dc4792",
-      "elapsed": 120,
-      "medianMs": 1028.9817919999996,
-      "samplesMs": [
-        1220.828375,
-        1059.7080839999999,
-        1020.7816670000002,
-        1028.9817919999996,
-        942.7703750000001
-      ]
-    },
-    "battle64": {
-      "hash": "03f5589e277a997ef74d4ea317e2410fdcf9535ae6caed7f8d486cecd97713b9",
-      "elapsed": 120,
-      "medianMs": 2230.6962920000005,
-      "samplesMs": [
-        2123.796542,
-        2339.672166999999,
-        3060.9929580000007,
-        2070.534125000002,
-        2230.6962920000005
-      ]
-    }
-  },
-  "soldiersBefore": {
-    "times": [
-      36.19999999552965,
-      27.5,
-      29.600000001490116,
-      30.899999998509884,
-      30.80000000447035
-    ],
-    "armies": [
-      {
-        "team": "blue",
-        "meshes": 38,
-        "activeMeshes": 38,
-        "instances": 1216,
-        "gadgetInstances": 160
-      },
-      {
-        "team": "red",
-        "meshes": 38,
-        "activeMeshes": 38,
-        "instances": 1216,
-        "gadgetInstances": 160
-      }
-    ]
-  },
-  "soldiersAfter": {
-    "times": [
-      32.19999999552965,
-      24.200000002980232,
-      25.899999998509884,
-      25.700000002980232,
-      25.19999999552965
-    ],
-    "armies": [
-      {
-        "team": "blue",
-        "meshes": 38,
-        "activeMeshes": 32,
-        "instances": 992,
-        "gadgetInstances": 0
-      },
-      {
-        "team": "red",
-        "meshes": 38,
-        "activeMeshes": 32,
-        "instances": 1024,
-        "gadgetInstances": 0
-      }
-    ]
-  },
+  "version": "0.19.0",
+  "baseline": "3a2206b1107d53d77dc75cacf17cef058320635b",
   "tests": {
-    "unit": 120,
-    "browser": 43,
+    "typecheck": "PASS",
+    "unit": 133,
+    "browser": 47,
+    "logic": "PASS",
     "lan": "PASS",
     "build": "PASS",
-    "logic": "PASS"
+    "maps": 12
   },
   "logic": {
     "ok": true,
@@ -182,55 +26,52 @@
     "reports": [
       {
         "size": 8,
-        "winner": "red",
-        "seconds": 146.375,
-        "captures": 7,
-        "deaths": 10,
-        "respawns": 10,
-        "shots": 140,
-        "vehicleShots": 106,
-        "vehicleDisabled": 4,
-        "vehicleRespawns": 2,
-        "majorStarts": 2,
+        "winner": "blue",
+        "seconds": 98.875,
+        "captures": 5,
+        "deaths": 2,
+        "respawns": 2,
+        "shots": 18,
+        "vehicleShots": 84,
+        "vehicleDisabled": 2,
+        "vehicleRespawns": 0,
+        "majorStarts": 1,
         "artilleryImpacts": 0,
         "eventKinds": [
-          "ARMORED_PUSH",
           "COUNTER_OFFENSIVE"
         ],
         "states": [
           "BOARD_VEHICLE",
           "DEFEND",
-          "DOWNED",
           "DRIVING",
           "ENGAGE",
           "FOLLOW_SQUAD",
           "IDLE",
           "MOVE_TO_OBJECTIVE",
           "RESPAWN",
-          "RETREAT",
-          "REVIVE",
           "SEARCH",
           "SEEK_COVER",
           "SPAWN"
         ],
         "navFailures": 0,
-        "runtimeMs": 112
+        "runtimeMs": 126
       },
       {
         "size": 16,
-        "winner": "red",
-        "seconds": 127.75,
-        "captures": 6,
-        "deaths": 12,
-        "respawns": 11,
-        "shots": 334,
-        "vehicleShots": 320,
-        "vehicleDisabled": 9,
-        "vehicleRespawns": 3,
-        "majorStarts": 2,
-        "artilleryImpacts": 0,
+        "winner": "blue",
+        "seconds": 357.875,
+        "captures": 5,
+        "deaths": 25,
+        "respawns": 25,
+        "shots": 749,
+        "vehicleShots": 767,
+        "vehicleDisabled": 19,
+        "vehicleRespawns": 16,
+        "majorStarts": 5,
+        "artilleryImpacts": 4,
         "eventKinds": [
           "ARMORED_PUSH",
+          "ARTILLERY",
           "COUNTER_OFFENSIVE"
         ],
         "states": [
@@ -250,19 +91,19 @@
           "SPAWN"
         ],
         "navFailures": 0,
-        "runtimeMs": 261
+        "runtimeMs": 1115
       },
       {
         "size": 32,
         "winner": "red",
-        "seconds": 106.875,
-        "captures": 5,
-        "deaths": 14,
-        "respawns": 14,
-        "shots": 154,
-        "vehicleShots": 499,
-        "vehicleDisabled": 12,
-        "vehicleRespawns": 2,
+        "seconds": 130.875,
+        "captures": 11,
+        "deaths": 16,
+        "respawns": 16,
+        "shots": 392,
+        "vehicleShots": 665,
+        "vehicleDisabled": 14,
+        "vehicleRespawns": 4,
         "majorStarts": 2,
         "artilleryImpacts": 4,
         "eventKinds": [
@@ -286,19 +127,19 @@
           "SPAWN"
         ],
         "navFailures": 0,
-        "runtimeMs": 838
+        "runtimeMs": 991
       },
       {
         "size": 64,
         "winner": "red",
-        "seconds": 95.5,
+        "seconds": 111.25,
         "captures": 5,
-        "deaths": 10,
-        "respawns": 10,
-        "shots": 52,
-        "vehicleShots": 492,
-        "vehicleDisabled": 8,
-        "vehicleRespawns": 1,
+        "deaths": 16,
+        "respawns": 16,
+        "shots": 624,
+        "vehicleShots": 435,
+        "vehicleDisabled": 11,
+        "vehicleRespawns": 3,
         "majorStarts": 2,
         "artilleryImpacts": 4,
         "eventKinds": [
@@ -315,33 +156,34 @@
           "IDLE",
           "MOVE_TO_OBJECTIVE",
           "RESPAWN",
+          "RETREAT",
           "REVIVE",
           "SEARCH",
           "SEEK_COVER",
           "SPAWN"
         ],
         "navFailures": 0,
-        "runtimeMs": 2015
+        "runtimeMs": 2011
       }
     ],
     "defaultMatch": {
       "size": 32,
       "tickets": 500,
       "winner": "red",
-      "seconds": 780.5,
+      "seconds": 947.625,
       "finalTickets": {
         "blue": 0,
-        "red": 275.24375000001976
+        "red": 259.31500000001057
       },
       "captures": 29,
-      "deaths": 63,
-      "respawns": 63,
-      "shots": 6231,
-      "vehicleShots": 2581,
-      "vehicleDisabled": 28,
-      "vehicleRespawns": 27,
-      "majorStarts": 13,
-      "artilleryImpacts": 16,
+      "deaths": 62,
+      "respawns": 62,
+      "shots": 3269,
+      "vehicleShots": 2513,
+      "vehicleDisabled": 43,
+      "vehicleRespawns": 40,
+      "majorStarts": 16,
+      "artilleryImpacts": 20,
       "counterEffect": true,
       "armoredEffect": true,
       "eventKinds": [
@@ -349,8 +191,749 @@
         "ARTILLERY",
         "COUNTER_OFFENSIVE"
       ],
-      "navFailures": 0,
-      "runtimeMs": 5700
+      "navFailures": 1,
+      "runtimeMs": 6691
     }
+  },
+  "maps": {
+    "version": "0.19.0",
+    "size": 32,
+    "startingTickets": 500,
+    "supportChecks": [
+      {
+        "mapId": "industrial-frontier",
+        "recon": true,
+        "smoke": true,
+        "artilleryImpacts": 4,
+        "reinforcement": true,
+        "landedVehicles": 3,
+        "playerDriver": true
+      },
+      {
+        "mapId": "dust-horizon",
+        "recon": true,
+        "smoke": true,
+        "artilleryImpacts": 4,
+        "reinforcement": true,
+        "landedVehicles": 3,
+        "playerDriver": true
+      }
+    ],
+    "results": [
+      {
+        "mapId": "industrial-frontier",
+        "mode": "conquest",
+        "seed": 505,
+        "winner": "blue",
+        "seconds": 384.875,
+        "tickets": {
+          "blue": 449.00625000000326,
+          "red": 0
+        },
+        "counts": {
+          "capture": 10,
+          "death": 31,
+          "respawn": 31,
+          "shot": 1192,
+          "vehicleShot": 1454,
+          "vehicleDisabled": 24,
+          "vehicleRespawn": 20,
+          "majorEvent": 14,
+          "revive": 19
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 13981,
+          "formationUpdates": 1227,
+          "rescues": 19,
+          "repairs": 10,
+          "coverRoleSwitches": 191,
+          "profile": "regular",
+          "destinationChangesPerMinute": 36.20717920165792,
+          "stateChangesPerMinute": 8.992406316212746,
+          "movingWithoutProgress": 133.1,
+          "idleWithoutReason": 47.550000000000004,
+          "squadCohesion": 0.53125,
+          "navigationFailures": 0,
+          "missionCompletionRate": 0.056910569105691054
+        },
+        "runtimeMs": 3480
+      },
+      {
+        "mapId": "industrial-frontier",
+        "mode": "conquest",
+        "seed": 12731,
+        "winner": "blue",
+        "seconds": 452.875,
+        "tickets": {
+          "blue": 472.1750000000004,
+          "red": 0
+        },
+        "counts": {
+          "capture": 9,
+          "death": 32,
+          "respawn": 32,
+          "shot": 1660,
+          "vehicleShot": 1686,
+          "vehicleDisabled": 25,
+          "vehicleRespawn": 21,
+          "majorEvent": 18,
+          "revive": 56
+        },
+        "eventKinds": [
+          "ARTILLERY",
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH"
+        ],
+        "diagnostics": {
+          "intentSwitches": 17407,
+          "formationUpdates": 1227,
+          "rescues": 56,
+          "repairs": 7,
+          "coverRoleSwitches": 287,
+          "profile": "regular",
+          "destinationChangesPerMinute": 37.48327484457763,
+          "stateChangesPerMinute": 9.271979285780004,
+          "movingWithoutProgress": 203.87499999999997,
+          "idleWithoutReason": 32.275,
+          "squadCohesion": 0.5,
+          "navigationFailures": 0,
+          "missionCompletionRate": 0.03825136612021858
+        },
+        "runtimeMs": 3474
+      },
+      {
+        "mapId": "industrial-frontier",
+        "mode": "conquest",
+        "seed": 1905,
+        "winner": "red",
+        "seconds": 389.75,
+        "tickets": {
+          "blue": 0,
+          "red": 469.20000000000164
+        },
+        "counts": {
+          "capture": 23,
+          "death": 30,
+          "respawn": 29,
+          "shot": 1872,
+          "vehicleShot": 1252,
+          "vehicleDisabled": 23,
+          "vehicleRespawn": 20,
+          "majorEvent": 14,
+          "revive": 51
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 15172,
+          "formationUpdates": 1094,
+          "rescues": 51,
+          "repairs": 5,
+          "coverRoleSwitches": 314,
+          "profile": "regular",
+          "destinationChangesPerMinute": 37.68227496258285,
+          "stateChangesPerMinute": 9.471272793915514,
+          "movingWithoutProgress": 202.52499999999995,
+          "idleWithoutReason": 38.35,
+          "squadCohesion": 0.5833333333333333,
+          "navigationFailures": 0,
+          "missionCompletionRate": 0.08860759493670886
+        },
+        "runtimeMs": 2760
+      },
+      {
+        "mapId": "industrial-frontier",
+        "mode": "breakthrough",
+        "seed": 505,
+        "winner": "red",
+        "seconds": 2500,
+        "tickets": {
+          "blue": 0,
+          "red": 500
+        },
+        "counts": {
+          "capture": 8,
+          "death": 98,
+          "respawn": 98,
+          "shot": 5740,
+          "vehicleShot": 3070,
+          "vehicleDisabled": 76,
+          "vehicleRespawn": 74,
+          "majorEvent": 101,
+          "revive": 95
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 102733,
+          "formationUpdates": 1462,
+          "rescues": 95,
+          "repairs": 52,
+          "coverRoleSwitches": 1331,
+          "profile": "regular",
+          "destinationChangesPerMinute": 38.89561904761905,
+          "stateChangesPerMinute": 8.335238095238095,
+          "movingWithoutProgress": 882.5000000000002,
+          "idleWithoutReason": 43.32500000000001,
+          "squadCohesion": 0.65625,
+          "navigationFailures": 1,
+          "missionCompletionRate": 0.026119402985074626
+        },
+        "runtimeMs": 14074
+      },
+      {
+        "mapId": "industrial-frontier",
+        "mode": "breakthrough",
+        "seed": 12731,
+        "winner": "blue",
+        "seconds": 702.125,
+        "tickets": {
+          "blue": 500,
+          "red": 500
+        },
+        "counts": {
+          "capture": 10,
+          "death": 33,
+          "respawn": 33,
+          "shot": 1035,
+          "vehicleShot": 1584,
+          "vehicleDisabled": 26,
+          "vehicleRespawn": 25,
+          "majorEvent": 28,
+          "revive": 72
+        },
+        "eventKinds": [
+          "ARTILLERY",
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH"
+        ],
+        "diagnostics": {
+          "intentSwitches": 23856,
+          "formationUpdates": 1475,
+          "rescues": 72,
+          "repairs": 51,
+          "coverRoleSwitches": 255,
+          "profile": "regular",
+          "destinationChangesPerMinute": 33.48610086726519,
+          "stateChangesPerMinute": 6.924557253914562,
+          "movingWithoutProgress": 221.54999999999998,
+          "idleWithoutReason": 38.00000000000001,
+          "squadCohesion": 0.7760416666666666,
+          "navigationFailures": 0,
+          "missionCompletionRate": 0.04861111111111111
+        },
+        "runtimeMs": 4177
+      },
+      {
+        "mapId": "industrial-frontier",
+        "mode": "breakthrough",
+        "seed": 1905,
+        "winner": "red",
+        "seconds": 2439.375,
+        "tickets": {
+          "blue": 0,
+          "red": 500
+        },
+        "counts": {
+          "capture": 6,
+          "death": 139,
+          "respawn": 139,
+          "shot": 6771,
+          "vehicleShot": 3667,
+          "vehicleDisabled": 65,
+          "vehicleRespawn": 65,
+          "majorEvent": 98,
+          "revive": 193
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 91226,
+          "formationUpdates": 2027,
+          "rescues": 193,
+          "repairs": 99,
+          "coverRoleSwitches": 1410,
+          "profile": "regular",
+          "destinationChangesPerMinute": 35.49230750460573,
+          "stateChangesPerMinute": 8.389736832473188,
+          "movingWithoutProgress": 835.2250000000001,
+          "idleWithoutReason": 49.50000000000001,
+          "squadCohesion": 0.5,
+          "navigationFailures": 1,
+          "missionCompletionRate": 0.017793594306049824
+        },
+        "runtimeMs": 10990
+      },
+      {
+        "mapId": "dust-horizon",
+        "mode": "conquest",
+        "seed": 505,
+        "winner": "blue",
+        "seconds": 1804.125,
+        "tickets": {
+          "blue": 136.1137499999267,
+          "red": 0
+        },
+        "counts": {
+          "capture": 8,
+          "death": 43,
+          "respawn": 43,
+          "shot": 4197,
+          "vehicleShot": 833,
+          "vehicleDisabled": 38,
+          "vehicleRespawn": 35,
+          "majorEvent": 73,
+          "revive": 58
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 68119,
+          "formationUpdates": 1735,
+          "rescues": 58,
+          "repairs": 16,
+          "coverRoleSwitches": 1035,
+          "profile": "regular",
+          "destinationChangesPerMinute": 35.749291471594525,
+          "stateChangesPerMinute": 8.449419815040267,
+          "movingWithoutProgress": 668.9750000000001,
+          "idleWithoutReason": 48.325,
+          "squadCohesion": 0.765625,
+          "navigationFailures": 37,
+          "missionCompletionRate": 0.02932551319648094
+        },
+        "runtimeMs": 6517
+      },
+      {
+        "mapId": "dust-horizon",
+        "mode": "conquest",
+        "seed": 12731,
+        "winner": "blue",
+        "seconds": 426.125,
+        "tickets": {
+          "blue": 476.0812500000006,
+          "red": 0
+        },
+        "counts": {
+          "capture": 9,
+          "death": 32,
+          "respawn": 32,
+          "shot": 1133,
+          "vehicleShot": 914,
+          "vehicleDisabled": 21,
+          "vehicleRespawn": 20,
+          "majorEvent": 17,
+          "revive": 31
+        },
+        "eventKinds": [
+          "ARTILLERY",
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH"
+        ],
+        "diagnostics": {
+          "intentSwitches": 14200,
+          "formationUpdates": 1992,
+          "rescues": 31,
+          "repairs": 6,
+          "coverRoleSwitches": 235,
+          "profile": "regular",
+          "destinationChangesPerMinute": 34.73606280294458,
+          "stateChangesPerMinute": 8.989090502730866,
+          "movingWithoutProgress": 297.5499999999998,
+          "idleWithoutReason": 50.25,
+          "squadCohesion": 0.5,
+          "navigationFailures": 40,
+          "missionCompletionRate": 0.0457516339869281
+        },
+        "runtimeMs": 2408
+      },
+      {
+        "mapId": "dust-horizon",
+        "mode": "conquest",
+        "seed": 1905,
+        "winner": "red",
+        "seconds": 1017,
+        "tickets": {
+          "blue": 0,
+          "red": 191.17125000002784
+        },
+        "counts": {
+          "capture": 22,
+          "death": 50,
+          "respawn": 50,
+          "shot": 2350,
+          "vehicleShot": 1303,
+          "vehicleDisabled": 33,
+          "vehicleRespawn": 33,
+          "majorEvent": 39,
+          "revive": 71
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 37995,
+          "formationUpdates": 1844,
+          "rescues": 71,
+          "repairs": 17,
+          "coverRoleSwitches": 582,
+          "profile": "regular",
+          "destinationChangesPerMinute": 35.880507561923494,
+          "stateChangesPerMinute": 8.43002294329728,
+          "movingWithoutProgress": 477.62499999999994,
+          "idleWithoutReason": 63.800000000000004,
+          "squadCohesion": 0.625,
+          "navigationFailures": 0,
+          "missionCompletionRate": 0.04201680672268908
+        },
+        "runtimeMs": 5054
+      },
+      {
+        "mapId": "dust-horizon",
+        "mode": "breakthrough",
+        "seed": 505,
+        "winner": "red",
+        "seconds": 2619.75,
+        "tickets": {
+          "blue": 0,
+          "red": 500
+        },
+        "counts": {
+          "capture": 4,
+          "death": 51,
+          "respawn": 51,
+          "shot": 5471,
+          "vehicleShot": 4997,
+          "vehicleDisabled": 42,
+          "vehicleRespawn": 42,
+          "majorEvent": 106,
+          "revive": 100
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 101038,
+          "formationUpdates": 2083,
+          "rescues": 100,
+          "repairs": 52,
+          "coverRoleSwitches": 1199,
+          "profile": "regular",
+          "destinationChangesPerMinute": 36.61527135904462,
+          "stateChangesPerMinute": 7.966954316796858,
+          "movingWithoutProgress": 1134.5250000000008,
+          "idleWithoutReason": 54.72500000000001,
+          "squadCohesion": 0.625,
+          "navigationFailures": 3,
+          "missionCompletionRate": 0.015151515151515152
+        },
+        "runtimeMs": 11636
+      },
+      {
+        "mapId": "dust-horizon",
+        "mode": "breakthrough",
+        "seed": 12731,
+        "winner": "blue",
+        "seconds": 2473.75,
+        "tickets": {
+          "blue": 128.84999999981193,
+          "red": 500
+        },
+        "counts": {
+          "capture": 10,
+          "death": 79,
+          "respawn": 79,
+          "shot": 7411,
+          "vehicleShot": 1802,
+          "vehicleDisabled": 57,
+          "vehicleRespawn": 55,
+          "majorEvent": 100,
+          "revive": 106
+        },
+        "eventKinds": [
+          "ARTILLERY",
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH"
+        ],
+        "diagnostics": {
+          "intentSwitches": 97592,
+          "formationUpdates": 2147,
+          "rescues": 106,
+          "repairs": 61,
+          "coverRoleSwitches": 1417,
+          "profile": "regular",
+          "destinationChangesPerMinute": 37.370292836690005,
+          "stateChangesPerMinute": 8.805601674727496,
+          "movingWithoutProgress": 1005.7750000000003,
+          "idleWithoutReason": 68.50000000000001,
+          "squadCohesion": 0.5364583333333333,
+          "navigationFailures": 2,
+          "missionCompletionRate": 0.05067567567567568
+        },
+        "runtimeMs": 10008
+      },
+      {
+        "mapId": "dust-horizon",
+        "mode": "breakthrough",
+        "seed": 1905,
+        "winner": "red",
+        "seconds": 2607.25,
+        "tickets": {
+          "blue": 0,
+          "red": 500
+        },
+        "counts": {
+          "capture": 8,
+          "death": 95,
+          "respawn": 95,
+          "shot": 6306,
+          "vehicleShot": 3189,
+          "vehicleDisabled": 66,
+          "vehicleRespawn": 64,
+          "majorEvent": 105,
+          "revive": 59
+        },
+        "eventKinds": [
+          "COUNTER_OFFENSIVE",
+          "ARMORED_PUSH",
+          "ARTILLERY"
+        ],
+        "diagnostics": {
+          "intentSwitches": 95541,
+          "formationUpdates": 2491,
+          "rescues": 59,
+          "repairs": 38,
+          "coverRoleSwitches": 1255,
+          "profile": "regular",
+          "destinationChangesPerMinute": 34.98340250857271,
+          "stateChangesPerMinute": 7.656306361839012,
+          "movingWithoutProgress": 900.6750000000003,
+          "idleWithoutReason": 57.75,
+          "squadCohesion": 0.6354166666666667,
+          "navigationFailures": 10,
+          "missionCompletionRate": 0.03571428571428571
+        },
+        "runtimeMs": 8269
+      }
+    ]
+  },
+  "cpuBefore": {
+    "node": "v24.15.0",
+    "seed": 505,
+    "passes": 5,
+    "simulatedSeconds": 120,
+    "geometry": {
+      "hits": 6300,
+      "queries": 20000,
+      "medianMs": 3.267084000000011,
+      "samplesMs": [
+        3.2772919999999885,
+        3.3328329999999937,
+        3.20666700000001,
+        3.267084000000011,
+        3.2028329999999983
+      ]
+    },
+    "navigation": {
+      "hash": "7ebc088b9430d2f6795a2729665120b1efea9afcc205cb799d8d98f72dc686ff",
+      "routes": 315,
+      "medianMs": 26.111582999999996,
+      "samplesMs": [
+        26.111582999999996,
+        27.873167000000024,
+        25.437292000000014,
+        26.40108399999997,
+        25.753416999999956
+      ]
+    },
+    "battle32": {
+      "hash": "4fff970f6d9b3536cd802331ba5daad7a5145d938a0627525836e33b70dc4792",
+      "elapsed": 120,
+      "medianMs": 974.5628340000003,
+      "samplesMs": [
+        1066.134667,
+        1067.9359999999997,
+        949.7375000000002,
+        947.5602909999998,
+        974.5628340000003
+      ]
+    },
+    "battle64": {
+      "hash": "03f5589e277a997ef74d4ea317e2410fdcf9535ae6caed7f8d486cecd97713b9",
+      "elapsed": 120,
+      "medianMs": 2150.8765839999996,
+      "samplesMs": [
+        2171.202042000001,
+        2121.951916,
+        2149.753999999999,
+        2150.8765839999996,
+        2220.2671660000015
+      ]
+    }
+  },
+  "cpuAfter": {
+    "node": "v24.15.0",
+    "seed": 505,
+    "passes": 5,
+    "simulatedSeconds": 120,
+    "geometry": {
+      "hits": 6300,
+      "queries": 20000,
+      "medianMs": 3.3094580000000065,
+      "samplesMs": [
+        3.5372500000000002,
+        3.3094580000000065,
+        3.2681249999999977,
+        3.2657920000000047,
+        3.388666999999998
+      ]
+    },
+    "navigation": {
+      "hash": "7ebc088b9430d2f6795a2729665120b1efea9afcc205cb799d8d98f72dc686ff",
+      "routes": 315,
+      "medianMs": 27.176499999999976,
+      "samplesMs": [
+        32.991333999999995,
+        27.844208000000037,
+        26.93020899999999,
+        26.653750000000002,
+        27.176499999999976
+      ]
+    },
+    "battle32": {
+      "hash": "244178f07545fac54920d1b6fb17138c115f8074224d024ef8087d4b1b6b16fc",
+      "elapsed": 120,
+      "medianMs": 899.9505409999992,
+      "samplesMs": [
+        987.2641250000001,
+        1110.6258749999997,
+        874.2060419999998,
+        881.6204170000001,
+        899.9505409999992
+      ]
+    },
+    "battle64": {
+      "hash": "221e1af28d96520f89538e78e1e290345570c8601e4c3613e7cebcfca8450402",
+      "elapsed": 120,
+      "medianMs": 1812.0561249999992,
+      "samplesMs": [
+        1812.0561249999992,
+        1798.1448330000003,
+        1813.654458000001,
+        1756.4317919999994,
+        1880.4432500000003
+      ]
+    }
+  },
+  "softwareRendering": [
+    {
+      "mapId": "industrial-frontier",
+      "renderer": "Chrome SwiftShader software WebGL",
+      "viewport": [
+        1280,
+        720
+      ],
+      "quality": "medium",
+      "medianFrameMs": 193.09999999403954,
+      "p95FrameMs": 209.29999999701977,
+      "drawCalls": 857,
+      "triangles": 209388,
+      "geometries": 757,
+      "textures": 48
+    },
+    {
+      "mapId": "dust-horizon",
+      "renderer": "Chrome SwiftShader software WebGL",
+      "viewport": [
+        1280,
+        720
+      ],
+      "quality": "medium",
+      "medianFrameMs": 208.89999999850988,
+      "p95FrameMs": 260.5,
+      "drawCalls": 671,
+      "triangles": 205248,
+      "geometries": 551,
+      "textures": 48
+    }
+  ],
+  "stationaryRenderingComparison": {
+    "adapter": "Chrome SwiftShader software WebGL",
+    "viewport": [
+      1280,
+      720
+    ],
+    "quality": "medium",
+    "renderScale": 1,
+    "scene": "Frozen preparation, no simulation, fixed camera [-90,90,-155] looking at [-20,0,-93], 20 warm-up and 60 measured frames",
+    "results": [
+      {
+        "version": "0.18.1",
+        "mapId": "industrial-frontier",
+        "medianFrameMs": 152.20000000298023,
+        "p95FrameMs": 180.30000000447035,
+        "drawCalls": 537,
+        "triangles": 230384,
+        "geometries": 757,
+        "textures": 42,
+        "elapsed": 0,
+        "soldiers": 64
+      },
+      {
+        "version": "0.19.0",
+        "mapId": "industrial-frontier",
+        "medianFrameMs": 146.89999999850988,
+        "p95FrameMs": 176.60000000149012,
+        "drawCalls": 537,
+        "triangles": 226886,
+        "geometries": 631,
+        "textures": 24,
+        "elapsed": 0,
+        "soldiers": 64
+      },
+      {
+        "version": "0.19.0",
+        "mapId": "dust-horizon",
+        "medianFrameMs": 139.5,
+        "p95FrameMs": 294.1000000014901,
+        "drawCalls": 401,
+        "triangles": 212898,
+        "geometries": 488,
+        "textures": 24,
+        "elapsed": 0,
+        "soldiers": 64
+      }
+    ]
+  },
+  "limitations": [
+    "软件 WebGL 帧时间不能替代硬件 FPS",
+    "本机多客户端 LAN 未代替真实双设备验收",
+    "前线平衡仍需更多种子验证"
+  ],
+  "documentRendering": {
+    "pages": 6,
+    "status": "PASS",
+    "check": "Each rendered page visually inspected; no clipped tables, missing glyphs or extra pages."
   }
 }

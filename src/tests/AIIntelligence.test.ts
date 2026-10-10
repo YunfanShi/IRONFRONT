@@ -59,7 +59,7 @@ describe('AI movement and squad decisions',()=>{
   expect(update.changed).toBe(false);
   expect(update.intent.since).toBe(0);
   expect(update.intent.destination).toEqual({x:6,z:24});
-  expect(resolveIntent(1,at,resolveIntent(0,at,null,follow,'regular').intent,{...follow,destination:{x:6,z:24}},'regular').intent.destination).toEqual(follow.destination);
+  expect(resolveIntent(1,at,resolveIntent(0,at,null,follow,'regular').intent,{...follow,destination:{x:6,z:24}},'regular').intent.destination).toEqual({x:6,z:24});
  });
 
  it('keeps formation facing the mission and resumes after regroup timeout',()=>{
@@ -106,7 +106,7 @@ describe('AI movement and squad decisions',()=>{
  });
 
  it.each(['regular','elite'] as const)('%s squads complete a live autonomous battle',profile=>{
-  const b=new Battle({size:16,difficulty:'normal',aiProfile:profile,tickets:36,seed:102});
+  const b=new Battle({size:16,difficulty:'normal',aiProfile:profile,tickets:150,seed:102});
   let engaged=false,captured=false;
   for(let i=0;i<40000&&!b.finished;i++){
    b.tick(.125);

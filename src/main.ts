@@ -3,7 +3,7 @@ import {lanAddress,lanJSON} from './network/LanAddress';
 import {LanClient} from './network/LanClient';
 import type {EquipmentItem} from './rendering/EquipmentView';
 import {Battle,type BattleSettings} from './core/Battle';
-import {clamp,heightAt} from './core/math';
+import {clamp} from './core/math';
 import {WorldView} from './rendering/WorldView';
 import {UI,type GameOptions} from './ui/UI';
 import {AudioManager} from './audio/AudioManager';
@@ -34,7 +34,7 @@ function start(options:GameOptions,shared?:Battle){
  ui.resetBattleState();audio.unlock();audio.volume=options.volume;audio.musicVolume=options.musicVolume;audio.effectsVolume=options.effectsVolume;audio.ambientVolume=options.ambientVolume;audio.music.begin('deployment');
  world?.dispose();
  if(document.pointerLockElement)document.exitPointerLock();
- battle=shared??new Battle({mode:options.mode,size:options.size,difficulty:options.difficulty,aiProfile:options.aiProfile,tickets:options.tickets,vehicleLimit:options.vehicleLimit,killTicketPenalty:options.killTicketPenalty} satisfies BattleSettings);
+ battle=shared??new Battle({mapId:options.mapId,mode:options.mode,size:options.size,difficulty:options.difficulty,aiProfile:options.aiProfile,tickets:options.tickets,vehicleLimit:options.vehicleLimit,killTicketPenalty:options.killTicketPenalty} satisfies BattleSettings);
  battle.setLoadout(ui.loadout);
  try {world=new WorldView(ui.canvas,battle,options.quality,options.fov,options.renderScale)}catch(err){
   battle=null;paused=true;ui.menu();
@@ -46,9 +46,9 @@ function start(options:GameOptions,shared?:Battle){
  faceObjective();
  velocityY=0;jumpOffset=0;velocityX=0;velocityZ=0;stepTravel=0;eyeSmooth=1.78;lastPlayerHP=100;shooting=false;shotPending=false;aiming=false;semiLatch=false;mapVisible=false;scoreVisible=false;
  selectedEquipment=null;equipmentUntil=0;keys.clear();frameAccumulator=0;paused=false;
- paused=true;introRemaining=0;ui.preparation();
+ paused=true;introRemaining=0;ui.currentBattle=battle;ui.preparation();
 }
-function returnMenu(){networkAttempt++;connecting=false;ui.isLanHost=false;ui.isLanSession=false;ui.connection=null;lan?.close();lan=null;ui.setConnectionState('disconnected');ui.resetBattleState();mapVisible=false;scoreVisible=false;debugVisible=false;ui.tactical.classList.add('hidden');ui.scoreboard.classList.add('hidden');ui.debug.classList.add('hidden');paused=true;shooting=false;shotPending=false;audio.vehicleEngine(false,0);keys.clear();if(document.pointerLockElement)document.exitPointerLock();battle=null;world?.dispose();world=null;ui.menu()}
+function returnMenu(){networkAttempt++;connecting=false;ui.isLanHost=false;ui.isLanSession=false;ui.connection=null;lan?.close();lan=null;ui.setConnectionState('disconnected');ui.resetBattleState();mapVisible=false;scoreVisible=false;debugVisible=false;ui.tactical.classList.add('hidden');ui.scoreboard.classList.add('hidden');ui.debug.classList.add('hidden');paused=true;shooting=false;shotPending=false;audio.vehicleEngine(false,0);keys.clear();if(document.pointerLockElement)document.exitPointerLock();battle=null;ui.currentBattle=null;world?.dispose();world=null;ui.menu()}
 function resume(){if(!battle||battle.finished)return;keys.clear();frameAccumulator=0;aiming=false;shooting=false;shotPending=false;paused=false;ui.hideOverlay();requestLock()}
 function respawn(at:string){if(lan){lan.action('respawn',at,{loadout:ui.loadout});return;}if(!battle||battle.elapsed<battle.player.respawnAt)return;battle.setLoadout(ui.loadout);if(battle.respawnPlayer(at)){
   selectedEquipment=null;equipmentUntil=0;deathAge=null;keys.clear();aiming=false;shooting=false;shotPending=false;semiLatch=false;frameAccumulator=0;
@@ -130,7 +130,7 @@ function playerMovement(dt:number){
  const horizontal=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);
  const forward=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0);
  const magnitude=Math.hypot(horizontal,forward)||1;
- if(lan){lan.input({equipment:selectedEquipment,muzzleOffset:world?(()=>{const m=world.playerMuzzle(battle,infantryFirstPerson||aiming),p=battle.player.pos;return {x:m.x-p.x,y:m.y-heightAt(p.x,p.z),z:m.z-p.z};})():undefined,yaw:lookYaw,pitch:lookPitch,forward,side:horizontal,up:(keys.has('Space')?1:0)-(keys.has('ControlLeft')?1:0),fire:shooting&&!selectedEquipment,ads:aiming,sprint:(keys.has('ShiftLeft')||keys.has('ShiftRight'))&&performance.now()-shiftPressedAt>180&&forward>0,boost:keys.has('ShiftLeft')||keys.has('ShiftRight'),airbrake:keys.has('ControlLeft'),crouch:crouchToggle||keys.has('ControlLeft')});if(battle.inVehicle){moving=Math.abs(forward)+Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);return;}}
+ if(lan){lan.input({equipment:selectedEquipment,muzzleOffset:world?(()=>{const m=world.playerMuzzle(battle,infantryFirstPerson||aiming),p=battle.player.pos;return {x:m.x-p.x,y:m.y-battle.map.heightAt(p.x,p.z),z:m.z-p.z};})():undefined,yaw:lookYaw,pitch:lookPitch,forward,side:horizontal,up:(keys.has('Space')?1:0)-(keys.has('ControlLeft')?1:0),fire:shooting&&!selectedEquipment,ads:aiming,sprint:(keys.has('ShiftLeft')||keys.has('ShiftRight'))&&performance.now()-shiftPressedAt>180&&forward>0,boost:keys.has('ShiftLeft')||keys.has('ShiftRight'),airbrake:keys.has('ControlLeft'),crouch:crouchToggle||keys.has('ControlLeft')});if(battle.inVehicle){moving=Math.abs(forward)+Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);return;}}
  if(battle.inVehicle){
   sprinting=false;crouchToggle=false;moving=Math.abs(forward)>0||Math.abs(horizontal)>0;actualSpeed=Math.min(1,Math.abs(battle.playerVehicle?.speed??0)/13.2);sideLean=0;
   const arrows=keys.has('ArrowUp')||keys.has('ArrowDown')||keys.has('ArrowLeft')||keys.has('ArrowRight');
@@ -161,7 +161,7 @@ function playerMovement(dt:number){
  }}else if(!moving)stepTravel=0;
  battle.playerAiming=aiming;
  if(equipmentUntil<performance.now())selectedEquipment=null;
- if(lan){if(selectedEquipment&&(shooting||shotPending)&&(!semiLatch||selectedEquipment==='aa'||selectedEquipment==='repair')&&performance.now()>=nextEquipmentAction){nextEquipmentAction=performance.now()+300;const m=world?.equipment.muzzleWorldPosition(),p=battle.player.pos;lan.action(selectedEquipment==='aa'?'aa':selectedEquipment==='at'?'rocket':selectedEquipment==='frag'||selectedEquipment==='smoke'?'grenade':'gadget',undefined,{direction:{x:-Math.sin(lookYaw)*Math.cos(lookPitch),y:Math.sin(lookPitch),z:-Math.cos(lookYaw)*Math.cos(lookPitch)},muzzleOffset:m?{x:m.x-p.x,y:m.y-heightAt(p.x,p.z),z:m.z-p.z}:undefined});semiLatch=true;shotPending=false;equipmentUsedAt=performance.now();}return;}
+ if(lan){if(selectedEquipment&&(shooting||shotPending)&&(!semiLatch||selectedEquipment==='aa'||selectedEquipment==='repair')&&performance.now()>=nextEquipmentAction){nextEquipmentAction=performance.now()+300;const m=world?.equipment.muzzleWorldPosition(),p=battle.player.pos;lan.action(selectedEquipment==='aa'?'aa':selectedEquipment==='at'?'rocket':selectedEquipment==='frag'||selectedEquipment==='smoke'?'grenade':'gadget',undefined,{direction:{x:-Math.sin(lookYaw)*Math.cos(lookPitch),y:Math.sin(lookPitch),z:-Math.cos(lookYaw)*Math.cos(lookPitch)},muzzleOffset:m?{x:m.x-p.x,y:m.y-battle.map.heightAt(p.x,p.z),z:m.z-p.z}:undefined});semiLatch=true;shotPending=false;equipmentUsedAt=performance.now();}return;}
  if(selectedEquipment&&(shooting||shotPending)&&(!semiLatch||selectedEquipment==='aa'||selectedEquipment==='repair')){const d={x:-Math.sin(lookYaw)*Math.cos(lookPitch),y:Math.sin(lookPitch),z:-Math.cos(lookYaw)*Math.cos(lookPitch)};const ok=selectedEquipment==='aa'?battle.fireAA(d,world?.equipment.muzzleWorldPosition()):selectedEquipment==='at'?battle.fireRocket(d,world?.equipment.muzzleWorldPosition()):selectedEquipment==='frag'||selectedEquipment==='smoke'?battle.throwGrenade(d):battle.useGadget();if(ok){equipmentUsedAt=performance.now();world?.weapon.throw();audio.click();}semiLatch=true;shotPending=false;}
  const canFireHeld=battle.activeWeapon.automatic||!semiLatch;
  if((shooting||shotPending)&&canFireHeld&&world&&!sprinting&&!selectedEquipment){
@@ -182,7 +182,9 @@ function frame(time:number){
  audio.vehicleEngine(battle.inVehicle&&!paused,Math.abs(battle.playerVehicle?.speed??0)/13.2);
  if(ui.screen==='preparation'&&lan){ui.updatePreparation(lan.roster,lan.id,lan.phase);if(!lan.connected){const el=ui.modal.querySelector('#room-state');if(el)el.textContent='连接中断 · 正在恢复席位…';}if(lan.connected&&lan.phase==='battle'&&(waitingLateReady||lan.roster.find(c=>c.id===lan!.id)?.ready)&&battle.player.alive){waitingLateReady=false;paused=false;ui.hideOverlay();requestLock();}if(lan.connected&&lan.phase==='countdown')ui.intro(lan.countdown);}
  if(ui.screen==='intro'&&lan?.phase==='preparation')ui.preparation();
- if(ui.screen==='intro'){const left=lan?lan.countdown:(introRemaining=Math.max(0,introRemaining-dt));ui.modal.querySelector('#entry-countdown')!.textContent=String(Math.ceil(left));if((lan?lan.phase==='battle':left===0)){paused=false;ui.hideOverlay();requestLock();battle.player.spawnGraceUntil=battle.elapsed+3;}}
+ // The opaque preparation UI owns its preview; avoid rendering a second hidden battlefield.
+ if(ui.screen==='preparation')return;
+ if(ui.screen==='intro'){const left=lan?lan.countdown:(introRemaining=Math.max(0,introRemaining-Math.min(rawDt,.5)));ui.modal.querySelector('#entry-countdown')!.textContent=String(Math.ceil(left));if((lan?lan.phase==='battle':left===0)){paused=false;ui.hideOverlay();requestLock();battle.player.spawnGraceUntil=battle.elapsed+3;}}
  if(!paused&&!battle.finished&&(!lan||lan.connected)){frameAccumulator=Math.min(.18,frameAccumulator+dt);
   let i=0;while(frameAccumulator>=1/60&&i++<8){playerMovement(1/60);if(!lan)battle.tick(1/60);frameAccumulator-=1/60}
  }

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type {Battle,Soldier} from '../core/Battle';
-import {heightAt} from '../core/math';
+
 import type {Team} from '../world/Layout';
 
 type PartKind='rig'|'head'|'armL'|'armR'|'legL'|'legR'|'weapon'|'gadget';
@@ -100,7 +100,7 @@ export class SoldierVisuals {
     const crouching=soldier.state==='SEEK_COVER'||interacting||(soldier.state==='DEFEND'&&soldier.id%3===0);
     state.phase+=dt*((sprinting?3.1:2.0)+state.speed*(sprinting?13.2:10.4));
     const stride=Math.sin(state.phase)*state.speed*(fighting ? .52 : 1),step=Math.abs(Math.cos(state.phase))*state.speed;
-    const mount=soldier.vehicleId===null?null:battle.vehicles.find(v=>v.id===soldier.vehicleId&&v.kind==='motorcycle'&&v.alive),riding=!!mount;if(mount){const seat=mount.occupants.indexOf(soldier.id),offset=seat===0?.18:-.65;state.x=mount.pos.x+Math.sin(mount.yaw)*offset;state.z=mount.pos.z+Math.cos(mount.yaw)*offset;state.yaw=mount.yaw;}const footY=heightAt(state.x,state.z)+soldier.altitude+(riding?.43:0),bob=step*.052*(crouching ? .45 : 1);
+    const mount=soldier.vehicleId===null?null:battle.vehicles.find(v=>v.id===soldier.vehicleId&&v.kind==='motorcycle'&&v.alive),riding=!!mount;if(mount){const seat=mount.occupants.indexOf(soldier.id),offset=seat===0?.18:-.65;state.x=mount.pos.x+Math.sin(mount.yaw)*offset;state.z=mount.pos.z+Math.cos(mount.yaw)*offset;state.yaw=mount.yaw;}const footY=battle.map.heightAt(state.x,state.z)+soldier.altitude+(riding?.43:0),bob=step*.052*(crouching ? .45 : 1);
     const sY=Math.sin(state.yaw),cY=Math.cos(state.yaw);
     const deathAge=battle.elapsed-soldier.deathAt,fall=!soldier.alive?Math.min(1,Math.max(0,deathAge/.72)):0;
     const equipmentActive=!soldier.player&&(soldier.equipmentUntil??0)>battle.elapsed;const weaponId=soldier.id===battle.player.id?battle.playerWeapon:soldier.weaponId;const weaponScale=weaponId==='sniper'?1.45:weaponId==='lmg'?1.18:weaponId==='smg'?.72:1;

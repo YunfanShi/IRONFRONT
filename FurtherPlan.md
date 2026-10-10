@@ -1,3 +1,11 @@
+## 0.19.0 本轮实施结果
+
+大厅与页面分离、可验收小队协作、多地图上下文和 Dust Horizon 已实现。阶段检查与最终验收见 docs/DEVELOPMENT_019.md 和 QA_RESULTS.json。
+
+Metro Collapse、Tidebreaker、新载具与新玩法仍未完成；继续优先处理前线进攻平衡、峡谷长时卡路和真实双设备 LAN，不将整个长期计划写成已完成。
+
+---
+
 # PROJECT IRONFRONT — Multi-Map, Vehicle and Game Mode Expansion
 
 Repository: https://github.com/YunfanShi/IRONFRONT

@@ -1,6 +1,8 @@
-# PROJECT IRONFRONT 0.18.0
+# PROJECT IRONFRONT 0.19.0
 
-当前网页版本 **0.18.1**：减少寻路、视线检测和隐藏人物装备的CPU/渲染开销。性能结果与复现见 [性能报告](docs/PERFORMANCE_0181.md)。
+当前网页版本 **0.19.0**：原创 3D 大厅、改良 AI 小队和 Dust Horizon 双地图。开发与完整 QA 见 [详细报告](docs/DEVELOPMENT_019.md)、[DOCX](docs/DEVELOPMENT_019.docx) 和 [QA](QA_REPORT.md)。
+
+大厅 → 作战选择地图与玩法 → 配装和准备 → 入场 → 部署。单人无需联网；LAN 房主锁定地图，全员准备后启动。
 
 ## 0.18.0 房间与联机体验
 

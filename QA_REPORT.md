@@ -1,3 +1,55 @@
+## 0.19.0 QA
+
+## 验证证据
+
+Strict TypeScript、133 单元、47 Chrome 浏览器、核心自动战局、真实 LAN 集成、生产构建与十二场双地图战局通过。命令 npm run check:full；新地图命令 npm run test:maps。原始数据位于 docs/qa/，截图位于 docs/screenshots/。
+
+|地图|模式|种子|胜方|模拟秒|
+|---|---|---|---|---|
+|industrial-frontier|conquest|505|blue|384.875|
+|industrial-frontier|conquest|12731|blue|452.875|
+|industrial-frontier|conquest|1905|red|389.75|
+|industrial-frontier|breakthrough|505|red|2500|
+|industrial-frontier|breakthrough|12731|blue|702.125|
+|industrial-frontier|breakthrough|1905|red|2439.375|
+|dust-horizon|conquest|505|blue|1804.125|
+|dust-horizon|conquest|12731|blue|426.125|
+|dust-horizon|conquest|1905|red|1017|
+|dust-horizon|breakthrough|505|red|2619.75|
+|dust-horizon|breakthrough|12731|blue|2473.75|
+|dust-horizon|breakthrough|1905|red|2607.25|
+
+## CPU 基线比较
+
+同机 Node v24.15.0，种子 505，预热一次后测量五次中位数。导航与碰撞采用相同输入；战局固定模拟 120 秒。AI 行为已改变，战局状态指纹不同，CPU 数字不能解释为纯算法加速，也不能换算硬件 FPS。
+
+|负载|0.18.1 ms|0.19.0 ms|变化|
+|---|---|---|---|
+|遮挡碰撞 20000次|3.27|3.31|+1.3%|
+|路径查询 315次|26.11|27.18|+4.1%|
+|32v32 模拟120秒|974.56|899.95|-7.7%|
+|64v64 模拟120秒|2150.88|1812.06|-15.8%|
+
+静止准备场景的渲染对照：
+
+|版本与地图|中位帧时间 ms|P95 ms|draw calls|几何|纹理|
+|---|---|---|---|---|---|
+|0.18.1 industrial-frontier|152.2|180.3|537|757|42|
+|0.19.0 industrial-frontier|146.9|176.6|537|631|24|
+|0.19.0 dust-horizon|139.5|294.1|401|488|24|
+
+## 限制与后续
+
+浏览器采用 Chrome 软件 WebGL，功能检查通过不等于实机 FPS 达标。原有 Three.js 分块约 502 kB 的构建提示仍存在。LAN 检查运行真实服务与本机多客户端，覆盖局域网 IP、准备与重连，但尚未由两台独立设备验证 Wi-Fi 隔离及防火墙。前线样本的胜率仅覆盖三个固定种子；路线和结束逻辑通过，仍需更多种子调校平衡。
+
+Dust 寻路失败样本为 0–40 次，旧地图为 0–1 次；全场最高 40 次。失败计数不等于持续卡死，但不宣称全部无失败，峡谷与装甲拥挤处仍需长时观察。Metro Collapse、Tidebreaker、新玩法与新载具类别均未实现。
+
+## 运行与分发
+
+npm install 后 npm run lan 默认启动 7878；朋友使用房主的 http://局域网IP:7878 地址，无需各自安装包。单人可运行 npm run dev。十一首 MP3 只进入本地完整包（public 与 dist 共 22 个文件项），公开源码包和 GitHub 仅保留导入清单；不得把私有音乐上传公开仓库。
+
+---
+
 ## 0.18.1 QA
 
 120项单元测试、43项Chrome浏览器、Strict TypeScript、自动战局、LAN及生产构建全部通过。冻结0.18.0的70条路径和250条遮挡结果一致；315次路径与32v32/64v64固定120秒状态hash一致。原始样本、范围与复现见docs/PERFORMANCE_0181.md和docs/qa/performance-0181.json。

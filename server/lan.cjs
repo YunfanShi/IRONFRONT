@@ -1,7 +1,7 @@
 // One authoritative Battle per co-op room. Clients send controls, never health/positions.
 const http = require('node:http'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto'), os = require('node:os');
 const { WebSocketServer, WebSocket } = require('ws');
-const {heightAt}=require('../.logic-build/core/math.js');
+const {isMapId}=require('../.logic-build/world/Maps.js');
 const { Battle } = require('../.logic-build/core/Battle.js');
 const port = Number(process.env.PORT) || 7878, rooms = new Map(), dist = path.resolve(__dirname, '../dist');
 const addresses=()=>{const nets=Object.entries(os.networkInterfaces()).filter(([name])=>! /^(utun|tun|docker|veth|br-|bridge|tailscale|vmnet)/i.test(name)).flatMap(([,list])=>list||[]);return [...new Set(nets.filter(n=>n.family==='IPv4'&&!n.internal).map(n=>`http://${n.address}:${port}`))];};
@@ -37,7 +37,8 @@ const server = http.createServer((req, res) => {
                 res.writeHead(503);
                 return res.end('Room limit');
             }
-            const config = { size: [8, 16, 32, 64].includes(options.size) ? options.size : 32, difficulty: ['easy', 'normal', 'hard'].includes(options.difficulty) ? options.difficulty : 'easy', aiProfile: options.aiProfile === 'elite' ? 'elite' : 'regular', tickets: [100, 300, 500, 800].includes(options.tickets) ? options.tickets : 500, mode: options.mode === 'breakthrough' ? 'breakthrough' : 'conquest', killTicketPenalty: [0, 1, 2].includes(options.killTicketPenalty) ? options.killTicketPenalty : 1, aiEnabled: options.aiEnabled !== false, seed: 505 };
+            if(options.mapId!==undefined&&!isMapId(options.mapId)){res.writeHead(400);return res.end('Unsupported map');}
+            const config = { mapId:options.mapId??'industrial-frontier', size: [8, 16, 32, 64].includes(options.size) ? options.size : 32, difficulty: ['easy', 'normal', 'hard'].includes(options.difficulty) ? options.difficulty : 'easy', aiProfile: options.aiProfile === 'elite' ? 'elite' : 'regular', tickets: [100, 300, 500, 800].includes(options.tickets) ? options.tickets : 500, mode: options.mode === 'breakthrough' ? 'breakthrough' : 'conquest', killTicketPenalty: [0, 1, 2].includes(options.killTicketPenalty) ? options.killTicketPenalty : 1, aiEnabled: options.aiEnabled !== false, seed: 505 };
             let code;do{code=crypto.randomBytes(3).toString('hex').toUpperCase();}while(rooms.has(code));
             const hostToken = crypto.randomBytes(24).toString('hex'), battle = new Battle(config), room = { phase:'preparation',countdownAt:0,code, hostToken, hostEverJoined:false, battle, clients: new Map(), reservations:new Map(), created: Date.now(), joinTeam: options.joinTeam === 'red' ? 'red' : options.joinTeam === 'alternate' ? 'alternate' : 'blue' };
             if (!config.aiEnabled)
@@ -60,7 +61,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.phase==='countdown'){res.writeHead(409);return res.end(JSON.stringify({error:'房间正在倒计时，请等待战斗开始后加入'}));}if(room.clients.size+room.reservations.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人，含短暂掉线的保留席位）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,maxPlayers:8,phase:room.phase,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.18.1', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
+        return res.end(JSON.stringify({ version: '0.19.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
     }
     let pathname;
     try {
@@ -153,7 +154,7 @@ wss.on('connection', (ws, req) => {
             return;
         }
         if (m.type === 'action')
-            withClient(room, c, b => { const p = c.input, d = { x: -Math.sin(p.yaw || 0) * Math.cos(p.pitch || 0), y: Math.sin(p.pitch || 0), z: -Math.cos(p.yaw || 0) * Math.cos(p.pitch || 0) }; const offset=m.muzzleOffset;const muzzle=offset&&['x','y','z'].every(k=>typeof offset[k]==='number'&&Number.isFinite(offset[k]))&&Math.hypot(offset.x,offset.y-1.65,offset.z)<3?{x:b.player.pos.x+offset.x,y:heightAt(b.player.pos.x,b.player.pos.z)+offset.y,z:b.player.pos.z+offset.z}:undefined;const direction=m.direction;if(direction&&['x','y','z'].every(k=>typeof direction[k]==='number'&&Number.isFinite(direction[k]))){const len=Math.hypot(direction.x,direction.y,direction.z);if(len>.01){d.x=direction.x/len;d.y=direction.y/len;d.z=direction.z/len;}}switch (m.action) {
+            withClient(room, c, b => { const p = c.input, d = { x: -Math.sin(p.yaw || 0) * Math.cos(p.pitch || 0), y: Math.sin(p.pitch || 0), z: -Math.cos(p.yaw || 0) * Math.cos(p.pitch || 0) }; const offset=m.muzzleOffset;const muzzle=offset&&['x','y','z'].every(k=>typeof offset[k]==='number'&&Number.isFinite(offset[k]))&&Math.hypot(offset.x,offset.y-1.65,offset.z)<3?{x:b.player.pos.x+offset.x,y:b.map.heightAt(b.player.pos.x,b.player.pos.z)+offset.y,z:b.player.pos.z+offset.z}:undefined;const direction=m.direction;if(direction&&['x','y','z'].every(k=>typeof direction[k]==='number'&&Number.isFinite(direction[k]))){const len=Math.hypot(direction.x,direction.y,direction.z);if(len>.01){d.x=direction.x/len;d.y=direction.y/len;d.z=direction.z/len;}}switch (m.action) {
                 case 'team':
                     if (c.isHost && ['blue', 'red'].includes(m.team)) {
                         const target = [...room.clients.values()].find(o => o.id === m.value);
@@ -286,7 +287,7 @@ setInterval(() => {
                 const old={...b.player.pos};b.movePlayer(velocity.x*.05,velocity.z*.05);
                 if(Math.hypot(b.player.pos.x-old.x,b.player.pos.z-old.z)<Math.hypot(velocity.x,velocity.z)*.05*.22){velocity.x*=.65;velocity.z*=.65;}b.player.velocity=velocity;
                 if (i.fire && (b.activeWeapon.automatic || !c.fireHeld))
-                    b.shootPlayer(d,i.crouch?1.07:1.78,i.muzzleOffset?{x:b.player.pos.x+i.muzzleOffset.x,y:heightAt(b.player.pos.x,b.player.pos.z)+i.muzzleOffset.y,z:b.player.pos.z+i.muzzleOffset.z}:undefined);
+                    b.shootPlayer(d,i.crouch?1.07:1.78,i.muzzleOffset?{x:b.player.pos.x+i.muzzleOffset.x,y:b.map.heightAt(b.player.pos.x,b.player.pos.z)+i.muzzleOffset.y,z:b.player.pos.z+i.muzzleOffset.z}:undefined);
                 c.fireHeld = i.fire;
             } });
         const first = [...r.clients.values()][0];

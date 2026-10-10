@@ -1,9 +1,11 @@
-import {test,expect} from '@playwright/test';
+import {showMenuControl} from './menu-navigation';
+import {test} from './fixtures';
+import {expect} from '@playwright/test';
 
 test('elite profile reaches the live battle and diagnostics',async({page})=>{
  await page.goto('/');
- await page.locator('#setup-size').selectOption('8');
- await page.locator('#setup-ai-profile').selectOption('elite');
+ await showMenuControl(page,'#setup-size');await page.locator('#setup-size').selectOption('8');
+ await showMenuControl(page,'#setup-ai-profile');await page.locator('#setup-ai-profile').selectOption('elite');
  await page.locator('#play').click();
  await page.locator('#ready').click();
  await expect(page.locator('#modal')).toHaveClass('hidden');

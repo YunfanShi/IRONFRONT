@@ -59,11 +59,11 @@ export function createVehicle(id:number,team:Team,kind:VehicleKind,spawn:Point,r
  const cfg=VEHICLE_TYPES[kind];
  return {id,team,kind,seatCount:kind==='jet'?1:(kind==='scout'||kind==='motorcycle')?2:4,spawn:{...spawn},requisitioned,pos:{...spawn},yaw:team==='blue'?0:Math.PI,turretYaw:team==='blue'?0:Math.PI,turretPitch:0,mgYaw:team==='blue'?0:Math.PI,hp:cfg.maxHp,combatUntil:0,weaponSlot:0,ammoMode:"armor",nextSecondary:0,lockTarget:null,lockProgress:0,flareUntil:0,nextFlare:0,warningUntil:0,incomingUntil:0,roll:0,flightPitch:0,maxHp:cfg.maxHp,alive:true,disabledAt:-999,respawnAt:0,speed:0,driver:null,occupants:Array(kind==='jet'?1:(kind==='scout'||kind==='motorcycle')?2:4).fill(null),reservedFor:requisitioned?0:null,dropStarted:0,landAt:0,airborne:false,goal:'C',movingToGoal:true,altitude:0,verticalVelocity:0,enginePower:0,climbInput:0,route:[],coverAt:null,nextCoverPlan:0,nextPath:0,nextDecision:.5,nextShot:0,nextMGShot:0,steering:0,stuckFor:0,lastProgress:{...spawn}};
 }
-export function createArmoredVehicles(_limit=16):ArmoredVehicle[]{
+export function createArmoredVehicles(_limit=16,spawns=VEHICLE_SPAWNS):ArmoredVehicle[]{
  // Preserve the original IFV IDs. Extra vehicles use separate parking bays.
- const vehicles=(['blue','red'] as Team[]).map((team,id)=>createVehicle(id,team,'ifv',VEHICLE_SPAWNS[team]));
- for(const team of ['blue','red'] as Team[])for(const [kind,offset] of [['scout',12],['tank',24],['transport',36],['aa',48],['helicopter',60],['jet',76]] as const){const p=VEHICLE_SPAWNS[team];vehicles.push(createVehicle(vehicles.length,team,kind,{x:p.x+(team==='blue'?offset:-offset),z:p.z}));}
- for(const team of ['blue','red'] as Team[]){const p=VEHICLE_SPAWNS[team];vehicles.push(createVehicle(vehicles.length,team,'motorcycle',{x:p.x+(team==='blue'?94:-94),z:p.z}));}
+ const vehicles=(['blue','red'] as Team[]).map((team,id)=>createVehicle(id,team,'ifv',spawns[team]));
+ for(const team of ['blue','red'] as Team[])for(const [kind,offset] of [['scout',12],['tank',24],['transport',36],['aa',48],['helicopter',60],['jet',76]] as const){const p=spawns[team];vehicles.push(createVehicle(vehicles.length,team,kind,{x:p.x+(team==='blue'?offset:-offset),z:p.z}));}
+ for(const team of ['blue','red'] as Team[]){const p=spawns[team];vehicles.push(createVehicle(vehicles.length,team,'motorcycle',{x:p.x+(team==='blue'?94:-94),z:p.z}));}
  return vehicles;
 }
 

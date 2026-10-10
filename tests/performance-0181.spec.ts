@@ -1,8 +1,10 @@
-import {test,expect} from '@playwright/test';
+import {showMenuControl} from './menu-navigation';
+import {test} from './fixtures';
+import {expect} from '@playwright/test';
 import {writeFileSync} from 'node:fs';
 
 test('soldier instances omit inactive equipment and recover after seat, team and equipment changes',async({page})=>{
- await page.goto('/');await page.locator('#setup-size').selectOption('32');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
+ await page.goto('/');await showMenuControl(page,'#setup-size');await page.locator('#setup-size').selectOption('32');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
  const sample=await page.evaluate(()=>{const q=(window as any).__IRONFRONT_QA,b=q.battle,r=q.world.soldierRender;for(const s of b.soldiers){s.alive=true;s.vehicleId=null;s.equipmentUntil=0;s.nextAiAt=Infinity;s.nextEquipment=Infinity;s.boardingUntil=Infinity;s.downedUntil=0;}
   for(let i=0;i<30;i++)r.update(b,1/60,false);const times=[];for(let pass=0;pass<5;pass++){const start=performance.now();for(let i=0;i<120;i++)r.update(b,1/60,false);times.push(performance.now()-start);}
   const armies=r.armies.map((a:any)=>({team:a.team,meshes:a.meshes.length,activeMeshes:a.meshes.filter((m:any)=>m.visible&&m.count>0).length,instances:a.meshes.reduce((n:number,m:any)=>n+(m.visible?m.count:0),0),gadgetInstances:a.meshes.reduce((n:number,m:any,i:number)=>n+(a.parts[i].kind==='gadget'&&m.visible?m.count:0),0)}));return {times,armies};});

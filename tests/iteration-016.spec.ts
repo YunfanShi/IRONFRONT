@@ -1,6 +1,8 @@
-import {test,expect} from '@playwright/test';
+import {showMenuControl} from './menu-navigation';
+import {test} from './fixtures';
+import {expect} from '@playwright/test';
 test('all eight vehicle driver interiors are distinct; controls, crew seats and exterior views follow actual seats',async({page})=>{
- const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await page.locator('#setup-size').selectOption('8');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await showMenuControl(page,'#setup-size');await page.locator('#setup-size').selectOption('8');await page.locator('#play').click();await page.locator('#ready').click();await expect(page.locator('#modal')).toHaveClass('hidden');
  await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;for(const s of b.soldiers)if(!s.player){s.nextAiAt=Infinity;s.nextEquipment=Infinity;s.boardingUntil=Infinity;s.pos={x:300,z:-300};}for(const v of b.vehicles){v.nextDecision=Infinity;v.pos={x:250,z:250};v.occupants.fill(null);}});
  const counts:number[]=[];
  for(const kind of ['motorcycle','tank','ifv','aa','transport','scout','helicopter','jet']){

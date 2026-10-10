@@ -39,8 +39,8 @@ for(const g of OPEN_BUILDINGS){
 }
 // Scattered cover outside spawn zones and capture-point centers.
 for(const [x,z] of [[-193,-212],[-160,-106],[-132,-159],[-45,-170],[34,-70],[8,-192],[-68,3],[41,21],[-65,68],[55,166],[113,181],[170,100],[229,95],[204,222],[-225,118],[-143,126],[-232,277],[-101,209],[132,-119],[-4,240],[108,12],[-285,-30],[275,-46],[260,-147]] as [number,number][])add(x,z,10,5,3,'crate');
-export function collides(x:number,z:number,r:number,blocks:readonly Block[]=BLOCKS):boolean {
- if(Math.abs(x)>MAP_SIZE/2-r||Math.abs(z)>MAP_SIZE/2-r)return true;
+export function collides(x:number,z:number,r:number,blocks:readonly Block[]=BLOCKS,size=MAP_SIZE):boolean {
+ if(Math.abs(x)>size/2-r||Math.abs(z)>size/2-r)return true;
  for(const b of blocks){const cx=Math.max(b.x-b.w/2,Math.min(x,b.x+b.w/2));const cz=Math.max(b.z-b.d/2,Math.min(z,b.z+b.d/2));if((x-cx)**2+(z-cz)**2<r*r)return true;}
  return false;
 }

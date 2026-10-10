@@ -1,0 +1,32 @@
+[
+  {
+    "mapId": "industrial-frontier",
+    "renderer": "Chrome SwiftShader software WebGL",
+    "viewport": [
+      1280,
+      720
+    ],
+    "quality": "medium",
+    "medianFrameMs": 193.09999999403954,
+    "p95FrameMs": 209.29999999701977,
+    "drawCalls": 857,
+    "triangles": 209388,
+    "geometries": 757,
+    "textures": 48
+  },
+  {
+    "mapId": "dust-horizon",
+    "renderer": "Chrome SwiftShader software WebGL",
+    "viewport": [
+      1280,
+      720
+    ],
+    "quality": "medium",
+    "medianFrameMs": 208.89999999850988,
+    "p95FrameMs": 260.5,
+    "drawCalls": 671,
+    "triangles": 205248,
+    "geometries": 551,
+    "textures": 48
+  }
+]

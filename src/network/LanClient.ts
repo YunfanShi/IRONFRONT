@@ -1,4 +1,5 @@
 import { Battle, type BattleEvent, type BattleSettings } from '../core/Battle';
+import {isMapId} from '../world/Maps';
 import {lanAddress,lanJSON} from './LanAddress';
 export class LanClient {
     private socket: WebSocket | null = null;
@@ -26,7 +27,7 @@ export class LanClient {
     onDisconnect: () => void = () => { };
     async connect(address: string, code: string, host: boolean, options: Record<string, unknown> = {}): Promise<Battle> {
         const url = lanAddress(address);this.address=url.host;
-        const info=await lanJSON(new URL('/api/status',url));if(!String(info.version).startsWith('0.18.'))throw new Error(`房主服务版本 ${info.version} 与当前网页不匹配，请房主更新到0.18并停止旧进程、重新运行 npm run lan`);this.shareUrls=Array.isArray(info.addresses)?info.addresses:[];
+        const info=await lanJSON(new URL('/api/status',url));if(!String(info.version).startsWith('0.19.'))throw new Error(`房主服务版本 ${info.version} 与当前网页不匹配，请房主更新到0.19并停止旧进程、重新运行 npm run lan`);this.shareUrls=Array.isArray(info.addresses)?info.addresses:[];
         if(location.protocol==='https:'&&url.protocol==='http:')throw new Error('HTTPS 页面无法连接 HTTP 主机，请打开房主分享的 HTTP 网页再加入');
         let hostToken='';
         if(host){const room=await lanJSON(new URL('/api/rooms',url),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(options)});code=room.code;hostToken=room.hostToken;}
@@ -44,6 +45,7 @@ export class LanClient {
             ws.onmessage=event=>{let m:any;try{m=JSON.parse(event.data)}catch{return}if(m.type==='welcome'){
                 if(resuming&&(m.id!==this.id||m.resumed!==true)){ws.close();return;}
                 this.id=m.id;this.isHost=m.isHost===true;this.resumeToken=m.resumeToken??'';
+                if(m.settings?.mapId!==undefined&&!isMapId(m.settings.mapId)){settled=true;clearTimeout(timeout);reject(new Error('当前客户端不支持房间地图，请更新游戏'));ws.close(4000,'Unsupported map');return;}
                 if(!this.battle){this.battle=new Battle(m.settings as BattleSettings);this.battle.controlledPlayerId=this.id;if(this.desiredLoadout)this.action('loadout',undefined,{loadout:this.desiredLoadout});}
             }
             else if(m.type==='role'){this.isHost=m.isHost===true;this.onRoleChange(this.isHost);}
@@ -83,7 +85,7 @@ export class LanClient {
     }
     reconcile(b: Battle, dt: number) {
         if(!b.player.alive || b.inVehicle)return;
-        const weight=1-Math.exp(-dt*10), x=this.correction.x*weight,z=this.correction.z*weight;
+        const weight=1-Math.exp(-dt*10),length=Math.hypot(this.correction.x,this.correction.z),scale=length>0?Math.min(weight,dt*2/length):0,x=this.correction.x*scale,z=this.correction.z*scale;
         b.movePlayer(x,z);this.correction.x-=x;this.correction.z-=z;
     }
     input(value: Record<string, unknown>) { const now = performance.now(); if (now - this.lastSend < 35)

@@ -1,0 +1,48 @@
+{
+  "adapter": "Chrome SwiftShader software WebGL",
+  "viewport": [
+    1280,
+    720
+  ],
+  "quality": "medium",
+  "renderScale": 1,
+  "scene": "Frozen preparation, no simulation, fixed camera [-90,90,-155] looking at [-20,0,-93], 20 warm-up and 60 measured frames",
+  "results": [
+    {
+      "version": "0.18.1",
+      "mapId": "industrial-frontier",
+      "medianFrameMs": 152.20000000298023,
+      "p95FrameMs": 180.30000000447035,
+      "drawCalls": 537,
+      "triangles": 230384,
+      "geometries": 757,
+      "textures": 42,
+      "elapsed": 0,
+      "soldiers": 64
+    },
+    {
+      "version": "0.19.0",
+      "mapId": "industrial-frontier",
+      "medianFrameMs": 146.89999999850988,
+      "p95FrameMs": 176.60000000149012,
+      "drawCalls": 537,
+      "triangles": 226886,
+      "geometries": 631,
+      "textures": 24,
+      "elapsed": 0,
+      "soldiers": 64
+    },
+    {
+      "version": "0.19.0",
+      "mapId": "dust-horizon",
+      "medianFrameMs": 139.5,
+      "p95FrameMs": 294.1000000014901,
+      "drawCalls": 401,
+      "triangles": 212898,
+      "geometries": 488,
+      "textures": 24,
+      "elapsed": 0,
+      "soldiers": 64
+    }
+  ]
+}

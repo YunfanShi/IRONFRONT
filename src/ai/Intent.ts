@@ -18,7 +18,7 @@ export function resolveIntent(now:number,at:Point,current:AIIntent|null,proposal
   const interrupted=urgent||current.goal!==proposal.goal||current.targetId!==proposal.targetId||priority[proposal.kind]>priority[current.kind];
   const drift=dist(current.destination,proposal.destination);
   if(!interrupted){
-   if(profile==='elite'&&current.kind==='REGROUP'&&proposal.kind==='REGROUP'&&current.state===proposal.state&&drift<32){
+   if(current.kind==='REGROUP'&&proposal.kind==='REGROUP'&&current.state===proposal.state&&drift<32){
     if(drift<3.5)return {intent:current,changed:false};
     return {intent:{...current,destination:{...proposal.destination},speed:proposal.speed,reason:proposal.reason},changed:false};
    }
