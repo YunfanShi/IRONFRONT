@@ -3,53 +3,66 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    // The first drivable ground vehicle slice. Positions and combat are kept in
-    // the same world coordinates as PrototypeLayout and the browser R4 SCOUT.
-    public sealed class PrototypeScoutVehicle : MonoBehaviour, IPrototypeVehicle
+    // U8 ROVER: the driver moves the vehicle but cannot fire. Seat 1 operates
+    // the machine gun; seats 2 and 3 are reserved for future squad passengers.
+    public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeVehicle
     {
-        private const float MaxHealth = 180f;
-        private const float MaxForward = 22f;
-        private const float MaxReverse = 9f;
-        private const float Acceleration = 13f;
-        private const float TurnRate = 1.6f; // radians per second
-        private const float Clearance = 2.1f;
-        private const float GunDamage = 22f;
-        private const float GunInterval = 0.22f;
-        private const float GunRange = 110f;
+        private const float MaxHealth = 140f;
+        private const float Clearance = 1.85f;
+        private const float MaxForward = 25f;
+        private const float MaxReverse = 10f;
+        private const float Acceleration = 15f;
+        private const float TurnRate = 1.9f;
+        private const float GunDamage = 18f;
+        private const float GunInterval = 0.12f;
+        private const float GunRange = 100f;
 
+        private readonly List<Vector2> route = new List<Vector2>();
         private PrototypeRuntime runtime;
         private bool aiControlled;
-        private float nextShot;
-        private float nextPlan;
-        private float blockedUntil;
+        private PrototypePlayer occupant;
+        private int playerSeat = -1;
         private int routeIndex;
-        private readonly List<Vector2> route = new List<Vector2>();
+        private float nextPlan;
+        private float nextShot;
+        private float blockedUntil;
         private Vector2 goal;
         private BoxCollider hullCollider;
-        private Transform turret;
+        private Transform gunMount;
         private Renderer[] renderers;
 
-        public string VehicleName => "R4 SCOUT";
+        public string VehicleName => "U8 ROVER";
+        public Transform VehicleTransform => transform;
+        public bool DriverCanFire => false;
         public PrototypeTeam Team { get; private set; }
         public bool Alive => Health > 0f;
-        public bool IsActiveThreat => aiControlled || Driver != null;
-        public bool DriverCanFire => true;
+        public bool IsActiveThreat => aiControlled || occupant != null;
         public float Health { get; private set; }
         public float Speed { get; private set; }
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
-        public Transform VehicleTransform => transform;
-        public PrototypePlayer Driver { get; private set; }
-        public PrototypePlayer Occupant => Driver;
-        // The player's existing camera is 1.65 m above its root transform.
-        public Vector3 SeatPosition => transform.TransformPoint(new Vector3(-0.45f, 0.24f, -0.55f));
+        public PrototypePlayer Occupant => occupant;
+        public PrototypePlayer Driver => playerSeat == 0 ? occupant : null;
+        public PrototypePlayer Gunner => playerSeat == 1 ? occupant : null;
+        public int PlayerSeat => playerSeat;
+        public Vector3 SeatPosition => GetSeatPosition(playerSeat);
+
+        public Vector3 GetSeatPosition(int seat)
+        {
+            Vector3 offset = seat == 1 ? new Vector3(0.65f, 0.45f, 0.1f) :
+                seat == 2 ? new Vector3(-0.65f, 0.3f, -1.35f) :
+                seat == 3 ? new Vector3(0.65f, 0.3f, -1.35f) :
+                new Vector3(-0.65f, 0.22f, 0.65f);
+            return transform.TransformPoint(offset);
+        }
+
         public Vector3 ExitPosition
         {
             get
             {
                 Vector3[] offsets =
                 {
-                    new Vector3(-4.2f, 0f, -0.7f),
-                    new Vector3(4.2f, 0f, -0.7f),
+                    new Vector3(-3.8f, 0f, -0.3f),
+                    new Vector3(3.8f, 0f, -0.3f),
                     new Vector3(0f, 0f, -5.2f),
                     new Vector3(0f, 0f, 5.2f)
                 };
@@ -58,12 +71,12 @@ namespace Ironfront.UnityPrototype
                     Vector3 candidate = transform.TransformPoint(offset);
                     Vector2 map = new Vector2(candidate.x, candidate.z);
                     if (!PrototypeLayout.Collides(map, 0.55f))
-                        return new Vector3(map.x, PrototypeLayout.HeightAt(map.x, map.y) + 0.3f, map.y);
+                        return new Vector3(map.x,
+                            PrototypeLayout.HeightAt(map.x, map.y) + 0.3f, map.y);
                 }
-                // A vehicle can only drive into a point clear by 2.1 m. The
-                // fallback keeps the player outside the hull if every side is obstructed.
                 Vector3 behind = transform.TransformPoint(new Vector3(0f, 0f, -5.2f));
-                return new Vector3(behind.x, PrototypeLayout.HeightAt(behind.x, behind.z) + 0.3f, behind.z);
+                return new Vector3(behind.x,
+                    PrototypeLayout.HeightAt(behind.x, behind.z) + 0.3f, behind.z);
             }
         }
 
@@ -76,24 +89,36 @@ namespace Ironfront.UnityPrototype
             Health = MaxHealth;
             goal = spawn;
             transform.position = GroundPosition(spawn);
-            transform.rotation = Quaternion.Euler(0f, team == PrototypeTeam.Blue ? 0f : 180f, 0f);
+            transform.rotation = Quaternion.Euler(0f,
+                team == PrototypeTeam.Blue ? 0f : 180f, 0f);
             BuildModel();
         }
 
-        public bool TrySetDriver(PrototypePlayer player)
+        public bool TrySetDriver(PrototypePlayer player) => TrySetPlayerSeat(player, 0);
+        public bool TrySetGunner(PrototypePlayer player) => TrySetPlayerSeat(player, 1);
+
+        // A player can enter either front seat or switch between them. There is
+        // deliberately no gun trigger in the driver branch of Update().
+        public bool TrySetPlayerSeat(PrototypePlayer player, int seat)
         {
-            if (runtime == null || !Alive || Team != PrototypeTeam.Blue ||
-                aiControlled || Driver != null || player == null || !player.Alive ||
-                player != runtime.Player || !runtime.MatchStarted ||
+            if (runtime == null || !Alive || Team != PrototypeTeam.Blue || aiControlled ||
+                player == null || player != runtime.Player || !player.Alive ||
+                (occupant != null && occupant != player) ||
+                (seat != 0 && seat != 1) || !runtime.MatchStarted ||
                 runtime.Match.Winner.HasValue) return false;
-            Driver = player;
+            occupant = player;
+            playerSeat = seat;
             Speed = 0f;
             return true;
         }
 
-        public void RemoveDriver(PrototypePlayer player)
+        public void RemoveDriver(PrototypePlayer player) => RemoveOccupant(player);
+
+        public void RemoveOccupant(PrototypePlayer player)
         {
-            if (Driver == player) Driver = null;
+            if (occupant != player) return;
+            occupant = null;
+            playerSeat = -1;
             Speed = 0f;
         }
 
@@ -104,9 +129,9 @@ namespace Ironfront.UnityPrototype
             Health = Mathf.Max(0f, Health - amount);
             if (Alive) return;
             Speed = 0f;
-            PrototypePlayer occupant = Driver;
             if (occupant != null) occupant.ForceExitVehicle();
-            Driver = null;
+            occupant = null;
+            playerSeat = -1;
             if (hullCollider != null) hullCollider.enabled = false;
             foreach (Renderer visual in renderers) visual.enabled = false;
             runtime.Match.RecordVehicleLoss(Team);
@@ -117,50 +142,49 @@ namespace Ironfront.UnityPrototype
             if (runtime == null || !runtime.MatchStarted || !Alive ||
                 runtime.Match.Winner.HasValue) return;
             float dt = Mathf.Min(Time.deltaTime, 0.05f);
-            if (Driver != null)
+            if (occupant != null)
             {
-                if (!Driver.Alive)
+                if (!occupant.Alive)
                 {
-                    Driver.ForceExitVehicle();
+                    occupant.ForceExitVehicle();
                     return;
                 }
                 if (Cursor.lockState != CursorLockMode.Locked) return;
-                float throttle = Input.GetAxisRaw("Vertical");
-                float steering = Input.GetAxisRaw("Horizontal");
-                Drive(throttle, steering, dt);
-                if (Input.GetMouseButton(0)) FirePlayerGun();
+                if (playerSeat == 0)
+                    Drive(Input.GetAxisRaw("Vertical"),
+                        Input.GetAxisRaw("Horizontal"), dt);
+                else
+                {
+                    Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
+                    if (occupant.ViewCamera != null)
+                    {
+                        Vector3 aim = occupant.ViewCamera.transform.position +
+                            occupant.ViewCamera.transform.forward * GunRange;
+                        AimGunAt(aim);
+                        if (Input.GetMouseButton(0)) FirePlayerGun();
+                    }
+                }
             }
-            else if (aiControlled)
-            {
-                UpdateAi(dt);
-            }
-            else
-            {
-                Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * dt);
-            }
+            else if (aiControlled) UpdateAi(dt);
+            else Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
         }
 
         private void Drive(float throttle, float steering, float dt)
         {
             float desired = Mathf.Clamp(throttle, -1f, 1f) *
                 (throttle < 0f ? MaxReverse : MaxForward);
-            float acceleration = Mathf.Abs(throttle) < 0.05f ? Acceleration * 1.5f : Acceleration;
+            float acceleration = Mathf.Abs(throttle) < 0.05f ?
+                Acceleration * 1.5f : Acceleration;
             Speed = Mathf.MoveTowards(Speed, desired, acceleration * dt);
             if (Mathf.Abs(Speed) < 0.05f) Speed = 0f;
-
             float steerFactor = Mathf.Clamp01(Mathf.Abs(Speed) / 4f);
             if (steerFactor > 0f)
                 transform.Rotate(0f, steering * TurnRate * Mathf.Rad2Deg *
                     steerFactor * Mathf.Sign(Speed) * dt, 0f, Space.World);
-
             Vector2 start = MapPosition;
             Vector3 delta = transform.forward * (Speed * dt);
             Vector2 end = start + new Vector2(delta.x, delta.z);
-            if (!ClearSegment(start, end))
-            {
-                Speed = 0f;
-                return;
-            }
+            if (!ClearSegment(start, end)) { Speed = 0f; return; }
             transform.position = GroundPosition(end);
         }
 
@@ -173,12 +197,12 @@ namespace Ironfront.UnityPrototype
 
         private void FirePlayerGun()
         {
-            if (Time.time < nextShot || Driver == null || Driver.ViewCamera == null) return;
+            if (Time.time < nextShot || Gunner == null || Gunner.ViewCamera == null) return;
             nextShot = Time.time + GunInterval;
-            Camera camera = Driver.ViewCamera;
+            Camera camera = Gunner.ViewCamera;
             Vector3 origin = camera.transform.position;
             Vector3 direction = camera.transform.forward;
-            AimTurretAt(origin + direction * GunRange);
+            AimGunAt(origin + direction * GunRange);
             Vector3 target = origin + direction * GunRange;
             float nearest = GunRange;
             Collider chosen = null;
@@ -192,30 +216,33 @@ namespace Ironfront.UnityPrototype
                 chosen = hit.collider;
                 target = hit.point;
             }
-            Vector3 muzzle = transform.TransformPoint(new Vector3(0.35f, 2.1f, 1.45f));
-            runtime.ShowTracer(muzzle, target, Team);
+            runtime.ShowTracer(GunMuzzle, target, Team);
             if (chosen == null) return;
             PrototypeBot bot = chosen.GetComponent<PrototypeBot>();
             if (bot != null && bot.Team != Team) { bot.TakeDamage(GunDamage); return; }
             IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(chosen);
-            if (vehicle != null && vehicle.Team != Team) vehicle.TakeDamage(GunDamage * 0.55f);
+            if (vehicle != null && vehicle.Team != Team)
+                vehicle.TakeDamage(GunDamage * 0.55f);
         }
+
+        private Vector3 GunMuzzle => gunMount != null ?
+            gunMount.TransformPoint(new Vector3(0f, 0.05f, 1.15f)) :
+            transform.TransformPoint(new Vector3(0.55f, 2.05f, 1f));
 
         private void UpdateAi(float dt)
         {
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot,
                 out PrototypePlayer player, out IPrototypeVehicle vehicle);
-            bool seesEnemy = bot != null || player != null || vehicle != null;
-            if (seesEnemy && Time.time >= nextShot)
+            if ((bot != null || player != null || vehicle != null) &&
+                Time.time >= nextShot)
             {
                 nextShot = Time.time + GunInterval;
-                Vector3 muzzle = transform.TransformPoint(new Vector3(0.35f, 2.1f, 1.45f));
+                float height = vehicle != null ? 1.5f :
+                    player != null ? 1.65f : 1.3f;
                 Vector3 impact = new Vector3(enemy.x,
-                    PrototypeLayout.HeightAt(enemy.x, enemy.y) +
-                    (vehicle != null ? 1.5f : player != null ? 1.65f : 1.3f), enemy.y);
-                AimTurretAt(impact);
-                runtime.ShowTracer(muzzle, impact, Team);
-                // AI dispersion keeps a vehicle from instantly deleting infantry.
+                    PrototypeLayout.HeightAt(enemy.x, enemy.y) + height, enemy.y);
+                AimGunAt(impact);
+                runtime.ShowTracer(GunMuzzle, impact, Team);
                 if (Random.value < 0.65f)
                 {
                     float damage = GunDamage * 0.35f;
@@ -233,33 +260,23 @@ namespace Ironfront.UnityPrototype
                 route.AddRange(PlanVehicleRoute(MapPosition, goal));
                 routeIndex = 0;
             }
-
-            if (route.Count == 0 && !ClearSegment(MapPosition, goal))
+            // A transport delivers its passengers near the objective. Actual
+            // squad boarding and disembarkation will be wired in separately.
+            if (Vector2.Distance(MapPosition, goal) < 25f ||
+                (route.Count == 0 && !ClearSegment(MapPosition, goal)))
             {
                 Drive(0f, 0f, dt);
                 return;
             }
-            Vector2 destination = goal;
             while (routeIndex < route.Count &&
                 Vector2.Distance(MapPosition, route[routeIndex]) < 6f) routeIndex++;
-            if (routeIndex < route.Count) destination = route[routeIndex];
-            if (Vector2.Distance(MapPosition, destination) < 15f)
-            {
-                Drive(0f, 0f, dt);
-                return;
-            }
+            Vector2 destination = routeIndex < route.Count ? route[routeIndex] : goal;
             Vector2 heading = destination - MapPosition;
             float desiredYaw = Mathf.Atan2(heading.x, heading.y) * Mathf.Rad2Deg;
             float angle = Mathf.DeltaAngle(transform.eulerAngles.y, desiredYaw);
             float steer = Mathf.Clamp(angle / 35f, -1f, 1f);
-            // Slow before large turns so a waypoint beyond cover does not make
-            // the scout sweep its front corner into the cover on a wide arc.
             float throttle = Mathf.Abs(angle) > 65f ? 0.35f : 1f;
-            if (Time.time < blockedUntil)
-            {
-                throttle = -0.7f;
-                steer = -steer;
-            }
+            if (Time.time < blockedUntil) { throttle = -0.7f; steer = -steer; }
             Vector2 before = MapPosition;
             Drive(throttle, steer, dt);
             if (throttle > 0f && Vector2.Distance(before, MapPosition) < 0.01f &&
@@ -280,7 +297,6 @@ namespace Ironfront.UnityPrototype
                 Vector2 destination = point.Definition.Position;
                 if (PrototypeLayout.Collides(destination, Clearance)) continue;
                 float score = Vector2.Distance(MapPosition, destination);
-                // Prefer a nearby objective over crossing the whole map.
                 if (point.Owner.HasValue) score *= 0.9f;
                 if (score >= best) continue;
                 best = score;
@@ -289,9 +305,68 @@ namespace Ironfront.UnityPrototype
             return selected;
         }
 
-        // Vehicle-sized A* avoids feeding a 2.1 m hull the pedestrian route's
-        // 1.12 m clearance. Every planned edge and smoothing shortcut uses the
-        // same clearance test as actual driving.
+        private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot,
+            out PrototypePlayer selectedPlayer, out IPrototypeVehicle selectedVehicle)
+        {
+            selectedBot = null;
+            selectedPlayer = null;
+            selectedVehicle = null;
+            Vector2 selected = Vector2.zero;
+            float nearest = GunRange;
+            if (Team == PrototypeTeam.Red && runtime.Player != null && runtime.Player.Alive)
+            {
+                IPrototypeVehicle playerVehicle = runtime.Player.CurrentVehicle;
+                Vector2 point = playerVehicle != null && playerVehicle.Alive ?
+                    playerVehicle.MapPosition : runtime.Player.MapPosition;
+                float distance = Vector2.Distance(MapPosition, point);
+                if (distance < nearest && !PrototypeLayout.LineBlocked(MapPosition, point, 0.1f))
+                {
+                    nearest = distance;
+                    selected = point;
+                    selectedVehicle = playerVehicle;
+                    selectedPlayer = playerVehicle == null ? runtime.Player : null;
+                }
+            }
+            foreach (PrototypeBot candidate in runtime.Bots)
+            {
+                if (!candidate.Alive || candidate.Team == Team) continue;
+                Vector2 point = candidate.MapPosition;
+                float distance = Vector2.Distance(MapPosition, point);
+                if (distance >= nearest ||
+                    PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
+                nearest = distance;
+                selected = point;
+                selectedBot = candidate;
+                selectedPlayer = null;
+                selectedVehicle = null;
+            }
+            foreach (IPrototypeVehicle candidate in runtime.Vehicles)
+            {
+                if (ReferenceEquals(candidate, this) || !candidate.Alive || candidate.Team == Team ||
+                    !candidate.IsActiveThreat) continue;
+                Vector2 point = candidate.MapPosition;
+                float distance = Vector2.Distance(MapPosition, point);
+                if (distance >= nearest ||
+                    PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
+                nearest = distance;
+                selected = point;
+                selectedBot = null;
+                selectedPlayer = null;
+                selectedVehicle = candidate;
+            }
+            return selected;
+        }
+
+        private void AimGunAt(Vector3 point)
+        {
+            if (gunMount == null) return;
+            Vector3 flat = point - gunMount.position;
+            flat.y = 0f;
+            if (flat.sqrMagnitude > 0.01f)
+                gunMount.rotation = Quaternion.LookRotation(flat, Vector3.up);
+        }
+
+        // Each edge and smoothed shortcut uses the same clearance as Drive().
         private static List<Vector2> PlanVehicleRoute(Vector2 start, Vector2 end)
         {
             var result = new List<Vector2>();
@@ -313,9 +388,13 @@ namespace Ironfront.UnityPrototype
             var cost = new float[total];
             var previous = new int[total];
             var closed = new bool[total];
-            var open = new List<int> { first };
             var queued = new bool[total];
-            for (int i = 0; i < total; i++) { cost[i] = float.PositiveInfinity; previous[i] = -1; }
+            var open = new List<int> { first };
+            for (int i = 0; i < total; i++)
+            {
+                cost[i] = float.PositiveInfinity;
+                previous[i] = -1;
+            }
             cost[first] = 0f;
             queued[first] = true;
             int scanned = 0;
@@ -358,8 +437,7 @@ namespace Ironfront.UnityPrototype
             }
             if (first != last && previous[last] < 0) return result;
             var raw = new List<Vector2> { end };
-            for (int at = last; at != first; at = previous[at])
-                raw.Add(points[at]);
+            for (int at = last; at != first; at = previous[at]) raw.Add(points[at]);
             raw.Add(points[first]);
             raw.Reverse();
             Vector2 cursor = start;
@@ -376,7 +454,8 @@ namespace Ironfront.UnityPrototype
             return result;
         }
 
-        private static int VisibleVehicleNode(Vector2 point, Vector2[] nodes, bool[] walkable)
+        private static int VisibleVehicleNode(Vector2 point,
+            Vector2[] nodes, bool[] walkable)
         {
             int selected = -1;
             float nearest = 80f * 80f;
@@ -391,111 +470,51 @@ namespace Ironfront.UnityPrototype
             return selected;
         }
 
-        private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot,
-            out PrototypePlayer selectedPlayer, out IPrototypeVehicle selectedVehicle)
-        {
-            selectedBot = null;
-            selectedPlayer = null;
-            selectedVehicle = null;
-            Vector2 selected = Vector2.zero;
-            float nearest = GunRange;
-            if (Team == PrototypeTeam.Red && runtime.Player != null && runtime.Player.Alive)
-            {
-                IPrototypeVehicle playerVehicle = runtime.Player.CurrentVehicle;
-                if (playerVehicle != null && playerVehicle.Alive)
-                {
-                    Vector2 point = playerVehicle.MapPosition;
-                    float distance = Vector2.Distance(MapPosition, point);
-                    if (distance < nearest && !PrototypeLayout.LineBlocked(MapPosition, point, 0.1f))
-                    {
-                        nearest = distance;
-                        selected = point;
-                        selectedVehicle = playerVehicle;
-                    }
-                }
-                else
-                {
-                    Vector2 point = runtime.Player.MapPosition;
-                    float distance = Vector2.Distance(MapPosition, point);
-                    if (distance < nearest && !PrototypeLayout.LineBlocked(MapPosition, point, 0.1f))
-                    {
-                        nearest = distance;
-                        selected = point;
-                        selectedPlayer = runtime.Player;
-                    }
-                }
-            }
-            foreach (PrototypeBot candidate in runtime.Bots)
-            {
-                if (!candidate.Alive || candidate.Team == Team) continue;
-                Vector2 point = candidate.MapPosition;
-                float distance = Vector2.Distance(MapPosition, point);
-                if (distance >= nearest || PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
-                nearest = distance;
-                selected = point;
-                selectedBot = candidate;
-                selectedPlayer = null;
-                selectedVehicle = null;
-            }
-            foreach (IPrototypeVehicle candidate in runtime.Vehicles)
-            {
-                // Empty parking bays are not tactical threats. This also gives
-                // the player time to reach the blue scout after deployment.
-                if (ReferenceEquals(candidate, this) || !candidate.Alive ||
-                    candidate.Team == Team || !candidate.IsActiveThreat) continue;
-                Vector2 point = candidate.MapPosition;
-                float distance = Vector2.Distance(MapPosition, point);
-                if (distance >= nearest || PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
-                nearest = distance;
-                selected = point;
-                selectedBot = null;
-                selectedPlayer = null;
-                selectedVehicle = candidate;
-            }
-            return selected;
-        }
-
-        private void AimTurretAt(Vector3 worldPoint)
-        {
-            if (turret == null) return;
-            Vector3 flat = worldPoint - turret.position;
-            flat.y = 0f;
-            if (flat.sqrMagnitude > 0.01f)
-                turret.rotation = Quaternion.LookRotation(flat, Vector3.up);
-        }
-
         private void BuildModel()
         {
             hullCollider = gameObject.AddComponent<BoxCollider>();
-            hullCollider.center = new Vector3(0f, 1.0f, 0f);
-            hullCollider.size = new Vector3(3.6f, 1.9f, 4.4f);
-            Material body = Team == PrototypeTeam.Blue ? runtime.BlueMaterial : runtime.RedMaterial;
-            AddVisual("Armored chassis", PrimitiveType.Cube, new Vector3(0f, 0.85f, 0f),
-                new Vector3(3.4f, 0.7f, 4.2f), body, transform);
-            AddVisual("Sloped hood", PrimitiveType.Cube, new Vector3(0f, 1.26f, 1.15f),
-                new Vector3(2.8f, 0.35f, 1.5f), body, transform);
-            AddVisual("Cabin", PrimitiveType.Cube, new Vector3(0f, 1.45f, -0.7f),
-                new Vector3(2.4f, 0.6f, 1.65f), body, transform);
-            AddVisual("Front bumper", PrimitiveType.Cube, new Vector3(0f, 0.55f, 2.15f),
-                new Vector3(3.55f, 0.22f, 0.25f), runtime.GunMaterial, transform);
-            AddVisual("Rear bumper", PrimitiveType.Cube, new Vector3(0f, 0.55f, -2.15f),
-                new Vector3(3.55f, 0.22f, 0.25f), runtime.GunMaterial, transform);
-            for (int side = -1; side <= 1; side += 2)
-                for (int axle = -1; axle <= 1; axle += 2)
+            hullCollider.center = new Vector3(0f, 1f, 0f);
+            hullCollider.size = new Vector3(3.4f, 1.9f, 5.2f);
+            Material body = Team == PrototypeTeam.Blue ?
+                runtime.BlueMaterial : runtime.RedMaterial;
+            AddVisual("Rover chassis", PrimitiveType.Cube,
+                new Vector3(0f, 0.78f, 0f), new Vector3(3.2f, 0.55f, 5f),
+                body, transform);
+            AddVisual("Cabin roof", PrimitiveType.Cube,
+                new Vector3(0f, 1.93f, 0.7f), new Vector3(2.9f, 0.18f, 1.8f),
+                body, transform);
+            AddVisual("Windshield", PrimitiveType.Cube,
+                new Vector3(0f, 1.45f, 1.58f), new Vector3(2.6f, 0.75f, 0.1f),
+                runtime.GunMaterial, transform);
+            AddVisual("Cargo bed floor", PrimitiveType.Cube,
+                new Vector3(0f, 1.12f, -1.22f), new Vector3(2.85f, 0.15f, 2.15f),
+                body, transform);
+            foreach (int side in new[] { -1, 1 })
+            {
+                AddVisual("Cargo side rail", PrimitiveType.Cube,
+                    new Vector3(side * 1.43f, 1.42f, -1.22f),
+                    new Vector3(0.12f, 0.55f, 2.15f), body, transform);
+                AddVisual("Passenger bench", PrimitiveType.Cube,
+                    new Vector3(side * 0.8f, 1.32f, -1.32f),
+                    new Vector3(0.6f, 0.16f, 0.9f), runtime.GunMaterial, transform);
+                foreach (int axle in new[] { -1, 1 })
                 {
-                    GameObject wheel = AddVisual("Wheel", PrimitiveType.Cylinder,
-                        new Vector3(side * 1.65f, 0.48f, axle * 1.25f),
-                        new Vector3(0.77f, 0.22f, 0.77f), runtime.GunMaterial, transform);
+                    GameObject wheel = AddVisual("Rover wheel", PrimitiveType.Cylinder,
+                        new Vector3(side * 1.55f, 0.48f, axle * 1.55f),
+                        new Vector3(0.75f, 0.2f, 0.75f), runtime.GunMaterial,
+                        transform);
                     wheel.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
                 }
-            var turretObject = new GameObject("MG turret");
-            turret = turretObject.transform;
-            turret.SetParent(transform, false);
-            turret.localPosition = new Vector3(0.35f, 1.86f, -0.2f);
-            AddVisual("Turret ring", PrimitiveType.Cylinder, Vector3.zero,
-                new Vector3(0.52f, 0.15f, 0.52f), runtime.GunMaterial, turret);
-            AddVisual("Machine gun", PrimitiveType.Cube, new Vector3(0f, 0.22f, 0.72f),
-                new Vector3(0.22f, 0.22f, 1.55f), runtime.GunMaterial, turret);
+            }
+            var mount = new GameObject("Gunner MG mount");
+            gunMount = mount.transform;
+            gunMount.SetParent(transform, false);
+            gunMount.localPosition = new Vector3(0.55f, 2.1f, 0.1f);
+            AddVisual("MG ring", PrimitiveType.Cylinder, Vector3.zero,
+                new Vector3(0.45f, 0.12f, 0.45f), runtime.GunMaterial, gunMount);
+            AddVisual("MG barrel", PrimitiveType.Cube,
+                new Vector3(0f, 0.07f, 0.7f), new Vector3(0.16f, 0.16f, 1.4f),
+                runtime.GunMaterial, gunMount);
             renderers = GetComponentsInChildren<Renderer>();
         }
 

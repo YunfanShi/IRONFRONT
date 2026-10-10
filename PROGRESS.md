@@ -1,3 +1,9 @@
+# 0.24.0 开发进度
+
+## Unity 第二辆载具
+
+U8 ROVER 已接入 Unity 单机原型。蓝方玩家可驾驶，并用 F1/F2 在司机与机枪位之间切换；红方 U8 能按车宽寻路、争夺目标并交火。玩家、AI、HUD 与命中判断现在通过通用载具接口处理 R4 和 U8。编辑器集成探针、macOS 构建和网页回归通过；持续人工驾驶、武器命中、完整乘员系统和 Unity 联机仍待做。详细范围与限制见 [docs/UNITY_TRANSPORT_024.md](docs/UNITY_TRANSPORT_024.md)。开发分支为 `codex/unity-port`。
+
 # 0.23.0 开发进度
 
 ## Unity 侦察车切片

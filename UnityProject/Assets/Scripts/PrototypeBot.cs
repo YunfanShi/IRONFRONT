@@ -90,7 +90,7 @@ namespace Ironfront.UnityPrototype
             TrySupportNearby();
 
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot,
-                out PrototypePlayer player, out PrototypeScoutVehicle vehicle);
+                out PrototypePlayer player, out IPrototypeVehicle vehicle);
             bool inCombat = bot != null || player != null || vehicle != null;
             if (inCombat && squad != null) squad.ReportContact(enemy, Time.time);
             if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
@@ -197,7 +197,7 @@ namespace Ironfront.UnityPrototype
         }
 
         private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot,
-            out PrototypePlayer selectedPlayer, out PrototypeScoutVehicle selectedVehicle)
+            out PrototypePlayer selectedPlayer, out IPrototypeVehicle selectedVehicle)
         {
             selectedBot = null;
             selectedPlayer = null;
@@ -229,7 +229,7 @@ namespace Ironfront.UnityPrototype
                 selectedBot = candidate;
                 selectedPlayer = null;
             }
-            foreach (PrototypeScoutVehicle candidate in runtime.ScoutVehicles)
+            foreach (IPrototypeVehicle candidate in runtime.Vehicles)
             {
                 if (!candidate.Alive || candidate.Team == Team || !candidate.IsActiveThreat) continue;
                 Vector2 point = candidate.MapPosition;

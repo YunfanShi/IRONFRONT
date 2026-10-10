@@ -31,7 +31,7 @@ namespace Ironfront.UnityPrototype
         public Vector2 MapPosition => CurrentVehicle != null ? CurrentVehicle.MapPosition :
             new Vector2(transform.position.x, transform.position.z);
         public Camera ViewCamera => viewCamera;
-        public PrototypeScoutVehicle CurrentVehicle { get; private set; }
+        public IPrototypeVehicle CurrentVehicle { get; private set; }
 
         public void Initialize(PrototypeRuntime game)
         {
@@ -80,7 +80,7 @@ namespace Ironfront.UnityPrototype
             // This must precede cursor and match-state gates: a destroyed vehicle
             // must never leave the infantry controller disabled.
             if (CurrentVehicle != null && (!CurrentVehicle.Alive ||
-                CurrentVehicle.Driver != this || !Alive || runtime.Match.Winner.HasValue))
+                CurrentVehicle.Occupant != this || !Alive || runtime.Match.Winner.HasValue))
                 ForceExitVehicle();
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -108,6 +108,11 @@ namespace Ironfront.UnityPrototype
             if (CurrentVehicle != null)
             {
                 if (Input.GetKeyDown(KeyCode.E)) { ForceExitVehicle(); return; }
+                if (CurrentVehicle is PrototypeTransportVehicle transport)
+                {
+                    if (Input.GetKeyDown(KeyCode.F1)) transport.TrySetPlayerSeat(this, 0);
+                    if (Input.GetKeyDown(KeyCode.F2)) transport.TrySetPlayerSeat(this, 1);
+                }
                 vehicleLookYaw = Mathf.Clamp(vehicleLookYaw +
                     Input.GetAxis("Mouse X") * 2.2f, -135f, 135f);
                 pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * 2.2f, -35f, 55f);
@@ -144,12 +149,12 @@ namespace Ironfront.UnityPrototype
         private void TryEnterVehicle()
         {
             if (runtime == null || !Alive || runtime.Match.Winner.HasValue) return;
-            PrototypeScoutVehicle closest = null;
+            IPrototypeVehicle closest = null;
             float nearest = 5.5f;
-            foreach (PrototypeScoutVehicle candidate in runtime.ScoutVehicles)
+            foreach (IPrototypeVehicle candidate in runtime.Vehicles)
             {
                 if (candidate == null || !candidate.Alive || candidate.Team != PrototypeTeam.Blue ||
-                    candidate.Driver != null) continue;
+                    candidate.Occupant != null) continue;
                 float distance = Vector2.Distance(MapPosition, candidate.MapPosition);
                 if (distance >= nearest ||
                     PrototypeLayout.LineBlocked(MapPosition, candidate.MapPosition, 0.1f)) continue;
@@ -160,7 +165,7 @@ namespace Ironfront.UnityPrototype
             CurrentVehicle = closest;
             controller.enabled = false;
             transform.position = closest.SeatPosition;
-            transform.rotation = closest.transform.rotation;
+            transform.rotation = closest.VehicleTransform.rotation;
             verticalSpeed = 0f;
             pitch = 10f;
             vehicleLookYaw = 0f;
@@ -173,9 +178,9 @@ namespace Ironfront.UnityPrototype
         {
             if (CurrentVehicle == null) return;
             transform.position = CurrentVehicle.SeatPosition;
-            transform.rotation = CurrentVehicle.transform.rotation;
+            transform.rotation = CurrentVehicle.VehicleTransform.rotation;
             Quaternion look = Quaternion.Euler(pitch,
-                CurrentVehicle.transform.eulerAngles.y + vehicleLookYaw, 0f);
+                CurrentVehicle.VehicleTransform.eulerAngles.y + vehicleLookYaw, 0f);
             viewCamera.transform.rotation = look;
             Vector3 seatEye = CurrentVehicle.SeatPosition + Vector3.up * 1.65f;
             viewCamera.transform.position = seatEye + Vector3.up * 1.15f -
@@ -184,14 +189,14 @@ namespace Ironfront.UnityPrototype
 
         public void ForceExitVehicle()
         {
-            PrototypeScoutVehicle vehicle = CurrentVehicle;
+            IPrototypeVehicle vehicle = CurrentVehicle;
             if (vehicle == null) return;
             Vector3 exit = FindSafeExit(vehicle);
             vehicle.RemoveDriver(this);
             CurrentVehicle = null;
             controller.enabled = false;
             transform.position = exit;
-            transform.rotation = Quaternion.Euler(0f, vehicle.transform.eulerAngles.y, 0f);
+            transform.rotation = Quaternion.Euler(0f, vehicle.VehicleTransform.eulerAngles.y, 0f);
             pitch = 0f;
             vehicleLookYaw = 0f;
             verticalSpeed = 0f;
@@ -202,19 +207,19 @@ namespace Ironfront.UnityPrototype
             controller.enabled = true;
         }
 
-        private Vector3 FindSafeExit(PrototypeScoutVehicle vehicle)
+        private Vector3 FindSafeExit(IPrototypeVehicle vehicle)
         {
             Physics.SyncTransforms();
             Vector3 proposed = vehicle.ExitPosition;
             if (ExitIsClear(proposed)) return proposed;
-            Vector3 forward = vehicle.transform.forward;
-            Vector3 right = vehicle.transform.right;
+            Vector3 forward = vehicle.VehicleTransform.forward;
+            Vector3 right = vehicle.VehicleTransform.right;
             Vector3[] directions = { right, -right, -forward, forward,
                 (right - forward).normalized, (-right - forward).normalized };
             foreach (float radius in new[] { 3.5f, 5f, 6.5f })
                 foreach (Vector3 direction in directions)
                 {
-                    Vector3 candidate = vehicle.transform.position + direction * radius;
+                    Vector3 candidate = vehicle.VehicleTransform.position + direction * radius;
                     candidate.y = PrototypeLayout.HeightAt(candidate.x, candidate.z) + 0.3f;
                     if (ExitIsClear(candidate)) return candidate;
                 }
@@ -255,10 +260,9 @@ namespace Ironfront.UnityPrototype
                     bot.TakeDamage(kit.Weapon.DamageAtRange(hit.distance));
                 else
                 {
-                    PrototypeScoutVehicle scout =
-                        hit.collider.GetComponentInParent<PrototypeScoutVehicle>();
-                    if (scout != null && scout.Team == PrototypeTeam.Red)
-                        scout.TakeDamage(kit.Weapon.DamageAtRange(hit.distance) * 0.55f);
+                    IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit.collider);
+                    if (vehicle != null && vehicle.Team == PrototypeTeam.Red)
+                        vehicle.TakeDamage(kit.Weapon.DamageAtRange(hit.distance) * 0.55f);
                 }
             }
             runtime.ShowTracer(origin + viewCamera.transform.right * 0.25f - viewCamera.transform.up * 0.15f,

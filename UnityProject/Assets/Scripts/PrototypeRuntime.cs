@@ -25,7 +25,7 @@ namespace Ironfront.UnityPrototype
         public bool MatchStarted { get; private set; }
         public PrototypeFrontend Frontend { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
-        public readonly List<PrototypeScoutVehicle> ScoutVehicles = new List<PrototypeScoutVehicle>();
+        public readonly List<IPrototypeVehicle> Vehicles = new List<IPrototypeVehicle>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
         public Material GunMaterial { get; private set; }
@@ -70,6 +70,7 @@ namespace Ironfront.UnityPrototype
             BuildPlayer();
             BuildBots();
             BuildScouts();
+            BuildTransports();
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
             Frontend = new PrototypeFrontend();
@@ -251,7 +252,23 @@ namespace Ironfront.UnityPrototype
             var object3D = new GameObject(team + " R4 SCOUT");
             object3D.transform.SetParent(transform);
             PrototypeScoutVehicle vehicle = object3D.AddComponent<PrototypeScoutVehicle>();
-            ScoutVehicles.Add(vehicle);
+            Vehicles.Add(vehicle);
+            vehicle.Initialize(this, team, position, aiControlled);
+        }
+
+        private void BuildTransports()
+        {
+            AddTransport(PrototypeTeam.Blue, new Vector2(-52f, -111f), false);
+            AddTransport(PrototypeTeam.Red, new Vector2(67f, -95f), true);
+        }
+
+        private void AddTransport(PrototypeTeam team, Vector2 position, bool aiControlled)
+        {
+            var object3D = new GameObject(team + " U8 ROVER");
+            object3D.transform.SetParent(transform);
+            PrototypeTransportVehicle vehicle =
+                object3D.AddComponent<PrototypeTransportVehicle>();
+            Vehicles.Add(vehicle);
             vehicle.Initialize(this, team, position, aiControlled);
         }
 
@@ -322,7 +339,8 @@ namespace Ironfront.UnityPrototype
                 "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "     RED " + Mathf.CeilToInt(Match.RedTickets), body);
             if (Player.CurrentVehicle != null)
                 GUI.Label(new Rect(25, 81, 340, 23),
-                    "R4 SCOUT  ARMOR " + Mathf.CeilToInt(Player.CurrentVehicle.Health) +
+                    Player.CurrentVehicle.VehicleName + "  ARMOR " +
+                    Mathf.CeilToInt(Player.CurrentVehicle.Health) +
                     "  SPEED " + Mathf.RoundToInt(Mathf.Abs(Player.CurrentVehicle.Speed) * 3.6f) +
                     " km/h", body);
             else
@@ -365,7 +383,12 @@ namespace Ironfront.UnityPrototype
                 "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
             GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
-            string controls = Player.CurrentVehicle != null ?
+            string controls = Player.CurrentVehicle is PrototypeTransportVehicle transport ?
+                "U8 ROVER  |  " + (transport.PlayerSeat == 0 ?
+                    "WASD drive  |  F2 gunner  |  Driver unarmed" :
+                    "Mouse aim  |  LMB machine gun  |  F1 driver") +
+                "  |  E exit  |  Esc cursor" :
+                Player.CurrentVehicle != null ?
                 "R4 SCOUT  |  WASD drive  |  Mouse aim  |  LMB machine gun  |  E exit  |  Esc cursor" :
                 "WASD move  |  Mouse aim  |  LMB fire  |  R reload  |  X class ability (" +
                 Player.Kit.GadgetCharges + ")  |  E vehicle  |  Esc cursor";

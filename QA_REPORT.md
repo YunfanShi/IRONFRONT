@@ -1,3 +1,9 @@
+# 0.24.0 QA：Unity U8 运输车
+
+基线为 `codex/unity-port` 的 `9aaa904`。Unity 6000.5.10f1 随附 Roslyn 静态编译 13 个运行时脚本：0 错误、0 警告。编辑器 Play 中，出击菜单和两款蓝方车辆可见，R4 上车与 HUD 仍正常，Console 未显示脚本错误。临时编辑器集成探针输出 `IRONFRONT U8 PROBE PASS`：注册表 4 车、蓝方 U8 上车、实际 `Drive` 前进 1.35 m、切换到机枪位、下车与车毁扣 0.5 票均通过。探针随后删除并刷新项目。
+
+Unity 菜单构建 macOS Standalone 成功，约 116.6 MB，产物 `Info.plist` 显示 0.24.0。实际启动独立程序并从出击页进入战场，双车型与 HUD 可见；`Player.log` 未检出 `error`、`exception` 或 `failed`。网页 TypeScript 检查、Vitest 13 文件 117/117、8/16/32/64 人和默认战局核心模拟、双客户端 LAN 集成回归、Vite 生产构建均通过；Vite 仍有既有 Three.js 约 502 kB 分块提示。持续人工按键驾驶、机枪命中、AI 长路线、多局平衡和 Unity 联机仍需验收。详细范围见 [docs/UNITY_TRANSPORT_024.md](docs/UNITY_TRANSPORT_024.md)。
+
 # 0.23.0 QA：Unity 首辆侦察车
 
 基线为 `codex/unity-port` 的 `efb762f`。本机 Unity 6000.5.10f1 随附 Roslyn 静态编译十一个运行时脚本通过。Unity 编辑器实际刷新、Play 后可在出击界面看到 E 操作说明，按 E 进入蓝车，显示车尾第三人称镜头及装甲/速度 HUD；正式源码刷新后 Console 0 错误、0 警告。编辑器临时驾驶探针直接调用真实 `Drive` 方法，0.6 秒输入测得前进 2.535 米、末速度 7.8 m/s；探针代码及 `.meta` 已删除。自动化极短 W 键击不能证明持续人工驾驶体验。

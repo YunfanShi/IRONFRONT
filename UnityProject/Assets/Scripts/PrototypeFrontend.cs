@@ -117,7 +117,8 @@ namespace Ironfront.UnityPrototype
                 "SHIFT  Sprint\n" +
                 "SPACE  Jump\n" +
                 "X  Class ability\n" +
-                "E  Enter / exit scout\n" +
+                "E  Enter / exit vehicle\n" +
+                "F1 / F2  Rover driver / gunner\n" +
                 "ESC  Unlock cursor",
                 smallStyle);
 
