@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Ironfront.UnityPrototype
 {
     public enum PrototypeDownedAction { None, Rescue, GiveUp }
+    public enum PrototypePauseAction { None, Resume, MainMenu }
 
     // IMGUI start and deployment screens. PrototypeRuntime owns the match lifecycle and calls Draw
     // after applying the same logical 960x600 GUI matrix used by the in-game HUD.
@@ -24,8 +25,8 @@ namespace Ironfront.UnityPrototype
         {
             "Lead the push  /  supply ammunition",
             "Hold the line  /  heal friendly soldiers",
-            "Find the opening  /  scout enemy positions",
-            "Fortify allies  /  issue armor plates"
+            "Secure a return  /  place a respawn beacon",
+            "Maintain vehicles  /  fire anti-armor rockets"
         };
 
         private static readonly string[] ClassNamesChinese =
@@ -34,8 +35,8 @@ namespace Ironfront.UnityPrototype
         {
             "弹药补给  /  持续推进前线",
             "治疗友军  /  优先救援队友",
-            "侦测敌情  /  扩大视野范围",
-            "装甲补给  /  加固友军防线"
+            "部署复活信标  /  阵亡后再次部署",
+            "修理己方载具  /  使用反装甲火箭"
         };
 
         private enum MenuTab { Lobby, Operations, Loadout, Settings }
@@ -83,6 +84,7 @@ namespace Ironfront.UnityPrototype
         private Texture2D tacticalMapTexture;
         private MenuTab menuTab;
         private float volume;
+        private readonly PrototypeLoadout selectedLoadout;
 
         private bool redeploy;
         private string selectedLocation = "BASE";
@@ -91,6 +93,15 @@ namespace Ironfront.UnityPrototype
         public bool IsDownedScreen { get; private set; }
         public bool LanRequested { get; private set; }
         public PrototypeInfantryClass SelectedClass { get; private set; } = PrototypeInfantryClass.Assault;
+        public PrototypeLoadout SelectedLoadout
+        {
+            get
+            {
+                selectedLoadout.role = SelectedClass;
+                selectedLoadout.Validate();
+                return selectedLoadout.Copy();
+            }
+        }
         public string SelectedClassName => ClassNames[ClassIndex(SelectedClass)];
         public string PlayerName { get; private set; } = "Player";
 
@@ -100,6 +111,8 @@ namespace Ironfront.UnityPrototype
             PlayerName = CleanPlayerName(PlayerPrefs.GetString(PlayerNameKey, "Player"));
             volume = Mathf.Clamp01(PlayerPrefs.GetFloat(VolumeKey, 1f));
             AudioListener.volume = volume;
+            selectedLoadout = PrototypeLoadout.Load();
+            SelectedClass = selectedLoadout.role;
         }
 
         public void Open(bool isRespawn = false)
@@ -118,7 +131,7 @@ namespace Ironfront.UnityPrototype
             Cursor.visible = true;
             if (!isRespawn && PrototypeStartMenuView.AssetsAvailable)
             {
-                try { startMenu = new PrototypeStartMenuView(runtime, PlayerName, SelectedClass, volume); }
+                try { startMenu = new PrototypeStartMenuView(runtime, PlayerName, selectedLoadout, volume); }
                 catch (System.Exception error)
                 {
                     Debug.LogError("Start menu UI Toolkit could not initialize: " + error);
@@ -193,9 +206,71 @@ namespace Ironfront.UnityPrototype
             return PrototypeDownedAction.None;
         }
 
+        public PrototypePauseAction DrawPause(float canvasWidth, float canvasHeight,
+            bool isLan, float sensitivity)
+        {
+            EnsureStyles();
+            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight),
+                new Color(.015f, .04f, .06f, .83f));
+            float x = (canvasWidth - 510f) * .5f;
+            float y = Mathf.Max(12f, (canvasHeight - 530f) * .5f);
+            DrawRect(new Rect(x, y, 510f, 530f), new Color(.035f, .075f, .085f, .98f));
+            DrawRect(new Rect(x, y, 510f, 2f), MenuAccent);
+            GUI.Label(new Rect(x + 30f, y + 23f, 450f, 22f),
+                "I R O N F R O N T   /   S Y S T E M", statStyle);
+            GUI.Label(new Rect(x + 30f, y + 55f, 450f, 48f),
+                isLan ? "操作暂停 / LIVE ROOM" : "战斗已暂停 / BATTLE PAUSED", menuTitleStyle);
+            GUI.Label(new Rect(x + 30f, y + 108f, 450f, 28f),
+                isLan ? "房间战局仍在继续。" : "战局已暂停，按 Esc 可继续。", labelStyle);
+            DrawRect(new Rect(x + 30f, y + 143f, 450f, 51f), MenuCard);
+            GUI.Label(new Rect(x + 44f, y + 151f, 420f, 20f),
+                "连接信息 / CONNECTION", headingStyle);
+            GUI.Label(new Rect(x + 44f, y + 174f, 420f, 18f),
+                isLan ? "联机房间 · 房主与玩家权限按房间规则执行" :
+                "单人游戏 · 无需连接房间", smallStyle);
+            GUI.Label(new Rect(x + 30f, y + 211f, 380f, 22f),
+                "鼠标灵敏度 / SENSITIVITY", headingStyle);
+            float nextSensitivity = GUI.HorizontalSlider(
+                new Rect(x + 32f, y + 244f, 380f, 20f), sensitivity, .5f, 5f);
+            GUI.Label(new Rect(x + 424f, y + 235f, 55f, 26f),
+                sensitivity.ToString("0.0"), labelStyle);
+            if (!Mathf.Approximately(nextSensitivity, sensitivity))
+                runtime.SetMouseSensitivity(nextSensitivity);
+            GUI.Label(new Rect(x + 30f, y + 279f, 380f, 22f),
+                "主音量 / MASTER VOLUME", headingStyle);
+            float nextVolume = GUI.HorizontalSlider(
+                new Rect(x + 32f, y + 312f, 380f, 20f), volume, 0f, 1f);
+            GUI.Label(new Rect(x + 424f, y + 303f, 55f, 26f),
+                Mathf.RoundToInt(volume * 100f) + "%", labelStyle);
+            if (!Mathf.Approximately(nextVolume, volume))
+            {
+                volume = nextVolume;
+                AudioListener.volume = volume;
+                PlayerPrefs.SetFloat(VolumeKey, volume);
+                PlayerPrefs.Save();
+            }
+            Rect resume = new Rect(x + 30f, y + 354f, 450f, 54f);
+            Rect lobby = new Rect(x + 30f, y + 418f, 450f, 50f);
+            DrawRect(resume, MenuAccent);
+            DrawRect(lobby, MenuCard);
+            GUI.Label(resume, "继续战斗 / RESUME", darkButtonStyle);
+            GUI.Label(lobby, "退出战局 · 返回大厅 / MAIN MENU", lightButtonStyle);
+            GUI.Label(new Rect(x + 30f, y + 488f, 450f, 25f),
+                "Esc 继续  ·  L 返回大厅  ·  1/2 切枪  ·  G 投掷", smallStyle);
+            if (GUI.Button(resume, GUIContent.none, GUIStyle.none))
+                return PrototypePauseAction.Resume;
+            if (GUI.Button(lobby, GUIContent.none, GUIStyle.none))
+                return PrototypePauseAction.MainMenu;
+            return PrototypePauseAction.None;
+        }
+
         public void SelectClass(PrototypeInfantryClass soldierClass)
         {
-            if (ClassIndex(soldierClass) < Classes.Length) SelectedClass = soldierClass;
+            if (ClassIndex(soldierClass) < Classes.Length)
+            {
+                SelectedClass = soldierClass;
+                selectedLoadout.role = soldierClass;
+            }
         }
 
         // Returns true once when the user deploys. The owner can then apply
@@ -207,6 +282,11 @@ namespace Ironfront.UnityPrototype
             {
                 PlayerName = startMenu.PlayerName;
                 SelectedClass = startMenu.SelectedClass;
+                PrototypeLoadout choice = startMenu.Loadout;
+                selectedLoadout.role = choice.role;
+                selectedLoadout.primary = choice.primary;
+                selectedLoadout.secondary = choice.secondary;
+                selectedLoadout.throwable = choice.throwable;
                 if (startMenu.LanRequested)
                 {
                     LanRequested = true;

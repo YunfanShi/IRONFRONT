@@ -256,6 +256,22 @@ namespace Ironfront.UnityPrototype
             return true;
         }
 
+        public bool TryRepairVehicle(float now, IPrototypeVehicle target, float distance)
+        {
+            if (Role != PrototypeInfantryClass.Engineer || !GadgetAvailable(now) ||
+                target == null || distance < 0f || distance > 8f || !target.Alive ||
+                !target.Repair(100f)) return false;
+            SpendGadget(now);
+            return true;
+        }
+
+        public bool TryDeployBeacon(float now)
+        {
+            if (Role != PrototypeInfantryClass.Recon || !GadgetAvailable(now)) return false;
+            SpendGadget(now);
+            return true;
+        }
+
         // TakeDamage should subtract this returned value from Health. Armor is
         // consumed first and never heals an already wounded soldier.
         public float AbsorbDamage(float incomingDamage)

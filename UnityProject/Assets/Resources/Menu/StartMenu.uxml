@@ -6,7 +6,7 @@
         <ui:VisualElement class="scene-vignette" />
 
         <ui:VisualElement class="top-bar">
-            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.33.0" class="version" /></ui:VisualElement>
+            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.34.0" class="version" /></ui:VisualElement>
             <ui:VisualElement class="navigation">
                 <ui:Button name="tab-lobby" text="大厅" class="nav-button active" />
                 <ui:Button name="tab-operations" text="作战" class="nav-button" />
@@ -53,15 +53,35 @@
         <ui:VisualElement name="page-loadout" class="page panel-page loadout-page hidden">
             <ui:Label text="兵种与配装  /  LOADOUT" class="eyebrow" />
             <ui:Label text="选择你的兵种" class="page-title" />
-            <ui:Label text="点击兵种，预览默认武器与战场能力。" class="body-text" />
+            <ui:Label text="选择兵种与装备 · 自动保存 · 进入战局后按 1/2 切枪" class="body-text" />
             <ui:VisualElement class="class-grid">
-                <ui:Button name="class-assault" text="◆ 突击兵  /  弹药补给" class="class-card assault-card selected" />
-                <ui:Button name="class-medic" text="✚ 医疗兵  /  治疗友军" class="class-card medic-card" />
-                <ui:Button name="class-recon" text="◎ 侦察兵  /  侦测敌情" class="class-card recon-card" />
-                <ui:Button name="class-engineer" text="⚒ 工程兵  /  装甲补给" class="class-card engineer-card" />
+                <ui:Button name="class-assault" text="◆ 突击兵" class="class-card assault-card selected" />
+                <ui:Button name="class-medic" text="✚ 医疗兵" class="class-card medic-card" />
+                <ui:Button name="class-recon" text="◎ 侦察兵" class="class-card recon-card" />
+                <ui:Button name="class-engineer" text="⚒ 工程兵" class="class-card engineer-card" />
             </ui:VisualElement>
+            <ui:VisualElement class="loadout-slots">
+                <ui:Button name="slot-primary" class="loadout-slot selected"><ui:Image name="icon-primary" class="slot-icon" /><ui:Label name="primary-name" text="IF-27 卡宾枪" class="slot-name" /><ui:Label text="1 / 主武器" class="slot-key" /></ui:Button>
+                <ui:Button name="slot-secondary" class="loadout-slot"><ui:Image name="icon-secondary" class="slot-icon" /><ui:Label name="secondary-name" text="M89 精确射手步枪" class="slot-name" /><ui:Label text="2 / 副武器" class="slot-key" /></ui:Button>
+                <ui:Button name="slot-gadget" class="loadout-slot"><ui:Image name="icon-gadget" class="slot-icon" /><ui:Label name="gadget-name" text="弹药补给" class="slot-name" /><ui:Label text="X / 兵种装备" class="slot-key" /></ui:Button>
+                <ui:Button name="slot-throwable" class="loadout-slot"><ui:Image name="icon-throwable" class="slot-icon" /><ui:Label name="throwable-name" text="破片手雷" class="slot-name" /><ui:Label text="G / 投掷物" class="slot-key" /></ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="weapon-options" class="weapon-options">
+                <ui:Button name="weapon-carbine" class="weapon-option"><ui:Image name="weapon-icon-carbine" class="weapon-option-icon" /><ui:Label text="IF-27 卡宾枪" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="weapon-marksman" class="weapon-option"><ui:Image name="weapon-icon-marksman" class="weapon-option-icon" /><ui:Label text="M89 精确射手步枪" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="weapon-smg" class="weapon-option"><ui:Image name="weapon-icon-smg" class="weapon-option-icon" /><ui:Label text="VX-9 黄蜂冲锋枪" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="weapon-lmg" class="weapon-option"><ui:Image name="weapon-icon-lmg" class="weapon-option-icon" /><ui:Label text="H60 哨兵轻机枪" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="weapon-battlerifle" class="weapon-option"><ui:Image name="weapon-icon-battlerifle" class="weapon-option-icon" /><ui:Label text="BR-44 战斗步枪" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="weapon-sniper" class="weapon-option"><ui:Image name="weapon-icon-sniper" class="weapon-option-icon" /><ui:Label text="S12 子午线狙击步枪" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="weapon-pistol" class="weapon-option"><ui:Image name="weapon-icon-pistol" class="weapon-option-icon" /><ui:Label text="P8 接力手枪" class="weapon-option-name" /></ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="throwable-options" class="weapon-options hidden">
+                <ui:Button name="throwable-frag" class="weapon-option"><ui:Image name="throwable-icon-frag" class="weapon-option-icon" /><ui:Label text="破片手雷" class="weapon-option-name" /></ui:Button>
+                <ui:Button name="throwable-smoke" class="weapon-option"><ui:Image name="throwable-icon-smoke" class="weapon-option-icon" /><ui:Label text="烟雾弹" class="weapon-option-name" /></ui:Button>
+            </ui:VisualElement>
+            <ui:Label name="gadget-info" text="兵种装备随兵种自动配置 · 战斗中按 X 使用" class="gadget-info hidden" />
             <ui:VisualElement class="equipment-card">
-                <ui:Label text="当前默认装备  /  PRIMARY WEAPON" class="eyebrow" />
+                <ui:Label name="stat-heading" text="当前主武器  /  PRIMARY WEAPON" class="eyebrow" />
                 <ui:Label name="weapon-name" text="IF-27 卡宾枪" class="weapon-name" />
                 <ui:VisualElement class="stats-row">
                     <ui:VisualElement class="stat"><ui:Label text="伤害" class="stat-caption" /><ui:Label name="stat-damage" text="31" class="stat-value" /></ui:VisualElement>
@@ -76,7 +96,8 @@
             <ui:Label text="系统设置  /  SETTINGS" class="eyebrow" />
             <ui:Label text="出击前设置" class="page-title" />
             <ui:VisualElement class="settings-card audio-card"><ui:Label text="主音量  /  MASTER VOLUME" class="mode-name" /><ui:Slider name="volume-slider" low-value="0" high-value="1" value="1" /><ui:Label name="volume-value" text="100%" class="body-text" /></ui:VisualElement>
-            <ui:VisualElement class="settings-card controls-card"><ui:Label text="操作提示  /  CONTROLS" class="mode-name" /><ui:Label text="W A S D 移动  ·  鼠标瞄准与射击&#10;F1–F4 切换页面  ·  1–4 选兵种&#10;ENTER 出击  ·  L 打开联机房间" class="control-text" /></ui:VisualElement>
+            <ui:VisualElement class="settings-card sensitivity-card"><ui:Label text="鼠标灵敏度  /  MOUSE SENSITIVITY" class="mode-name" /><ui:Slider name="sensitivity-slider" low-value="0.5" high-value="5" value="2.2" /><ui:Label name="sensitivity-value" text="2.2" class="body-text" /></ui:VisualElement>
+            <ui:VisualElement class="settings-card controls-card"><ui:Label text="操作提示  /  CONTROLS" class="mode-name" /><ui:Label text="WASD 移动 · 鼠标瞄准与射击 · 1/2 切枪 · G 投掷&#10;F1–F4 切换页面 · ENTER 出击 · Esc 暂停" class="control-text" /></ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement class="operator-caption"><ui:Label name="operator-title" text="OPERATOR  /  ASSAULT" class="eyebrow" /><ui:Label name="operator-class" text="当前兵种：突击兵" class="body-text" /></ui:VisualElement>

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ironfront.UnityPrototype
@@ -20,14 +22,31 @@ namespace Ironfront.UnityPrototype
         private float downedUntil;
         private bool rescueCalled;
         private PrototypeInfantryKit kit = new PrototypeInfantryKit(PrototypeInfantryClass.Assault);
+        private PrototypeInfantryKit secondaryKit = new PrototypeInfantryKit(
+            PrototypeInfantryClass.Assault, PrototypeWeaponId.Marksman);
+        private PrototypeLoadout loadout = new PrototypeLoadout();
+        private bool secondaryEquipped;
+        private int throwableCount = 2;
+        private int rocketCount = 2;
+        private GameObject beaconMarker;
+        private Vector2 beaconPosition;
+        private bool beaconAvailable;
         private float supportStatusUntil;
 
         public bool Alive => Health > 0f;
         public PrototypeTeam Team { get; private set; } = PrototypeTeam.Blue;
         public float Health { get; private set; } = 100f;
-        public int Ammo => kit.Ammo;
-        public int Reserve => kit.Reserve;
-        public bool Reloading => kit.Reloading;
+        public PrototypeInfantryKit ActiveKit => secondaryEquipped ? secondaryKit : kit;
+        public PrototypeWeaponDefinition ActiveWeapon => ActiveKit.Weapon;
+        public bool SecondaryEquipped => secondaryEquipped;
+        public PrototypeLoadout Loadout => loadout;
+        public int ThrowableCount => throwableCount;
+        public int RocketCount => rocketCount;
+        public bool BeaconAvailable => beaconAvailable && loadout.role == PrototypeInfantryClass.Recon;
+        public Vector2 BeaconPosition => beaconPosition;
+        public int Ammo => ActiveKit.Ammo;
+        public int Reserve => ActiveKit.Reserve;
+        public bool Reloading => ActiveKit.Reloading;
         public PrototypeInfantryClass Class => kit.Role;
         public PrototypeInfantryKit Kit => kit;
         public string SupportStatus { get; private set; } = "";
@@ -70,7 +89,7 @@ namespace Ironfront.UnityPrototype
         private void BuildWeaponVisual()
         {
             if (rifle != null) Destroy(rifle);
-            rifle = PrototypeWeaponVisual.Build(viewCamera.transform, kit.Role,
+            rifle = PrototypeWeaponVisual.Build(viewCamera.transform, ActiveWeapon.Id,
                 runtime, true, Team);
             rifle.transform.localPosition = new Vector3(.37f, -.32f, .60f);
             rifle.transform.localScale = Vector3.one * .64f;
@@ -78,9 +97,31 @@ namespace Ironfront.UnityPrototype
 
         public void SelectClass(PrototypeInfantryClass selectedClass)
         {
-            kit = new PrototypeInfantryKit(selectedClass);
-            kit.ResetForSpawn();
+            var selection = new PrototypeLoadout { role = selectedClass,
+                primary = PrototypeInfantryRoles.DefaultWeapon(selectedClass),
+                secondary = PrototypeWeaponId.Marksman,
+                throwable = PrototypeThrowableId.Frag };
+            ApplyLoadout(selection);
+        }
+
+        public void ApplyLoadout(PrototypeLoadout selection)
+        {
+            loadout = (selection ?? new PrototypeLoadout()).Copy();
+            loadout.Validate();
+            kit = new PrototypeInfantryKit(loadout.role, loadout.primary);
+            secondaryKit = new PrototypeInfantryKit(loadout.role, loadout.secondary);
+            secondaryEquipped = false;
+            throwableCount = 2;
+            rocketCount = 2;
+            ClearBeacon();
             if (viewCamera != null) BuildWeaponVisual();
+        }
+
+        private void EquipSecondary(bool secondary)
+        {
+            if (secondaryEquipped == secondary) return;
+            secondaryEquipped = secondary;
+            BuildWeaponVisual();
         }
 
         public void SetTeam(PrototypeTeam team)
@@ -120,16 +161,12 @@ namespace Ironfront.UnityPrototype
         {
             if (runtime == null) return;
             if (!runtime.MatchStarted) return;
+            if (runtime.PauseOpen) return;
             // This must precede cursor and match-state gates: a destroyed vehicle
             // must never leave the infantry controller disabled.
             if (CurrentVehicle != null && (!CurrentVehicle.Alive ||
                 CurrentVehicle.Occupant != this || !Alive || runtime.Match.Winner.HasValue))
                 ForceExitVehicle();
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
             if (!Alive)
             {
                 if (!runtime.IsNetworkReplica && downedUntil > 0f)
@@ -151,6 +188,7 @@ namespace Ironfront.UnityPrototype
             }
             if (runtime.Match.Winner.HasValue) return;
             kit.Tick(Time.time);
+            secondaryKit.Tick(Time.time);
             if (Time.time > supportStatusUntil) SupportStatus = "";
 
             if (CurrentVehicle != null)
@@ -162,14 +200,14 @@ namespace Ironfront.UnityPrototype
                     if (Input.GetKeyDown(KeyCode.F2)) transport.TrySetPlayerSeat(this, 1);
                 }
                 vehicleLookYaw = Mathf.Clamp(vehicleLookYaw +
-                    Input.GetAxis("Mouse X") * 2.2f, -135f, 135f);
-                pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * 2.2f, -35f, 55f);
+                    Input.GetAxis("Mouse X") * runtime.MouseSensitivity, -135f, 135f);
+                pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * runtime.MouseSensitivity, -35f, 55f);
                 UpdateVehicleCamera();
                 return;
             }
 
-            transform.Rotate(0f, Input.GetAxis("Mouse X") * 2.2f, 0f);
-            pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * 2.2f, -86f, 86f);
+            transform.Rotate(0f, Input.GetAxis("Mouse X") * runtime.MouseSensitivity, 0f);
+            pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * runtime.MouseSensitivity, -86f, 86f);
             viewCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
 
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -186,10 +224,16 @@ namespace Ironfront.UnityPrototype
             if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.E)) TryEnterVehicle();
             if (CurrentVehicle != null) return;
             if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.R))
-                kit.StartReload(Time.time);
+                ActiveKit.StartReload(Time.time);
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.Alpha1))
+                EquipSecondary(false);
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.Alpha2))
+                EquipSecondary(true);
             if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.X)) UseSupport();
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.G)) ThrowEquipment();
+            if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.Z)) FireRocket();
             if (!runtime.IsNetworkReplica &&
-                (kit.Weapon.Automatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0))) Fire();
+                (ActiveWeapon.Automatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0))) Fire();
         }
 
         private void LateUpdate()
@@ -301,14 +345,15 @@ namespace Ironfront.UnityPrototype
 
         private void Fire()
         {
-            if (kit.Ammo == 0) { kit.StartReload(Time.time); return; }
-            if (!kit.TryFire(Time.time)) return;
+            PrototypeInfantryKit weaponKit = ActiveKit;
+            if (weaponKit.Ammo == 0) { weaponKit.StartReload(Time.time); return; }
+            if (!weaponKit.TryFire(Time.time)) return;
             if (shotSound != null) audioSource.PlayOneShot(shotSound, 0.3f);
             Vector3 origin = viewCamera.transform.position;
             Vector3 direction = (viewCamera.transform.forward +
-                viewCamera.transform.right * Random.Range(-kit.Weapon.HipSpread, kit.Weapon.HipSpread) +
-                viewCamera.transform.up * Random.Range(-kit.Weapon.HipSpread, kit.Weapon.HipSpread)).normalized;
-            float range = kit.Weapon.MaxRange;
+                viewCamera.transform.right * Random.Range(-weaponKit.Weapon.HipSpread, weaponKit.Weapon.HipSpread) +
+                viewCamera.transform.up * Random.Range(-weaponKit.Weapon.HipSpread, weaponKit.Weapon.HipSpread)).normalized;
+            float range = weaponKit.Weapon.MaxRange;
             Vector3 end = origin + direction * range;
             // Bots move by Transform in Update; synchronize their colliders before this raycast.
             Physics.SyncTransforms();
@@ -317,24 +362,130 @@ namespace Ironfront.UnityPrototype
                 end = hit.point;
                 PrototypeBot bot = hit.collider.GetComponent<PrototypeBot>();
                 if (bot != null && bot.Team != Team)
-                    bot.TakeDamage(kit.Weapon.DamageAtRange(hit.distance));
+                    bot.TakeDamage(weaponKit.Weapon.DamageAtRange(hit.distance));
                 else
                 {
                     PrototypeRemotePlayer remote =
                         hit.collider.GetComponentInParent<PrototypeRemotePlayer>();
                     if (remote != null && remote.Team != Team)
-                        remote.TakeDamage(kit.Weapon.DamageAtRange(hit.distance));
+                        remote.TakeDamage(weaponKit.Weapon.DamageAtRange(hit.distance));
                     else
                     {
                         IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit.collider);
                         if (vehicle != null && vehicle.Team != Team)
-                            vehicle.TakeDamage(kit.Weapon.DamageAtRange(hit.distance) * 0.55f);
+                            vehicle.TakeDamage(weaponKit.Weapon.DamageAtRange(hit.distance) * 0.55f);
                     }
                 }
             }
             runtime.ShowTracer(origin + viewCamera.transform.right * 0.25f - viewCamera.transform.up * 0.15f,
                 end, Team);
-            if (kit.Ammo == 0) kit.StartReload(Time.time);
+            if (weaponKit.Ammo == 0) weaponKit.StartReload(Time.time);
+        }
+
+        private void ThrowEquipment()
+        {
+            if (throwableCount <= 0 || CurrentVehicle != null) return;
+            throwableCount--;
+            GameObject projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            projectile.name = loadout.throwable == PrototypeThrowableId.Smoke ?
+                "Smoke grenade" : "Fragmentation grenade";
+            projectile.transform.position = viewCamera.transform.position +
+                viewCamera.transform.forward * .75f;
+            projectile.transform.localScale = Vector3.one * .20f;
+            projectile.GetComponent<Renderer>().sharedMaterial = runtime.GunMaterial;
+            Rigidbody body = projectile.AddComponent<Rigidbody>();
+            body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            body.linearVelocity = viewCamera.transform.forward * 17f + Vector3.up * 5f;
+            StartCoroutine(Detonate(projectile, loadout.throwable));
+        }
+
+        private void FireRocket()
+        {
+            if (loadout.role != PrototypeInfantryClass.Engineer || rocketCount <= 0 ||
+                CurrentVehicle != null) return;
+            rocketCount--;
+            Vector3 origin = viewCamera.transform.position;
+            Vector3 end = origin + viewCamera.transform.forward * 160f;
+            if (Physics.Raycast(origin, viewCamera.transform.forward,
+                out RaycastHit hit, 160f, ~(1 << 2))) end = hit.point;
+            var struck = new HashSet<IPrototypeVehicle>();
+            foreach (Collider nearby in Physics.OverlapSphere(end, 4.5f))
+            {
+                IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(nearby);
+                if (vehicle != null && vehicle.Team != Team && struck.Add(vehicle))
+                    vehicle.TakeDamage(210f);
+            }
+            runtime.ShowTracer(origin, end, Team);
+            SupportStatus = "ANTI-ARMOR ROCKET " + rocketCount + " LEFT";
+            supportStatusUntil = Time.time + 2f;
+        }
+
+        public void ConsumeBeacon() => ClearBeacon();
+
+        private void ClearBeacon()
+        {
+            beaconAvailable = false;
+            if (beaconMarker != null) Destroy(beaconMarker);
+            beaconMarker = null;
+        }
+
+        private void PlaceBeacon(Vector2 position)
+        {
+            ClearBeacon();
+            beaconPosition = position;
+            beaconAvailable = true;
+            beaconMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            beaconMarker.name = "Recon respawn beacon";
+            beaconMarker.transform.position = new Vector3(position.x,
+                PrototypeLayout.HeightAt(position.x, position.y) + .4f, position.y);
+            beaconMarker.transform.localScale = new Vector3(.35f, .4f, .35f);
+            beaconMarker.GetComponent<Renderer>().sharedMaterial =
+                Team == PrototypeTeam.Blue ? runtime.BlueTrimMaterial : runtime.RedTrimMaterial;
+            Destroy(beaconMarker.GetComponent<Collider>());
+        }
+
+        private IEnumerator Detonate(GameObject projectile, PrototypeThrowableId kind)
+        {
+            yield return new WaitForSeconds(1.8f);
+            if (projectile == null) yield break;
+            Vector3 center = projectile.transform.position;
+            Destroy(projectile);
+            if (kind == PrototypeThrowableId.Smoke)
+            {
+                GameObject cloud = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                cloud.name = "Smoke cover";
+                cloud.transform.position = center + Vector3.up * 1.4f;
+                cloud.transform.localScale = new Vector3(5.5f, 3.2f, 5.5f);
+                Destroy(cloud.GetComponent<Collider>());
+                Material smoke = new Material(runtime.GlassMaterial);
+                smoke.color = new Color(.52f, .59f, .59f, .72f);
+                cloud.GetComponent<Renderer>().material = smoke;
+                Destroy(cloud, 8f);
+                Destroy(smoke, 8f);
+                yield break;
+            }
+            var struckBots = new HashSet<PrototypeBot>();
+            var struckPlayers = new HashSet<PrototypeRemotePlayer>();
+            var struckVehicles = new HashSet<IPrototypeVehicle>();
+            foreach (Collider hit in Physics.OverlapSphere(center, 5.5f))
+            {
+                PrototypeBot bot = hit.GetComponentInParent<PrototypeBot>();
+                if (bot != null && bot.Team != Team && struckBots.Add(bot))
+                    bot.TakeDamage(95f * (1f - Mathf.Clamp01(
+                        Vector3.Distance(center, bot.transform.position) / 6f)));
+                PrototypeRemotePlayer remote = hit.GetComponentInParent<PrototypeRemotePlayer>();
+                if (remote != null && remote.Team != Team && struckPlayers.Add(remote))
+                    remote.TakeDamage(80f);
+                IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit);
+                if (vehicle != null && vehicle.Team != Team && struckVehicles.Add(vehicle))
+                    vehicle.TakeDamage(38f);
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                float angle = i * Mathf.PI * .25f;
+                runtime.ShowTracer(center, center + new Vector3(
+                    Mathf.Cos(angle) * 3f, .5f, Mathf.Sin(angle) * 3f), Team);
+            }
         }
 
         private void UseSupport()
@@ -343,7 +494,7 @@ namespace Ironfront.UnityPrototype
             bool used = false;
             if (kit.Role == PrototypeInfantryClass.Assault)
             {
-                used = kit.TryResupply(now, kit, 0f);
+                used = kit.TryResupply(now, ActiveKit, 0f);
                 if (!used)
                     foreach (PrototypeBot bot in runtime.Bots)
                     {
@@ -374,35 +525,22 @@ namespace Ironfront.UnityPrototype
             }
             else if (kit.Role == PrototypeInfantryClass.Engineer)
             {
-                used = kit.TryApplyArmor(now, kit, 0f);
-                if (!used)
-                    foreach (PrototypeBot bot in runtime.Bots)
-                    {
-                        if (!bot.Alive || bot.Team != Team) continue;
-                        if (kit.TryApplyArmor(now, bot.Kit,
-                            Vector2.Distance(MapPosition, bot.MapPosition))) { used = true; break; }
-                    }
+                IPrototypeVehicle closest = null;
+                float nearest = 8f;
+                foreach (IPrototypeVehicle vehicle in runtime.Vehicles)
+                {
+                    float distance = Vector2.Distance(MapPosition, vehicle.MapPosition);
+                    if (vehicle.Team == Team && vehicle.Alive && distance < nearest)
+                    { closest = vehicle; nearest = distance; }
+                }
+                if (closest != null) used = kit.TryRepairVehicle(now, closest, nearest);
             }
             else if (kit.Role == PrototypeInfantryClass.Recon)
             {
-                PrototypeBot spotted = null;
-                float nearest = kit.DetectionRange;
-                foreach (PrototypeBot bot in runtime.Bots)
+                Vector2 site = MapPosition;
+                if (!PrototypeLayout.Collides(site, 1.5f) && kit.TryDeployBeacon(now))
                 {
-                    if (!bot.Alive || bot.Team == Team) continue;
-                    Vector2 target = bot.MapPosition;
-                    float distance = Vector2.Distance(MapPosition, target);
-                    if (distance >= nearest ||
-                        PrototypeLayout.LineBlocked(MapPosition, target, 0.1f)) continue;
-                    Vector3 toTarget = (bot.transform.position - viewCamera.transform.position).normalized;
-                    if (Vector3.Dot(viewCamera.transform.forward, toTarget) < 0.65f) continue;
-                    spotted = bot;
-                    nearest = distance;
-                }
-                if (spotted != null && kit.TrySpot(now))
-                {
-                    (Team == PrototypeTeam.Blue ? runtime.BlueCommander :
-                        runtime.RedCommander).ReportEnemy(spotted.MapPosition, now);
+                    PlaceBeacon(site);
                     used = true;
                 }
             }
@@ -473,12 +611,20 @@ namespace Ironfront.UnityPrototype
 
         public bool TryDeploy(string locationId, PrototypeInfantryClass selectedClass)
         {
+            var selection = loadout.Copy();
+            selection.role = selectedClass;
+            return TryDeploy(locationId, selection);
+        }
+
+        public bool TryDeploy(string locationId, PrototypeLoadout selection)
+        {
             if (runtime == null || runtime.IsNetworkReplica || Alive ||
                 downedUntil > 0f ||
                 runtime.Match.Winner.HasValue || Time.time < respawnAt ||
                 !PrototypeDeployment.TryResolve(runtime, Team, locationId, true,
                     out Vector2 point, out IPrototypeVehicle vehicle)) return false;
-            SelectClass(selectedClass);
+            ApplyLoadout(selection);
+            if (locationId == "BEACON") ConsumeBeacon();
             Respawn(point);
             if (vehicle != null) EnterVehicle(vehicle);
             return true;
@@ -505,6 +651,11 @@ namespace Ironfront.UnityPrototype
             rescueCalled = false;
             respawnAt = 0f;
             kit.ResetForSpawn();
+            secondaryKit.ResetForSpawn();
+            throwableCount = 2;
+            rocketCount = 2;
+            secondaryEquipped = false;
+            if (viewCamera != null) BuildWeaponVisual();
             if (controller != null) controller.enabled = true;
         }
     }

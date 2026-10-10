@@ -174,12 +174,23 @@ namespace Ironfront.UnityPrototype
             PrototypeRuntime game, bool firstPerson = false,
             PrototypeTeam team = PrototypeTeam.Blue)
         {
-            var root = new GameObject(role + " weapon model");
+            return Build(parent, PrototypeInfantryRoles.DefaultWeapon(role), game,
+                firstPerson, team);
+        }
+
+        public static GameObject Build(Transform parent, PrototypeWeaponId weaponId,
+            PrototypeRuntime game, bool firstPerson = false,
+            PrototypeTeam team = PrototypeTeam.Blue)
+        {
+            var root = new GameObject(weaponId + " weapon model");
             root.transform.SetParent(parent, false);
-            bool compact = role == PrototypeInfantryClass.Medic;
-            bool longRifle = role == PrototypeInfantryClass.Recon;
-            float barrel = compact ? .29f : longRifle ? .88f : .57f;
-            float receiver = compact ? .38f : .55f;
+            bool pistol = weaponId == PrototypeWeaponId.Pistol;
+            bool compact = pistol || weaponId == PrototypeWeaponId.Smg;
+            bool longRifle = weaponId == PrototypeWeaponId.Marksman ||
+                weaponId == PrototypeWeaponId.Sniper;
+            float barrel = pistol ? .13f : compact ? .29f :
+                weaponId == PrototypeWeaponId.Sniper ? 1.03f : longRifle ? .88f : .57f;
+            float receiver = pistol ? .25f : compact ? .38f : .55f;
             Material steel = game.GunMaterial;
             Material furniture = game.ArmorMaterial;
             Material trim = game.BootMaterial;
@@ -202,8 +213,9 @@ namespace Ironfront.UnityPrototype
             PrototypeSoldierVisual.Part("Pistol grip", PrimitiveType.Cube, root.transform,
                 new Vector3(0f, -.19f, -.19f), new Vector3(.13f, .27f, .15f), trim)
                 .transform.localRotation = Quaternion.Euler(13f, 0f, 0f);
-            PrototypeSoldierVisual.Part("Stock", PrimitiveType.Cube, root.transform,
-                new Vector3(0f, -.02f, -.41f), new Vector3(.16f, .17f, .39f), furniture);
+            if (!pistol)
+                PrototypeSoldierVisual.Part("Stock", PrimitiveType.Cube, root.transform,
+                    new Vector3(0f, -.02f, -.41f), new Vector3(.16f, .17f, .39f), furniture);
             PrototypeSoldierVisual.Part("Top rail", PrimitiveType.Cube, root.transform,
                 new Vector3(0f, .11f, .04f), new Vector3(.13f, .035f, .47f), trim);
             if (longRifle)

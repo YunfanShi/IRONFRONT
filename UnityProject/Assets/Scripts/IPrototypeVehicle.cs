@@ -21,6 +21,7 @@ namespace Ironfront.UnityPrototype
         bool TrySetDriver(PrototypePlayer player);
         void RemoveDriver(PrototypePlayer player);
         void TakeDamage(float amount);
+        bool Repair(float amount);
     }
 
     public static class PrototypeVehicleHit

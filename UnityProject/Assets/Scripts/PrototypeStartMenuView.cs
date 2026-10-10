@@ -19,17 +19,28 @@ namespace Ironfront.UnityPrototype
         private readonly Button[] pageButtons = new Button[4];
         private readonly VisualElement[] pages = new VisualElement[4];
         private readonly Button[] classButtons = new Button[4];
+        private readonly Button[] slotButtons = new Button[4];
+        private readonly Button[] weaponButtons = new Button[7];
+        private readonly Button[] throwableButtons = new Button[2];
+        private readonly VisualElement weaponOptions;
+        private readonly VisualElement throwableOptions;
+        private readonly Label gadgetInfo;
+        private readonly PrototypeLoadout loadout;
         private readonly TextField nameField;
         private readonly Label classCaption;
         private readonly Label operatorTitle;
         private readonly Label squadClass;
         private readonly Slider volumeSlider;
         private readonly Label volumeValue;
+        private readonly Slider sensitivitySlider;
+        private readonly Label sensitivityValue;
         private readonly VisualElement screen;
         private int selectedPage;
+        private int selectedSlot;
 
         public string PlayerName => nameField.value;
         public PrototypeInfantryClass SelectedClass { get; private set; }
+        public PrototypeLoadout Loadout => loadout.Copy();
         public bool DeployRequested { get; private set; }
         public bool LanRequested { get; private set; }
 
@@ -38,8 +49,10 @@ namespace Ironfront.UnityPrototype
             Resources.Load<PanelSettings>("Menu/StartMenuPanel") != null;
 
         public PrototypeStartMenuView(PrototypeRuntime runtime, string playerName,
-            PrototypeInfantryClass soldierClass, float volume)
+            PrototypeLoadout selection, float volume)
         {
+            loadout = selection?.Copy() ?? new PrototypeLoadout();
+            loadout.Validate();
             VisualTreeAsset tree = Resources.Load<VisualTreeAsset>("Menu/StartMenu");
             StyleSheet sheet = Resources.Load<StyleSheet>("Menu/StartMenuTheme");
             PanelSettings settings = Resources.Load<PanelSettings>("Menu/StartMenuPanel");
@@ -92,6 +105,34 @@ namespace Ironfront.UnityPrototype
                 classButtons[i] = Require<Button>(root, "class-" + roleKeys[i]);
                 classButtons[i].clicked += () => SetClass((PrototypeInfantryClass)role);
             }
+            string[] slotKeys = { "primary", "secondary", "gadget", "throwable" };
+            for (int i = 0; i < slotKeys.Length; i++)
+            {
+                int slot = i;
+                slotButtons[i] = Require<Button>(root, "slot-" + slotKeys[i]);
+                slotButtons[i].clicked += () => SelectSlot(slot);
+            }
+            weaponOptions = Require<VisualElement>(root, "weapon-options");
+            throwableOptions = Require<VisualElement>(root, "throwable-options");
+            gadgetInfo = Require<Label>(root, "gadget-info");
+            string[] weaponKeys = { "carbine", "marksman", "smg", "lmg", "battlerifle", "sniper", "pistol" };
+            for (int i = 0; i < weaponKeys.Length; i++)
+            {
+                int weapon = i;
+                weaponButtons[i] = Require<Button>(root, "weapon-" + weaponKeys[i]);
+                weaponButtons[i].clicked += () => SelectWeapon((PrototypeWeaponId)weapon);
+                Require<Image>(root, "weapon-icon-" + weaponKeys[i]).image =
+                    PrototypeEquipmentIcons.Weapon((PrototypeWeaponId)i);
+            }
+            string[] throwableKeys = { "frag", "smoke" };
+            for (int i = 0; i < throwableKeys.Length; i++)
+            {
+                int throwable = i;
+                throwableButtons[i] = Require<Button>(root, "throwable-" + throwableKeys[i]);
+                throwableButtons[i].clicked += () => SelectThrowable((PrototypeThrowableId)throwable);
+                Require<Image>(root, "throwable-icon-" + throwableKeys[i]).image =
+                    PrototypeEquipmentIcons.Throwable((PrototypeThrowableId)i);
+            }
             volumeSlider = Require<Slider>(root, "volume-slider");
             volumeValue = Require<Label>(root, "volume-value");
             volumeSlider.value = volume;
@@ -103,8 +144,18 @@ namespace Ironfront.UnityPrototype
                 PlayerPrefs.SetFloat("ironfront.unity.masterVolume", change.newValue);
                 PlayerPrefs.Save();
             });
+            sensitivitySlider = Require<Slider>(root, "sensitivity-slider");
+            sensitivityValue = Require<Label>(root, "sensitivity-value");
+            sensitivitySlider.value = runtime.MouseSensitivity;
+            sensitivityValue.text = runtime.MouseSensitivity.ToString("0.0");
+            sensitivitySlider.RegisterValueChangedCallback(change =>
+            {
+                runtime.SetMouseSensitivity(change.newValue);
+                sensitivityValue.text = runtime.MouseSensitivity.ToString("0.0");
+            });
             host.AddComponent<PrototypeStartMenuInput>().View = this;
-            SetClass(soldierClass);
+            SetClass(loadout.role);
+            SelectSlot(0);
             SetPage(0);
         }
 
@@ -158,20 +209,118 @@ namespace Ironfront.UnityPrototype
             int index = (int)role;
             if (index < 0 || index >= ClassNames.Length) return;
             SelectedClass = role;
-            preview.SetClass(role);
+            loadout.role = role;
+            loadout.Validate();
+            loadout.Save();
+            preview.SetClass(role, loadout.primary);
             for (int i = 0; i < classButtons.Length; i++)
                 classButtons[i].EnableInClassList("selected", i == index);
             classCaption.text = "当前兵种：" + ClassNames[index];
             operatorTitle.text = "OPERATOR  /  " + ClassCodes[index];
             squadClass.text = ClassNames[index];
-            PrototypeWeaponDefinition weapon = PrototypeInfantryRoles.GetWeapon(
-                PrototypeInfantryRoles.DefaultWeapon(role));
+            RefreshLoadout();
+        }
+
+        private void SelectSlot(int slot)
+        {
+            selectedSlot = slot;
+            for (int i = 0; i < slotButtons.Length; i++)
+                slotButtons[i].EnableInClassList("selected", i == slot);
+            weaponOptions.style.display = slot <= 1 ? DisplayStyle.Flex : DisplayStyle.None;
+            throwableOptions.style.display = slot == 3 ? DisplayStyle.Flex : DisplayStyle.None;
+            gadgetInfo.style.display = slot == 2 ? DisplayStyle.Flex : DisplayStyle.None;
+            RefreshLoadout();
+        }
+
+        private void SelectWeapon(PrototypeWeaponId weapon)
+        {
+            if (selectedSlot == 0 && weapon == PrototypeWeaponId.Pistol) return;
+            if (selectedSlot == 1 && weapon != PrototypeWeaponId.Pistol &&
+                weapon != PrototypeWeaponId.Marksman) return;
+            if (selectedSlot == 1 && loadout.primary == PrototypeWeaponId.Marksman &&
+                weapon != PrototypeWeaponId.Pistol) return;
+            if (selectedSlot == 0) loadout.primary = weapon;
+            else if (selectedSlot == 1) loadout.secondary = weapon;
+            loadout.Validate();
+            loadout.Save();
+            preview.SetClass(loadout.role, loadout.primary);
+            RefreshLoadout();
+        }
+
+        private void SelectThrowable(PrototypeThrowableId throwable)
+        {
+            loadout.throwable = throwable;
+            loadout.Save();
+            RefreshLoadout();
+        }
+
+        private void RefreshLoadout()
+        {
             VisualElement root = document.rootVisualElement;
+            Require<Label>(root, "primary-name").text = ShortWeaponName(loadout.primary);
+            Require<Label>(root, "secondary-name").text = ShortWeaponName(loadout.secondary);
+            Require<Label>(root, "gadget-name").text = GadgetName(loadout.role);
+            gadgetInfo.text = GadgetDescription(loadout.role);
+            Require<Label>(root, "throwable-name").text = loadout.throwable == PrototypeThrowableId.Frag ? "破片手雷" : "烟雾弹";
+            Require<Image>(root, "icon-primary").image = PrototypeEquipmentIcons.Weapon(loadout.primary);
+            Require<Image>(root, "icon-secondary").image = PrototypeEquipmentIcons.Weapon(loadout.secondary);
+            Require<Image>(root, "icon-gadget").image = PrototypeEquipmentIcons.Gadget(loadout.role);
+            Require<Image>(root, "icon-throwable").image = PrototypeEquipmentIcons.Throwable(loadout.throwable);
+            for (int i = 0; i < weaponButtons.Length; i++)
+            {
+                bool allowed = selectedSlot == 0 ? i != (int)PrototypeWeaponId.Pistol :
+                    (i == (int)PrototypeWeaponId.Pistol ||
+                     (i == (int)PrototypeWeaponId.Marksman && loadout.primary != PrototypeWeaponId.Marksman));
+                weaponButtons[i].style.display = allowed ? DisplayStyle.Flex : DisplayStyle.None;
+                weaponButtons[i].EnableInClassList("selected", i == (int)(selectedSlot == 0 ? loadout.primary : loadout.secondary));
+            }
+            for (int i = 0; i < throwableButtons.Length; i++)
+                throwableButtons[i].EnableInClassList("selected", i == (int)loadout.throwable);
+            PrototypeWeaponDefinition weapon = PrototypeInfantryRoles.GetWeapon(
+                selectedSlot == 1 ? loadout.secondary : loadout.primary);
+            Require<Label>(root, "stat-heading").text = selectedSlot == 1 ?
+                "当前副武器  /  SECONDARY WEAPON" : "当前主武器  /  PRIMARY WEAPON";
             Require<Label>(root, "weapon-name").text = weapon.ChineseName;
             Require<Label>(root, "stat-damage").text = weapon.Damage.ToString("0");
             Require<Label>(root, "stat-rate").text = Mathf.RoundToInt(60f / weapon.FireInterval).ToString();
             Require<Label>(root, "stat-magazine").text = weapon.Magazine.ToString();
             Require<Label>(root, "stat-range").text = weapon.EffectiveRange.ToString("0") + "m";
+        }
+
+        public static string GadgetName(PrototypeInfantryClass role)
+        {
+            switch (role)
+            {
+                case PrototypeInfantryClass.Medic: return "战地治疗";
+                case PrototypeInfantryClass.Recon: return "复活信标";
+                case PrototypeInfantryClass.Engineer: return "修理工具";
+                default: return "弹药补给";
+            }
+        }
+
+        private static string GadgetDescription(PrototypeInfantryClass role)
+        {
+            switch (role)
+            {
+                case PrototypeInfantryClass.Medic: return "战地治疗 · 给自己或附近友军恢复生命值。战斗中按 X 使用。";
+                case PrototypeInfantryClass.Recon: return "复活信标 · 按 X 放置信标，阵亡后可选择一次性部署。";
+                case PrototypeInfantryClass.Engineer: return "修理工具 · 按 X 修理己方载具；按 Z 发射反装甲火箭（2 发）。";
+                default: return "弹药补给 · 为自己或附近友军补充弹药。战斗中按 X 使用。";
+            }
+        }
+
+        private static string ShortWeaponName(PrototypeWeaponId id)
+        {
+            switch (id)
+            {
+                case PrototypeWeaponId.Carbine: return "IF-27 卡宾枪";
+                case PrototypeWeaponId.Marksman: return "M89 射手步枪";
+                case PrototypeWeaponId.Smg: return "VX-9 冲锋枪";
+                case PrototypeWeaponId.Lmg: return "H60 轻机枪";
+                case PrototypeWeaponId.BattleRifle: return "BR-44 战斗步枪";
+                case PrototypeWeaponId.Sniper: return "S12 狙击步枪";
+                default: return "P8 手枪";
+            }
         }
 
         private static Texture2D MakeVeil()

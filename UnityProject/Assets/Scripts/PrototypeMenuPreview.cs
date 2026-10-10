@@ -26,6 +26,7 @@ namespace Ironfront.UnityPrototype
         private readonly Material reconBadge;
         private GameObject soldier;
         private PrototypeInfantryClass? shownClass;
+        private PrototypeWeaponId? shownWeapon;
 
         public Texture Texture => texture;
 
@@ -132,7 +133,12 @@ namespace Ironfront.UnityPrototype
 
         public void SetClass(PrototypeInfantryClass role)
         {
-            if (shownClass == role) return;
+            SetClass(role, PrototypeInfantryRoles.DefaultWeapon(role));
+        }
+
+        public void SetClass(PrototypeInfantryClass role, PrototypeWeaponId weaponId)
+        {
+            if (shownClass == role && shownWeapon == weaponId) return;
             if (soldier != null)
             {
                 soldier.SetActive(false);
@@ -157,9 +163,10 @@ namespace Ironfront.UnityPrototype
                 if (patch != null && badgeAsset != null)
                     patch.GetComponent<Renderer>().sharedMaterial = badgeAsset;
                 Transform mount = root.Find("Held class weapon");
-                if (mount != null) BuildWeapon(mount, role);
+                if (mount != null) BuildWeapon(mount, weaponId);
                 SetLayerRecursively(root);
                 shownClass = role;
+                shownWeapon = weaponId;
                 return;
             }
             Box("Uniform torso", root, new Vector3(0f, 1.35f, 0f),
@@ -214,14 +221,15 @@ namespace Ironfront.UnityPrototype
             weaponMount.transform.SetParent(root, false);
             weaponMount.transform.localPosition = new Vector3(.05f, 1.15f, .47f);
             weaponMount.transform.localScale = Vector3.one * .70f;
-            BuildWeapon(weaponMount.transform, role);
+            BuildWeapon(weaponMount.transform, weaponId);
             SetLayerRecursively(root);
             shownClass = role;
+            shownWeapon = weaponId;
         }
 
-        private void BuildWeapon(Transform mount, PrototypeInfantryClass role)
+        private void BuildWeapon(Transform mount, PrototypeWeaponId weaponId)
         {
-            PrototypeWeaponVisual.Build(mount, role, game);
+            PrototypeWeaponVisual.Build(mount, weaponId, game);
             foreach (Renderer renderer in mount.GetComponentsInChildren<Renderer>())
                 renderer.sharedMaterial = WeaponMaterial(renderer.sharedMaterial);
         }

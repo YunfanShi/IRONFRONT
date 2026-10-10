@@ -38,6 +38,13 @@ namespace Ironfront.UnityPrototype
                 PrototypeLayout.BlueBase : PrototypeLayout.RedBase;
             locations.Add(new Location("BASE", "主基地 / MAIN BASE", home,
                 true, false, "安全部署", "base"));
+            if (game.Player != null && game.Player.Team == team && game.Player.BeaconAvailable)
+            {
+                Vector2 beacon = game.Player.BeaconPosition;
+                bool threatened = ThreatNear(game, team, beacon);
+                locations.Add(new Location("BEACON", "侦察兵复活信标", beacon,
+                    !threatened, threatened, threatened ? "附近有敌军" : "一次性部署", "beacon"));
+            }
             foreach (PrototypeCapturePoint point in game.Match.Points)
             {
                 Vector2 center = point.Definition.Position;
@@ -113,7 +120,7 @@ namespace Ironfront.UnityPrototype
                 float angle = i * Mathf.PI / 12f;
                 float radius = choice.Kind == "base" ?
                     (i == 0 ? 0f : 4f + (i - 1) / 8 * 3f) :
-                    choice.Kind == "squad" ? 3f + i / 24 * 2f :
+                    choice.Kind == "squad" || choice.Kind == "beacon" ? 3f + i / 24 * 2f :
                     choice.Hazard ? 42f + i / 24 * 20f : 6f + i / 24 * 12f;
                 Vector2 candidate = choice.Kind == "base" && i == 0 ? choice.Center :
                     choice.Center + new Vector2(Mathf.Sin(angle), Mathf.Cos(angle)) * radius;

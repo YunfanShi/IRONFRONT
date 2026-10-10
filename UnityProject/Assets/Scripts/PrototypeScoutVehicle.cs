@@ -137,6 +137,14 @@ namespace Ironfront.UnityPrototype
             runtime.Match.RecordVehicleLoss(Team);
         }
 
+        public bool Repair(float amount)
+        {
+            if (runtime == null || runtime.IsNetworkReplica || !Alive ||
+                !runtime.MatchStarted || amount <= 0f || Health >= MaxHealth) return false;
+            Health = Mathf.Min(MaxHealth, Health + amount);
+            return true;
+        }
+
         private void Update()
         {
             if (runtime == null || runtime.IsNetworkReplica || !runtime.MatchStarted || !Alive ||
