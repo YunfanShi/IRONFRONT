@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    // U8 ROVER: the driver moves the vehicle but cannot fire. Seat 1 operates
-    // the machine gun; seats 2 and 3 are reserved for future squad passengers.
+    // U8 ROVER: the player uses front seats 0/1; AI infantry use rear seats 2/3.
     public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeVehicle
     {
         private const float MaxHealth = 140f;
@@ -18,6 +17,7 @@ namespace Ironfront.UnityPrototype
         private const float GunRange = 100f;
 
         private readonly List<Vector2> route = new List<Vector2>();
+        private readonly PrototypeBot[] passengers = new PrototypeBot[2];
         private PrototypeRuntime runtime;
         private bool aiControlled;
         private PrototypePlayer occupant;
@@ -26,6 +26,7 @@ namespace Ironfront.UnityPrototype
         private float nextPlan;
         private float nextShot;
         private float blockedUntil;
+        private float pickupUntil;
         private Vector2 goal;
         private BoxCollider hullCollider;
         private Transform gunMount;
@@ -36,7 +37,7 @@ namespace Ironfront.UnityPrototype
         public bool DriverCanFire => false;
         public PrototypeTeam Team { get; private set; }
         public bool Alive => Health > 0f;
-        public bool IsActiveThreat => aiControlled || occupant != null;
+        public bool IsActiveThreat => aiControlled || occupant != null || PassengerCount > 0;
         public float Health { get; private set; }
         public float Speed { get; private set; }
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
@@ -44,6 +45,10 @@ namespace Ironfront.UnityPrototype
         public PrototypePlayer Driver => playerSeat == 0 ? occupant : null;
         public PrototypePlayer Gunner => playerSeat == 1 ? occupant : null;
         public int PlayerSeat => playerSeat;
+        public int PassengerCount => (passengers[0] != null ? 1 : 0) +
+            (passengers[1] != null ? 1 : 0);
+        public bool HasFreePassengerSeat => Alive &&
+            (passengers[0] == null || passengers[1] == null);
         public Vector3 SeatPosition => GetSeatPosition(playerSeat);
 
         public Vector3 GetSeatPosition(int seat)
@@ -122,6 +127,61 @@ namespace Ironfront.UnityPrototype
             Speed = 0f;
         }
 
+        public bool TryBoardPassenger(PrototypeBot bot)
+        {
+            if (runtime == null || !runtime.MatchStarted || runtime.Match.Winner.HasValue ||
+                !Alive || bot == null || !bot.Alive || bot.IsPassenger || bot.Team != Team ||
+                Mathf.Abs(Speed) > 6f || Vector2.Distance(bot.MapPosition, MapPosition) > 7f)
+                return false;
+            for (int index = 0; index < passengers.Length; index++)
+            {
+                if (passengers[index] != null) continue;
+                passengers[index] = bot;
+                bot.BoardTransport(this, index + 2);
+                return true;
+            }
+            return false;
+        }
+
+        public void RemovePassenger(PrototypeBot bot)
+        {
+            for (int index = 0; index < passengers.Length; index++)
+                if (passengers[index] == bot) passengers[index] = null;
+        }
+
+        public Vector3 FindPassengerExitPosition(int seat, Vector2 fallback)
+        {
+            Physics.SyncTransforms();
+            Vector3 side = seat == 2 ? -transform.right : transform.right;
+            Vector3[] directions = { side, -side, -transform.forward, transform.forward };
+            foreach (float radius in new[] { 3.8f, 5.2f, 6.5f })
+                foreach (Vector3 direction in directions)
+                {
+                    Vector3 point = transform.position + direction * radius;
+                    Vector2 map = new Vector2(point.x, point.z);
+                    if (PrototypeLayout.Collides(map, 0.55f)) continue;
+                    point.y = PrototypeLayout.HeightAt(point.x, point.z) + 1f;
+                    if (!Physics.CheckCapsule(point + Vector3.down * 0.5f,
+                        point + Vector3.up * 0.5f, 0.45f, ~(1 << 2),
+                        QueryTriggerInteraction.Ignore)) return point;
+                }
+            return new Vector3(fallback.x,
+                PrototypeLayout.HeightAt(fallback.x, fallback.y) + 1f, fallback.y);
+        }
+
+        private void UnloadPassengers(bool atVehicleObjective)
+        {
+            if (Mathf.Abs(Speed) > 2f) return;
+            for (int index = 0; index < passengers.Length; index++)
+            {
+                PrototypeBot passenger = passengers[index];
+                if (passenger == null) continue;
+                if (atVehicleObjective || Vector2.Distance(MapPosition,
+                    passenger.ObjectivePosition) < 25f)
+                    passenger.DisembarkTransport();
+            }
+        }
+
         public void TakeDamage(float amount)
         {
             if (runtime == null || !Alive || !runtime.MatchStarted ||
@@ -132,6 +192,7 @@ namespace Ironfront.UnityPrototype
             if (occupant != null) occupant.ForceExitVehicle();
             occupant = null;
             playerSeat = -1;
+            UnloadPassengers(true);
             if (hullCollider != null) hullCollider.enabled = false;
             foreach (Renderer visual in renderers) visual.enabled = false;
             runtime.Match.RecordVehicleLoss(Team);
@@ -142,6 +203,7 @@ namespace Ironfront.UnityPrototype
             if (runtime == null || !runtime.MatchStarted || !Alive ||
                 runtime.Match.Winner.HasValue) return;
             float dt = Mathf.Min(Time.deltaTime, 0.05f);
+            UnloadPassengers(false);
             if (occupant != null)
             {
                 if (!occupant.Alive)
@@ -165,7 +227,7 @@ namespace Ironfront.UnityPrototype
                     }
                 }
             }
-            else if (aiControlled) UpdateAi(dt);
+            else if (aiControlled || PassengerCount > 0) UpdateAi(dt);
             else Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
         }
 
@@ -231,6 +293,7 @@ namespace Ironfront.UnityPrototype
 
         private void UpdateAi(float dt)
         {
+            if (pickupUntil <= 0f) pickupUntil = Time.time + 15f;
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot,
                 out PrototypePlayer player, out IPrototypeVehicle vehicle);
             if ((bot != null || player != null || vehicle != null) &&
@@ -260,12 +323,18 @@ namespace Ironfront.UnityPrototype
                 route.AddRange(PlanVehicleRoute(MapPosition, goal));
                 routeIndex = 0;
             }
-            // A transport delivers its passengers near the objective. Actual
-            // squad boarding and disembarkation will be wired in separately.
+            // Wait near the infantry start for both rear passengers; a timeout
+            // keeps an AI vehicle from waiting forever if one soldier is lost.
+            if (PassengerCount < 2 && Time.time < pickupUntil)
+            {
+                Drive(0f, 0f, dt);
+                return;
+            }
             if (Vector2.Distance(MapPosition, goal) < 25f ||
                 (route.Count == 0 && !ClearSegment(MapPosition, goal)))
             {
                 Drive(0f, 0f, dt);
+                UnloadPassengers(true);
                 return;
             }
             while (routeIndex < route.Count &&
@@ -329,7 +398,7 @@ namespace Ironfront.UnityPrototype
             }
             foreach (PrototypeBot candidate in runtime.Bots)
             {
-                if (!candidate.Alive || candidate.Team == Team) continue;
+                if (!candidate.Alive || candidate.IsPassenger || candidate.Team == Team) continue;
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(MapPosition, point);
                 if (distance >= nearest ||

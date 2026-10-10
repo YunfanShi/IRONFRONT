@@ -427,7 +427,7 @@ namespace Ironfront.UnityPrototype
             }
             foreach (PrototypeBot candidate in runtime.Bots)
             {
-                if (!candidate.Alive || candidate.Team == Team) continue;
+                if (!candidate.Alive || candidate.IsPassenger || candidate.Team == Team) continue;
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(MapPosition, point);
                 if (distance >= nearest || PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;

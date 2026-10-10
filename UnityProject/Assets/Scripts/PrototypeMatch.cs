@@ -59,7 +59,8 @@ namespace Ironfront.UnityPrototype
                     Vector2.Distance(player.MapPosition, position) < 25f) blue++;
                 foreach (PrototypeBot bot in bots)
                 {
-                    if (!bot.Alive || Vector2.Distance(bot.MapPosition, position) >= 25f) continue;
+                    if (!bot.Alive || bot.IsPassenger ||
+                        Vector2.Distance(bot.MapPosition, position) >= 25f) continue;
                     if (bot.Team == PrototypeTeam.Blue) blue++;
                     else red++;
                 }

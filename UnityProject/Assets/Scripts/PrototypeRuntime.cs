@@ -384,7 +384,8 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
             string controls = Player.CurrentVehicle is PrototypeTransportVehicle transport ?
-                "U8 ROVER  |  " + (transport.PlayerSeat == 0 ?
+                "U8 ROVER  |  AI passengers " + transport.PassengerCount + "/2  |  " +
+                (transport.PlayerSeat == 0 ?
                     "WASD drive  |  F2 gunner  |  Driver unarmed" :
                     "Mouse aim  |  LMB machine gun  |  F1 driver") +
                 "  |  E exit  |  Esc cursor" :

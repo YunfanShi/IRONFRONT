@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.24.0
+# PROJECT IRONFRONT 0.25.0
+
+## 0.25.0 Unity U8 后排 AI 乘员
+
+Unity 原型的 U8 现在有两个 AI 后排座位。步兵会靠近本队 U8 上车，车辆载员后前往目标，停稳后下车；车毁时释放乘员。玩家仍用 E 上车、F1/F2 切换驾驶和机枪位，HUD 显示 AI 乘员数量。侦察车与 U8 的实际射线命中已经在编辑器验证。范围、验证记录和当前限制见 [UNITY_PASSENGERS_025.md](docs/UNITY_PASSENGERS_025.md)。Unity 开发仍在 `codex/unity-port` 分支。
 
 ## 0.24.0 Unity U8 武装运输车
 
