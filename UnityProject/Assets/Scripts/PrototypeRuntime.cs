@@ -25,6 +25,7 @@ namespace Ironfront.UnityPrototype
         public bool MatchStarted { get; private set; }
         public PrototypeFrontend Frontend { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
+        public readonly List<PrototypeScoutVehicle> ScoutVehicles = new List<PrototypeScoutVehicle>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
         public Material GunMaterial { get; private set; }
@@ -68,6 +69,7 @@ namespace Ironfront.UnityPrototype
             BuildMarkers();
             BuildPlayer();
             BuildBots();
+            BuildScouts();
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
             Frontend = new PrototypeFrontend();
@@ -236,6 +238,23 @@ namespace Ironfront.UnityPrototype
             return bot;
         }
 
+        private void BuildScouts()
+        {
+            // Place the first drivable scout beside the infantry start so the
+            // vehicle loop can be exercised immediately in this short match.
+            AddScout(PrototypeTeam.Blue, new Vector2(-60f, -111f), false);
+            AddScout(PrototypeTeam.Red, new Vector2(55f, -95f), true);
+        }
+
+        private void AddScout(PrototypeTeam team, Vector2 position, bool aiControlled)
+        {
+            var object3D = new GameObject(team + " R4 SCOUT");
+            object3D.transform.SetParent(transform);
+            PrototypeScoutVehicle vehicle = object3D.AddComponent<PrototypeScoutVehicle>();
+            ScoutVehicles.Add(vehicle);
+            vehicle.Initialize(this, team, position, aiControlled);
+        }
+
         private void Update()
         {
             if (Match == null || Player == null) return;
@@ -276,9 +295,9 @@ namespace Ironfront.UnityPrototype
         private void OnGUI()
         {
             if (Match == null || Player == null) return;
-            // The Editor's 2x Game scale can leave a small logical viewport. Lay out in
-            // a 960x600 space, then scale the whole HUD so panels and hints do not overlap.
-            float scale = Mathf.Min(1f, Screen.width / 960f, Screen.height / 600f);
+            // Keep the same 960x600 logical layout on small Game views, and
+            // enlarge it on desktop displays so the menu and HUD remain legible.
+            float scale = Mathf.Min(2f, Screen.width / 960f, Screen.height / 600f);
             float canvasWidth = Screen.width / scale;
             float canvasHeight = Screen.height / scale;
             Matrix4x4 previousMatrix = GUI.matrix;
@@ -301,10 +320,16 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(25, 20, 340, 30), "IRONFRONT  |  UNITY PROTOTYPE", title);
             GUI.Label(new Rect(25, 55, 340, 23),
                 "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "     RED " + Mathf.CeilToInt(Match.RedTickets), body);
-            GUI.Label(new Rect(25, 81, 340, 23),
-                "HP " + Mathf.CeilToInt(Player.Health) + "  ARMOR " + Mathf.CeilToInt(Player.Kit.Armor) +
-                "   " + Player.Kit.Weapon.Name + " " + Player.Ammo + " / " + Player.Reserve +
-                (Player.Reloading ? "  RELOADING" : ""), body);
+            if (Player.CurrentVehicle != null)
+                GUI.Label(new Rect(25, 81, 340, 23),
+                    "R4 SCOUT  ARMOR " + Mathf.CeilToInt(Player.CurrentVehicle.Health) +
+                    "  SPEED " + Mathf.RoundToInt(Mathf.Abs(Player.CurrentVehicle.Speed) * 3.6f) +
+                    " km/h", body);
+            else
+                GUI.Label(new Rect(25, 81, 340, 23),
+                    "HP " + Mathf.CeilToInt(Player.Health) + "  ARMOR " + Mathf.CeilToInt(Player.Kit.Armor) +
+                    "   " + Player.Kit.Weapon.Name + " " + Player.Ammo + " / " + Player.Reserve +
+                    (Player.Reloading ? "  RELOADING" : ""), body);
             for (int i = 0; i < Match.Points.Count; i++)
             {
                 PrototypeCapturePoint p = Match.Points[i];
@@ -340,9 +365,11 @@ namespace Ironfront.UnityPrototype
                 "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
             GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
-            GUI.Label(new Rect(12, canvasHeight - 35, canvasWidth - 24f, 25),
+            string controls = Player.CurrentVehicle != null ?
+                "R4 SCOUT  |  WASD drive  |  Mouse aim  |  LMB machine gun  |  E exit  |  Esc cursor" :
                 "WASD move  |  Mouse aim  |  LMB fire  |  R reload  |  X class ability (" +
-                Player.Kit.GadgetCharges + ")  |  Esc cursor", body);
+                Player.Kit.GadgetCharges + ")  |  E vehicle  |  Esc cursor";
+            GUI.Label(new Rect(12, canvasHeight - 35, canvasWidth - 24f, 25), controls, body);
             if (!string.IsNullOrEmpty(Player.SupportStatus))
                 GUI.Label(new Rect(12, canvasHeight - 59, 370, 24), Player.SupportStatus, body);
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)

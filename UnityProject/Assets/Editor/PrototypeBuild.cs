@@ -23,7 +23,8 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeCommander.cs",
             "PrototypeTactics.cs",
             "PrototypeFrontend.cs",
-            "PrototypeInfantryRoles.cs"
+            "PrototypeInfantryRoles.cs",
+            "PrototypeScoutVehicle.cs"
         };
 
         [MenuItem(MenuPath)]

@@ -1,3 +1,9 @@
+# 0.23.0 QA：Unity 首辆侦察车
+
+基线为 `codex/unity-port` 的 `efb762f`。本机 Unity 6000.5.10f1 随附 Roslyn 静态编译十一个运行时脚本通过。Unity 编辑器实际刷新、Play 后可在出击界面看到 E 操作说明，按 E 进入蓝车，显示车尾第三人称镜头及装甲/速度 HUD；正式源码刷新后 Console 0 错误、0 警告。编辑器临时驾驶探针直接调用真实 `Drive` 方法，0.6 秒输入测得前进 2.535 米、末速度 7.8 m/s；探针代码及 `.meta` 已删除。自动化极短 W 键击不能证明持续人工驾驶体验。
+
+Unity 菜单重新构建 macOS Standalone 成功，输出约 116.6 MB，最终产物 `Info.plist` 显示 0.23.0。实际启动构建，出击页、战场、蓝车模型与车载 HUD 正常；Player.log 未检出 `error` 或 `exception`。机枪命中、持续驾驶、多局平衡与 Unity 联机仍待验收。网页回归：TypeScript 检查、Vitest 13 文件 117/117、Vite 生产构建、8/16/32/64 人及默认核心战局、双客户端 LAN 集成测试均通过；Vite 仍有既有 Three.js 约 502 kB 分块提示。详细实现与限制见 [docs/UNITY_SCOUT_023.md](docs/UNITY_SCOUT_023.md)。
+
 # 0.22.0 QA：Unity 兵种与桌面构建
 
 本机 Unity 6000.5.10f1 的十个运行时脚本和 Editor 构建脚本静态编译通过；兵种规则单独运行 44 项检查通过。编辑器 Play 验证出击菜单、医疗兵 VX-9 的 36/180 弹药、工程兵 X 后 35 点护甲及支援次数递减；2x Game 视图右侧说明可读，Console 0 错误、0 警告。

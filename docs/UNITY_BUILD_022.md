@@ -1,6 +1,6 @@
 # Unity macOS 桌面构建与验收
 
-这份文档记录 `codex/unity-port` 的构建入口及其验收边界。构建脚本位于 `UnityProject/Assets/Editor/PrototypeBuild.cs`，仅在 Unity Editor 中编译。它检查原型场景已导入且在 Scene List 中启用、所有启用场景及十个原型脚本已导入，并确保构建所需的 URP 材质资源存在，然后构建 macOS Standalone。构建产物固定为 `UnityProject/Builds/macOS/IRONFRONT.app`；`Builds/` 已被 Git 忽略。
+这份文档记录 `codex/unity-port` 的构建入口及其验收边界。构建脚本位于 `UnityProject/Assets/Editor/PrototypeBuild.cs`，仅在 Unity Editor 中编译。它检查原型场景已导入且在 Scene List 中启用、所有启用场景及当前十一个原型脚本已导入，并确保构建所需的 URP 材质资源存在，然后构建 macOS Standalone。构建产物固定为 `UnityProject/Builds/macOS/IRONFRONT.app`；`Builds/` 已被 Git 忽略。
 
 ## 在 Unity 编辑器中构建
 

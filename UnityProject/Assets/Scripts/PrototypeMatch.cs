@@ -39,6 +39,14 @@ namespace Ironfront.UnityPrototype
             CheckWinner();
         }
 
+        public void RecordVehicleLoss(PrototypeTeam team)
+        {
+            if (Winner.HasValue) return;
+            if (team == PrototypeTeam.Blue) BlueTickets = Mathf.Max(0f, BlueTickets - 0.5f);
+            else RedTickets = Mathf.Max(0f, RedTickets - 0.5f);
+            CheckWinner();
+        }
+
         public void Tick(float dt, PrototypePlayer player, IReadOnlyList<PrototypeBot> bots)
         {
             if (Winner.HasValue) return;

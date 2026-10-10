@@ -1,8 +1,12 @@
-# PROJECT IRONFRONT 0.22.0
+# PROJECT IRONFRONT 0.23.0
+
+## 0.23.0 Unity 首辆可驾驶侦察车
+
+Unity 原型增加蓝方 R4 侦察车与红方 AI 侦察车。出击后靠近蓝车按 E 上车，WASD 驾驶、鼠标瞄准、左键机枪、E 下车；HUD 显示车辆装甲和速度。车辆会受步兵与载具火力伤害，摧毁时驾驶员被移出并扣除半张队伍票。红车使用车辆宽度独立寻路。本轮仍是单机切片，其余车型与 Unity 联机待移植。实现和验收边界见 [UNITY_SCOUT_023.md](docs/UNITY_SCOUT_023.md)。开发和提交继续在 `codex/unity-port` 分支。
 
 ## 0.22.0 Unity 兵种与出击界面
 
-Unity 原型加入四兵种的不同主武器与有限次数的步兵支援、开局出击选择界面，以及 macOS 独立构建入口。编辑器和独立程序均已实测选兵种、进入战局和工程护甲；完整范围与限制见 [UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建方法见 [UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。Unity 开发继续保留在 `codex/unity-port` 分支，网页房主服务和客户端已同步为 `0.22.x`，升级房主时需重新启动服务。
+Unity 原型加入四兵种的不同主武器与有限次数的步兵支援、开局出击选择界面，以及 macOS 独立构建入口。编辑器和独立程序均已实测选兵种、进入战局和工程护甲；完整范围与限制见 [UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建方法见 [UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。Unity 开发继续保留在 `codex/unity-port` 分支。网页房主服务和客户端目前已同步为 `0.23.x`，升级房主时需重新启动服务。
 
 ## 0.21.0 Unity 步兵战术
 
@@ -10,7 +14,7 @@ Unity 小队现会共享短时目击位置：前排队员可前往最后目击�
 
 ## 0.20.0 Unity 小队指挥
 
-Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属与争夺、已目击敌情和路线失败重新分配任务。小队命令显示在游戏 HUD；指挥官无法直接读取被遮挡敌人的实时位置。当前仍是单地图、步兵短局，完整兵种、载具和联机尚待移植。实现和验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md)。Unity 开发位于 `codex/unity-port` 分支，不在 `main`。
+Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属与争夺、已目击敌情和路线失败重新分配任务。小队命令显示在游戏 HUD；指挥官无法直接读取被遮挡敌人的实时位置。实现和当时的验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md)。Unity 开发位于 `codex/unity-port` 分支，不在 `main`。
 
 ## 0.19.1 Unity 导入修复
 
@@ -18,9 +22,9 @@ Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属�
 
 ## 0.19.0 Unity 首轮移植原型
 
-新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型已加入基础小队指挥与四兵种，但尚不具备网页的完整载具或联机玩法。
+新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型已加入小队指挥、四兵种和首辆侦察车，但尚不具备网页的完整载具或联机玩法。
 
-在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.22.x`，更新时需重新启动服务。
+在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.23.x`，更新时需重新启动服务。
 
 ## 0.18.0 房间与联机体验
 

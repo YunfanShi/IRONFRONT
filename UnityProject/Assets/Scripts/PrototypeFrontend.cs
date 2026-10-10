@@ -109,7 +109,7 @@ namespace Ironfront.UnityPrototype
                 "Capture the objectives.\nHold more sectors to drain enemy tickets.", labelStyle);
             DrawRect(new Rect(rightX, y + 227f, 260f, 1f), Divider);
             GUI.Label(new Rect(rightX, y + 240f, 258f, 26f), "FIELD CONTROLS", headingStyle);
-            GUI.Label(new Rect(rightX, y + 272f, 258f, 143f),
+            GUI.Label(new Rect(rightX, y + 272f, 258f, 158f),
                 "WASD  Move\n" +
                 "MOUSE  Aim\n" +
                 "LMB  Fire\n" +
@@ -117,6 +117,7 @@ namespace Ironfront.UnityPrototype
                 "SHIFT  Sprint\n" +
                 "SPACE  Jump\n" +
                 "X  Class ability\n" +
+                "E  Enter / exit scout\n" +
                 "ESC  Unlock cursor",
                 smallStyle);
 
@@ -128,7 +129,7 @@ namespace Ironfront.UnityPrototype
             HandleKeyboard(ref deploy);
 
             GUI.Label(new Rect(x + 25f, y + 504f, 845f, 20f),
-                "SOLO PROTOTYPE   //   More maps, vehicles and modes are in development.", smallStyle);
+                "SOLO PROTOTYPE   //   More maps, vehicle types and modes are in development.", smallStyle);
 
             if (!deploy) return false;
             Close();

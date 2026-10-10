@@ -89,8 +89,9 @@ namespace Ironfront.UnityPrototype
             kit.Tick(Time.time);
             TrySupportNearby();
 
-            Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot, out PrototypePlayer player);
-            bool inCombat = bot != null || player != null;
+            Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot,
+                out PrototypePlayer player, out PrototypeScoutVehicle vehicle);
+            bool inCombat = bot != null || player != null || vehicle != null;
             if (inCombat && squad != null) squad.ReportContact(enemy, Time.time);
             if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
             {
@@ -104,7 +105,7 @@ namespace Ironfront.UnityPrototype
                 nextShot = Time.time + Mathf.Max(kit.Weapon.FireInterval,
                     Random.Range(0.38f, 0.62f));
                 Vector3 origin = transform.position + Vector3.up * 0.55f;
-                float targetHeight = player != null ? 1.25f : 0.45f;
+                float targetHeight = player != null ? 1.25f : vehicle != null ? 1.1f : 0.45f;
                 Vector3 impact = new Vector3(enemy.x,
                     PrototypeLayout.HeightAt(enemy.x, enemy.y) + 1f + targetHeight, enemy.y);
                 runtime.ShowTracer(origin, impact, Team);
@@ -112,7 +113,8 @@ namespace Ironfront.UnityPrototype
                 {
                     float damage = kit.Weapon.DamageAtRange(enemyDistance) * 0.29f;
                     if (player != null) player.TakeDamage(damage);
-                    else bot.TakeDamage(damage);
+                    else if (bot != null) bot.TakeDamage(damage);
+                    else vehicle.TakeDamage(damage * 0.55f);
                 }
             }
 
@@ -194,15 +196,18 @@ namespace Ironfront.UnityPrototype
             MoveToward(objective, true);
         }
 
-        private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot, out PrototypePlayer selectedPlayer)
+        private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot,
+            out PrototypePlayer selectedPlayer, out PrototypeScoutVehicle selectedVehicle)
         {
             selectedBot = null;
             selectedPlayer = null;
+            selectedVehicle = null;
             Vector2 position = MapPosition;
             Vector2 selectedPosition = Vector2.zero;
             float bestDistance = kit.DetectionRange;
 
-            if (Team == PrototypeTeam.Red && runtime.Player != null && runtime.Player.Alive)
+            if (Team == PrototypeTeam.Red && runtime.Player != null && runtime.Player.Alive &&
+                runtime.Player.CurrentVehicle == null)
             {
                 Vector2 point = runtime.Player.MapPosition;
                 float distance = Vector2.Distance(position, point);
@@ -223,6 +228,19 @@ namespace Ironfront.UnityPrototype
                 selectedPosition = point;
                 selectedBot = candidate;
                 selectedPlayer = null;
+            }
+            foreach (PrototypeScoutVehicle candidate in runtime.ScoutVehicles)
+            {
+                if (!candidate.Alive || candidate.Team == Team || !candidate.IsActiveThreat) continue;
+                Vector2 point = candidate.MapPosition;
+                float distance = Vector2.Distance(position, point);
+                if (distance >= bestDistance ||
+                    PrototypeLayout.LineBlocked(position, point, 0.1f)) continue;
+                bestDistance = distance;
+                selectedPosition = point;
+                selectedBot = null;
+                selectedPlayer = null;
+                selectedVehicle = candidate;
             }
             return selectedPosition;
         }
