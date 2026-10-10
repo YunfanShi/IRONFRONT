@@ -57,14 +57,17 @@ namespace Ironfront.UnityPrototype
             audioSource = gameObject.AddComponent<AudioSource>();
             shotSound = Resources.Load<AudioClip>("Audio/carbine");
 
-            rifle = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            rifle.name = "IF-27 Carbine Placeholder";
-            rifle.transform.SetParent(cameraObject.transform, false);
-            rifle.transform.localPosition = new Vector3(0.32f, -0.26f, 0.62f);
-            rifle.transform.localScale = new Vector3(0.13f, 0.16f, 0.65f);
-            Destroy(rifle.GetComponent<Collider>());
-            rifle.GetComponent<Renderer>().sharedMaterial = runtime.GunMaterial;
+            BuildWeaponVisual();
             Respawn();
+        }
+
+        private void BuildWeaponVisual()
+        {
+            if (rifle != null) Destroy(rifle);
+            rifle = PrototypeWeaponVisual.Build(viewCamera.transform, kit.Role,
+                runtime, true, Team);
+            rifle.transform.localPosition = new Vector3(.37f, -.32f, .60f);
+            rifle.transform.localScale = Vector3.one * .64f;
         }
 
         public void SelectClass(PrototypeInfantryClass selectedClass)
@@ -72,12 +75,14 @@ namespace Ironfront.UnityPrototype
             kit = new PrototypeInfantryKit(selectedClass);
             kit.ResetForSpawn();
             Health = 100f;
+            if (viewCamera != null) BuildWeaponVisual();
         }
 
         public void SetTeam(PrototypeTeam team)
         {
             if (Team == team) return;
             Team = team;
+            if (viewCamera != null) BuildWeaponVisual();
             if (runtime != null && CurrentVehicle == null) Respawn();
         }
 

@@ -10,7 +10,7 @@ namespace Ironfront.UnityPrototype
         private readonly PrototypeInfantryKit kit =
             new PrototypeInfantryKit(PrototypeInfantryClass.Assault);
         private CapsuleCollider hitbox;
-        private Renderer body;
+        private PrototypeSoldierVisual visual;
         private float respawnAt;
         private float pitch;
         private float lastInputAt;
@@ -34,14 +34,8 @@ namespace Ironfront.UnityPrototype
             hitbox.center = new Vector3(0f, 0.9f, 0f);
             hitbox.height = 1.8f;
             hitbox.radius = 0.34f;
-            GameObject model = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            model.name = "Remote Infantry Visual";
-            model.transform.SetParent(transform, false);
-            model.transform.localPosition = new Vector3(0f, 0.9f, 0f);
-            model.transform.localScale = new Vector3(0.68f, 0.9f, 0.68f);
-            Destroy(model.GetComponent<Collider>());
-            body = model.GetComponent<Renderer>();
-            body.sharedMaterial = team == PrototypeTeam.Blue ? game.BlueMaterial : game.RedMaterial;
+            visual = gameObject.AddComponent<PrototypeSoldierVisual>();
+            visual.Initialize(game, team, PrototypeInfantryClass.Assault, -.3f);
             Respawn();
         }
 
@@ -122,7 +116,7 @@ namespace Ironfront.UnityPrototype
 
         private void SetVisible(bool visible)
         {
-            if (body != null) body.enabled = visible;
+            if (visual != null) visual.SetVisible(visible);
             if (hitbox != null) hitbox.enabled = visible;
         }
 

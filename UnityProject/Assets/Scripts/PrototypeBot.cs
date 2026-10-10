@@ -27,8 +27,8 @@ namespace Ironfront.UnityPrototype
         private float nextCoverSearch;
         private float coverUntil;
         private Vector2 coverPoint;
-        private Renderer body;
         private Collider bodyCollider;
+        private PrototypeSoldierVisual visual;
         private PrototypeInfantryKit kit;
         private PrototypeTransportVehicle transport;
         private PrototypeTransportVehicle boardingTarget;
@@ -59,9 +59,10 @@ namespace Ironfront.UnityPrototype
             kit = new PrototypeInfantryKit(role);
             spawn = spawnPoint;
             objective = spawnPoint;
-            body = GetComponent<Renderer>();
             bodyCollider = GetComponent<Collider>();
-            body.sharedMaterial = team == PrototypeTeam.Blue ? game.BlueMaterial : game.RedMaterial;
+            GetComponent<Renderer>().enabled = false;
+            visual = gameObject.AddComponent<PrototypeSoldierVisual>();
+            visual.Initialize(game, team, role, -1f);
             Respawn();
         }
 
@@ -96,7 +97,7 @@ namespace Ironfront.UnityPrototype
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
             Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
-            if (body != null) body.enabled = alive;
+            if (visual != null) visual.SetVisible(alive);
             if (bodyCollider != null) bodyCollider.enabled = alive;
             TacticalState = alive ? PrototypeTacticalState.Advance : PrototypeTacticalState.Down;
         }
@@ -347,7 +348,7 @@ namespace Ironfront.UnityPrototype
             waypoint = 0;
             repathAt = 0f;
             coverUntil = 0f;
-            body.enabled = false;
+            visual.SetVisible(false);
             bodyCollider.enabled = false;
             transform.SetParent(vehicle.transform, true);
             transform.position = vehicle.GetSeatPosition(seat);
@@ -366,7 +367,7 @@ namespace Ironfront.UnityPrototype
             transform.SetParent(runtime.transform, true);
             transform.position = exit;
             transform.rotation = Quaternion.Euler(0f, vehicle.transform.eulerAngles.y, 0f);
-            body.enabled = true;
+            visual.SetVisible(true);
             bodyCollider.enabled = true;
             boardAgainAt = Time.time + 25f;
             boardingTarget = null;
@@ -496,7 +497,7 @@ namespace Ironfront.UnityPrototype
             if (Alive) return;
             runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 6f;
-            body.enabled = false;
+            visual.SetVisible(false);
             bodyCollider.enabled = false;
             TacticalState = PrototypeTacticalState.Down;
         }
@@ -519,7 +520,7 @@ namespace Ironfront.UnityPrototype
             nextCoverSearch = 0f;
             coverUntil = 0f;
             TacticalState = PrototypeTacticalState.Advance;
-            if (body != null) body.enabled = true;
+            if (visual != null) visual.SetVisible(true);
             if (bodyCollider != null) bodyCollider.enabled = true;
         }
     }

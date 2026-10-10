@@ -588,14 +588,28 @@ namespace Ironfront.UnityPrototype
             hullCollider.size = new Vector3(3.4f, 1.9f, 5.2f);
             Material body = Team == PrototypeTeam.Blue ?
                 runtime.BlueMaterial : runtime.RedMaterial;
+            Material trim = Team == PrototypeTeam.Blue ?
+                runtime.BlueTrimMaterial : runtime.RedTrimMaterial;
             AddVisual("Rover chassis", PrimitiveType.Cube,
                 new Vector3(0f, 0.78f, 0f), new Vector3(3.2f, 0.55f, 5f),
+                body, transform);
+            AddVisual("Armored hood", PrimitiveType.Cube,
+                new Vector3(0f, 1.22f, 1.83f), new Vector3(2.85f, .30f, 1.32f),
                 body, transform);
             AddVisual("Cabin roof", PrimitiveType.Cube,
                 new Vector3(0f, 1.93f, 0.7f), new Vector3(2.9f, 0.18f, 1.8f),
                 body, transform);
+            AddVisual("Roof trim", PrimitiveType.Cube,
+                new Vector3(0f, 2.045f, .7f), new Vector3(2.68f, .045f, 1.68f),
+                trim, transform);
             AddVisual("Windshield", PrimitiveType.Cube,
                 new Vector3(0f, 1.45f, 1.58f), new Vector3(2.6f, 0.75f, 0.1f),
+                runtime.GlassMaterial, transform);
+            AddVisual("Front grille", PrimitiveType.Cube,
+                new Vector3(0f, 1.05f, 2.52f), new Vector3(1.42f, .27f, .07f),
+                runtime.GunMaterial, transform);
+            AddVisual("Front bumper", PrimitiveType.Cube,
+                new Vector3(0f, .56f, 2.52f), new Vector3(3.30f, .17f, .23f),
                 runtime.GunMaterial, transform);
             AddVisual("Cargo bed floor", PrimitiveType.Cube,
                 new Vector3(0f, 1.12f, -1.22f), new Vector3(2.85f, 0.15f, 2.15f),
@@ -605,6 +619,21 @@ namespace Ironfront.UnityPrototype
                 AddVisual("Cargo side rail", PrimitiveType.Cube,
                     new Vector3(side * 1.43f, 1.42f, -1.22f),
                     new Vector3(0.12f, 0.55f, 2.15f), body, transform);
+                AddVisual("Side door armor", PrimitiveType.Cube,
+                    new Vector3(side * 1.52f, 1.32f, .68f),
+                    new Vector3(.09f, .78f, 1.61f), body, transform);
+                AddVisual("Door window", PrimitiveType.Cube,
+                    new Vector3(side * 1.57f, 1.66f, .66f),
+                    new Vector3(.035f, .31f, .72f), runtime.GlassMaterial, transform);
+                AddVisual("Door handle", PrimitiveType.Cube,
+                    new Vector3(side * 1.59f, 1.22f, .45f),
+                    new Vector3(.04f, .05f, .23f), runtime.GunMaterial, transform);
+                AddVisual("Side step", PrimitiveType.Cube,
+                    new Vector3(side * 1.57f, .51f, .55f),
+                    new Vector3(.30f, .10f, 1.52f), runtime.GunMaterial, transform);
+                AddVisual("Headlamp", PrimitiveType.Cube,
+                    new Vector3(side * 1.15f, 1.12f, 2.55f),
+                    new Vector3(.37f, .22f, .07f), runtime.LampMaterial, transform);
                 AddVisual("Passenger bench", PrimitiveType.Cube,
                     new Vector3(side * 0.8f, 1.32f, -1.32f),
                     new Vector3(0.6f, 0.16f, 0.9f), runtime.GunMaterial, transform);
@@ -615,14 +644,24 @@ namespace Ironfront.UnityPrototype
                         new Vector3(0.75f, 0.2f, 0.75f), runtime.GunMaterial,
                         transform);
                     wheel.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+                    GameObject hub = AddVisual("Rover wheel hub", PrimitiveType.Cylinder,
+                        new Vector3(side * 1.68f, .48f, axle * 1.55f),
+                        new Vector3(.30f, .04f, .30f), trim, transform);
+                    hub.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
                 }
             }
+            AddVisual("Rear tailgate", PrimitiveType.Cube,
+                new Vector3(0f, 1.17f, -2.47f), new Vector3(2.80f, .65f, .10f),
+                body, transform);
             var mount = new GameObject("Gunner MG mount");
             gunMount = mount.transform;
             gunMount.SetParent(transform, false);
             gunMount.localPosition = new Vector3(0.55f, 2.1f, 0.1f);
             AddVisual("MG ring", PrimitiveType.Cylinder, Vector3.zero,
                 new Vector3(0.45f, 0.12f, 0.45f), runtime.GunMaterial, gunMount);
+            AddVisual("MG shield", PrimitiveType.Cube,
+                new Vector3(0f, .16f, .33f), new Vector3(.54f, .33f, .10f),
+                trim, gunMount);
             AddVisual("MG barrel", PrimitiveType.Cube,
                 new Vector3(0f, 0.07f, 0.7f), new Vector3(0.16f, 0.16f, 1.4f),
                 runtime.GunMaterial, gunMount);

@@ -44,6 +44,18 @@ namespace Ironfront.UnityPrototype
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
         public Material GunMaterial { get; private set; }
+        public Material BlueClothMaterial { get; private set; }
+        public Material RedClothMaterial { get; private set; }
+        public Material BlueHelmetMaterial { get; private set; }
+        public Material RedHelmetMaterial { get; private set; }
+        public Material BlueTrimMaterial { get; private set; }
+        public Material RedTrimMaterial { get; private set; }
+        public Material ArmorMaterial { get; private set; }
+        public Material SkinMaterial { get; private set; }
+        public Material VisorMaterial { get; private set; }
+        public Material BootMaterial { get; private set; }
+        public Material GlassMaterial { get; private set; }
+        public Material LampMaterial { get; private set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Boot()
@@ -67,9 +79,21 @@ namespace Ironfront.UnityPrototype
             groundMaterial = MakeMaterial(new Color(0.35f, 0.43f, 0.31f));
             buildingMaterial = MakeMaterial(new Color(0.43f, 0.42f, 0.37f));
             coverMaterial = MakeMaterial(new Color(0.34f, 0.31f, 0.27f));
-            BlueMaterial = MakeMaterial(new Color(0.22f, 0.48f, 0.7f));
-            RedMaterial = MakeMaterial(new Color(0.72f, 0.28f, 0.23f));
+            BlueMaterial = MakeMaterial(new Color(0.31f, 0.42f, 0.44f));
+            RedMaterial = MakeMaterial(new Color(0.46f, 0.35f, 0.32f));
             GunMaterial = MakeMaterial(new Color(0.12f, 0.15f, 0.16f));
+            BlueClothMaterial = MakeMaterial(new Color(0.25f, 0.31f, 0.35f));
+            RedClothMaterial = MakeMaterial(new Color(0.36f, 0.31f, 0.29f));
+            BlueHelmetMaterial = MakeMaterial(new Color(0.20f, 0.28f, 0.32f));
+            RedHelmetMaterial = MakeMaterial(new Color(0.32f, 0.28f, 0.27f));
+            BlueTrimMaterial = MakeMaterial(new Color(0.42f, 0.58f, 0.60f));
+            RedTrimMaterial = MakeMaterial(new Color(0.61f, 0.43f, 0.38f));
+            ArmorMaterial = MakeMaterial(new Color(0.22f, 0.27f, 0.28f));
+            SkinMaterial = MakeMaterial(new Color(0.67f, 0.52f, 0.40f));
+            VisorMaterial = MakeMaterial(new Color(0.08f, 0.15f, 0.18f));
+            BootMaterial = MakeMaterial(new Color(0.10f, 0.12f, 0.13f));
+            GlassMaterial = MakeMaterial(new Color(0.10f, 0.20f, 0.23f));
+            LampMaterial = MakeMaterial(new Color(0.88f, 0.78f, 0.57f));
             markerNeutral = MakeMaterial(new Color(0.9f, 0.83f, 0.58f));
             markerBlue = MakeMaterial(new Color(0.28f, 0.72f, 0.95f));
             markerRed = MakeMaterial(new Color(0.95f, 0.4f, 0.33f));
