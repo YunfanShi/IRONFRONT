@@ -3,12 +3,13 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    // A parked T90 BASTION model preview. It is deliberately separate from
-    // IPrototypeVehicle until cannon combat and tank seats are ported.
+    // The T90 mesh is shared by the drivable vehicle and its network replica.
     public sealed class PrototypeTankVisual : MonoBehaviour
     {
         public PrototypeTeam Team { get; private set; }
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
+        public Transform Turret { get; private set; }
+        public BoxCollider HullCollider { get; private set; }
 
         public void Initialize(PrototypeRuntime game, PrototypeTeam team,
             Vector2 position, float yaw)
@@ -104,6 +105,7 @@ namespace Ironfront.UnityPrototype
             var turret = new GameObject("Rotatable armored turret").transform;
             turret.SetParent(transform, false);
             turret.localPosition = new Vector3(0f, 2.06f, -.55f);
+            Turret = turret;
             Cylinder("Turret race", turret, new Vector3(0f, .04f, 0f),
                 2.85f, .16f, steel);
             Wedge("Cast turret armor", turret, 3.35f, 2.65f,
@@ -162,9 +164,9 @@ namespace Ironfront.UnityPrototype
                 new Vector3(0f, 1.19f, -.74f),
                 new Vector3(.96f, .045f, .29f), trim);
 
-            BoxCollider collider = gameObject.AddComponent<BoxCollider>();
-            collider.center = new Vector3(0f, 1.15f, 0f);
-            collider.size = new Vector3(5.50f, 2.30f, 7.55f);
+            HullCollider = gameObject.AddComponent<BoxCollider>();
+            HullCollider.center = new Vector3(0f, 1.15f, 0f);
+            HullCollider.size = new Vector3(5.50f, 2.30f, 7.55f);
         }
 
         private static GameObject Box(string name, Transform parent,

@@ -2,7 +2,7 @@
 const crypto = require('node:crypto');
 const { WebSocketServer, WebSocket } = require('ws');
 
-const PROTOCOL = 'unity-1';
+const PROTOCOL = 'unity-2';
 const MAX_PLAYERS = 8;
 const RESUME_MS = 30000;
 const ROOM_IDLE_MS = 600000;
@@ -162,7 +162,27 @@ function createUnityRooms(server) {
                 if (host) send(host.ws, { type:'peerInput', id:c.id, input:{ seq:c.lastSeq,
                     forward:clamp(m.forward,-1,1), side:clamp(m.side,-1,1), yaw:clamp(m.yaw,-3600,3600),
                     pitch:clamp(m.pitch,-89,89), sprint:m.sprint===true,
-                    fire:m.fire===true } });
+                    fire:m.fire===true, callRescue:m.callRescue===true,
+                    giveUp:m.giveUp===true } });
+                return;
+            }
+            case 'deploy': {
+                if (room.phase !== 'battle' || room.paused || c.host ||
+                    typeof m.location !== 'string' ||
+                    !/^(BASE|[A-E]|SQUAD-[0-9]{1,3})$/.test(m.location) ||
+                    now-(c.lastDeployAt||0) < 200) return;
+                c.lastDeployAt=now;
+                const host=[...room.clients.values()].find(member=>member.host);
+                if (host) send(host.ws,{type:'peerDeploy',id:c.id,location:m.location});
+                return;
+            }
+            case 'downed': {
+                if (room.phase !== 'battle' || room.paused || c.host ||
+                    !['rescue','giveUp'].includes(m.action) ||
+                    now-(c.lastDownedAt||0) < 200) return;
+                c.lastDownedAt=now;
+                const host=[...room.clients.values()].find(member=>member.host);
+                if (host) send(host.ws,{type:'peerDowned',id:c.id,action:m.action});
                 return;
             }
             case 'snapshot': {

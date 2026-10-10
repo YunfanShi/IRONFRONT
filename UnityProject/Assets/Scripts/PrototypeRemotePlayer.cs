@@ -12,6 +12,8 @@ namespace Ironfront.UnityPrototype
         private CapsuleCollider hitbox;
         private PrototypeSoldierVisual visual;
         private float respawnAt;
+        private float downedUntil;
+        private bool rescueCalled;
         private float pitch;
         private float lastInputAt;
         private bool fireHeld;
@@ -22,6 +24,10 @@ namespace Ironfront.UnityPrototype
         public int Ammo => kit.Ammo;
         public int Reserve => kit.Reserve;
         public bool Alive => Health > 0f;
+        public float RespawnRemaining => Alive ? 0f : Mathf.Max(0f, respawnAt - Time.time);
+        public bool IsDowned => !Alive && downedUntil > Time.time;
+        public float DownedRemaining => IsDowned ? downedUntil - Time.time : 0f;
+        public bool RescueCalled => rescueCalled;
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
 
         public void Initialize(PrototypeRuntime game, int id, PrototypeTeam team)
@@ -73,8 +79,8 @@ namespace Ironfront.UnityPrototype
             Health = Mathf.Max(0f, Health - amount);
             if (Alive) return;
             SetVisible(false);
-            runtime.Match.RecordDeath(Team);
-            respawnAt = Time.time + 5f;
+            downedUntil = Time.time + 30f;
+            rescueCalled = false;
         }
 
         public void SetNetworkState(Vector3 position, float yaw, float health, bool alive)
@@ -94,21 +100,78 @@ namespace Ironfront.UnityPrototype
                 !runtime.MatchStarted || runtime.Match.Winner.HasValue) return;
             if (!Alive)
             {
-                if (Time.time >= respawnAt) Respawn();
+                if (downedUntil > 0f && Time.time >= downedUntil) Eliminate();
                 return;
             }
             if (fireHeld && Time.unscaledTime - lastInputAt <= 0.2f) Fire();
         }
 
+        public void RequestRescue()
+        {
+            if (IsDowned) rescueCalled = true;
+        }
+
+        public void GiveUp(float dt)
+        {
+            if (IsDowned) downedUntil -= Mathf.Clamp(dt, 0f, .15f) * 12f;
+            if (downedUntil > 0f && Time.time >= downedUntil) Eliminate();
+        }
+
+        public void GiveUpImmediately()
+        {
+            if (IsDowned) Eliminate();
+        }
+
+        public bool TryRevive(PrototypeBot medic)
+        {
+            if (runtime == null || runtime.IsNetworkReplica || !IsDowned ||
+                medic == null || !medic.Alive || medic.Team != Team ||
+                medic.Class != PrototypeInfantryClass.Medic ||
+                Vector2.Distance(MapPosition, medic.MapPosition) > 3.5f) return false;
+            downedUntil = 0f;
+            rescueCalled = false;
+            Health = 55f;
+            SetVisible(true);
+            return true;
+        }
+
+        private void Eliminate()
+        {
+            if (respawnAt > 0f || runtime == null || runtime.IsNetworkReplica) return;
+            downedUntil = 0f;
+            rescueCalled = false;
+            runtime.Match.RecordDeath(Team);
+            respawnAt = Time.time + 4.5f;
+        }
+
+        public bool TryDeploy(string locationId)
+        {
+            if (runtime == null || runtime.IsNetworkReplica || Alive ||
+                downedUntil > 0f ||
+                !runtime.MatchStarted || runtime.Match.Winner.HasValue ||
+                Time.time < respawnAt ||
+                !PrototypeDeployment.TryResolve(runtime, Team, locationId, false,
+                    out Vector2 point, out _)) return false;
+            Respawn(point);
+            return true;
+        }
+
         private void Respawn()
         {
-            Vector2 spawn = Team == PrototypeTeam.Blue ?
-                new Vector2(-64f, -108f) : new Vector2(64f, 108f);
+            Respawn(Team == PrototypeTeam.Blue ?
+                PrototypeLayout.BlueBase : PrototypeLayout.RedBase);
+        }
+
+        private void Respawn(Vector2 spawn)
+        {
             transform.position = new Vector3(spawn.x,
                 PrototypeLayout.HeightAt(spawn.x, spawn.y) + 0.3f, spawn.y);
             transform.rotation = Quaternion.Euler(0f,
                 Team == PrototypeTeam.Blue ? 48f : 228f, 0f);
             Health = 100f;
+            downedUntil = 0f;
+            rescueCalled = false;
+            respawnAt = 0f;
             kit.ResetForSpawn();
             fireHeld = false;
             SetVisible(true);

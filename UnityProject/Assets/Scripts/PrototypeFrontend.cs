@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Ironfront.UnityPrototype
 {
+    public enum PrototypeDownedAction { None, Rescue, GiveUp }
+
     // IMGUI deploy screen. PrototypeRuntime owns the match lifecycle and calls Draw
     // after applying the same logical 960x600 GUI matrix used by the in-game HUD.
     public sealed class PrototypeFrontend
@@ -42,8 +45,10 @@ namespace Ironfront.UnityPrototype
         private GUIStyle buttonStyle;
 
         private bool redeploy;
+        private string selectedLocation = "BASE";
 
         public bool IsOpen { get; private set; }
+        public bool IsDownedScreen { get; private set; }
         public bool LanRequested { get; private set; }
         public PrototypeInfantryClass SelectedClass { get; private set; } = PrototypeInfantryClass.Assault;
         public string SelectedClassName => ClassNames[ClassIndex(SelectedClass)];
@@ -51,6 +56,8 @@ namespace Ironfront.UnityPrototype
         public void Open(bool isRespawn = false)
         {
             redeploy = isRespawn;
+            IsDownedScreen = false;
+            if (isRespawn) selectedLocation = "BASE";
             LanRequested = false;
             IsOpen = true;
             Cursor.lockState = CursorLockMode.None;
@@ -60,8 +67,47 @@ namespace Ironfront.UnityPrototype
         public void Close()
         {
             IsOpen = false;
+            IsDownedScreen = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+
+        public void OpenDowned()
+        {
+            redeploy = false;
+            IsDownedScreen = true;
+            IsOpen = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        public PrototypeDownedAction DrawDowned(float canvasWidth, float canvasHeight,
+            float seconds, bool rescueCalled)
+        {
+            if (!IsOpen || !IsDownedScreen) return PrototypeDownedAction.None;
+            EnsureStyles();
+            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), Background);
+            float x = (canvasWidth - 510f) * .5f;
+            float y = (canvasHeight - 300f) * .5f;
+            DrawRect(new Rect(x, y, 510f, 300f), Panel);
+            DrawRect(new Rect(x, y, 510f, 4f), Accent);
+            GUI.Label(new Rect(x + 28f, y + 28f, 455f, 48f),
+                "濒死 / DOWNED", logoStyle);
+            GUI.Label(new Rect(x + 28f, y + 88f, 455f, 30f),
+                "等待救援  " + Mathf.Max(0f, seconds).ToString("0.0") + " s", headingStyle);
+            GUI.Label(new Rect(x + 28f, y + 124f, 455f, 44f),
+                "医疗兵可以将你救起。按住空格可加快放弃救援。", labelStyle);
+            Rect rescue = new Rect(x + 28f, y + 185f, 220f, 51f);
+            Rect giveUp = new Rect(x + 263f, y + 185f, 220f, 51f);
+            DrawRect(rescue, SelectedCard);
+            DrawRect(giveUp, Card);
+            GUI.Label(rescue, rescueCalled ? "救援已呼叫" : "呼叫救援 / H", buttonStyle);
+            GUI.Label(giveUp, "放弃救援", buttonStyle);
+            if (GUI.Button(rescue, GUIContent.none, GUIStyle.none))
+                return PrototypeDownedAction.Rescue;
+            if (GUI.Button(giveUp, GUIContent.none, GUIStyle.none))
+                return PrototypeDownedAction.GiveUp;
+            return PrototypeDownedAction.None;
         }
 
         public void SelectClass(PrototypeInfantryClass soldierClass)
@@ -121,6 +167,7 @@ namespace Ironfront.UnityPrototype
                 "X  Class ability\n" +
                 "E  Enter / exit vehicle\n" +
                 "F1 / F2  Rover driver / gunner\n" +
+                "T90  WASD drive / LMB cannon\n" +
                 "ESC  Unlock cursor",
                 smallStyle);
 
@@ -139,6 +186,101 @@ namespace Ironfront.UnityPrototype
             if (!deploy) return false;
             Close();
             return true;
+        }
+
+        // Returns a requested location. The runtime/host validates it again
+        // when the deployment button is pressed.
+        public string DrawDeployment(float canvasWidth, float canvasHeight,
+            PrototypeRuntime game, bool includeVehicles, float waiting)
+        {
+            if (!IsOpen || IsDownedScreen || !redeploy || game == null) return null;
+            EnsureStyles();
+            List<PrototypeDeployment.Location> locations =
+                PrototypeDeployment.GetLocations(game, game.Player.Team, includeVehicles);
+            PrototypeDeployment.Location? selected = null;
+            foreach (PrototypeDeployment.Location location in locations)
+                if (location.Id == selectedLocation) { selected = location; break; }
+            if (!selected.HasValue) selectedLocation = "BASE";
+
+            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), Background);
+            float x = (canvasWidth - 920f) * .5f;
+            float y = (canvasHeight - 530f) * .5f;
+            DrawRect(new Rect(x, y, 920f, 530f), Panel);
+            DrawRect(new Rect(x, y, 920f, 4f), Accent);
+            GUI.Label(new Rect(x + 24f, y + 15f, 570f, 44f),
+                "TACTICAL DEPLOYMENT", logoStyle);
+            GUI.Label(new Rect(x + 25f, y + 62f, 700f, 25f),
+                "阵亡后选择部署位置  /  仅己方据点可用；交战据点在外围部署", smallStyle);
+
+            Rect map = new Rect(x + 25f, y + 100f, 435f, 345f);
+            DrawRect(map, Card);
+            for (int i = 1; i < 6; i++)
+            {
+                DrawRect(new Rect(map.x + i * map.width / 6f, map.y,
+                    1f, map.height), Divider);
+                DrawRect(new Rect(map.x, map.y + i * map.height / 6f,
+                    map.width, 1f), Divider);
+            }
+            foreach (PrototypeDeployment.Location location in locations)
+            {
+                if (location.Kind == "vehicle") continue;
+                float mx = map.x + (location.Center.x / PrototypeLayout.MapSize + .5f) *
+                    map.width;
+                float my = map.y + (location.Center.y / PrototypeLayout.MapSize + .5f) *
+                    map.height;
+                Rect marker = new Rect(mx - 12f, my - 12f, 24f, 24f);
+                DrawRect(marker, location.Id == selectedLocation ? Accent :
+                    location.Available ? new Color(.24f, .62f, .70f) :
+                    new Color(.43f, .38f, .38f));
+                if (GUI.Button(marker, location.Id == "BASE" ? "⌂" :
+                    location.Kind == "squad" ? "S" : location.Id))
+                    selectedLocation = location.Id;
+            }
+            float listX = x + 485f;
+            GUI.Label(new Rect(listX, y + 101f, 400f, 26f),
+                "部署地点  /  SPAWN LOCATIONS", headingStyle);
+            for (int i = 0; i < locations.Count && i < 11; i++)
+            {
+                PrototypeDeployment.Location location = locations[i];
+                float rowY = y + 132f + i * 28f;
+                Rect row = new Rect(listX, rowY, 405f, 26f);
+                DrawRect(row, location.Id == selectedLocation ? SelectedCard :
+                    location.Available ? Card : Panel);
+                if (GUI.Button(row, GUIContent.none, GUIStyle.none))
+                    selectedLocation = location.Id;
+                GUI.Label(new Rect(row.x + 8f, row.y + 2f, 255f, 22f),
+                    location.Name, smallStyle);
+                GUI.Label(new Rect(row.x + 268f, row.y + 2f, 133f, 22f),
+                    location.Reason, smallStyle);
+            }
+            foreach (PrototypeDeployment.Location location in locations)
+                if (location.Id == selectedLocation) { selected = location; break; }
+            DrawRect(new Rect(x + 25f, y + 476f, 866f, 1f), Divider);
+            GUI.Label(new Rect(x + 25f, y + 451f, 860f, 22f),
+                selected.HasValue ? selected.Value.Name + "  ·  " +
+                    selected.Value.Reason : "请选择部署位置", smallStyle);
+
+            if (includeVehicles)
+            {
+                GUI.Label(new Rect(x + 25f, y + 486f, 115f, 26f), "兵种", labelStyle);
+                for (int i = 0; i < Classes.Length; i++)
+                {
+                    Rect role = new Rect(x + 85f + i * 98f, y + 484f, 94f, 32f);
+                    DrawRect(role, SelectedClass == Classes[i] ? SelectedCard : Card);
+                    if (GUI.Button(role, ClassNames[i])) SelectedClass = Classes[i];
+                }
+            }
+            else
+                GUI.Label(new Rect(x + 25f, y + 486f, 470f, 26f),
+                    "LAN 玩家由房主验证部署；当前使用突击兵", smallStyle);
+            Rect deploy = new Rect(x + 624f, y + 481f, 266f, 39f);
+            bool ready = waiting <= 0f && selected.HasValue && selected.Value.Available;
+            DrawRect(deploy, ready ? Accent : Divider);
+            GUI.Label(deploy, waiting > 0f ?
+                "复活准备  " + waiting.ToString("0.0") + " s" :
+                "部署 / DEPLOY", buttonStyle);
+            return ready && GUI.Button(deploy, GUIContent.none, GUIStyle.none) ?
+                selectedLocation : null;
         }
 
         private void DrawClassCard(Rect rect, int index)

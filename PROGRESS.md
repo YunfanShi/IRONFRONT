@@ -1,3 +1,7 @@
+# 0.30.0 开发进度
+
+Unity T90 已纳入可驾驶载具和房主战场快照，单机/房主玩家可上车驾驶、转炮塔开火，坦克摧毁后在基地计时重生。步兵改为濒死救援、正式阵亡扣票、等待 4.5 秒、手动选点部署；访客只能提交部署请求，由房主按真实战场状态复核。Unity 协议升为 `unity-2`，旧版房间服务须重启更新。完整范围、测试与当前缺口见 [docs/UNITY_TANK_RESPAWN_030.md](docs/UNITY_TANK_RESPAWN_030.md)。开发保留在 `codex/unity-port`。
+
 # 0.29.0 开发进度
 
 Unity 地图美术已按网页 `main` 的道路、铁路和建筑分区扩展。五据点及已有建筑占地保持原坐标，新增村庄坡屋顶、厂房与兵营外立面、铁路站、棚屋、通信设施、树林和地面细节；可通行路口与遮挡仍由原有 `PrototypeLayout` 控制。编辑器 Play 已看到道路、林木、铁路与建筑组合，详细实现和验证见 [docs/UNITY_MAP_VISUAL_029.md](docs/UNITY_MAP_VISUAL_029.md)。开发在 `codex/unity-port`，不并入 `main`。

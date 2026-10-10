@@ -49,7 +49,7 @@ async function run() {
         host.once('exit',code=>reject(new Error(`LAN server exited ${code}: ${output.join('')}`)));
     });
     const room=await createRoom();
-    assert.equal(room.protocol,'unity-1');
+    assert.equal(room.protocol,'unity-2');
     assert.match(room.code,/^[A-F0-9]{6}$/);
     assert.equal((await status(room.code)).phase,'preparation');
     const guest=await connect(room.code);
@@ -103,10 +103,12 @@ async function run() {
     assert.equal(replicated.players[0].id,captain.welcome.id);
     assert.equal(replicated.id,undefined);
     assert.equal(replicated.host,undefined);
-    guest.ws.send(JSON.stringify({type:'input',id:captain.welcome.id,host:true,seq:1,forward:9,side:-8,yaw:9999,pitch:999,sprint:true,fire:true}));
+    guest.ws.send(JSON.stringify({type:'input',id:captain.welcome.id,host:true,seq:1,forward:9,side:-8,yaw:9999,pitch:999,sprint:true,fire:true,callRescue:true,giveUp:true}));
     const input=await awaitEvent(captain,e=>e.type==='peerInput'&&e.input.seq===1);
     assert.deepEqual({id:input.id,forward:input.input.forward,side:input.input.side,yaw:input.input.yaw,pitch:input.input.pitch,sprint:input.input.sprint,fire:input.input.fire},
         {id:guest.welcome.id,forward:1,side:-1,yaw:3600,pitch:89,sprint:true,fire:true});
+    assert.equal(input.input.callRescue,true);
+    assert.equal(input.input.giveUp,true);
     guest.ws.send(JSON.stringify({type:'input',seq:1,forward:0,side:0,yaw:0,pitch:0}));
     guest.ws.send(JSON.stringify({type:'input',seq:2,forward:0,side:0,yaw:0,pitch:0}));
     await wait(60);
@@ -114,6 +116,29 @@ async function run() {
     assert.equal(captain.events.filter(e=>e.type==='peerInput').length,1,'rapid extra input must be rate limited');
     guest.ws.send(JSON.stringify({type:'input',seq:2,forward:0,side:0,yaw:0,pitch:0}));
     await awaitEvent(captain,e=>e.type==='peerInput'&&e.input.seq===2);
+
+    guest.ws.send(JSON.stringify({type:'peerDeploy',id:captain.welcome.id,location:'BASE'}));
+    guest.ws.send(JSON.stringify({type:'deploy',id:captain.welcome.id,team:'blue',location:'VEHICLE-0'}));
+    await wait(60);
+    assert.equal(captain.events.filter(e=>e.type==='peerDeploy').length,0,
+        'guest cannot forge host deployment events or request unsupported seats');
+    guest.ws.send(JSON.stringify({type:'deploy',id:captain.welcome.id,team:'blue',location:'BASE'}));
+    const deploy=await awaitEvent(captain,e=>e.type==='peerDeploy');
+    assert.deepEqual({id:deploy.id,location:deploy.location},
+        {id:guest.welcome.id,location:'BASE'},
+        'server binds deployment to the sender, never the claimed player or team');
+    guest.ws.send(JSON.stringify({type:'deploy',location:'A'}));
+    await wait(60);
+    assert.equal(captain.events.filter(e=>e.type==='peerDeploy').length,1,
+        'deployment requests are rate limited');
+    guest.ws.send(JSON.stringify({type:'peerDowned',id:captain.welcome.id,action:'giveUp'}));
+    guest.ws.send(JSON.stringify({type:'downed',id:captain.welcome.id,action:'invalid'}));
+    await wait(60);
+    assert.equal(captain.events.filter(e=>e.type==='peerDowned').length,0);
+    guest.ws.send(JSON.stringify({type:'downed',id:captain.welcome.id,action:'rescue'}));
+    const rescue=await awaitEvent(captain,e=>e.type==='peerDowned');
+    assert.deepEqual({id:rescue.id,action:rescue.action},
+        {id:guest.welcome.id,action:'rescue'});
 
     captain.ws.terminate();
     await awaitEvent(guest,e=>e.type==='room'&&e.paused===true);
@@ -132,6 +157,6 @@ async function run() {
     resumed.ws.send(JSON.stringify({type:'leave'}));
     await new Promise(resolve=>resumed.ws.once('close',resolve));
     assert.equal((await fetch(`${base}/api/unity/rooms/${room.code}`)).status,404,'host voluntary leave must close room');
-    console.log('Unity room PASS: separate protocol, host-only controls and snapshots, forged role denial, server-bound input identity and 20 Hz cap, host resume without promotion, kick, and voluntary host leave.');
+    console.log('Unity room PASS: host-only controls and snapshots, server-bound movement, deployment and downed actions, rate limits, host resume without promotion, kick, and voluntary host leave.');
 }
 run().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>host.kill());

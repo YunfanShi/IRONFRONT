@@ -205,7 +205,6 @@ namespace Ironfront.UnityPrototype
         {
             foreach (PrototypeLayout.Block block in PrototypeLayout.Blocks)
             {
-                if (block.Kind == "tank-preview") continue;
                 float x = block.Position.x, z = block.Position.y;
                 float y = Floor(x, z), w = block.Width, d = block.Depth;
                 float h = block.Height;

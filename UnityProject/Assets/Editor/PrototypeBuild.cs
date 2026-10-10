@@ -24,6 +24,7 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeTactics.cs",
             "PrototypeFrontend.cs",
             "PrototypeInfantryRoles.cs",
+            "PrototypeDeployment.cs",
             "IPrototypeVehicle.cs",
             "PrototypeScoutVehicle.cs",
             "PrototypeTransportVehicle.cs",
@@ -32,6 +33,7 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeRemotePlayer.cs",
             "PrototypeSoldierVisual.cs",
             "PrototypeTankVisual.cs",
+            "PrototypeTankVehicle.cs",
             "PrototypeWorldVisual.cs"
         };
 

@@ -17,6 +17,8 @@ namespace Ironfront.UnityPrototype
         private float vehicleLookYaw;
         private float verticalSpeed;
         private float respawnAt;
+        private float downedUntil;
+        private bool rescueCalled;
         private PrototypeInfantryKit kit = new PrototypeInfantryKit(PrototypeInfantryClass.Assault);
         private float supportStatusUntil;
 
@@ -33,6 +35,10 @@ namespace Ironfront.UnityPrototype
             new Vector2(transform.position.x, transform.position.z);
         public Camera ViewCamera => viewCamera;
         public IPrototypeVehicle CurrentVehicle { get; private set; }
+        public float RespawnRemaining => Alive ? 0f : Mathf.Max(0f, respawnAt - Time.time);
+        public bool IsDowned => !Alive && downedUntil > Time.time;
+        public float DownedRemaining => IsDowned ? downedUntil - Time.time : 0f;
+        public bool RescueCalled => rescueCalled;
 
         public void Initialize(PrototypeRuntime game)
         {
@@ -74,7 +80,6 @@ namespace Ironfront.UnityPrototype
         {
             kit = new PrototypeInfantryKit(selectedClass);
             kit.ResetForSpawn();
-            Health = 100f;
             if (viewCamera != null) BuildWeaponVisual();
         }
 
@@ -89,7 +94,8 @@ namespace Ironfront.UnityPrototype
         // Guest snapshots are cosmetic. Health, position and respawn are decided
         // by the host; local input may still move the camera between snapshots.
         public void ApplyNetworkState(Vector3 position, float yaw, float health, bool alive,
-            int ammo, int reserve)
+            int ammo, int reserve, float respawnRemaining, float downedRemaining,
+            bool rescueRequested)
         {
             if (runtime == null || !runtime.IsNetworkReplica ||
                 float.IsNaN(position.x) || float.IsNaN(position.y) || float.IsNaN(position.z) ||
@@ -101,6 +107,11 @@ namespace Ironfront.UnityPrototype
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
             Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
+            downedUntil = !alive && downedRemaining > 0f ?
+                Time.time + Mathf.Clamp(downedRemaining, 0f, 30f) : 0f;
+            rescueCalled = !alive && rescueRequested;
+            respawnAt = alive || downedUntil > 0f ? 0f :
+                Time.time + Mathf.Max(0f, respawnRemaining);
             kit.ApplyNetworkAmmo(ammo, reserve);
             if (controller != null) controller.enabled = alive;
         }
@@ -121,8 +132,12 @@ namespace Ironfront.UnityPrototype
             }
             if (!Alive)
             {
-                if (!runtime.IsNetworkReplica && Time.time >= respawnAt &&
-                    !runtime.Match.Winner.HasValue) Respawn();
+                if (!runtime.IsNetworkReplica && downedUntil > 0f)
+                {
+                    if (Input.GetKeyDown(KeyCode.H)) RequestRescue();
+                    if (Input.GetKey(KeyCode.Space)) GiveUp(Time.deltaTime);
+                    if (Time.time >= downedUntil) Eliminate();
+                }
                 return;
             }
             if (Cursor.lockState != CursorLockMode.Locked)
@@ -198,19 +213,13 @@ namespace Ironfront.UnityPrototype
                 closest = candidate;
                 nearest = distance;
             }
-            if (closest == null)
-            {
-                foreach (PrototypeTankVisual preview in runtime.TankPreviews)
-                    if (preview.Team == Team &&
-                        Vector2.Distance(MapPosition, preview.MapPosition) < 8f)
-                    {
-                        SupportStatus = "T90 MODEL PREVIEW / DRIVING COMING LATER";
-                        supportStatusUntil = Time.time + 2.5f;
-                        break;
-                    }
-                return;
-            }
-            if (!closest.TrySetDriver(this)) return;
+            if (closest == null) return;
+            EnterVehicle(closest);
+        }
+
+        private bool EnterVehicle(IPrototypeVehicle closest)
+        {
+            if (!closest.TrySetDriver(this)) return false;
             CurrentVehicle = closest;
             controller.enabled = false;
             transform.position = closest.SeatPosition;
@@ -221,6 +230,7 @@ namespace Ironfront.UnityPrototype
             rifle.SetActive(false);
             viewCamera.fieldOfView = 80f;
             UpdateVehicleCamera();
+            return true;
         }
 
         private void UpdateVehicleCamera()
@@ -274,7 +284,7 @@ namespace Ironfront.UnityPrototype
                 }
             // The infantry spawn is a known clear point if the vehicle is boxed in.
             Vector2 spawn = Team == PrototypeTeam.Blue ?
-                new Vector2(-64f, -108f) : new Vector2(64f, 108f);
+                PrototypeLayout.BlueBase : PrototypeLayout.RedBase;
             return new Vector3(spawn.x,
                 PrototypeLayout.HeightAt(spawn.x, spawn.y) + 0.3f, spawn.y);
         }
@@ -406,9 +416,54 @@ namespace Ironfront.UnityPrototype
                 runtime.Match.Winner.HasValue) return;
             Health = Mathf.Max(0f, Health - kit.AbsorbDamage(amount));
             if (Alive) return;
+            bool inVehicle = CurrentVehicle != null;
             ForceExitVehicle();
+            if (inVehicle) { Eliminate(); return; }
+            downedUntil = Time.time + 30f;
+            rescueCalled = false;
+            runtime.Frontend.OpenDowned();
+        }
+
+        public void RequestRescue()
+        {
+            if (IsDowned) rescueCalled = true;
+        }
+
+        public void GiveUp(float dt)
+        {
+            if (IsDowned) downedUntil -= Mathf.Clamp(dt, 0f, .15f) * 12f;
+            if (downedUntil > 0f && Time.time >= downedUntil) Eliminate();
+        }
+
+        public void GiveUpImmediately()
+        {
+            if (IsDowned) Eliminate();
+        }
+
+        public bool TryRevive(PrototypeBot medic)
+        {
+            if (runtime == null || runtime.IsNetworkReplica || !IsDowned ||
+                medic == null || !medic.Alive || medic.Team != Team ||
+                medic.Class != PrototypeInfantryClass.Medic ||
+                Vector2.Distance(MapPosition, medic.MapPosition) > 3.5f) return false;
+            downedUntil = 0f;
+            rescueCalled = false;
+            Health = 50f;
+            if (controller != null) controller.enabled = true;
+            SupportStatus = "REVIVED BY MEDIC";
+            supportStatusUntil = Time.time + 2f;
+            runtime.Frontend.Close();
+            return true;
+        }
+
+        private void Eliminate()
+        {
+            if (runtime == null || runtime.IsNetworkReplica || respawnAt > 0f) return;
+            downedUntil = 0f;
+            rescueCalled = false;
             runtime.Match.RecordDeath(Team);
-            respawnAt = Time.time + 5f;
+            respawnAt = Time.time + 4.5f;
+            if (!runtime.Match.Winner.HasValue) runtime.Frontend.Open(true);
         }
 
         public void HealTo(float health)
@@ -416,12 +471,29 @@ namespace Ironfront.UnityPrototype
             if (Alive) Health = Mathf.Clamp(health, Health, 100f);
         }
 
+        public bool TryDeploy(string locationId, PrototypeInfantryClass selectedClass)
+        {
+            if (runtime == null || runtime.IsNetworkReplica || Alive ||
+                downedUntil > 0f ||
+                runtime.Match.Winner.HasValue || Time.time < respawnAt ||
+                !PrototypeDeployment.TryResolve(runtime, Team, locationId, true,
+                    out Vector2 point, out IPrototypeVehicle vehicle)) return false;
+            SelectClass(selectedClass);
+            Respawn(point);
+            if (vehicle != null) EnterVehicle(vehicle);
+            return true;
+        }
+
         private void Respawn()
+        {
+            Respawn(Team == PrototypeTeam.Blue ?
+                PrototypeLayout.BlueBase : PrototypeLayout.RedBase);
+        }
+
+        private void Respawn(Vector2 point)
         {
             ForceExitVehicle();
             if (controller != null) controller.enabled = false;
-            Vector2 point = Team == PrototypeTeam.Blue ?
-                new Vector2(-64f, -108f) : new Vector2(64f, 108f);
             transform.position = new Vector3(point.x,
                 PrototypeLayout.HeightAt(point.x, point.y) + 0.3f, point.y);
             transform.rotation = Quaternion.Euler(0f,
@@ -429,6 +501,9 @@ namespace Ironfront.UnityPrototype
             pitch = 0f;
             verticalSpeed = 0f;
             Health = 100f;
+            downedUntil = 0f;
+            rescueCalled = false;
+            respawnAt = 0f;
             kit.ResetForSpawn();
             if (controller != null) controller.enabled = true;
         }

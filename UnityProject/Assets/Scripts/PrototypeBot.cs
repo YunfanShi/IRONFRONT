@@ -119,6 +119,7 @@ namespace Ironfront.UnityPrototype
             }
             kit.Tick(Time.time);
             TrySupportNearby();
+            if (TryRescueAlly()) return;
 
             // A nearby transport is the squad's route to a distant objective.
             // Keep this commitment ahead of target selection while approaching it.
@@ -232,6 +233,42 @@ namespace Ironfront.UnityPrototype
             }
             TacticalState = PrototypeTacticalState.Advance;
             MoveToward(objective, true);
+        }
+
+        private bool TryRescueAlly()
+        {
+            if (kit.Role != PrototypeInfantryClass.Medic) return false;
+            PrototypePlayer player = runtime.Player;
+            PrototypeRemotePlayer remoteTarget = null;
+            Vector2 target = Vector2.zero;
+            float nearest = float.PositiveInfinity;
+            if (player != null && player.Team == Team && player.IsDowned)
+            {
+                nearest = Vector2.Distance(MapPosition, player.MapPosition);
+                target = player.MapPosition;
+            }
+            foreach (PrototypeRemotePlayer remote in runtime.RemotePlayers)
+            {
+                if (remote.Team != Team || !remote.IsDowned) continue;
+                float distance = Vector2.Distance(MapPosition, remote.MapPosition);
+                if (distance >= nearest) continue;
+                nearest = distance;
+                target = remote.MapPosition;
+                remoteTarget = remote;
+            }
+            bool called = remoteTarget != null ? remoteTarget.RescueCalled :
+                player != null && player.RescueCalled;
+            if (nearest > (called ? 100f : 60f)) return false;
+            if (nearest <= 3.5f)
+            {
+                if (remoteTarget != null) remoteTarget.TryRevive(this);
+                else player.TryRevive(this);
+                TacticalState = PrototypeTacticalState.Hold;
+                return true;
+            }
+            TacticalState = PrototypeTacticalState.Advance;
+            MoveToward(target, false);
+            return true;
         }
 
         private Vector2 FindVisibleEnemy(out PrototypeBot selectedBot,

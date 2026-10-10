@@ -14,7 +14,7 @@ namespace Ironfront.UnityPrototype
     // The server assigns host authority; a local room button never grants it.
     public sealed class PrototypeLanClient : IDisposable
     {
-        private const string Protocol = "unity-1";
+        private const string Protocol = "unity-2";
         private const int MaxMessageBytes = 65536;
         private readonly ConcurrentQueue<Incoming> incoming = new ConcurrentQueue<Incoming>();
         private readonly SemaphoreSlim sendGate = new SemaphoreSlim(1, 1);
@@ -27,6 +27,8 @@ namespace Ironfront.UnityPrototype
         private int nextSequence;
         private float lastInputSendAt = -1f;
         private float lastSnapshotSendAt = -1f;
+        private float lastDeploySendAt = -1f;
+        private float lastDownedSendAt = -1f;
 
         public bool IsConnected { get; private set; }
         public bool IsHost { get; private set; }
@@ -38,6 +40,10 @@ namespace Ironfront.UnityPrototype
         public PrototypeLanSnapshot LastSnapshot { get; private set; }
         public readonly System.Collections.Generic.Queue<PrototypeLanPeerInput> PeerInputs =
             new System.Collections.Generic.Queue<PrototypeLanPeerInput>();
+        public readonly System.Collections.Generic.Queue<PrototypeLanPeerDeploy> PeerDeployments =
+            new System.Collections.Generic.Queue<PrototypeLanPeerDeploy>();
+        public readonly System.Collections.Generic.Queue<PrototypeLanPeerDowned> PeerDownedActions =
+            new System.Collections.Generic.Queue<PrototypeLanPeerDowned>();
 
         private struct Incoming
         {
@@ -119,6 +125,8 @@ namespace Ironfront.UnityPrototype
                     IsConnected = false;
                     IsHost = false;
                     PeerInputs.Clear();
+                    PeerDeployments.Clear();
+                    PeerDownedActions.Clear();
                 }
                 if (!string.IsNullOrEmpty(item.error)) Error = item.error;
                 if (string.IsNullOrEmpty(item.json)) continue;
@@ -167,10 +175,23 @@ namespace Ironfront.UnityPrototype
                                     peer.input = new PrototypeLanInput {
                                         seq = peer.seq, forward = peer.forward, side = peer.side,
                                         yaw = peer.yaw, pitch = peer.pitch, sprint = peer.sprint,
-                                        fire = peer.fire
+                                        fire = peer.fire, callRescue = peer.callRescue,
+                                        giveUp = peer.giveUp
                                     };
                                 PeerInputs.Enqueue(peer);
                             }
+                            break;
+                        case "peerDeploy":
+                            var deployment = JsonUtility.FromJson<PrototypeLanPeerDeploy>(item.json);
+                            if (IsHost && deployment.id != LocalId &&
+                                PeerDeployments.Count < 64)
+                                PeerDeployments.Enqueue(deployment);
+                            break;
+                        case "peerDowned":
+                            var downed = JsonUtility.FromJson<PrototypeLanPeerDowned>(item.json);
+                            if (IsHost && downed.id != LocalId &&
+                                PeerDownedActions.Count < 64)
+                                PeerDownedActions.Enqueue(downed);
                             break;
                         case "error":
                             var failure = JsonUtility.FromJson<Failure>(item.json);
@@ -228,6 +249,26 @@ namespace Ironfront.UnityPrototype
             SendJson(JsonUtility.ToJson(input));
         }
 
+        public void SendDeploy(string location)
+        {
+            if (!IsConnected || IsHost || Phase != "battle" ||
+                string.IsNullOrEmpty(location)) return;
+            float now = Time.realtimeSinceStartup;
+            if (lastDeploySendAt >= 0f && now - lastDeploySendAt < 0.2f) return;
+            lastDeploySendAt = now;
+            SendJson(JsonUtility.ToJson(new Deploy { location = location }));
+        }
+
+        public void SendDownedAction(string action)
+        {
+            if (!IsConnected || IsHost || Phase != "battle" ||
+                (action != "rescue" && action != "giveUp")) return;
+            float now = Time.realtimeSinceStartup;
+            if (lastDownedSendAt >= 0f && now - lastDownedSendAt < 0.2f) return;
+            lastDownedSendAt = now;
+            SendJson(JsonUtility.ToJson(new Downed { action = action }));
+        }
+
         public void SendSnapshot(PrototypeLanSnapshot snapshot)
         {
             if (!IsConnected || !IsHost || Phase != "battle" || snapshot == null) return;
@@ -256,6 +297,8 @@ namespace Ironfront.UnityPrototype
             }
             while (incoming.TryDequeue(out _)) { }
             PeerInputs.Clear();
+            PeerDeployments.Clear();
+            PeerDownedActions.Clear();
             IsConnected = false;
             IsHost = false;
             LocalId = -1;
@@ -268,6 +311,8 @@ namespace Ironfront.UnityPrototype
             LastSnapshot = null;
             nextSequence = 0;
             lastInputSendAt = -1f;
+            lastDeploySendAt = -1f;
+            lastDownedSendAt = -1f;
             lastSnapshotSendAt = -1f;
         }
 
@@ -487,6 +532,10 @@ namespace Ironfront.UnityPrototype
         [Serializable] private sealed class Failure
         { public string error; public string message; public string code; }
         [Serializable] private sealed class Ready { public string type = "ready"; public bool ready; }
+        [Serializable] private sealed class Deploy
+        { public string type = "deploy"; public string location; }
+        [Serializable] private sealed class Downed
+        { public string type = "downed"; public string action; }
         [Serializable] private sealed class Team
         { public string type = "team"; public string team; public int targetId; }
         [Serializable] private sealed class Kick { public string type = "kick"; public int targetId; }
@@ -534,6 +583,8 @@ namespace Ironfront.UnityPrototype
         public float pitch;
         public bool sprint;
         public bool fire;
+        public bool callRescue;
+        public bool giveUp;
     }
 
     [Serializable]
@@ -549,6 +600,24 @@ namespace Ironfront.UnityPrototype
         public float pitch;
         public bool sprint;
         public bool fire;
+        public bool callRescue;
+        public bool giveUp;
+    }
+
+    [Serializable]
+    public sealed class PrototypeLanPeerDeploy
+    {
+        public string type;
+        public int id;
+        public string location;
+    }
+
+    [Serializable]
+    public sealed class PrototypeLanPeerDowned
+    {
+        public string type;
+        public int id;
+        public string action;
     }
 
     [Serializable]
@@ -577,6 +646,9 @@ namespace Ironfront.UnityPrototype
         public string team;
         public int ammo;
         public int reserve;
+        public float respawnRemaining;
+        public float downedRemaining;
+        public bool rescueCalled;
     }
 
     [Serializable]

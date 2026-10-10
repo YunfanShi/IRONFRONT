@@ -39,8 +39,6 @@ namespace Ironfront.UnityPrototype
         public PrototypeFrontend Frontend { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
         public readonly List<IPrototypeVehicle> Vehicles = new List<IPrototypeVehicle>();
-        public readonly List<PrototypeTankVisual> TankPreviews =
-            new List<PrototypeTankVisual>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
         public Material GunMaterial { get; private set; }
@@ -104,7 +102,7 @@ namespace Ironfront.UnityPrototype
             BuildGround();
             BuildStructures();
             BuildWorldVisual();
-            BuildTankPreviews();
+            BuildTanks();
             BuildMarkers();
             BuildPlayer();
             BuildBots();
@@ -182,7 +180,6 @@ namespace Ironfront.UnityPrototype
         {
             foreach (PrototypeLayout.Block block in PrototypeLayout.Blocks)
             {
-                if (block.Kind == "tank-preview") continue;
                 GameObject object3D = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 object3D.name = block.Kind + " collision";
                 object3D.transform.SetParent(transform);
@@ -309,19 +306,19 @@ namespace Ironfront.UnityPrototype
             AddTransport(PrototypeTeam.Red, new Vector2(67f, -95f), true);
         }
 
-        private void BuildTankPreviews()
+        private void BuildTanks()
         {
-            AddTankPreview(PrototypeTeam.Blue, PrototypeLayout.BlueTankDisplay, -65f);
-            AddTankPreview(PrototypeTeam.Red, PrototypeLayout.RedTankDisplay, 25f);
+            AddTank(PrototypeTeam.Blue, PrototypeLayout.BlueTankSpawn, 0f);
+            AddTank(PrototypeTeam.Red, PrototypeLayout.RedTankSpawn, 180f);
         }
 
-        private void AddTankPreview(PrototypeTeam team, Vector2 position, float yaw)
+        private void AddTank(PrototypeTeam team, Vector2 position, float yaw)
         {
-            var object3D = new GameObject(team + " T90 BASTION model preview");
+            var object3D = new GameObject(team + " T90 BASTION");
             object3D.transform.SetParent(transform);
-            PrototypeTankVisual preview = object3D.AddComponent<PrototypeTankVisual>();
-            preview.Initialize(this, team, position, yaw);
-            TankPreviews.Add(preview);
+            PrototypeTankVehicle tank = object3D.AddComponent<PrototypeTankVehicle>();
+            Vehicles.Add(tank);
+            tank.Initialize(this, team, position, yaw);
         }
 
         private void AddTransport(PrototypeTeam team, Vector2 position, bool aiControlled)
@@ -539,8 +536,35 @@ namespace Ironfront.UnityPrototype
                         float dt = lastRemoteInputAt.TryGetValue(peer.id, out float prior) ?
                             Mathf.Clamp(Time.unscaledTime - prior, 0f, 0.1f) : 0.05f;
                         lastRemoteInputAt[peer.id] = Time.unscaledTime;
+                        if (remote.IsDowned)
+                        {
+                            if (input.callRescue) remote.RequestRescue();
+                            if (input.giveUp) remote.GiveUp(dt);
+                        }
                         remote.ApplyInput(input.forward, input.side, input.yaw,
                             input.pitch, input.sprint, input.fire, dt);
+                        break;
+                    }
+            }
+            while (lan.PeerDeployments.Count > 0)
+            {
+                PrototypeLanPeerDeploy request = lan.PeerDeployments.Dequeue();
+                if (string.IsNullOrEmpty(request.location)) continue;
+                foreach (PrototypeRemotePlayer remote in RemotePlayers)
+                    if (remote.Id == request.id)
+                    {
+                        remote.TryDeploy(request.location);
+                        break;
+                    }
+            }
+            while (lan.PeerDownedActions.Count > 0)
+            {
+                PrototypeLanPeerDowned request = lan.PeerDownedActions.Dequeue();
+                foreach (PrototypeRemotePlayer remote in RemotePlayers)
+                    if (remote.Id == request.id)
+                    {
+                        if (request.action == "rescue") remote.RequestRescue();
+                        else if (request.action == "giveUp") remote.GiveUpImmediately();
                         break;
                     }
             }
@@ -559,7 +583,9 @@ namespace Ironfront.UnityPrototype
                 yaw = Player.transform.eulerAngles.y,
                 pitch = pitch,
                 sprint = active && Input.GetKey(KeyCode.LeftShift),
-                fire = active && Input.GetMouseButton(0)
+                fire = active && Input.GetMouseButton(0),
+                callRescue = Player.IsDowned && Input.GetKey(KeyCode.H),
+                giveUp = Player.IsDowned && Input.GetKey(KeyCode.Space)
             });
         }
 
@@ -570,6 +596,9 @@ namespace Ironfront.UnityPrototype
                 Player.Health, Player.Alive, Player.Team);
             players[0].ammo = Player.Ammo;
             players[0].reserve = Player.Reserve;
+            players[0].respawnRemaining = Player.RespawnRemaining;
+            players[0].downedRemaining = Player.DownedRemaining;
+            players[0].rescueCalled = Player.RescueCalled;
             for (int i = 0; i < RemotePlayers.Count; i++)
             {
                 PrototypeRemotePlayer remote = RemotePlayers[i];
@@ -577,6 +606,9 @@ namespace Ironfront.UnityPrototype
                     remote.Health, remote.Alive, remote.Team);
                 players[i + 1].ammo = remote.Ammo;
                 players[i + 1].reserve = remote.Reserve;
+                players[i + 1].respawnRemaining = remote.RespawnRemaining;
+                players[i + 1].downedRemaining = remote.DownedRemaining;
+                players[i + 1].rescueCalled = remote.RescueCalled;
             }
             var bots = new PrototypeLanActor[Bots.Count];
             for (int i = 0; i < Bots.Count; i++)
@@ -625,7 +657,8 @@ namespace Ironfront.UnityPrototype
                     Vector3 position = new Vector3(actor.x, actor.y, actor.z);
                     if (actor.id == lan.LocalId)
                         Player.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive,
-                            actor.ammo, actor.reserve);
+                            actor.ammo, actor.reserve, actor.respawnRemaining,
+                            actor.downedRemaining, actor.rescueCalled);
                     else
                         foreach (PrototypeRemotePlayer remote in RemotePlayers)
                             if (remote.Id == actor.id)
@@ -645,7 +678,15 @@ namespace Ironfront.UnityPrototype
                             scout.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
                         else if (Vehicles[actor.id] is PrototypeTransportVehicle transport)
                             transport.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
+                        else if (Vehicles[actor.id] is PrototypeTankVehicle tank)
+                            tank.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
                     }
+            if (Player.Alive && Frontend.IsOpen) Frontend.Close();
+            else if (Player.IsDowned && !Frontend.IsDownedScreen &&
+                !Match.Winner.HasValue) Frontend.OpenDowned();
+            else if (!Player.Alive && !Player.IsDowned &&
+                (!Frontend.IsOpen || Frontend.IsDownedScreen) &&
+                !Match.Winner.HasValue) Frontend.Open(true);
         }
 
         private void OnDestroy() { lan?.Close(); }
@@ -685,6 +726,39 @@ namespace Ironfront.UnityPrototype
                 }
                 else if (Frontend != null && Frontend.LanRequested)
                     roomMenuOpen = true;
+                GUI.matrix = previousMatrix;
+                return;
+            }
+            if (Frontend != null && Frontend.IsDownedScreen && Player.IsDowned &&
+                !Match.Winner.HasValue)
+            {
+                PrototypeDownedAction action = Frontend.DrawDowned(canvasWidth,
+                    canvasHeight, Player.DownedRemaining, Player.RescueCalled);
+                if (action == PrototypeDownedAction.Rescue)
+                {
+                    if (IsNetworkReplica) lan?.SendDownedAction("rescue");
+                    else Player.RequestRescue();
+                }
+                else if (action == PrototypeDownedAction.GiveUp)
+                {
+                    if (IsNetworkReplica) lan?.SendDownedAction("giveUp");
+                    else Player.GiveUpImmediately();
+                }
+                GUI.matrix = previousMatrix;
+                return;
+            }
+            if (Frontend != null && Frontend.IsOpen && !Player.Alive &&
+                !Match.Winner.HasValue)
+            {
+                string location = Frontend.DrawDeployment(canvasWidth, canvasHeight,
+                    this, !IsNetworkReplica, Player.RespawnRemaining);
+                if (location != null)
+                {
+                    if (IsNetworkReplica)
+                        lan?.SendDeploy(location);
+                    else if (Player.TryDeploy(location, Frontend.SelectedClass))
+                        Frontend.Close();
+                }
                 GUI.matrix = previousMatrix;
                 return;
             }
@@ -750,7 +824,9 @@ namespace Ironfront.UnityPrototype
                 "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
             GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
-            string controls = Player.CurrentVehicle is PrototypeTransportVehicle transport ?
+            string controls = Player.CurrentVehicle is PrototypeTankVehicle ?
+                "T90 BASTION  |  WASD drive  |  Mouse aim  |  LMB cannon  |  E exit  |  Esc cursor" :
+                Player.CurrentVehicle is PrototypeTransportVehicle transport ?
                 "U8 ROVER  |  AI passengers " + transport.PassengerCount + "/2  |  " +
                 (transport.PlayerSeat == 0 ?
                     "WASD drive  |  F2 gunner  |  Driver unarmed" :
@@ -769,8 +845,9 @@ namespace Ironfront.UnityPrototype
                 float cy = canvasHeight / 2f;
                 GUI.Label(new Rect(cx - 5, cy - 10, 25, 25), "+", title);
             }
-            if (!Player.Alive) GUI.Label(new Rect(canvasWidth / 2f - 120, canvasHeight / 2f - 65,
-                300, 40), "DOWN  |  Respawning...", title);
+            if (!Player.Alive && !Match.Winner.HasValue)
+                GUI.Label(new Rect(canvasWidth / 2f - 120, canvasHeight / 2f - 65,
+                    300, 40), "DOWN  |  SELECT DEPLOYMENT", title);
             if (Match.Winner.HasValue) GUI.Label(new Rect(canvasWidth / 2f - 145,
                 canvasHeight / 2f - 80, 350, 45), Match.Winner.Value + " TEAM WINS", title);
             GUI.matrix = previousMatrix;
