@@ -77,6 +77,7 @@ namespace Ironfront.UnityPrototype
         private GUIStyle statStyle;
 
         private readonly PrototypeRuntime runtime;
+        private PrototypeStartMenuView startMenu;
         private PrototypeMenuPreview menuPreview;
         private Texture2D menuVeil;
         private Texture2D tacticalMapTexture;
@@ -103,6 +104,11 @@ namespace Ironfront.UnityPrototype
 
         public void Open(bool isRespawn = false)
         {
+            if (startMenu != null)
+            {
+                startMenu.Dispose();
+                startMenu = null;
+            }
             redeploy = isRespawn;
             IsDownedScreen = false;
             if (isRespawn) selectedLocation = "BASE";
@@ -110,12 +116,26 @@ namespace Ironfront.UnityPrototype
             IsOpen = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            if (!isRespawn && PrototypeStartMenuView.AssetsAvailable)
+            {
+                try { startMenu = new PrototypeStartMenuView(runtime, PlayerName, SelectedClass, volume); }
+                catch (System.Exception error)
+                {
+                    Debug.LogError("Start menu UI Toolkit could not initialize: " + error);
+                    startMenu = null;
+                }
+            }
         }
 
         public void Close()
         {
             IsOpen = false;
             IsDownedScreen = false;
+            if (startMenu != null)
+            {
+                startMenu.Dispose();
+                startMenu = null;
+            }
             DisposePreview();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -123,6 +143,11 @@ namespace Ironfront.UnityPrototype
 
         public void Dispose()
         {
+            if (startMenu != null)
+            {
+                startMenu.Dispose();
+                startMenu = null;
+            }
             DisposePreview();
             if (menuVeil != null) Object.Destroy(menuVeil);
             if (tacticalMapTexture != null) Object.Destroy(tacticalMapTexture);
@@ -178,6 +203,21 @@ namespace Ironfront.UnityPrototype
         public bool Draw(float canvasWidth, float canvasHeight)
         {
             if (!IsOpen) return false;
+            if (!redeploy && startMenu != null)
+            {
+                PlayerName = startMenu.PlayerName;
+                SelectedClass = startMenu.SelectedClass;
+                if (startMenu.LanRequested)
+                {
+                    LanRequested = true;
+                    SavePlayerName();
+                    return false;
+                }
+                if (!startMenu.DeployRequested) return false;
+                SavePlayerName();
+                Close();
+                return true;
+            }
             EnsureStyles();
             Event inputEvent = Event.current;
             if (inputEvent != null && inputEvent.type == EventType.KeyDown &&
@@ -467,7 +507,7 @@ namespace Ironfront.UnityPrototype
             }
         }
 
-        private static Texture2D BuildTacticalMapTexture()
+        internal static Texture2D BuildTacticalMapTexture()
         {
             const int textureWidth = 256;
             const int textureHeight = 128;

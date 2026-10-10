@@ -1,0 +1,121 @@
+.screen { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(12, 22, 26); color: rgb(231, 238, 238); }
+.hangar-image { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.scene-veil { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.scene-vignette { position: absolute; left: 0; bottom: 0; right: 0; height: 76px; background-color: rgba(7, 17, 21, 0.25); }
+.top-bar { position: absolute; left: 0; top: 0; right: 0; height: 68px; flex-direction: row; align-items: center; padding-left: 40px; padding-right: 38px; background-color: rgba(5, 13, 18, 0.95); border-bottom-width: 1px; border-bottom-color: rgb(43, 67, 73); }
+.brand { width: 260px; flex-direction: row; align-items: center; }
+.brand-white, .brand-accent { font-size: 24px; -unity-font-style: bold; letter-spacing: 2px; margin: 0; padding: 0; }
+.brand-white { color: rgb(234, 242, 243); }
+.brand-accent { color: rgb(112, 198, 208); }
+.version { color: rgb(129, 151, 158); font-size: 10px; margin-left: 12px; }
+.navigation { flex-grow: 1; flex-direction: row; justify-content: center; height: 100%; align-items: center; }
+.nav-button { width: 78px; height: 58px; margin-left: 4px; margin-right: 4px; background-color: transparent; border-width: 0; border-bottom-width: 2px; border-bottom-color: transparent; color: rgb(173, 192, 198); font-size: 16px; }
+.nav-button:hover { color: white; background-color: rgba(52, 83, 91, 0.27); }
+.nav-button.active { color: rgb(237, 245, 246); border-bottom-color: rgb(113, 199, 209); -unity-font-style: bold; }
+.header-right { width: 180px; -unity-text-align: middle-right; color: rgb(164, 184, 189); font-size: 12px; }
+.page { position: absolute; left: 48px; top: 85px; width: 506px; bottom: 116px; }
+.hidden { display: none; }
+.lobby-page { background-color: transparent; }
+.panel-page { left: 35px; top: 89px; width: 525px; bottom: 111px; padding: 22px 20px 16px 20px; background-color: rgba(5, 17, 24, 0.85); border-top-width: 2px; border-top-color: rgb(113, 199, 209); }
+.eyebrow { color: rgb(191, 209, 213); font-size: 12px; -unity-font-style: bold; letter-spacing: 0.5px; }
+.hero-title { margin-top: 9px; color: rgb(243, 247, 247); font-size: 47px; -unity-font-style: bold; letter-spacing: 2px; }
+.hero-subtitle { margin-top: 2px; color: rgb(178, 198, 203); font-size: 16px; }
+.operation-summary { position: absolute; top: 145px; width: 440px; height: 128px; background-color: rgba(5, 17, 24, 0.85); border-left-width: 3px; border-left-color: rgb(113, 199, 209); }
+.operation-summary .eyebrow { position: absolute; left: 20px; top: 9px; }
+.operation-title { position: absolute; left: 20px; top: 30px; color: rgb(235, 242, 243); font-size: 23px; -unity-font-style: bold; }
+.operation-summary .body-text { position: absolute; left: 20px; top: 65px; }
+.body-text { color: rgb(189, 205, 208); font-size: 13px; }
+.text-action { position: absolute; left: 20px; top: 92px; height: 25px; width: 165px; padding: 0 6px; -unity-text-align: middle-left; color: rgb(214, 232, 234); font-size: 12px; background-color: rgba(30, 53, 61, 0.8); border-width: 1px; border-color: rgb(65, 96, 103); }
+.text-action:hover { background-color: rgb(42, 83, 94); }
+.section-label { color: rgb(181, 201, 206); font-size: 12px; -unity-font-style: bold; margin-top: 22px; margin-bottom: 8px; }
+.lobby-page .section-label { position: absolute; top: 293px; margin-top: 0; margin-bottom: 0; }
+.squad-row { position: absolute; top: 320px; width: 506px; flex-direction: row; justify-content: space-between; }
+.squad-card { width: 119px; height: 50px; padding: 4px 7px 3px 8px; background-color: rgba(8, 23, 30, 0.88); border-top-width: 1px; border-top-color: rgb(59, 87, 96); }
+.squad-card.current { border-top-color: rgb(113, 199, 209); }
+.squad-number { color: rgb(192, 212, 216); font-size: 10px; -unity-font-style: bold; }
+.squad-role { color: rgb(236, 241, 241); font-size: 13px; -unity-font-style: bold; }
+.squad-note { color: rgb(138, 161, 167); font-size: 9px; }
+.page-title { margin-top: 13px; margin-bottom: 8px; color: rgb(243, 247, 247); font-size: 30px; -unity-font-style: bold; }
+.map-row { flex-direction: row; width: 100%; margin-top: 17px; justify-content: space-between; }
+.map-card { width: 235px; height: 139px; background-color: rgba(18, 42, 52, 0.88); border-width: 1px; border-color: rgb(59, 85, 95); }
+.map-card.selected { border-color: rgb(113, 199, 209); }
+.map-card.pending { padding: 17px 13px; }
+.map-thumb { height: 91px; width: 100%; }
+.map-name { margin: 6px 9px 0 9px; color: rgb(234, 241, 242); font-size: 14px; -unity-font-style: bold; }
+.map-meta { margin: 1px 9px; color: rgb(150, 179, 185); font-size: 10px; }
+.map-pending-title { margin-top: 12px; margin-bottom: 11px; color: rgb(224, 234, 235); font-size: 19px; -unity-font-style: bold; }
+.mode-row { flex-direction: row; width: 100%; justify-content: space-between; }
+.mode-card { width: 235px; height: 65px; padding: 8px 12px; background-color: rgba(18, 42, 52, 0.88); border-width: 1px; border-color: rgb(59, 85, 95); }
+.mode-card.selected { border-color: rgb(113, 199, 209); }
+.mode-name { color: rgb(230, 239, 240); font-size: 16px; -unity-font-style: bold; margin-bottom: 4px; }
+.class-grid { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-top: 13px; }
+.class-card { width: 235px; height: 62px; margin-bottom: 8px; padding: 8px 12px; -unity-text-align: middle-left; white-space: normal; background-color: rgba(18, 42, 52, 0.89); color: rgb(222, 236, 238); font-size: 14px; border-width: 1px; border-color: rgb(58, 84, 94); }
+.class-card:hover { background-color: rgb(38, 72, 82); }
+.class-card.selected { background-color: rgba(39, 82, 92, 0.96); border-color: rgb(113, 199, 209); }
+.equipment-card { width: 100%; height: 125px; margin-top: 9px; padding: 10px 13px; background-color: rgba(8, 24, 32, 0.93); border-top-width: 2px; border-top-color: rgb(113, 199, 209); }
+.weapon-name { color: rgb(242, 246, 246); font-size: 20px; -unity-font-style: bold; margin-top: 6px; }
+.stats-row { flex-direction: row; justify-content: space-between; margin-top: 9px; }
+.stat { width: 106px; height: 43px; padding: 4px 8px; background-color: rgba(57, 75, 66, 0.57); }
+.stat-caption { color: rgb(155, 190, 194); font-size: 10px; }
+.stat-value { color: rgb(241, 245, 245); font-size: 16px; -unity-font-style: bold; }
+.settings-card { background-color: rgba(8, 24, 32, 0.89); margin-top: 20px; padding: 16px 18px; }
+.settings-card .unity-slider { margin-top: 12px; }
+.control-text { color: rgb(194, 213, 215); font-size: 13px; margin-top: 12px; }
+.operator-caption { position: absolute; right: 39px; bottom: 138px; width: 175px; padding-top: 8px; border-top-width: 2px; border-top-color: rgb(113, 199, 209); background-color: rgba(5, 18, 23, 0.32); }
+.operator-caption .body-text { margin-top: 6px; }
+.bottom-bar { position: absolute; left: 0; bottom: 0; right: 0; height: 105px; flex-direction: row; align-items: center; padding: 12px 39px; background-color: rgba(5, 15, 20, 0.94); border-top-width: 1px; border-top-color: rgb(46, 73, 79); }
+.name-area { width: 225px; margin-right: 15px; }
+.field-label { color: rgb(166, 190, 194); font-size: 11px; -unity-font-style: bold; margin-bottom: 5px; }
+.name-area .unity-text-field__input { background-color: rgb(30, 51, 58); color: rgb(237, 245, 245); border-width: 0; padding-left: 8px; font-size: 17px; height: 35px; }
+.primary-button, .secondary-button { height: 48px; border-width: 1px; margin-right: 9px; font-size: 16px; -unity-font-style: bold; }
+.primary-button { width: 190px; color: rgb(8, 36, 43); background-color: rgb(129, 205, 216); border-color: rgb(129, 205, 216); }
+.primary-button:hover { background-color: rgb(164, 224, 232); }
+.secondary-button { width: 203px; color: rgb(224, 238, 240); background-color: rgb(20, 43, 53); border-color: rgb(61, 92, 101); }
+.secondary-button:hover { background-color: rgb(35, 70, 82); }
+.footer-note { flex-grow: 1; color: rgb(143, 170, 175); font-size: 10px; -unity-text-align: middle-right; }
+
+/* Fixed positions keep the four menu pages clear of the persistent action bar. */
+.squad-card { position: relative; padding: 0; }
+.squad-number { position: absolute; left: 8px; top: 4px; font-size: 9px; }
+.squad-role { position: absolute; left: 8px; top: 20px; font-size: 12px; }
+.squad-note { position: absolute; left: 8px; top: 37px; font-size: 8px; }
+
+.operations-page > .eyebrow, .loadout-page > .eyebrow, .settings-page > .eyebrow { position: absolute; left: 20px; top: 15px; }
+.operations-page > .page-title, .loadout-page > .page-title, .settings-page > .page-title { position: absolute; left: 20px; top: 39px; margin: 0; font-size: 27px; }
+.operations-page > .body-text, .loadout-page > .body-text { position: absolute; left: 20px; top: 82px; }
+
+.operations-page .map-row { position: absolute; left: 20px; top: 112px; width: 485px; margin: 0; }
+.operations-page .map-card { position: relative; height: 112px; }
+.operations-page .map-thumb { height: 67px; }
+.operations-page .map-card .map-name { position: absolute; left: 8px; top: 70px; margin: 0; font-size: 12px; }
+.operations-page .map-card .map-meta { position: absolute; left: 8px; top: 92px; margin: 0; font-size: 9px; }
+.operations-page .map-card.pending { padding: 0; }
+.operations-page .map-card.pending .eyebrow { position: absolute; left: 11px; top: 8px; font-size: 10px; }
+.operations-page .map-pending-title { position: absolute; left: 11px; top: 35px; margin: 0; font-size: 19px; }
+.operations-page .map-card.pending .body-text { position: absolute; left: 11px; top: 77px; font-size: 11px; }
+.operations-page > .section-label { position: absolute; left: 20px; top: 238px; margin: 0; }
+.operations-page .mode-row { position: absolute; left: 20px; top: 261px; width: 485px; }
+.operations-page .mode-card { position: relative; height: 65px; padding: 0; }
+.operations-page .mode-card .mode-name { position: absolute; left: 10px; top: 8px; margin: 0; font-size: 14px; }
+.operations-page .mode-card .body-text { position: absolute; left: 10px; top: 38px; font-size: 10px; }
+
+.loadout-page .class-grid { position: absolute; left: 20px; top: 114px; width: 485px; height: 120px; margin: 0; }
+.loadout-page .class-card { width: 235px; min-width: 0; height: 52px; margin-bottom: 8px; padding: 6px 8px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+.loadout-page .assault-card { position: absolute; left: 0; top: 0; }
+.loadout-page .medic-card { position: absolute; left: 245px; top: 0; }
+.loadout-page .recon-card { position: absolute; left: 0; top: 60px; }
+.loadout-page .engineer-card { position: absolute; left: 245px; top: 60px; }
+.loadout-page .equipment-card { position: absolute; left: 20px; top: 246px; width: 485px; height: 103px; margin: 0; padding: 0; }
+.loadout-page .equipment-card > .eyebrow { position: absolute; left: 10px; top: 6px; font-size: 10px; }
+.loadout-page .weapon-name { position: absolute; left: 10px; top: 28px; margin: 0; font-size: 18px; }
+.loadout-page .stats-row { position: absolute; left: 10px; top: 60px; width: 465px; margin: 0; }
+.loadout-page .stat { position: relative; width: 108px; height: 34px; padding: 0; }
+.loadout-page .stat-caption { position: absolute; left: 6px; top: 1px; font-size: 8px; }
+.loadout-page .stat-value { position: absolute; left: 6px; top: 14px; font-size: 14px; }
+
+.settings-page .audio-card { position: absolute; left: 20px; top: 113px; width: 485px; height: 105px; margin: 0; padding: 0; }
+.settings-page .controls-card { position: absolute; left: 20px; top: 232px; width: 485px; height: 100px; margin: 0; padding: 0; }
+.settings-page .settings-card .mode-name { position: absolute; left: 15px; top: 12px; margin: 0; font-size: 15px; }
+.settings-page .audio-card .unity-slider { position: absolute; left: 15px; top: 48px; width: 450px; margin: 0; }
+.settings-page .audio-card .body-text { position: absolute; left: 15px; top: 79px; }
+.settings-page .control-text { position: absolute; left: 15px; top: 44px; margin: 0; font-size: 11px; white-space: normal; }

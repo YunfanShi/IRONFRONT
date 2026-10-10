@@ -1,0 +1,90 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="project://database/Assets/Resources/Menu/StartMenuTheme.uss" />
+    <ui:VisualElement name="screen" class="screen">
+        <ui:Image name="hangar-image" class="hangar-image" />
+        <ui:VisualElement name="scene-veil" class="scene-veil" />
+        <ui:VisualElement class="scene-vignette" />
+
+        <ui:VisualElement class="top-bar">
+            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.33.0" class="version" /></ui:VisualElement>
+            <ui:VisualElement class="navigation">
+                <ui:Button name="tab-lobby" text="大厅" class="nav-button active" />
+                <ui:Button name="tab-operations" text="作战" class="nav-button" />
+                <ui:Button name="tab-loadout" text="配装" class="nav-button" />
+                <ui:Button name="tab-settings" text="设置" class="nav-button" />
+            </ui:VisualElement>
+            <ui:Label text="简体中文  /  UNITY" class="header-right" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="page-lobby" class="page lobby-page">
+            <ui:Label text="联合特遣队  /  TASK FORCE" class="eyebrow" />
+            <ui:Label text="准备行动" class="hero-title" />
+            <ui:Label text="选择任务，与小队一起部署。" class="hero-subtitle" />
+            <ui:VisualElement class="operation-summary">
+                <ui:Label text="已选择行动  /  OPERATION 01" class="eyebrow" />
+                <ui:Label text="工业前线" class="operation-title" />
+                <ui:Label text="征服模式  ·  32 vs 32  ·  五个据点" class="body-text" />
+                <ui:Button name="browse-operation" text="浏览地图与玩法  →" class="text-action" />
+            </ui:VisualElement>
+            <ui:Label text="小队部署  /  SQUAD" class="section-label" />
+            <ui:VisualElement class="squad-row">
+                <ui:VisualElement class="squad-card current"><ui:Label text="01 / YOU" class="squad-number" /><ui:Label name="squad-class" text="突击兵" class="squad-role" /><ui:Label text="准备部署" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="02 / AI" class="squad-number" /><ui:Label text="小队补位" class="squad-role" /><ui:Label text="进入战局后集结" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="03 / AI" class="squad-number" /><ui:Label text="小队补位" class="squad-role" /><ui:Label text="进入战局后集结" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="04 / AI" class="squad-number" /><ui:Label text="小队补位" class="squad-role" /><ui:Label text="进入战局后集结" class="squad-note" /></ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="page-operations" class="page panel-page operations-page hidden">
+            <ui:Label text="选择战场  /  OPERATIONS" class="eyebrow" />
+            <ui:Label text="工业前线" class="page-title" />
+            <ui:Label text="现有可游玩战场  ·  720 × 720  ·  五个据点" class="body-text" />
+            <ui:VisualElement class="map-row">
+                <ui:VisualElement class="map-card selected"><ui:Image name="map-thumb" class="map-thumb" /><ui:Label text="工业前线  /  可游玩" class="map-name" /><ui:Label text="征服 · 五据点" class="map-meta" /></ui:VisualElement>
+                <ui:VisualElement class="map-card pending"><ui:Label text="02 / CONCEPT" class="eyebrow" /><ui:Label text="赤砂走廊" class="map-pending-title" /><ui:Label text="概念已保留 · 开发中" class="body-text" /></ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label text="模式  /  GAME MODE" class="section-label" />
+            <ui:VisualElement class="mode-row">
+                <ui:VisualElement class="mode-card selected"><ui:Label text="征服  /  CONQUEST" class="mode-name" /><ui:Label text="争夺五处据点，耗尽敌方兵力" class="body-text" /></ui:VisualElement>
+                <ui:VisualElement class="mode-card pending"><ui:Label text="攻防  /  BREAKTHROUGH" class="mode-name" /><ui:Label text="开发中，暂不可选择" class="body-text" /></ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="page-loadout" class="page panel-page loadout-page hidden">
+            <ui:Label text="兵种与配装  /  LOADOUT" class="eyebrow" />
+            <ui:Label text="选择你的兵种" class="page-title" />
+            <ui:Label text="点击兵种，预览默认武器与战场能力。" class="body-text" />
+            <ui:VisualElement class="class-grid">
+                <ui:Button name="class-assault" text="◆ 突击兵  /  弹药补给" class="class-card assault-card selected" />
+                <ui:Button name="class-medic" text="✚ 医疗兵  /  治疗友军" class="class-card medic-card" />
+                <ui:Button name="class-recon" text="◎ 侦察兵  /  侦测敌情" class="class-card recon-card" />
+                <ui:Button name="class-engineer" text="⚒ 工程兵  /  装甲补给" class="class-card engineer-card" />
+            </ui:VisualElement>
+            <ui:VisualElement class="equipment-card">
+                <ui:Label text="当前默认装备  /  PRIMARY WEAPON" class="eyebrow" />
+                <ui:Label name="weapon-name" text="IF-27 卡宾枪" class="weapon-name" />
+                <ui:VisualElement class="stats-row">
+                    <ui:VisualElement class="stat"><ui:Label text="伤害" class="stat-caption" /><ui:Label name="stat-damage" text="31" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat"><ui:Label text="射速 RPM" class="stat-caption" /><ui:Label name="stat-rate" text="571" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat"><ui:Label text="弹匣" class="stat-caption" /><ui:Label name="stat-magazine" text="30" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat"><ui:Label text="有效射程" class="stat-caption" /><ui:Label name="stat-range" text="92m" class="stat-value" /></ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="page-settings" class="page panel-page settings-page hidden">
+            <ui:Label text="系统设置  /  SETTINGS" class="eyebrow" />
+            <ui:Label text="出击前设置" class="page-title" />
+            <ui:VisualElement class="settings-card audio-card"><ui:Label text="主音量  /  MASTER VOLUME" class="mode-name" /><ui:Slider name="volume-slider" low-value="0" high-value="1" value="1" /><ui:Label name="volume-value" text="100%" class="body-text" /></ui:VisualElement>
+            <ui:VisualElement class="settings-card controls-card"><ui:Label text="操作提示  /  CONTROLS" class="mode-name" /><ui:Label text="W A S D 移动  ·  鼠标瞄准与射击&#10;F1–F4 切换页面  ·  1–4 选兵种&#10;ENTER 出击  ·  L 打开联机房间" class="control-text" /></ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="operator-caption"><ui:Label name="operator-title" text="OPERATOR  /  ASSAULT" class="eyebrow" /><ui:Label name="operator-class" text="当前兵种：突击兵" class="body-text" /></ui:VisualElement>
+        <ui:VisualElement class="bottom-bar">
+            <ui:VisualElement class="name-area"><ui:Label text="玩家代号  /  PLAYER NAME" class="field-label" /><ui:TextField name="player-name" max-length="20" /></ui:VisualElement>
+            <ui:Button name="solo-button" text="单人游戏  /  SOLO  ↗" class="primary-button" />
+            <ui:Button name="lan-button" text="联机房间  /  LAN ROOM" class="secondary-button" />
+            <ui:Label text="单人模式无需联网&#10;按 ENTER 直接出击" class="footer-note" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -47,7 +47,15 @@ namespace Ironfront.UnityPrototype
             medicBadge = CreateMaterial(new Color(.66f, .34f, .30f));
             engineerBadge = CreateMaterial(new Color(.72f, .62f, .32f));
             reconBadge = CreateMaterial(new Color(.35f, .53f, .59f));
-            BuildHangar();
+            GameObject hangarPrefab = Resources.Load<GameObject>("Menu/MenuHangar");
+            Camera camera = null;
+            if (hangarPrefab != null)
+            {
+                GameObject hangar = Object.Instantiate(hangarPrefab, stage.transform, false);
+                hangar.name = "Editable Menu Hangar";
+                camera = hangar.GetComponentInChildren<Camera>();
+            }
+            if (camera == null) BuildHangar();
 
             texture = new RenderTexture(1280, 800, 16, RenderTextureFormat.ARGB32)
             {
@@ -55,18 +63,21 @@ namespace Ironfront.UnityPrototype
                 antiAliasing = 2
             };
             texture.Create();
-            GameObject cameraObject = new GameObject("Menu hangar camera");
-            cameraObject.transform.SetParent(stage.transform, false);
-            cameraObject.transform.localPosition = new Vector3(0f, 2.75f, 8.2f);
-            cameraObject.transform.LookAt(stage.transform.position + new Vector3(0f, 1.1f, 0f));
-            Camera camera = cameraObject.AddComponent<Camera>();
-            camera.clearFlags = CameraClearFlags.SolidColor;
-            camera.backgroundColor = new Color(.09f, .12f, .12f);
-            camera.cullingMask = 1 << PreviewLayer;
-            camera.orthographic = true;
-            camera.orthographicSize = 3.1f;
-            camera.nearClipPlane = .1f;
-            camera.farClipPlane = 35f;
+            if (camera == null)
+            {
+                GameObject cameraObject = new GameObject("Menu hangar camera");
+                cameraObject.transform.SetParent(stage.transform, false);
+                cameraObject.transform.localPosition = new Vector3(0f, 2.75f, 8.2f);
+                cameraObject.transform.LookAt(stage.transform.position + new Vector3(0f, 1.1f, 0f));
+                camera = cameraObject.AddComponent<Camera>();
+                camera.clearFlags = CameraClearFlags.SolidColor;
+                camera.backgroundColor = new Color(.09f, .12f, .12f);
+                camera.cullingMask = 1 << PreviewLayer;
+                camera.orthographic = true;
+                camera.orthographicSize = 3.1f;
+                camera.nearClipPlane = .1f;
+                camera.farClipPlane = 35f;
+            }
             camera.targetTexture = texture;
             camera.allowHDR = false;
             camera.allowMSAA = true;
@@ -127,11 +138,30 @@ namespace Ironfront.UnityPrototype
                 soldier.SetActive(false);
                 Object.Destroy(soldier);
             }
-            soldier = new GameObject("Menu operator");
-            soldier.transform.SetParent(stage.transform, false);
+            GameObject operatorPrefab = Resources.Load<GameObject>("Menu/MenuOperator");
+            soldier = operatorPrefab != null ?
+                Object.Instantiate(operatorPrefab, stage.transform, false) :
+                new GameObject("Menu operator");
+            if (operatorPrefab == null) soldier.transform.SetParent(stage.transform, false);
+            soldier.name = "Menu operator";
             soldier.transform.localPosition = new Vector3(-1.85f, 0f, .52f);
             soldier.transform.localRotation = Quaternion.Euler(0f, 18f, 0f);
             Transform root = soldier.transform;
+            if (operatorPrefab != null)
+            {
+                string badgeName = role == PrototypeInfantryClass.Medic ? "Medic_Badge" :
+                    role == PrototypeInfantryClass.Engineer ? "Engineer_Badge" :
+                    role == PrototypeInfantryClass.Recon ? "Recon_Badge" : "Operator_Badge";
+                Transform patch = root.Find("Class arm patch");
+                Material badgeAsset = Resources.Load<Material>("Menu/Materials/" + badgeName);
+                if (patch != null && badgeAsset != null)
+                    patch.GetComponent<Renderer>().sharedMaterial = badgeAsset;
+                Transform mount = root.Find("Held class weapon");
+                if (mount != null) BuildWeapon(mount, role);
+                SetLayerRecursively(root);
+                shownClass = role;
+                return;
+            }
             Box("Uniform torso", root, new Vector3(0f, 1.35f, 0f),
                 new Vector3(.72f, .78f, .43f), cloth);
             Box("Plate carrier", root, new Vector3(0f, 1.35f, .265f),
@@ -184,11 +214,16 @@ namespace Ironfront.UnityPrototype
             weaponMount.transform.SetParent(root, false);
             weaponMount.transform.localPosition = new Vector3(.05f, 1.15f, .47f);
             weaponMount.transform.localScale = Vector3.one * .70f;
-            PrototypeWeaponVisual.Build(weaponMount.transform, role, game);
-            foreach (Renderer renderer in weaponMount.GetComponentsInChildren<Renderer>())
-                renderer.sharedMaterial = WeaponMaterial(renderer.sharedMaterial);
+            BuildWeapon(weaponMount.transform, role);
             SetLayerRecursively(root);
             shownClass = role;
+        }
+
+        private void BuildWeapon(Transform mount, PrototypeInfantryClass role)
+        {
+            PrototypeWeaponVisual.Build(mount, role, game);
+            foreach (Renderer renderer in mount.GetComponentsInChildren<Renderer>())
+                renderer.sharedMaterial = WeaponMaterial(renderer.sharedMaterial);
         }
 
         public void SetVisible(bool visible)
