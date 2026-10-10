@@ -10,6 +10,8 @@ namespace Ironfront.UnityPrototype
         public const float MapSize = 720f;
         public static readonly Vector2 BlueBase = new Vector2(-311f, -302f);
         public static readonly Vector2 RedBase = new Vector2(311f, 302f);
+        public static readonly Vector2 BlueTankDisplay = new Vector2(-45f, -101f);
+        public static readonly Vector2 RedTankDisplay = new Vector2(45f, 101f);
 
         public readonly struct Objective
         {
@@ -125,6 +127,10 @@ namespace Ironfront.UnityPrototype
             var blocks = new List<Block>();
             void Add(float x, float z, float w, float d, float h, string kind) =>
                 blocks.Add(new Block(x, z, w, d, h, kind));
+
+            // Visual-only T90s are solid scenery; route AI around their footprints.
+            Add(BlueTankDisplay.x, BlueTankDisplay.y, 7f, 10f, 3.3f, "tank-preview");
+            Add(RedTankDisplay.x, RedTankDisplay.y, 7f, 10f, 3.3f, "tank-preview");
 
             Add(-269, -170, 37, 30, 15, "factory");
             Add(-250, -102, 48, 25, 10, "factory");

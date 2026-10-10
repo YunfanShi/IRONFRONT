@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.27.0
+# PROJECT IRONFRONT 0.28.0
+
+## 0.28.0 Unity T90 坦克外观预览
+
+网页游戏已有可驾驶的 T90 BASTION；Unity 原型此前只有 R4 侦察车和 U8 运输车。本轮新增双方各一辆停放的 T90 外观预览，位于出击点前方。模型使用斜面车体与炮塔、分段侧裙、履带和轮组、主炮与同轴机枪、指挥塔、光学设备、烟幕发射器、天线和车体细节；实体碰撞与 AI 绕行区域已加入。按 E 靠近会提示这辆车目前是模型预览，Unity 尚不能驾驶或开炮。设计和验证见 [UNITY_TANK_VISUAL_028.md](docs/UNITY_TANK_VISUAL_028.md)，开发继续在 `codex/unity-port`。
 
 ## 0.27.0 Unity 模型细节
 
@@ -22,7 +26,7 @@ Unity 原型增加蓝方 R4 侦察车与红方 AI 侦察车。出击后靠近蓝
 
 ## 0.22.0 Unity 兵种与出击界面
 
-Unity 原型加入四兵种的不同主武器与有限次数的步兵支援、开局出击选择界面，以及 macOS 独立构建入口。编辑器和独立程序均已实测选兵种、进入战局和工程护甲；完整范围与限制见 [UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建方法见 [UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。Unity 开发继续保留在 `codex/unity-port` 分支。网页房主服务和客户端目前已同步为 `0.27.x`，升级房主时需重新启动服务。
+Unity 原型加入四兵种的不同主武器与有限次数的步兵支援、开局出击选择界面，以及 macOS 独立构建入口。编辑器和独立程序均已实测选兵种、进入战局和工程护甲；完整范围与限制见 [UNITY_CLASSES_022.md](docs/UNITY_CLASSES_022.md)，构建方法见 [UNITY_BUILD_022.md](docs/UNITY_BUILD_022.md)。Unity 开发继续保留在 `codex/unity-port` 分支。网页房主服务和客户端目前已同步为 `0.28.x`，升级房主时需重新启动服务。
 
 ## 0.21.0 Unity 步兵战术
 
@@ -40,7 +44,7 @@ Unity 原型现有蓝红各两支双人小队，会根据五个据点的归属�
 
 新增独立的 [UnityProject](UnityProject/) 工程，使用 Unity 6000.5.10f1 和 URP。首轮实现 720 米地图、五处据点、第一人称玩家、IF-27、蓝红各四名简化 AI、步兵寻路和 100 票征服短局。网页游戏继续保留原有完整玩法；Unity 原型后来加入小队指挥、四兵种、R4 侦察车和 U8 运输车，但尚不具备网页的完整载具或联机玩法。
 
-在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.27.x`，更新时需重新启动服务。
+在 Unity Hub 中把 `UnityProject` 作为本地项目添加，打开 `Assets/Scenes/SampleScene.unity` 后点击 Play。首轮导入失败已在 0.19.1 修复，场景也已在编辑器实际 Play；小队指挥和战术的运行验证见 [UNITY_AI_020.md](docs/UNITY_AI_020.md) 与 [UNITY_TACTICS_021.md](docs/UNITY_TACTICS_021.md)。首轮实现内容、操作与限制见 [UNITY_PROTOTYPE_019.md](docs/UNITY_PROTOTYPE_019.md)。网页房主服务与网页客户端现在同为 `0.28.x`，更新时需重新启动服务。
 
 ## 0.18.0 房间与联机体验
 
@@ -132,7 +136,7 @@ npm run lan
 
 服务监听0.0.0.0:7878。房主打开http://localhost:7878，设置模式、人数、票数、难度、AI启用及加入者默认阵营后创建房间。朋友打开终端或Esc设置中的完整分享链接（局域网IP:7878和房间码），加入、配装并READY，房主等全员准备后START。朋友只需浏览器，无需另一个游戏包。关闭AI并把另一玩家设为对方即可1v1。房主可调整真人阵营；双方有各自基地、部署点与车辆。
 
-当前前端与房主服务必须都是0.27.x；旧服务会被版本检查拒绝。地址、端口、房间码和连接状态在房间界面显示。请选择与朋友同网段的物理网卡IP；不将0.0.0.0当分享地址。同一服务进程内的短时掉线可在30秒内自动恢复；公网匹配、穿透及服务重启后的续局尚未实现。
+当前前端与房主服务必须都是0.28.x；旧服务会被版本检查拒绝。地址、端口、房间码和连接状态在房间界面显示。请选择与朋友同网段的物理网卡IP；不将0.0.0.0当分享地址。同一服务进程内的短时掉线可在30秒内自动恢复；公网匹配、穿透及服务重启后的续局尚未实现。
 
 ## 主要操作
 

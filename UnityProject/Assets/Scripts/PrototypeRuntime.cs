@@ -41,6 +41,8 @@ namespace Ironfront.UnityPrototype
         public PrototypeFrontend Frontend { get; private set; }
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
         public readonly List<IPrototypeVehicle> Vehicles = new List<IPrototypeVehicle>();
+        public readonly List<PrototypeTankVisual> TankPreviews =
+            new List<PrototypeTankVisual>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
         public Material GunMaterial { get; private set; }
@@ -105,6 +107,7 @@ namespace Ironfront.UnityPrototype
             RenderSettings.fogDensity = 0.0027f;
             BuildGround();
             BuildStructures();
+            BuildTankPreviews();
             BuildMarkers();
             BuildPlayer();
             BuildBots();
@@ -182,6 +185,7 @@ namespace Ironfront.UnityPrototype
         {
             foreach (PrototypeLayout.Block block in PrototypeLayout.Blocks)
             {
+                if (block.Kind == "tank-preview") continue;
                 GameObject object3D = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 object3D.name = block.Kind;
                 object3D.transform.SetParent(transform);
@@ -300,6 +304,21 @@ namespace Ironfront.UnityPrototype
         {
             AddTransport(PrototypeTeam.Blue, new Vector2(-52f, -111f), false);
             AddTransport(PrototypeTeam.Red, new Vector2(67f, -95f), true);
+        }
+
+        private void BuildTankPreviews()
+        {
+            AddTankPreview(PrototypeTeam.Blue, PrototypeLayout.BlueTankDisplay, -65f);
+            AddTankPreview(PrototypeTeam.Red, PrototypeLayout.RedTankDisplay, 25f);
+        }
+
+        private void AddTankPreview(PrototypeTeam team, Vector2 position, float yaw)
+        {
+            var object3D = new GameObject(team + " T90 BASTION model preview");
+            object3D.transform.SetParent(transform);
+            PrototypeTankVisual preview = object3D.AddComponent<PrototypeTankVisual>();
+            preview.Initialize(this, team, position, yaw);
+            TankPreviews.Add(preview);
         }
 
         private void AddTransport(PrototypeTeam team, Vector2 position, bool aiControlled)

@@ -1,3 +1,7 @@
+# 0.28.0 开发进度
+
+网页端 `main` 已有可驾驶 T90 BASTION；Unity 原型原先没有坦克。本轮先在 Unity 双方阵营加入 T90 外观预览：斜面车体和炮塔、履带/负重轮、主炮、装甲裙板、舱盖、观瞄和附属件；战场中的预览有碰撞并作为 AI 寻路障碍。它目前不能上车、移动或开火，联机快照中也不作为载具存在。实现和验证见 [docs/UNITY_TANK_VISUAL_028.md](docs/UNITY_TANK_VISUAL_028.md)。开发继续在 `codex/unity-port`，不并入 `main`。
+
 # 0.27.0 开发进度
 
 Unity 步兵、第一人称四兵种枪械及 R4/U8 车辆外观已按网页 `main` 的低多边形风格补充分件与低饱和材质；现有胶囊和车体碰撞判定保留。Unity 实际 Play 的菜单、步兵、枪械和车辆画面可见，Console 0 错误；macOS 0.27.0 独立构建、TypeScript 检查及 Unity/网页 LAN 回归通过。正式人物动画、场景美术与跨机联机验收仍待后续。详见 [docs/UNITY_VISUALS_027.md](docs/UNITY_VISUALS_027.md)。开发位于 `codex/unity-port`，不并入 `main`。

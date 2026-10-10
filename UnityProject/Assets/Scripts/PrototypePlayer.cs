@@ -198,7 +198,19 @@ namespace Ironfront.UnityPrototype
                 closest = candidate;
                 nearest = distance;
             }
-            if (closest == null || !closest.TrySetDriver(this)) return;
+            if (closest == null)
+            {
+                foreach (PrototypeTankVisual preview in runtime.TankPreviews)
+                    if (preview.Team == Team &&
+                        Vector2.Distance(MapPosition, preview.MapPosition) < 8f)
+                    {
+                        SupportStatus = "T90 MODEL PREVIEW / DRIVING COMING LATER";
+                        supportStatusUntil = Time.time + 2.5f;
+                        break;
+                    }
+                return;
+            }
+            if (!closest.TrySetDriver(this)) return;
             CurrentVehicle = closest;
             controller.enabled = false;
             transform.position = closest.SeatPosition;
