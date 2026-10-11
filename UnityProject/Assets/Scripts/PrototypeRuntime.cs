@@ -971,7 +971,9 @@ namespace Ironfront.UnityPrototype
                 "  |  E exit  |  Esc menu" :
                 Player.CurrentVehicle != null ?
                 "R4 SCOUT  |  WASD drive  |  Mouse aim  |  LMB machine gun  |  E exit  |  Esc menu" :
-                "WASD move  |  Shift sprint  |  C crouch / slide  |  V prone  |  RMB aim  |  LMB fire  |  R reload  |  Esc menu";
+                "WASD move  |  Shift sprint  |  C crouch / slide  |  Ctrl prone  |  RMB aim  |  LMB fire  |  R reload  |  Esc menu";
+            controls = "V view " + (Player.IsFirstPerson ? "1P" : "3P") +
+                "  |  " + controls;
             GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f, canvasWidth - 285f), 25), controls, body);
             if (Player.CurrentVehicle is PrototypeTankVehicle tank)
                 GUI.Label(new Rect(canvasWidth / 2f - 76f, canvasHeight / 2f + 42f,

@@ -24,29 +24,43 @@ namespace Ironfront.UnityPrototype.Editor
                 game.Frontend?.Close();
                 PrototypePlayer player = game.Player;
                 Check(player.Alive && player.CurrentVehicle == null, "player is on foot");
+                Check(!player.IsFirstPerson, "infantry starts in third person");
                 Check(Vector3.Dot(player.ViewCamera.transform.position -
                     player.transform.position, player.transform.forward) < -1f,
                     "foot camera follows behind the soldier");
                 PrototypeSoldierVisual visual = player.GetComponent<PrototypeSoldierVisual>();
                 Check(visual != null && visual.HeldWeapon != null &&
-                    visual.HeldWeapon.activeSelf, "third-person soldier carries active weapon");
+                    visual.HeldWeapon.activeInHierarchy,
+                    "third-person soldier carries active weapon");
+                FieldInfo viewWeaponField = typeof(PrototypePlayer).GetField(
+                    "firstPersonWeapon", BindingFlags.Instance | BindingFlags.NonPublic);
+                GameObject viewWeapon = (GameObject)viewWeaponField.GetValue(player);
+                player.TogglePerspective();
+                Check(player.IsFirstPerson &&
+                    Vector3.Distance(player.ViewCamera.transform.position,
+                        player.transform.position + Vector3.up * 1.65f) < .05f,
+                    "V switches infantry to eye-level first person");
+                Check(!visual.HeldWeapon.activeInHierarchy &&
+                    viewWeapon.activeInHierarchy,
+                    "first person hides the body and shows the camera weapon");
+                player.TogglePerspective();
+                Check(!player.IsFirstPerson && visual.HeldWeapon.activeInHierarchy,
+                    "V switches infantry back to third person");
 
                 MethodInfo fire = typeof(PrototypePlayer).GetMethod("Fire",
                     BindingFlags.Instance | BindingFlags.NonPublic);
                 Check(fire != null, "infantry fire exists");
-                int before = UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>(
-                    FindObjectsSortMode.None).Length;
+                int before = UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>().Length;
                 fire.Invoke(player, null);
                 PrototypeBallisticProjectile bullet = null;
                 foreach (PrototypeBallisticProjectile projectile in
-                    UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>(
-                        FindObjectsSortMode.None))
+                    UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>())
                     if (projectile.name == "Ballistic round" &&
                         Vector3.Distance(projectile.transform.position,
                             player.transform.position) < 3f)
                     { bullet = projectile; break; }
-                Check(UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>(
-                    FindObjectsSortMode.None).Length == before + 1 && bullet != null,
+                Check(UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>()
+                    .Length == before + 1 && bullet != null,
                     "shot leaves the soldier's weapon rather than the camera");
                 Check(Vector3.Distance(bullet.transform.position,
                     player.ViewCamera.transform.position) > 1f,
@@ -63,14 +77,28 @@ namespace Ironfront.UnityPrototype.Editor
                     if (vehicle.Team != player.Team || !(vehicle is PrototypeTankVehicle ||
                         vehicle is PrototypeScoutVehicle || vehicle is PrototypeTransportVehicle))
                         continue;
+                    bool restoreInfantryFirstPerson = vehicle is PrototypeTransportVehicle;
+                    if (restoreInfantryFirstPerson) player.TogglePerspective();
                     Check((bool)enter.Invoke(player, new object[] { vehicle }),
                         vehicle.VehicleName + " accepts the player");
                     update.Invoke(player, null);
-                    Check(Vector3.Distance(player.ViewCamera.transform.position,
+                    Check(player.IsFirstPerson &&
+                        Vector3.Distance(player.ViewCamera.transform.position,
                         vehicle.CameraPosition) < .02f,
                         vehicle.VehicleName + " uses its first-person eye point");
-                    Check(!visual.HeldWeapon.activeSelf,
-                        vehicle.VehicleName + " hides the infantry weapon");
+                    Check(!visual.HeldWeapon.activeInHierarchy &&
+                        !viewWeapon.activeInHierarchy,
+                        vehicle.VehicleName + " hides both infantry weapons");
+                    player.TogglePerspective();
+                    Check(!player.IsFirstPerson &&
+                        Vector3.Dot(player.ViewCamera.transform.position -
+                            vehicle.SeatPosition, vehicle.VehicleTransform.forward) < -1f,
+                        vehicle.VehicleName + " switches to vehicle chase view");
+                    player.TogglePerspective();
+                    Check(player.IsFirstPerson &&
+                        Vector3.Distance(player.ViewCamera.transform.position,
+                            vehicle.CameraPosition) < .02f,
+                        vehicle.VehicleName + " returns to seat view");
                     if (vehicle is PrototypeTransportVehicle transport)
                     {
                         Check(transport.TrySetPlayerSeat(player, 1),
@@ -79,15 +107,26 @@ namespace Ironfront.UnityPrototype.Editor
                         Check(Vector3.Distance(player.ViewCamera.transform.position,
                             transport.CameraPosition) < .02f,
                             "U8 gunner has a first-person sight");
+                        player.TogglePerspective();
+                        Check(!player.IsFirstPerson &&
+                            Vector3.Distance(player.ViewCamera.transform.position,
+                                transport.CameraPosition) > 1f,
+                            "U8 gunner can use third-person view");
+                        player.TogglePerspective();
                     }
                     player.ForceExitVehicle();
-                    Check(player.CurrentVehicle == null && visual.HeldWeapon.activeSelf,
-                        vehicle.VehicleName + " exits to visible third-person infantry");
+                    Check(player.CurrentVehicle == null &&
+                        player.IsFirstPerson == restoreInfantryFirstPerson,
+                        vehicle.VehicleName + " restores infantry view on exit");
+                    Check(restoreInfantryFirstPerson ? viewWeapon.activeInHierarchy :
+                        visual.HeldWeapon.activeInHierarchy,
+                        vehicle.VehicleName + " restores the right infantry model");
+                    if (restoreInfantryFirstPerson) player.TogglePerspective();
                     checkedVehicles++;
                 }
                 Check(checkedVehicles == 3, "T90, R4 and U8 cameras were checked");
-                Debug.Log("IRONFRONT perspective PASS: visible shoulder-view infantry, " +
-                    "weapon-origin shot, first-person T90/R4/U8 seats and exit transition");
+                Debug.Log("IRONFRONT perspective PASS: V toggles infantry and " +
+                    "T90/R4/U8 cameras both ways, weapons and seat/exit state restore");
             }
             catch (Exception error)
             {

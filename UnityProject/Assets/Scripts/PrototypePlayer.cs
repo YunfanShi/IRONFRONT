@@ -17,9 +17,12 @@ namespace Ironfront.UnityPrototype
         private CharacterController controller;
         private Camera viewCamera;
         private GameObject rifle;
+        private GameObject firstPersonWeapon;
         private PrototypeSoldierVisual soldierVisual;
         private Transform magazineVisual;
         private Vector3 magazineHome;
+        private Transform firstPersonMagazine;
+        private Vector3 firstPersonMagazineHome;
         private PrototypeRuntime runtime;
         private float pitch;
         private float vehicleLookYaw;
@@ -50,6 +53,8 @@ namespace Ironfront.UnityPrototype
         private Vector3 slideDirection;
         private float moveAmount;
         private float lastShotAt = -10f;
+        private bool infantryThirdPerson = true;
+        private bool vehicleFirstPerson = true;
 
         public bool Alive => Health > 0f;
         public PrototypeTeam Team { get; private set; } = PrototypeTeam.Blue;
@@ -79,6 +84,8 @@ namespace Ironfront.UnityPrototype
         public Vector2 MapPosition => CurrentVehicle != null ? CurrentVehicle.MapPosition :
             new Vector2(transform.position.x, transform.position.z);
         public Camera ViewCamera => viewCamera;
+        public bool IsFirstPerson => !IsDowned && (CurrentVehicle != null ?
+            vehicleFirstPerson : !infantryThirdPerson);
         public IPrototypeVehicle CurrentVehicle { get; private set; }
         public float RespawnRemaining => Alive ? 0f : Mathf.Max(0f, respawnAt - Time.time);
         public bool IsDowned => !Alive && downedUntil > Time.time;
@@ -122,9 +129,47 @@ namespace Ironfront.UnityPrototype
             if (soldierVisual == null) return;
             soldierVisual.SetWeapon(ActiveWeapon.Id, runtime);
             rifle = soldierVisual.HeldWeapon;
-            rifle.SetActive(Alive && CurrentVehicle == null);
             magazineVisual = rifle.transform.Find("Magazine");
             if (magazineVisual != null) magazineHome = magazineVisual.localPosition;
+            if (firstPersonWeapon != null)
+            {
+                firstPersonWeapon.SetActive(false);
+                Destroy(firstPersonWeapon);
+            }
+            firstPersonWeapon = PrototypeWeaponVisual.Build(viewCamera.transform,
+                ActiveWeapon.Id, runtime, true, Team);
+            firstPersonWeapon.transform.localPosition = new Vector3(.30f, -.29f, .74f);
+            firstPersonWeapon.transform.localScale = Vector3.one * .55f;
+            firstPersonMagazine = firstPersonWeapon.transform.Find("Magazine");
+            if (firstPersonMagazine != null)
+                firstPersonMagazineHome = firstPersonMagazine.localPosition;
+            ApplyPerspectiveVisibility();
+        }
+
+        private void ApplyPerspectiveVisibility()
+        {
+            bool onFoot = CurrentVehicle == null;
+            bool showBody = onFoot && (IsDowned || Alive && infantryThirdPerson);
+            if (soldierVisual != null) soldierVisual.SetVisible(showBody);
+            if (rifle != null) rifle.SetActive(showBody && Alive);
+            if (firstPersonWeapon != null)
+                firstPersonWeapon.SetActive(onFoot && Alive && !infantryThirdPerson);
+        }
+
+        public void TogglePerspective()
+        {
+            if (!Alive) return;
+            if (CurrentVehicle != null)
+            {
+                vehicleFirstPerson = !vehicleFirstPerson;
+                UpdateVehicleCamera();
+            }
+            else
+            {
+                infantryThirdPerson = !infantryThirdPerson;
+                ApplyPerspectiveVisibility();
+                PositionInfantryCamera(1f);
+            }
         }
 
         public void SelectClass(PrototypeInfantryClass selectedClass)
@@ -150,7 +195,6 @@ namespace Ironfront.UnityPrototype
             {
                 soldierVisual.Initialize(runtime, Team, Class, -.3f);
                 BuildWeaponVisual();
-                soldierVisual.SetVisible(Alive && CurrentVehicle == null);
             }
         }
 
@@ -169,7 +213,6 @@ namespace Ironfront.UnityPrototype
             {
                 soldierVisual.Initialize(runtime, Team, Class, -.3f);
                 BuildWeaponVisual();
-                soldierVisual.SetVisible(Alive && CurrentVehicle == null);
             }
             if (runtime != null && CurrentVehicle == null) Respawn();
         }
@@ -200,6 +243,7 @@ namespace Ironfront.UnityPrototype
             if (controller != null) controller.enabled = alive;
             if (IsDowned && !wasDowned) EnterDownedPose();
             else if (alive && wasDowned) LeaveDownedPose();
+            else ApplyPerspectiveVisibility();
         }
 
         private void Update()
@@ -238,6 +282,7 @@ namespace Ironfront.UnityPrototype
             kit.Tick(Time.time);
             secondaryKit.Tick(Time.time);
             if (Time.time > supportStatusUntil) SupportStatus = "";
+            if (Input.GetKeyDown(KeyCode.V)) TogglePerspective();
 
             if (CurrentVehicle != null)
             {
@@ -263,7 +308,8 @@ namespace Ironfront.UnityPrototype
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             input = Vector2.ClampMagnitude(input, 1f);
             moveAmount = input.magnitude;
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.LeftControl) ||
+                Input.GetKeyDown(KeyCode.RightControl))
             {
                 if (prone) { prone = false; crouched = true; }
                 else { prone = true; crouched = false; slideEndsAt = 0f; }
@@ -364,6 +410,24 @@ namespace Ironfront.UnityPrototype
                 float magazineDrop = Reloading ?
                     Mathf.Sin(Mathf.Clamp01((reload - .18f) / .62f) * Mathf.PI) * .24f : 0f;
                 magazineVisual.localPosition = magazineHome + Vector3.down * magazineDrop;
+                if (firstPersonMagazine != null)
+                    firstPersonMagazine.localPosition = firstPersonMagazineHome +
+                        Vector3.down * magazineDrop;
+            }
+            if (firstPersonWeapon != null)
+            {
+                Vector3 firstHome = IsAiming ? new Vector3(0f, -.121f, .53f) :
+                    new Vector3(.30f, -.29f, .74f);
+                if (sprinting || IsSliding)
+                    firstHome += new Vector3(.06f, -.12f, -.07f);
+                firstHome += new Vector3(0f, bob - reloadDip * .18f, 0f);
+                firstPersonWeapon.transform.localPosition = Vector3.Lerp(
+                    firstPersonWeapon.transform.localPosition, firstHome, blend);
+                Quaternion firstPose = Quaternion.Euler(reloadDip * 28f +
+                    (sprinting ? -11f : 0f), 0f, reloadDip * 14f +
+                    (IsSliding ? -11f : 0f));
+                firstPersonWeapon.transform.localRotation = Quaternion.Slerp(
+                    firstPersonWeapon.transform.localRotation, firstPose, blend);
             }
         }
 
@@ -372,6 +436,12 @@ namespace Ironfront.UnityPrototype
             float eyeHeight = prone ? .65f : crouched || IsSliding ? 1.05f : 1.65f;
             viewCamera.transform.rotation = transform.rotation * Quaternion.Euler(pitch, 0f, 0f);
             Vector3 focus = transform.position + Vector3.up * eyeHeight;
+            if (!infantryThirdPerson)
+            {
+                viewCamera.transform.position = Vector3.Lerp(
+                    viewCamera.transform.position, focus, blend);
+                return;
+            }
             float shoulder = IsAiming ? .38f : .65f;
             float distance = IsAiming ? 1.65f : 3.4f;
             Vector3 desired = focus + transform.right * shoulder -
@@ -421,12 +491,10 @@ namespace Ironfront.UnityPrototype
             verticalSpeed = 0f;
             pitch = 0f;
             vehicleLookYaw = 0f;
-            rifle.SetActive(false);
-            soldierVisual.SetVisible(false);
+            ApplyPerspectiveVisibility();
             aiming = false;
             sprinting = false;
             slideEndsAt = 0f;
-            viewCamera.fieldOfView = closest is PrototypeTankVehicle ? 56f : 72f;
             UpdateVehicleCamera();
             return true;
         }
@@ -439,7 +507,29 @@ namespace Ironfront.UnityPrototype
             Quaternion look = Quaternion.Euler(pitch,
                 CurrentVehicle.VehicleTransform.eulerAngles.y + vehicleLookYaw, 0f);
             viewCamera.transform.rotation = look;
-            viewCamera.transform.position = CurrentVehicle.CameraPosition;
+            viewCamera.fieldOfView = CurrentVehicle is PrototypeTankVehicle ?
+                (vehicleFirstPerson ? 56f : 72f) :
+                (vehicleFirstPerson ? 72f : 78f);
+            if (vehicleFirstPerson)
+            {
+                viewCamera.transform.position = CurrentVehicle.CameraPosition;
+                return;
+            }
+            Vector3 focus = CurrentVehicle.SeatPosition + Vector3.up * 1.65f;
+            Vector3 desired = focus + Vector3.up * 1.15f -
+                look * Vector3.forward * 5.4f;
+            Vector3 travel = desired - focus;
+            float nearest = travel.magnitude;
+            Physics.SyncTransforms();
+            foreach (RaycastHit hit in Physics.SphereCastAll(focus, .24f,
+                travel.normalized, nearest, ~(1 << 2), QueryTriggerInteraction.Ignore))
+            {
+                if (hit.collider.transform.IsChildOf(CurrentVehicle.VehicleTransform) ||
+                    hit.collider.transform.IsChildOf(transform)) continue;
+                nearest = Mathf.Min(nearest, hit.distance);
+            }
+            viewCamera.transform.position = nearest < travel.magnitude ?
+                focus + travel.normalized * Mathf.Max(.3f, nearest - .1f) : desired;
         }
 
         public void ForceExitVehicle()
@@ -458,8 +548,7 @@ namespace Ironfront.UnityPrototype
             viewCamera.transform.localPosition = new Vector3(.65f, 1.65f, -3.4f);
             viewCamera.transform.localRotation = Quaternion.identity;
             viewCamera.fieldOfView = 76f;
-            rifle.SetActive(Alive);
-            soldierVisual.SetVisible(Alive);
+            ApplyPerspectiveVisibility();
             crouched = false;
             prone = false;
             aiming = false;
@@ -515,7 +604,9 @@ namespace Ironfront.UnityPrototype
                 viewCamera.transform.right * Random.Range(-spread, spread) +
                 viewCamera.transform.up * Random.Range(-spread, spread)).normalized;
             Vector3 target = InfantryAimPoint(sightDirection, weaponKit.Weapon.MaxRange);
-            Vector3 origin = rifle.transform.TransformPoint(new Vector3(0f, .025f, .95f));
+            GameObject weaponVisual = infantryThirdPerson ? rifle : firstPersonWeapon;
+            Vector3 origin = weaponVisual.transform.TransformPoint(
+                new Vector3(0f, .025f, .95f));
             Vector3 direction = (target - origin).normalized;
             PrototypeBallisticProjectile.LaunchBullet(runtime, Team, transform,
                 origin, direction, weaponKit.Weapon);
@@ -546,7 +637,8 @@ namespace Ironfront.UnityPrototype
             GameObject projectile = new GameObject();
             projectile.name = loadout.throwable == PrototypeThrowableId.Smoke ?
                 "Smoke grenade" : "Fragmentation grenade";
-            projectile.transform.position = rifle.transform.TransformPoint(
+            GameObject weaponVisual = infantryThirdPerson ? rifle : firstPersonWeapon;
+            projectile.transform.position = weaponVisual.transform.TransformPoint(
                 new Vector3(0f, .05f, .85f));
             SphereCollider grenadeCollider = projectile.AddComponent<SphereCollider>();
             grenadeCollider.radius = .13f;
@@ -567,10 +659,15 @@ namespace Ironfront.UnityPrototype
                 CurrentVehicle != null) return;
             rocketCount--;
             GameObject launcher = PrototypeEquipmentVisual.BuildLauncher(
-                soldierVisual.WeaponMount, runtime);
-            launcher.transform.localPosition = new Vector3(0f, .08f, .15f);
+                infantryThirdPerson ? soldierVisual.WeaponMount :
+                viewCamera.transform, runtime);
+            launcher.transform.localPosition = infantryThirdPerson ?
+                new Vector3(0f, .08f, .15f) : new Vector3(.27f, -.35f, .70f);
+            if (!infantryThirdPerson) launcher.transform.localScale = Vector3.one * .55f;
             Destroy(launcher, .35f);
-            Vector3 origin = rifle.transform.TransformPoint(new Vector3(0f, .08f, 1.12f));
+            GameObject weaponVisual = infantryThirdPerson ? rifle : firstPersonWeapon;
+            Vector3 origin = weaponVisual.transform.TransformPoint(
+                new Vector3(0f, .08f, 1.12f));
             Vector3 target = InfantryAimPoint(viewCamera.transform.forward, 160f);
             PrototypeBallisticProjectile.LaunchRocket(runtime, Team, transform,
                 origin, (target - origin).normalized);
@@ -803,8 +900,8 @@ namespace Ironfront.UnityPrototype
                 viewCamera.transform.localRotation = Quaternion.Euler(0f, 0f, 12f);
                 viewCamera.fieldOfView = 76f;
             }
-            if (rifle != null) rifle.SetActive(false);
             if (soldierVisual != null) soldierVisual.SetDowned(true);
+            ApplyPerspectiveVisibility();
         }
 
         private void LeaveDownedPose()
@@ -827,8 +924,8 @@ namespace Ironfront.UnityPrototype
                 viewCamera.transform.localRotation = Quaternion.identity;
                 PositionInfantryCamera(1f);
             }
-            if (rifle != null) rifle.SetActive(true);
             if (soldierVisual != null) soldierVisual.SetDowned(false);
+            ApplyPerspectiveVisibility();
         }
 
         public void AdjustDownedView(float horizontal, float vertical)
@@ -846,7 +943,7 @@ namespace Ironfront.UnityPrototype
             if (runtime == null || runtime.IsNetworkReplica || respawnAt > 0f) return;
             downedUntil = 0f;
             rescueCalled = false;
-            if (soldierVisual != null) soldierVisual.SetVisible(false);
+            ApplyPerspectiveVisibility();
             runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 4.5f;
             if (!runtime.Match.Winner.HasValue) runtime.Frontend.Open(true);
@@ -923,11 +1020,8 @@ namespace Ironfront.UnityPrototype
             rocketCount = 2;
             secondaryEquipped = false;
             if (viewCamera != null) BuildWeaponVisual();
-            if (soldierVisual != null)
-            {
-                soldierVisual.SetDowned(false);
-                soldierVisual.SetVisible(true);
-            }
+            if (soldierVisual != null) soldierVisual.SetDowned(false);
+            ApplyPerspectiveVisibility();
             if (controller != null) controller.enabled = true;
         }
     }
