@@ -154,7 +154,6 @@ namespace Ironfront.UnityPrototype
                 (throttle < 0f ? MaxReverse : MaxForward);
             Speed = Mathf.MoveTowards(Speed, target,
                 Acceleration * (Mathf.Abs(throttle) < 0.05f ? 1.5f : 1f) * dt);
-            if (Mathf.Abs(Speed) < 0.05f) Speed = 0f;
             float turn = Mathf.Clamp01(Mathf.Abs(Speed) / 3f);
             transform.Rotate(0f, steering * TurnRate * Mathf.Rad2Deg *
                 turn * Mathf.Sign(Speed) * dt, 0f, Space.World);

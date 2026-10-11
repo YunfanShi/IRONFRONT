@@ -32,7 +32,9 @@ namespace Ironfront.UnityPrototype.Editor
                 if (game.Vehicles[i] is PrototypeTankVehicle candidate &&
                     candidate.Team == game.Player.Team)
                 { tank = candidate; tankIndex = i; break; }
-            Check(tank != null && tank.Alive, "friendly T90 exists");
+            Check(tank != null && tank.Alive,
+                $"friendly T90 exists (player team {game.Player.Team}, " +
+                $"vehicles {game.Vehicles.Count}, tank health {(tank == null ? -1f : tank.Health)})");
             Check(!game.Player.TryDeploy("VEHICLE-" + tankIndex,
                 PrototypeInfantryClass.Assault), "living player cannot deploy");
 
@@ -73,6 +75,11 @@ namespace Ironfront.UnityPrototype.Editor
                 MethodInfo drive = typeof(PrototypeTankVehicle).GetMethod("Drive",
                     BindingFlags.Instance | BindingFlags.NonPublic);
                 Check(drive != null, "tank drive control exists");
+                for (int i = 0; i < 60; i++)
+                    drive.Invoke(tank, new object[] { 1f, 0f, 1f / 240f });
+                Check(tank.Speed > 0f && Vector2.Distance(start, tank.MapPosition) > .1f,
+                    "tank starts moving from rest at 240 FPS");
+                start = tank.MapPosition;
                 for (int i = 0; i < 12; i++)
                     drive.Invoke(tank, new object[] { 1f, 0f, 0.05f });
                 Check(Vector2.Distance(start, tank.MapPosition) > .1f,
