@@ -19,4 +19,4 @@ Unity 6.5.10f1 的 `SampleScene` Play 菜单增加 `IRONFRONT → Verify Downed 
 
 旧版 `IRONFRONT → Verify Tank and Respawn` 回归测试也通过，覆盖倒地、呼救、放弃救援、复活等待、载具部署和坦克驾驶。网页逻辑的 TypeScript 类型检查与 `scripts/verify-core.cjs` 通过。
 
-通过 `IRONFRONT → Build macOS Standalone` 构建到 `UnityProject/Builds/macOS/IRONFRONT.app`，Unity Console 报构建成功，`Info.plist` 版本为 `0.42.0`。直接运行应用包内的可执行文件后，大厅画面显示 `0.42.0`。本机执行 `open IRONFRONT.app` 时 Launch Services 返回 `kLSNoExecutableErr`，虽然可执行文件存在、直接运行正常；本次没有把双击打开 `.app` 计为已验证。
+通过 `IRONFRONT → Build macOS Standalone` 构建到 `UnityProject/Builds/macOS/IRONFRONT.app`，Unity Console 报构建成功，`Info.plist` 版本为 `0.42.0`。重新签署构建产物后，`codesign --verify --deep --strict` 通过；直接运行应用包内的可执行文件，大厅画面显示 `0.42.0`。当前执行环境的 Launch Services 对本游戏及系统自带的 `Calculator.app` 都返回 `kLSNoExecutableErr`，因此本次没有把双击打开 `.app` 计为已验证。
