@@ -3,7 +3,7 @@ import type {ArmoredVehicle} from './Vehicle';
 /** Jets bank through turns and need forward speed; helicopters can hover, reverse and translate. */
 export function controlFlight(v:ArmoredVehicle,throttle:number,side:number,dt:number,viewYaw?:number,pitch=0,boost=false,brake=false){
  const jet=v.kind==='jet';const delta=viewYaw===undefined?0:Math.atan2(Math.sin(viewYaw+Math.PI-v.yaw),Math.cos(viewYaw+Math.PI-v.yaw));
- if(jet){const bank=clamp(side*.95+delta*.45,-1.1,1.1);v.roll+=(bank-v.roll)*(1-Math.exp(-dt*5));v.flightPitch+=(clamp(pitch,-.85,.85)-v.flightPitch)*(1-Math.exp(-dt*3));v.yaw+=(v.roll*1.8+clamp(delta,-.5,.5)*.3)*dt;const target=brake?32:boost?92:clamp(52+throttle*23,29,75);v.speed+=clamp(target-v.speed,-22*dt,18*dt);}
+ if(jet){const bank=clamp(side*.95+delta*.45,-1.1,1.1);if(boost&&Math.abs(side)>.7)v.roll+=side*2.8*dt;else{const wrapped=Math.atan2(Math.sin(v.roll),Math.cos(v.roll));v.roll=wrapped+(bank-wrapped)*(1-Math.exp(-dt*5));}v.flightPitch+=(clamp(pitch,-.85,.85)-v.flightPitch)*(1-Math.exp(-dt*3));v.yaw+=(Math.sin(v.roll)*1.8+clamp(delta,-.5,.5)*.3)*dt;const target=brake?32:boost?92:clamp(52+throttle*23,29,75);v.speed+=clamp(target-v.speed,-22*dt,18*dt);}
  else {v.yaw+=clamp(viewYaw===undefined?side*2.2:delta,-2.2*dt,2.2*dt);const target=clamp(throttle,-1,1)*(boost?48:38);v.speed+=clamp(target-v.speed,-22*dt,22*dt);v.roll+=(clamp(-side*.4,-.4,.4)-v.roll)*(1-Math.exp(-dt*5));v.flightPitch+=(-throttle*.12-v.flightPitch)*(1-Math.exp(-dt*4));}
  return {x:Math.sin(v.yaw)*v.speed*dt*Math.cos(jet?v.flightPitch:0)+(jet?0:Math.cos(v.yaw)*side*19*dt),z:Math.cos(v.yaw)*v.speed*dt*Math.cos(jet?v.flightPitch:0)-(jet?0:Math.sin(v.yaw)*side*19*dt)};
 }

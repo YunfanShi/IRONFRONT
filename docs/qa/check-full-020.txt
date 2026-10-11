@@ -1,0 +1,324 @@
+
+> project-ironfront@0.20.0 check:full
+> npm run check && npm run test:browser
+
+
+> project-ironfront@0.20.0 check
+> npm run typecheck && npm run test && npm run test:logic && npm run test:lan && npm run build
+
+
+> project-ironfront@0.20.0 typecheck
+> tsc --noEmit
+
+
+> project-ironfront@0.20.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /Users/shiyunfan/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/repository
+
+
+ Test Files  17 passed (17)
+      Tests  142 passed (142)
+   Start at  10:47:12
+   Duration  31.95s (transform 2.38s, setup 0ms, import 9.20s, tests 24.35s, environment 2ms)
+
+
+> project-ironfront@0.20.0 test:logic
+> tsc -p tsconfig.logic.json && node scripts/verify-core.cjs
+
+{
+  "ok": true,
+  "auditory": {
+    "blocked": true,
+    "searchObserved": true
+  },
+  "vehicleControl": {
+    "entered": true,
+    "movedDistance": 2.1,
+    "enemyDisabled": true,
+    "exited": true,
+    "enemyRespawned": true
+  },
+  "reports": [
+    {
+      "size": 8,
+      "winner": "blue",
+      "seconds": 132.75,
+      "captures": 9,
+      "deaths": 2,
+      "respawns": 2,
+      "shots": 32,
+      "vehicleShots": 164,
+      "vehicleDisabled": 2,
+      "vehicleRespawns": 0,
+      "majorStarts": 2,
+      "artilleryImpacts": 0,
+      "eventKinds": [
+        "ARMORED_PUSH",
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "BOARD_VEHICLE",
+        "DEFEND",
+        "DOWNED",
+        "DRIVING",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "REVIVE",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 343
+    },
+    {
+      "size": 16,
+      "winner": "red",
+      "seconds": 227,
+      "captures": 11,
+      "deaths": 18,
+      "respawns": 17,
+      "shots": 376,
+      "vehicleShots": 514,
+      "vehicleDisabled": 12,
+      "vehicleRespawns": 9,
+      "majorStarts": 4,
+      "artilleryImpacts": 4,
+      "eventKinds": [
+        "ARMORED_PUSH",
+        "ARTILLERY",
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "BOARD_VEHICLE",
+        "DEFEND",
+        "DOWNED",
+        "DRIVING",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "REVIVE",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 866
+    },
+    {
+      "size": 32,
+      "winner": "red",
+      "seconds": 110.375,
+      "captures": 8,
+      "deaths": 19,
+      "respawns": 15,
+      "shots": 287,
+      "vehicleShots": 566,
+      "vehicleDisabled": 13,
+      "vehicleRespawns": 0,
+      "majorStarts": 2,
+      "artilleryImpacts": 4,
+      "eventKinds": [
+        "ARTILLERY",
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "BOARD_VEHICLE",
+        "DEFEND",
+        "DOWNED",
+        "DRIVING",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "REVIVE",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 1663
+    },
+    {
+      "size": 64,
+      "winner": "blue",
+      "seconds": 111.375,
+      "captures": 9,
+      "deaths": 21,
+      "respawns": 21,
+      "shots": 857,
+      "vehicleShots": 467,
+      "vehicleDisabled": 13,
+      "vehicleRespawns": 3,
+      "majorStarts": 2,
+      "artilleryImpacts": 4,
+      "eventKinds": [
+        "ARTILLERY",
+        "COUNTER_OFFENSIVE"
+      ],
+      "states": [
+        "BOARD_VEHICLE",
+        "DEFEND",
+        "DOWNED",
+        "DRIVING",
+        "ENGAGE",
+        "FOLLOW_SQUAD",
+        "IDLE",
+        "MOVE_TO_OBJECTIVE",
+        "RESPAWN",
+        "RETREAT",
+        "REVIVE",
+        "SEARCH",
+        "SEEK_COVER",
+        "SPAWN"
+      ],
+      "navFailures": 0,
+      "runtimeMs": 2306
+    }
+  ],
+  "defaultMatch": {
+    "size": 32,
+    "tickets": 500,
+    "winner": "blue",
+    "seconds": 539.375,
+    "finalTickets": {
+      "blue": 434.6250000000034,
+      "red": 0
+    },
+    "captures": 19,
+    "deaths": 46,
+    "respawns": 44,
+    "shots": 1835,
+    "vehicleShots": 1364,
+    "vehicleDisabled": 30,
+    "vehicleRespawns": 26,
+    "majorStarts": 9,
+    "artilleryImpacts": 12,
+    "counterEffect": true,
+    "armoredEffect": true,
+    "eventKinds": [
+      "ARMORED_PUSH",
+      "ARTILLERY",
+      "COUNTER_OFFENSIVE"
+    ],
+    "navFailures": 1,
+    "runtimeMs": 5886
+  }
+}
+
+> project-ironfront@0.20.0 test:lan
+> npm run compile:logic && node scripts/test-lan.cjs
+
+
+> project-ironfront@0.20.0 compile:logic
+> tsc -p tsconfig.logic.json && node scripts/prepare-logic.cjs
+
+LAN_IP_TEST 192.168.3.62
+LAN PASS: two real clients, authority and events, stable-seat reconnect, host handoff, countdown cancellation, AI takeover, opposing teams, host permissions, jet controls and eight-player capacity.
+
+> project-ironfront@0.20.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 44 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.49 kB │ gzip:   0.32 kB
+dist/assets/index-Bn7XHFyB.css   58.37 kB │ gzip:  14.66 kB
+dist/assets/index-BCX2xj_k.js   313.97 kB │ gzip: 108.58 kB
+dist/assets/three-BJo46Mad.js   534.62 kB │ gzip: 136.72 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 11.39s
+
+> project-ironfront@0.20.0 test:browser
+> playwright test
+
+[WebServer] (node:89310) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:89353) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:89356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:89401) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 49 tests using 1 worker
+
+(node:89413) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/ai-squad-017.spec.ts:5:1 › elite profile reaches the live battle and diagnostics (14.4s)
+  ✓   2 tests/browser.spec.ts:9:1 › menu exposes the required setup surfaces (6.6s)
+  ✓   3 tests/browser.spec.ts:17:1 › starts a battle, shows HUD, pause and diagnostics (5.0s)
+HEADLESS_32V32_FPS {"samples":[60.00711917419722,58.92288140548335,57.28624902351175,59.32827550431196,59.79965054711274,59.9499511969107,60.014258889567614,60.010604137902035],"info":{"renderer":"WebKit WebGL","calls":747,"ratio":1}}
+  ✓   4 tests/browser.spec.ts:24:1 › loadout persists, real RP support works, ADS fires and menu cleanup survives restart (20.8s)
+  ✓   5 tests/browser.spec.ts:41:1 › pointer-lock denial leaves drag look and weapon controls playable (9.9s)
+  ✓   6 tests/browser.spec.ts:46:1 › A/D strafes without accumulated camera roll, Shift slides, damage direction and equipment stay visible (8.2s)
+  ✓   7 tests/browser.spec.ts:56:1 › driver shell, gunner MG, passengers and fourth transport are playable through keyboard controls (5.5s)
+  ✓   8 tests/browser.spec.ts:63:1 › map deployment blocks engaged squadmates and offers distant attacked flags and deploys beside a safe member (10.3s)
+  ✓   9 tests/browser.spec.ts:70:1 › preparation selects and persists Breakthrough and the active frontline really advances (4.8s)
+AUDIO_QA {"music":{"cue":"victory","desired":"victory","status":"playing","error":"","track":"victory","slots":[{"paused":false,"volume":0.08993678732408973,"ready":4,"time":1.795787},{"paused":false,"volume":0.02654049860938778,"ready":4,"time":0.28649}]},"decoded":29,"voices":0,"context":"running","master":0.4}
+  ✓  10 tests/browser.spec.ts:74:1 › local MP3 playback, decoded sound effects, mixing and result cues work (10.5s)
+  ✓  11 tests/browser.spec.ts:81:1 › seven distinct first-person models render and missing music stays playable (8.7s)
+  ✓  12 tests/browser.spec.ts:86:1 › airdrop reserves armor for caller and actual driver exits on takeover (12.7s)
+  ✓  13 tests/browser.spec.ts:94:1 › death falls then rises into deployment instead of opening map immediately (10.5s)
+  ✓  14 tests/browser.spec.ts:100:1 › player shot event uses the rendered muzzle and damage flashes immediately (5.1s)
+  ✓  15 tests/browser.spec.ts:107:1 › vehicle RMB optics, independent MG model, capture progress, Esc resume and unstuck work (5.3s)
+  ✓  16 tests/browser.spec.ts:115:1 › LAN menu hosts and joins one authoritative room from two browser clients (7.8s)
+  ✓  17 tests/browser.spec.ts:123:1 › host configures AI-free opposing teams and changes a joining player faction (6.5s)
+  ✓  18 tests/browser.spec.ts:127:1 › deployment selects a real free vehicle seat and block characters distinguish humans and teams (9.7s)
+  ✓  19 tests/browser.spec.ts:134:1 › solo entry works without creating or joining a network room (4.0s)
+LAN_WALK_CONTINUITY {"stationaryFraction":0,"maxFrameStep":0.3079567729139394,"samples":80}
+  ✓  20 tests/browser.spec.ts:138:1 › LAN settings expose address port and code while walking remains continuous between snapshots (6.0s)
+  ✓  21 tests/browser.spec.ts:144:1 › equipment keys draw models without spending charges and left click uses the selected item (6.1s)
+  ✓  22 tests/browser.spec.ts:150:1 › real LAN IP hosts and share link joins without manually correcting host address or port (15.9s)
+  ✓  23 tests/browser.spec.ts:157:1 › LAN connection diagnostics distinguish invalid rooms from unreachable services (1.6s)
+  ✓  24 tests/browser.spec.ts:161:35 › solo tracers remain attached to the visible muzzle while walking and aiming (4.8s)
+  ✓  25 tests/browser.spec.ts:161:35 › LAN tracers remain attached to the visible muzzle while walking and aiming (4.8s)
+  ✓  26 tests/browser.spec.ts:167:1 › LAN equipment selection is nonconsuming and only a click sends a weapon action (5.1s)
+  ✓  27 tests/browser.spec.ts:172:1 › an old host process is rejected before creating an incompatible room (903ms)
+  ✓  28 tests/environment-020.spec.ts:2:1 › map support requires an explicit point and confirmation, then a real aircraft appears (4.6s)
+  ✓  29 tests/environment-020.spec.ts:8:1 › architecture has shared instanced geometry, finite bounds and distance detail switching (925ms)
+  ✓  30 tests/iteration-013.spec.ts:4:1 › four pictured class loadouts are configured after entry and simulation waits for readiness (5.7s)
+  ✓  31 tests/iteration-013.spec.ts:7:1 › infantry V switches perspective, hits report real damage and result sequence moves the camera (6.5s)
+  ✓  32 tests/iteration-013.spec.ts:10:1 › room host waits for every human loadout and guest cannot start the match (6.2s)
+  ✓  33 tests/iteration-014.spec.ts:6:1 › grenade and smoke fly as actual models, supply crate persists and map player preference is saved (10.6s)
+  ✓  34 tests/iteration-014.spec.ts:7:1 › downed screen counts thirty seconds, calls rescue and held space finishes death into separated icon deployment (12.5s)
+  ✓  35 tests/iteration-014.spec.ts:8:1 › vehicle dual weapons, real barrel indicators, lock warning and countermeasures cancel missiles (4.4s)
+  ✓  36 tests/iteration-014.spec.ts:9:1 › two LAN browsers receive a real thrown model and the same supply box (6.7s)
+  ✓  37 tests/iteration-015.spec.ts:4:1 › commander advice can be dismissed and accepted through gameplay keys (4.9s)
+  ✓  38 tests/iteration-015.spec.ts:5:1 › jet and helicopter have distinct controls and warning phases; flares clear incoming (5.2s)
+  ✓  39 tests/iteration-015.spec.ts:6:1 › motorcycle has a visible separate model and two unarmed seats (4.9s)
+  ✓  40 tests/iteration-0151.spec.ts:4:1 › large missile threat and actual armor hit remain distinct and clear after impact (6.0s)
+  ✓  41 tests/iteration-016.spec.ts:4:1 › all eight vehicle driver interiors are distinct; controls, crew seats and exterior views follow actual seats (11.3s)
+  ✓  42 tests/lobby-maps-019.spec.ts:3:1 › lobby has navigable operations, persistent class equipment and stopped preview after deployment (8.2s)
+  ✓  43 tests/lobby-maps-019.spec.ts:11:1 › host-selected dust map reaches guests and survives reconnect (2.6s)
+  ✓  44 tests/lobby-maps-019.spec.ts:18:1 › small-screen lobby keeps forms in viewport and rejects unknown host maps (1.1s)
+  ✓  45 tests/lobby-maps-019.spec.ts:23:1 › lobby navigation remains usable when WebGL is unavailable (497ms)
+SOLDIER_PERFORMANCE {"times":[36.5,30.799999997019768,32.20000000298023,32.29999999701977,32.5],"armies":[{"team":"blue","meshes":38,"activeMeshes":32,"instances":992,"gadgetInstances":0},{"team":"red","meshes":38,"activeMeshes":32,"instances":1024,"gadgetInstances":0}]}
+  ✓  46 tests/performance-0181.spec.ts:6:1 › soldier instances omit inactive equipment and recover after seat, team and equipment changes (4.3s)
+  ✓  47 tests/room-ui-018.spec.ts:5:1 › LAN entry keeps room fields while navigating settings and shows a clear connection state (1.2s)
+  ✓  48 tests/room-ui-018.spec.ts:21:1 › host lobby shows readiness and automatically restores the same player after a dropped socket (5.0s)
+  ✓  49 tests/room-ui-018.spec.ts:35:1 › a guest becomes room host when the original host leaves the lobby (2.3s)
+
+  49 passed (6.1m)

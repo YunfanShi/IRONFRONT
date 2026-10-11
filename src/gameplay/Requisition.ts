@@ -15,5 +15,5 @@ export const SUPPORTS:Record<SupportId,{name:string;zh:string;cost:number;cooldo
  ifv:{name:'V12 Lancer IFV',zh:'V12 步战车',cost:300,cooldown:65,description:'8s nearby airdrop · autocannon IFV · reserved for you'},
  tank:{name:'T90 Bastion MBT',zh:'T90 主战坦克',cost:450,cooldown:90,description:'8s nearby airdrop · heavy armor and cannon · reserved for you'}
 };
-export interface SupportEffect {id:number;kind:'recon'|'smoke'|'artillery'|'reinforce';team?:Team;owner?:number;at:Point;starts:number;ends:number;nextPulse:number;pulses:number}
+export interface SupportEffect {flightId?:number;id:number;kind:'recon'|'smoke'|'artillery'|'reinforce';team?:Team;owner?:number;at:Point;starts:number;ends:number;nextPulse:number;pulses:number}
 export const RP_REWARDS={kill:60,capture:120,assist:25,defense:30,vehicle:150,objectiveTick:5} as const;

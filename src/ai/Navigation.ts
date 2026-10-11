@@ -34,7 +34,22 @@ export class Navigation {
  }
  private clear(a:Point,b:Point){if(this.map.collides(a.x,a.z,this.clearance)||this.map.collides(b.x,b.z,this.clearance))return false;if(!this.vehicle)return !this.map.lineBlocked(a,b,undefined,this.clearance);const steps=Math.ceil(dist(a,b)/2);for(let i=0;i<=steps;i++){const t=steps?i/steps:0;if(this.map.collides(a.x+(b.x-a.x)*t,a.z+(b.z-a.z)*t,this.clearance))return false;}return true;}
  private edgeClear(a:number,b:number){const key=Math.min(a,b)*this.walkable.length+Math.max(a,b),cached=this.edges.get(key);if(cached!==undefined)return cached;const result=this.clear(this.points[a]!,this.points[b]!);this.edges.set(key,result);return result;}
+ private interiorRoute(from:Point,to:Point):Point[]|null {
+  if(this.vehicle)return null;
+  const contains=(b:{x:number;z:number;w:number;d:number},p:Point)=>Math.abs(p.x-b.x)<b.w/2&&Math.abs(p.z-b.z)<b.d/2;
+  const building=this.map.definition.openBuildings.find(b=>contains(b,from)||contains(b,to));if(!building)return null;
+  const portal={x:building.x,z:building.z+building.d/2+5},fromInside=contains(building,from),toInside=contains(building,to);
+  const localFrom=fromInside?from:portal,localTo=toInside?to:portal;
+  const nodes:Point[]=[localFrom,localTo,portal,{x:building.x,z:building.z+building.d/2-3}];
+  for(let x=building.x-building.w/2+2;x<building.x+building.w/2-2;x+=3)for(let z=building.z-building.d/2+2;z<building.z+building.d/2-2;z+=3)if(!this.map.collides(x,z,this.clearance))nodes.push({x,z});
+  const cost=nodes.map(()=>Infinity),prior=nodes.map(()=>-1),closed=new Set<number>();cost[0]=0;
+  for(let iteration=0;iteration<nodes.length;iteration++){let current=-1;for(let i=0;i<nodes.length;i++)if(!closed.has(i)&&(current<0||cost[i]!<cost[current]!))current=i;if(current<0||!Number.isFinite(cost[current]!))break;if(current===1)break;closed.add(current);for(let i=0;i<nodes.length;i++){if(closed.has(i)||!this.clear(nodes[current]!,nodes[i]!))continue;const next=cost[current]!+dist(nodes[current]!,nodes[i]!);if(next<cost[i]!){cost[i]=next;prior[i]=current;}}}
+  if(!Number.isFinite(cost[1]!))return [];
+  const route:Point[]=[];for(let i=1;i!==0&&i!==-1;i=prior[i]!)route.unshift({...nodes[i]!});
+  const before=fromInside?[]:this.find(from,portal),after=toInside?[]:this.find(portal,to);if(!fromInside&&!before.length||!toInside&&!after.length)return [];return [...before,...route,...after];
+ }
  find(from:Point,to:Point):Point[]{if(this.clear(from,to))return [{...to}];
+  const interior=this.interiorRoute(from,to);if(interior!==null)return interior;
   const start=this.visibleNode(from),goal=this.visibleNode(to);if(start<0||goal<0)return [];
   const {cost,prior,closed,open}=this;cost.fill(Infinity);prior.fill(-1);closed.fill(0);open.reset();
   const heur=(a:number,b:number)=>Math.hypot(a%this.count-b%this.count,Math.floor(a/this.count)-Math.floor(b/this.count));

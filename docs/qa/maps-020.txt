@@ -1,0 +1,20 @@
+
+> project-ironfront@0.20.0 test:maps
+> npm run compile:logic && node scripts/verify-maps.cjs
+
+
+> project-ironfront@0.20.0 compile:logic
+> tsc -p tsconfig.logic.json && node scripts/prepare-logic.cjs
+
+industrial-frontier conquest 505 blue 288.375
+industrial-frontier conquest 12731 blue 680.875
+industrial-frontier conquest 1905 red 599.5
+industrial-frontier breakthrough 505 red 2344.75
+industrial-frontier breakthrough 12731 blue 892.125
+industrial-frontier breakthrough 1905 blue 2110.75
+dust-horizon conquest 505 blue 933.875
+dust-horizon conquest 12731 blue 632.25
+dust-horizon conquest 1905 blue 627.625
+dust-horizon breakthrough 505 blue 2445.5
+dust-horizon breakthrough 12731 blue 1684.375
+dust-horizon breakthrough 1905 red 2569.75

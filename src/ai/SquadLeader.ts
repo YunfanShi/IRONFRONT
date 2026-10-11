@@ -12,8 +12,8 @@ export class SquadLeader {
   // Formation faces the mission, not the leader's rapidly changing combat yaw.
   const heading=old?old.heading+Math.max(-.35,Math.min(.35,delta)):desiredHeading;
   const memberDestinations:Record<number,Point>={};let slots=this.slots.get(key);if(!slots){slots=members.map(s=>s.id).sort((a,b)=>a-b);this.slots.set(key,slots);}for(const m of members)if(!slots.includes(m.id))slots.push(m.id);const infantry=active.filter(s=>s.vehicleId===null&&s.id!==lead?.id).sort((a,b)=>a.id-b.id);
-  if(lead)memberDestinations[lead.id]={...objective};
-  infantry.forEach((s)=>{const index=slots!.filter(id=>id!==lead?.id).indexOf(s.id);const row=Math.floor(index/2)+1,side=index%2===0?-1:1,lateral=side*(3.5+row*.35),back=row*5.5;memberDestinations[s.id]={x:anchor.x+Math.cos(heading)*lateral-Math.sin(heading)*back,z:anchor.z-Math.sin(heading)*lateral-Math.cos(heading)*back};});
+  if(lead){const sector=(Math.abs(lead.id)%16)/16*Math.PI*2,staging=dist(anchor,objective)<35?{x:objective.x+Math.sin(sector)*10,z:objective.z+Math.cos(sector)*10}:objective;memberDestinations[lead.id]={...staging};}
+  infantry.forEach((s)=>{const index=slots!.filter(id=>id!==lead?.id).indexOf(s.id);const row=Math.floor(index/2)+1,side=index%2===0?-1:1,lateral=side*(5.5+row*.65),back=row*7;memberDestinations[s.id]={x:anchor.x+Math.cos(heading)*lateral-Math.sin(heading)*back,z:anchor.z-Math.sin(heading)*lateral-Math.cos(heading)*back};});
   const cohesion=active.filter(s=>s.vehicleId!==null||s.id===lead?.id||dist(s.pos,memberDestinations[s.id]??anchor)<13).length/Math.max(1,active.length),fighting=active.some(s=>s.visualTarget!==null),health=active.reduce((n,s)=>n+s.hp,0)/Math.max(1,active.length);
   let state:SquadState=active.length<2?'ASSEMBLING':health<35?'WITHDRAWING':fighting?'ENGAGING':dist(anchor,objective)<25?(defending?'DEFENDING':'CAPTURING'):cohesion<.6?'REGROUPING':'TRAVELING';
   // A missing or unreachable member must not repeatedly freeze the leader.

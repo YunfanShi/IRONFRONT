@@ -1,3 +1,5 @@
+import {buildingPlan} from './BuildingPlan';
+import {openBuildingWalls} from './OpenBuilding';
 import type {VehicleKind} from '../vehicles/Vehicle';
 import {heightAt as industrialHeight,type Point} from '../core/math';
 import {MAP_SIZE,BASES,OBJECTIVES,BLOCKS,OPEN_BUILDINGS,COVER_POINTS,collides,lineBlocked,type Block,type Team,type ObjectiveDefinition} from './Layout';
@@ -34,19 +36,21 @@ const dustHeight=(x:number,z:number)=>{
  const hill=(a:number,b:number,r:number,h:number)=>h*Math.exp(-((x-a)**2+(z-b)**2)/(r*r));
  return hill(-355,-230,44,35)+hill(-220,-250,42,30)+hill(-400,-170,75,24)+hill(-170,-330,90,20)+hill(100,-340,100,14)+hill(-250,320,150,18)+hill(420,80,90,21)+hill(80,400,95,12);
 };
+const dustInterior={x:58,z:-10,w:23,d:20,h:8};
+const dustArchitecture=dustBlocks.filter(b=>!(b.kind==='house'&&b.x===dustInterior.x&&b.z===dustInterior.z)).concat(openBuildingWalls(dustInterior));
 export const MAPS:Record<MapId,MapDefinition>={
  'industrial-frontier':{id:'industrial-frontier',name:'Industrial Frontier',zh:'工业前线',description:'工业区、铁路与村庄之间的联合兵种战场',size:MAP_SIZE,seed:44809,bases:BASES,objectives:OBJECTIVES,blocks:BLOCKS,openBuildings:OPEN_BUILDINGS,parking:{blue:point(-304,-302),red:point(304,302)},heightAt:industrialHeight,theme:'industrial',allowedVehicles:['scout','ifv','tank','transport','aa','helicopter','jet','motorcycle'],navigationStep:16,supportedModes:['conquest','breakthrough'],preview:'/maps/industrial-frontier.png',landmarks:[point(-177,246),point(289,-235),point(155,253)],roads:[[point(-320,-296),point(-185,-210),point(-58,-180),point(37,-62),point(140,65),point(301,296)],[point(-291,160),point(-171,116),point(-26,80),point(140,113),point(302,154)],[OBJECTIVES[0]!,OBJECTIVES[1]!,OBJECTIVES[2]!,OBJECTIVES[4]!]]},
- 'dust-horizon':{id:'dust-horizon',name:'Dust Horizon',zh:'沙尘地平线',description:'穿越峡谷与荒漠聚落，争夺道路枢纽和能源设施',size:950,seed:190505,bases:{blue:point(-400,-395),red:point(400,395)},objectives:dustObjectives,blocks:dustBlocks,openBuildings:[],parking:{blue:point(-390,-370),red:point(390,370)},heightAt:dustHeight,theme:'desert',allowedVehicles:['scout','ifv','tank','transport','aa','helicopter','jet','motorcycle'],navigationStep:16,supportedModes:['conquest','breakthrough'],preview:'/maps/dust-horizon.png',roads:dustRoads,landmarks:[point(-330,-250),point(-175,-145),point(350,225)]}
+ 'dust-horizon':{id:'dust-horizon',name:'Dust Horizon',zh:'沙尘地平线',description:'穿越峡谷与荒漠聚落，争夺道路枢纽和能源设施',size:950,seed:190505,bases:{blue:point(-400,-395),red:point(400,395)},objectives:dustObjectives,blocks:dustArchitecture,openBuildings:[dustInterior],parking:{blue:point(-390,-370),red:point(390,370)},heightAt:dustHeight,theme:'desert',allowedVehicles:['scout','ifv','tank','transport','aa','helicopter','jet','motorcycle'],navigationStep:16,supportedModes:['conquest','breakthrough'],preview:'/maps/dust-horizon.png',roads:dustRoads,landmarks:[point(-330,-250),point(-175,-145),point(350,225)]}
 };
 export function isMapId(value:unknown):value is MapId{return typeof value==='string'&&Object.hasOwn(MAPS,value);}
 /** Per-match immutable geometry, never a mutable global active map. */
 export class MapContext {
- readonly definition:MapDefinition;readonly cover:readonly Point[];
+ readonly definition:MapDefinition;readonly cover:readonly Point[];private readonly collisionBlocks:readonly Block[];
  constructor(id:MapId='industrial-frontier'){
-  if(!isMapId(id))throw new Error('Unsupported map: '+String(id));this.definition=MAPS[id];
+  if(!isMapId(id))throw new Error('Unsupported map: '+String(id));this.definition=MAPS[id];this.collisionBlocks=this.definition.blocks.flatMap(b=>['house','factory','barracks'].includes(b.kind)?buildingPlan(b).volumes.map(v=>({...v,kind:b.kind})): [b]);
   this.cover=id==='industrial-frontier'?COVER_POINTS:this.blocks.flatMap(b=>[{x:b.x-b.w/2-2.4,z:b.z},{x:b.x+b.w/2+2.4,z:b.z},{x:b.x,z:b.z-b.d/2-2.4},{x:b.x,z:b.z+b.d/2+2.4}]).filter(p=>!this.collides(p.x,p.z,1.05));
  }
- get size(){return this.definition.size;}get limit(){return this.size/2-10;}get bases(){return this.definition.bases;}get blocks(){return this.definition.blocks;}get objectives(){return this.definition.objectives;}
+ get size(){return this.definition.size;}get limit(){return this.size/2-10;}get bases(){return this.definition.bases;}get blocks(){return this.collisionBlocks;}get objectives(){return this.definition.objectives;}
  heightAt=(x:number,z:number)=>this.definition.heightAt(x,z);
  collides=(x:number,z:number,r:number)=>collides(x,z,r,this.blocks,this.size);
  lineBlocked=(a:Point,b:Point,blocks:readonly Block[]=this.blocks,pad=0)=>lineBlocked(a,b,blocks,pad);

@@ -61,7 +61,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.phase==='countdown'){res.writeHead(409);return res.end(JSON.stringify({error:'房间正在倒计时，请等待战斗开始后加入'}));}if(room.clients.size+room.reservations.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人，含短暂掉线的保留席位）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,maxPlayers:8,phase:room.phase,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.19.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
+        return res.end(JSON.stringify({ version: '0.20.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
     }
     let pathname;
     try {
@@ -301,7 +301,7 @@ setInterval(() => {
         for (const [ws, c] of r.clients) {
             withClient(r, c, b => b.advancePlayerTimers());
             const filtered = events.filter(e => (e.type !== 'hitConfirmed'||e.owner===c.id) && (e.type !== 'rp' || e.owner === c.id) && (e.type !== 'playerHit' || e.victim === c.id)).map(e => (e.type === 'shot' || e.type === 'vehicleShot') ? { ...e, player: e.owner === c.id } : e);
-            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...[...r.clients.values()].map(c=>({id:c.id,ready:c.ready,team:b.soldiers[c.id].team,isHost:c.isHost,connected:true})),...[...r.reservations.values()].map(c=>({id:c.id,ready:c.ready,team:b.soldiers[c.id].team,isHost:c.isHost,connected:false}))], elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, projectiles: b.projectiles, grenades:b.grenades,ammoBoxes:b.ammoBoxes, recommendation:b.commanders[b.soldiers[c.id].team].recommendations.get(b.soldiers[c.id].squad)??null,player: c.state, events: filtered };
+            const state = { type: 'state',phase:r.phase,countdown:Math.max(0,(r.countdownAt-Date.now())/1000),roster:[...[...r.clients.values()].map(c=>({id:c.id,ready:c.ready,team:b.soldiers[c.id].team,isHost:c.isHost,connected:true})),...[...r.reservations.values()].map(c=>({id:c.id,ready:c.ready,team:b.soldiers[c.id].team,isHost:c.isHost,connected:false}))], elapsed: b.elapsed, finished: b.finished, winner: b.winner, sectorIndex: b.sectorIndex, tickets: b.tickets, soldiers: b.soldiers, vehicles: b.vehicles, points: b.points, supports: b.supports, supportFlights:b.supportFlights, projectiles: b.projectiles, grenades:b.grenades,ammoBoxes:b.ammoBoxes, recommendation:b.commanders[b.soldiers[c.id].team].recommendations.get(b.soldiers[c.id].squad)??null,player: c.state, events: filtered };
             if (ws.readyState === WebSocket.OPEN && ws.bufferedAmount < 1024 * 1024)
                 ws.send(JSON.stringify(state));
         }

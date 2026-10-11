@@ -1,0 +1,12 @@
+import {test,expect} from '@playwright/test';
+test('map support requires an explicit point and confirmation, then a real aircraft appears',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&m.text().includes('THREE'))errors.push(m.text());});await page.goto('/');await page.locator('#play').click();await page.locator('#ready').click();await page.locator('#modal.hidden').waitFor({state:'attached'});
+ await page.evaluate(()=>{const b=(window as any).__IRONFRONT_QA.battle;b.settings.aiEnabled=false;b.awardRP(1000,'test');});await page.keyboard.press('Q');await page.locator('[data-support="artillery"]').click();await expect(page.locator('#support-confirm')).toBeDisabled();
+ expect(await page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.requisitionPoints)).toBe(1000);await page.locator('#support-map').click({position:{x:200,y:200}});await expect(page.locator('#support-confirm')).toBeEnabled();await page.locator('#support-confirm').click();expect(await page.evaluate(()=>(window as any).__IRONFRONT_QA.battle.supportFlights.length)).toBe(1);await page.locator('#support-close').click();
+ await expect.poll(()=>page.evaluate(()=>(window as any).__IRONFRONT_QA.world.aircraft.units.size)).toBeGreaterThan(0);await page.screenshot({path:'test-results/support-aircraft-020.png'});expect(errors).toEqual([]);
+});
+test('architecture has shared instanced geometry, finite bounds and distance detail switching',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&m.text().includes('THREE'))errors.push(m.text());});await page.goto('/');await page.locator('#play').click();await page.locator('#preparation-operator').waitFor();
+ await page.waitForFunction(()=>{const b=(window as any).__IRONFRONT_QA.world.buildings;return [...b.textures.values()].every((t:any)=>t.image?.width>0);});
+ const result=await page.evaluate(()=>{const w=(window as any).__IRONFRONT_QA.world,buildings=w.buildings;let meshes=0,instances=0;for(const cluster of buildings.groups)cluster.group.traverse((o:any)=>{if(o.isInstancedMesh){meshes++;instances+=o.count;}});w.camera.position.set(2000,100,2000);buildings.update(w.camera);const distant=buildings.groups.every((g:any)=>!g.near.visible);return {meshes,instances,distant};});expect(result.instances).toBeGreaterThan(200);expect(result.instances).toBeGreaterThan(result.meshes*2);expect(result.distant).toBe(true);expect(errors).toEqual([]);
+});

@@ -1,6 +1,8 @@
-# PROJECT IRONFRONT 0.19.0
+# PROJECT IRONFRONT 0.20.0
 
-当前网页版本 **0.19.0**：原创 3D 大厅、改良 AI 小队和 Dust Horizon 双地图。开发与完整 QA 见 [详细报告](docs/DEVELOPMENT_019.md)、[DOCX](docs/DEVELOPMENT_019.docx) 和 [QA](QA_REPORT.md)。
+当前网页版本 **0.20.0**：模块化建筑与 CC0 PBR 材质、地图选点飞机支援、喷气机滚转、玩家命中修复及 AI 分散。保留双地图、大厅、征服、前线推进与最多八人 LAN。开发、实际前后截图与剩余问题见 [详细报告](docs/DEVELOPMENT_020.md)、[DOCX](docs/DEVELOPMENT_020.docx) 和 [QA](QA_REPORT.md)。
+
+建筑仍为低多边形程序化模型；多层室内、楼梯及可到达屋顶尚未完成。公开源码不含用户音乐，音乐仅随本地完整版分发。
 
 大厅 → 作战选择地图与玩法 → 配装和准备 → 入场 → 部署。单人无需联网；LAN 房主锁定地图，全员准备后启动。
 

@@ -18,4 +18,4 @@ for(const mapId of ['industrial-frontier','dust-horizon'])for(const mode of ['co
  assert(b.finished,`${mapId} ${mode} ${seed} failed to finish`);assert(counts.capture>=(mode==='conquest'?5:1)&&counts.shot>20&&counts.respawn>0&&counts.vehicleShot>0,JSON.stringify(counts));
  results.push({mapId,mode,seed,winner:b.winner,seconds:b.elapsed,tickets:b.tickets,counts,eventKinds:[...events],diagnostics:b.getAIDiagnostics(),runtimeMs:Math.round(performance.now()-start)});console.log(mapId,mode,seed,b.winner,b.elapsed);
 }
-fs.mkdirSync('docs/qa',{recursive:true});fs.writeFileSync('docs/qa/maps-019.json',JSON.stringify({version:'0.19.0',size:32,startingTickets:500,supportChecks,results},null,2)+'\n');
+fs.mkdirSync('docs/qa',{recursive:true});fs.writeFileSync('docs/qa/maps-020.json',JSON.stringify({version:'0.20.0',size:32,startingTickets:500,supportChecks,results},null,2)+'\n');

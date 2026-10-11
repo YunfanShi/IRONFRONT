@@ -116,7 +116,7 @@ document.addEventListener('keydown',e=>{
  }
  if(e.code==='KeyM'&&!paused){mapVisible=!mapVisible;ui.toggleMap(mapVisible,battle)}
  if(e.code==='Tab'&&!paused){scoreVisible=true;ui.toggleScore(true,battle)}
- if(e.code==='F3'&&import.meta.env.DEV){debugVisible=!debugVisible;ui.setDebug(debugVisible,battle,fps,world?.renderer.info.render.calls??0)}
+ if(e.code==='F3'&&(import.meta.env.DEV||import.meta.env.MODE==='qa')){debugVisible=!debugVisible;ui.setDebug(debugVisible,battle,fps,world?.renderer.info.render.calls??0)}
 });
 document.addEventListener('keyup',e=>{
  keys.delete(e.code);
@@ -218,4 +218,4 @@ function frame(time:number){
 requestAnimationFrame(frame);
 
 // Development-only QA diagnostics. The production bundle removes this branch.
-if(import.meta.env.DEV)Object.defineProperty(window,'__IRONFRONT_QA',{value:{get battle(){return battle},get world(){return world},get audio(){return audio.state},get fps(){return fps},get ui(){return ui},get lan(){return lan},get paused(){return paused}},configurable:true});
+if((import.meta.env.DEV||import.meta.env.MODE==='qa'))Object.defineProperty(window,'__IRONFRONT_QA',{value:{get battle(){return battle},get world(){return world},get audio(){return audio.state},get fps(){return fps},get ui(){return ui},get lan(){return lan},get paused(){return paused}},configurable:true});

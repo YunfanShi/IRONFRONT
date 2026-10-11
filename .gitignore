@@ -12,3 +12,5 @@ __MACOSX/
 
 node_modules
 public/audio/music/*.mp3
+
+.qa-dist/

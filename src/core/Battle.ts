@@ -1,3 +1,4 @@
+import {soldierRayHit} from '../combat/Hitbox';
 import {MapContext,type MapId} from '../world/Maps';
 import {clamp,dist,norm,Random,type Point} from './math';
 import {type Team} from '../world/Layout';
@@ -91,7 +92,8 @@ export class Battle {
  elapsed=0;winner:Team|null=null;finished=false;
  playerWeapon:WeaponId='carbine';playerReloadUntil=0;playerNextShot=0;playerAiming=false;
  loadout:Loadout={...DEFAULT_LOADOUT};
- requisitionPoints=0;readonly supports:SupportEffect[]=[];
+ requisitionPoints=0;readonly supportFlights:{id:number;kind:SupportId;at:Point;starts:number;ends:number;team:Team;targets:Point[]}[]=[];
+ supports:SupportEffect[]=[];
  readonly supportCooldowns:Partial<Record<SupportId,number>>={};
  readonly projectiles:Projectile[]=[];private projectileSequence=1;
  playerSeat=0;aaCount=2;aaUntil=0;rocketCount=2;rocketUntil=0;beacon:{at:Point;expires:number}|null=null;
@@ -254,19 +256,19 @@ export class Battle {
  private flyVehicle(v:ArmoredVehicle,throttle:number,steer:number,dt:number,viewYaw?:number,pitch=0,boost=false,brake=false){
   if(v.driver==='ai'){v.climbInput=clamp((55-v.altitude)/12,-1,1);pitch=v.kind==='jet'?clamp((55-v.altitude)/70,-.3,.5):0;}
   const move=controlFlight(v,throttle,steer,dt,viewYaw,pitch,boost,brake),oldGround=this.map.heightAt(v.pos.x,v.pos.z),q={x:clamp(v.pos.x+move.x,-this.map.limit,this.map.limit),z:clamp(v.pos.z+move.z,-this.map.limit,this.map.limit)};
-  if(v.altitude>28||!this.map.collides(q.x,q.z,VEHICLE_TYPES[v.kind].radius)){v.pos=q;v.altitude+=oldGround-this.map.heightAt(q.x,q.z);}else v.speed=0;
+  if(!this.map.blocks.some(b=>Math.abs(q.x-b.x)<b.w/2+2&&Math.abs(q.z-b.z)<b.d/2+2&&oldGround+v.altitude<this.map.heightAt(b.x,b.z)+b.h+1)){v.pos=q;v.altitude+=oldGround-this.map.heightAt(q.x,q.z);}else v.speed=0;
  }
  private updateFlightPhysics(v:ArmoredVehicle,dt:number,powered:boolean){
   if(v.kind!=='helicopter'&&v.kind!=='jet')return;
   const weight=1-Math.exp(-dt*(powered?3:1.6));v.enginePower+=((powered?1:0)-v.enginePower)*weight;
   const oldAltitude=v.altitude;
-  if(!powered){const oldGround=this.map.heightAt(v.pos.x,v.pos.z);const q={x:clamp(v.pos.x+Math.sin(v.yaw)*v.speed*dt,-this.map.limit,this.map.limit),z:clamp(v.pos.z+Math.cos(v.yaw)*v.speed*dt,-this.map.limit,this.map.limit)};if(v.altitude>28||!this.map.collides(q.x,q.z,VEHICLE_TYPES[v.kind].radius)){v.pos=q;v.altitude+=oldGround-this.map.heightAt(q.x,q.z);}else v.speed*=.2;v.speed*=Math.exp(-dt*(v.kind==='jet'?.14:.5));}
+  if(!powered){const oldGround=this.map.heightAt(v.pos.x,v.pos.z);const q={x:clamp(v.pos.x+Math.sin(v.yaw)*v.speed*dt,-this.map.limit,this.map.limit),z:clamp(v.pos.z+Math.cos(v.yaw)*v.speed*dt,-this.map.limit,this.map.limit)};if(!this.map.blocks.some(b=>Math.abs(q.x-b.x)<b.w/2+2&&Math.abs(q.z-b.z)<b.d/2+2&&oldGround+v.altitude<this.map.heightAt(b.x,b.z)+b.h+1)){v.pos=q;v.altitude+=oldGround-this.map.heightAt(q.x,q.z);}else v.speed*=.2;v.speed*=Math.exp(-dt*(v.kind==='jet'?.14:.5));}
   const lift=v.kind==='helicopter'?v.enginePower:Math.min(1,Math.abs(v.speed)/32)*v.enginePower;
   if(powered&&lift>.95){const target=v.kind==='jet'?Math.sin(v.flightPitch)*v.speed:v.climbInput*16;v.verticalVelocity+=(target-v.verticalVelocity)*(1-Math.exp(-dt*4));}
   else v.verticalVelocity-=9.81*(powered?1-lift:1)*dt;
   v.verticalVelocity*=Math.exp(-dt*.06);v.altitude=Math.min(130,v.altitude+v.verticalVelocity*dt);
-  const obstacle=this.map.blocks.some(b=>Math.abs(v.pos.x-b.x)<b.w/2+1&&Math.abs(v.pos.z-b.z)<b.d/2+1&&v.altitude<b.h&&oldAltitude>0);
-  if(obstacle){v.speed=0;v.verticalVelocity=0;v.altitude=oldAltitude;return;}
+  const obstacle=this.map.blocks.some(b=>Math.abs(v.pos.x-b.x)<b.w/2+1&&Math.abs(v.pos.z-b.z)<b.d/2+1&&this.map.heightAt(v.pos.x,v.pos.z)+v.altitude<this.map.heightAt(b.x,b.z)+b.h+1&&oldAltitude>0);
+  if(obstacle){const ceiling=Math.max(...this.map.blocks.filter(b=>Math.abs(v.pos.x-b.x)<b.w/2+1&&Math.abs(v.pos.z-b.z)<b.d/2+1).map(b=>this.map.heightAt(b.x,b.z)+b.h+1));v.altitude=Math.max(0,ceiling-this.map.heightAt(v.pos.x,v.pos.z));v.verticalVelocity=Math.max(0,v.verticalVelocity);v.speed*=.8;return;}
   if(v.altitude<=0){const impact=Math.abs(v.verticalVelocity);v.altitude=0;v.verticalVelocity=0;void impact;if(!powered)v.speed=0;}
  }
  aimPlayerVehicle(yaw:number,pitch=0,dt=1/60){const v=this.playerVehicle;if(!v||this.playerSeat>1)return;this.aimTurret(v,yaw+Math.PI,pitch,dt,this.playerSeat===1||v.kind==='scout');}
@@ -288,7 +290,7 @@ export class Battle {
  }
  private fireVehicleWeapon(v:ArmoredVehicle,direction:{x:number;y:number;z:number},mg:boolean,player:boolean){
   v.combatUntil=this.elapsed+8;const coax=mg&&player&&this.playerSeat===0&&v.weaponSlot===1&&['tank','ifv'].includes(v.kind),yaw=mg&&!coax?v.mgYaw:v.turretYaw,pitch=v.turretPitch;direction={x:Math.sin(yaw)*Math.cos(pitch),y:Math.sin(pitch),z:Math.cos(yaw)*Math.cos(pitch)};const muzzle=vehicleMuzzle(v,mg,coax);muzzle.y+=this.map.heightAt(v.pos.x,v.pos.z);const cfg=VEHICLE_TYPES[v.kind],origin={x:muzzle.x,z:muzzle.z},length=Math.hypot(direction.x,direction.y,direction.z)||1,dir={x:direction.x/length,y:direction.y/length,z:direction.z/length};
-  if(!mg){this.launchProjectile(origin,dir,'shell',v.team,player,cfg.weaponDamage*(player?1:({easy:.45,normal:.65,hard:.85}[this.settings.difficulty])),v.kind==='tank'?8:5,cfg.weaponRange,v.id,muzzle.y);return;}
+  if(!mg){this.launchProjectile(origin,dir,'shell',v.team,player,cfg.weaponDamage*(player?1:.65),v.kind==='tank'?8:5,cfg.weaponRange,v.id,muzzle.y);return;}
   const spread=player?.008:.022,a=(this.random.next()-.5)*spread,d=norm({x:dir.x+Math.cos(v.turretYaw)*a,z:dir.z-Math.sin(v.turretYaw)*a});
   let best=110,target:Soldier|ArmoredVehicle|null=null;
   for(const t of [...this.soldiers,...this.vehicles]){if(!t.alive||('kind' in t?t.airborne:t.vehicleId!==null)||t.team===v.team)continue;const along=(t.pos.x-origin.x)*d.x+(t.pos.z-origin.z)*d.z,lateral=Math.abs((t.pos.x-origin.x)*d.z-(t.pos.z-origin.z)*d.x);if(along>0&&along<best&&lateral<('kind' in t?VEHICLE_TYPES[t.kind].radius:1)&&!this.sightBlocked(origin,t.pos)){best=along;target=t}}
@@ -357,10 +359,11 @@ export class Battle {
   if(!p.alive||this.inVehicle||this.finished||this.elapsed<this.playerThrowUntil||this.isReloading()||this.elapsed<this.playerNextShot)return false;
   if(this.ammo[weapon]<=0){this.startReload();return false}
   this.playerNextShot=this.elapsed+def.fireInterval;this.ammo[weapon]--;
-  const eye={x:p.pos.x,y:this.map.heightAt(p.pos.x,p.pos.z)+eyeHeight,z:p.pos.z};
+  const eye={x:p.pos.x,y:this.map.heightAt(p.pos.x,p.pos.z)+p.altitude+eyeHeight,z:p.pos.z};
   const origin=muzzle&&Object.values(muzzle).every(Number.isFinite)&&Math.hypot(muzzle.x-eye.x,muzzle.y-eye.y,muzzle.z-eye.z)<3?{...muzzle}:eye;
   // Align a muzzle ray with the camera's aim point, preserving close-range parallax.
-  let aimDistance=def.maxRange;for(const t of this.soldiers){if(!t.alive||t.vehicleId!==null||t.team===p.team)continue;const along=(t.pos.x-eye.x)*direction.x+(this.map.heightAt(t.pos.x,t.pos.z)+1.15-eye.y)*direction.y+(t.pos.z-eye.z)*direction.z;if(along>0&&along<aimDistance&&Math.hypot(eye.x+direction.x*along-t.pos.x,eye.z+direction.z*along-t.pos.z)<.8)aimDistance=along;}
+  let aimDistance=def.maxRange;for(const t of this.soldiers){if(!t.alive||t.vehicleId!==null||t.team===p.team)continue;const hit=soldierRayHit(eye,direction,{x:t.pos.x,y:this.map.heightAt(t.pos.x,t.pos.z)+t.altitude,z:t.pos.z});if(hit!==null)aimDistance=Math.min(aimDistance,hit);}
+
   const target={x:eye.x+direction.x*aimDistance,y:eye.y+direction.y*aimDistance,z:eye.z+direction.z*aimDistance},aimLength=Math.hypot(target.x-origin.x,target.y-origin.y,target.z-origin.z)||1;direction={x:(target.x-origin.x)/aimLength,y:(target.y-origin.y)/aimLength,z:(target.z-origin.z)/aimLength};
   const spread=this.playerAiming?def.adsSpread:def.hipSpread;
   const jitter={x:this.random.between(-spread,spread),y:this.random.between(-spread,spread),z:this.random.between(-spread,spread)};
@@ -371,11 +374,9 @@ export class Battle {
   for(let t=0;t<=1;t+=.1){const x=eye.x+(origin.x-eye.x)*t,z=eye.z+(origin.z-eye.z)*t,y=eye.y+(origin.y-eye.y)*t;if(this.map.blocks.some(b=>Math.abs(x-b.x)<b.w/2&&Math.abs(z-b.z)<b.d/2&&y<this.map.heightAt(x,z)+b.h))best=0;}
   for(let distance=.25;distance<best;distance+=.5){const x=origin.x+d.x*distance,z=origin.z+d.z*distance,y=origin.y+d.y*distance;if(y<this.map.heightAt(x,z)||this.map.blocks.some(b=>Math.abs(x-b.x)<b.w/2&&Math.abs(z-b.z)<b.d/2&&y<this.map.heightAt(x,z)+b.h)){best=distance;break;}}
   for(const s of this.soldiers){if(!s.alive||s.vehicleId!==null||s.team===p.team)continue;
-   const center={x:s.pos.x,y:this.map.heightAt(s.pos.x,s.pos.z)+1.15,z:s.pos.z};
-   const proj=(center.x-origin.x)*d.x+(center.y-origin.y)*d.y+(center.z-origin.z)*d.z;
-   if(proj<0||proj>best)continue;
-   const distanceSq=(origin.x+d.x*proj-center.x)**2+(origin.y+d.y*proj-center.y)**2+(origin.z+d.z*proj-center.z)**2;
-   if(distanceSq<.82*.82&&!this.sightBlocked(p.pos,s.pos)){best=proj;found=s}
+   const hit=soldierRayHit(origin,d,{x:s.pos.x,y:this.map.heightAt(s.pos.x,s.pos.z)+s.altitude,z:s.pos.z});
+   if(hit!==null&&hit<best){best=hit;found=s}
+
   }
   for(const v of this.vehicles){if(!v.alive||v.airborne||v.team===p.team)continue;const center={x:v.pos.x,y:this.map.heightAt(v.pos.x,v.pos.z)+v.altitude+1.7,z:v.pos.z},along=(center.x-origin.x)*d.x+(center.y-origin.y)*d.y+(center.z-origin.z)*d.z;if(along<0||along>best)continue;const miss=Math.hypot(origin.x+d.x*along-center.x,origin.y+d.y*along-center.y,origin.z+d.z*along-center.z);if(miss<VEHICLE_TYPES[v.kind].radius){found=v;best=along;}}
   const endpoint=found?{...found.pos}:{x:origin.x+d.x*def.maxRange,z:origin.z+d.z*def.maxRange};
@@ -478,8 +479,8 @@ export class Battle {
  canIdentify(at:Point,range=55):boolean{return this.player.alive&&dist(this.player.pos,at)<range&&!this.sightBlocked(this.player.pos,at)}
  onAward:((id:number,amount:number,reason:string)=>void)|null=null;
  awardRP(amount:number,reason:string,owner=this.player.id){if(!Number.isFinite(amount)||amount<=0||this.finished)return;if(this.onAward)this.onAward(owner,Math.floor(amount),reason);else this.requisitionPoints=Math.min(9999,this.requisitionPoints+Math.floor(amount));this.emit({type:'rp',amount:Math.floor(amount),reason,owner})}
- requestSupport(id:SupportId,objective:string):{ok:boolean;reason:string} {
-  const def=SUPPORTS[id],point=this.points.find(p=>p.id===objective);
+ requestSupport(id:SupportId,objective:string|Point):{ok:boolean;reason:string} {
+  const def=SUPPORTS[id],point=typeof objective==='string'?this.points.find(p=>p.id===objective):objective&&Number.isFinite(objective.x)&&Number.isFinite(objective.z)&&Math.abs(objective.x)<this.map.limit&&Math.abs(objective.z)<this.map.limit?objective:undefined;
   if(!Object.hasOwn(SUPPORTS,id)||!def||!point)return {ok:false,reason:'Invalid support or target / 支援或目标无效'};
   if(this.finished||!this.player.alive)return {ok:false,reason:'Deploy first / 请先部署'};
   if(this.elapsed<(this.supportCooldowns[id]??0))return {ok:false,reason:'Cooling down / 冷却中'};
@@ -489,16 +490,17 @@ export class Battle {
   if(isVehicle){
 
 
-   const cfg=VEHICLE_TYPES[id],base=this.player.pos;
+   const cfg=VEHICLE_TYPES[id],base=typeof objective==='string'?this.player.pos:point;
    let spawn:Point|null=null;
-   for(let i=0;i<20;i++){const q={x:base.x+12+(i%5)*10,z:base.z+12+Math.floor(i/5)*11};if(!this.map.collides(q.x,q.z,cfg.radius)&&!this.vehicles.some(v=>v.alive&&dist(v.pos,q)<cfg.radius+VEHICLE_TYPES[v.kind].radius+1)){spawn=q;break}}
+   for(let i=0;i<20;i++){const q={x:base.x+(typeof objective==='string'?12+(i%5)*10:Math.sin(i*2.4)*Math.sqrt(i/20)*12),z:base.z+(typeof objective==='string'?12+Math.floor(i/5)*11:Math.cos(i*2.4)*Math.sqrt(i/20)*12)};if(!this.map.collides(q.x,q.z,cfg.radius)&&!this.vehicles.some(v=>v.alive&&dist(v.pos,q)<cfg.radius+VEHICLE_TYPES[v.kind].radius+1)){spawn=q;break}}
    if(!spawn)return {ok:false,reason:'Parking obstructed / 停车区受阻'};
    const reusable=this.vehicles.find(v=>v.requisitioned&&!v.alive),index=reusable?.id??this.vehicles.length;
    vehicle=createVehicle(index,this.player.team,id,spawn,true);vehicle.reservedFor=this.player.id;vehicle.nextDecision=Infinity;vehicle.airborne=true;vehicle.dropStarted=this.elapsed;vehicle.landAt=this.elapsed+8;
    if(reusable)this.vehicles[index]=vehicle;else this.vehicles.push(vehicle);
   }
+  this.supportFlights.push({id:this.supportSequence++,kind:id,at:vehicle?{...vehicle.pos}:{x:point.x,z:point.z},starts:this.elapsed,ends:this.elapsed+20,team:this.player.team,targets:Array.from({length:4},()=>{const a=this.random.between(0,6.28),r=this.random.between(0,17);return {x:point.x+Math.cos(a)*r,z:point.z+Math.sin(a)*r};})});
   this.requisitionPoints-=def.cost;this.supportCooldowns[id]=this.elapsed+def.cooldown;
-  if(!isVehicle){const kind=id as SupportEffect['kind'];this.supports.push({id:this.supportSequence++,kind,team:this.player.team,owner:this.player.id,at:{x:point.x,z:point.z},starts:this.elapsed,ends:this.elapsed+(kind==='recon'?12:kind==='smoke'?22:kind==='artillery'?19:18),nextPulse:this.elapsed+5,pulses:kind==='artillery'?4:0});}
+  if(!isVehicle){const kind=id as SupportEffect['kind'];this.supports.push({id:this.supportSequence++,kind,team:this.player.team,owner:this.player.id,at:{x:point.x,z:point.z},starts:this.elapsed,ends:this.elapsed+(kind==='recon'?12:kind==='smoke'?22:kind==='artillery'?19:18),nextPulse:this.elapsed+5,pulses:kind==='artillery'?4:0,flightId:this.supportFlights[this.supportFlights.length-1]!.id});}
   this.emit({type:'support',kind:id,at:vehicle?{...vehicle.pos}:{x:point.x,z:point.z}});
   return {ok:true,reason:isVehicle?'Airdrop inbound · reserved for you / 8 秒空投至附近，专属载具':'Support active / 支援已呼叫'};
  }
@@ -526,10 +528,11 @@ export class Battle {
   if(!['repair','ammo'].includes(this.loadout.gadget))this.gadgetCharges--;this.playerGadgetUntil=this.elapsed+(this.loadout.gadget==='repair'?.75:10);return true;
  }
  private updateSupports(){
+  for(let i=this.supportFlights.length-1;i>=0;i--)if(this.supportFlights[i]!.ends<=this.elapsed)this.supportFlights.splice(i,1);
   for(const e of this.supports){
    if(e.ends<=this.elapsed)continue;
    if(e.kind==='reinforce')for(const s of this.soldiers)if(s.team===(e.team??'blue')&&!s.player){s.morale=Math.max(s.morale,.8);if(!s.alive)s.respawnAt=Math.min(s.respawnAt,this.elapsed+1)}
-   if(e.kind==='artillery'&&e.pulses>0&&this.elapsed>=e.nextPulse){const a=this.random.between(0,6.28),r=this.random.between(0,17),at={x:e.at.x+Math.cos(a)*r,z:e.at.z+Math.sin(a)*r};this.emit({type:'artilleryImpact',team:e.team??'blue',at,radius:22});for(const s of this.soldiers)if(s.alive&&s.team!==(e.team??'blue')&&dist(s.pos,at)<22)this.damage(s,100*(1-dist(s.pos,at)/22)+12,this.soldiers[e.owner??this.player.id]!);for(const v of this.vehicles)if(v.alive&&v.team!==(e.team??'blue')&&dist(v.pos,at)<27)this.damageVehicle(v,120*(1-dist(v.pos,at)/27)+15,e.team??'blue',true,e.at,e.owner);e.pulses--;e.nextPulse=this.elapsed+3;}
+   if(e.kind==='artillery'&&e.pulses>0&&this.elapsed>=e.nextPulse){const a=this.random.between(0,6.28),r=this.random.between(0,17),flight=this.supportFlights.find(f=>f.id===e.flightId),at=flight?.targets[4-e.pulses]??{x:e.at.x+Math.cos(a)*r,z:e.at.z+Math.sin(a)*r};this.emit({type:'artilleryImpact',team:e.team??'blue',at,radius:22});for(const s of this.soldiers)if(s.alive&&s.team!==(e.team??'blue')&&dist(s.pos,at)<22)this.damage(s,100*(1-dist(s.pos,at)/22)+12,this.soldiers[e.owner??this.player.id]!);for(const v of this.vehicles)if(v.alive&&v.team!==(e.team??'blue')&&dist(v.pos,at)<27)this.damageVehicle(v,120*(1-dist(v.pos,at)/27)+15,e.team??'blue',true,e.at,e.owner);e.pulses--;e.nextPulse=this.elapsed+3;}
   }
   for(let i=this.supports.length-1;i>=0;i--)if(this.supports[i]!.ends<=this.elapsed)this.supports.splice(i,1);
 
@@ -610,8 +613,8 @@ export class Battle {
   if(!s.route.length)return;
   const next=s.route[0]!;let velocity=norm({x:next.x-s.pos.x,z:next.z-s.pos.z});
   let avoidX=0,avoidZ=0;
-  for(const mate of this.soldiers){if(mate.id===s.id||!mate.alive||mate.team!==s.team)continue;const d=dist(s.pos,mate.pos);if(d>0&&d<2.7){avoidX+=(s.pos.x-mate.pos.x)/d*(2.7-d);avoidZ+=(s.pos.z-mate.pos.z)/d*(2.7-d)}}
-  velocity=norm({x:velocity.x+avoidX*.46,z:velocity.z+avoidZ*.46});const move=Math.min(4.2,dt*speed*Math.min(1,Math.max(.3,dist(s.pos,destination)/7)));s.yaw=Math.atan2(velocity.x,velocity.z);
+  for(const mate of this.soldiers){if(mate.id===s.id||!mate.alive||mate.team!==s.team)continue;const d=dist(s.pos,mate.pos);if(d>0&&d<4.5){avoidX+=(s.pos.x-mate.pos.x)/d*(4.5-d);avoidZ+=(s.pos.z-mate.pos.z)/d*(4.5-d)}}
+  velocity=norm({x:velocity.x+avoidX*.6,z:velocity.z+avoidZ*.6});const move=Math.min(4.2,dt*speed*Math.min(1,Math.max(.3,dist(s.pos,destination)/7)));s.yaw=Math.atan2(velocity.x,velocity.z);
   let moved=false;if(!this.map.collides(s.pos.x+velocity.x*move,s.pos.z,1.12)){s.pos.x+=velocity.x*move;moved=true}
   if(!this.map.collides(s.pos.x,s.pos.z+velocity.z*move,1.12)){s.pos.z+=velocity.z*move;moved=true}
   const progress=dist(s.pos,s.lastProgress);
@@ -667,7 +670,7 @@ export class Battle {
   else if(s.lastSeen&&this.elapsed-s.lastSeenAt<4.8){s.state='SEARCH';destination=this.safeObservation(s.lastSeen,s.pos);speed=8.7}
   else if(leader&&leader.id!==s.id&&leader.alive&&(dist(s.pos,objective)>25||this.settings.aiProfile==='elite'&&dist(s.pos,leader.pos)>25&&dist(s.pos,objective)>18)){s.state='FOLLOW_SQUAD';destination=this.formationDestination(s,leader);speed=dist(s.pos,destination)>13?10:8.2}
   else if(dist(s.pos,approach)>8&&dist(s.pos,objective)>17){s.state='MOVE_TO_OBJECTIVE';destination=approach;speed=10.2*(surge?1.08:1)}
-  else if(dist(s.pos,objective)<27){s.state=objective.owner===s.team&&!objective.contested&&dist(s.pos,approach)<5?'IDLE':'DEFEND';destination=order?.intent==='DEFEND'?approach:objective;speed=s.state==='IDLE'?0:5.8}
+  else if(dist(s.pos,objective)<27){s.state=objective.owner===s.team&&!objective.contested&&dist(s.pos,approach)<5?'IDLE':'DEFEND';const angle=s.id*2.399963229728653,radius=7+(s.id%4)*3,slot={x:objective.x+Math.sin(angle)*radius,z:objective.z+Math.cos(angle)*radius};destination=this.map.collides(slot.x,slot.z,1.12)?approach:slot;speed=dist(s.pos,destination)<2.5?0:5.8}
   else {s.state='MOVE_TO_OBJECTIVE';destination=objective;speed=10.1}
 
   const localPlan=this.squadLeaderAI.get(SQUAD_KEY(s.team,s.squad));if(!enemy&&(!s.lastSeen||this.elapsed-s.lastSeenAt>=4.8)&&localPlan?.holdLeader&&s.id===order?.leaderId){speed=0;s.state='IDLE';destination={...s.pos};}
@@ -693,7 +696,7 @@ export class Battle {
    const hit=Math.abs(dx*aim.z-dz*aim.x)<.82&&dx*aim.x+dz*aim.z>0&&!this.sightBlocked(s.pos,enemy.pos);
    this.emit({type:'shot',team:s.team,from:{...s.pos},to:impact,hit,player:false,weapon:s.weaponId});
    enemy.suppression=clamp(enemy.suppression+(hit?.18:.04),0,1);
-   if(hit)this.damage(enemy,cfg.damage*({easy:.4,normal:.55,hard:.7}[this.settings.difficulty])*clamp(1-d/180,.45,1),s);
+   if(hit)this.damage(enemy,cfg.damage*.55*clamp(1-d/180,.45,1),s);
   }}else if(this.elapsed-s.lastSeenAt>5){s.target=null;s.lastSeen=null;s.cover=null}
  }
 

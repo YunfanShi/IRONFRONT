@@ -1,3 +1,5 @@
+import {SupportAircraft} from './SupportAircraft';
+import {ModularBuildings} from './ModularBuildings';
 import {VehicleInterior} from './VehicleInterior';
 import * as THREE from 'three';
 import {Random,dist} from '../core/math';
@@ -46,7 +48,7 @@ export class WorldView {
   this.high=quality==='high';this.medium=quality==='medium';this.shadowEnabled=quality!=='low';
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:quality!=='low',powerPreference:'high-performance',alpha:false});
   const ratio=this.high?1.75:this.medium?1.35:1;this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,ratio)*this.renderScale);
-  this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.34;
+  this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.13;
   this.renderer.shadowMap.enabled=this.shadowEnabled;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   this.camera=new THREE.PerspectiveCamera(this.baseFov,1,.08,this.map.size*1.6);
   this.scene.background=new THREE.Color(this.map.definition.theme==='desert'?0xc9b193:0x97b6c5);this.scene.fog=new THREE.FogExp2(this.map.definition.theme==='desert'?0xc5b49c:0xa7afb0,this.high ? .00255 : this.medium ? .00315 : .00415);
@@ -107,11 +109,15 @@ export class WorldView {
    for(const v of [-1,1])vertices.push(x+nx*v,this.map.heightAt(x+nx*v,z+nz*v)+.13,z+nz*v);
    if(i<n){const k=i*2;indices.push(k,k+1,k+2,k+1,k+3,k+2)}
   }const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();
-  const m=new THREE.Mesh(g,material(0x8d8779,1));m.receiveShadow=this.shadowEnabled;this.scene.add(m);
+  const m=new THREE.Mesh(g,material(0x34393a,1));m.receiveShadow=this.shadowEnabled;this.scene.add(m);
  }
+ private aircraft?:SupportAircraft;
+ private buildings?:ModularBuildings;
  private buildEnvironment(){
+  this.aircraft=new SupportAircraft(this.scene);
+  this.buildings=new ModularBuildings(this.scene,this.map,this.shadowEnabled);
   const windows=material(0x1e363b,.24,.28),rim=material(0x9a9181);
-  for(const b of this.map.blocks){const y=this.map.heightAt(b.x,b.z);
+  for(const b of this.map.definition.blocks){if(['factory','house','barracks'].includes(b.kind))continue;const y=this.map.heightAt(b.x,b.z);
    let mat=concrete;if(b.kind==='house')mat=house;else if(b.kind==='barracks')mat=olive;
    else if(b.kind==='container')mat=tin;else if(b.kind==='railcar')mat=metal;else if(b.kind==='crate')mat=amber;
    if(this.map.definition.theme==='desert'&&b.kind==='wall'){const rock=new THREE.Mesh(new THREE.DodecahedronGeometry(1,0),material(0x9e7957));rock.scale.set(b.w*.6,b.h*.65,b.d*.6);rock.position.set(b.x,y+b.h*.45,b.z);rock.castShadow=this.shadowEnabled;rock.receiveShadow=true;this.scene.add(rock);}else this.addBlock(b.x,y,b.z,b.w,b.h,b.d,mat);
@@ -145,16 +151,16 @@ export class WorldView {
  private buildFoliage(count:number){
   if(this.map.definition.theme==='desert')return;
   const rand=new Random(22305);
-  const trunkGeo=new THREE.CylinderGeometry(.38,.71,5.0,7),leafGeo=new THREE.ConeGeometry(4.2,10.8,8);
-  const trunks=new THREE.InstancedMesh(trunkGeo,material(0x66533c),count),foliage=new THREE.InstancedMesh(leafGeo,material(0x3a624e),count*2);
-  const d=new THREE.Object3D();let added=0;
+  const trunkGeo=new THREE.CylinderGeometry(.3,.65,1,8),leafGeo=new THREE.IcosahedronGeometry(1,1);
+  const trunks=new THREE.InstancedMesh(trunkGeo,material(0x655b48),count*3),foliage=new THREE.InstancedMesh(leafGeo,material(0xffffff),count*5);
+  const d=new THREE.Object3D(),color=new THREE.Color();let added=0;
   while(added<count){const x=rand.between(-345,345),z=rand.between(-345,345);
-   if(dist({x,z},this.map.bases.blue)<32||dist({x,z},this.map.bases.red)<32||this.map.collides(x,z,5)||this.map.objectives.some(o=>dist({x,z},o)<31)||Math.abs(z-47)<12||Math.abs(z-132)<12)continue;
-   const h=this.map.heightAt(x,z),s=rand.between(.65,1.55),yaw=rand.between(0,6.28);
-   d.scale.setScalar(s);d.rotation.y=yaw;d.position.set(x,h+2.4*s,z);d.updateMatrix();trunks.setMatrixAt(added,d.matrix);
-   d.position.y=h+8.4*s;d.scale.setScalar(s);d.updateMatrix();foliage.setMatrixAt(added*2,d.matrix);
-   d.position.y=h+13.2*s;d.scale.setScalar(s*.71);d.updateMatrix();foliage.setMatrixAt(added*2+1,d.matrix);added++;
-  }trunks.instanceMatrix.needsUpdate=true;foliage.instanceMatrix.needsUpdate=true;
+   if(dist({x,z},this.map.bases.blue)<32||dist({x,z},this.map.bases.red)<32||this.map.collides(x,z,5)||this.map.objectives.some(o=>dist({x,z},o)<31)||this.map.definition.roads.some(path=>path.slice(1).some((b,i)=>{const a=path[i]!,dx=b.x-a.x,dz=b.z-a.z,t=Math.max(0,Math.min(1,((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz)));return Math.hypot(x-a.x-t*dx,z-a.z-t*dz)<9;})))continue;
+   const h=this.map.heightAt(x,z),s=rand.between(.7,1.35),yaw=rand.between(0,6.28);
+   d.rotation.set(0,yaw,0);d.scale.set(s,7*s,s);d.position.set(x,h+3.5*s,z);d.updateMatrix();trunks.setMatrixAt(added*3,d.matrix);
+   for(let k=0;k<2;k++){const side=k?1:-1;d.rotation.set(0,yaw,side*.6);d.scale.set(.5*s,4*s,.5*s);d.position.set(x+Math.cos(yaw)*side*s,h+5.3*s,z+Math.sin(yaw)*side*s);d.updateMatrix();trunks.setMatrixAt(added*3+k+1,d.matrix);}
+   for(let k=0;k<5;k++){const angle=yaw+k*2.4;d.rotation.set(k*.2,angle,.15);d.scale.set((3.1+k*.12)*s,(2.6+k*.1)*s,3*s);d.position.set(x+Math.cos(angle)*2.5*s,h+(7+k*.65)*s,z+Math.sin(angle)*2.5*s);d.updateMatrix();foliage.setMatrixAt(added*5+k,d.matrix);color.setHSL(.24+rand.next()*.05,.18+rand.next()*.1,.19+rand.next()*.1);foliage.setColorAt(added*5+k,color);}added++;
+  }trunks.instanceMatrix.needsUpdate=true;foliage.instanceMatrix.needsUpdate=true;trunks.computeBoundingSphere();foliage.computeBoundingSphere();
   foliage.castShadow=this.shadowEnabled&&this.high;trunks.castShadow=this.shadowEnabled&&this.high;this.scene.add(trunks,foliage)
  }
  private smokeTexture(){const can=document.createElement('canvas');can.width=128;can.height=128;const c=can.getContext('2d')!;const g=c.createRadialGradient(64,64,6,64,64,60);g.addColorStop(0,'rgba(78,84,82,.56)');g.addColorStop(.45,'rgba(94,98,92,.30)');g.addColorStop(1,'rgba(95,101,99,0)');c.fillStyle=g;c.fillRect(0,0,128,128);return new THREE.CanvasTexture(can)}
@@ -267,17 +273,18 @@ export class WorldView {
   this.updateParticles(dt);this.updateBlastFx(dt);this.updateAmbientSmoke(dt);
   for(let i=this.tracer.length-1;i>=0;i--){const t=this.tracer[i]!;if(t.followMuzzle){const m=t.equipment?this.equipment.muzzleWorldPosition():this.weapon.muzzleWorldPosition(),positions=t.line.geometry.getAttribute('position') as THREE.BufferAttribute;positions.setXYZ(0,m.x,m.y,m.z);positions.needsUpdate=true;t.line.geometry.computeBoundingSphere();t.line.computeLineDistances();}if(t.fresh)t.fresh=false;else t.life-=dt;if(t.life<=0){this.scene.remove(t.line);t.line.geometry.dispose();(t.line.material as THREE.Material).dispose();this.tracer.splice(i,1)}}
   if(this.vignette){this.vignette.classList.toggle('armor-hit',!!vehicle);this.vignette.style.opacity=String(vehicle?this.armorFlash:Math.max(0,(p.alive?(1-p.hp/100)*.8:0)+this.hitFlash*.85));}
+  this.buildings?.update(this.camera);this.aircraft?.update(battle);
   this.renderer.render(this.scene,this.camera);
  }
  dispose(){
-  window.removeEventListener('resize',this.resize);this.field.dispose();this.weapon.dispose();this.equipment.dispose();this.interior.dispose();this.soldierRender.dispose();this.vehicleRender.dispose();this.art.dispose();
+  window.removeEventListener('resize',this.resize);this.field.dispose();this.weapon.dispose();this.equipment.dispose();this.interior.dispose();this.soldierRender.dispose();this.vehicleRender.dispose();this.art.dispose();this.aircraft?.dispose();
   // THREE.Scene.clear does not free GPU resources: release all generated assets on restart.
   const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();
   this.scene.traverse((o:THREE.Object3D)=>{
    const mesh=o as THREE.Mesh;
    if(mesh.geometry instanceof THREE.BufferGeometry)geometries.add(mesh.geometry);
    if(mesh.material){const list=Array.isArray(mesh.material)?mesh.material:[mesh.material];
-    for(const m of list)if(m instanceof THREE.Material){materials.add(m);const mm=m as THREE.MeshStandardMaterial & {map?:THREE.Texture};if(mm.map)textures.add(mm.map)}
+    for(const m of list)if(m instanceof THREE.Material){materials.add(m);const mm=m as THREE.MeshStandardMaterial & {map?:THREE.Texture};for(const value of Object.values(mm))if(value instanceof THREE.Texture)textures.add(value)}
    }
   });
   for(const g of geometries)g.dispose();for(const t of textures)t.dispose();for(const m of materials)m.dispose();

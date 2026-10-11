@@ -1,3 +1,76 @@
+# IRONFRONT 0.20.0 QA
+
+基线本机与 origin/main 同为 0093e50051cbced7ab70d7dbc29e6dfefd4f424c（0.19.0）。本轮最终版本 0.20.0。
+
+## 完整回归
+
+`npm run check:full` 通过：严格 TypeScript、142 项单元测试（17 文件）、核心战局、LAN 集成、生产构建和 49 项 Chrome 浏览器测试。`npm run test:maps` 十二场全部结束。日志见 docs/qa/check-full-020.txt、maps-020.txt。
+
+浏览器覆盖大厅、配装、移动、八类载具、装备投掷、濒死、HUD、房间准备与重连、地图切换、支援选点及建筑纹理加载。初次 Vite 开发服务器因 iCloud 元数据热更新中断浏览器运行，最终改用 QA 模式构建的稳定预览，生产构建不开放 QA 钩子。Three.js 分块大于 500kB 的构建提示仍保留。
+
+LAN 使用本机多个真实客户端和局域网 IP，不代表两台独立设备已经通过。
+
+## 32v32 500 tickets 自动战局
+
+|地图|模式|种子|胜方|模拟秒|寻路失败|
+|---|---|---|---|---|---|
+|industrial-frontier|conquest|505|blue|288.375|0|
+|industrial-frontier|conquest|12731|blue|680.875|1|
+|industrial-frontier|conquest|1905|red|599.5|0|
+|industrial-frontier|breakthrough|505|red|2344.75|0|
+|industrial-frontier|breakthrough|12731|blue|892.125|0|
+|industrial-frontier|breakthrough|1905|blue|2110.75|0|
+|dust-horizon|conquest|505|blue|933.875|2|
+|dust-horizon|conquest|12731|blue|632.25|0|
+|dust-horizon|conquest|1905|blue|627.625|0|
+|dust-horizon|breakthrough|505|blue|2445.5|22|
+|dust-horizon|breakthrough|12731|blue|1684.375|1|
+|dust-horizon|breakthrough|1905|red|2569.75|18|
+
+所有战局均结束、复活与事件发生，并单独验证选点支援、轰炸与载具空投。部分沙漠前线战局仍有寻路失败，最多 22 次；不声称零卡路或完全平衡。原始数据 docs/qa/maps-020.json。
+
+## CPU 对比
+
+Apple M2、8 GiB、macOS arm64、Node v24.15.0；种子 505、预热一次、五次中位数。几何与路径查询相同；战局行为已改变、指纹不同，不能解读为等价任务纯加速。
+
+|负载|0.19.0 ms|0.20.0 ms|变化|
+|---|---|---|---|
+|geometry|4.97|4.27|-14.0%|
+|navigation|47.36|42.57|-10.1%|
+|battle32|1665.01|1093.93|-34.3%|
+|battle64|2853.76|3476.20|+21.8%|
+
+32/64 是每阵营人数，战局模拟固定 120 秒。64v64 CPU 成本上升，需继续追踪协作与路径开销。
+
+## 固定场景渲染
+
+Chrome ANGLE Metal Apple M2，1280×720、中画质、缩放 1，64 角色静止准备场景、固定机位，20 帧预热、60 帧采样。
+
+|版本|地图|中位 ms|P95 ms|Draw Calls|Triangles|Geometry|Texture|JS 堆 MiB|
+|---|---|---|---|---|---|---|---|---|
+|0.19.0|industrial-frontier|16.9|19.7|537|226886|631|24|23.7|
+|0.20.0|industrial-frontier|16.7|19.2|497|377440|558|33|24.6|
+|0.19.0|dust-horizon|16.7|18.5|401|212898|488|24|27.0|
+|0.20.0|dust-horizon|16.6|17.8|329|223698|393|33|29.8|
+
+中位约 16.7ms 受刷新率限制，不是激烈战斗的长期 FPS 保证。JS 堆是瞬时采样，不是进程 RAM 或显存；九张 1K RGBA 纹理含 mipmap 约 48 MiB 显存为估计。工业树冠增加三角形，绘制调用减少并不抵消所有设备的顶点成本。原始数据 docs/qa/render-comparison-020.json 与 cpu-020.json。
+
+## 实际截图与文档
+
+同机位升级前后 PNG 位于 docs/qa/screenshots-020，厂房、工业聚落、沙漠聚落三组，共六张实际游戏图。DOCX 经逐页渲染检查，文字与图片无缺字或裁切。
+
+## 未完成与未验证
+
+仍未完成多层楼梯导航、真正可进入的屋顶阳台、完整城市街区密度、道路交通设施、专用实时玻璃反射，以及支援机被拦截。建筑和植被仍为规则低多边形，不能称作现代商业 FPS 同等画质。装饰屋顶的精确斜面物理未实现，主碰撞采用体量包络；后续需升级三维碰撞与导航再扩展垂直空间。自动战局结束不等于 AI 没有失败或对战平衡已完成。LAN 只验证本机服务与多客户端，真实两设备网络隔离、Wi Fi 和防火墙未验证。帧时间为短时固定机位采样，不能代表长期战斗或其他 GPU。
+
+## 分发
+
+完整本地包包含十一首用户提供 MP3 与二十九个音效；音乐仅在本机与下载包内。公开 GitHub 与源码 ZIP 不包含任何 MP3，只保留既有导入清单。安装 Node 后 npm install，单人运行 npm run dev；LAN 运行 npm run lan，默认端口 7878，其他玩家浏览器访问房主局域网地址。此次提交直接更新 main，交付前再次 fetch 核对，保留既有远端提交。
+
+---
+
+## 历史 0.19.0 QA
+
 ## 0.19.0 QA
 
 ## 验证证据
