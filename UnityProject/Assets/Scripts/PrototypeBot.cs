@@ -217,7 +217,13 @@ namespace Ironfront.UnityPrototype
             {
                 TacticalState = PrototypeTacticalState.Engage;
                 float preferredRange = memberIndex == 0 ? 24f : 38f;
-                if (enemyDistance > preferredRange) MoveToward(enemy, false);
+                // An attacker that stops at firing range can remain outside the
+                // 25 m capture circle forever, especially on the long C-D route.
+                // Keep shooting while pressing the assigned objective.
+                if (squad != null && squad.Mission == PrototypeMission.Capture &&
+                    Vector2.Distance(MapPosition, objective) > 20f)
+                    MoveToward(objective, true);
+                else if (enemyDistance > preferredRange) MoveToward(enemy, false);
                 else { lastProgressAt = Time.time; lastProgressPosition = MapPosition; }
                 return;
             }
