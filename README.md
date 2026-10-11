@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.31.1
+# PROJECT IRONFRONT 0.37.1
+
+## 当前 Unity 开发交接
+
+当前 Unity 开发位于 `codex/unity-port`，玩法基线为 `0.37.0`，本次交接与版本整理为 `0.37.1`。项目现状、复测步骤、已知边界和下一步见 [Unity 移植交接文件](docs/UNITY_HANDOFF_0371.md)。下方旧版记录保留作历史参考。
 
 ## 0.31.1 Unity 重连状态与载具接管修复
 
