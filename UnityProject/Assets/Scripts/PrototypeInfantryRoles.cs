@@ -23,10 +23,12 @@ namespace Ironfront.UnityPrototype
         public readonly float HipSpread;
         public readonly float AdsSpread;
         public readonly bool Automatic;
+        public readonly float MuzzleVelocity;
 
         public PrototypeWeaponDefinition(PrototypeWeaponId id, string name, string chineseName,
             float damage, float fireInterval, int magazine, int reserve, float reloadSeconds,
-            float effectiveRange, float maxRange, float hipSpread, float adsSpread, bool automatic)
+            float effectiveRange, float maxRange, float hipSpread, float adsSpread,
+            bool automatic, float muzzleVelocity)
         {
             Id = id;
             Name = name;
@@ -41,6 +43,7 @@ namespace Ironfront.UnityPrototype
             HipSpread = hipSpread;
             AdsSpread = adsSpread;
             Automatic = automatic;
+            MuzzleVelocity = muzzleVelocity;
         }
 
         public float DamageAtRange(float distance)
@@ -60,19 +63,19 @@ namespace Ironfront.UnityPrototype
         private static readonly PrototypeWeaponDefinition[] Weapons =
         {
             new PrototypeWeaponDefinition(PrototypeWeaponId.Carbine, "IF-27 Carbine", "IF-27 卡宾枪",
-                31f, 0.105f, 30, 150, 1.9f, 92f, 165f, 0.010f, 0.0022f, true),
+                31f, 0.105f, 30, 150, 1.9f, 92f, 165f, 0.010f, 0.0022f, true, 360f),
             new PrototypeWeaponDefinition(PrototypeWeaponId.Marksman, "M89 Marksman", "M89 精确射手步枪",
-                58f, 0.32f, 12, 60, 2.35f, 145f, 220f, 0.016f, 0.0011f, false),
+                58f, 0.32f, 12, 60, 2.35f, 145f, 220f, 0.016f, 0.0011f, false, 500f),
             new PrototypeWeaponDefinition(PrototypeWeaponId.Smg, "VX-9 Wasp", "VX-9 黄蜂冲锋枪",
-                23f, 0.066f, 36, 180, 1.65f, 38f, 105f, 0.008f, 0.003f, true),
+                23f, 0.066f, 36, 180, 1.65f, 38f, 105f, 0.008f, 0.003f, true, 190f),
             new PrototypeWeaponDefinition(PrototypeWeaponId.Lmg, "H60 Sentinel", "H60 哨兵轻机枪",
-                34f, 0.12f, 80, 240, 4.2f, 110f, 190f, 0.022f, 0.0035f, true),
+                34f, 0.12f, 80, 240, 4.2f, 110f, 190f, 0.022f, 0.0035f, true, 390f),
             new PrototypeWeaponDefinition(PrototypeWeaponId.BattleRifle, "BR-44 Atlas", "BR-44 阿特拉斯战斗步枪",
-                43f, 0.17f, 20, 100, 2.5f, 105f, 185f, 0.014f, 0.002f, true),
+                43f, 0.17f, 20, 100, 2.5f, 105f, 185f, 0.014f, 0.002f, true, 440f),
             new PrototypeWeaponDefinition(PrototypeWeaponId.Sniper, "S12 Meridian", "S12 子午线狙击步枪",
-                92f, 1.1f, 5, 30, 3.1f, 210f, 310f, 0.035f, 0.0006f, false),
+                92f, 1.1f, 5, 30, 3.1f, 210f, 310f, 0.035f, 0.0006f, false, 680f),
             new PrototypeWeaponDefinition(PrototypeWeaponId.Pistol, "P8 Relay", "P8 接力手枪",
-                29f, 0.22f, 15, 60, 1.3f, 28f, 75f, 0.009f, 0.004f, false)
+                29f, 0.22f, 15, 60, 1.3f, 28f, 75f, 0.009f, 0.004f, false, 160f)
         };
 
         public static PrototypeWeaponDefinition GetWeapon(PrototypeWeaponId id)

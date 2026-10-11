@@ -142,19 +142,21 @@ namespace Ironfront.UnityPrototype
                 nextShot = Time.time + Mathf.Max(kit.Weapon.FireInterval,
                     Random.Range(0.38f, 0.62f));
                 Vector3 origin = transform.position + Vector3.up * 0.55f;
-                float targetHeight = player != null || remote != null ? 1.25f :
-                    vehicle != null ? 1.1f : 0.45f;
-                Vector3 impact = new Vector3(enemy.x,
-                    PrototypeLayout.HeightAt(enemy.x, enemy.y) + 1f + targetHeight, enemy.y);
-                runtime.ShowTracer(origin, impact, Team);
-                if (Random.value < Mathf.Lerp(0.78f, 0.32f, enemyDistance / kit.DetectionRange))
+                Vector3 aim = player != null ? player.transform.position + Vector3.up * 1.1f :
+                    remote != null ? remote.transform.position + Vector3.up * 1.1f :
+                    bot != null ? bot.transform.position :
+                    vehicle.VehicleTransform.position + Vector3.up * 1.2f;
+                float flight = Vector3.Distance(origin, aim) / kit.Weapon.MuzzleVelocity;
+                aim.y -= Physics.gravity.y * 0.5f * flight * flight;
+                float accuracy = Mathf.Lerp(0.78f, 0.32f,
+                    enemyDistance / kit.DetectionRange);
+                if (Random.value > accuracy)
                 {
-                    float damage = kit.Weapon.DamageAtRange(enemyDistance) * 0.29f;
-                    if (player != null) player.TakeDamage(damage);
-                    else if (remote != null) remote.TakeDamage(damage);
-                    else if (bot != null) bot.TakeDamage(damage);
-                    else vehicle.TakeDamage(damage * 0.55f);
+                    Vector3 sideways = Vector3.Cross(Vector3.up, aim - origin).normalized;
+                    aim += sideways * (Random.value < .5f ? -8f : 8f);
                 }
+                PrototypeBallisticProjectile.LaunchBullet(runtime, Team, transform,
+                    origin, aim - origin, kit.Weapon, .29f);
             }
 
             Vector2 threat = enemy;

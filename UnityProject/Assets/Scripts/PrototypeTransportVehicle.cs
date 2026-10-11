@@ -15,6 +15,7 @@ namespace Ironfront.UnityPrototype
         private const float GunDamage = 18f;
         private const float GunInterval = 0.12f;
         private const float GunRange = 100f;
+        private const float GunVelocity = 370f;
 
         private readonly List<Vector2> route = new List<Vector2>();
         private readonly PrototypeBot[] passengers = new PrototypeBot[2];
@@ -302,7 +303,6 @@ namespace Ironfront.UnityPrototype
             AimGunAt(origin + direction * GunRange);
             Vector3 target = origin + direction * GunRange;
             float nearest = GunRange;
-            Collider chosen = null;
             Physics.SyncTransforms();
             foreach (RaycastHit hit in Physics.RaycastAll(origin, direction, GunRange, ~(1 << 2)))
             {
@@ -310,19 +310,11 @@ namespace Ironfront.UnityPrototype
                     hit.collider.transform.IsChildOf(transform) ||
                     hit.distance >= nearest) continue;
                 nearest = hit.distance;
-                chosen = hit.collider;
                 target = hit.point;
             }
-            runtime.ShowTracer(GunMuzzle, target, Team);
-            if (chosen == null) return;
-            PrototypeBot bot = chosen.GetComponent<PrototypeBot>();
-            if (bot != null && bot.Team != Team) { bot.TakeDamage(GunDamage); return; }
-            PrototypeRemotePlayer remote = chosen.GetComponentInParent<PrototypeRemotePlayer>();
-            if (remote != null && remote.Team != Team)
-            { remote.TakeDamage(GunDamage); return; }
-            IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(chosen);
-            if (vehicle != null && vehicle.Team != Team)
-                vehicle.TakeDamage(GunDamage * 0.55f);
+            Vector3 muzzle = GunMuzzle;
+            PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,
+                muzzle, target - muzzle, GunVelocity, GunRange, GunDamage);
         }
 
         private Vector3 GunMuzzle => gunMount != null ?
@@ -344,15 +336,14 @@ namespace Ironfront.UnityPrototype
                 Vector3 impact = new Vector3(enemy.x,
                     PrototypeLayout.HeightAt(enemy.x, enemy.y) + height, enemy.y);
                 AimGunAt(impact);
-                runtime.ShowTracer(GunMuzzle, impact, Team);
-                if (Random.value < 0.65f)
-                {
-                    float damage = GunDamage * 0.35f;
-                    if (vehicle != null) vehicle.TakeDamage(damage * 0.55f);
-                    else if (player != null) player.TakeDamage(damage);
-                    else if (remote != null) remote.TakeDamage(damage);
-                    else bot.TakeDamage(damage);
-                }
+                Vector3 muzzle = GunMuzzle;
+                float flight = Vector3.Distance(muzzle, impact) / GunVelocity;
+                impact.y -= Physics.gravity.y * 0.5f * flight * flight;
+                if (Random.value >= 0.65f)
+                    impact += Vector3.Cross(Vector3.up, impact - muzzle).normalized *
+                        (Random.value < .5f ? -8f : 8f);
+                PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,
+                    muzzle, impact - muzzle, GunVelocity, GunRange, GunDamage * .35f);
             }
 
             if (Time.time >= nextPlan)

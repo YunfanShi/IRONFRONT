@@ -9,7 +9,10 @@ namespace Ironfront.UnityPrototype
         public PrototypeTeam Team { get; private set; }
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public Transform Turret { get; private set; }
+        public Transform BarrelPivot { get; private set; }
+        public Transform CannonMuzzle { get; private set; }
         public BoxCollider HullCollider { get; private set; }
+        private float recoilUntil;
 
         public void Initialize(PrototypeRuntime game, PrototypeTeam team,
             Vector2 position, float yaw)
@@ -120,16 +123,22 @@ namespace Ironfront.UnityPrototype
                 Quaternion.Euler(0f, 17f, 10f);
             Box("Gun mantlet", turret, new Vector3(0f, .65f, 1.24f),
                 new Vector3(.94f, .81f, .51f), dark);
-            Cylinder("Main cannon", turret,
-                new Vector3(0f, .68f, 3.26f), .31f, 4.00f, steel, true);
-            Cylinder("Thermal sleeve", turret,
-                new Vector3(0f, .68f, 2.49f), .43f, 1.42f, armor, true);
-            Cylinder("Muzzle brake", turret,
-                new Vector3(0f, .68f, 5.30f), .48f, .45f, dark, true);
-            Box("Muzzle port left", turret, new Vector3(-.24f, .68f, 5.30f),
+            BarrelPivot = new GameObject("Elevating cannon").transform;
+            BarrelPivot.SetParent(turret, false);
+            BarrelPivot.localPosition = new Vector3(0f, .68f, 1.24f);
+            Cylinder("Main cannon", BarrelPivot,
+                new Vector3(0f, 0f, 2.02f), .31f, 4.00f, steel, true);
+            Cylinder("Thermal sleeve", BarrelPivot,
+                new Vector3(0f, 0f, 1.25f), .43f, 1.42f, armor, true);
+            Cylinder("Muzzle brake", BarrelPivot,
+                new Vector3(0f, 0f, 4.06f), .48f, .45f, dark, true);
+            Box("Muzzle port left", BarrelPivot, new Vector3(-.24f, 0f, 4.06f),
                 new Vector3(.035f, .15f, .23f), rubber);
-            Box("Muzzle port right", turret, new Vector3(.24f, .68f, 5.30f),
+            Box("Muzzle port right", BarrelPivot, new Vector3(.24f, 0f, 4.06f),
                 new Vector3(.035f, .15f, .23f), rubber);
+            CannonMuzzle = new GameObject("Cannon muzzle").transform;
+            CannonMuzzle.SetParent(BarrelPivot, false);
+            CannonMuzzle.localPosition = new Vector3(0f, 0f, 4.31f);
             Cylinder("Coaxial machine gun", turret,
                 new Vector3(.57f, .61f, 2.15f), .095f, 1.70f, steel, true);
             Box("Turret bustle", turret,
@@ -167,6 +176,28 @@ namespace Ironfront.UnityPrototype
             HullCollider = gameObject.AddComponent<BoxCollider>();
             HullCollider.center = new Vector3(0f, 1.15f, 0f);
             HullCollider.size = new Vector3(5.50f, 2.30f, 7.55f);
+        }
+
+        public void AimAt(Vector3 target)
+        {
+            Vector3 flat = target - Turret.position;
+            flat.y = 0f;
+            if (flat.sqrMagnitude > 0.01f)
+                Turret.rotation = Quaternion.LookRotation(flat, Vector3.up);
+            Vector3 localTarget = Turret.InverseTransformPoint(target) - BarrelPivot.localPosition;
+            float elevation = Mathf.Atan2(localTarget.y, Mathf.Max(0.1f, localTarget.z)) *
+                Mathf.Rad2Deg;
+            BarrelPivot.localRotation = Quaternion.Euler(-Mathf.Clamp(elevation, -10f, 25f), 0f, 0f);
+        }
+
+        public void FireRecoil() => recoilUntil = Time.time + .28f;
+
+        private void Update()
+        {
+            if (BarrelPivot == null) return;
+            float phase = 1f - Mathf.Clamp01((recoilUntil - Time.time) / .28f);
+            float kick = Time.time < recoilUntil ? Mathf.Sin(phase * Mathf.PI) * .32f : 0f;
+            BarrelPivot.localPosition = new Vector3(0f, .68f, 1.24f - kick);
         }
 
         private static GameObject Box(string name, Transform parent,

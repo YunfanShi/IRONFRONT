@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    // Player-driven T90. The web game's tank speed, armor and weapon cadence
-    // are kept here; the Unity prototype still uses its own hit-scan combat.
+    // Player-driven T90 with a traversing, elevating, gravity-driven main gun.
     public sealed class PrototypeTankVehicle : MonoBehaviour, IPrototypeVehicle
     {
         private const float MaxHealth = 820f;
@@ -12,9 +11,9 @@ namespace Ironfront.UnityPrototype
         private const float Acceleration = 5f;
         private const float TurnRate = 0.7f;
         private const float Clearance = 3.5f;
-        private const float CannonDamage = 145f;
         private const float CannonInterval = 2.4f;
         private const float CannonRange = 230f;
+        private const float CannonVelocity = 170f;
         private const float RespawnDelay = 120f;
 
         private PrototypeRuntime runtime;
@@ -129,6 +128,7 @@ namespace Ironfront.UnityPrototype
             if (!Driver.Alive) { Driver.ForceExitVehicle(); return; }
             if (Cursor.lockState != CursorLockMode.Locked) return;
             Drive(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"), dt);
+            AimCannon();
             if (Input.GetMouseButton(0)) FireCannon();
         }
 
@@ -175,46 +175,49 @@ namespace Ironfront.UnityPrototype
                 PrototypeLayout.HeightAt(spawn.x, spawn.y) + 0.05f, spawn.y);
             transform.rotation = Quaternion.Euler(0f, spawnYaw, 0f);
             if (model.Turret != null) model.Turret.localRotation = Quaternion.identity;
+            if (model.BarrelPivot != null) model.BarrelPivot.localRotation = Quaternion.identity;
             Health = MaxHealth;
             Speed = 0f;
             nextShot = Time.time + 1f;
             SetVisible(true);
         }
 
-        private void FireCannon()
+        private void AimCannon()
         {
-            if (Time.time < nextShot || Driver == null || Driver.ViewCamera == null) return;
-            nextShot = Time.time + CannonInterval;
+            if (Driver == null || Driver.ViewCamera == null) return;
             Camera camera = Driver.ViewCamera;
             Vector3 origin = camera.transform.position;
             Vector3 direction = camera.transform.forward;
             Vector3 target = origin + direction * CannonRange;
-            Collider chosen = null;
             float nearest = CannonRange;
             Physics.SyncTransforms();
             foreach (RaycastHit hit in Physics.RaycastAll(origin, direction,
-                CannonRange, ~(1 << 2), QueryTriggerInteraction.Ignore))
+                CannonRange, ~0, QueryTriggerInteraction.Ignore))
             {
                 if (hit.collider.transform.IsChildOf(transform) || hit.distance >= nearest)
                     continue;
                 nearest = hit.distance;
-                chosen = hit.collider;
                 target = hit.point;
             }
-            Vector3 flat = target - model.Turret.position;
-            flat.y = 0f;
-            if (flat.sqrMagnitude > 0.01f)
-                model.Turret.rotation = Quaternion.LookRotation(flat, Vector3.up);
-            Vector3 muzzle = model.Turret.TransformPoint(new Vector3(0f, 0.68f, 5.55f));
-            runtime.ShowTracer(muzzle, target, Team);
-            if (chosen == null) return;
-            PrototypeBot bot = chosen.GetComponentInParent<PrototypeBot>();
-            if (bot != null && bot.Team != Team) { bot.TakeDamage(CannonDamage); return; }
-            PrototypeRemotePlayer remote = chosen.GetComponentInParent<PrototypeRemotePlayer>();
-            if (remote != null && remote.Team != Team)
-            { remote.TakeDamage(CannonDamage); return; }
-            IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(chosen);
-            if (vehicle != null && vehicle.Team != Team) vehicle.TakeDamage(CannonDamage);
+            model.AimAt(target);
+        }
+
+        private void FireCannon()
+        {
+            if (Time.time < nextShot || Driver == null || model.CannonMuzzle == null) return;
+            nextShot = Time.time + CannonInterval;
+            Vector3 muzzle = model.CannonMuzzle.position;
+            Vector3 direction = model.CannonMuzzle.forward;
+            PrototypeBallisticProjectile.LaunchShell(runtime, Team, transform,
+                muzzle, direction, CannonVelocity, CannonRange);
+            model.FireRecoil();
+            GameObject flash = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            flash.name = "T90 muzzle flash";
+            flash.transform.position = muzzle + direction * .25f;
+            flash.transform.localScale = Vector3.one * .58f;
+            Destroy(flash.GetComponent<Collider>());
+            flash.GetComponent<Renderer>().sharedMaterial = runtime.LampMaterial;
+            Destroy(flash, .08f);
         }
 
         private void SetVisible(bool visible)

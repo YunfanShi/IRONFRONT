@@ -468,32 +468,8 @@ namespace Ironfront.UnityPrototype
             Vector3 direction = (viewCamera.transform.forward +
                 viewCamera.transform.right * Random.Range(-spread, spread) +
                 viewCamera.transform.up * Random.Range(-spread, spread)).normalized;
-            float range = weaponKit.Weapon.MaxRange;
-            Vector3 end = origin + direction * range;
-            // Bots move by Transform in Update; synchronize their colliders before this raycast.
-            Physics.SyncTransforms();
-            if (Physics.Raycast(origin, direction, out RaycastHit hit, range, ~(1 << 2)))
-            {
-                end = hit.point;
-                PrototypeBot bot = hit.collider.GetComponent<PrototypeBot>();
-                if (bot != null && bot.Team != Team)
-                    bot.TakeDamage(weaponKit.Weapon.DamageAtRange(hit.distance));
-                else
-                {
-                    PrototypeRemotePlayer remote =
-                        hit.collider.GetComponentInParent<PrototypeRemotePlayer>();
-                    if (remote != null && remote.Team != Team)
-                        remote.TakeDamage(weaponKit.Weapon.DamageAtRange(hit.distance));
-                    else
-                    {
-                        IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit.collider);
-                        if (vehicle != null && vehicle.Team != Team)
-                            vehicle.TakeDamage(weaponKit.Weapon.DamageAtRange(hit.distance) * 0.55f);
-                    }
-                }
-            }
-            runtime.ShowTracer(origin + viewCamera.transform.right * 0.25f - viewCamera.transform.up * 0.15f,
-                end, Team);
+            PrototypeBallisticProjectile.LaunchBullet(runtime, Team, transform,
+                origin, direction, weaponKit.Weapon);
             if (weaponKit.Ammo == 0) weaponKit.StartReload(Time.time);
         }
 

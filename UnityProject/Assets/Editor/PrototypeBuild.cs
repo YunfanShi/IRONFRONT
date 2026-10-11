@@ -28,6 +28,7 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeEquipmentIcons.cs",
             "PrototypeMenuPreview.cs",
             "PrototypeInfantryRoles.cs",
+            "PrototypeBallisticProjectile.cs",
             "PrototypeDeployment.cs",
             "IPrototypeVehicle.cs",
             "PrototypeScoutVehicle.cs",

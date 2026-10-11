@@ -201,46 +201,8 @@ namespace Ironfront.UnityPrototype
             Vector3 origin = transform.position + Vector3.up * 1.55f;
             Vector3 direction = Quaternion.Euler(pitch, transform.eulerAngles.y, 0f) *
                 Vector3.forward;
-            float closest = weapon.MaxRange;
-            Collider target = null;
-            Vector3 end = origin + direction * weapon.MaxRange;
-            Physics.SyncTransforms();
-            foreach (RaycastHit hit in Physics.RaycastAll(origin, direction, weapon.MaxRange))
-            {
-                if (hit.collider == hitbox || hit.collider.transform.IsChildOf(transform) ||
-                    hit.distance >= closest) continue;
-                closest = hit.distance;
-                target = hit.collider;
-                end = hit.point;
-            }
-            // The local first-person player's collider uses Ignore Raycast.
-            PrototypePlayer local = runtime.Player;
-            bool hitLocal = false;
-            if (local != null && local.Alive && local.Team != Team &&
-                local.CurrentVehicle == null)
-            {
-                Vector3 center = local.transform.position + Vector3.up * 1.1f;
-                float distance = Vector3.Dot(center - origin, direction);
-                if (distance > 0f && distance < closest &&
-                    (center - (origin + direction * distance)).sqrMagnitude < 0.55f * 0.55f)
-                {
-                    closest = distance;
-                    end = origin + direction * distance;
-                    hitLocal = true;
-                }
-            }
-            runtime.ShowTracer(origin, end, Team);
-            float damage = weapon.DamageAtRange(closest);
-            if (hitLocal) { local.TakeDamage(damage); return; }
-            if (target == null) return;
-            PrototypeBot bot = target.GetComponent<PrototypeBot>();
-            if (bot != null && bot.Team != Team) { bot.TakeDamage(damage); return; }
-            PrototypeRemotePlayer other = target.GetComponentInParent<PrototypeRemotePlayer>();
-            if (other != null && other != this && other.Team != Team)
-            { other.TakeDamage(damage); return; }
-            IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(target);
-            if (vehicle != null && vehicle.Team != Team)
-                vehicle.TakeDamage(damage * 0.55f);
+            PrototypeBallisticProjectile.LaunchBullet(runtime, Team, transform,
+                origin, direction, weapon);
         }
 
         private static bool IsFinite(float value) =>

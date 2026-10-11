@@ -75,6 +75,14 @@ namespace Ironfront.UnityPrototype.Editor
                     drive.Invoke(tank, new object[] { 1f, 0f, 0.05f });
                 Check(Vector2.Distance(start, tank.MapPosition) > .1f,
                     "tank moves under throttle");
+                int shellsBefore = UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>().Length;
+                MethodInfo fire = typeof(PrototypeTankVehicle).GetMethod("FireCannon",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+                Check(fire != null, "tank fire control exists");
+                fire.Invoke(tank, null);
+                Check(UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>().Length ==
+                    shellsBefore + 1,
+                    "tank launches a physical shell");
                 float ticketsBeforeLoss = game.Match.BlueTickets;
                 tank.TakeDamage(820f);
                 Check(!tank.Alive && game.Player.CurrentVehicle == null,

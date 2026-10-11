@@ -58,6 +58,8 @@ namespace Ironfront.UnityPrototype
         public Material BootMaterial { get; private set; }
         public Material GlassMaterial { get; private set; }
         public Material LampMaterial { get; private set; }
+        public Material TracerMaterial(PrototypeTeam side) =>
+            side == PrototypeTeam.Blue ? blueTracer : redTracer;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void RegisterBoot()
@@ -754,7 +756,7 @@ namespace Ironfront.UnityPrototype
         {
             var object3D = new GameObject("Tracer");
             LineRenderer line = object3D.AddComponent<LineRenderer>();
-            line.sharedMaterial = team == PrototypeTeam.Blue ? blueTracer : redTracer;
+            line.sharedMaterial = TracerMaterial(team);
             line.positionCount = 2;
             line.SetPosition(0, from);
             line.SetPosition(1, to);
