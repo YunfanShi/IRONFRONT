@@ -6,7 +6,7 @@
         <ui:VisualElement class="scene-vignette" />
 
         <ui:VisualElement class="top-bar">
-            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.37.1" class="version" /></ui:VisualElement>
+            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.38.0" class="version" /></ui:VisualElement>
             <ui:VisualElement class="navigation">
                 <ui:Button name="tab-lobby" text="大厅" class="nav-button active" />
                 <ui:Button name="tab-operations" text="作战" class="nav-button" />
@@ -23,7 +23,7 @@
             <ui:VisualElement class="operation-summary">
                 <ui:Label text="已选择行动  /  OPERATION 01" class="eyebrow" />
                 <ui:Label text="工业前线" class="operation-title" />
-                <ui:Label text="征服模式  ·  32 vs 32  ·  五个据点" class="body-text" />
+                <ui:Label name="operation-summary" text="征服模式 · 蓝方玩家与 4 AI / 红方 4 AI · 五个据点" class="body-text" />
                 <ui:Button name="browse-operation" text="浏览地图与玩法  →" class="text-action" />
             </ui:VisualElement>
             <ui:Label text="小队部署  /  SQUAD" class="section-label" />
@@ -40,13 +40,13 @@
             <ui:Label text="工业前线" class="page-title" />
             <ui:Label text="现有可游玩战场  ·  720 × 720  ·  五个据点" class="body-text" />
             <ui:VisualElement class="map-row">
-                <ui:VisualElement class="map-card selected"><ui:Image name="map-thumb" class="map-thumb" /><ui:Label text="工业前线  /  可游玩" class="map-name" /><ui:Label text="征服 · 五据点" class="map-meta" /></ui:VisualElement>
+                <ui:VisualElement class="map-card selected"><ui:Image name="map-thumb" class="map-thumb" /><ui:Label text="工业前线  /  可游玩" class="map-name" /><ui:Label text="征服 / 攻防 · 五据点" class="map-meta" /></ui:VisualElement>
                 <ui:VisualElement class="map-card pending"><ui:Label text="02 / CONCEPT" class="eyebrow" /><ui:Label text="赤砂走廊" class="map-pending-title" /><ui:Label text="概念已保留 · 开发中" class="body-text" /></ui:VisualElement>
             </ui:VisualElement>
             <ui:Label text="模式  /  GAME MODE" class="section-label" />
             <ui:VisualElement class="mode-row">
-                <ui:VisualElement class="mode-card selected"><ui:Label text="征服  /  CONQUEST" class="mode-name" /><ui:Label text="争夺五处据点，耗尽敌方兵力" class="body-text" /></ui:VisualElement>
-                <ui:VisualElement class="mode-card pending"><ui:Label text="攻防  /  BREAKTHROUGH" class="mode-name" /><ui:Label text="开发中，暂不可选择" class="body-text" /></ui:VisualElement>
+                <ui:VisualElement name="mode-conquest" class="mode-card selected"><ui:Label text="征服  /  CONQUEST" class="mode-name" /><ui:Label text="争夺五处据点，耗尽敌方兵力" class="body-text" /></ui:VisualElement>
+                <ui:VisualElement name="mode-breakthrough" class="mode-card"><ui:Label text="攻防  /  BREAKTHROUGH" class="mode-name" /><ui:Label text="蓝方依次夺取 A–E，据点推进" class="body-text" /></ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 
@@ -97,7 +97,7 @@
             <ui:Label text="出击前设置" class="page-title" />
             <ui:VisualElement class="settings-card audio-card"><ui:Label text="主音量  /  MASTER VOLUME" class="mode-name" /><ui:Slider name="volume-slider" low-value="0" high-value="1" value="1" /><ui:Label name="volume-value" text="100%" class="body-text" /></ui:VisualElement>
             <ui:VisualElement class="settings-card sensitivity-card"><ui:Label text="鼠标灵敏度  /  MOUSE SENSITIVITY" class="mode-name" /><ui:Slider name="sensitivity-slider" low-value="0.5" high-value="5" value="2.2" /><ui:Label name="sensitivity-value" text="2.2" class="body-text" /></ui:VisualElement>
-            <ui:VisualElement class="settings-card controls-card"><ui:Label text="操作提示  /  CONTROLS" class="mode-name" /><ui:Label text="WASD 移动 · 鼠标瞄准与射击 · 1/2 切枪 · G 投掷&#10;F1–F4 切换页面 · ENTER 出击 · Esc 暂停" class="control-text" /></ui:VisualElement>
+            <ui:VisualElement class="settings-card controls-card"><ui:Label text="操作提示  /  CONTROLS" class="mode-name" /><ui:Label text="WASD 移动 · 鼠标瞄准与射击 · 1/2 切枪 · G 投掷&#10;F1–F4 切换页面 · M 切换模式 · ENTER 出击 · Esc 暂停" class="control-text" /></ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement class="operator-caption"><ui:Label name="operator-title" text="OPERATOR  /  ASSAULT" class="eyebrow" /><ui:Label name="operator-class" text="当前兵种：突击兵" class="body-text" /></ui:VisualElement>

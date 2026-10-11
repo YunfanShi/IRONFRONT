@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Ironfront.UnityPrototype
 {
     public enum PrototypeTeam { Blue, Red }
+    public enum PrototypeGameMode { Conquest, Breakthrough }
 
     public sealed class PrototypeCapturePoint
     {
@@ -24,6 +25,13 @@ namespace Ironfront.UnityPrototype
         public float BlueTickets { get; private set; } = 100f;
         public float RedTickets { get; private set; } = 100f;
         public PrototypeTeam? Winner { get; private set; }
+        public PrototypeGameMode Mode { get; private set; } = PrototypeGameMode.Conquest;
+        public int SectorIndex { get; private set; }
+        public float TicketLimit { get; private set; } = 100f;
+        public float Elapsed { get; private set; }
+        public PrototypeCapturePoint ActiveObjective =>
+            Mode == PrototypeGameMode.Breakthrough && SectorIndex < Points.Count ?
+                Points[SectorIndex] : null;
 
         public PrototypeMatch()
         {
@@ -31,11 +39,35 @@ namespace Ironfront.UnityPrototype
                 Points.Add(new PrototypeCapturePoint(objective));
         }
 
+        public void ConfigureSolo(PrototypeGameMode mode, int tickets = 100)
+        {
+            Mode = mode;
+            TicketLimit = Mathf.Clamp(tickets, 100, 800);
+            BlueTickets = TicketLimit;
+            RedTickets = TicketLimit;
+            SectorIndex = 0;
+            Elapsed = 0f;
+            Winner = null;
+            foreach (PrototypeCapturePoint point in Points)
+            {
+                point.Control = mode == PrototypeGameMode.Breakthrough ? -100f : 0f;
+                point.Owner = mode == PrototypeGameMode.Breakthrough ?
+                    PrototypeTeam.Red : (PrototypeTeam?)null;
+                point.Contested = false;
+                point.BlueCount = 0;
+                point.RedCount = 0;
+            }
+        }
+
+        public bool IsPointActive(PrototypeCapturePoint point) =>
+            Mode != PrototypeGameMode.Breakthrough || point == ActiveObjective;
+
         public void RecordDeath(PrototypeTeam team)
         {
             if (Winner.HasValue) return;
             if (team == PrototypeTeam.Blue) BlueTickets = Mathf.Max(0f, BlueTickets - 1f);
-            else RedTickets = Mathf.Max(0f, RedTickets - 1f);
+            else if (Mode != PrototypeGameMode.Breakthrough)
+                RedTickets = Mathf.Max(0f, RedTickets - 1f);
             CheckWinner();
         }
 
@@ -43,7 +75,8 @@ namespace Ironfront.UnityPrototype
         {
             if (Winner.HasValue) return;
             if (team == PrototypeTeam.Blue) BlueTickets = Mathf.Max(0f, BlueTickets - 0.5f);
-            else RedTickets = Mathf.Max(0f, RedTickets - 0.5f);
+            else if (Mode != PrototypeGameMode.Breakthrough)
+                RedTickets = Mathf.Max(0f, RedTickets - 0.5f);
             CheckWinner();
         }
 
@@ -51,8 +84,10 @@ namespace Ironfront.UnityPrototype
             IReadOnlyList<PrototypeRemotePlayer> remotePlayers = null)
         {
             if (Winner.HasValue) return;
+            Elapsed += dt;
             foreach (PrototypeCapturePoint point in Points)
             {
+                if (!IsPointActive(point)) continue;
                 int blue = 0;
                 int red = 0;
                 Vector2 position = point.Definition.Position;
@@ -90,6 +125,19 @@ namespace Ironfront.UnityPrototype
                 if (point.Owner == PrototypeTeam.Blue && point.Control <= 0f) point.Owner = null;
                 if (point.Control >= 99.999f) point.Owner = PrototypeTeam.Blue;
                 if (point.Control <= -99.999f) point.Owner = PrototypeTeam.Red;
+            }
+
+            if (Mode == PrototypeGameMode.Breakthrough)
+            {
+                if (ActiveObjective != null && ActiveObjective.Owner == PrototypeTeam.Blue)
+                {
+                    SectorIndex++;
+                    BlueTickets = Mathf.Min(TicketLimit, BlueTickets + 40f);
+                }
+                if (Elapsed > 900f)
+                    BlueTickets = Mathf.Max(0f, BlueTickets - 0.28f * dt);
+                CheckWinner();
+                return;
             }
 
             int blueOwned = 0;
@@ -133,6 +181,12 @@ namespace Ironfront.UnityPrototype
 
         private void CheckWinner()
         {
+            if (Mode == PrototypeGameMode.Breakthrough)
+            {
+                if (SectorIndex >= Points.Count) Winner = PrototypeTeam.Blue;
+                else if (BlueTickets <= 0f) Winner = PrototypeTeam.Red;
+                return;
+            }
             if (BlueTickets <= 0f) Winner = PrototypeTeam.Red;
             else if (RedTickets <= 0f) Winner = PrototypeTeam.Blue;
         }

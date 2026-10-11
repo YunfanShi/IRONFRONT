@@ -394,8 +394,14 @@ namespace Ironfront.UnityPrototype
                 return;
             }
             if (networkModeActive) ProcessPeerInputs();
+            int previousSector = Match.SectorIndex;
             Match.Tick(Mathf.Min(Time.deltaTime, 0.05f), Player, Bots,
                 networkModeActive ? RemotePlayers : null);
+            if (Match.SectorIndex != previousSector)
+            {
+                BlueCommander.Replan();
+                RedCommander.Replan();
+            }
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
             UpdateMarkerMaterials();
@@ -782,6 +788,10 @@ namespace Ironfront.UnityPrototype
                     DrawRoomMenu(canvasWidth, canvasHeight);
                 else if (Frontend != null && Frontend.Draw(canvasWidth, canvasHeight))
                 {
+                    Match.ConfigureSolo(Frontend.SelectedMode);
+                    BlueCommander.Replan();
+                    RedCommander.Replan();
+                    UpdateMarkerMaterials();
                     Player.ApplyLoadout(Frontend.SelectedLoadout);
                     BeginBattle();
                 }
@@ -951,7 +961,8 @@ namespace Ironfront.UnityPrototype
                 "◆ BLUE " + Mathf.CeilToInt(Match.BlueTickets), blue);
             GUI.Label(new Rect(x + 149f, 13f, 38f, 39f), "VS", separator);
             GUI.Label(new Rect(x + 187f, 13f, 141f, 39f),
-                Mathf.CeilToInt(Match.RedTickets) + " RED ◆", red);
+                (Match.Mode == PrototypeGameMode.Breakthrough ? "∞" :
+                    Mathf.CeilToInt(Match.RedTickets).ToString()) + " RED ◆", red);
             float start = width * .5f - Match.Points.Count * 18f;
             var pointStyle = new GUIStyle(GUI.skin.label) { fontSize = 12,
                 fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
@@ -962,6 +973,10 @@ namespace Ironfront.UnityPrototype
                     new Color(.20f, .45f, .60f, .9f) : point.Owner == PrototypeTeam.Red ?
                     new Color(.58f, .22f, .20f, .9f) : new Color(.09f, .16f, .20f, .87f);
                 float px = start + i * 36f;
+                if (Match.Mode == PrototypeGameMode.Breakthrough &&
+                    Match.IsPointActive(point))
+                    DrawHudRect(new Rect(px - 2f, 59f, 34f, 29f),
+                        new Color(1f, .78f, .32f, .95f));
                 DrawHudRect(new Rect(px, 61f, 30f, 25f), color);
                 pointStyle.normal.textColor = point.Contested ?
                     new Color(1f, .79f, .47f) : Color.white;

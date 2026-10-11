@@ -93,6 +93,7 @@ namespace Ironfront.UnityPrototype
         public bool IsDownedScreen { get; private set; }
         public bool LanRequested { get; private set; }
         public PrototypeInfantryClass SelectedClass { get; private set; } = PrototypeInfantryClass.Assault;
+        public PrototypeGameMode SelectedMode { get; private set; } = PrototypeGameMode.Conquest;
         public PrototypeLoadout SelectedLoadout
         {
             get
@@ -287,6 +288,7 @@ namespace Ironfront.UnityPrototype
             {
                 PlayerName = startMenu.PlayerName;
                 SelectedClass = startMenu.SelectedClass;
+                SelectedMode = startMenu.SelectedMode;
                 PrototypeLoadout choice = startMenu.Loadout;
                 selectedLoadout.role = choice.role;
                 selectedLoadout.primary = choice.primary;

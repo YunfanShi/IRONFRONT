@@ -30,6 +30,9 @@ namespace Ironfront.UnityPrototype
         private readonly Label classCaption;
         private readonly Label operatorTitle;
         private readonly Label squadClass;
+        private readonly Label operationSummary;
+        private readonly VisualElement conquestCard;
+        private readonly VisualElement breakthroughCard;
         private readonly Slider volumeSlider;
         private readonly Label volumeValue;
         private readonly Slider sensitivitySlider;
@@ -40,6 +43,7 @@ namespace Ironfront.UnityPrototype
 
         public string PlayerName => nameField.value;
         public PrototypeInfantryClass SelectedClass { get; private set; }
+        public PrototypeGameMode SelectedMode { get; private set; }
         public PrototypeLoadout Loadout => loadout.Copy();
         public bool DeployRequested { get; private set; }
         public bool LanRequested { get; private set; }
@@ -82,6 +86,13 @@ namespace Ironfront.UnityPrototype
             thumbnail.image = map;
             thumbnail.scaleMode = ScaleMode.StretchToFill;
             Require<Label>(root, "version").text = Application.version;
+            operationSummary = Require<Label>(root, "operation-summary");
+            conquestCard = Require<VisualElement>(root, "mode-conquest");
+            breakthroughCard = Require<VisualElement>(root, "mode-breakthrough");
+            conquestCard.RegisterCallback<ClickEvent>(_ => SelectMode(PrototypeGameMode.Conquest));
+            breakthroughCard.RegisterCallback<ClickEvent>(_ => SelectMode(PrototypeGameMode.Breakthrough));
+            SelectMode(PlayerPrefs.GetInt("ironfront.unity.soloMode", 0) == 1 ?
+                PrototypeGameMode.Breakthrough : PrototypeGameMode.Conquest);
 
             for (int i = 0; i < PageNames.Length; i++)
             {
@@ -182,6 +193,12 @@ namespace Ironfront.UnityPrototype
                 if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i)))
                     SetClass((PrototypeInfantryClass)i);
             }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                SelectMode(SelectedMode == PrototypeGameMode.Conquest ?
+                    PrototypeGameMode.Breakthrough : PrototypeGameMode.Conquest);
+                SetPage(1);
+            }
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
                 DeployRequested = true;
             if (Input.GetKeyDown(KeyCode.L)) RequestLan();
@@ -202,6 +219,18 @@ namespace Ironfront.UnityPrototype
                 pages[i].style.display = i == selectedPage ? DisplayStyle.Flex : DisplayStyle.None;
                 pageButtons[i].EnableInClassList("active", i == selectedPage);
             }
+        }
+
+        private void SelectMode(PrototypeGameMode mode)
+        {
+            SelectedMode = mode;
+            conquestCard.EnableInClassList("selected", mode == PrototypeGameMode.Conquest);
+            breakthroughCard.EnableInClassList("selected", mode == PrototypeGameMode.Breakthrough);
+            operationSummary.text = mode == PrototypeGameMode.Conquest ?
+                "征服模式 · 蓝方玩家与 4 AI / 红方 4 AI · 五个据点" :
+                "攻防模式 · 蓝方进攻 / 红方防守 · 依次夺取五个据点";
+            PlayerPrefs.SetInt("ironfront.unity.soloMode", (int)mode);
+            PlayerPrefs.Save();
         }
 
         private void SetClass(PrototypeInfantryClass role)

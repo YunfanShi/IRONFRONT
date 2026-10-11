@@ -111,6 +111,8 @@ namespace Ironfront.UnityPrototype
             nextDecision = 0f;
         }
 
+        public void Replan() { nextDecision = 0f; }
+
         public void Tick(float now, PrototypeMatch match)
         {
             if (match.Winner.HasValue || now < nextDecision) return;
@@ -122,6 +124,7 @@ namespace Ironfront.UnityPrototype
             foreach (PrototypeSquad squad in squads)
             {
                 PrototypeCapturePoint previous = FindPoint(match, squad.ObjectiveId);
+                if (previous != null && !match.IsPointActive(previous)) previous = null;
                 bool blocked = previous != null && IsBlocked(squad, previous.Definition.Id, now);
                 bool urgent = previous != null && previous.Owner == team && previous.Contested;
                 PrototypeCapturePoint best = null;
@@ -129,6 +132,7 @@ namespace Ironfront.UnityPrototype
                 for (int i = 0; i < match.Points.Count; i++)
                 {
                     PrototypeCapturePoint point = match.Points[i];
+                    if (!match.IsPointActive(point)) continue;
                     bool own = point.Owner == team;
                     float need = own ? (point.Contested ? 8f : -1.5f) :
                         point.Owner.HasValue ? 6f : 4.5f;
