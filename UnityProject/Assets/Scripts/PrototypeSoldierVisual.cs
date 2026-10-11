@@ -2,23 +2,42 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    // The browser game's layered low-poly infantry is the visual reference. The
-    // gameplay capsule stays on the parent, so these parts never change hit rules.
+    // The gameplay capsule stays on the parent. This small articulated rig only
+    // changes the silhouette, leaving movement, hit rules and cameras untouched.
     public sealed class PrototypeSoldierVisual : MonoBehaviour
     {
+        private const float HipHeight = .86f;
+        private const float ThighLength = .38f;
+        private const float ShinLength = .36f;
+        private const float UpperArmLength = .34f;
+        private const float ForearmLength = .35f;
         private GameObject model;
+        private Transform pelvis;
+        private Transform torso;
+        private Transform head;
         private Transform leftArm;
         private Transform rightArm;
+        private Transform leftElbow;
+        private Transform rightElbow;
+        private Transform leftHand;
+        private Transform rightHand;
         private Transform leftLeg;
         private Transform rightLeg;
+        private Transform leftKnee;
+        private Transform rightKnee;
+        private Transform leftFoot;
+        private Transform rightFoot;
         private Transform weaponMount;
         private GameObject heldWeapon;
+        private PrototypeWeaponId heldWeaponId;
         private PrototypeBot bot;
         private PrototypePlayer player;
         private Vector3 lastPosition;
         private float gait;
         private float motion;
         private float baseHeight;
+        private float crouchWeight;
+        private float proneWeight;
         private bool downed;
 
         public void Initialize(PrototypeRuntime game, PrototypeTeam team,
@@ -29,6 +48,7 @@ namespace Ironfront.UnityPrototype
             player = GetComponent<PrototypePlayer>();
             downed = false;
             baseHeight = feetOffset;
+            crouchWeight = proneWeight = motion = gait = 0f;
             model = new GameObject("Armored infantry visual");
             model.transform.SetParent(transform, false);
             model.transform.localPosition = new Vector3(0f, feetOffset, 0f);
@@ -39,64 +59,71 @@ namespace Ironfront.UnityPrototype
             Material trim = team == PrototypeTeam.Blue ?
                 game.BlueTrimMaterial : game.RedTrimMaterial;
 
-            Part("Uniform", PrimitiveType.Cylinder, model.transform,
-                new Vector3(0f, 1.18f, 0f), new Vector3(.34f, .44f, .25f), cloth);
-            Part("Vest", PrimitiveType.Cylinder, model.transform,
-                new Vector3(0f, 1.18f, .035f), new Vector3(.37f, .35f, .29f), game.ArmorMaterial);
-            Part("Front plate", PrimitiveType.Cube, model.transform,
-                new Vector3(0f, 1.22f, .285f), new Vector3(.47f, .43f, .095f), game.ArmorMaterial);
-            Part("Backpack", PrimitiveType.Cube, model.transform,
-                new Vector3(0f, 1.18f, -.30f), new Vector3(.48f, .48f, .22f), helmet);
-            Part("Webbing belt", PrimitiveType.Cube, model.transform,
-                new Vector3(0f, .83f, .035f), new Vector3(.62f, .11f, .39f), game.BootMaterial);
+            pelvis = Pivot("Pelvis", model.transform, new Vector3(0f, HipHeight, 0f));
+            torso = Pivot("Torso", pelvis, Vector3.zero);
+            head = Pivot("Head", torso, new Vector3(0f, .61f, 0f));
+            BodyPart("Uniform", PrimitiveType.Cylinder,
+                new Vector3(0f, 1.12f, 0f), new Vector3(.45f, .34f, .30f), cloth);
+            BodyPart("Vest", PrimitiveType.Cylinder,
+                new Vector3(0f, 1.14f, .035f), new Vector3(.48f, .30f, .35f), game.ArmorMaterial);
+            BodyPart("Front plate", PrimitiveType.Cube,
+                new Vector3(0f, 1.17f, .22f), new Vector3(.45f, .43f, .095f), game.ArmorMaterial);
+            BodyPart("Backpack", PrimitiveType.Cube,
+                new Vector3(0f, 1.14f, -.25f), new Vector3(.44f, .46f, .20f), helmet);
+            Part("Webbing belt", PrimitiveType.Cube, pelvis,
+                new Vector3(0f, -.025f, .035f), new Vector3(.55f, .11f, .35f), game.BootMaterial);
             for (int i = -1; i <= 1; i++)
-                Part("Magazine pouch", PrimitiveType.Cube, model.transform,
-                    new Vector3(i * .17f, .91f, .36f), new Vector3(.13f, .20f, .10f), trim);
+                BodyPart("Magazine pouch", PrimitiveType.Cube,
+                    new Vector3(i * .15f, .95f, .265f), new Vector3(.12f, .18f, .10f), trim);
             foreach (float side in new[] { -1f, 1f })
             {
-                Part("Shoulder pad", PrimitiveType.Sphere, model.transform,
-                    new Vector3(side * .39f, 1.48f, 0f),
-                    new Vector3(.28f, .20f, .31f), helmet);
-                Part("Side pouch", PrimitiveType.Cube, model.transform,
-                    new Vector3(side * .39f, .90f, -.08f),
-                    new Vector3(.16f, .25f, .17f), trim);
+                BodyPart("Shoulder pad", PrimitiveType.Sphere,
+                    new Vector3(side * .33f, 1.40f, 0f),
+                    new Vector3(.25f, .20f, .28f), helmet);
+                BodyPart("Side pouch", PrimitiveType.Cube,
+                    new Vector3(side * .32f, .92f, -.08f),
+                    new Vector3(.15f, .22f, .16f), trim);
             }
 
-            Part("Face", PrimitiveType.Sphere, model.transform,
-                new Vector3(0f, 1.69f, .035f), new Vector3(.37f, .43f, .36f), game.SkinMaterial);
-            Part("Helmet shell", PrimitiveType.Sphere, model.transform,
-                new Vector3(0f, 1.80f, -.015f), new Vector3(.51f, .32f, .49f), helmet);
-            Part("Helmet brow", PrimitiveType.Cube, model.transform,
-                new Vector3(0f, 1.76f, .245f), new Vector3(.49f, .075f, .15f), helmet);
-            Part("Visor", PrimitiveType.Cube, model.transform,
-                new Vector3(0f, 1.68f, .232f), new Vector3(.39f, .095f, .055f), game.VisorMaterial);
-            Part("Chin guard", PrimitiveType.Cube, model.transform,
-                new Vector3(0f, 1.51f, .195f), new Vector3(.37f, .10f, .11f), trim);
+            HeadPart("Face", PrimitiveType.Sphere,
+                new Vector3(0f, 1.59f, .035f), new Vector3(.34f, .38f, .34f), game.SkinMaterial);
+            HeadPart("Helmet shell", PrimitiveType.Sphere,
+                new Vector3(0f, 1.68f, -.015f), new Vector3(.47f, .28f, .45f), helmet);
+            HeadPart("Helmet brow", PrimitiveType.Cube,
+                new Vector3(0f, 1.66f, .225f), new Vector3(.45f, .07f, .14f), helmet);
+            HeadPart("Visor", PrimitiveType.Cube,
+                new Vector3(0f, 1.59f, .212f), new Vector3(.36f, .09f, .055f), game.VisorMaterial);
+            HeadPart("Chin guard", PrimitiveType.Cube,
+                new Vector3(0f, 1.44f, .175f), new Vector3(.34f, .10f, .11f), trim);
             foreach (float side in new[] { -1f, 1f })
-                Part("Ear guard", PrimitiveType.Cube, model.transform,
-                    new Vector3(side * .27f, 1.67f, 0f),
-                    new Vector3(.10f, .17f, .22f), helmet);
+                HeadPart("Ear guard", PrimitiveType.Cube,
+                    new Vector3(side * .245f, 1.58f, 0f),
+                    new Vector3(.09f, .16f, .20f), helmet);
 
-            leftArm = Pivot("Left arm", new Vector3(-.39f, 1.46f, 0f));
-            rightArm = Pivot("Right arm", new Vector3(.39f, 1.46f, 0f));
-            leftLeg = Pivot("Left leg", new Vector3(-.18f, .83f, 0f));
-            rightLeg = Pivot("Right leg", new Vector3(.18f, .83f, 0f));
-            Arm(leftArm, cloth, trim, game.BootMaterial);
-            Arm(rightArm, cloth, trim, game.BootMaterial);
-            Leg(leftLeg, cloth, game.ArmorMaterial, game.BootMaterial);
-            Leg(rightLeg, cloth, game.ArmorMaterial, game.BootMaterial);
+            leftArm = Pivot("Left arm", torso, new Vector3(-.33f, .50f, 0f));
+            rightArm = Pivot("Right arm", torso, new Vector3(.33f, .50f, 0f));
+            leftLeg = Pivot("Left leg", pelvis, new Vector3(-.17f, 0f, 0f));
+            rightLeg = Pivot("Right leg", pelvis, new Vector3(.17f, 0f, 0f));
+            Arm(leftArm, cloth, trim, game.BootMaterial, out leftElbow, out leftHand);
+            Arm(rightArm, cloth, trim, game.BootMaterial, out rightElbow, out rightHand);
+            Leg(leftLeg, cloth, game.ArmorMaterial, game.BootMaterial,
+                out leftKnee, out leftFoot);
+            Leg(rightLeg, cloth, game.ArmorMaterial, game.BootMaterial,
+                out rightKnee, out rightFoot);
 
-            weaponMount = new GameObject("Held weapon").transform;
-            weaponMount.SetParent(model.transform, false);
-            weaponMount.localPosition = new Vector3(.12f, 1.20f, .40f);
+            weaponMount = Pivot("Held weapon", model.transform, new Vector3(.05f, 1.16f, .18f));
             weaponMount.localScale = Vector3.one * .65f;
             SetWeapon(PrototypeInfantryRoles.DefaultWeapon(role), game);
             if (role == PrototypeInfantryClass.Medic)
-                Part("Medical insignia", PrimitiveType.Cube, model.transform,
-                    new Vector3(-.38f, 1.44f, .17f), new Vector3(.09f, .12f, .025f),
+                BodyPart("Medical insignia", PrimitiveType.Cube,
+                    new Vector3(-.32f, 1.39f, .15f), new Vector3(.09f, .12f, .025f),
                     game.LampMaterial);
-            PrototypeEquipmentVisual.BuildClassGear(model.transform, role, game, team);
+            // Class equipment is authored in standing coordinates. One origin
+            // conversion keeps every pouch, antenna and launcher on the torso.
+            Transform gear = Pivot("Class equipment", torso, new Vector3(0f, -HipHeight, 0f));
+            PrototypeEquipmentVisual.BuildClassGear(gear, role, game, team);
             lastPosition = transform.position;
+            RefreshPose(true);
         }
 
         public Transform WeaponMount => weaponMount;
@@ -105,6 +132,7 @@ namespace Ironfront.UnityPrototype
         public void SetWeapon(PrototypeWeaponId weaponId, PrototypeRuntime game)
         {
             if (heldWeapon != null) Destroy(heldWeapon);
+            heldWeaponId = weaponId;
             heldWeapon = PrototypeWeaponVisual.Build(weaponMount, weaponId, game);
         }
 
@@ -114,80 +142,247 @@ namespace Ironfront.UnityPrototype
             model.SetActive(visible);
             lastPosition = transform.position;
             motion = 0f;
+            if (visible) RefreshPose(true);
         }
 
         public void SetDowned(bool value)
         {
             downed = value;
+            lastPosition = transform.position;
+            motion = 0f;
+            RefreshPose(true);
+        }
+
+        // Also used by editor verification after changing stance without waiting
+        // a frame. Perspective switches and revival restore the current pose.
+        public void RefreshPose(bool immediate = false)
+        {
             if (model == null) return;
-            model.transform.localScale = Vector3.one;
-            model.transform.localRotation = value ?
-                Quaternion.Euler(82f, 0f, 0f) : Quaternion.identity;
-            model.transform.localPosition = new Vector3(0f,
-                baseHeight + (value ? .15f : 0f), 0f);
+            if (player != null && player.CurrentVehicle is PrototypeCombinedArmsVehicle bike &&
+                bike.Kind == PrototypeVehicleKind.Motorcycle)
+            {
+                PoseMotorcycle(bike);
+                return;
+            }
+            bool prone = player != null && player.IsProne;
+            bool crouching = player != null ? player.IsCrouched || player.IsSliding :
+                bot != null && (bot.TacticalState == PrototypeTacticalState.SeekCover ||
+                bot.TacticalState == PrototypeTacticalState.InCover ||
+                bot.TacticalState == PrototypeTacticalState.Revive);
+            float crouchTarget = crouching && !prone ? 1f : 0f;
+            float proneTarget = prone || downed ? 1f : 0f;
+            crouchWeight = immediate ? crouchTarget :
+                Mathf.MoveTowards(crouchWeight, crouchTarget, Time.deltaTime * 7f);
+            proneWeight = immediate ? proneTarget :
+                Mathf.MoveTowards(proneWeight, proneTarget, Time.deltaTime * 6f);
+            Pose(crouchWeight, proneWeight, Mathf.Sin(gait), motion);
         }
 
         private void LateUpdate()
         {
             if (model == null || !model.activeSelf) return;
-            if (downed)
-            {
-                lastPosition = transform.position;
-                motion = 0f;
-                return;
-            }
             Vector3 delta = transform.position - lastPosition;
             lastPosition = transform.position;
             delta.y = 0f;
-            float speed = delta.magnitude > 3f ? 0f :
+            float speed = downed || delta.magnitude > 3f ? 0f :
                 delta.magnitude / Mathf.Max(Time.deltaTime, .001f);
             motion = Mathf.MoveTowards(motion, Mathf.Clamp01(speed / 5.5f),
                 Time.deltaTime * 5f);
-            gait += Time.deltaTime * (2f + motion * 11f);
-            float swing = Mathf.Sin(gait) * motion;
-            leftLeg.localRotation = Quaternion.Euler(swing * 26f, 0f, 0f);
-            rightLeg.localRotation = Quaternion.Euler(-swing * 26f, 0f, 0f);
-            leftArm.localRotation = Quaternion.Euler(-25f - swing * 12f, 0f, -8f);
-            rightArm.localRotation = Quaternion.Euler(-28f + swing * 12f, 0f, 8f);
-            bool crouching = player != null ? player.IsCrouched || player.IsSliding :
-                bot != null && (bot.TacticalState ==
-                PrototypeTacticalState.SeekCover || bot.TacticalState ==
-                PrototypeTacticalState.InCover || bot.TacticalState ==
-                PrototypeTacticalState.Revive);
-            float stature = player != null && player.IsProne ? .40f :
-                crouching ? .68f : 1f;
-            model.transform.localScale = new Vector3(1f, stature, 1f);
-            model.transform.localPosition = new Vector3(0f,
-                baseHeight +
-                Mathf.Abs(Mathf.Sin(gait)) * motion * .035f, 0f);
+            // A crawl cycles more slowly than a standing stride.
+            gait += Time.deltaTime * Mathf.Lerp(2f + motion * 11f,
+                1.2f + motion * 7f, proneWeight);
+            RefreshPose();
         }
 
-        private Transform Pivot(string label, Vector3 position)
+        private void Pose(float crouch, float prone, float phase, float movement)
+        {
+            // Body dimensions stay fixed in every stance; only the joints move.
+            model.transform.localScale = Vector3.one;
+            model.transform.localRotation = Quaternion.identity;
+            float floorOffset = baseHeight;
+            if (player != null)
+            {
+                float floor = PrototypeLayout.HeightAt(transform.position.x, transform.position.z);
+                floorOffset = Mathf.Max(baseHeight, floor - transform.position.y);
+            }
+            model.transform.localPosition = new Vector3(0f, floorOffset, 0f);
+            leftLeg.localPosition = new Vector3(-.17f, 0f, 0f);
+            rightLeg.localPosition = new Vector3(.17f, 0f, 0f);
+            float swing = phase * movement;
+            float hipY = Mathf.Lerp(HipHeight - crouch * .40f, .29f, prone);
+            hipY -= movement * .035f * (1f - prone);
+            hipY += Mathf.Abs(phase) * movement * .012f * prone;
+            pelvis.localPosition = new Vector3(0f, hipY,
+                Mathf.Lerp(-.14f * crouch, -.25f, prone));
+            torso.localRotation = Quaternion.Euler(
+                Mathf.Lerp(crouch * 32f, downed ? 94f : 82f, prone),
+                0f, downed ? 12f : swing * prone * 2f);
+            head.localRotation = Quaternion.Euler(
+                Mathf.Lerp(-crouch * 23f, downed ? -82f : -70f, prone), 0f,
+                downed ? -15f : 0f);
+
+            float stride = Mathf.Lerp(.20f, .10f, crouch) * (1f - prone);
+            float footZ = Mathf.Lerp(.06f, -.72f, prone);
+            float footLift = Mathf.Lerp(.065f, .018f, prone);
+            PoseLeg(leftLeg, leftKnee, leftFoot, -1f, hipY,
+                footZ + swing * Mathf.Lerp(stride, .06f, prone),
+                .12f + Mathf.Max(0f, swing) * footLift, prone);
+            PoseLeg(rightLeg, rightKnee, rightFoot, 1f, hipY,
+                footZ - swing * Mathf.Lerp(stride, .06f, prone),
+                .12f + Mathf.Max(0f, -swing) * footLift, prone);
+
+            weaponMount.localPosition = new Vector3(Mathf.Lerp(.05f, .015f, prone),
+                Mathf.Lerp(1.16f - crouch * .30f, .49f, prone),
+                Mathf.Lerp(.18f + crouch * .10f, .51f, prone));
+            weaponMount.localRotation = Quaternion.identity;
+            if (downed)
+            {
+                weaponMount.localPosition = new Vector3(.45f, .28f, .15f);
+                weaponMount.localRotation = Quaternion.Euler(0f, 20f, 55f);
+            }
+            Transform weaponFrame = heldWeapon != null ? heldWeapon.transform : weaponMount;
+            bool pistol = heldWeaponId == PrototypeWeaponId.Pistol;
+            Vector3 rightGrip = model.transform.InverseTransformPoint(
+                weaponFrame.TransformPoint(new Vector3(0f, -.18f, pistol ? -.045f : -.18f)));
+            Vector3 leftGrip = model.transform.InverseTransformPoint(
+                weaponFrame.TransformPoint(pistol ? new Vector3(-.055f, -.16f, .015f) :
+                    new Vector3(0f, -.16f, .37f)));
+            if (downed)
+            {
+                rightGrip = new Vector3(.49f, .14f, .35f);
+                leftGrip = new Vector3(-.45f, .13f, .43f);
+            }
+            // The elbows flare out and settle low while crawling, rather than
+            // swinging a rigid rifle through the ground with the torso.
+            Vector3 armPole = Vector3.Lerp(new Vector3(1f, -.3f, -.25f),
+                new Vector3(.55f, -1f, -.15f), prone);
+            PoseArm(leftArm, leftElbow, leftHand, leftGrip,
+                new Vector3(-armPole.x, armPole.y, armPole.z));
+            PoseArm(rightArm, rightElbow, rightHand, rightGrip, armPole);
+        }
+
+        private void PoseMotorcycle(PrototypeCombinedArmsVehicle bike)
+        {
+            // Vehicle seat positions are seat points, while an infantry root is
+            // at the feet. Place the pelvis on the saddle and keep both legs
+            // outside the frame, with bent knees and boots at footpeg height.
+            bool driver = bike.PlayerSeat == 0;
+            model.transform.localScale = Vector3.one;
+            model.transform.localRotation = Quaternion.identity;
+            model.transform.localPosition = new Vector3(0f, -.65f, 0f);
+            pelvis.localPosition = new Vector3(0f, HipHeight, 0f);
+            torso.localRotation = Quaternion.Euler(driver ? 18f : 5f, 0f, 0f);
+            head.localRotation = Quaternion.Euler(driver ? -12f : -5f, 0f, 0f);
+            leftLeg.localPosition = new Vector3(-.30f, 0f, 0f);
+            rightLeg.localPosition = new Vector3(.30f, 0f, 0f);
+            PoseLeg(leftLeg, leftKnee, leftFoot, -1f, HipHeight, .15f, .32f, 0f);
+            PoseLeg(rightLeg, rightKnee, rightFoot, 1f, HipHeight, .15f, .32f, 0f);
+            weaponMount.localRotation = Quaternion.identity;
+            Vector3 leftGrip = driver ? model.transform.InverseTransformPoint(
+                bike.transform.TransformPoint(new Vector3(-.37f, 1.40f, .83f))) :
+                new Vector3(-.30f, .70f, .24f);
+            Vector3 rightGrip = driver ? model.transform.InverseTransformPoint(
+                bike.transform.TransformPoint(new Vector3(.37f, 1.40f, .83f))) :
+                new Vector3(.30f, .70f, .24f);
+            PoseArm(leftArm, leftElbow, leftHand, leftGrip, new Vector3(-1f, -.2f, 0f));
+            PoseArm(rightArm, rightElbow, rightHand, rightGrip, new Vector3(1f, -.2f, 0f));
+            leftHand.rotation = rightHand.rotation = bike.transform.rotation *
+                Quaternion.Euler(0f, 90f, 0f);
+        }
+
+        private void PoseLeg(Transform hip, Transform knee, Transform foot, float side,
+            float hipY, float footZ, float footY, float prone)
+        {
+            // Sagittal two-bone IK plants each boot while the pelvis drops.
+            // Bending the knee forward produces a squat; extending backwards
+            // produces the long, low silhouette of a prone soldier.
+            float vertical = hipY - footY;
+            float distance = Mathf.Clamp(Mathf.Sqrt(vertical * vertical + footZ * footZ),
+                .025f, ThighLength + ShinLength - .0001f);
+            float direction = -Mathf.Atan2(footZ, vertical) * Mathf.Rad2Deg;
+            float upper = Mathf.Acos(Mathf.Clamp((ThighLength * ThighLength +
+                distance * distance - ShinLength * ShinLength) /
+                (2f * ThighLength * distance), -1f, 1f)) * Mathf.Rad2Deg;
+            float bend = 180f - Mathf.Acos(Mathf.Clamp((ThighLength * ThighLength +
+                ShinLength * ShinLength - distance * distance) /
+                (2f * ThighLength * ShinLength), -1f, 1f)) * Mathf.Rad2Deg;
+            hip.localRotation = Quaternion.Euler(direction - upper, side * prone * 7f, 0f);
+            knee.localRotation = Quaternion.Euler(bend, 0f, 0f);
+            foot.rotation = model.transform.rotation;
+        }
+
+        private void PoseArm(Transform shoulder, Transform elbow, Transform hand,
+            Vector3 target, Vector3 pole)
+        {
+            Vector3 origin = model.transform.InverseTransformPoint(shoulder.position);
+            Vector3 delta = target - origin;
+            float distance = Mathf.Clamp(delta.magnitude, .035f,
+                UpperArmLength + ForearmLength - .001f);
+            Vector3 direction = delta.normalized;
+            Vector3 side = Vector3.ProjectOnPlane(pole, direction).normalized;
+            float along = (UpperArmLength * UpperArmLength + distance * distance -
+                ForearmLength * ForearmLength) / (2f * distance);
+            float outward = Mathf.Sqrt(Mathf.Max(0f,
+                UpperArmLength * UpperArmLength - along * along));
+            Vector3 elbowPosition = origin + direction * along + side * outward;
+            Vector3 grip = origin + direction * distance;
+            shoulder.localRotation = Quaternion.FromToRotation(Vector3.down,
+                shoulder.parent.InverseTransformDirection(
+                    model.transform.TransformDirection(elbowPosition - origin)));
+            elbow.localRotation = Quaternion.FromToRotation(Vector3.down,
+                shoulder.InverseTransformDirection(
+                    model.transform.TransformDirection(grip - elbowPosition)));
+            hand.rotation = heldWeapon != null ? heldWeapon.transform.rotation : weaponMount.rotation;
+        }
+
+        private void BodyPart(string label, PrimitiveType shape, Vector3 position,
+            Vector3 scale, Material material) =>
+            Part(label, shape, torso, position - Vector3.up * HipHeight, scale, material);
+
+        private void HeadPart(string label, PrimitiveType shape, Vector3 position,
+            Vector3 scale, Material material) =>
+            Part(label, shape, head, position - Vector3.up * 1.47f, scale, material);
+
+        private static Transform Pivot(string label, Transform parent, Vector3 position)
         {
             var pivot = new GameObject(label).transform;
-            pivot.SetParent(model.transform, false);
+            pivot.SetParent(parent, false);
             pivot.localPosition = position;
             return pivot;
         }
 
-        private static void Arm(Transform pivot, Material cloth, Material trim, Material gloves)
+        private static void Arm(Transform pivot, Material cloth, Material trim,
+            Material gloves, out Transform elbow, out Transform hand)
         {
-            Part("Sleeve", PrimitiveType.Cylinder, pivot,
-                new Vector3(0f, -.23f, .02f), new Vector3(.14f, .29f, .14f), cloth);
-            Part("Elbow guard", PrimitiveType.Sphere, pivot,
-                new Vector3(0f, -.45f, .09f), new Vector3(.22f, .19f, .23f), trim);
-            Part("Glove", PrimitiveType.Cube, pivot,
-                new Vector3(0f, -.56f, .16f), new Vector3(.20f, .17f, .21f), gloves);
+            Part("Upper sleeve", PrimitiveType.Cylinder, pivot,
+                new Vector3(0f, -UpperArmLength * .5f, 0f),
+                new Vector3(.18f, UpperArmLength * .5f, .18f), cloth);
+            elbow = Pivot("Elbow", pivot, Vector3.down * UpperArmLength);
+            Part("Elbow guard", PrimitiveType.Sphere, elbow,
+                new Vector3(0f, 0f, -.02f), new Vector3(.20f, .16f, .20f), trim);
+            Part("Forearm sleeve", PrimitiveType.Cylinder, elbow,
+                new Vector3(0f, -ForearmLength * .5f, 0f),
+                new Vector3(.15f, ForearmLength * .5f, .15f), cloth);
+            hand = Pivot("Hand", elbow, Vector3.down * ForearmLength);
+            Part("Glove", PrimitiveType.Cube, hand,
+                Vector3.zero, new Vector3(.16f, .15f, .18f), gloves);
         }
 
-        private static void Leg(Transform pivot, Material cloth, Material armor, Material boots)
+        private static void Leg(Transform pivot, Material cloth, Material armor,
+            Material boots, out Transform knee, out Transform foot)
         {
-            Part("Trouser", PrimitiveType.Cylinder, pivot,
-                new Vector3(0f, -.27f, 0f), new Vector3(.17f, .30f, .17f), cloth);
-            Part("Knee pad", PrimitiveType.Sphere, pivot,
-                new Vector3(0f, -.46f, .10f), new Vector3(.23f, .16f, .18f), armor);
-            Part("Boot", PrimitiveType.Cube, pivot,
-                new Vector3(0f, -.70f, .09f), new Vector3(.29f, .25f, .40f), boots);
+            Part("Upper trouser", PrimitiveType.Cylinder, pivot,
+                new Vector3(0f, -ThighLength * .5f, 0f),
+                new Vector3(.21f, ThighLength * .5f, .23f), cloth);
+            knee = Pivot("Knee", pivot, Vector3.down * ThighLength);
+            Part("Knee pad", PrimitiveType.Sphere, knee,
+                new Vector3(0f, 0f, .035f), new Vector3(.23f, .13f, .19f), armor);
+            Part("Lower trouser", PrimitiveType.Cylinder, knee,
+                new Vector3(0f, -ShinLength * .5f, 0f),
+                new Vector3(.17f, ShinLength * .5f, .18f), cloth);
+            foot = Pivot("Ankle", knee, Vector3.down * ShinLength);
+            Part("Boot", PrimitiveType.Cube, foot,
+                new Vector3(0f, 0f, .08f), new Vector3(.27f, .24f, .39f), boots);
         }
 
         internal static GameObject Part(string label, PrimitiveType shape, Transform parent,

@@ -41,6 +41,13 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeCombatFeedback.cs",
             "PrototypeTankVisual.cs",
             "PrototypeTankVehicle.cs",
+            "PrototypeVehicleSeats.cs",
+            "PrototypeVehicleDefinition.cs",
+            "PrototypeCombinedArmsVehicle.cs",
+            "PrototypeCombinedVehicleVisual.cs",
+            "PrototypeVehicleProjectile.cs",
+            "PrototypeVehicleRoute.cs",
+            "PrototypeVehicleCountermeasure.cs",
             "PrototypeWorldVisual.cs"
         };
 

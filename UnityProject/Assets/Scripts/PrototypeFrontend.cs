@@ -271,7 +271,7 @@ namespace Ironfront.UnityPrototype
             GUI.Label(resume, "继续战斗 / RESUME", darkButtonStyle);
             GUI.Label(lobby, "退出战局 · 返回大厅 / MAIN MENU", lightButtonStyle);
             GUI.Label(new Rect(x + 30f, y + 496f, 460f, 25f),
-                "Esc 继续  ·  C 蹲下 / 滑铲  ·  V 趴下  ·  右键瞄准", smallStyle);
+                "Esc 继续  ·  C 蹲下 / 滑铲  ·  Ctrl 趴下  ·  V 切换人称", smallStyle);
             if (GUI.Button(resume, GUIContent.none, GUIStyle.none))
                 return PrototypePauseAction.Resume;
             if (GUI.Button(lobby, GUIContent.none, GUIStyle.none))

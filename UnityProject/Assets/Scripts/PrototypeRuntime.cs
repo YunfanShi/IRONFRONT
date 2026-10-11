@@ -122,6 +122,7 @@ namespace Ironfront.UnityPrototype
             BuildBots();
             BuildScouts();
             BuildTransports();
+            BuildCombinedArmsVehicles();
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
             Frontend = new PrototypeFrontend(this);
@@ -371,6 +372,40 @@ namespace Ironfront.UnityPrototype
                 object3D.AddComponent<PrototypeTransportVehicle>();
             Vehicles.Add(vehicle);
             vehicle.Initialize(this, team, position, aiControlled);
+        }
+
+        private void BuildCombinedArmsVehicles()
+        {
+            // Keep the existing six IDs stable for LAN snapshots and historical
+            // deployment checks. New vehicles use main's separate base bays.
+            foreach (PrototypeTeam team in new[] { PrototypeTeam.Blue, PrototypeTeam.Red })
+            {
+                float side = team == PrototypeTeam.Blue ? 1f : -1f;
+                Vector2 origin = team == PrototypeTeam.Blue ?
+                    new Vector2(-304f, -302f) : new Vector2(304f, 302f);
+                AddCombinedArms(team, PrototypeVehicleKind.Ifv, origin);
+                AddCombinedArms(team, PrototypeVehicleKind.AntiAir,
+                    origin + Vector2.right * (side * 48f));
+                AddCombinedArms(team, PrototypeVehicleKind.Helicopter,
+                    origin + Vector2.right * (side * 60f));
+                AddCombinedArms(team, PrototypeVehicleKind.Jet,
+                    origin + Vector2.right * (side * 76f));
+                AddCombinedArms(team, PrototypeVehicleKind.Motorcycle,
+                    origin + Vector2.right * (side * 94f));
+            }
+        }
+
+        private void AddCombinedArms(PrototypeTeam team, PrototypeVehicleKind kind,
+            Vector2 position)
+        {
+            var object3D = new GameObject(team + " " + kind);
+            object3D.transform.SetParent(transform);
+            PrototypeCombinedArmsVehicle vehicle =
+                object3D.AddComponent<PrototypeCombinedArmsVehicle>();
+            Vehicles.Add(vehicle);
+            // Eight infantry per side cannot crew five additional combat
+            // vehicles at once. They remain available for player deployment.
+            vehicle.Initialize(this, team, kind, position, false);
         }
 
         private void Update()
@@ -775,6 +810,8 @@ namespace Ironfront.UnityPrototype
                             transport.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
                         else if (Vehicles[actor.id] is PrototypeTankVehicle tank)
                             tank.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
+                        else if (Vehicles[actor.id] is PrototypeCombinedArmsVehicle combined)
+                            combined.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive);
                     }
             if (Player.Alive && Frontend.IsOpen) Frontend.Close();
             else if (Player.IsDowned && !Frontend.IsDownedScreen &&
@@ -918,6 +955,7 @@ namespace Ironfront.UnityPrototype
                     " km/h", body);
             else
                 GUI.Label(new Rect(25, 51, 244, 23),
+                    Player.IsParachuting ? "AUTO PARACHUTE · 5 m/s" :
                     Player.IsSliding ? "SLIDING" : Player.IsProne ? "PRONE" :
                     Player.IsCrouched ? "CROUCHED" : Player.IsSprinting ? "SPRINTING" :
                     Player.IsAiming ? "AIMING" : "READY", body);
@@ -961,25 +999,35 @@ namespace Ironfront.UnityPrototype
                 "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
             GUI.Label(new Rect(ordersX + 12, summaryY + 19f, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
-            string controls = Player.CurrentVehicle is PrototypeTankVehicle ?
-                "T90 BASTION  |  WASD drive  |  Mouse aim  |  LMB cannon  |  E exit  |  Esc menu" :
-                Player.CurrentVehicle is PrototypeTransportVehicle transport ?
-                "U8 ROVER  |  AI passengers " + transport.PassengerCount + "/2  |  " +
-                (transport.PlayerSeat == 0 ?
-                    "WASD drive  |  F2 gunner  |  Driver unarmed" :
-                    "Mouse aim  |  LMB machine gun  |  F1 driver") +
-                "  |  E exit  |  Esc menu" :
-                Player.CurrentVehicle != null ?
-                "R4 SCOUT  |  WASD drive  |  Mouse aim  |  LMB machine gun  |  E exit  |  Esc menu" :
+            string controls = Player.CurrentVehicle != null ?
+                VehicleControls(Player.CurrentVehicle) :
                 "WASD move  |  Shift sprint  |  C crouch / slide  |  Ctrl prone  |  RMB aim  |  LMB fire  |  R reload  |  Esc menu";
             controls = "V view " + (Player.IsFirstPerson ? "1P" : "3P") +
                 "  |  " + controls;
             GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f, canvasWidth - 285f), 25), controls, body);
+            if (Player.CurrentVehicle is IPrototypeSeatedVehicle currentSeats)
+                DrawVehicleSeats(currentSeats, canvasHeight, body);
             if (Player.CurrentVehicle is PrototypeTankVehicle tank)
                 GUI.Label(new Rect(canvasWidth / 2f - 76f, canvasHeight / 2f + 42f,
-                    152f, 23f), tank.CannonReadyIn > 0f ?
+                    152f, 23f), tank.PlayerSeat >= 2 ? "PASSENGER" :
+                    tank.PlayerSeat == 1 ? "CREW MG" : tank.CannonReadyIn > 0f ?
                     "RELOAD " + tank.CannonReadyIn.ToString("0.0") + " s" :
                     "CANNON READY", body);
+            if (Player.CurrentVehicle is PrototypeCombinedArmsVehicle activeVehicle)
+            {
+                string countermeasure = activeVehicle.IsAircraft ? "FLARES" : "SMOKE";
+                string defenseStatus = activeVehicle.Kind == PrototypeVehicleKind.Motorcycle ? "" :
+                    "\n" + countermeasure + (activeVehicle.CountermeasureActive ? " ACTIVE" :
+                    activeVehicle.CountermeasureReadyIn > 0f ? " " +
+                    activeVehicle.CountermeasureReadyIn.ToString("0") + " s" : " READY") +
+                    (activeVehicle.PlayerSeat == 0 ? " · X" : " · F1 TO USE");
+                GUI.Label(new Rect(canvasWidth / 2f - 155f, canvasHeight / 2f + 42f,
+                    310f, 85f), activeVehicle.WeaponStatus +
+                    (activeVehicle.IsAircraft ? "  |  ALT " +
+                        Mathf.RoundToInt(activeVehicle.Altitude) + " m" : "") + defenseStatus +
+                    (activeVehicle.IncomingUntil > Time.time ? "\nMISSILE INCOMING" :
+                     activeVehicle.WarningUntil > Time.time ? "\nTARGET LOCK WARNING" : ""), body);
+            }
             if (Player.CurrentVehicle == null && Player.Alive)
                 DrawCombatHud(canvasWidth, canvasHeight);
             if (!string.IsNullOrEmpty(Player.SupportStatus))
@@ -995,6 +1043,49 @@ namespace Ironfront.UnityPrototype
             if (Match.Winner.HasValue) GUI.Label(new Rect(canvasWidth / 2f - 145,
                 canvasHeight / 2f - 80, 350, 45), Match.Winner.Value + " TEAM WINS", title);
             GUI.matrix = previousMatrix;
+        }
+
+        private static string VehicleControls(IPrototypeVehicle vehicle)
+        {
+            IPrototypeSeatedVehicle seats = vehicle as IPrototypeSeatedVehicle;
+            string drive = seats == null || seats.SeatCanDrive ? "WASD drive  |  " : "";
+            if (vehicle is PrototypeCombinedArmsVehicle combined &&
+                (combined.Kind == PrototypeVehicleKind.Helicopter ||
+                 combined.Kind == PrototypeVehicleKind.Jet) && seats.SeatCanDrive)
+                drive = "WASD fly  |  Space climb  |  Ctrl descend  |  Shift boost  |  ";
+            string weapon = seats != null && seats.SeatCanFire ?
+                "Mouse aim  |  LMB fire  |  " : "";
+            if (vehicle is PrototypeCombinedArmsVehicle armed && seats.SeatCanFire &&
+                seats.PlayerSeat == 0 &&
+                (armed.Kind == PrototypeVehicleKind.AntiAir ||
+                 armed.Kind == PrototypeVehicleKind.Helicopter ||
+                 armed.Kind == PrototypeVehicleKind.Jet))
+                weapon = "1/2 weapon  |  LMB fire  |  RMB missile  |  X countermeasure  |  ";
+            else if (vehicle is PrototypeCombinedArmsVehicle ifv &&
+                ifv.Kind == PrototypeVehicleKind.Ifv && seats.SeatCanFire && seats.PlayerSeat == 0)
+                weapon = "1/2 weapon  |  Mouse aim  |  LMB fire  |  X smoke  |  ";
+            return drive + weapon + "E exit  |  Esc menu";
+        }
+
+        private void DrawVehicleSeats(IPrototypeSeatedVehicle vehicle,
+            float canvasHeight, GUIStyle style)
+        {
+            float y = canvasHeight - 100f - vehicle.SeatCount * 19f;
+            DrawHudRect(new Rect(12f, y, 270f, 60f + vehicle.SeatCount * 19f),
+                new Color(.012f, .045f, .060f, .82f));
+            GUI.Label(new Rect(24f, y + 8f, 248f, 21f),
+                "SEATS  /  " + Player.CurrentSeatName, style);
+            for (int seat = 0; seat < vehicle.SeatCount; seat++)
+            {
+                MonoBehaviour occupant = vehicle.GetSeatOccupant(seat);
+                string state = seat == vehicle.PlayerSeat ? "YOU" :
+                    occupant == null ? "FREE" : occupant is PrototypeBot ? "AI" : "OCCUPIED";
+                GUI.Label(new Rect(24f, y + 31f + seat * 19f, 248f, 20f),
+                    "F" + (seat + 1) + "  " + vehicle.GetSeatName(seat) + "  ·  " + state, style);
+            }
+            if (!string.IsNullOrEmpty(Player.VehicleSeatStatus))
+                GUI.Label(new Rect(12f, canvasHeight - 65f, 520f, 24f),
+                    Player.VehicleSeatStatus, style);
         }
 
         private bool DrawSoloResult(float canvasWidth, float canvasHeight)

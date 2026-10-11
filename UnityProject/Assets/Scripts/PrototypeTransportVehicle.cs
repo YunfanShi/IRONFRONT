@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    // U8 ROVER: the player uses front seats 0/1; AI infantry use rear seats 2/3.
-    public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeVehicle,
+    // U8 ROVER: four shared seats, with AI infantry eligible for rear seats 2/3.
+    public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeSeatedVehicle,
         IPrototypeWeaponAim
     {
         private const float MaxHealth = 140f;
@@ -22,8 +22,9 @@ namespace Ironfront.UnityPrototype
         private readonly PrototypeBot[] passengers = new PrototypeBot[2];
         private PrototypeRuntime runtime;
         private bool aiControlled;
-        private PrototypePlayer occupant;
-        private int playerSeat = -1;
+        private PrototypeVehicleSeats seats;
+        private PrototypePlayer occupant => seats?.Player;
+        private int playerSeat => seats?.PlayerSeat ?? -1;
         private int routeIndex;
         private float nextPlan;
         private float nextShot;
@@ -46,20 +47,29 @@ namespace Ironfront.UnityPrototype
         public float Speed { get; private set; }
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public PrototypePlayer Occupant => occupant;
-        public PrototypePlayer Driver => playerSeat == 0 ? occupant : null;
+        public PrototypePlayer Driver => seats?.Driver;
         public PrototypePlayer Gunner => playerSeat == 1 ? occupant : null;
-        public bool PlayerControlsWeapon => Gunner != null && Alive;
+        public bool PlayerControlsWeapon => SeatCanFire;
         public Transform WeaponMuzzle => gunMuzzle;
         public float WeaponRange => GunRange;
         public int PlayerSeat => playerSeat;
+        public int SeatCount => seats?.SeatCount ?? 4;
+        public PrototypeVehicleSeatRole PlayerSeatRole => seats != null ? seats.PlayerRole :
+            PrototypeVehicleSeatRole.Driver;
+        public bool SeatCanDrive => Alive && seats != null && seats.CanDrive;
+        public bool SeatCanFire => Alive && seats != null && seats.CanFire;
+        public MonoBehaviour GetSeatOccupant(int seat) => seats?.GetOccupant(seat);
+        public string GetSeatName(int seat) => seats != null ? seats.GetName(seat) : "DRIVER";
         public int PassengerCount => (passengers[0] != null ? 1 : 0) +
             (passengers[1] != null ? 1 : 0);
-        public bool HasFreePassengerSeat => Alive &&
-            (passengers[0] == null || passengers[1] == null);
+        public bool HasFreePassengerSeat => Alive && seats != null &&
+            (seats.GetOccupant(2) == null || seats.GetOccupant(3) == null);
         public Vector3 SeatPosition => GetSeatPosition(playerSeat);
-        public Vector3 CameraPosition => playerSeat == 1 ?
+        public Vector3 CameraPosition => GetSeatCameraPosition(playerSeat);
+        public Vector3 GetSeatCameraPosition(int seat) => seat == 1 ?
             gunMount.TransformPoint(new Vector3(-.36f, .32f, .68f)) :
-            transform.TransformPoint(new Vector3(-.65f, 1.78f, 1.72f));
+            seat >= 2 ? transform.TransformPoint(new Vector3(seat == 2 ? -.9f : .9f,
+                1.92f, -1.35f)) : transform.TransformPoint(new Vector3(-.65f, 1.78f, 1.72f));
 
         public Vector3 GetSeatPosition(int seat)
         {
@@ -107,6 +117,7 @@ namespace Ironfront.UnityPrototype
             transform.rotation = Quaternion.Euler(0f,
                 team == PrototypeTeam.Blue ? 0f : 180f, 0f);
             BuildModel();
+            seats = new PrototypeVehicleSeats(this, game, 4, false);
         }
 
         public void ApplyNetworkState(Vector3 position, float yaw, float health, bool alive)
@@ -129,23 +140,13 @@ namespace Ironfront.UnityPrototype
         public bool TrySetDriver(PrototypePlayer player) => TrySetPlayerSeat(player, 0);
         public bool TrySetGunner(PrototypePlayer player) => TrySetPlayerSeat(player, 1);
 
-        // A player can enter either front seat or switch between them. There is
-        // deliberately no gun trigger in the driver branch of Update().
+        // A human in any seat suspends autonomous driving and fire. Rear AI
+        // passengers retain their own occupied slots and can disembark normally.
         public bool TrySetPlayerSeat(PrototypePlayer player, int seat)
         {
-            if (runtime == null || runtime.IsNetworkReplica || !Alive ||
-                player == null || Team != player.Team ||
-                player != runtime.Player || !player.Alive ||
-                (player.CurrentVehicle != null &&
-                    !object.ReferenceEquals(player.CurrentVehicle, this)) ||
-                (occupant != null && occupant != player) ||
-                (seat != 0 && seat != 1) || !runtime.MatchStarted ||
-                runtime.Match.Winner.HasValue) return false;
-            // A human in either front seat suspends autonomous driving and fire.
-            // Rear AI passengers stay aboard and can still disembark normally.
-            occupant = player;
-            playerSeat = seat;
-            Speed = 0f;
+            int previousSeat = PlayerSeat;
+            if (seats == null || !seats.TrySetPlayerSeat(player, seat)) return false;
+            if (previousSeat != seat) Speed = 0f;
             return true;
         }
 
@@ -154,8 +155,7 @@ namespace Ironfront.UnityPrototype
         public void RemoveOccupant(PrototypePlayer player)
         {
             if (occupant != player) return;
-            occupant = null;
-            playerSeat = -1;
+            seats.RemovePlayer(player);
             Speed = 0f;
             nextPlan = 0f;
             blockedUntil = 0f;
@@ -172,7 +172,7 @@ namespace Ironfront.UnityPrototype
                 return false;
             for (int index = 0; index < passengers.Length; index++)
             {
-                if (passengers[index] != null) continue;
+                if (passengers[index] != null || !seats.TryReserve(index + 2, bot)) continue;
                 passengers[index] = bot;
                 bot.BoardTransport(this, index + 2);
                 return true;
@@ -182,6 +182,7 @@ namespace Ironfront.UnityPrototype
 
         public void RemovePassenger(PrototypeBot bot)
         {
+            seats.Release(bot);
             for (int index = 0; index < passengers.Length; index++)
                 if (passengers[index] == bot) passengers[index] = null;
         }
@@ -227,9 +228,8 @@ namespace Ironfront.UnityPrototype
             if (Alive) return;
             Speed = 0f;
             if (occupant != null) occupant.ForceExitVehicle();
-            occupant = null;
-            playerSeat = -1;
             UnloadPassengers(true);
+            seats.Clear();
             PrototypeCombatFeedback.Explosion(runtime,
                 transform.position + Vector3.up, 4f,
                 PrototypeCombatSound.TankExplosion);
@@ -260,22 +260,22 @@ namespace Ironfront.UnityPrototype
                     return;
                 }
                 if (Cursor.lockState != CursorLockMode.Locked) return;
-                if (playerSeat == 0)
-                    Drive(Input.GetAxisRaw("Vertical"),
-                        Input.GetAxisRaw("Horizontal"), dt);
-                else
-                {
-                    Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
-                    if (occupant.ViewCamera != null)
-                    {
-                        AimGunAt(PrototypeVehicleAim.CameraTarget(
-                            occupant.ViewCamera, transform, GunRange), dt);
-                        if (Input.GetMouseButton(0)) FirePlayerGun();
-                    }
-                }
+                ApplyPlayerInput(Input.GetAxisRaw("Vertical"),
+                    Input.GetAxisRaw("Horizontal"), Input.GetMouseButton(0), dt);
             }
             else if (aiControlled || PassengerCount > 0) UpdateAi(dt);
             else Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
+        }
+
+        private void ApplyPlayerInput(float throttle, float steering, bool fire, float dt)
+        {
+            if (SeatCanDrive) Drive(throttle, steering, dt);
+            else Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
+            if (!SeatCanFire) return;
+            if (occupant.ViewCamera != null)
+                AimGunAt(PrototypeVehicleAim.CameraTarget(
+                    occupant.ViewCamera, transform, GunRange), dt);
+            if (fire) FirePlayerGun();
         }
 
         private void Drive(float throttle, float steering, float dt)
@@ -293,7 +293,9 @@ namespace Ironfront.UnityPrototype
             Vector2 start = MapPosition;
             Vector3 delta = transform.forward * (Speed * dt);
             Vector2 end = start + new Vector2(delta.x, delta.z);
-            if (!ClearSegment(start, end)) { Speed = 0f; return; }
+            if (!ClearSegment(start, end) ||
+                PrototypeVehicleSpace.BlockedByAnother(runtime, this, end, Clearance))
+            { Speed = 0f; return; }
             transform.position = GroundPosition(end);
         }
 
@@ -306,7 +308,8 @@ namespace Ironfront.UnityPrototype
 
         private void FirePlayerGun()
         {
-            if (Time.time < nextShot || Gunner == null || Gunner.ViewCamera == null) return;
+            if (Time.time < nextShot || !SeatCanFire || Gunner == null ||
+                Gunner.ViewCamera == null) return;
             nextShot = Time.time + GunInterval;
             Vector3 muzzle = gunMuzzle.position;
             PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,

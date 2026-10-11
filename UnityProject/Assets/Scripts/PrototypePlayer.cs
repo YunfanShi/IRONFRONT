@@ -26,6 +26,7 @@ namespace Ironfront.UnityPrototype
         private PrototypeRuntime runtime;
         private float pitch;
         private float vehicleLookYaw;
+        private float vehicleWorldLookYaw;
         private float verticalSpeed;
         private float respawnAt;
         private float downedUntil;
@@ -55,6 +56,8 @@ namespace Ironfront.UnityPrototype
         private float lastShotAt = -10f;
         private bool infantryThirdPerson = true;
         private bool vehicleFirstPerson = true;
+        private bool parachuting;
+        public bool IsParachuting => parachuting;
 
         public bool Alive => Health > 0f;
         public PrototypeTeam Team { get; private set; } = PrototypeTeam.Blue;
@@ -87,6 +90,10 @@ namespace Ironfront.UnityPrototype
         public bool IsFirstPerson => !IsDowned && (CurrentVehicle != null ?
             vehicleFirstPerson : !infantryThirdPerson);
         public IPrototypeVehicle CurrentVehicle { get; private set; }
+        public string CurrentSeatName => CurrentVehicle is IPrototypeSeatedVehicle seated ?
+            seated.GetSeatName(seated.PlayerSeat) : "DRIVER";
+        public string VehicleSeatStatus { get; private set; } = "";
+        private float vehicleSeatStatusUntil;
         public float RespawnRemaining => Alive ? 0f : Mathf.Max(0f, respawnAt - Time.time);
         public bool IsDowned => !Alive && downedUntil > Time.time;
         public float DownedRemaining => IsDowned ? downedUntil - Time.time : 0f;
@@ -149,9 +156,13 @@ namespace Ironfront.UnityPrototype
         private void ApplyPerspectiveVisibility()
         {
             bool onFoot = CurrentVehicle == null;
-            bool showBody = onFoot && (IsDowned || Alive && infantryThirdPerson);
+            bool motorcycleThirdPerson = Alive && !vehicleFirstPerson &&
+                CurrentVehicle is PrototypeCombinedArmsVehicle motorcycle &&
+                motorcycle.Kind == PrototypeVehicleKind.Motorcycle;
+            bool showBody = onFoot && (IsDowned || Alive && infantryThirdPerson) ||
+                motorcycleThirdPerson;
             if (soldierVisual != null) soldierVisual.SetVisible(showBody);
-            if (rifle != null) rifle.SetActive(showBody && Alive);
+            if (rifle != null) rifle.SetActive(onFoot && showBody && Alive);
             if (firstPersonWeapon != null)
                 firstPersonWeapon.SetActive(onFoot && Alive && !infantryThirdPerson);
         }
@@ -162,6 +173,7 @@ namespace Ironfront.UnityPrototype
             if (CurrentVehicle != null)
             {
                 vehicleFirstPerson = !vehicleFirstPerson;
+                ApplyPerspectiveVisibility();
                 UpdateVehicleCamera();
             }
             else
@@ -289,14 +301,13 @@ namespace Ironfront.UnityPrototype
                 aiming = false;
                 sprinting = false;
                 if (Input.GetKeyDown(KeyCode.E)) { ForceExitVehicle(); return; }
-                if (CurrentVehicle is PrototypeTransportVehicle transport)
-                {
-                    if (Input.GetKeyDown(KeyCode.F1)) transport.TrySetPlayerSeat(this, 0);
-                    if (Input.GetKeyDown(KeyCode.F2)) transport.TrySetPlayerSeat(this, 1);
-                }
-                vehicleLookYaw = Mathf.Clamp(vehicleLookYaw +
-                    Input.GetAxis("Mouse X") * runtime.MouseSensitivity, -135f, 135f);
-                pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * runtime.MouseSensitivity, -35f, 55f);
+                if (Time.time > vehicleSeatStatusUntil) VehicleSeatStatus = "";
+                if (Input.GetKeyDown(KeyCode.F1)) TrySwitchVehicleSeat(0);
+                if (Input.GetKeyDown(KeyCode.F2)) TrySwitchVehicleSeat(1);
+                if (Input.GetKeyDown(KeyCode.F3)) TrySwitchVehicleSeat(2);
+                if (Input.GetKeyDown(KeyCode.F4)) TrySwitchVehicleSeat(3);
+                ApplyVehicleLook(Input.GetAxis("Mouse X") * runtime.MouseSensitivity,
+                    -Input.GetAxis("Mouse Y") * runtime.MouseSensitivity);
                 UpdateVehicleCamera();
                 return;
             }
@@ -349,7 +360,7 @@ namespace Ironfront.UnityPrototype
             if (!runtime.IsNetworkReplica && controller.isGrounded &&
                 !prone && !crouched && !IsSliding &&
                 Input.GetKeyDown(KeyCode.Space)) verticalSpeed = 6.2f;
-            verticalSpeed -= 22f * Time.deltaTime;
+            StepInfantryGravity(Time.deltaTime);
             controller.Move((horizontal + Vector3.up * verticalSpeed) * Time.deltaTime);
 
             if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.E)) TryEnterVehicle();
@@ -372,6 +383,15 @@ namespace Ironfront.UnityPrototype
             if (CurrentVehicle != null) UpdateVehicleCamera();
             else if (runtime != null && runtime.MatchStarted && Alive)
                 UpdateInfantryPresentation();
+        }
+
+        private void StepInfantryGravity(float dt)
+        {
+            if (parachuting && controller.isGrounded && transform.position.y <
+                PrototypeLayout.HeightAt(transform.position.x, transform.position.z) + 1f)
+                parachuting = false;
+            verticalSpeed -= 22f * dt;
+            if (parachuting) verticalSpeed = Mathf.Max(verticalSpeed, -5f);
         }
 
         private bool CanStand()
@@ -471,6 +491,10 @@ namespace Ironfront.UnityPrototype
             {
                 if (candidate == null || !candidate.Alive || candidate.Team != Team ||
                     candidate.Occupant != null) continue;
+                // Infantry interaction is measured on the map for ground hulls.
+                // An aircraft overhead must not turn E into an airborne teleport.
+                if (candidate is IPrototypeAircraftVehicle aircraft && aircraft.IsAircraft &&
+                    aircraft.Altitude > 3f) continue;
                 float distance = Vector2.Distance(MapPosition, candidate.MapPosition);
                 if (distance >= nearest ||
                     PrototypeLayout.LineBlocked(MapPosition, candidate.MapPosition, 0.1f)) continue;
@@ -481,16 +505,47 @@ namespace Ironfront.UnityPrototype
             EnterVehicle(closest);
         }
 
-        private bool EnterVehicle(IPrototypeVehicle closest)
+        public bool TrySwitchVehicleSeat(int seat)
         {
-            if (!closest.TrySetDriver(this)) return false;
+            if (!(CurrentVehicle is IPrototypeSeatedVehicle seated)) return false;
+            int previousSeat = seated.PlayerSeat;
+            bool accepted = seated.TrySetPlayerSeat(this, seat);
+            VehicleSeatStatus = accepted ? "F" + (seat + 1) + " " + seated.GetSeatName(seat) :
+                seat < 0 || seat >= seated.SeatCount ? "SEAT UNAVAILABLE" : "SEAT OCCUPIED";
+            vehicleSeatStatusUntil = Time.time + 2.5f;
+            if (accepted)
+            {
+                if (previousSeat != seat)
+                {
+                    pitch = 0f;
+                    vehicleLookYaw = 0f;
+                    vehicleWorldLookYaw = CurrentVehicle.VehicleTransform.eulerAngles.y;
+                }
+                UpdateVehicleCamera();
+                if (soldierVisual != null) soldierVisual.RefreshPose(true);
+            }
+            return accepted;
+        }
+
+        private bool EnterVehicle(IPrototypeVehicle closest) => EnterVehicleSeat(closest, 0);
+
+        private bool EnterVehicleSeat(IPrototypeVehicle closest, int seat)
+        {
+            if (closest is IPrototypeSeatedVehicle seated)
+            {
+                if (!seated.TrySetPlayerSeat(this, seat)) return false;
+            }
+            else if (seat != 0 || !closest.TrySetDriver(this)) return false;
             CurrentVehicle = closest;
+            parachuting = false;
+            VehicleSeatStatus = "";
             controller.enabled = false;
             transform.position = closest.SeatPosition;
             transform.rotation = closest.VehicleTransform.rotation;
             verticalSpeed = 0f;
             pitch = 0f;
             vehicleLookYaw = 0f;
+            vehicleWorldLookYaw = closest.VehicleTransform.eulerAngles.y;
             ApplyPerspectiveVisibility();
             aiming = false;
             sprinting = false;
@@ -499,13 +554,38 @@ namespace Ironfront.UnityPrototype
             return true;
         }
 
+        private bool UsesWorldVehicleHeading => CurrentVehicle is IPrototypeAircraftVehicle aircraft &&
+            aircraft.IsAircraft && CurrentVehicle is IPrototypeSeatedVehicle seated && seated.PlayerSeat == 0;
+
+        // Mouse look and pilot steering share a stable world heading. Updating
+        // the hull must not move its own camera target farther away each frame.
+        private void ApplyVehicleLook(float yawDelta, float pitchDelta)
+        {
+            if (UsesWorldVehicleHeading)
+                vehicleWorldLookYaw = Mathf.Repeat(vehicleWorldLookYaw + yawDelta, 360f);
+            else vehicleLookYaw = Mathf.Clamp(vehicleLookYaw + yawDelta, -135f, 135f);
+            float minimumPitch = -35f;
+            float maximumPitch = 55f;
+            if (CurrentVehicle is PrototypeCombinedArmsVehicle combined)
+            {
+                if (combined.Kind == PrototypeVehicleKind.AntiAir && combined.PlayerSeat == 0)
+                { minimumPitch = -77f; maximumPitch = 7f; }
+                else if (combined.Kind == PrototypeVehicleKind.AntiAir && combined.PlayerSeat == 1)
+                { minimumPitch = -32f; maximumPitch = 11f; }
+                else if (combined.Kind == PrototypeVehicleKind.Jet && combined.PlayerSeat == 0)
+                { minimumPitch = -49f; maximumPitch = 49f; }
+            }
+            pitch = Mathf.Clamp(pitch + pitchDelta, minimumPitch, maximumPitch);
+        }
+
         private void UpdateVehicleCamera()
         {
             if (CurrentVehicle == null) return;
             transform.position = CurrentVehicle.SeatPosition;
             transform.rotation = CurrentVehicle.VehicleTransform.rotation;
-            Quaternion look = Quaternion.Euler(pitch,
-                CurrentVehicle.VehicleTransform.eulerAngles.y + vehicleLookYaw, 0f);
+            float heading = UsesWorldVehicleHeading ? vehicleWorldLookYaw :
+                CurrentVehicle.VehicleTransform.eulerAngles.y + vehicleLookYaw;
+            Quaternion look = Quaternion.Euler(pitch, heading, 0f);
             viewCamera.transform.rotation = look;
             viewCamera.fieldOfView = CurrentVehicle is PrototypeTankVehicle ?
                 (vehicleFirstPerson ? 56f : 72f) :
@@ -516,8 +596,11 @@ namespace Ironfront.UnityPrototype
                 return;
             }
             Vector3 focus = CurrentVehicle.SeatPosition + Vector3.up * 1.65f;
-            Vector3 desired = focus + Vector3.up * 1.15f -
-                look * Vector3.forward * 5.4f;
+            bool aircraft = CurrentVehicle is IPrototypeAircraftVehicle air && air.IsAircraft;
+            float chaseDistance = aircraft ? 14f : 5.4f;
+            float chaseHeight = aircraft ? 4.5f : 1.15f;
+            Vector3 desired = focus + Vector3.up * chaseHeight -
+                look * Vector3.forward * chaseDistance;
             Vector3 travel = desired - focus;
             float nearest = travel.magnitude;
             Physics.SyncTransforms();
@@ -536,9 +619,13 @@ namespace Ironfront.UnityPrototype
         {
             IPrototypeVehicle vehicle = CurrentVehicle;
             if (vehicle == null) return;
+            bool airborneExit = Alive && vehicle is IPrototypeAircraftVehicle aircraft &&
+                aircraft.IsAircraft && aircraft.Altitude > 2f;
             Vector3 exit = FindSafeExit(vehicle);
             vehicle.RemoveDriver(this);
             CurrentVehicle = null;
+            parachuting = airborneExit;
+            VehicleSeatStatus = "";
             controller.enabled = false;
             transform.position = exit;
             transform.rotation = Quaternion.Euler(0f, vehicle.VehicleTransform.eulerAngles.y, 0f);
@@ -557,12 +644,31 @@ namespace Ironfront.UnityPrototype
             controller.center = new Vector3(0f, .9f, 0f);
             controller.enabled = true;
             PositionInfantryCamera(1f);
+            if (soldierVisual != null) soldierVisual.RefreshPose(true);
         }
 
         private Vector3 FindSafeExit(IPrototypeVehicle vehicle)
         {
             Physics.SyncTransforms();
             Vector3 proposed = vehicle.ExitPosition;
+            if (vehicle is IPrototypeAircraftVehicle aircraft && aircraft.IsAircraft &&
+                aircraft.Altitude > 2f)
+            {
+                // Preserve the aircraft's height. Search outward above terrain;
+                // the automatic parachute handles descent after the seat release.
+                foreach (float radius in new[] { 6f, 9f, 13f })
+                    foreach (Vector3 direction in new[] { vehicle.VehicleTransform.right,
+                        -vehicle.VehicleTransform.right, -vehicle.VehicleTransform.forward })
+                    {
+                        Vector3 point = vehicle.VehicleTransform.position + direction * radius;
+                        point.y = Mathf.Max(vehicle.VehicleTransform.position.y,
+                            PrototypeLayout.HeightAt(point.x, point.z) + 3f);
+                        if (!Physics.CheckCapsule(point + Vector3.up * .34f,
+                            point + Vector3.up * 1.46f, .34f, ~(1 << 2),
+                            QueryTriggerInteraction.Ignore)) return point;
+                    }
+                return proposed;
+            }
             if (ExitIsClear(proposed)) return proposed;
             Vector3 forward = vehicle.VehicleTransform.forward;
             Vector3 right = vehicle.VehicleTransform.right;
@@ -971,7 +1077,13 @@ namespace Ironfront.UnityPrototype
             ApplyLoadout(selection);
             if (locationId == "BEACON") ConsumeBeacon();
             Respawn(point);
-            if (vehicle != null) EnterVehicle(vehicle);
+            if (vehicle != null)
+            {
+                int seat = 0;
+                string[] parts = locationId.Split('-');
+                if (parts.Length == 3 && !int.TryParse(parts[2], out seat)) return false;
+                if (!EnterVehicleSeat(vehicle, seat)) return false;
+            }
             return true;
         }
 
@@ -984,6 +1096,7 @@ namespace Ironfront.UnityPrototype
         private void Respawn(Vector2 point)
         {
             ForceExitVehicle();
+            parachuting = false;
             if (controller != null) controller.enabled = false;
             transform.position = new Vector3(point.x,
                 PrototypeLayout.HeightAt(point.x, point.y) + 0.3f, point.y);

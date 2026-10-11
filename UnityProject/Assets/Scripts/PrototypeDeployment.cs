@@ -81,13 +81,24 @@ namespace Ironfront.UnityPrototype
                     if (vehicle.Team != team) continue;
                     bool threatened = vehicle.Alive &&
                         ThreatNear(game, team, vehicle.MapPosition);
-                    bool available = vehicle.Alive && vehicle.Occupant == null &&
-                        !vehicle.IsActiveThreat && !threatened;
-                    locations.Add(new Location("VEHICLE-" + i,
-                        vehicle.VehicleName + " · 驾驶位", vehicle.MapPosition,
-                        available, threatened, !vehicle.Alive ? "载具已被击毁" :
-                        threatened ? "载具正在交战" :
-                        available ? "安全座位" : "驾驶位已占用", "vehicle"));
+                    bool airborne = vehicle is PrototypeCombinedArmsVehicle aircraft &&
+                        aircraft.Altitude >= 3f;
+                    int seatCount = vehicle is IPrototypeSeatedVehicle seated ?
+                        seated.SeatCount : 1;
+                    for (int seat = 0; seat < seatCount; seat++)
+                    {
+                        bool occupied = vehicle is IPrototypeSeatedVehicle seats ?
+                            seats.GetSeatOccupant(seat) != null : vehicle.Occupant != null;
+                        bool available = vehicle.Alive && !occupied &&
+                            !vehicle.IsActiveThreat && !threatened && !airborne;
+                        string seatName = vehicle is IPrototypeSeatedVehicle named ?
+                            named.GetSeatName(seat) : "DRIVER";
+                        locations.Add(new Location("VEHICLE-" + i + "-" + seat,
+                            vehicle.VehicleName + " · " + seatName, vehicle.MapPosition,
+                            available, threatened, !vehicle.Alive ? "载具已被击毁" :
+                            airborne ? "载具仍在空中" : threatened || vehicle.IsActiveThreat ?
+                            "载具正在交战" : occupied ? "座位已占用" : "安全座位", "vehicle"));
+                    }
                 }
             return locations;
         }
@@ -100,6 +111,9 @@ namespace Ironfront.UnityPrototype
         {
             position = Vector2.zero;
             vehicle = null;
+            // Historical callers used VEHICLE-{id} for the driver seat.
+            if (id != null && id.StartsWith("VEHICLE-") && id.Split('-').Length == 2)
+                id += "-0";
             Location? selected = null;
             foreach (Location location in GetLocations(game, team, includeVehicles))
                 if (location.Id == id) { selected = location; break; }
@@ -108,11 +122,16 @@ namespace Ironfront.UnityPrototype
             Location choice = selected.Value;
             if (choice.Kind == "vehicle")
             {
-                if (!int.TryParse(id.Substring("VEHICLE-".Length), out int index) ||
+                string[] parts = id.Split('-');
+                if (parts.Length != 3 || !int.TryParse(parts[1], out int index) ||
+                    !int.TryParse(parts[2], out int seat) ||
                     index < 0 || index >= game.Vehicles.Count) return false;
                 vehicle = game.Vehicles[index];
                 position = choice.Center;
-                return vehicle.Alive && vehicle.Occupant == null && vehicle.Team == team;
+                bool empty = vehicle is IPrototypeSeatedVehicle seats ?
+                    seat >= 0 && seat < seats.SeatCount && seats.GetSeatOccupant(seat) == null :
+                    seat == 0 && vehicle.Occupant == null;
+                return vehicle.Alive && empty && vehicle.Team == team;
             }
             int attempts = choice.Kind == "base" ? 25 : 72;
             for (int i = 0; i < attempts; i++)
@@ -137,8 +156,11 @@ namespace Ironfront.UnityPrototype
         private static bool Occupied(PrototypeRuntime game, Vector2 position)
         {
             foreach (IPrototypeVehicle vehicle in game.Vehicles)
-                if (vehicle.Alive && Vector2.Distance(vehicle.MapPosition, position) <
-                    (vehicle is PrototypeTankVehicle ? 3.5f : 2.1f) + 1f)
+                if (vehicle.Alive &&
+                    !(vehicle is IPrototypeAircraftVehicle aircraft && aircraft.IsAircraft &&
+                        aircraft.Altitude > 3f) && Vector2.Distance(vehicle.MapPosition, position) <
+                    (vehicle is PrototypeCombinedArmsVehicle combined ? combined.Clearance :
+                    vehicle is PrototypeTankVehicle ? 3.5f : 2.1f) + 1f)
                     return true;
             foreach (PrototypeBot bot in game.Bots)
                 if (bot.Alive && !bot.IsPassenger &&

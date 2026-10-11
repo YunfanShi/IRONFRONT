@@ -1,6 +1,6 @@
 # 0.38.0 Unity 还原对照与单人攻防首轮
 
-本表持续更新；0.39.0 单人闭环首轮见 [UNITY_SOLO_MATCH_FLOW_039.md](UNITY_SOLO_MATCH_FLOW_039.md)，0.39.1 的独立程序整局与部署复核见 [UNITY_SOLO_MATCH_FLOW_0391.md](UNITY_SOLO_MATCH_FLOW_0391.md)。2026-10-11 的玩家验收决定见 [UNITY_SOLO_ACCEPTANCE_0394.md](UNITY_SOLO_ACCEPTANCE_0394.md)，8v8 首轮见 [UNITY_8V8_040.md](UNITY_8V8_040.md)，步兵视野改进见 [UNITY_AI_VISION_041.md](UNITY_AI_VISION_041.md)，倒地视角和医疗兵救援见 [UNITY_DOWNED_REVIVE_042.md](UNITY_DOWNED_REVIVE_042.md)，装备模型和战斗反馈见 [UNITY_EQUIPMENT_FEEDBACK_043.md](UNITY_EQUIPMENT_FEEDBACK_043.md)，初版固定视角见 [UNITY_PERSPECTIVE_044.md](UNITY_PERSPECTIVE_044.md)，双向切换见 [UNITY_PERSPECTIVE_TOGGLE_045.md](UNITY_PERSPECTIVE_TOGGLE_045.md)。
+本表持续更新；0.39.0 单人闭环首轮见 [UNITY_SOLO_MATCH_FLOW_039.md](UNITY_SOLO_MATCH_FLOW_039.md)，0.39.1 的独立程序整局与部署复核见 [UNITY_SOLO_MATCH_FLOW_0391.md](UNITY_SOLO_MATCH_FLOW_0391.md)。2026-10-11 的玩家验收决定见 [UNITY_SOLO_ACCEPTANCE_0394.md](UNITY_SOLO_ACCEPTANCE_0394.md)，8v8 首轮见 [UNITY_8V8_040.md](UNITY_8V8_040.md)，步兵视野改进见 [UNITY_AI_VISION_041.md](UNITY_AI_VISION_041.md)，倒地视角和医疗兵救援见 [UNITY_DOWNED_REVIVE_042.md](UNITY_DOWNED_REVIVE_042.md)，装备模型和战斗反馈见 [UNITY_EQUIPMENT_FEEDBACK_043.md](UNITY_EQUIPMENT_FEEDBACK_043.md)，初版固定视角见 [UNITY_PERSPECTIVE_044.md](UNITY_PERSPECTIVE_044.md)，双向切换见 [UNITY_PERSPECTIVE_TOGGLE_045.md](UNITY_PERSPECTIVE_TOGGLE_045.md)，三种姿态、八类载具和本地席位见 [UNITY_HANDOFF_046.md](UNITY_HANDOFF_046.md)。
 
 ## 完成标准
 
@@ -16,13 +16,13 @@
 | S2 攻防 | `Battle.ts`：红方初始持有 A–E，蓝方逐点推进，夺点补 40 票，红方无限票 | 0.39.1 独立程序记录 AI 自主依次夺下 A–E 后蓝方自然胜利，编辑器规则检查覆盖蓝方票尽判红方胜利；2026-10-11 玩家反馈已试玩失败、结算与复活，并同意把剩余单人实机验收按成功计算 | 通过（单人流程） | 后续新增人数规模时复测 A→E 推进、自然失败与结算 |
 | S3 战局规模 | `src/ui/UI.ts` 提供 8/16/32/64 人每方配置，默认 32 | 0.40.0 单人菜单仅开放 8v8，进入征服或攻防时增补为蓝方 1 玩家 + 7 AI、红方 8 AI；HUD 显示实际存活数与双方各四支小队。编辑器征服自然结算、攻防推进至 D、部署自动回归及 macOS 独立程序开局已验证。16/32/64 尚未开放，8v8 攻防整局与性能验收待完成 | 局部 | 8v8 攻防完整战局的 FPS、内存、AI 行为与独立程序手工复活/结算回归；其后按性能证据实现或限制更大规模 |
 | S4 兵种装备 | `src/combat/Weapons.ts`、`src/core/Battle.ts`：四兵种及其战斗/支援动作 | 四兵种、配装、步兵操作已在单人切片中接入；0.42.0 倒地观察和 4 秒医疗兵救援已接入。0.43.0 给七种枪、四种兵种装备、两种投掷物和火箭增加模型及分类声音特效，破片弹有 5.5 米伤害半径。完整装备动作与网页原版数值仍需逐项核对 | 局部 | 实机逐一验证各兵种主副武器、投掷物、职业能力、弹药状态与音效距离；核对网页原版数值 |
-| S5 载具 | `src/vehicles/Vehicle.ts` 定义侦察、步战、坦克、运输、防空、直升机、喷气机、摩托车八类 | `PrototypeRuntime` 只生成 R4、T90、U8；后三类已有部分本地驾驶和武器 | 局部 | 八类逐车验收上/下车、驾驶/飞行、席位、AI 使用、开火、命中、损毁/复活 |
+| S5 载具 | `src/vehicles/Vehicle.ts` 定义侦察、步战、坦克、运输、防空、直升机、喷气机、摩托车八类 | 0.46.0 双方各生成八类载具；V12/A40/H8/J20/M2 加入驾驶、飞行、武器、修复、损毁与复活，八类共有 50 个本地席位及独立席位部署。新增载具的 AI 支持路径可启用，默认 8v8 未自动配发五套额外 AI 车组；完整战局协同与平衡仍待验 | 局部 | 八类逐车验收上/下车、驾驶/飞行、席位、AI 使用、开火、命中、损毁/复活 |
 | S6 小队 AI | `src/ai/Commander.ts`、`SquadLeader.ts`、`Intent.ts` 与常规/精锐选项 | Unity 有情报受限指挥官、1～2 人小队和局部掩体战术；0.41.0 步兵索敌新增身体朝向视野、转身瞄准、受击调查与守点观察。仍无原版可选人数与完整行为指标 | 局部 | 双方 AI 无玩家输入仍能完成两种模式；记录卡路、任务完成率、队形、视野行为与载具掩护 |
 | S7 地图与表现 | `src/world/Layout.ts`、渲染与音频模块形成工业地图和完整战斗反馈 | Unity 复用五点与建筑位置，仍有程序化低多边形、占位建筑与简化音画 | 局部 | 从各出生点到目标的可达性、不同视距画面、遮挡、音效与性能人工验收 |
 | S8 部署与结算 | `Battle.ts` 与网页 UI 有基地、据点、队友、载具部署和胜负流程 | 0.39.1 编辑器 Play 检查五次阵亡后的基地、己方据点、队友、信标、载具部署；独立程序显示自然胜负；2026-10-11 玩家反馈复活和结算可用，并同意把剩余鼠标操作验收按成功计算。各地点的逐项点击录像未留存 | 通过（单人流程） | 后续新增人数规模时回归鼠标选点、部署与结算返回 |
 | N1 房间权限 | 网页 LAN 有房主、准备、阵营、重连 | Unity 的独立 `unity-3` 房间协议已有服务端核验与局部协议回归 | 局部 | 两台电脑创建/加入/开局/掉线/重连实测 |
 | N2 战斗状态同步 | 网页支持更完整的职业、载具与战场同步 | Unity 快照未完整传输炮塔、炮管、姿态、开镜、配装、弹道；访客不可驾驶车辆 | 缺失 | 房主与访客同屏对照命中、装备、席位、状态和胜负，弱网下无严重抖动 |
-| N3 多人载具 | 网页有多席位乘员与战斗操作 | Unity U8 后排仅 AI，访客无车辆席位 | 缺失 | 两名真实玩家同车换位、开火、下车、毁车与重连权限验收 |
+| N3 多人载具 | 网页有多席位乘员与战斗操作 | 0.46.0 八类载具支持本机玩家 F1–F4 换座与 U8 AI 占座；Unity LAN 访客仍无真实车辆席位 | 缺失 | 两名真实玩家同车换位、开火、下车、毁车与重连权限验收 |
 
 ## 本轮改动与验证
 
