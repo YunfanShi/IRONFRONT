@@ -169,7 +169,13 @@ namespace Ironfront.UnityPrototype
             PrototypePlayer player = hit.GetComponentInParent<PrototypePlayer>();
             if (player != null && player.Team != team) { player.TakeDamage(damage); return; }
             PrototypeBot bot = hit.GetComponentInParent<PrototypeBot>();
-            if (bot != null && bot.Team != team) { bot.TakeDamage(damage); return; }
+            if (bot != null && bot.Team != team)
+            {
+                Vector2? source = owner != null ?
+                    new Vector2(owner.position.x, owner.position.z) : (Vector2?)null;
+                bot.TakeDamage(damage, source);
+                return;
+            }
             PrototypeRemotePlayer remote = hit.GetComponentInParent<PrototypeRemotePlayer>();
             if (remote != null && remote.Team != team) { remote.TakeDamage(damage); return; }
             IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit);
@@ -196,7 +202,7 @@ namespace Ironfront.UnityPrototype
                     player.TakeDamage(amount);
                 PrototypeBot bot = nearby.GetComponentInParent<PrototypeBot>();
                 if (bot != null && bot.Team != team && damaged.Add(bot))
-                    bot.TakeDamage(amount);
+                    bot.TakeDamage(amount, new Vector2(center.x, center.z));
                 PrototypeRemotePlayer remote = nearby.GetComponentInParent<PrototypeRemotePlayer>();
                 if (remote != null && remote.Team != team && damaged.Add(remote))
                     remote.TakeDamage(amount);

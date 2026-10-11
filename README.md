@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.40.0
+# PROJECT IRONFRONT 0.41.0
+
+## Unity 步兵 AI 视野
+
+0.41.0 为步兵 AI 增加随身体朝向变化的视野锥与开火瞄准角。敌人处在背后时必须先转身并进入无障碍视线，AI 才能发现和射击；守点时会转身观察，遭到攻击时会朝来袭方向调查。实现与验证见 [0.41.0 AI 视野记录](docs/UNITY_AI_VISION_041.md)。
 
 ## Unity 8v8 单人战局
 

@@ -7,6 +7,9 @@ namespace Ironfront.UnityPrototype
 
     public sealed class PrototypeBot : MonoBehaviour
     {
+        private const float SightHalfAngle = 70f;
+        private const float FireHalfAngle = 12f;
+        private const float CombatTurnRate = 210f;
         private PrototypeRuntime runtime;
         private PrototypeNavigation navigation;
         private PrototypeCommander commander;
@@ -27,6 +30,10 @@ namespace Ironfront.UnityPrototype
         private float nextCoverSearch;
         private float coverUntil;
         private Vector2 coverPoint;
+        private Vector2 lastThreatPosition;
+        private float investigateUntil;
+        private float nextScanAt;
+        private Quaternion scanFacing;
         private Collider bodyCollider;
         private PrototypeSoldierVisual visual;
         private PrototypeInfantryKit kit;
@@ -121,14 +128,21 @@ namespace Ironfront.UnityPrototype
             TrySupportNearby();
             if (TryRescueAlly()) return;
 
-            // A nearby transport is the squad's route to a distant objective.
-            // Keep this commitment ahead of target selection while approaching it.
-            if (TryBoardNearbyTransport()) return;
+            if (Time.time < investigateUntil)
+                TurnToward(lastThreatPosition, CombatTurnRate);
+            else if (TacticalState == PrototypeTacticalState.Hold ||
+                TacticalState == PrototypeTacticalState.InCover)
+                ScanSurroundings();
 
             Vector2 enemy = FindVisibleEnemy(out PrototypeBot bot,
                 out PrototypePlayer player, out IPrototypeVehicle vehicle,
                 out PrototypeRemotePlayer remote);
             bool inCombat = bot != null || player != null || vehicle != null || remote != null;
+            if (inCombat)
+            {
+                investigateUntil = 0f;
+                TurnToward(enemy, CombatTurnRate);
+            }
             if (inCombat && squad != null) squad.ReportContact(enemy, Time.time);
             if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
             {
@@ -136,7 +150,8 @@ namespace Ironfront.UnityPrototype
                 lastReportAt = Time.time;
             }
             float enemyDistance = inCombat ? Vector2.Distance(MapPosition, enemy) : float.PositiveInfinity;
-            if (inCombat && enemyDistance < kit.Weapon.MaxRange && Time.time >= nextShot &&
+            if (inCombat && IsAimedAtPosition(enemy) &&
+                enemyDistance < kit.Weapon.MaxRange && Time.time >= nextShot &&
                 kit.TryFire(Time.time))
             {
                 nextShot = Time.time + Mathf.Max(kit.Weapon.FireInterval,
@@ -201,6 +216,17 @@ namespace Ironfront.UnityPrototype
                 return;
             }
 
+            // A hit gives a direction to investigate, never an enemy target.
+            // The soldier still needs to turn, see an unobstructed target and aim.
+            if (!inCombat && Time.time < investigateUntil)
+            {
+                TacticalState = PrototypeTacticalState.Search;
+                return;
+            }
+
+            // Check the surroundings before committing to a nearby transport.
+            if (!inCombat && TryBoardNearbyTransport()) return;
+
             if (!inCombat && recentContact && memberIndex == 0 &&
                 Vector2.Distance(threat, objective) < 70f &&
                 Vector2.Distance(MapPosition, threat) < 55f)
@@ -223,8 +249,8 @@ namespace Ironfront.UnityPrototype
                 // Keep shooting while pressing the assigned objective.
                 if (squad != null && squad.Mission == PrototypeMission.Capture &&
                     Vector2.Distance(MapPosition, objective) > 20f)
-                    MoveToward(objective, true);
-                else if (enemyDistance > preferredRange) MoveToward(enemy, false);
+                    MoveToward(objective, true, enemy);
+                else if (enemyDistance > preferredRange) MoveToward(enemy, false, enemy);
                 else { lastProgressAt = Time.time; lastProgressPosition = MapPosition; }
                 return;
             }
@@ -297,7 +323,7 @@ namespace Ironfront.UnityPrototype
             {
                 Vector2 point = runtime.Player.MapPosition;
                 float distance = Vector2.Distance(position, point);
-                if (distance < bestDistance && !PrototypeLayout.LineBlocked(position, point, 0.1f))
+                if (distance < bestDistance && CanSeePosition(point))
                 {
                     bestDistance = distance;
                     selectedPosition = point;
@@ -309,8 +335,7 @@ namespace Ironfront.UnityPrototype
                 if (candidate == null || !candidate.Alive || candidate.Team == Team) continue;
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(position, point);
-                if (distance >= bestDistance ||
-                    PrototypeLayout.LineBlocked(position, point, 0.1f)) continue;
+                if (distance >= bestDistance || !CanSeePosition(point)) continue;
                 bestDistance = distance;
                 selectedPosition = point;
                 selectedBot = null;
@@ -324,7 +349,7 @@ namespace Ironfront.UnityPrototype
                     candidate.Team == Team) continue;
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(position, point);
-                if (distance >= bestDistance || PrototypeLayout.LineBlocked(position, point, 0.1f)) continue;
+                if (distance >= bestDistance || !CanSeePosition(point)) continue;
                 bestDistance = distance;
                 selectedPosition = point;
                 selectedBot = candidate;
@@ -337,8 +362,7 @@ namespace Ironfront.UnityPrototype
                 if (!candidate.Alive || candidate.Team == Team || !candidate.IsActiveThreat) continue;
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(position, point);
-                if (distance >= bestDistance ||
-                    PrototypeLayout.LineBlocked(position, point, 0.1f)) continue;
+                if (distance >= bestDistance || !CanSeePosition(point)) continue;
                 bestDistance = distance;
                 selectedPosition = point;
                 selectedBot = null;
@@ -347,6 +371,47 @@ namespace Ironfront.UnityPrototype
                 selectedRemote = null;
             }
             return selectedPosition;
+        }
+
+        // Horizontal body direction is the soldier's view. Distance and cover
+        // alone must not reveal an enemy standing behind them.
+        public bool CanSeePosition(Vector2 point)
+        {
+            if (Vector2.Distance(MapPosition, point) >= kit.DetectionRange ||
+                !IsFacing(point, SightHalfAngle)) return false;
+            return !PrototypeLayout.LineBlocked(MapPosition, point, 0.1f);
+        }
+
+        public bool IsAimedAtPosition(Vector2 point) => IsFacing(point, FireHalfAngle);
+
+        private bool IsFacing(Vector2 point, float halfAngle)
+        {
+            Vector2 direction = point - MapPosition;
+            if (direction.sqrMagnitude < 0.0001f) return true;
+            Vector3 forward = transform.forward;
+            return Vector2.Dot(new Vector2(forward.x, forward.z).normalized,
+                direction.normalized) >= Mathf.Cos(halfAngle * Mathf.Deg2Rad);
+        }
+
+        private void TurnToward(Vector2 point, float degreesPerSecond)
+        {
+            Vector2 direction = point - MapPosition;
+            if (direction.sqrMagnitude < 0.0001f) return;
+            Quaternion facing = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.y));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                facing, degreesPerSecond * Time.deltaTime);
+        }
+
+        private void ScanSurroundings()
+        {
+            if (Time.time >= nextScanAt)
+            {
+                nextScanAt = Time.time + Random.Range(1.5f, 2.4f);
+                float turn = Random.Range(80f, 150f) * (Random.value < 0.5f ? -1f : 1f);
+                scanFacing = Quaternion.Euler(0f, transform.eulerAngles.y + turn, 0f);
+            }
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                scanFacing, 95f * Time.deltaTime);
         }
 
         private bool TryBoardNearbyTransport()
@@ -490,7 +555,7 @@ namespace Ironfront.UnityPrototype
             if (Alive) Health = Mathf.Clamp(health, Health, 100f);
         }
 
-        private void MoveToward(Vector2 destination, bool onMission)
+        private void MoveToward(Vector2 destination, bool onMission, Vector2? lookAt = null)
         {
             if (Time.time >= repathAt || (route.Count > 0 &&
                 Vector2.Distance(route[route.Count - 1], destination) > 8f))
@@ -523,7 +588,9 @@ namespace Ironfront.UnityPrototype
                 lastProgressAt = Time.time;
             }
             else if (onMission && Time.time - lastProgressAt > 4f) ReportRouteFailure();
-            if (direction.sqrMagnitude > 0.0001f)
+            if (lookAt.HasValue)
+                TurnToward(lookAt.Value, CombatTurnRate);
+            else if (direction.sqrMagnitude > 0.0001f)
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,
                     Quaternion.LookRotation(direction), 280f * Time.deltaTime);
         }
@@ -535,11 +602,16 @@ namespace Ironfront.UnityPrototype
             commander.ReportRouteFailure(squad, Time.time);
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(float amount, Vector2? sourcePosition = null)
         {
             if (runtime == null || runtime.IsNetworkReplica || !Alive || IsPassenger) return;
             Health = Mathf.Max(0f, Health - kit.AbsorbDamage(amount));
             underFireUntil = Time.time + 4f;
+            if (sourcePosition.HasValue && Health > 0f)
+            {
+                lastThreatPosition = sourcePosition.Value;
+                investigateUntil = Time.time + 1.25f;
+            }
             if (Alive) return;
             runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 6f;
@@ -565,6 +637,8 @@ namespace Ironfront.UnityPrototype
             underFireUntil = 0f;
             nextCoverSearch = 0f;
             coverUntil = 0f;
+            investigateUntil = 0f;
+            nextScanAt = 0f;
             TacticalState = PrototypeTacticalState.Advance;
             if (visual != null) visual.SetVisible(true);
             if (bodyCollider != null) bodyCollider.enabled = true;

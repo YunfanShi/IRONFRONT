@@ -563,7 +563,8 @@ namespace Ironfront.UnityPrototype
                 PrototypeBot bot = hit.GetComponentInParent<PrototypeBot>();
                 if (bot != null && bot.Team != Team && struckBots.Add(bot))
                     bot.TakeDamage(95f * (1f - Mathf.Clamp01(
-                        Vector3.Distance(center, bot.transform.position) / 6f)));
+                        Vector3.Distance(center, bot.transform.position) / 6f)),
+                        new Vector2(center.x, center.z));
                 PrototypeRemotePlayer remote = hit.GetComponentInParent<PrototypeRemotePlayer>();
                 if (remote != null && remote.Team != Team && struckPlayers.Add(remote))
                     remote.TakeDamage(80f);
