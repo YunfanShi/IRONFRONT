@@ -37,6 +37,8 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeRoomMenu.cs",
             "PrototypeRemotePlayer.cs",
             "PrototypeSoldierVisual.cs",
+            "PrototypeEquipmentVisual.cs",
+            "PrototypeCombatFeedback.cs",
             "PrototypeTankVisual.cs",
             "PrototypeTankVehicle.cs",
             "PrototypeWorldVisual.cs"

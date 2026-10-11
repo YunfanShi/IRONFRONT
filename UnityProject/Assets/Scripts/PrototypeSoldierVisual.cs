@@ -89,6 +89,7 @@ namespace Ironfront.UnityPrototype
                 Part("Medical insignia", PrimitiveType.Cube, model.transform,
                     new Vector3(-.38f, 1.44f, .17f), new Vector3(.09f, .12f, .025f),
                     game.LampMaterial);
+            PrototypeEquipmentVisual.BuildClassGear(model.transform, role, game, team);
             lastPosition = transform.position;
         }
 
@@ -203,6 +204,12 @@ namespace Ironfront.UnityPrototype
             var root = new GameObject(weaponId + " weapon model");
             root.transform.SetParent(parent, false);
             bool pistol = weaponId == PrototypeWeaponId.Pistol;
+            if (pistol)
+            {
+                BuildPistol(root.transform, game);
+                if (firstPerson) AddHands(root.transform, game, team);
+                return root;
+            }
             bool compact = pistol || weaponId == PrototypeWeaponId.Smg;
             bool longRifle = weaponId == PrototypeWeaponId.Marksman ||
                 weaponId == PrototypeWeaponId.Sniper;
@@ -302,22 +309,103 @@ namespace Ironfront.UnityPrototype
                     root.transform, new Vector3(0f, .22f, .075f),
                     new Vector3(.012f, .012f, .012f), game.RedTrimMaterial);
             }
-            if (firstPerson)
+            if (weaponId == PrototypeWeaponId.Lmg)
+            {
+                PrototypeSoldierVisual.Part("Belt box", PrimitiveType.Cube, root.transform,
+                    new Vector3(.12f, -.22f, .08f), new Vector3(.29f, .28f, .31f),
+                    game.ArmorMaterial);
+                PrototypeSoldierVisual.Part("Carry handle", PrimitiveType.Cube, root.transform,
+                    new Vector3(0f, .27f, .05f), new Vector3(.035f, .22f, .27f), trim);
+                for (int side = -1; side <= 1; side += 2)
+                    PrototypeSoldierVisual.Part("Bipod", PrimitiveType.Cube,
+                        root.transform, new Vector3(side * .11f, -.17f, .65f),
+                        new Vector3(.025f, .34f, .035f), trim)
+                        .transform.localRotation = Quaternion.Euler(0f, 0f, side * 18f);
+            }
+            else if (weaponId == PrototypeWeaponId.Sniper)
+            {
+                PrototypeSoldierVisual.Part("Long floating barrel", PrimitiveType.Cylinder,
+                    root.transform, new Vector3(0f, .025f, 1.05f),
+                    new Vector3(.055f, .37f, .055f), steel)
+                    .transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+                PrototypeSoldierVisual.Part("Bolt handle", PrimitiveType.Cube,
+                    root.transform, new Vector3(.15f, .08f, -.11f),
+                    new Vector3(.20f, .035f, .045f), game.BlueTrimMaterial);
+                for (int side = -1; side <= 1; side += 2)
+                    PrototypeSoldierVisual.Part("Sniper bipod", PrimitiveType.Cube,
+                        root.transform, new Vector3(side * .09f, -.21f, .69f),
+                        new Vector3(.025f, .35f, .03f), trim)
+                        .transform.localRotation = Quaternion.Euler(0f, 0f, side * 17f);
+            }
+            else if (weaponId == PrototypeWeaponId.Smg)
+            {
+                PrototypeSoldierVisual.Part("Compact folding stock", PrimitiveType.Cube,
+                    root.transform, new Vector3(0f, .02f, -.40f),
+                    new Vector3(.045f, .05f, .30f), trim);
+                PrototypeSoldierVisual.Part("Muzzle shroud", PrimitiveType.Cylinder,
+                    root.transform, new Vector3(0f, .025f, .73f),
+                    new Vector3(.075f, .12f, .075f), steel)
+                    .transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            }
+            else if (weaponId == PrototypeWeaponId.BattleRifle)
             {
                 for (int side = -1; side <= 1; side += 2)
-                {
-                    float z = side < 0 ? .31f : -.17f;
-                    PrototypeSoldierVisual.Part("Gloved hand", PrimitiveType.Cube,
-                        root.transform, new Vector3(side * .15f, -.18f, z),
-                        new Vector3(.17f, .14f, .21f), game.BootMaterial);
-                    PrototypeSoldierVisual.Part("Sleeve", PrimitiveType.Cylinder,
-                        root.transform, new Vector3(side * .24f, -.30f, z - .15f),
-                        new Vector3(.11f, .31f, .11f), team == PrototypeTeam.Blue ?
-                        game.BlueClothMaterial : game.RedClothMaterial)
-                        .transform.localRotation = Quaternion.Euler(75f, 0f, side * 12f);
-                }
+                    PrototypeSoldierVisual.Part("Reinforced side rail", PrimitiveType.Cube,
+                        root.transform, new Vector3(side * .115f, .075f, .34f),
+                        new Vector3(.023f, .055f, .43f), game.BlueTrimMaterial);
+                PrototypeSoldierVisual.Part("Heavy muzzle brake", PrimitiveType.Cylinder,
+                    root.transform, new Vector3(0f, .025f, 1.04f),
+                    new Vector3(.085f, .09f, .085f), trim)
+                    .transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
             }
+            if (firstPerson)
+                AddHands(root.transform, game, team);
             return root;
+        }
+
+        private static void BuildPistol(Transform root, PrototypeRuntime game)
+        {
+            PrototypeSoldierVisual.Part("Pistol slide", PrimitiveType.Cube, root,
+                new Vector3(0f, .04f, .13f), new Vector3(.14f, .13f, .43f),
+                game.GunMaterial);
+            PrototypeSoldierVisual.Part("Slide serrations", PrimitiveType.Cube, root,
+                new Vector3(.076f, .065f, -.02f), new Vector3(.009f, .07f, .16f),
+                game.ArmorMaterial);
+            PrototypeSoldierVisual.Part("Pistol frame", PrimitiveType.Cube, root,
+                new Vector3(0f, -.045f, .08f), new Vector3(.13f, .09f, .32f),
+                game.ArmorMaterial);
+            PrototypeSoldierVisual.Part("Pistol barrel", PrimitiveType.Cylinder, root,
+                new Vector3(0f, .02f, .37f), new Vector3(.038f, .06f, .038f),
+                game.BootMaterial).transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            PrototypeSoldierVisual.Part("Magazine", PrimitiveType.Cube, root,
+                new Vector3(0f, -.19f, -.045f), new Vector3(.11f, .28f, .13f),
+                game.BootMaterial).transform.localRotation = Quaternion.Euler(16f, 0f, 0f);
+            PrototypeSoldierVisual.Part("Trigger guard", PrimitiveType.Cube, root,
+                new Vector3(0f, -.12f, .14f), new Vector3(.02f, .025f, .14f),
+                game.GunMaterial);
+            PrototypeSoldierVisual.Part("Front sight", PrimitiveType.Cube, root,
+                new Vector3(0f, .13f, .34f), new Vector3(.04f, .04f, .025f),
+                game.BlueTrimMaterial);
+            PrototypeSoldierVisual.Part("Rear sight", PrimitiveType.Cube, root,
+                new Vector3(0f, .13f, -.05f), new Vector3(.09f, .035f, .025f),
+                game.BlueTrimMaterial);
+        }
+
+        private static void AddHands(Transform root, PrototypeRuntime game,
+            PrototypeTeam team)
+        {
+            for (int side = -1; side <= 1; side += 2)
+            {
+                float z = side < 0 ? .31f : -.17f;
+                PrototypeSoldierVisual.Part("Gloved hand", PrimitiveType.Cube,
+                    root, new Vector3(side * .15f, -.18f, z),
+                    new Vector3(.17f, .14f, .21f), game.BootMaterial);
+                PrototypeSoldierVisual.Part("Sleeve", PrimitiveType.Cylinder,
+                    root, new Vector3(side * .24f, -.30f, z - .15f),
+                    new Vector3(.11f, .31f, .11f), team == PrototypeTeam.Blue ?
+                    game.BlueClothMaterial : game.RedClothMaterial)
+                    .transform.localRotation = Quaternion.Euler(75f, 0f, side * 12f);
+            }
         }
     }
 }

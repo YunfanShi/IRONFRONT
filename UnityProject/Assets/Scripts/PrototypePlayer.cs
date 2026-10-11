@@ -16,8 +16,6 @@ namespace Ironfront.UnityPrototype
         private const float ReviveDuration = 4f;
         private CharacterController controller;
         private Camera viewCamera;
-        private AudioSource audioSource;
-        private AudioClip shotSound;
         private GameObject rifle;
         private Transform magazineVisual;
         private Vector3 magazineHome;
@@ -110,8 +108,6 @@ namespace Ironfront.UnityPrototype
             viewCamera.farClipPlane = 950f;
             viewCamera.backgroundColor = new Color(0.55f, 0.69f, 0.76f);
             cameraObject.AddComponent<AudioListener>();
-            audioSource = gameObject.AddComponent<AudioSource>();
-            shotSound = Resources.Load<AudioClip>("Audio/carbine");
 
             BuildWeaponVisual();
             Respawn();
@@ -478,7 +474,6 @@ namespace Ironfront.UnityPrototype
             bool aimedShot = IsAiming;
             if (!weaponKit.TryFire(Time.time)) return;
             lastShotAt = Time.time;
-            if (shotSound != null) audioSource.PlayOneShot(shotSound, 0.3f);
             Vector3 origin = viewCamera.transform.position;
             float spread = aimedShot ? weaponKit.Weapon.AdsSpread : weaponKit.Weapon.HipSpread;
             Vector3 direction = (viewCamera.transform.forward +
@@ -493,16 +488,19 @@ namespace Ironfront.UnityPrototype
         {
             if (throwableCount <= 0 || CurrentVehicle != null) return;
             throwableCount--;
-            GameObject projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GameObject projectile = new GameObject();
             projectile.name = loadout.throwable == PrototypeThrowableId.Smoke ?
                 "Smoke grenade" : "Fragmentation grenade";
             projectile.transform.position = viewCamera.transform.position +
                 viewCamera.transform.forward * .75f;
-            projectile.transform.localScale = Vector3.one * .20f;
-            projectile.GetComponent<Renderer>().sharedMaterial = runtime.GunMaterial;
+            SphereCollider grenadeCollider = projectile.AddComponent<SphereCollider>();
+            grenadeCollider.radius = .13f;
+            PrototypeEquipmentVisual.BuildThrowable(projectile.transform,
+                loadout.throwable, runtime);
             Rigidbody body = projectile.AddComponent<Rigidbody>();
             body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             body.linearVelocity = viewCamera.transform.forward * 17f + Vector3.up * 5f;
+            PrototypeCombatFeedback.Play(transform, PrototypeCombatSound.GrenadeThrow);
             StartCoroutine(Detonate(projectile, loadout.throwable));
         }
 
@@ -511,18 +509,14 @@ namespace Ironfront.UnityPrototype
             if (loadout.role != PrototypeInfantryClass.Engineer || rocketCount <= 0 ||
                 CurrentVehicle != null) return;
             rocketCount--;
-            Vector3 origin = viewCamera.transform.position;
-            Vector3 end = origin + viewCamera.transform.forward * 160f;
-            if (Physics.Raycast(origin, viewCamera.transform.forward,
-                out RaycastHit hit, 160f, ~(1 << 2))) end = hit.point;
-            var struck = new HashSet<IPrototypeVehicle>();
-            foreach (Collider nearby in Physics.OverlapSphere(end, 4.5f))
-            {
-                IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(nearby);
-                if (vehicle != null && vehicle.Team != Team && struck.Add(vehicle))
-                    vehicle.TakeDamage(210f);
-            }
-            runtime.ShowTracer(origin, end, Team);
+            GameObject launcher = PrototypeEquipmentVisual.BuildLauncher(
+                viewCamera.transform, runtime);
+            launcher.transform.localPosition = new Vector3(.27f, -.35f, .70f);
+            launcher.transform.localScale = Vector3.one * .55f;
+            Destroy(launcher, .35f);
+            PrototypeBallisticProjectile.LaunchRocket(runtime, Team, transform,
+                viewCamera.transform.position + viewCamera.transform.forward * 1.1f,
+                viewCamera.transform.forward);
             SupportStatus = "ANTI-ARMOR ROCKET " + rocketCount + " LEFT";
             supportStatusUntil = Time.time + 2f;
         }
@@ -549,6 +543,20 @@ namespace Ironfront.UnityPrototype
             beaconMarker.GetComponent<Renderer>().sharedMaterial =
                 Team == PrototypeTeam.Blue ? runtime.BlueTrimMaterial : runtime.RedTrimMaterial;
             Destroy(beaconMarker.GetComponent<Collider>());
+            GameObject antenna = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            antenna.name = "Beacon antenna";
+            antenna.transform.SetParent(beaconMarker.transform, false);
+            antenna.transform.localPosition = new Vector3(0f, .95f, 0f);
+            antenna.transform.localScale = new Vector3(.08f, 1.2f, .08f);
+            antenna.GetComponent<Renderer>().sharedMaterial = runtime.GunMaterial;
+            Destroy(antenna.GetComponent<Collider>());
+            GameObject lamp = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            lamp.name = "Beacon lamp";
+            lamp.transform.SetParent(beaconMarker.transform, false);
+            lamp.transform.localPosition = new Vector3(0f, 1.60f, 0f);
+            lamp.transform.localScale = Vector3.one * .32f;
+            lamp.GetComponent<Renderer>().sharedMaterial = runtime.LampMaterial;
+            Destroy(lamp.GetComponent<Collider>());
         }
 
         private IEnumerator Detonate(GameObject projectile, PrototypeThrowableId kind)
@@ -559,40 +567,39 @@ namespace Ironfront.UnityPrototype
             Destroy(projectile);
             if (kind == PrototypeThrowableId.Smoke)
             {
-                GameObject cloud = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                cloud.name = "Smoke cover";
-                cloud.transform.position = center + Vector3.up * 1.4f;
-                cloud.transform.localScale = new Vector3(5.5f, 3.2f, 5.5f);
-                Destroy(cloud.GetComponent<Collider>());
-                Material smoke = new Material(runtime.GlassMaterial);
-                smoke.color = new Color(.52f, .59f, .59f, .72f);
-                cloud.GetComponent<Renderer>().material = smoke;
-                Destroy(cloud, 8f);
-                Destroy(smoke, 8f);
+                PrototypeCombatFeedback.Smoke(runtime, center);
                 yield break;
             }
+            ApplyFragDamage(center);
+            PrototypeCombatFeedback.Explosion(runtime, center, 5.5f,
+                PrototypeCombatSound.FragExplosion);
+        }
+
+        private void ApplyFragDamage(Vector3 center)
+        {
+            const float blastRadius = 5.5f;
+            Physics.SyncTransforms();
             var struckBots = new HashSet<PrototypeBot>();
             var struckPlayers = new HashSet<PrototypeRemotePlayer>();
             var struckVehicles = new HashSet<IPrototypeVehicle>();
-            foreach (Collider hit in Physics.OverlapSphere(center, 5.5f))
+            foreach (Collider hit in Physics.OverlapSphere(center, blastRadius))
             {
+                bool closestSupported = hit is BoxCollider || hit is SphereCollider ||
+                    hit is CapsuleCollider || hit is MeshCollider mesh && mesh.convex;
+                float distance = Vector3.Distance(center,
+                    closestSupported ? hit.ClosestPoint(center) :
+                        hit.bounds.ClosestPoint(center));
+                float falloff = Mathf.Clamp01(1f - distance / blastRadius);
                 PrototypeBot bot = hit.GetComponentInParent<PrototypeBot>();
                 if (bot != null && bot.Team != Team && struckBots.Add(bot))
-                    bot.TakeDamage(95f * (1f - Mathf.Clamp01(
-                        Vector3.Distance(center, bot.transform.position) / 6f)),
+                    bot.TakeDamage(95f * falloff,
                         new Vector2(center.x, center.z));
                 PrototypeRemotePlayer remote = hit.GetComponentInParent<PrototypeRemotePlayer>();
                 if (remote != null && remote.Team != Team && struckPlayers.Add(remote))
-                    remote.TakeDamage(80f);
+                    remote.TakeDamage(95f * falloff);
                 IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit);
                 if (vehicle != null && vehicle.Team != Team && struckVehicles.Add(vehicle))
-                    vehicle.TakeDamage(38f);
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                float angle = i * Mathf.PI * .25f;
-                runtime.ShowTracer(center, center + new Vector3(
-                    Mathf.Cos(angle) * 3f, .5f, Mathf.Sin(angle) * 3f), Team);
+                    vehicle.TakeDamage(55f * falloff);
             }
         }
 
@@ -653,6 +660,8 @@ namespace Ironfront.UnityPrototype
                 }
             }
             SupportStatus = used ? "SUPPORT ACTIVE" : "NO VALID SUPPORT TARGET";
+            if (used) PrototypeCombatFeedback.Support(runtime, transform.position,
+                loadout.role);
             supportStatusUntil = now + 2f;
         }
 

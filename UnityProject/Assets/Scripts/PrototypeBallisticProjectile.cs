@@ -21,13 +21,14 @@ namespace Ironfront.UnityPrototype
         private float damageScale;
         private float mountedDamage;
         private bool shell;
+        private bool rocket;
 
         public static PrototypeBallisticProjectile LaunchBullet(PrototypeRuntime game,
             PrototypeTeam side, Transform shooter, Vector3 origin, Vector3 direction,
             PrototypeWeaponDefinition gun, float scale = 1f)
         {
             return Launch(game, side, shooter, origin, direction.normalized * gun.MuzzleVelocity,
-                gun.MaxRange, gun, scale, false, 0f);
+                gun.MaxRange, gun, scale, false, false, 0f);
         }
 
         public static PrototypeBallisticProjectile LaunchMountedRound(PrototypeRuntime game,
@@ -35,7 +36,7 @@ namespace Ironfront.UnityPrototype
             float speed, float range, float damage)
         {
             return Launch(game, side, shooter, origin, direction.normalized * speed,
-                range, null, 1f, false, damage);
+                range, null, 1f, false, false, damage);
         }
 
         public static PrototypeBallisticProjectile LaunchShell(PrototypeRuntime game,
@@ -43,16 +44,25 @@ namespace Ironfront.UnityPrototype
             float speed, float range)
         {
             return Launch(game, side, shooter, origin, direction.normalized * speed,
-                range, null, 1f, true, 0f);
+                range, null, 1f, true, false, 0f);
+        }
+
+        public static PrototypeBallisticProjectile LaunchRocket(PrototypeRuntime game,
+            PrototypeTeam side, Transform shooter, Vector3 origin, Vector3 direction)
+        {
+            return Launch(game, side, shooter, origin, direction.normalized * 110f,
+                160f, null, 1f, false, true, 0f);
         }
 
         private static PrototypeBallisticProjectile Launch(PrototypeRuntime game,
             PrototypeTeam side, Transform shooter, Vector3 origin, Vector3 initialVelocity,
             float range, PrototypeWeaponDefinition gun, float scale, bool isShell,
-            float directDamage)
+            bool isRocket, float directDamage)
         {
-            var projectileObject = new GameObject(isShell ? "T90 cannon shell" : "Ballistic round");
+            var projectileObject = new GameObject(isShell ? "T90 cannon shell" :
+                isRocket ? "Anti-armor rocket" : "Ballistic round");
             projectileObject.transform.position = origin;
+            projectileObject.transform.rotation = Quaternion.LookRotation(initialVelocity.normalized);
             var projectile = projectileObject.AddComponent<PrototypeBallisticProjectile>();
             projectile.runtime = game;
             projectile.team = side;
@@ -63,12 +73,13 @@ namespace Ironfront.UnityPrototype
             projectile.damageScale = scale;
             projectile.mountedDamage = directDamage;
             projectile.shell = isShell;
+            projectile.rocket = isRocket;
             projectile.line = projectileObject.AddComponent<LineRenderer>();
             projectile.line.sharedMaterial = game.TracerMaterial(side);
             projectile.line.useWorldSpace = true;
             projectile.line.numCapVertices = 2;
-            projectile.line.startWidth = isShell ? 0.13f : 0.045f;
-            projectile.line.endWidth = isShell ? 0.055f : 0.012f;
+            projectile.line.startWidth = isShell || isRocket ? 0.13f : 0.045f;
+            projectile.line.endWidth = isShell || isRocket ? 0.055f : 0.012f;
             projectile.trail.Add(origin);
             projectile.line.positionCount = 1;
             projectile.line.SetPosition(0, origin);
@@ -81,6 +92,14 @@ namespace Ironfront.UnityPrototype
                 Destroy(body.GetComponent<Collider>());
                 body.GetComponent<Renderer>().sharedMaterial = game.GunMaterial;
             }
+            else if (isRocket)
+                PrototypeEquipmentVisual.BuildRocket(projectileObject.transform, game);
+            if (gun != null) PrototypeCombatFeedback.PlayWeapon(shooter, gun.Id);
+            else PrototypeCombatFeedback.Play(shooter, isShell ?
+                PrototypeCombatSound.TankCannon : isRocket ?
+                PrototypeCombatSound.RocketLaunch : PrototypeCombatSound.MountedGun);
+            PrototypeCombatFeedback.Muzzle(game, origin, initialVelocity.normalized,
+                isShell ? 1.7f : isRocket ? .9f : .33f);
             return projectile;
         }
 
@@ -111,20 +130,29 @@ namespace Ironfront.UnityPrototype
                 {
                     transform.position = impact;
                     AddTrailPoint(impact);
-                    if (shell) Explode(impact);
-                    else ApplyBulletDamage(collider,
-                        distanceTravelled + Vector3.Distance(start, impact));
-                    Destroy(gameObject, shell ? 0.10f : 0.025f);
+                    if (shell || rocket) Explode(impact);
+                    else
+                    {
+                        ApplyBulletDamage(collider,
+                            distanceTravelled + Vector3.Distance(start, impact));
+                        PrototypeCombatFeedback.Impact(runtime, impact);
+                    }
+                    Destroy(gameObject, shell || rocket ? 0.10f : 0.025f);
                     enabled = false;
                     return;
                 }
                 transform.position = start + direction * allowed;
                 distanceTravelled += allowed;
-                velocity += Physics.gravity * dt;
+                velocity += Physics.gravity * dt * (rocket ? .15f : 1f);
+                if (rocket) transform.rotation = Quaternion.LookRotation(velocity.normalized);
                 AddTrailPoint(transform.position);
                 if (allowed < length) break;
             }
-            if (distanceTravelled >= maxRange) Destroy(gameObject);
+            if (distanceTravelled >= maxRange)
+            {
+                if (rocket) Explode(transform.position);
+                Destroy(gameObject);
+            }
         }
 
         private bool TryHit(Vector3 start, Vector3 direction, float length,
@@ -184,8 +212,10 @@ namespace Ironfront.UnityPrototype
 
         private void Explode(Vector3 center)
         {
+            float radius = ShellBlastRadius;
+            float damage = rocket ? 90f : 145f;
             var damaged = new HashSet<Component>();
-            foreach (Collider nearby in Physics.OverlapSphere(center, ShellBlastRadius,
+            foreach (Collider nearby in Physics.OverlapSphere(center, radius,
                 ~0, QueryTriggerInteraction.Ignore))
             {
                 // ClosestPoint supports only primitive shapes and convex meshes.
@@ -196,7 +226,7 @@ namespace Ironfront.UnityPrototype
                 Vector3 closest = supported ? nearby.ClosestPoint(center) :
                     nearby.bounds.ClosestPoint(center);
                 float distance = Vector3.Distance(center, closest);
-                float amount = 145f * Mathf.Clamp01(1f - distance / ShellBlastRadius);
+                float amount = damage * Mathf.Clamp01(1f - distance / radius);
                 PrototypePlayer player = nearby.GetComponentInParent<PrototypePlayer>();
                 if (player != null && player.Team != team && damaged.Add(player))
                     player.TakeDamage(amount);
@@ -208,7 +238,8 @@ namespace Ironfront.UnityPrototype
                     remote.TakeDamage(amount);
                 IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(nearby);
                 if (vehicle is Component component && vehicle.Team != team &&
-                    damaged.Add(component)) vehicle.TakeDamage(amount);
+                    damaged.Add(component)) vehicle.TakeDamage(rocket ?
+                        210f * Mathf.Clamp01(1f - distance / radius) : amount);
             }
             // Include the local player's body even though it is on Ignore Raycast.
             PrototypePlayer local = runtime.Player;
@@ -217,16 +248,12 @@ namespace Ironfront.UnityPrototype
             {
                 float distance = Vector3.Distance(center,
                     local.transform.position + Vector3.up);
-                if (distance < ShellBlastRadius)
-                    local.TakeDamage(145f * (1f - distance / ShellBlastRadius));
+                if (distance < radius)
+                    local.TakeDamage(damage * (1f - distance / radius));
             }
-            GameObject flash = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            flash.name = "Cannon impact";
-            flash.transform.position = center;
-            flash.transform.localScale = Vector3.one * 0.85f;
-            Destroy(flash.GetComponent<Collider>());
-            flash.GetComponent<Renderer>().sharedMaterial = runtime.LampMaterial;
-            Destroy(flash, 0.16f);
+            PrototypeCombatFeedback.Explosion(runtime, center, radius,
+                rocket ? PrototypeCombatSound.RocketExplosion :
+                    PrototypeCombatSound.TankExplosion);
         }
 
         private void AddTrailPoint(Vector3 point)

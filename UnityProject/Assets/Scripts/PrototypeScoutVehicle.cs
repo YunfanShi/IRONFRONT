@@ -139,6 +139,9 @@ namespace Ironfront.UnityPrototype
             PrototypePlayer occupant = Driver;
             if (occupant != null) occupant.ForceExitVehicle();
             Driver = null;
+            PrototypeCombatFeedback.Explosion(runtime,
+                transform.position + Vector3.up, 3.5f,
+                PrototypeCombatSound.TankExplosion);
             if (hullCollider != null) hullCollider.enabled = false;
             foreach (Renderer visual in renderers) visual.enabled = false;
             runtime.Match.RecordVehicleLoss(Team);

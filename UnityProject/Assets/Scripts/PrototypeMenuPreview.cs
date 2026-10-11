@@ -164,6 +164,7 @@ namespace Ironfront.UnityPrototype
                     patch.GetComponent<Renderer>().sharedMaterial = badgeAsset;
                 Transform mount = root.Find("Held class weapon");
                 if (mount != null) BuildWeapon(mount, weaponId);
+                PrototypeEquipmentVisual.BuildClassGear(root, role, game);
                 SetLayerRecursively(root);
                 shownClass = role;
                 shownWeapon = weaponId;
@@ -222,6 +223,7 @@ namespace Ironfront.UnityPrototype
             weaponMount.transform.localPosition = new Vector3(.05f, 1.15f, .47f);
             weaponMount.transform.localScale = Vector3.one * .70f;
             BuildWeapon(weaponMount.transform, weaponId);
+            PrototypeEquipmentVisual.BuildClassGear(root, role, game);
             SetLayerRecursively(root);
             shownClass = role;
             shownWeapon = weaponId;

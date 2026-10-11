@@ -298,8 +298,10 @@ namespace Ironfront.UnityPrototype
             {
                 TacticalState = PrototypeTacticalState.Revive;
                 TurnToward(target, CombatTurnRate);
-                if (remoteTarget != null) remoteTarget.TryRevive(this);
-                else player.TryRevive(this);
+                bool revived = remoteTarget != null ? remoteTarget.TryRevive(this) :
+                    player.TryRevive(this);
+                if (revived) PrototypeCombatFeedback.Support(runtime, transform.position,
+                    PrototypeInfantryClass.Medic);
                 lastProgressAt = Time.time;
                 lastProgressPosition = MapPosition;
                 return true;
@@ -523,32 +525,39 @@ namespace Ironfront.UnityPrototype
                     if (woundedBot != null) woundedBot.HealTo(healed);
                     else if (helpPlayer) runtime.Player.HealTo(healed);
                     else HealTo(healed);
+                    PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role);
                 }
             }
             else if (kit.Role == PrototypeInfantryClass.Assault)
             {
-                if (kit.TryResupply(now, kit, 0f)) return;
+                if (kit.TryResupply(now, kit, 0f))
+                { PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role); return; }
                 if (runtime.Player != null && runtime.Player.Team == Team && runtime.Player.Alive &&
                     kit.TryResupply(now, runtime.Player.Kit,
-                        Vector2.Distance(MapPosition, runtime.Player.MapPosition))) return;
+                        Vector2.Distance(MapPosition, runtime.Player.MapPosition)))
+                { PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role); return; }
                 foreach (PrototypeBot ally in runtime.Bots)
                 {
                     if (ally == this || !ally.Alive || ally.IsPassenger || ally.Team != Team) continue;
                     if (kit.TryResupply(now, ally.Kit,
-                        Vector2.Distance(MapPosition, ally.MapPosition))) return;
+                        Vector2.Distance(MapPosition, ally.MapPosition)))
+                    { PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role); return; }
                 }
             }
             else if (kit.Role == PrototypeInfantryClass.Engineer)
             {
-                if (kit.TryApplyArmor(now, kit, 0f)) return;
+                if (kit.TryApplyArmor(now, kit, 0f))
+                { PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role); return; }
                 if (runtime.Player != null && runtime.Player.Team == Team && runtime.Player.Alive &&
                     kit.TryApplyArmor(now, runtime.Player.Kit,
-                        Vector2.Distance(MapPosition, runtime.Player.MapPosition))) return;
+                        Vector2.Distance(MapPosition, runtime.Player.MapPosition)))
+                { PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role); return; }
                 foreach (PrototypeBot ally in runtime.Bots)
                 {
                     if (ally == this || !ally.Alive || ally.IsPassenger || ally.Team != Team) continue;
                     if (kit.TryApplyArmor(now, ally.Kit,
-                        Vector2.Distance(MapPosition, ally.MapPosition))) return;
+                        Vector2.Distance(MapPosition, ally.MapPosition)))
+                    { PrototypeCombatFeedback.Support(runtime, transform.position, kit.Role); return; }
                 }
             }
         }

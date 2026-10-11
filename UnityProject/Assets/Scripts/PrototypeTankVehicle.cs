@@ -102,6 +102,9 @@ namespace Ironfront.UnityPrototype
             if (occupant != null)
                 occupant.TakeDamage(1000f);
             Driver = null;
+            PrototypeCombatFeedback.Explosion(runtime,
+                transform.position + Vector3.up * 1.4f, 5f,
+                PrototypeCombatSound.TankExplosion);
             SetVisible(false);
             respawnAt = Time.time + RespawnDelay;
             runtime.Match.RecordVehicleLoss(Team);
@@ -213,13 +216,6 @@ namespace Ironfront.UnityPrototype
             PrototypeBallisticProjectile.LaunchShell(runtime, Team, transform,
                 muzzle, direction, CannonVelocity, CannonRange);
             model.FireRecoil();
-            GameObject flash = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            flash.name = "T90 muzzle flash";
-            flash.transform.position = muzzle + direction * .25f;
-            flash.transform.localScale = Vector3.one * .58f;
-            Destroy(flash.GetComponent<Collider>());
-            flash.GetComponent<Renderer>().sharedMaterial = runtime.LampMaterial;
-            Destroy(flash, .08f);
         }
 
         private void SetVisible(bool visible)
