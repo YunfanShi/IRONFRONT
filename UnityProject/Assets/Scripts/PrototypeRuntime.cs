@@ -935,6 +935,11 @@ namespace Ironfront.UnityPrototype
                 "R4 SCOUT  |  WASD drive  |  Mouse aim  |  LMB machine gun  |  E exit  |  Esc menu" :
                 "WASD move  |  Shift sprint  |  C crouch / slide  |  V prone  |  RMB aim  |  LMB fire  |  R reload  |  Esc menu";
             GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f, canvasWidth - 285f), 25), controls, body);
+            if (Player.CurrentVehicle is PrototypeTankVehicle tank)
+                GUI.Label(new Rect(canvasWidth / 2f - 76f, canvasHeight / 2f + 42f,
+                    152f, 23f), tank.CannonReadyIn > 0f ?
+                    "RELOAD " + tank.CannonReadyIn.ToString("0.0") + " s" :
+                    "CANNON READY", body);
             if (Player.CurrentVehicle == null && Player.Alive)
                 DrawCombatHud(canvasWidth, canvasHeight);
             if (!string.IsNullOrEmpty(Player.SupportStatus))

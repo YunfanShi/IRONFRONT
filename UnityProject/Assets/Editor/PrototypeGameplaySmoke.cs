@@ -77,6 +77,25 @@ namespace Ironfront.UnityPrototype.Editor
                     drive.Invoke(tank, new object[] { 1f, 0f, 0.05f });
                 Check(Vector2.Distance(start, tank.MapPosition) > .1f,
                     "tank moves under throttle");
+                MethodInfo controls = typeof(PrototypeTankVehicle).GetMethod(
+                    "ApplyPlayerInput", BindingFlags.Instance | BindingFlags.NonPublic);
+                Check(controls != null, "tank player input control exists");
+                Vector3 roadPosition = tank.transform.position;
+                Quaternion roadRotation = tank.transform.rotation;
+                Vector2 corner = new Vector2(-247.8f, -152.3f);
+                Vector2 away = corner + Vector2.up * .15f;
+                Check(!PrototypeLayout.Collides(corner, 3.5f) &&
+                    !PrototypeLayout.Collides(away, 3.5f) &&
+                    PrototypeLayout.LineBlocked(corner, away, 3.5f),
+                    "corner reproduces the padded line false positive");
+                tank.transform.position = new Vector3(corner.x,
+                    PrototypeLayout.HeightAt(corner.x, corner.y) + .05f, corner.y);
+                tank.transform.rotation = Quaternion.identity;
+                controls.Invoke(tank, new object[] { 1f, 0f, false, false, .05f });
+                Check(tank.MapPosition.y > corner.y + .01f,
+                    "tank drives away from a clear corner with cursor unlocked");
+                tank.transform.position = roadPosition;
+                tank.transform.rotation = roadRotation;
                 PrototypeTankVisual visual = tank.GetComponent<PrototypeTankVisual>();
                 Check(visual != null && visual.Turret != null &&
                     visual.BarrelPivot != null && visual.CannonMuzzle != null,
@@ -94,13 +113,14 @@ namespace Ironfront.UnityPrototype.Editor
                     pitchStep > .1f && pitchStep <= 1.21f,
                     "turret and barrel slew independently within their speed limits");
                 int shellsBefore = UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>().Length;
-                MethodInfo fire = typeof(PrototypeTankVehicle).GetMethod("FireCannon",
-                    BindingFlags.Instance | BindingFlags.NonPublic);
-                Check(fire != null, "tank fire control exists");
-                fire.Invoke(tank, null);
+                controls.Invoke(tank, new object[] { 0f, 0f, true, false, .05f });
                 Check(UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>().Length ==
                     shellsBefore + 1,
-                    "tank launches a physical shell");
+                    "first click with cursor unlocked launches a physical shell");
+                controls.Invoke(tank, new object[] { 0f, 0f, true, false, .05f });
+                Check(UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>().Length ==
+                    shellsBefore + 1 && tank.CannonReadyIn > 0f,
+                    "cannon cooldown prevents duplicate shells and exposes reload time");
                 PrototypeBallisticProjectile shell = null;
                 foreach (PrototypeBallisticProjectile round in
                     UnityEngine.Object.FindObjectsByType<PrototypeBallisticProjectile>())
@@ -127,7 +147,7 @@ namespace Ironfront.UnityPrototype.Editor
                 Check(Mathf.Approximately(game.Match.BlueTickets,
                     ticketsBeforeLoss - 1.5f),
                     "driver death and tank loss consume the expected tickets");
-                Debug.Log("IRONFRONT smoke PASS: downed, manual tank deployment, drive and ejection");
+                Debug.Log("IRONFRONT smoke PASS: deployment, unlocked tank controls, corner drive, cannon cooldown and ejection");
             }
             catch (Exception exception)
             {

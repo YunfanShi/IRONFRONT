@@ -32,6 +32,7 @@ namespace Ironfront.UnityPrototype
         public bool DriverCanFire => true;
         public float Health { get; private set; }
         public float Speed { get; private set; }
+        public float CannonReadyIn => Mathf.Max(0f, nextShot - Time.time);
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public Transform VehicleTransform => transform;
         public PrototypePlayer Driver { get; private set; }
@@ -130,10 +131,21 @@ namespace Ironfront.UnityPrototype
                 return;
             }
             if (!Driver.Alive) { Driver.ForceExitVehicle(); return; }
-            if (Cursor.lockState != CursorLockMode.Locked) return;
-            Drive(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"), dt);
-            AimCannon(dt);
-            if (Input.GetMouseButton(0)) FireCannon();
+            // Losing cursor lock (for example after switching windows) must not
+            // disable W or swallow the click used to return to the game.
+            if (runtime.PauseOpen || (runtime.Frontend != null && runtime.Frontend.IsOpen))
+                return;
+            ApplyPlayerInput(Input.GetAxisRaw("Vertical"),
+                Input.GetAxisRaw("Horizontal"), Input.GetMouseButton(0),
+                Cursor.lockState == CursorLockMode.Locked, dt);
+        }
+
+        private void ApplyPlayerInput(float throttle, float steering, bool fire,
+            bool cursorLocked, float dt)
+        {
+            Drive(throttle, steering, dt);
+            if (cursorLocked) AimCannon(dt);
+            if (fire) FireCannon();
         }
 
         private void Drive(float throttle, float steering, float dt)
@@ -149,8 +161,7 @@ namespace Ironfront.UnityPrototype
             Vector2 start = MapPosition;
             Vector3 delta = transform.forward * (Speed * dt);
             Vector2 end = start + new Vector2(delta.x, delta.z);
-            if (PrototypeLayout.Collides(end, Clearance) ||
-                PrototypeLayout.LineBlocked(start, end, Clearance) ||
+            if (PrototypeLayout.CirclePathBlocked(start, end, Clearance) ||
                 OtherVehicleAt(end))
             {
                 Speed = 0f;

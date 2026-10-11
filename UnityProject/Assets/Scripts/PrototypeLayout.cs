@@ -89,6 +89,18 @@ namespace Ironfront.UnityPrototype
             return false;
         }
 
+        // A vehicle is a circle, including around cover corners. The padded
+        // rectangle in LineBlocked is deliberately conservative for sight and
+        // navigation, but can reject a legal position near a diagonal corner.
+        public static bool CirclePathBlocked(Vector2 from, Vector2 to, float radius)
+        {
+            int steps = Mathf.Max(1, Mathf.CeilToInt(Vector2.Distance(from, to) / 0.25f));
+            for (int i = 1; i <= steps; i++)
+                if (Collides(Vector2.Lerp(from, to, (float)i / steps), radius))
+                    return true;
+            return false;
+        }
+
         public static bool LineBlocked(Vector2 from, Vector2 to, float padding = 0f)
         {
             float dx = to.x - from.x;
