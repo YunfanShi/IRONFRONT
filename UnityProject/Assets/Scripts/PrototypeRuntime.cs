@@ -753,7 +753,11 @@ namespace Ironfront.UnityPrototype
                     else
                         foreach (PrototypeRemotePlayer remote in RemotePlayers)
                             if (remote.Id == actor.id)
-                            { remote.SetNetworkState(position, actor.yaw, actor.hp, actor.alive); break; }
+                            {
+                                remote.SetNetworkState(position, actor.yaw, actor.hp,
+                                    actor.alive, actor.downedRemaining > 0f);
+                                break;
+                            }
                 }
             if (state.bots != null)
                 foreach (PrototypeLanActor actor in state.bots)
@@ -860,7 +864,8 @@ namespace Ironfront.UnityPrototype
                 !Match.Winner.HasValue)
             {
                 PrototypeDownedAction action = Frontend.DrawDowned(canvasWidth,
-                    canvasHeight, Player.DownedRemaining, Player.RescueCalled);
+                    canvasHeight, Player.DownedRemaining, Player.RescueCalled,
+                    Player.ReviveProgress);
                 if (action == PrototypeDownedAction.Rescue)
                 {
                     if (IsNetworkReplica) lan?.SendDownedAction("rescue");

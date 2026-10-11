@@ -6,6 +6,7 @@ namespace Ironfront.UnityPrototype
     public sealed class PrototypeRemotePlayer : MonoBehaviour
     {
         private const float WalkSpeed = 8.6f;
+        private const float ReviveDuration = 4f;
         private PrototypeRuntime runtime;
         private readonly PrototypeInfantryKit kit =
             new PrototypeInfantryKit(PrototypeInfantryClass.Assault);
@@ -14,6 +15,9 @@ namespace Ironfront.UnityPrototype
         private float respawnAt;
         private float downedUntil;
         private bool rescueCalled;
+        private float reviveStartedAt;
+        private float lastRevivePulseAt;
+        private PrototypeBot revivingMedic;
         private float pitch;
         private float lastInputAt;
         private bool fireHeld;
@@ -88,12 +92,14 @@ namespace Ironfront.UnityPrototype
                 runtime.Match.Winner.HasValue || !IsFinite(amount) || amount <= 0f) return;
             Health = Mathf.Max(0f, Health - amount);
             if (Alive) return;
-            SetVisible(false);
             downedUntil = Time.time + 30f;
             rescueCalled = false;
+            SetVisible(true);
+            visual.SetDowned(true);
         }
 
-        public void SetNetworkState(Vector3 position, float yaw, float health, bool alive)
+        public void SetNetworkState(Vector3 position, float yaw, float health,
+            bool alive, bool downed)
         {
             if (runtime == null || !runtime.IsNetworkReplica ||
                 !IsFinite(position.x) || !IsFinite(position.y) || !IsFinite(position.z) ||
@@ -101,7 +107,8 @@ namespace Ironfront.UnityPrototype
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
             Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
-            SetVisible(alive);
+            SetVisible(alive || downed);
+            visual.SetDowned(downed);
         }
 
         private void Update()
@@ -139,10 +146,23 @@ namespace Ironfront.UnityPrototype
                 medic == null || !medic.Alive || medic.Team != Team ||
                 medic.Class != PrototypeInfantryClass.Medic ||
                 Vector2.Distance(MapPosition, medic.MapPosition) > 3.5f) return false;
+            if (revivingMedic != null && revivingMedic != medic &&
+                revivingMedic.Alive && Time.time - lastRevivePulseAt <= .25f &&
+                Vector2.Distance(MapPosition, revivingMedic.MapPosition) <= 3.5f)
+                return false;
+            if (revivingMedic != medic || Time.time - lastRevivePulseAt > .25f)
+            {
+                revivingMedic = medic;
+                reviveStartedAt = Time.time;
+            }
+            lastRevivePulseAt = Time.time;
+            if (Time.time - reviveStartedAt < ReviveDuration) return false;
             downedUntil = 0f;
             rescueCalled = false;
+            revivingMedic = null;
             Health = 55f;
             SetVisible(true);
+            visual.SetDowned(false);
             return true;
         }
 
@@ -151,8 +171,10 @@ namespace Ironfront.UnityPrototype
             if (respawnAt > 0f || runtime == null || runtime.IsNetworkReplica) return;
             downedUntil = 0f;
             rescueCalled = false;
+            revivingMedic = null;
             runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 4.5f;
+            SetVisible(false);
         }
 
         public bool TryDeploy(string locationId)
@@ -182,16 +204,18 @@ namespace Ironfront.UnityPrototype
             Health = 100f;
             downedUntil = 0f;
             rescueCalled = false;
+            revivingMedic = null;
             respawnAt = 0f;
             kit.ResetForSpawn();
             fireHeld = false;
             SetVisible(true);
+            visual.SetDowned(false);
         }
 
         private void SetVisible(bool visible)
         {
             if (visual != null) visual.SetVisible(visible);
-            if (hitbox != null) hitbox.enabled = visible;
+            if (hitbox != null) hitbox.enabled = visible && Alive;
         }
 
         private void Fire()

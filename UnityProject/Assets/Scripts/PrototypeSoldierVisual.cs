@@ -16,6 +16,7 @@ namespace Ironfront.UnityPrototype
         private float gait;
         private float motion;
         private float baseHeight;
+        private bool downed;
 
         public void Initialize(PrototypeRuntime game, PrototypeTeam team,
             PrototypeInfantryClass role, float feetOffset)
@@ -99,9 +100,25 @@ namespace Ironfront.UnityPrototype
             motion = 0f;
         }
 
+        public void SetDowned(bool value)
+        {
+            downed = value;
+            if (model == null) return;
+            model.transform.localRotation = value ?
+                Quaternion.Euler(82f, 0f, 0f) : Quaternion.identity;
+            model.transform.localPosition = new Vector3(0f,
+                baseHeight + (value ? .15f : 0f), 0f);
+        }
+
         private void LateUpdate()
         {
             if (model == null || !model.activeSelf) return;
+            if (downed)
+            {
+                lastPosition = transform.position;
+                motion = 0f;
+                return;
+            }
             Vector3 delta = transform.position - lastPosition;
             lastPosition = transform.position;
             delta.y = 0f;
@@ -117,7 +134,8 @@ namespace Ironfront.UnityPrototype
             rightArm.localRotation = Quaternion.Euler(-28f + swing * 12f, 0f, 8f);
             bool crouching = bot != null && (bot.TacticalState ==
                 PrototypeTacticalState.SeekCover || bot.TacticalState ==
-                PrototypeTacticalState.InCover);
+                PrototypeTacticalState.InCover || bot.TacticalState ==
+                PrototypeTacticalState.Revive);
             model.transform.localPosition = new Vector3(0f,
                 baseHeight - (crouching ? .12f : 0f) +
                 Mathf.Abs(Mathf.Sin(gait)) * motion * .035f, 0f);

@@ -12,6 +12,8 @@ namespace Ironfront.UnityPrototype
         private const float CrouchSpeed = 4.7f;
         private const float ProneSpeed = 2.3f;
         private const float SlideDuration = .78f;
+        private const float DownedViewHalfAngle = 85f;
+        private const float ReviveDuration = 4f;
         private CharacterController controller;
         private Camera viewCamera;
         private AudioSource audioSource;
@@ -26,6 +28,10 @@ namespace Ironfront.UnityPrototype
         private float respawnAt;
         private float downedUntil;
         private bool rescueCalled;
+        private float downedLookYaw;
+        private float reviveStartedAt;
+        private float lastRevivePulseAt;
+        private PrototypeBot revivingMedic;
         private PrototypeInfantryKit kit = new PrototypeInfantryKit(PrototypeInfantryClass.Assault);
         private PrototypeInfantryKit secondaryKit = new PrototypeInfantryKit(
             PrototypeInfantryClass.Assault, PrototypeWeaponId.Marksman);
@@ -79,6 +85,10 @@ namespace Ironfront.UnityPrototype
         public bool IsDowned => !Alive && downedUntil > Time.time;
         public float DownedRemaining => IsDowned ? downedUntil - Time.time : 0f;
         public bool RescueCalled => rescueCalled;
+        public float DownedViewYaw => downedLookYaw;
+        public float ReviveProgress => IsDowned && revivingMedic != null &&
+            Time.time - lastRevivePulseAt <= .25f ?
+            Mathf.Clamp01((Time.time - reviveStartedAt) / ReviveDuration) : 0f;
 
         public void Initialize(PrototypeRuntime game)
         {
@@ -170,6 +180,7 @@ namespace Ironfront.UnityPrototype
             if (controller != null) controller.enabled = false;
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+            bool wasDowned = IsDowned;
             Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
             downedUntil = !alive && downedRemaining > 0f ?
                 Time.time + Mathf.Clamp(downedRemaining, 0f, 30f) : 0f;
@@ -178,6 +189,8 @@ namespace Ironfront.UnityPrototype
                 Time.time + Mathf.Max(0f, respawnRemaining);
             kit.ApplyNetworkAmmo(ammo, reserve);
             if (controller != null) controller.enabled = alive;
+            if (IsDowned && !wasDowned) EnterDownedPose();
+            else if (alive && wasDowned) LeaveDownedPose();
         }
 
         private void Update()
@@ -192,6 +205,9 @@ namespace Ironfront.UnityPrototype
                 ForceExitVehicle();
             if (!Alive)
             {
+                if (IsDowned && Input.GetMouseButton(1))
+                    AdjustDownedView(Input.GetAxis("Mouse X") * runtime.MouseSensitivity,
+                        -Input.GetAxis("Mouse Y") * runtime.MouseSensitivity);
                 if (!runtime.IsNetworkReplica && downedUntil > 0f)
                 {
                     if (Input.GetKeyDown(KeyCode.H)) RequestRescue();
@@ -651,6 +667,7 @@ namespace Ironfront.UnityPrototype
             if (inVehicle) { Eliminate(); return; }
             downedUntil = Time.time + 30f;
             rescueCalled = false;
+            EnterDownedPose();
             runtime.Frontend.OpenDowned();
         }
 
@@ -676,14 +693,84 @@ namespace Ironfront.UnityPrototype
                 medic == null || !medic.Alive || medic.Team != Team ||
                 medic.Class != PrototypeInfantryClass.Medic ||
                 Vector2.Distance(MapPosition, medic.MapPosition) > 3.5f) return false;
+            if (revivingMedic != null && revivingMedic != medic &&
+                revivingMedic.Alive && Time.time - lastRevivePulseAt <= .25f &&
+                Vector2.Distance(MapPosition, revivingMedic.MapPosition) <= 3.5f)
+                return false;
+            if (revivingMedic != medic || Time.time - lastRevivePulseAt > .25f)
+            {
+                revivingMedic = medic;
+                reviveStartedAt = Time.time;
+            }
+            lastRevivePulseAt = Time.time;
+            if (Time.time - reviveStartedAt < ReviveDuration) return false;
             downedUntil = 0f;
             rescueCalled = false;
+            revivingMedic = null;
             Health = 50f;
             if (controller != null) controller.enabled = true;
+            LeaveDownedPose();
             SupportStatus = "REVIVED BY MEDIC";
             supportStatusUntil = Time.time + 2f;
             runtime.Frontend.Close();
             return true;
+        }
+
+        private void EnterDownedPose()
+        {
+            downedLookYaw = 0f;
+            pitch = 0f;
+            revivingMedic = null;
+            reviveStartedAt = 0f;
+            lastRevivePulseAt = 0f;
+            aiming = false;
+            sprinting = false;
+            if (controller != null)
+            {
+                controller.height = .7f;
+                controller.center = new Vector3(0f, .35f, 0f);
+                controller.stepOffset = .1f;
+            }
+            if (viewCamera != null)
+            {
+                viewCamera.transform.localPosition = new Vector3(0f, .42f, 0f);
+                viewCamera.transform.localRotation = Quaternion.Euler(0f, 0f, 12f);
+                viewCamera.fieldOfView = 76f;
+            }
+            if (rifle != null) rifle.SetActive(false);
+        }
+
+        private void LeaveDownedPose()
+        {
+            downedLookYaw = 0f;
+            pitch = 0f;
+            revivingMedic = null;
+            reviveStartedAt = 0f;
+            lastRevivePulseAt = 0f;
+            crouched = false;
+            prone = false;
+            if (controller != null)
+            {
+                controller.height = 1.8f;
+                controller.center = new Vector3(0f, .9f, 0f);
+                controller.stepOffset = .35f;
+            }
+            if (viewCamera != null)
+            {
+                viewCamera.transform.localPosition = new Vector3(0f, 1.65f, 0f);
+                viewCamera.transform.localRotation = Quaternion.identity;
+            }
+            if (rifle != null) rifle.SetActive(true);
+        }
+
+        public void AdjustDownedView(float horizontal, float vertical)
+        {
+            if (!IsDowned || viewCamera == null) return;
+            downedLookYaw = Mathf.Clamp(downedLookYaw + horizontal,
+                -DownedViewHalfAngle, DownedViewHalfAngle);
+            pitch = Mathf.Clamp(pitch + vertical, -35f, 45f);
+            viewCamera.transform.localRotation =
+                Quaternion.Euler(pitch, downedLookYaw, 12f);
         }
 
         private void Eliminate()
@@ -737,6 +824,7 @@ namespace Ironfront.UnityPrototype
             transform.rotation = Quaternion.Euler(0f,
                 Team == PrototypeTeam.Blue ? 48f : 228f, 0f);
             pitch = 0f;
+            downedLookYaw = 0f;
             verticalSpeed = 0f;
             crouched = false;
             prone = false;
@@ -747,15 +835,18 @@ namespace Ironfront.UnityPrototype
             {
                 controller.height = 1.8f;
                 controller.center = new Vector3(0f, .9f, 0f);
+                controller.stepOffset = .35f;
             }
             if (viewCamera != null)
             {
                 viewCamera.transform.localPosition = new Vector3(0f, 1.65f, 0f);
+                viewCamera.transform.localRotation = Quaternion.identity;
                 viewCamera.fieldOfView = 76f;
             }
             Health = 100f;
             downedUntil = 0f;
             rescueCalled = false;
+            revivingMedic = null;
             respawnAt = 0f;
             kit.ResetForSpawn();
             secondaryKit.ResetForSpawn();

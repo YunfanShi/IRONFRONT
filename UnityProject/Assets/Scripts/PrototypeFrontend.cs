@@ -185,23 +185,26 @@ namespace Ironfront.UnityPrototype
         }
 
         public PrototypeDownedAction DrawDowned(float canvasWidth, float canvasHeight,
-            float seconds, bool rescueCalled)
+            float seconds, bool rescueCalled, float reviveProgress)
         {
             if (!IsOpen || !IsDownedScreen) return PrototypeDownedAction.None;
             EnsureStyles();
-            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight), Background);
+            DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight),
+                new Color(.17f, .01f, .01f, .14f));
             float x = (canvasWidth - 510f) * .5f;
-            float y = (canvasHeight - 300f) * .5f;
-            DrawRect(new Rect(x, y, 510f, 300f), Panel);
-            DrawRect(new Rect(x, y, 510f, 4f), Accent);
-            GUI.Label(new Rect(x + 28f, y + 28f, 455f, 48f),
+            float y = canvasHeight - 182f;
+            DrawRect(new Rect(x, y, 510f, 168f), Panel);
+            DrawRect(new Rect(x, y, 510f, 3f), Accent);
+            GUI.Label(new Rect(x + 22f, y + 10f, 455f, 38f),
                 "濒死 / DOWNED", logoStyle);
-            GUI.Label(new Rect(x + 28f, y + 88f, 455f, 30f),
+            GUI.Label(new Rect(x + 22f, y + 50f, 455f, 27f),
                 "等待救援  " + Mathf.Max(0f, seconds).ToString("0.0") + " s", headingStyle);
-            GUI.Label(new Rect(x + 28f, y + 124f, 455f, 44f),
-                "医疗兵可以将你救起。按住空格可加快放弃救援。", labelStyle);
-            Rect rescue = new Rect(x + 28f, y + 185f, 220f, 51f);
-            Rect giveUp = new Rect(x + 263f, y + 185f, 220f, 51f);
+            GUI.Label(new Rect(x + 22f, y + 78f, 465f, 28f),
+                reviveProgress > 0f ?
+                "医疗兵正在扶起你  " + (reviveProgress * 4f).ToString("0.0") + " / 4.0 s" :
+                "按住右键观察周围（约 170°）；按住空格可放弃。", labelStyle);
+            Rect rescue = new Rect(x + 22f, y + 113f, 220f, 42f);
+            Rect giveUp = new Rect(x + 268f, y + 113f, 220f, 42f);
             DrawRect(rescue, SelectedCard);
             DrawRect(giveUp, Card);
             GUI.Label(rescue, rescueCalled ? "救援已呼叫" : "呼叫救援 / H", buttonStyle);

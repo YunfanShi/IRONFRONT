@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ironfront.UnityPrototype
 {
-    public enum PrototypeTacticalState { Advance, Hold, Engage, Search, SeekCover, InCover, Down }
+    public enum PrototypeTacticalState { Advance, Hold, Engage, Search, SeekCover, InCover, Down, Revive }
 
     public sealed class PrototypeBot : MonoBehaviour
     {
@@ -296,9 +296,12 @@ namespace Ironfront.UnityPrototype
             if (nearest > (called ? 100f : 60f)) return false;
             if (nearest <= 3.5f)
             {
+                TacticalState = PrototypeTacticalState.Revive;
+                TurnToward(target, CombatTurnRate);
                 if (remoteTarget != null) remoteTarget.TryRevive(this);
                 else player.TryRevive(this);
-                TacticalState = PrototypeTacticalState.Hold;
+                lastProgressAt = Time.time;
+                lastProgressPosition = MapPosition;
                 return true;
             }
             TacticalState = PrototypeTacticalState.Advance;
