@@ -47,8 +47,9 @@ namespace Ironfront.UnityPrototype
         public bool PlayerControlsWeapon => Driver != null && Alive;
         public Transform WeaponMuzzle => gunMuzzle;
         public float WeaponRange => GunRange;
-        // The player's existing camera is 1.65 m above its root transform.
         public Vector3 SeatPosition => transform.TransformPoint(new Vector3(-0.45f, 0.24f, -0.55f));
+        public Vector3 CameraPosition => turret.TransformPoint(
+            new Vector3(-.36f, .32f, .66f));
         public Vector3 ExitPosition
         {
             get

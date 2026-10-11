@@ -57,6 +57,9 @@ namespace Ironfront.UnityPrototype
         public bool HasFreePassengerSeat => Alive &&
             (passengers[0] == null || passengers[1] == null);
         public Vector3 SeatPosition => GetSeatPosition(playerSeat);
+        public Vector3 CameraPosition => playerSeat == 1 ?
+            gunMount.TransformPoint(new Vector3(-.36f, .32f, .68f)) :
+            transform.TransformPoint(new Vector3(-.65f, 1.78f, 1.72f));
 
         public Vector3 GetSeatPosition(int seat)
         {

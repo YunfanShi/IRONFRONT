@@ -41,6 +41,9 @@ namespace Ironfront.UnityPrototype
         public Transform WeaponMuzzle => model != null ? model.CannonMuzzle : null;
         public float WeaponRange => CannonRange;
         public Vector3 SeatPosition => transform.TransformPoint(new Vector3(-0.65f, 0.65f, -0.55f));
+        // Forward of the gunner optic glass, following the rotating turret.
+        public Vector3 CameraPosition => model.Turret.TransformPoint(
+            new Vector3(.73f, 1.22f, .90f));
         public Vector3 ExitPosition
         {
             get

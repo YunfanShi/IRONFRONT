@@ -72,8 +72,11 @@ namespace Ironfront.UnityPrototype.Editor
                 if (!game.Player.Alive && elapsed < 5.5f) return;
                 Check(game.Player.Alive && !game.Player.IsDowned,
                     "medic revives the player after roughly four seconds");
-                Check(Mathf.Abs(game.Player.ViewCamera.transform.localPosition.y - 1.65f) < .01f,
-                    "revived camera returns to standing height");
+                Check(Vector3.Distance(game.Player.ViewCamera.transform.position,
+                    game.Player.transform.position) > 2f &&
+                    Vector3.Dot(game.Player.ViewCamera.transform.position -
+                        game.Player.transform.position, game.Player.transform.forward) < -1f,
+                    "revived camera returns behind the standing soldier");
                 Check(!game.Frontend.IsDownedScreen, "downed screen closes after revival");
                 Debug.Log("IRONFRONT downed view and revive PASS: ground camera, " +
                     "170-degree look arc, continuous four-second medic rescue");

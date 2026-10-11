@@ -17,6 +17,7 @@ namespace Ironfront.UnityPrototype
         PrototypePlayer Driver { get; }
         PrototypePlayer Occupant { get; }
         Vector3 SeatPosition { get; }
+        Vector3 CameraPosition { get; }
         Vector3 ExitPosition { get; }
         bool TrySetDriver(PrototypePlayer player);
         void RemoveDriver(PrototypePlayer player);
