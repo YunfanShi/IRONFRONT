@@ -6,7 +6,7 @@
         <ui:VisualElement class="scene-vignette" />
 
         <ui:VisualElement class="top-bar">
-            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.39.4" class="version" /></ui:VisualElement>
+            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.40.0" class="version" /></ui:VisualElement>
             <ui:VisualElement class="navigation">
                 <ui:Button name="tab-lobby" text="大厅" class="nav-button active" />
                 <ui:Button name="tab-operations" text="作战" class="nav-button" />
@@ -23,15 +23,16 @@
             <ui:VisualElement class="operation-summary">
                 <ui:Label text="已选择行动  /  OPERATION 01" class="eyebrow" />
                 <ui:Label text="工业前线" class="operation-title" />
-                <ui:Label name="operation-summary" text="征服模式 · 蓝方玩家与 4 AI / 红方 4 AI · 五个据点" class="body-text" />
+                <ui:Label name="operation-summary" text="征服 · 8v8（蓝方玩家 + 7 AI / 红方 8 AI）· 五据点" class="body-text" />
                 <ui:Button name="browse-operation" text="浏览地图与玩法  →" class="text-action" />
             </ui:VisualElement>
             <ui:Label text="小队部署  /  SQUAD" class="section-label" />
             <ui:VisualElement class="squad-row">
-                <ui:VisualElement class="squad-card current"><ui:Label text="01 / YOU" class="squad-number" /><ui:Label name="squad-class" text="突击兵" class="squad-role" /><ui:Label text="准备部署" class="squad-note" /></ui:VisualElement>
-                <ui:VisualElement class="squad-card"><ui:Label text="02 / AI" class="squad-number" /><ui:Label text="小队补位" class="squad-role" /><ui:Label text="进入战局后集结" class="squad-note" /></ui:VisualElement>
-                <ui:VisualElement class="squad-card"><ui:Label text="03 / AI" class="squad-number" /><ui:Label text="小队补位" class="squad-role" /><ui:Label text="进入战局后集结" class="squad-note" /></ui:VisualElement>
-                <ui:VisualElement class="squad-card"><ui:Label text="04 / AI" class="squad-number" /><ui:Label text="小队补位" class="squad-role" /><ui:Label text="进入战局后集结" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card current"><ui:Label text="YOU" class="squad-number" /><ui:Label name="squad-class" text="突击兵" class="squad-role" /><ui:Label text="准备部署" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="AI SQUAD 1" class="squad-number" /><ui:Label text="2 名 AI" class="squad-role" /><ui:Label text="自动接令" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="AI SQUAD 2" class="squad-number" /><ui:Label text="2 名 AI" class="squad-role" /><ui:Label text="自动接令" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="AI SQUAD 3" class="squad-number" /><ui:Label text="2 名 AI" class="squad-role" /><ui:Label text="自动接令" class="squad-note" /></ui:VisualElement>
+                <ui:VisualElement class="squad-card"><ui:Label text="AI SQUAD 4" class="squad-number" /><ui:Label text="1 名 AI" class="squad-role" /><ui:Label text="自动接令" class="squad-note" /></ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 
@@ -48,6 +49,8 @@
                 <ui:VisualElement name="mode-conquest" class="mode-card selected"><ui:Label text="征服  /  CONQUEST" class="mode-name" /><ui:Label text="争夺五处据点，耗尽敌方兵力" class="body-text" /></ui:VisualElement>
                 <ui:VisualElement name="mode-breakthrough" class="mode-card"><ui:Label text="攻防  /  BREAKTHROUGH" class="mode-name" /><ui:Label text="蓝方依次夺取 A–E，据点推进" class="body-text" /></ui:VisualElement>
             </ui:VisualElement>
+            <ui:Label text="战局人数  /  TEAM SIZE" class="team-size-label" />
+            <ui:Button name="size-8v8" text="8v8  ·  蓝方 1 玩家 + 7 AI  /  红方 8 AI" class="team-size-button" />
         </ui:VisualElement>
 
         <ui:VisualElement name="page-loadout" class="page panel-page loadout-page hidden">

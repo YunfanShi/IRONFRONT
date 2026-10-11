@@ -30,7 +30,7 @@
 .section-label { color: rgb(181, 201, 206); font-size: 12px; -unity-font-style: bold; margin-top: 22px; margin-bottom: 8px; }
 .lobby-page .section-label { position: absolute; top: 293px; margin-top: 0; margin-bottom: 0; }
 .squad-row { position: absolute; top: 320px; width: 506px; flex-direction: row; justify-content: space-between; }
-.squad-card { width: 119px; height: 50px; padding: 4px 7px 3px 8px; background-color: rgba(8, 23, 30, 0.88); border-top-width: 1px; border-top-color: rgb(59, 87, 96); }
+.squad-card { width: 96px; height: 50px; padding: 4px 7px 3px 8px; background-color: rgba(8, 23, 30, 0.88); border-top-width: 1px; border-top-color: rgb(59, 87, 96); }
 .squad-card.current { border-top-color: rgb(113, 199, 209); }
 .squad-number { color: rgb(192, 212, 216); font-size: 10px; -unity-font-style: bold; }
 .squad-role { color: rgb(236, 241, 241); font-size: 13px; -unity-font-style: bold; }
@@ -98,6 +98,8 @@
 .operations-page .mode-card { position: relative; height: 65px; padding: 0; }
 .operations-page .mode-card .mode-name { position: absolute; left: 10px; top: 8px; margin: 0; font-size: 14px; }
 .operations-page .mode-card .body-text { position: absolute; left: 10px; top: 38px; font-size: 10px; }
+.operations-page .team-size-label { position: absolute; left: 20px; top: 342px; color: rgb(181, 201, 206); font-size: 12px; -unity-font-style: bold; }
+.operations-page .team-size-button { position: absolute; left: 20px; top: 367px; width: 485px; height: 42px; color: rgb(224, 237, 238); background-color: rgba(39, 82, 92, .96); border-width: 1px; border-color: rgb(113, 199, 209); -unity-text-align: middle-center; }
 
 .loadout-page .class-grid { position: absolute; left: 20px; top: 114px; width: 485px; height: 120px; margin: 0; }
 .loadout-page .class-card { width: 235px; min-width: 0; height: 52px; margin-bottom: 8px; padding: 6px 8px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }

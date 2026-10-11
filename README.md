@@ -1,8 +1,8 @@
-# PROJECT IRONFRONT 0.39.4
+# PROJECT IRONFRONT 0.40.0
 
-## Unity 单人流程验收与下一步
+## Unity 8v8 单人战局
 
-0.39.4 按玩家 2026-10-11 的实机反馈，将征服、攻防、部署与结算的单人流程记为验收通过。下一步先让 Unity 战局真实达到 8v8，再根据完整战局的 AI 和性能数据扩展人数。详见 [0.39.4 验收决定](docs/UNITY_SOLO_ACCEPTANCE_0394.md) 与 [逐项对照表](docs/UNITY_PARITY_038.md)。
+0.40.0 在 Unity 单人征服和攻防中接入真实 8v8：蓝方 1 名玩家加 7 名 AI，红方 8 名 AI。菜单展示 8v8，战斗 HUD 显示两队实际存活人数和总人数；联机仍使用原来的房间 AI 逻辑。实现、验证与剩余性能验收见 [0.40.0 记录](docs/UNITY_8V8_040.md) 和 [逐项对照表](docs/UNITY_PARITY_038.md)。此前的单人流程验收决定见 [0.39.4 记录](docs/UNITY_SOLO_ACCEPTANCE_0394.md)。
 
 ## Unity 高帧率坦克起步修复
 

@@ -174,7 +174,8 @@ namespace Ironfront.UnityPrototype
                 Time.time >= nextCoverSearch && coverUntil <= Time.time)
             {
                 nextCoverSearch = Time.time + 3.5f;
-                Vector2 mate = squad.Members[1 - memberIndex].ReservedCover;
+                Vector2 mate = squad.Members.Length > 1 ?
+                    squad.Members[1 - memberIndex].ReservedCover : MapPosition;
                 if (PrototypeTactics.TryFindCover(MapPosition, threat, objective, mate,
                     navigation, out Vector2 chosen))
                 {

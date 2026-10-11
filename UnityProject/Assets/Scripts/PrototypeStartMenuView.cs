@@ -44,6 +44,7 @@ namespace Ironfront.UnityPrototype
         public string PlayerName => nameField.value;
         public PrototypeInfantryClass SelectedClass { get; private set; }
         public PrototypeGameMode SelectedMode { get; private set; }
+        public int SelectedTeamSize { get; private set; } = 8;
         public PrototypeLoadout Loadout => loadout.Copy();
         public bool DeployRequested { get; private set; }
         public bool LanRequested { get; private set; }
@@ -91,6 +92,7 @@ namespace Ironfront.UnityPrototype
             breakthroughCard = Require<VisualElement>(root, "mode-breakthrough");
             conquestCard.RegisterCallback<ClickEvent>(_ => SelectMode(PrototypeGameMode.Conquest));
             breakthroughCard.RegisterCallback<ClickEvent>(_ => SelectMode(PrototypeGameMode.Breakthrough));
+            Require<Button>(root, "size-8v8").clicked += () => SelectedTeamSize = 8;
             SelectMode(PlayerPrefs.GetInt("ironfront.unity.soloMode", 0) == 1 ?
                 PrototypeGameMode.Breakthrough : PrototypeGameMode.Conquest);
 
@@ -227,8 +229,8 @@ namespace Ironfront.UnityPrototype
             conquestCard.EnableInClassList("selected", mode == PrototypeGameMode.Conquest);
             breakthroughCard.EnableInClassList("selected", mode == PrototypeGameMode.Breakthrough);
             operationSummary.text = mode == PrototypeGameMode.Conquest ?
-                "征服模式 · 蓝方玩家与 4 AI / 红方 4 AI · 五个据点" :
-                "攻防模式 · 蓝方进攻 / 红方防守 · 依次夺取五个据点";
+                "征服 · 8v8（蓝方玩家 + 7 AI / 红方 8 AI）· 五据点" :
+                "攻防 · 8v8（蓝方玩家 + 7 AI / 红方 8 AI）· 逐点进攻";
             PlayerPrefs.SetInt("ironfront.unity.soloMode", (int)mode);
             PlayerPrefs.Save();
         }

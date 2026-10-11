@@ -22,7 +22,7 @@ namespace Ironfront.UnityPrototype
         {
             Id = id;
             Team = team;
-            Members = new[] { first, second };
+            Members = second == null ? new[] { first } : new[] { first, second };
             ObjectiveId = "-";
             Reason = "Awaiting orders";
         }
@@ -87,9 +87,11 @@ namespace Ironfront.UnityPrototype
             var squad = new PrototypeSquad(squads.Count + 1, team, first, second);
             squads.Add(squad);
             first.JoinSquad(this, squad, 0);
-            second.JoinSquad(this, squad, 1);
+            if (second != null) second.JoinSquad(this, squad, 1);
             return squad;
         }
+
+        public PrototypeSquad Register(PrototypeBot first) => Register(first, null);
 
         public void ReportEnemy(Vector2 position, float now)
         {
@@ -144,7 +146,7 @@ namespace Ironfront.UnityPrototype
                     float pressure = KnownPressure(point.Definition.Position, now);
                     if (own) score += pressure * 1.5f;
                     else score -= pressure * 0.25f;
-                    if (squad.LivingMembers < 2 && own) score += 1.5f;
+                    if (squad.LivingMembers < squad.Members.Length && own) score += 1.5f;
                     if (score <= bestScore) continue;
                     best = point;
                     bestScore = score;

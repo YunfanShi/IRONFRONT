@@ -33,6 +33,7 @@ namespace Ironfront.UnityPrototype
         public PrototypeCommander BlueCommander { get; private set; }
         public PrototypeCommander RedCommander { get; private set; }
         public bool MatchStarted { get; private set; }
+        public int SoloTeamSize { get; private set; }
         public bool PauseOpen { get; private set; }
         public float MouseSensitivity { get; private set; } = 2.2f;
         public bool IsNetworkReplica => networkModeActive &&
@@ -270,6 +271,8 @@ namespace Ironfront.UnityPrototype
 
         private void BuildBots()
         {
+            // Preserve the existing eight-bot roster for LAN snapshots. Solo
+            // adds its seven extra bots only when the player starts a match.
             BlueCommander.Register(
                 AddBot(PrototypeTeam.Blue, -80f, -120f),
                 AddBot(PrototypeTeam.Blue, -76f, -103f));
@@ -282,6 +285,32 @@ namespace Ironfront.UnityPrototype
             RedCommander.Register(
                 AddBot(PrototypeTeam.Red, 66f, 115f),
                 AddBot(PrototypeTeam.Red, 70f, 95f));
+        }
+
+        public void ConfigureSoloTeams(int playersPerTeam)
+        {
+            if (networkModeActive || MatchStarted)
+                throw new System.InvalidOperationException("Solo teams must be set before deployment.");
+            if (playersPerTeam != 8)
+                throw new System.ArgumentOutOfRangeException(nameof(playersPerTeam),
+                    "Only the tested 8v8 solo size is available.");
+            if (SoloTeamSize == playersPerTeam) return;
+            if (Bots.Count != 8)
+                throw new System.InvalidOperationException("Unexpected initial AI roster.");
+
+            BlueCommander.Register(
+                AddBot(PrototypeTeam.Blue, -86f, -119f),
+                AddBot(PrototypeTeam.Blue, -70f, -101f));
+            BlueCommander.Register(AddBot(PrototypeTeam.Blue, -36f, 70f));
+            RedCommander.Register(
+                AddBot(PrototypeTeam.Red, 37f, -105f),
+                AddBot(PrototypeTeam.Red, 48f, -103f));
+            RedCommander.Register(
+                AddBot(PrototypeTeam.Red, 64f, 104f),
+                AddBot(PrototypeTeam.Red, 75f, 113f));
+            SoloTeamSize = playersPerTeam;
+            BlueCommander.Replan();
+            RedCommander.Replan();
         }
 
         private PrototypeBot AddBot(PrototypeTeam team, float x, float z)
@@ -788,6 +817,7 @@ namespace Ironfront.UnityPrototype
                     DrawRoomMenu(canvasWidth, canvasHeight);
                 else if (Frontend != null && Frontend.Draw(canvasWidth, canvasHeight))
                 {
+                    ConfigureSoloTeams(Frontend.SelectedTeamSize);
                     Match.ConfigureSolo(Frontend.SelectedMode);
                     BlueCommander.Replan();
                     RedCommander.Replan();
@@ -897,12 +927,15 @@ namespace Ironfront.UnityPrototype
             }
             float ordersX = canvasWidth - 282f;
             float ordersY = 12f;
-            DrawHudRect(new Rect(ordersX, ordersY, 270, 176),
+            float blueOrdersY = ordersY + 34f;
+            float redOrdersY = blueOrdersY + BlueCommander.Squads.Count * 19f + 8f;
+            float summaryY = redOrdersY + RedCommander.Squads.Count * 19f + 7f;
+            DrawHudRect(new Rect(ordersX, ordersY, 270, summaryY - ordersY + 43f),
                 new Color(.012f, .045f, .060f, .82f));
             DrawHudRect(new Rect(ordersX, ordersY, 270, 2), new Color(.46f, .76f, .82f));
             GUI.Label(new Rect(ordersX + 12, ordersY + 6, 245, 25), "SQUAD ORDERS", title);
-            DrawOrders(BlueCommander, "BLUE", ordersX + 12, ordersY + 34, body);
-            DrawOrders(RedCommander, "RED", ordersX + 12, ordersY + 82, body);
+            DrawOrders(BlueCommander, "BLUE", ordersX + 12, blueOrdersY, body);
+            DrawOrders(RedCommander, "RED", ordersX + 12, redOrdersY, body);
             int blueCover = 0, redCover = 0, blueSearch = 0, redSearch = 0;
             foreach (PrototypeBot bot in Bots)
             {
@@ -919,9 +952,9 @@ namespace Ironfront.UnityPrototype
                     if (bot.TacticalState == PrototypeTacticalState.Search) redSearch++;
                 }
             }
-            GUI.Label(new Rect(ordersX + 12, ordersY + 128, 245, 20),
+            GUI.Label(new Rect(ordersX + 12, summaryY, 245, 20),
                 "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
-            GUI.Label(new Rect(ordersX + 12, ordersY + 147, 245, 20),
+            GUI.Label(new Rect(ordersX + 12, summaryY + 19f, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
             string controls = Player.CurrentVehicle is PrototypeTankVehicle ?
                 "T90 BASTION  |  WASD drive  |  Mouse aim  |  LMB cannon  |  E exit  |  Esc menu" :
@@ -1043,6 +1076,22 @@ namespace Ironfront.UnityPrototype
                 pointStyle.normal.textColor = point.Contested ?
                     new Color(1f, .79f, .47f) : Color.white;
                 GUI.Label(new Rect(px, 61f, 30f, 25f), point.Definition.Id, pointStyle);
+            }
+            if (!networkModeActive)
+            {
+                int blueTotal = 1, blueAlive = Player.Alive ? 1 : 0;
+                int redTotal = 0, redAlive = 0;
+                foreach (PrototypeBot bot in Bots)
+                    if (bot.Team == PrototypeTeam.Blue)
+                    { blueTotal++; if (bot.Alive) blueAlive++; }
+                    else
+                    { redTotal++; if (bot.Alive) redAlive++; }
+                var rosterStyle = new GUIStyle(GUI.skin.label) { fontSize = 11,
+                    alignment = TextAnchor.MiddleCenter };
+                rosterStyle.normal.textColor = Color.white;
+                GUI.Label(new Rect(x, 89f, 336f, 19f),
+                    "BLUE " + blueAlive + "/" + blueTotal +
+                    "  ·  RED " + redAlive + "/" + redTotal + "  ALIVE", rosterStyle);
             }
         }
 
@@ -1200,10 +1249,13 @@ namespace Ironfront.UnityPrototype
         private static void DrawOrders(PrototypeCommander commander, string team,
             float x, float y, GUIStyle style)
         {
-            GUI.Label(new Rect(x, y, 245, 20), team + "  " + commander.Squads[0].ObjectiveId + " / " +
-                commander.Squads[0].Mission + "  (" + commander.Squads[0].LivingMembers + "/2)", style);
-            GUI.Label(new Rect(x, y + 21, 245, 20), "          " + commander.Squads[1].ObjectiveId + " / " +
-                commander.Squads[1].Mission + "  (" + commander.Squads[1].LivingMembers + "/2)", style);
+            for (int i = 0; i < commander.Squads.Count; i++)
+            {
+                PrototypeSquad squad = commander.Squads[i];
+                GUI.Label(new Rect(x, y + i * 19f, 245, 20),
+                    team + " " + (i + 1) + "  " + squad.ObjectiveId + " / " + squad.Mission +
+                    "  (" + squad.LivingMembers + "/" + squad.Members.Length + ")", style);
+            }
         }
     }
 }

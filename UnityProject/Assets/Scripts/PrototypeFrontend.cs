@@ -95,6 +95,7 @@ namespace Ironfront.UnityPrototype
         public bool LanRequested { get; private set; }
         public PrototypeInfantryClass SelectedClass { get; private set; } = PrototypeInfantryClass.Assault;
         public PrototypeGameMode SelectedMode { get; private set; } = PrototypeGameMode.Conquest;
+        public int SelectedTeamSize { get; private set; } = 8;
         public PrototypeLoadout SelectedLoadout
         {
             get
@@ -294,6 +295,7 @@ namespace Ironfront.UnityPrototype
                 PlayerName = startMenu.PlayerName;
                 SelectedClass = startMenu.SelectedClass;
                 SelectedMode = startMenu.SelectedMode;
+                SelectedTeamSize = startMenu.SelectedTeamSize;
                 PrototypeLoadout choice = startMenu.Loadout;
                 selectedLoadout.role = choice.role;
                 selectedLoadout.primary = choice.primary;
@@ -428,7 +430,7 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(x + 20f, 290f, width - 40f, 36f),
                 "工业前线", menuTitleStyle);
             GUI.Label(new Rect(x + 20f, 332f, width - 40f, 22f),
-                "征服模式  ·  五个据点  ·  AI 战场", labelStyle);
+                "征服 / 攻防  ·  五个据点  ·  8v8 AI 战场", labelStyle);
             if (GUI.Button(operation, GUIContent.none, GUIStyle.none))
                 menuTab = MenuTab.Operations;
 
