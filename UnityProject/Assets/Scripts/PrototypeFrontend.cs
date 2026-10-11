@@ -88,6 +88,7 @@ namespace Ironfront.UnityPrototype
 
         private bool redeploy;
         private string selectedLocation = "BASE";
+        private Vector2 deploymentScroll;
 
         public bool IsOpen { get; private set; }
         public bool IsDownedScreen { get; private set; }
@@ -125,7 +126,11 @@ namespace Ironfront.UnityPrototype
             }
             redeploy = isRespawn;
             IsDownedScreen = false;
-            if (isRespawn) selectedLocation = "BASE";
+            if (isRespawn)
+            {
+                selectedLocation = "BASE";
+                deploymentScroll = Vector2.zero;
+            }
             LanRequested = false;
             IsOpen = true;
             Cursor.lockState = CursorLockMode.None;
@@ -723,20 +728,23 @@ namespace Ironfront.UnityPrototype
             float listX = x + 485f;
             GUI.Label(new Rect(listX, y + 101f, 400f, 26f),
                 "部署地点  /  SPAWN LOCATIONS", headingStyle);
-            for (int i = 0; i < locations.Count && i < 11; i++)
+            Rect locationView = new Rect(listX, y + 132f, 405f, 306f);
+            deploymentScroll = GUI.BeginScrollView(locationView, deploymentScroll,
+                new Rect(0f, 0f, 385f, Mathf.Max(306f, locations.Count * 28f)));
+            for (int i = 0; i < locations.Count; i++)
             {
                 PrototypeDeployment.Location location = locations[i];
-                float rowY = y + 132f + i * 28f;
-                Rect row = new Rect(listX, rowY, 405f, 26f);
+                Rect row = new Rect(0f, i * 28f, 385f, 26f);
                 DrawRect(row, location.Id == selectedLocation ? SelectedCard :
                     location.Available ? Card : Panel);
                 if (GUI.Button(row, GUIContent.none, GUIStyle.none))
                     selectedLocation = location.Id;
-                GUI.Label(new Rect(row.x + 8f, row.y + 2f, 255f, 22f),
+                GUI.Label(new Rect(row.x + 8f, row.y + 2f, 245f, 22f),
                     location.Name, smallStyle);
-                GUI.Label(new Rect(row.x + 268f, row.y + 2f, 133f, 22f),
+                GUI.Label(new Rect(row.x + 255f, row.y + 2f, 125f, 22f),
                     location.Reason, smallStyle);
             }
+            GUI.EndScrollView();
             foreach (PrototypeDeployment.Location location in locations)
                 if (location.Id == selectedLocation) { selected = location; break; }
             DrawRect(new Rect(x + 25f, y + 476f, 866f, 1f), Divider);

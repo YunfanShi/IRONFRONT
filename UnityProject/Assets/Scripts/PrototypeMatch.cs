@@ -149,6 +149,11 @@ namespace Ironfront.UnityPrototype
             }
             if (redOwned > blueOwned) BlueTickets = Mathf.Max(0f, BlueTickets - (redOwned - blueOwned) * 0.85f * dt);
             if (blueOwned > redOwned) RedTickets = Mathf.Max(0f, RedTickets - (blueOwned - redOwned) * 0.85f * dt);
+            if (Elapsed > 900f)
+            {
+                BlueTickets = Mathf.Max(0f, BlueTickets - 0.28f * dt);
+                RedTickets = Mathf.Max(0f, RedTickets - 0.28f * dt);
+            }
             CheckWinner();
         }
 
@@ -187,7 +192,18 @@ namespace Ironfront.UnityPrototype
                 else if (BlueTickets <= 0f) Winner = PrototypeTeam.Red;
                 return;
             }
-            if (BlueTickets <= 0f) Winner = PrototypeTeam.Red;
+            if (BlueTickets <= 0f && RedTickets <= 0f)
+            {
+                int blueHeld = 0;
+                int redHeld = 0;
+                foreach (PrototypeCapturePoint point in Points)
+                {
+                    if (point.Owner == PrototypeTeam.Blue) blueHeld++;
+                    else if (point.Owner == PrototypeTeam.Red) redHeld++;
+                }
+                Winner = blueHeld >= redHeld ? PrototypeTeam.Blue : PrototypeTeam.Red;
+            }
+            else if (BlueTickets <= 0f) Winner = PrototypeTeam.Red;
             else if (RedTickets <= 0f) Winner = PrototypeTeam.Blue;
         }
     }

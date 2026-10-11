@@ -200,6 +200,7 @@ namespace Ironfront.UnityPrototype
                 }
                 return;
             }
+            if (runtime.Match.Winner.HasValue) return;
             if (Cursor.lockState != CursorLockMode.Locked)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -209,7 +210,6 @@ namespace Ironfront.UnityPrototype
                 }
                 return;
             }
-            if (runtime.Match.Winner.HasValue) return;
             kit.Tick(Time.time);
             secondaryKit.Tick(Time.time);
             if (Time.time > supportStatusUntil) SupportStatus = "";

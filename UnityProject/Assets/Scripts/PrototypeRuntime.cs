@@ -809,6 +809,14 @@ namespace Ironfront.UnityPrototype
                 GUI.matrix = previousMatrix;
                 return;
             }
+            if (Match.Winner.HasValue && !networkModeActive)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                if (DrawSoloResult(canvasWidth, canvasHeight)) ReturnToLobby();
+                GUI.matrix = previousMatrix;
+                return;
+            }
             if (networkModeActive && lan != null && !lan.IsConnected)
             {
                 string connectionNotice = lan.ReconnectFailed ?
@@ -942,6 +950,55 @@ namespace Ironfront.UnityPrototype
             if (Match.Winner.HasValue) GUI.Label(new Rect(canvasWidth / 2f - 145,
                 canvasHeight / 2f - 80, 350, 45), Match.Winner.Value + " TEAM WINS", title);
             GUI.matrix = previousMatrix;
+        }
+
+        private bool DrawSoloResult(float canvasWidth, float canvasHeight)
+        {
+            DrawHudRect(new Rect(0f, 0f, canvasWidth, canvasHeight),
+                new Color(.008f, .025f, .032f, .84f));
+            float x = (canvasWidth - 600f) * .5f;
+            float y = (canvasHeight - 420f) * .5f;
+            DrawHudRect(new Rect(x, y, 600f, 420f),
+                new Color(.035f, .085f, .105f, .98f));
+            DrawHudRect(new Rect(x, y, 600f, 4f),
+                Match.Winner == PrototypeTeam.Blue ?
+                    new Color(.42f, .80f, .96f) : new Color(.95f, .47f, .39f));
+            var heading = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 30, fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleCenter
+            };
+            heading.normal.textColor = Color.white;
+            var detail = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 15, alignment = TextAnchor.MiddleCenter
+            };
+            detail.normal.textColor = new Color(.78f, .88f, .91f);
+            var button = new GUIStyle(GUI.skin.button)
+            {
+                fontSize = 18, fontStyle = FontStyle.Bold
+            };
+            string result = Match.Winner == Player.Team ? "胜利 / VICTORY" :
+                "战败 / DEFEAT";
+            GUI.Label(new Rect(x + 30f, y + 35f, 540f, 48f), result, heading);
+            GUI.Label(new Rect(x + 30f, y + 92f, 540f, 30f),
+                (Match.Mode == PrototypeGameMode.Breakthrough ? "攻防" : "征服") +
+                " · " + (Match.Winner == PrototypeTeam.Blue ? "蓝方" : "红方") +
+                "赢得战局", detail);
+            GUI.Label(new Rect(x + 30f, y + 135f, 540f, 30f),
+                "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "   VS   " +
+                (Match.Mode == PrototypeGameMode.Breakthrough ? "∞" :
+                    Mathf.CeilToInt(Match.RedTickets).ToString()) + " RED", detail);
+            string objectives = "";
+            foreach (PrototypeCapturePoint point in Match.Points)
+                objectives += point.Definition.Id + " " +
+                    (point.Owner == PrototypeTeam.Blue ? "BLU" :
+                        point.Owner == PrototypeTeam.Red ? "RED" : "---") + "    ";
+            GUI.Label(new Rect(x + 30f, y + 186f, 540f, 30f), objectives, detail);
+            GUI.Label(new Rect(x + 30f, y + 240f, 540f, 30f),
+                "本局已结束，可返回大厅再次选择战局。", detail);
+            return GUI.Button(new Rect(x + 70f, y + 317f, 460f, 56f),
+                "返回大厅 / MAIN MENU", button);
         }
 
         private void DrawTicketBanner(float width)
