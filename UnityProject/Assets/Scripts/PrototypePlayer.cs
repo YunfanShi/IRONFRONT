@@ -9,11 +9,16 @@ namespace Ironfront.UnityPrototype
     {
         private const float WalkSpeed = 8.6f;
         private const float SprintSpeed = 13.7f;
+        private const float CrouchSpeed = 4.7f;
+        private const float ProneSpeed = 2.3f;
+        private const float SlideDuration = .78f;
         private CharacterController controller;
         private Camera viewCamera;
         private AudioSource audioSource;
         private AudioClip shotSound;
         private GameObject rifle;
+        private Transform magazineVisual;
+        private Vector3 magazineHome;
         private PrototypeRuntime runtime;
         private float pitch;
         private float vehicleLookYaw;
@@ -32,6 +37,14 @@ namespace Ironfront.UnityPrototype
         private Vector2 beaconPosition;
         private bool beaconAvailable;
         private float supportStatusUntil;
+        private bool crouched;
+        private bool prone;
+        private bool sprinting;
+        private bool aiming;
+        private float slideEndsAt;
+        private Vector3 slideDirection;
+        private float moveAmount;
+        private float lastShotAt = -10f;
 
         public bool Alive => Health > 0f;
         public PrototypeTeam Team { get; private set; } = PrototypeTeam.Blue;
@@ -47,6 +60,14 @@ namespace Ironfront.UnityPrototype
         public int Ammo => ActiveKit.Ammo;
         public int Reserve => ActiveKit.Reserve;
         public bool Reloading => ActiveKit.Reloading;
+        public bool IsAiming => aiming && !Reloading && CurrentVehicle == null;
+        public bool IsSprinting => sprinting;
+        public bool IsSliding => slideEndsAt > Time.time;
+        public bool IsCrouched => crouched && !IsSliding;
+        public bool IsProne => prone;
+        public float CrosshairSpread => Mathf.Clamp(
+            (IsAiming ? 2.5f : 7f) + moveAmount * (sprinting ? 7f : 4f) +
+            (Time.time - lastShotAt < .18f ? 5f : 0f), 2.5f, 22f);
         public PrototypeInfantryClass Class => kit.Role;
         public PrototypeInfantryKit Kit => kit;
         public string SupportStatus { get; private set; } = "";
@@ -91,8 +112,10 @@ namespace Ironfront.UnityPrototype
             if (rifle != null) Destroy(rifle);
             rifle = PrototypeWeaponVisual.Build(viewCamera.transform, ActiveWeapon.Id,
                 runtime, true, Team);
-            rifle.transform.localPosition = new Vector3(.37f, -.32f, .60f);
-            rifle.transform.localScale = Vector3.one * .64f;
+            rifle.transform.localPosition = new Vector3(.30f, -.29f, .74f);
+            rifle.transform.localScale = Vector3.one * .55f;
+            magazineVisual = rifle.transform.Find("Magazine");
+            if (magazineVisual != null) magazineHome = magazineVisual.localPosition;
         }
 
         public void SelectClass(PrototypeInfantryClass selectedClass)
@@ -193,6 +216,8 @@ namespace Ironfront.UnityPrototype
 
             if (CurrentVehicle != null)
             {
+                aiming = false;
+                sprinting = false;
                 if (Input.GetKeyDown(KeyCode.E)) { ForceExitVehicle(); return; }
                 if (CurrentVehicle is PrototypeTransportVehicle transport)
                 {
@@ -212,11 +237,46 @@ namespace Ironfront.UnityPrototype
 
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             input = Vector2.ClampMagnitude(input, 1f);
-            bool sprint = Input.GetKey(KeyCode.LeftShift) && input.y > 0.1f;
-            float speed = sprint ? SprintSpeed : WalkSpeed;
-            Vector3 horizontal = (transform.right * input.x + transform.forward * input.y) * speed;
+            moveAmount = input.magnitude;
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                if (prone) { prone = false; crouched = true; }
+                else { prone = true; crouched = false; slideEndsAt = 0f; }
+            }
+            bool wantsSprint = Input.GetKey(KeyCode.LeftShift) && input.y > .1f &&
+                !prone && !crouched && controller.isGrounded && !Reloading;
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                if (wantsSprint)
+                {
+                    slideDirection = (transform.right * input.x + transform.forward * input.y).normalized;
+                    slideEndsAt = Time.time + SlideDuration;
+                    crouched = false;
+                    prone = false;
+                }
+                else if (prone) { prone = false; crouched = true; }
+                else if (crouched) { if (CanStand()) crouched = false; }
+                else crouched = true;
+            }
+            if (slideEndsAt > 0f && Time.time >= slideEndsAt)
+            {
+                slideEndsAt = 0f;
+                crouched = true;
+            }
+            aiming = Input.GetMouseButton(1) && !IsSliding && !Reloading;
+            sprinting = wantsSprint && !aiming && !IsSliding;
+            float speed = prone ? ProneSpeed : crouched ? CrouchSpeed :
+                aiming ? WalkSpeed * .65f : sprinting ? SprintSpeed : WalkSpeed;
+            Vector3 horizontal = IsSliding ? slideDirection *
+                Mathf.Lerp(14f, 5f, 1f - (slideEndsAt - Time.time) / SlideDuration) :
+                (transform.right * input.x + transform.forward * input.y) * speed;
+            float targetHeight = prone ? .75f : crouched || IsSliding ? 1.15f : 1.8f;
+            controller.height = targetHeight;
+            controller.center = new Vector3(0f, targetHeight * .5f, 0f);
+            controller.stepOffset = prone ? .12f : .35f;
             if (controller.isGrounded && verticalSpeed < 0f) verticalSpeed = -2f;
             if (!runtime.IsNetworkReplica && controller.isGrounded &&
+                !prone && !crouched && !IsSliding &&
                 Input.GetKeyDown(KeyCode.Space)) verticalSpeed = 6.2f;
             verticalSpeed -= 22f * Time.deltaTime;
             controller.Move((horizontal + Vector3.up * verticalSpeed) * Time.deltaTime);
@@ -239,6 +299,49 @@ namespace Ironfront.UnityPrototype
         private void LateUpdate()
         {
             if (CurrentVehicle != null) UpdateVehicleCamera();
+            else if (runtime != null && runtime.MatchStarted && Alive && rifle != null)
+                UpdateInfantryPresentation();
+        }
+
+        private bool CanStand()
+        {
+            Vector3 bottom = transform.position + Vector3.up * .36f;
+            Vector3 top = transform.position + Vector3.up * 1.44f;
+            return !Physics.CheckCapsule(bottom, top, .31f, ~(1 << 2),
+                QueryTriggerInteraction.Ignore);
+        }
+
+        private void UpdateInfantryPresentation()
+        {
+            float blend = 1f - Mathf.Exp(-12f * Time.deltaTime);
+            float eyeHeight = prone ? .64f : crouched || IsSliding ? 1.02f : 1.65f;
+            viewCamera.transform.localPosition = Vector3.Lerp(
+                viewCamera.transform.localPosition, new Vector3(0f, eyeHeight, 0f), blend);
+            float targetFov = IsAiming ?
+                (ActiveWeapon.Id == PrototypeWeaponId.Sniper ? 40f : 54f) :
+                sprinting ? 82f : 76f;
+            viewCamera.fieldOfView = Mathf.Lerp(viewCamera.fieldOfView, targetFov, blend);
+
+            float reload = Reloading ? Mathf.Clamp01(1f -
+                (ActiveKit.ReloadEndsAt - Time.time) / ActiveWeapon.ReloadSeconds) : 0f;
+            float reloadDip = Reloading ? Mathf.Sin(reload * Mathf.PI) : 0f;
+            float stride = moveAmount * (sprinting ? 1f : .45f);
+            float bob = Mathf.Sin(Time.time * (sprinting ? 14f : 9f)) * .013f * stride;
+            Vector3 home = IsAiming ? new Vector3(0f, -.121f, .53f) :
+                new Vector3(.30f, -.29f, .74f);
+            if (sprinting || IsSliding) home += new Vector3(.06f, -.12f, -.07f);
+            home += new Vector3(0f, bob - reloadDip * .18f, 0f);
+            rifle.transform.localPosition = Vector3.Lerp(rifle.transform.localPosition, home, blend);
+            Quaternion pose = Quaternion.Euler(reloadDip * 28f +
+                (sprinting ? -11f : 0f), 0f, reloadDip * 14f +
+                (IsSliding ? -11f : 0f));
+            rifle.transform.localRotation = Quaternion.Slerp(rifle.transform.localRotation, pose, blend);
+            if (magazineVisual != null)
+            {
+                float magazineDrop = Reloading ?
+                    Mathf.Sin(Mathf.Clamp01((reload - .18f) / .62f) * Mathf.PI) * .24f : 0f;
+                magazineVisual.localPosition = magazineHome + Vector3.down * magazineDrop;
+            }
         }
 
         private void TryEnterVehicle()
@@ -272,6 +375,9 @@ namespace Ironfront.UnityPrototype
             pitch = 10f;
             vehicleLookYaw = 0f;
             rifle.SetActive(false);
+            aiming = false;
+            sprinting = false;
+            slideEndsAt = 0f;
             viewCamera.fieldOfView = 80f;
             UpdateVehicleCamera();
             return true;
@@ -307,6 +413,12 @@ namespace Ironfront.UnityPrototype
             viewCamera.transform.localRotation = Quaternion.identity;
             viewCamera.fieldOfView = 76f;
             rifle.SetActive(true);
+            crouched = false;
+            prone = false;
+            aiming = false;
+            sprinting = false;
+            controller.height = 1.8f;
+            controller.center = new Vector3(0f, .9f, 0f);
             controller.enabled = true;
         }
 
@@ -347,12 +459,15 @@ namespace Ironfront.UnityPrototype
         {
             PrototypeInfantryKit weaponKit = ActiveKit;
             if (weaponKit.Ammo == 0) { weaponKit.StartReload(Time.time); return; }
+            bool aimedShot = IsAiming;
             if (!weaponKit.TryFire(Time.time)) return;
+            lastShotAt = Time.time;
             if (shotSound != null) audioSource.PlayOneShot(shotSound, 0.3f);
             Vector3 origin = viewCamera.transform.position;
+            float spread = aimedShot ? weaponKit.Weapon.AdsSpread : weaponKit.Weapon.HipSpread;
             Vector3 direction = (viewCamera.transform.forward +
-                viewCamera.transform.right * Random.Range(-weaponKit.Weapon.HipSpread, weaponKit.Weapon.HipSpread) +
-                viewCamera.transform.up * Random.Range(-weaponKit.Weapon.HipSpread, weaponKit.Weapon.HipSpread)).normalized;
+                viewCamera.transform.right * Random.Range(-spread, spread) +
+                viewCamera.transform.up * Random.Range(-spread, spread)).normalized;
             float range = weaponKit.Weapon.MaxRange;
             Vector3 end = origin + direction * range;
             // Bots move by Transform in Update; synchronize their colliders before this raycast.
@@ -646,6 +761,21 @@ namespace Ironfront.UnityPrototype
                 Team == PrototypeTeam.Blue ? 48f : 228f, 0f);
             pitch = 0f;
             verticalSpeed = 0f;
+            crouched = false;
+            prone = false;
+            sprinting = false;
+            aiming = false;
+            slideEndsAt = 0f;
+            if (controller != null)
+            {
+                controller.height = 1.8f;
+                controller.center = new Vector3(0f, .9f, 0f);
+            }
+            if (viewCamera != null)
+            {
+                viewCamera.transform.localPosition = new Vector3(0f, 1.65f, 0f);
+                viewCamera.fieldOfView = 76f;
+            }
             Health = 100f;
             downedUntil = 0f;
             rescueCalled = false;

@@ -839,45 +839,47 @@ namespace Ironfront.UnityPrototype
                 GUI.matrix = previousMatrix;
                 return;
             }
+            DrawTicketBanner(canvasWidth);
             var title = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
             title.normal.textColor = Color.white;
-            var body = new GUIStyle(GUI.skin.label) { fontSize = 14 };
+            var body = new GUIStyle(GUI.skin.label) { fontSize = 12 };
             body.normal.textColor = Color.white;
-            GUI.Box(new Rect(12, 12, 370, networkModeActive ? 225 : 210),
-                GUIContent.none);
-            GUI.Label(new Rect(25, 20, 340, 30), "IRONFRONT  |  " + Frontend.PlayerName, title);
-            GUI.Label(new Rect(25, 55, 340, 23),
-                "BLUE " + Mathf.CeilToInt(Match.BlueTickets) + "     RED " + Mathf.CeilToInt(Match.RedTickets), body);
+            DrawHudRect(new Rect(12, 12, 270, networkModeActive ? 202 : 179),
+                new Color(.012f, .045f, .060f, .82f));
+            DrawHudRect(new Rect(12, 12, 270, 2), new Color(.46f, .76f, .82f));
+            GUI.Label(new Rect(25, 20, 244, 30), "IRONFRONT  |  " + Frontend.PlayerName, title);
             if (networkModeActive)
-                GUI.Label(new Rect(25, 206, 340, 23),
+                GUI.Label(new Rect(25, 178, 244, 23),
                     "ROOM " + (lan?.Code ?? "------") + "  |  " +
                     (networkHost ? "HOST" : "PLAYER") + "  |  " +
                     (lan != null && lan.IsConnected ?
                         lan.LastRoom != null && lan.LastRoom.paused ? "PAUSED" : "CONNECTED" :
                         lan != null && lan.ReconnectFailed ? "SESSION ENDED" : "RECONNECTING"), body);
             if (Player.CurrentVehicle != null)
-                GUI.Label(new Rect(25, 81, 340, 23),
+                GUI.Label(new Rect(25, 51, 244, 23),
                     Player.CurrentVehicle.VehicleName + "  ARMOR " +
                     Mathf.CeilToInt(Player.CurrentVehicle.Health) +
                     "  SPEED " + Mathf.RoundToInt(Mathf.Abs(Player.CurrentVehicle.Speed) * 3.6f) +
                     " km/h", body);
             else
-                GUI.Label(new Rect(25, 81, 340, 23),
-                    "HP " + Mathf.CeilToInt(Player.Health) + "  ARMOR " + Mathf.CeilToInt(Player.Kit.Armor) +
-                    "   " + Player.ActiveWeapon.Name + " " + Player.Ammo + " / " + Player.Reserve +
-                    (Player.Reloading ? "  RELOADING" : ""), body);
+                GUI.Label(new Rect(25, 51, 244, 23),
+                    Player.IsSliding ? "SLIDING" : Player.IsProne ? "PRONE" :
+                    Player.IsCrouched ? "CROUCHED" : Player.IsSprinting ? "SPRINTING" :
+                    Player.IsAiming ? "AIMING" : "READY", body);
             for (int i = 0; i < Match.Points.Count; i++)
             {
                 PrototypeCapturePoint p = Match.Points[i];
                 string owner = p.Owner == PrototypeTeam.Blue ? "BLU" :
                     p.Owner == PrototypeTeam.Red ? "RED" : "---";
-                GUI.Label(new Rect(25, 108 + i * 19, 340, 20),
+                GUI.Label(new Rect(25, 78 + i * 19, 244, 20),
                     p.Definition.Id + "  " + owner + "  " + Mathf.RoundToInt(p.Control) + "%" +
                     (p.Contested ? "  CONTESTED" : ""), body);
             }
             float ordersX = canvasWidth - 282f;
             float ordersY = 12f;
-            GUI.Box(new Rect(ordersX, ordersY, 270, 176), GUIContent.none);
+            DrawHudRect(new Rect(ordersX, ordersY, 270, 176),
+                new Color(.012f, .045f, .060f, .82f));
+            DrawHudRect(new Rect(ordersX, ordersY, 270, 2), new Color(.46f, .76f, .82f));
             GUI.Label(new Rect(ordersX + 12, ordersY + 6, 245, 25), "SQUAD ORDERS", title);
             DrawOrders(BlueCommander, "BLUE", ordersX + 12, ordersY + 34, body);
             DrawOrders(RedCommander, "RED", ordersX + 12, ordersY + 82, body);
@@ -911,24 +913,75 @@ namespace Ironfront.UnityPrototype
                 "  |  E exit  |  Esc menu" :
                 Player.CurrentVehicle != null ?
                 "R4 SCOUT  |  WASD drive  |  Mouse aim  |  LMB machine gun  |  E exit  |  Esc menu" :
-                "WASD move  |  LMB fire  |  R reload  |  1/2 weapons  |  G grenade  |  X class ability  |  E vehicle  |  Esc menu";
+                "WASD move  |  Shift sprint  |  C crouch / slide  |  V prone  |  RMB aim  |  LMB fire  |  R reload  |  Esc menu";
             GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f, canvasWidth - 285f), 25), controls, body);
             if (Player.CurrentVehicle == null && Player.Alive)
                 DrawCombatHud(canvasWidth, canvasHeight);
             if (!string.IsNullOrEmpty(Player.SupportStatus))
                 GUI.Label(new Rect(12, canvasHeight - 59, 370, 24), Player.SupportStatus, body);
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)
-            {
-                float cx = canvasWidth / 2f;
-                float cy = canvasHeight / 2f;
-                GUI.Label(new Rect(cx - 5, cy - 10, 25, 25), "+", title);
-            }
+                DrawCrosshair(canvasWidth, canvasHeight);
             if (!Player.Alive && !Match.Winner.HasValue)
                 GUI.Label(new Rect(canvasWidth / 2f - 120, canvasHeight / 2f - 65,
                     300, 40), "DOWN  |  SELECT DEPLOYMENT", title);
             if (Match.Winner.HasValue) GUI.Label(new Rect(canvasWidth / 2f - 145,
                 canvasHeight / 2f - 80, 350, 45), Match.Winner.Value + " TEAM WINS", title);
             GUI.matrix = previousMatrix;
+        }
+
+        private void DrawTicketBanner(float width)
+        {
+            float x = width * .5f - 168f;
+            DrawHudRect(new Rect(x, 9f, 336f, 48f), new Color(.012f, .045f, .065f, .83f));
+            DrawHudRect(new Rect(x, 9f, 4f, 48f), new Color(.38f, .72f, .92f));
+            DrawHudRect(new Rect(x + 332f, 9f, 4f, 48f), new Color(.89f, .38f, .31f));
+            var blue = new GUIStyle(GUI.skin.label) { fontSize = 18,
+                fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
+            blue.normal.textColor = new Color(.58f, .83f, 1f);
+            var red = new GUIStyle(blue);
+            red.normal.textColor = new Color(1f, .59f, .52f);
+            var separator = new GUIStyle(blue) { fontSize = 11 };
+            separator.normal.textColor = new Color(.72f, .79f, .80f);
+            GUI.Label(new Rect(x + 8f, 13f, 141f, 39f),
+                "◆ BLUE " + Mathf.CeilToInt(Match.BlueTickets), blue);
+            GUI.Label(new Rect(x + 149f, 13f, 38f, 39f), "VS", separator);
+            GUI.Label(new Rect(x + 187f, 13f, 141f, 39f),
+                Mathf.CeilToInt(Match.RedTickets) + " RED ◆", red);
+            float start = width * .5f - Match.Points.Count * 18f;
+            var pointStyle = new GUIStyle(GUI.skin.label) { fontSize = 12,
+                fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
+            for (int i = 0; i < Match.Points.Count; i++)
+            {
+                PrototypeCapturePoint point = Match.Points[i];
+                Color color = point.Owner == PrototypeTeam.Blue ?
+                    new Color(.20f, .45f, .60f, .9f) : point.Owner == PrototypeTeam.Red ?
+                    new Color(.58f, .22f, .20f, .9f) : new Color(.09f, .16f, .20f, .87f);
+                float px = start + i * 36f;
+                DrawHudRect(new Rect(px, 61f, 30f, 25f), color);
+                pointStyle.normal.textColor = point.Contested ?
+                    new Color(1f, .79f, .47f) : Color.white;
+                GUI.Label(new Rect(px, 61f, 30f, 25f), point.Definition.Id, pointStyle);
+            }
+        }
+
+        private void DrawCrosshair(float width, float height)
+        {
+            float cx = width * .5f;
+            float cy = height * .5f;
+            float gap = Player.CurrentVehicle != null ? 5f : Player.CrosshairSpread;
+            float arm = Player.IsAiming ? 4f : 7f;
+            Color edge = new Color(.005f, .035f, .04f, .85f);
+            Color mark = Player.IsAiming ? new Color(.60f, .95f, .95f, .96f) :
+                new Color(.96f, .98f, .95f, .92f);
+            DrawHudRect(new Rect(cx - gap - arm - 1f, cy - 2f, arm + 2f, 4f), edge);
+            DrawHudRect(new Rect(cx + gap - 1f, cy - 2f, arm + 2f, 4f), edge);
+            DrawHudRect(new Rect(cx - 2f, cy - gap - arm - 1f, 4f, arm + 2f), edge);
+            DrawHudRect(new Rect(cx - 2f, cy + gap - 1f, 4f, arm + 2f), edge);
+            DrawHudRect(new Rect(cx - gap - arm, cy - 1f, arm, 2f), mark);
+            DrawHudRect(new Rect(cx + gap, cy - 1f, arm, 2f), mark);
+            DrawHudRect(new Rect(cx - 1f, cy - gap - arm, 2f, arm), mark);
+            DrawHudRect(new Rect(cx - 1f, cy + gap, 2f, arm), mark);
+            DrawHudRect(new Rect(cx - 1f, cy - 1f, 2f, 2f), mark);
         }
 
         private void DrawCombatHud(float width, float height)

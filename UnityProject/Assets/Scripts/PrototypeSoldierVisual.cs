@@ -195,16 +195,29 @@ namespace Ironfront.UnityPrototype
             Material furniture = game.ArmorMaterial;
             Material trim = game.BootMaterial;
             PrototypeSoldierVisual.Part("Receiver", PrimitiveType.Cube, root.transform,
-                new Vector3(0f, 0f, .05f), new Vector3(.18f, .17f, receiver), steel);
+                new Vector3(0f, 0f, .05f), new Vector3(.17f, .145f, receiver), steel);
+            PrototypeSoldierVisual.Part("Upper receiver", PrimitiveType.Cube, root.transform,
+                new Vector3(0f, .075f, .06f), new Vector3(.15f, .055f, receiver * .91f), trim);
+            for (int side = -1; side <= 1; side += 2)
+            {
+                PrototypeSoldierVisual.Part("Receiver side panel", PrimitiveType.Cube,
+                    root.transform, new Vector3(side * .088f, -.012f, .075f),
+                    new Vector3(.012f, .082f, receiver * .70f), furniture);
+                PrototypeSoldierVisual.Part("Handguard side vent", PrimitiveType.Cube,
+                    root.transform, new Vector3(side * .105f, .015f, .34f),
+                    new Vector3(.009f, .025f, .25f), trim);
+            }
             PrototypeSoldierVisual.Part("Handguard", PrimitiveType.Cube, root.transform,
-                new Vector3(0f, -.01f, .31f), new Vector3(.20f, .15f, .40f), furniture);
+                new Vector3(0f, -.01f, .33f), new Vector3(.19f, .125f, .39f), furniture);
+            PrototypeSoldierVisual.Part("Lower handguard", PrimitiveType.Cube, root.transform,
+                new Vector3(0f, -.085f, .33f), new Vector3(.15f, .04f, .34f), trim);
             PrototypeSoldierVisual.Part("Barrel", PrimitiveType.Cylinder, root.transform,
                 new Vector3(0f, .025f, .48f + barrel * .5f),
                 new Vector3(.045f, barrel * .5f, .045f), steel)
                 .transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
             PrototypeSoldierVisual.Part("Muzzle brake", PrimitiveType.Cylinder, root.transform,
                 new Vector3(0f, .025f, .47f + barrel),
-                new Vector3(.067f, .055f, .067f), trim)
+                new Vector3(.055f, .055f, .055f), trim)
                 .transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
             PrototypeSoldierVisual.Part("Magazine", PrimitiveType.Cube, root.transform,
                 new Vector3(0f, -.20f, .04f),
@@ -213,37 +226,72 @@ namespace Ironfront.UnityPrototype
             PrototypeSoldierVisual.Part("Pistol grip", PrimitiveType.Cube, root.transform,
                 new Vector3(0f, -.19f, -.19f), new Vector3(.13f, .27f, .15f), trim)
                 .transform.localRotation = Quaternion.Euler(13f, 0f, 0f);
+            PrototypeSoldierVisual.Part("Trigger guard", PrimitiveType.Cube, root.transform,
+                new Vector3(0f, -.13f, -.07f), new Vector3(.025f, .018f, .17f), steel);
+            PrototypeSoldierVisual.Part("Charging handle", PrimitiveType.Cube,
+                root.transform, new Vector3(.11f, .07f, -.09f),
+                new Vector3(.10f, .025f, .055f), trim);
+            // The buttstock sits behind the eye in first person; rendering it
+            // there turns into a large near-camera block.
+            if (!pistol && !firstPerson)
+            {
+                PrototypeSoldierVisual.Part("Stock tube", PrimitiveType.Cube, root.transform,
+                    new Vector3(0f, -.005f, -.37f), new Vector3(.085f, .075f, .34f), steel);
+                PrototypeSoldierVisual.Part("Stock cheek", PrimitiveType.Cube, root.transform,
+                    new Vector3(0f, .045f, -.47f), new Vector3(.15f, .095f, .28f), furniture);
+                PrototypeSoldierVisual.Part("Stock butt", PrimitiveType.Cube, root.transform,
+                    new Vector3(0f, -.045f, -.62f), new Vector3(.17f, .21f, .055f), trim);
+            }
             if (!pistol)
-                PrototypeSoldierVisual.Part("Stock", PrimitiveType.Cube, root.transform,
-                    new Vector3(0f, -.02f, -.41f), new Vector3(.16f, .17f, .39f), furniture);
+                PrototypeSoldierVisual.Part("Vertical foregrip", PrimitiveType.Cube,
+                    root.transform, new Vector3(0f, -.16f, .37f),
+                    new Vector3(.075f, .19f, .075f), trim);
             PrototypeSoldierVisual.Part("Top rail", PrimitiveType.Cube, root.transform,
-                new Vector3(0f, .11f, .04f), new Vector3(.13f, .035f, .47f), trim);
+                new Vector3(0f, .115f, .12f), new Vector3(.11f, .025f, .66f), trim);
+            for (int i = 0; i < 7; i++)
+                PrototypeSoldierVisual.Part("Rail tooth", PrimitiveType.Cube,
+                    root.transform, new Vector3(0f, .132f, -.15f + i * .085f),
+                    new Vector3(.14f, .018f, .027f), steel);
+            PrototypeSoldierVisual.Part("Front sight post", PrimitiveType.Cube,
+                root.transform, new Vector3(0f, .18f, .53f),
+                new Vector3(.018f, .085f, .018f), trim);
             if (longRifle)
             {
                 GameObject scope = PrototypeSoldierVisual.Part("Scope", PrimitiveType.Cylinder,
                     root.transform, new Vector3(0f, .22f, .07f),
                     new Vector3(.06f, .25f, .06f), trim);
                 scope.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+                PrototypeSoldierVisual.Part("Scope objective", PrimitiveType.Cylinder,
+                    root.transform, new Vector3(0f, .22f, .32f),
+                    new Vector3(.085f, .035f, .085f), steel)
+                    .transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
                 PrototypeSoldierVisual.Part("Scope lens", PrimitiveType.Cube, root.transform,
-                    new Vector3(0f, .22f, .32f), new Vector3(.09f, .09f, .025f),
+                    new Vector3(0f, .22f, .35f), new Vector3(.055f, .055f, .008f),
                     game.GlassMaterial);
             }
             else
             {
-                PrototypeSoldierVisual.Part("Reflex sight", PrimitiveType.Cube, root.transform,
-                    new Vector3(0f, .19f, .04f), new Vector3(.16f, .14f, .07f), trim);
-                PrototypeSoldierVisual.Part("Sight glass", PrimitiveType.Cube, root.transform,
-                    new Vector3(0f, .19f, .08f), new Vector3(.11f, .08f, .015f),
-                    game.GlassMaterial);
+                PrototypeSoldierVisual.Part("Sight base", PrimitiveType.Cube, root.transform,
+                    new Vector3(0f, .15f, .04f), new Vector3(.15f, .035f, .11f), trim);
+                for (int side = -1; side <= 1; side += 2)
+                    PrototypeSoldierVisual.Part("Sight frame side", PrimitiveType.Cube,
+                        root.transform, new Vector3(side * .064f, .22f, .08f),
+                        new Vector3(.014f, .12f, .018f), steel);
+                PrototypeSoldierVisual.Part("Sight frame top", PrimitiveType.Cube,
+                    root.transform, new Vector3(0f, .28f, .08f),
+                    new Vector3(.14f, .014f, .018f), steel);
+                PrototypeSoldierVisual.Part("Sight reticle", PrimitiveType.Sphere,
+                    root.transform, new Vector3(0f, .22f, .075f),
+                    new Vector3(.012f, .012f, .012f), game.RedTrimMaterial);
             }
             if (firstPerson)
             {
                 for (int side = -1; side <= 1; side += 2)
                 {
                     float z = side < 0 ? .31f : -.17f;
-                    PrototypeSoldierVisual.Part("Gloved hand", PrimitiveType.Sphere,
+                    PrototypeSoldierVisual.Part("Gloved hand", PrimitiveType.Cube,
                         root.transform, new Vector3(side * .15f, -.18f, z),
-                        new Vector3(.20f, .19f, .27f), game.BootMaterial);
+                        new Vector3(.17f, .14f, .21f), game.BootMaterial);
                     PrototypeSoldierVisual.Part("Sleeve", PrimitiveType.Cylinder,
                         root.transform, new Vector3(side * .24f, -.30f, z - .15f),
                         new Vector3(.11f, .31f, .11f), team == PrototypeTeam.Blue ?

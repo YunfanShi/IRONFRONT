@@ -211,36 +211,41 @@ namespace Ironfront.UnityPrototype
         {
             EnsureStyles();
             DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight),
-                new Color(.015f, .04f, .06f, .83f));
-            float x = (canvasWidth - 510f) * .5f;
+                new Color(.006f, .018f, .023f, .70f));
+            float x = (canvasWidth - 520f) * .5f;
             float y = Mathf.Max(12f, (canvasHeight - 530f) * .5f);
-            DrawRect(new Rect(x, y, 510f, 530f), new Color(.035f, .075f, .085f, .98f));
-            DrawRect(new Rect(x, y, 510f, 2f), MenuAccent);
-            GUI.Label(new Rect(x + 30f, y + 23f, 450f, 22f),
+            DrawRect(new Rect(x, y, 520f, 530f), new Color(.008f, .027f, .034f, .98f));
+            DrawRect(new Rect(x, y, 520f, 2f), MenuAccent);
+            DrawRect(new Rect(x + 28f, y + 115f, 464f, 1f), MenuDivider);
+            GUI.Label(new Rect(x + 30f, y + 21f, 455f, 28f),
                 "I R O N F R O N T   /   S Y S T E M", statStyle);
-            GUI.Label(new Rect(x + 30f, y + 55f, 450f, 48f),
-                isLan ? "操作暂停 / LIVE ROOM" : "战斗已暂停 / BATTLE PAUSED", menuTitleStyle);
-            GUI.Label(new Rect(x + 30f, y + 108f, 450f, 28f),
-                isLan ? "房间战局仍在继续。" : "战局已暂停，按 Esc 可继续。", labelStyle);
-            DrawRect(new Rect(x + 30f, y + 143f, 450f, 51f), MenuCard);
-            GUI.Label(new Rect(x + 44f, y + 151f, 420f, 20f),
-                "连接信息 / CONNECTION", headingStyle);
-            GUI.Label(new Rect(x + 44f, y + 174f, 420f, 18f),
+            GUI.Label(new Rect(x + 30f, y + 48f, 455f, 48f),
+                isLan ? "作战菜单" : "战斗已暂停", menuTitleStyle);
+            GUI.Label(new Rect(x + 32f, y + 91f, 440f, 25f),
+                isLan ? "LIVE ROOM · 房间战局仍在继续" :
+                "BATTLE PAUSED · 按 Esc 继续战斗", smallStyle);
+            DrawRect(new Rect(x + 30f, y + 130f, 460f, 63f), MenuCard);
+            DrawRect(new Rect(x + 30f, y + 130f, 3f, 63f), MenuAccent);
+            GUI.Label(new Rect(x + 46f, y + 136f, 425f, 29f),
+                "连接信息  /  CONNECTION", labelStyle);
+            GUI.Label(new Rect(x + 46f, y + 162f, 425f, 25f),
                 isLan ? "联机房间 · 房主与玩家权限按房间规则执行" :
                 "单人游戏 · 无需连接房间", smallStyle);
-            GUI.Label(new Rect(x + 30f, y + 211f, 380f, 22f),
-                "鼠标灵敏度 / SENSITIVITY", headingStyle);
+            GUI.Label(new Rect(x + 30f, y + 211f, 380f, 30f),
+                "鼠标灵敏度  /  SENSITIVITY", labelStyle);
+            DrawRect(new Rect(x + 32f, y + 256f, 380f, 2f), MenuDivider);
             float nextSensitivity = GUI.HorizontalSlider(
-                new Rect(x + 32f, y + 244f, 380f, 20f), sensitivity, .5f, 5f);
-            GUI.Label(new Rect(x + 424f, y + 235f, 55f, 26f),
+                new Rect(x + 32f, y + 249f, 380f, 20f), sensitivity, .5f, 5f);
+            GUI.Label(new Rect(x + 425f, y + 239f, 58f, 30f),
                 sensitivity.ToString("0.0"), labelStyle);
             if (!Mathf.Approximately(nextSensitivity, sensitivity))
                 runtime.SetMouseSensitivity(nextSensitivity);
-            GUI.Label(new Rect(x + 30f, y + 279f, 380f, 22f),
-                "主音量 / MASTER VOLUME", headingStyle);
+            GUI.Label(new Rect(x + 30f, y + 291f, 380f, 30f),
+                "主音量  /  MASTER VOLUME", labelStyle);
+            DrawRect(new Rect(x + 32f, y + 336f, 380f, 2f), MenuDivider);
             float nextVolume = GUI.HorizontalSlider(
-                new Rect(x + 32f, y + 312f, 380f, 20f), volume, 0f, 1f);
-            GUI.Label(new Rect(x + 424f, y + 303f, 55f, 26f),
+                new Rect(x + 32f, y + 329f, 380f, 20f), volume, 0f, 1f);
+            GUI.Label(new Rect(x + 425f, y + 319f, 58f, 30f),
                 Mathf.RoundToInt(volume * 100f) + "%", labelStyle);
             if (!Mathf.Approximately(nextVolume, volume))
             {
@@ -249,14 +254,14 @@ namespace Ironfront.UnityPrototype
                 PlayerPrefs.SetFloat(VolumeKey, volume);
                 PlayerPrefs.Save();
             }
-            Rect resume = new Rect(x + 30f, y + 354f, 450f, 54f);
-            Rect lobby = new Rect(x + 30f, y + 418f, 450f, 50f);
+            Rect resume = new Rect(x + 30f, y + 370f, 460f, 51f);
+            Rect lobby = new Rect(x + 30f, y + 432f, 460f, 49f);
             DrawRect(resume, MenuAccent);
             DrawRect(lobby, MenuCard);
             GUI.Label(resume, "继续战斗 / RESUME", darkButtonStyle);
             GUI.Label(lobby, "退出战局 · 返回大厅 / MAIN MENU", lightButtonStyle);
-            GUI.Label(new Rect(x + 30f, y + 488f, 450f, 25f),
-                "Esc 继续  ·  L 返回大厅  ·  1/2 切枪  ·  G 投掷", smallStyle);
+            GUI.Label(new Rect(x + 30f, y + 496f, 460f, 25f),
+                "Esc 继续  ·  C 蹲下 / 滑铲  ·  V 趴下  ·  右键瞄准", smallStyle);
             if (GUI.Button(resume, GUIContent.none, GUIStyle.none))
                 return PrototypePauseAction.Resume;
             if (GUI.Button(lobby, GUIContent.none, GUIStyle.none))
