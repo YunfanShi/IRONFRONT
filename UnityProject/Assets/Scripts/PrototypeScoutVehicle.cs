@@ -5,7 +5,8 @@ namespace Ironfront.UnityPrototype
 {
     // The first drivable ground vehicle slice. Positions and combat are kept in
     // the same world coordinates as PrototypeLayout and the browser R4 SCOUT.
-    public sealed class PrototypeScoutVehicle : MonoBehaviour, IPrototypeVehicle
+    public sealed class PrototypeScoutVehicle : MonoBehaviour, IPrototypeVehicle,
+        IPrototypeWeaponAim
     {
         private const float MaxHealth = 180f;
         private const float MaxForward = 22f;
@@ -28,6 +29,8 @@ namespace Ironfront.UnityPrototype
         private Vector2 goal;
         private BoxCollider hullCollider;
         private Transform turret;
+        private Transform barrelPivot;
+        private Transform gunMuzzle;
         private Renderer[] renderers;
 
         public string VehicleName => "R4 SCOUT";
@@ -41,6 +44,9 @@ namespace Ironfront.UnityPrototype
         public Transform VehicleTransform => transform;
         public PrototypePlayer Driver { get; private set; }
         public PrototypePlayer Occupant => Driver;
+        public bool PlayerControlsWeapon => Driver != null && Alive;
+        public Transform WeaponMuzzle => gunMuzzle;
+        public float WeaponRange => GunRange;
         // The player's existing camera is 1.65 m above its root transform.
         public Vector3 SeatPosition => transform.TransformPoint(new Vector3(-0.45f, 0.24f, -0.55f));
         public Vector3 ExitPosition
@@ -162,6 +168,9 @@ namespace Ironfront.UnityPrototype
                 float throttle = Input.GetAxisRaw("Vertical");
                 float steering = Input.GetAxisRaw("Horizontal");
                 Drive(throttle, steering, dt);
+                if (Driver.ViewCamera != null)
+                    AimTurretAt(PrototypeVehicleAim.CameraTarget(
+                        Driver.ViewCamera, transform, GunRange), dt);
                 if (Input.GetMouseButton(0)) FirePlayerGun();
             }
             else if (aiControlled)
@@ -209,24 +218,9 @@ namespace Ironfront.UnityPrototype
         {
             if (Time.time < nextShot || Driver == null || Driver.ViewCamera == null) return;
             nextShot = Time.time + GunInterval;
-            Camera camera = Driver.ViewCamera;
-            Vector3 origin = camera.transform.position;
-            Vector3 direction = camera.transform.forward;
-            AimTurretAt(origin + direction * GunRange);
-            Vector3 target = origin + direction * GunRange;
-            float nearest = GunRange;
-            Physics.SyncTransforms();
-            foreach (RaycastHit hit in Physics.RaycastAll(origin, direction, GunRange, ~(1 << 2)))
-            {
-                if (hit.collider == hullCollider ||
-                    hit.collider.transform.IsChildOf(transform) ||
-                    hit.distance >= nearest) continue;
-                nearest = hit.distance;
-                target = hit.point;
-            }
-            Vector3 muzzle = transform.TransformPoint(new Vector3(0.35f, 2.1f, 1.45f));
+            Vector3 muzzle = gunMuzzle.position;
             PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,
-                muzzle, target - muzzle, GunVelocity, GunRange, GunDamage);
+                muzzle, gunMuzzle.forward, GunVelocity, GunRange, GunDamage);
         }
 
         private void UpdateAi(float dt)
@@ -238,18 +232,19 @@ namespace Ironfront.UnityPrototype
             if (seesEnemy && Time.time >= nextShot)
             {
                 nextShot = Time.time + GunInterval;
-                Vector3 muzzle = transform.TransformPoint(new Vector3(0.35f, 2.1f, 1.45f));
+                Vector3 muzzle = gunMuzzle.position;
                 Vector3 impact = new Vector3(enemy.x,
                     PrototypeLayout.HeightAt(enemy.x, enemy.y) +
                     (vehicle != null ? 1.5f : player != null || remote != null ? 1.65f : 1.3f), enemy.y);
-                AimTurretAt(impact);
                 float flight = Vector3.Distance(muzzle, impact) / GunVelocity;
                 impact.y -= Physics.gravity.y * 0.5f * flight * flight;
                 if (Random.value >= 0.65f)
                     impact += Vector3.Cross(Vector3.up, impact - muzzle).normalized *
                         (Random.value < .5f ? -8f : 8f);
+                AimTurretAt(impact, float.PositiveInfinity);
                 PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,
-                    muzzle, impact - muzzle, GunVelocity, GunRange, GunDamage * .35f);
+                    gunMuzzle.position, gunMuzzle.forward, GunVelocity, GunRange,
+                    GunDamage * .35f);
             }
 
             if (Time.time >= nextPlan)
@@ -500,13 +495,10 @@ namespace Ironfront.UnityPrototype
             return selected;
         }
 
-        private void AimTurretAt(Vector3 worldPoint)
+        private void AimTurretAt(Vector3 worldPoint, float dt)
         {
-            if (turret == null) return;
-            Vector3 flat = worldPoint - turret.position;
-            flat.y = 0f;
-            if (flat.sqrMagnitude > 0.01f)
-                turret.rotation = Quaternion.LookRotation(flat, Vector3.up);
+            PrototypeVehicleAim.Turn(turret, barrelPivot, worldPoint,
+                95f * dt, 70f * dt, -15f, 40f);
         }
 
         private void BuildModel()
@@ -572,15 +564,21 @@ namespace Ironfront.UnityPrototype
             turret.localPosition = new Vector3(0.35f, 1.86f, -0.2f);
             AddVisual("Turret ring", PrimitiveType.Cylinder, Vector3.zero,
                 new Vector3(0.52f, 0.15f, 0.52f), runtime.GunMaterial, turret);
+            barrelPivot = new GameObject("Elevating MG").transform;
+            barrelPivot.SetParent(turret, false);
+            barrelPivot.localPosition = new Vector3(0f, .15f, .36f);
             AddVisual("Armored gun shield", PrimitiveType.Cube,
-                new Vector3(0f, .15f, .36f), new Vector3(.62f, .38f, .16f),
-                trim, turret);
-            AddVisual("Machine gun", PrimitiveType.Cube, new Vector3(0f, 0.22f, 0.72f),
-                new Vector3(0.22f, 0.22f, 1.55f), runtime.GunMaterial, turret);
+                Vector3.zero, new Vector3(.62f, .38f, .16f),
+                trim, barrelPivot);
+            AddVisual("Machine gun", PrimitiveType.Cube, new Vector3(0f, .07f, .36f),
+                new Vector3(0.22f, 0.22f, 1.55f), runtime.GunMaterial, barrelPivot);
             AddVisual("Muzzle", PrimitiveType.Cylinder,
-                new Vector3(0f, .22f, 1.48f), new Vector3(.14f, .10f, .14f),
-                runtime.GunMaterial, turret).transform.localRotation =
+                new Vector3(0f, .07f, 1.12f), new Vector3(.14f, .10f, .14f),
+                runtime.GunMaterial, barrelPivot).transform.localRotation =
                 Quaternion.Euler(90f, 0f, 0f);
+            gunMuzzle = new GameObject("MG bore").transform;
+            gunMuzzle.SetParent(barrelPivot, false);
+            gunMuzzle.localPosition = new Vector3(0f, .07f, 1.22f);
             renderers = GetComponentsInChildren<Renderer>();
         }
 

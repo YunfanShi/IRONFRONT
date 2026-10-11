@@ -6,7 +6,7 @@
         <ui:VisualElement class="scene-vignette" />
 
         <ui:VisualElement class="top-bar">
-            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.36.0" class="version" /></ui:VisualElement>
+            <ui:VisualElement class="brand"><ui:Label text="IRON" class="brand-white" /><ui:Label text="FRONT" class="brand-accent" /><ui:Label name="version" text="0.37.0" class="version" /></ui:VisualElement>
             <ui:VisualElement class="navigation">
                 <ui:Button name="tab-lobby" text="大厅" class="nav-button active" />
                 <ui:Button name="tab-operations" text="作战" class="nav-button" />

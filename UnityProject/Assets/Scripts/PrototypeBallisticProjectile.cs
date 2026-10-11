@@ -182,7 +182,14 @@ namespace Ironfront.UnityPrototype
             foreach (Collider nearby in Physics.OverlapSphere(center, ShellBlastRadius,
                 ~0, QueryTriggerInteraction.Ignore))
             {
-                float distance = Vector3.Distance(center, nearby.ClosestPoint(center));
+                // ClosestPoint supports only primitive shapes and convex meshes.
+                // Terrain and non-convex mesh colliders use bounds falloff.
+                bool supported = nearby is BoxCollider || nearby is SphereCollider ||
+                    nearby is CapsuleCollider ||
+                    nearby is MeshCollider mesh && mesh.convex;
+                Vector3 closest = supported ? nearby.ClosestPoint(center) :
+                    nearby.bounds.ClosestPoint(center);
+                float distance = Vector3.Distance(center, closest);
                 float amount = 145f * Mathf.Clamp01(1f - distance / ShellBlastRadius);
                 PrototypePlayer player = nearby.GetComponentInParent<PrototypePlayer>();
                 if (player != null && player.Team != team && damaged.Add(player))

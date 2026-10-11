@@ -922,7 +922,10 @@ namespace Ironfront.UnityPrototype
             if (!string.IsNullOrEmpty(Player.SupportStatus))
                 GUI.Label(new Rect(12, canvasHeight - 59, 370, 24), Player.SupportStatus, body);
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)
+            {
                 DrawCrosshair(canvasWidth, canvasHeight);
+                DrawVehicleBoreReticle(canvasWidth, canvasHeight, scale);
+            }
             if (!Player.Alive && !Match.Winner.HasValue)
                 GUI.Label(new Rect(canvasWidth / 2f - 120, canvasHeight / 2f - 65,
                     300, 40), "DOWN  |  SELECT DEPLOYMENT", title);
@@ -984,6 +987,48 @@ namespace Ironfront.UnityPrototype
             DrawHudRect(new Rect(cx - 1f, cy - gap - arm, 2f, arm), mark);
             DrawHudRect(new Rect(cx - 1f, cy + gap, 2f, arm), mark);
             DrawHudRect(new Rect(cx - 1f, cy - 1f, 2f, 2f), mark);
+            if (Player.CurrentVehicle is IPrototypeWeaponAim weapon &&
+                weapon.PlayerControlsWeapon)
+            {
+                var label = new GUIStyle(GUI.skin.label) { fontSize = 10,
+                    fontStyle = FontStyle.Bold };
+                label.normal.textColor = new Color(.63f, .94f, .96f);
+                GUI.Label(new Rect(cx + 13f, cy + 8f, 62f, 17f), "AIM", label);
+            }
+        }
+
+        private void DrawVehicleBoreReticle(float width, float height, float scale)
+        {
+            if (!(Player.CurrentVehicle is IPrototypeWeaponAim weapon) ||
+                !weapon.PlayerControlsWeapon || weapon.WeaponMuzzle == null ||
+                Player.ViewCamera == null) return;
+            Vector3 point = PrototypeVehicleAim.BorePoint(weapon.WeaponMuzzle,
+                Player.CurrentVehicle.VehicleTransform, weapon.WeaponRange);
+            Vector3 screen = Player.ViewCamera.WorldToScreenPoint(point);
+            if (screen.z <= 0f)
+            {
+                Vector3 local = Player.ViewCamera.transform.InverseTransformDirection(
+                    weapon.WeaponMuzzle.forward);
+                screen.x = Screen.width * (.5f + Mathf.Sign(local.x) * .5f);
+                screen.y = Screen.height * (.5f + Mathf.Sign(local.y) * .5f);
+            }
+            float x = Mathf.Clamp(screen.x / scale, 24f, width - 24f);
+            float y = Mathf.Clamp((Screen.height - screen.y) / scale, 24f, height - 38f);
+            Color outline = new Color(.025f, .035f, .035f, .9f);
+            Color bore = new Color(1f, .72f, .30f, .97f);
+            DrawHudRect(new Rect(x - 10f, y - 10f, 7f, 2f), outline);
+            DrawHudRect(new Rect(x + 3f, y - 10f, 7f, 2f), outline);
+            DrawHudRect(new Rect(x - 10f, y + 8f, 7f, 2f), outline);
+            DrawHudRect(new Rect(x + 3f, y + 8f, 7f, 2f), outline);
+            DrawHudRect(new Rect(x - 10f, y - 10f, 2f, 7f), bore);
+            DrawHudRect(new Rect(x + 8f, y - 10f, 2f, 7f), bore);
+            DrawHudRect(new Rect(x - 10f, y + 3f, 2f, 7f), bore);
+            DrawHudRect(new Rect(x + 8f, y + 3f, 2f, 7f), bore);
+            DrawHudRect(new Rect(x - 1f, y - 1f, 2f, 2f), bore);
+            var label = new GUIStyle(GUI.skin.label) { fontSize = 10,
+                fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
+            label.normal.textColor = bore;
+            GUI.Label(new Rect(x - 30f, y - 29f, 60f, 16f), "BARREL", label);
         }
 
         private void DrawCombatHud(float width, float height)

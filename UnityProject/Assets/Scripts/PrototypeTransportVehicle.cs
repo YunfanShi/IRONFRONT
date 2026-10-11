@@ -4,7 +4,8 @@ using UnityEngine;
 namespace Ironfront.UnityPrototype
 {
     // U8 ROVER: the player uses front seats 0/1; AI infantry use rear seats 2/3.
-    public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeVehicle
+    public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeVehicle,
+        IPrototypeWeaponAim
     {
         private const float MaxHealth = 140f;
         private const float Clearance = 1.85f;
@@ -31,6 +32,8 @@ namespace Ironfront.UnityPrototype
         private Vector2 goal;
         private BoxCollider hullCollider;
         private Transform gunMount;
+        private Transform barrelPivot;
+        private Transform gunMuzzle;
         private Renderer[] renderers;
 
         public string VehicleName => "U8 ROVER";
@@ -45,6 +48,9 @@ namespace Ironfront.UnityPrototype
         public PrototypePlayer Occupant => occupant;
         public PrototypePlayer Driver => playerSeat == 0 ? occupant : null;
         public PrototypePlayer Gunner => playerSeat == 1 ? occupant : null;
+        public bool PlayerControlsWeapon => Gunner != null && Alive;
+        public Transform WeaponMuzzle => gunMuzzle;
+        public float WeaponRange => GunRange;
         public int PlayerSeat => playerSeat;
         public int PassengerCount => (passengers[0] != null ? 1 : 0) +
             (passengers[1] != null ? 1 : 0);
@@ -256,9 +262,8 @@ namespace Ironfront.UnityPrototype
                     Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
                     if (occupant.ViewCamera != null)
                     {
-                        Vector3 aim = occupant.ViewCamera.transform.position +
-                            occupant.ViewCamera.transform.forward * GunRange;
-                        AimGunAt(aim);
+                        AimGunAt(PrototypeVehicleAim.CameraTarget(
+                            occupant.ViewCamera, transform, GunRange), dt);
                         if (Input.GetMouseButton(0)) FirePlayerGun();
                     }
                 }
@@ -297,29 +302,10 @@ namespace Ironfront.UnityPrototype
         {
             if (Time.time < nextShot || Gunner == null || Gunner.ViewCamera == null) return;
             nextShot = Time.time + GunInterval;
-            Camera camera = Gunner.ViewCamera;
-            Vector3 origin = camera.transform.position;
-            Vector3 direction = camera.transform.forward;
-            AimGunAt(origin + direction * GunRange);
-            Vector3 target = origin + direction * GunRange;
-            float nearest = GunRange;
-            Physics.SyncTransforms();
-            foreach (RaycastHit hit in Physics.RaycastAll(origin, direction, GunRange, ~(1 << 2)))
-            {
-                if (hit.collider == hullCollider ||
-                    hit.collider.transform.IsChildOf(transform) ||
-                    hit.distance >= nearest) continue;
-                nearest = hit.distance;
-                target = hit.point;
-            }
-            Vector3 muzzle = GunMuzzle;
+            Vector3 muzzle = gunMuzzle.position;
             PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,
-                muzzle, target - muzzle, GunVelocity, GunRange, GunDamage);
+                muzzle, gunMuzzle.forward, GunVelocity, GunRange, GunDamage);
         }
-
-        private Vector3 GunMuzzle => gunMount != null ?
-            gunMount.TransformPoint(new Vector3(0f, 0.05f, 1.15f)) :
-            transform.TransformPoint(new Vector3(0.55f, 2.05f, 1f));
 
         private void UpdateAi(float dt)
         {
@@ -335,15 +321,16 @@ namespace Ironfront.UnityPrototype
                     player != null || remote != null ? 1.65f : 1.3f;
                 Vector3 impact = new Vector3(enemy.x,
                     PrototypeLayout.HeightAt(enemy.x, enemy.y) + height, enemy.y);
-                AimGunAt(impact);
-                Vector3 muzzle = GunMuzzle;
+                Vector3 muzzle = gunMuzzle.position;
                 float flight = Vector3.Distance(muzzle, impact) / GunVelocity;
                 impact.y -= Physics.gravity.y * 0.5f * flight * flight;
                 if (Random.value >= 0.65f)
                     impact += Vector3.Cross(Vector3.up, impact - muzzle).normalized *
                         (Random.value < .5f ? -8f : 8f);
+                AimGunAt(impact, float.PositiveInfinity);
                 PrototypeBallisticProjectile.LaunchMountedRound(runtime, Team, transform,
-                    muzzle, impact - muzzle, GunVelocity, GunRange, GunDamage * .35f);
+                    gunMuzzle.position, gunMuzzle.forward, GunVelocity, GunRange,
+                    GunDamage * .35f);
             }
 
             if (Time.time >= nextPlan)
@@ -475,13 +462,10 @@ namespace Ironfront.UnityPrototype
             return selected;
         }
 
-        private void AimGunAt(Vector3 point)
+        private void AimGunAt(Vector3 point, float dt)
         {
-            if (gunMount == null) return;
-            Vector3 flat = point - gunMount.position;
-            flat.y = 0f;
-            if (flat.sqrMagnitude > 0.01f)
-                gunMount.rotation = Quaternion.LookRotation(flat, Vector3.up);
+            PrototypeVehicleAim.Turn(gunMount, barrelPivot, point,
+                110f * dt, 80f * dt, -18f, 45f);
         }
 
         // Each edge and smoothed shortcut uses the same clearance as Drive().
@@ -666,12 +650,18 @@ namespace Ironfront.UnityPrototype
             gunMount.localPosition = new Vector3(0.55f, 2.1f, 0.1f);
             AddVisual("MG ring", PrimitiveType.Cylinder, Vector3.zero,
                 new Vector3(0.45f, 0.12f, 0.45f), runtime.GunMaterial, gunMount);
+            barrelPivot = new GameObject("Elevating MG").transform;
+            barrelPivot.SetParent(gunMount, false);
+            barrelPivot.localPosition = new Vector3(0f, .16f, .33f);
             AddVisual("MG shield", PrimitiveType.Cube,
-                new Vector3(0f, .16f, .33f), new Vector3(.54f, .33f, .10f),
-                trim, gunMount);
+                Vector3.zero, new Vector3(.54f, .33f, .10f),
+                trim, barrelPivot);
             AddVisual("MG barrel", PrimitiveType.Cube,
-                new Vector3(0f, 0.07f, 0.7f), new Vector3(0.16f, 0.16f, 1.4f),
-                runtime.GunMaterial, gunMount);
+                new Vector3(0f, -.09f, .37f), new Vector3(.16f, .16f, 1.4f),
+                runtime.GunMaterial, barrelPivot);
+            gunMuzzle = new GameObject("MG bore").transform;
+            gunMuzzle.SetParent(barrelPivot, false);
+            gunMuzzle.localPosition = new Vector3(0f, -.09f, 1.14f);
             renderers = GetComponentsInChildren<Renderer>();
         }
 

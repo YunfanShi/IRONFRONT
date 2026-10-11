@@ -178,16 +178,10 @@ namespace Ironfront.UnityPrototype
             HullCollider.size = new Vector3(5.50f, 2.30f, 7.55f);
         }
 
-        public void AimAt(Vector3 target)
+        public void AimAt(Vector3 target, float deltaTime)
         {
-            Vector3 flat = target - Turret.position;
-            flat.y = 0f;
-            if (flat.sqrMagnitude > 0.01f)
-                Turret.rotation = Quaternion.LookRotation(flat, Vector3.up);
-            Vector3 localTarget = Turret.InverseTransformPoint(target) - BarrelPivot.localPosition;
-            float elevation = Mathf.Atan2(localTarget.y, Mathf.Max(0.1f, localTarget.z)) *
-                Mathf.Rad2Deg;
-            BarrelPivot.localRotation = Quaternion.Euler(-Mathf.Clamp(elevation, -10f, 25f), 0f, 0f);
+            PrototypeVehicleAim.Turn(Turret, BarrelPivot, target,
+                42f * deltaTime, 24f * deltaTime, -10f, 25f);
         }
 
         public void FireRecoil() => recoilUntil = Time.time + .28f;

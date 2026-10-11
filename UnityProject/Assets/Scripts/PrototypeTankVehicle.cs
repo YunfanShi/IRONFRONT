@@ -3,7 +3,8 @@ using UnityEngine;
 namespace Ironfront.UnityPrototype
 {
     // Player-driven T90 with a traversing, elevating, gravity-driven main gun.
-    public sealed class PrototypeTankVehicle : MonoBehaviour, IPrototypeVehicle
+    public sealed class PrototypeTankVehicle : MonoBehaviour, IPrototypeVehicle,
+        IPrototypeWeaponAim
     {
         private const float MaxHealth = 820f;
         private const float MaxForward = 10f;
@@ -35,6 +36,9 @@ namespace Ironfront.UnityPrototype
         public Transform VehicleTransform => transform;
         public PrototypePlayer Driver { get; private set; }
         public PrototypePlayer Occupant => Driver;
+        public bool PlayerControlsWeapon => Driver != null && Alive;
+        public Transform WeaponMuzzle => model != null ? model.CannonMuzzle : null;
+        public float WeaponRange => CannonRange;
         public Vector3 SeatPosition => transform.TransformPoint(new Vector3(-0.65f, 0.65f, -0.55f));
         public Vector3 ExitPosition
         {
@@ -128,7 +132,7 @@ namespace Ironfront.UnityPrototype
             if (!Driver.Alive) { Driver.ForceExitVehicle(); return; }
             if (Cursor.lockState != CursorLockMode.Locked) return;
             Drive(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"), dt);
-            AimCannon();
+            AimCannon(dt);
             if (Input.GetMouseButton(0)) FireCannon();
         }
 
@@ -182,24 +186,12 @@ namespace Ironfront.UnityPrototype
             SetVisible(true);
         }
 
-        private void AimCannon()
+        private void AimCannon(float dt)
         {
             if (Driver == null || Driver.ViewCamera == null) return;
-            Camera camera = Driver.ViewCamera;
-            Vector3 origin = camera.transform.position;
-            Vector3 direction = camera.transform.forward;
-            Vector3 target = origin + direction * CannonRange;
-            float nearest = CannonRange;
-            Physics.SyncTransforms();
-            foreach (RaycastHit hit in Physics.RaycastAll(origin, direction,
-                CannonRange, ~0, QueryTriggerInteraction.Ignore))
-            {
-                if (hit.collider.transform.IsChildOf(transform) || hit.distance >= nearest)
-                    continue;
-                nearest = hit.distance;
-                target = hit.point;
-            }
-            model.AimAt(target);
+            Vector3 target = PrototypeVehicleAim.CameraTarget(
+                Driver.ViewCamera, transform, CannonRange);
+            model.AimAt(target, dt);
         }
 
         private void FireCannon()
