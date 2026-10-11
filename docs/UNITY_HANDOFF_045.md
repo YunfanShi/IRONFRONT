@@ -45,3 +45,23 @@
 ## 工作树与分支注意事项
 
 本轮开始前，工作树已有六个 Unity 编辑器自动改写、未提交的设置文件：`Assets/Settings/DefaultVolumeProfile.asset`、`PC_RPAsset.asset`、`UniversalRenderPipelineGlobalSettings.asset`，以及 `ProjectSettings/ProjectAuditorSettings.asset`、`ProjectSettings.asset`、`ShaderGraphSettings.asset`（均在 `UnityProject/` 下）。不要把这些整文件混入功能提交，也不要随意清除；`ProjectSettings.asset` 的本轮有效改动仅为 `bundleVersion: 0.45.0` 一行。构建产物在 `UnityProject/Builds/`，不纳入 Git。
+
+## GitHub 递交地址与流程
+
+| 用途 | 地址 |
+| --- | --- |
+| GitHub 仓库 | [YunfanShi/IRONFRONT](https://github.com/YunfanShi/IRONFRONT) |
+| Unity 开发分支 | [codex/unity-port](https://github.com/YunfanShi/IRONFRONT/tree/codex/unity-port) |
+| 本轮 0.45.0 提交 | [5ff0a6e：双向切换人称及交接](https://github.com/YunfanShi/IRONFRONT/commit/5ff0a6e45295a4efb44a2292d41c6c1e2f64b2cc) |
+| 本交接文件的线上位置 | [docs/UNITY_HANDOFF_045.md](https://github.com/YunfanShi/IRONFRONT/blob/codex/unity-port/docs/UNITY_HANDOFF_045.md) |
+| 需要发起审核时 | [比较 main 与 codex/unity-port](https://github.com/YunfanShi/IRONFRONT/compare/main...codex/unity-port?expand=1) |
+
+本机 Git 远端名是 `origin`，推送地址为 `git@github.com:YunfanShi/IRONFRONT.git`。此前用户要求 Unity 二次开发保留在 `codex/unity-port`；提交和推送只进入该分支。比较链接用于查看差异或创建 Pull Request，合并 `main` 是另一步操作。
+
+后续每次递交按以下顺序执行，特别要避免把 Unity 编辑器自动改写或其他正在开发的文件混入提交：
+
+1. 进入仓库根目录，运行 `git branch --show-current`、`git remote -v` 和 `git status --short`，确认当前是 `codex/unity-port`，远端是上述仓库，并辨认本轮实际修改的文件。
+2. 完成相应编译、编辑器或独立程序验证，再运行 `git diff --check -- <本轮文件>`。只使用 `git add --sparse <本轮文件>` 暂存明确属于该任务的文件，不使用 `git add .`；若 `ProjectSettings.asset` 同时含 Unity 自动改写，应只暂存经过检查的版本号片段。
+3. 用 `git diff --cached --stat`、`git diff --cached --check` 和 `git diff --cached` 检查拟提交内容，然后执行 `git commit -m "<本轮改动说明>"`。
+4. 运行 `git push origin codex/unity-port`。推送后执行 `git ls-remote origin refs/heads/codex/unity-port`，确认远端 SHA 与 `git rev-parse HEAD` 相同，再打开上方分支或提交链接查看文件。
+5. 如需他人审核，从上方比较链接创建 Pull Request，目标选 `main`、来源选 `codex/unity-port`；在审查通过并得到合并指示前，保留开发分支上的提交。
