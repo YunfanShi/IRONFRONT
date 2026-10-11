@@ -1,4 +1,8 @@
-# PROJECT IRONFRONT 0.39.3
+# PROJECT IRONFRONT 0.39.4
+
+## Unity 单人流程验收与下一步
+
+0.39.4 按玩家 2026-10-11 的实机反馈，将征服、攻防、部署与结算的单人流程记为验收通过。下一步先让 Unity 战局真实达到 8v8，再根据完整战局的 AI 和性能数据扩展人数。详见 [0.39.4 验收决定](docs/UNITY_SOLO_ACCEPTANCE_0394.md) 与 [逐项对照表](docs/UNITY_PARITY_038.md)。
 
 ## Unity 高帧率坦克起步修复
 
