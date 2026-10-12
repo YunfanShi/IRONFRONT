@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict'), { spawn } = require('node:child_process'), { WebSocket } = require('ws');
-const lanIP=Object.values(require('node:os').networkInterfaces()).flat().find(n=>n&&n.family==='IPv4'&&!n.internal)?.address||'127.0.0.1';
+const lanIP=require('../server/addresses.cjs').lanAddresses()[0]||'127.0.0.1';
 const port = 18787, host = spawn(process.execPath, ['server/lan.cjs'], { env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'inherit'] });
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const connect = (code, token = '', resume = '') => new Promise((resolve, reject) => { const ws = new WebSocket(`ws://${lanIP}:${port}/play?room=${code}&token=${token}&resume=${resume}`); const c = { ws, id: null, states: [], events: [], resumeToken:'', isHost:false }; ws.on('message', data => { const m = JSON.parse(data); if (m.type === 'welcome'){
@@ -16,7 +16,7 @@ else if (m.type === 'state') {
     try {
         await new Promise((resolve, reject) => { const timeout = setTimeout(() => reject(new Error('LAN service did not start')), 5000); host.stdout.once('data', () => { clearTimeout(timeout); resolve(); }); host.once('exit', code => { clearTimeout(timeout); reject(new Error('LAN server exited ' + code)); }); });
         const response = await fetch(`http://${lanIP}:${port}/api/rooms`, { method: 'POST' }), { code, hostToken } = await response.json();
-        assert.match(code, /^[A-F0-9]{6}$/);const status=await (await fetch(`http://${lanIP}:${port}/api/status`)).json();assert.equal(status.port,port);assert(status.addresses.includes(`http://${lanIP}:${port}`));assert(status.rooms.every(r=>!('code' in r)),'status must not expose invite codes');assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${code}`)).status,200);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/ZZZZZZ`)).status,404);
+        assert.match(code, /^[A-F0-9]{6}$/);const status=await (await fetch(`http://${lanIP}:${port}/api/status`)).json();assert.equal(status.port,port);if(lanIP!=='127.0.0.1')assert(status.addresses.includes(`http://${lanIP}:${port}`));assert(status.rooms.every(r=>!('code' in r)),'status must not expose invite codes');assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/${code}`)).status,200);assert.equal((await fetch(`http://${lanIP}:${port}/api/rooms/ZZZZZZ`)).status,404);
         const freshRoom=await (await fetch(`http://${lanIP}:${port}/api/rooms`,{method:'POST'})).json(),earlyGuest=await connect(freshRoom.code);assert.equal(earlyGuest.isHost,false,'a guest must not claim a room before its founder connects');const founder=await connect(freshRoom.code,freshRoom.hostToken);assert.equal(founder.isHost,true);founder.ws.close(4000,'leave');await wait(120);assert.equal(earlyGuest.isHost,true);const replay=await connect(freshRoom.code,freshRoom.hostToken);assert.equal(replay.isHost,false,'a used host token must not grant another host role');replay.ws.close(4000,'leave');earlyGuest.ws.close(4000,'leave');
         const a = await connect(code, hostToken), b = await connect(code);
         assert.equal(a.states.at(-1).phase,'preparation');assert.equal(a.states.at(-1).elapsed,0);
@@ -77,7 +77,11 @@ else if (m.type === 'state') {
         assert.equal(e.states.at(-1).soldiers[e.id].team, 'blue');
         assert(h.states.at(-1).soldiers.filter(s => s.team === 'blue' && s.squad === 0).length <= 4);
         assert(snapshot.recommendation);h.ws.send(JSON.stringify({type:'action',action:'recommendation',value:false}));await wait(150);assert.equal(h.states.at(-1).recommendation.status,'dismissed');
-        h.ws.send(JSON.stringify({type:'action',action:'unstuck'}));await wait(5100);h.ws.send(JSON.stringify({type:'action',action:'respawn',value:'VEHICLE-7-0'}));await wait(200);assert.equal(h.states.at(-1).soldiers[h.id].vehicleId,7);
+        h.ws.send(JSON.stringify({type:'action',action:'unstuck'}));
+        const respawnDeadline=Date.now()+12000;
+        while(Date.now()<respawnDeadline){const state=h.states.at(-1),soldier=state.soldiers[h.id];if(!soldier.alive&&state.elapsed>=soldier.respawnAt)break;await wait(100);}
+        const readyState=h.states.at(-1);assert(!readyState.soldiers[h.id].alive&&readyState.elapsed>=readyState.soldiers[h.id].respawnAt,'authority must reach the respawn deadline');
+        h.ws.send(JSON.stringify({type:'action',action:'respawn',value:'VEHICLE-7-0'}));await wait(200);assert.equal(h.states.at(-1).soldiers[h.id].vehicleId,7,JSON.stringify({elapsed:h.states.at(-1).elapsed,soldier:h.states.at(-1).soldiers[h.id],vehicle:h.states.at(-1).vehicles[7]}));
         for(let i=0;i<12;i++){h.ws.send(JSON.stringify({type:'input',yaw:-Math.PI,pitch:.3,forward:1,side:1,boost:true,airbrake:false}));await wait(50);}const flight=h.states.at(-1).vehicles[7];assert(flight.roll>.3&&flight.speed>3,'LAN authority did not apply jet bank/throttle');
         const flightId=h.id,flightToken=h.resumeToken;h.ws.terminate();await wait(150);h=await connect(config.code,'',flightToken);assert.equal(h.id,flightId);assert.equal(h.states.at(-1).soldiers[flightId].vehicleId,null);assert.equal(h.states.at(-1).player.playerVehicleId,null,'rejoin after AI-free seat release must clear stale private vehicle state');assert.equal(h.states.at(-1).soldiers[flightId].alive,true);
         const more = [];

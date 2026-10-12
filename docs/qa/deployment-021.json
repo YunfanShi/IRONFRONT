@@ -1,0 +1,25 @@
+{
+  "version": "0.21.0",
+  "date": "2026-10-12",
+  "platform": "Windows",
+  "baselineMain": "05cea567f0ac909d6f67171a6d1f0d0cb5d06789",
+  "zipBaseline": "IRONFRONT_v0.20.0_FULL.zip",
+  "comparison": { "normalizedTextMatches": 166, "rawHashMatches": 120, "sourceDifferences": 0 },
+  "music": { "restored": 11, "trackedInGit": false, "transferByteCheck": "passed for main-theme in both modes" },
+  "checks": {
+    "typecheck": "passed",
+    "unitTests": { "passed": 142, "files": 17 },
+    "coreLogic": { "passed": true, "sizes": [8, 16, 32, 64], "defaultTickets": 500, "defaultNavigationFailures": 1 },
+    "lan": { "passed": true, "ip": "10.100.112.176", "coverage": ["two-client authority", "events", "reconnect", "host handoff", "countdown cancellation", "teams", "jet controls", "eight-player capacity"] },
+    "productionBuild": "passed",
+    "startupModes": { "passed": 2, "modes": ["dedicated", "host"], "browserAutoOpen": "disabled in automated tests" },
+    "chromeRoomTests": { "passed": 3, "file": "tests/room-ui-018.spec.ts", "softwareWebGL": true }
+  },
+  "limits": [
+    "Physical Windows-to-Mac LAN and native Mac hosting not yet tested",
+    "Mac still renders locally and performs input prediction",
+    "Existing Three.js chunk exceeds 500 kB",
+    "Existing default core simulation reports one navigation failure",
+    "No automatic firewall changes or public network hosting setup"
+  ]
+}

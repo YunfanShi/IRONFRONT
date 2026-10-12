@@ -1,6 +1,6 @@
 {
   "name": "project-ironfront",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,13 +11,16 @@
     "typecheck": "tsc --noEmit",
     "test:logic": "tsc -p tsconfig.logic.json && node scripts/verify-core.cjs",
     "test:browser": "playwright test",
-    "check": "npm run typecheck && npm run test && npm run test:logic && npm run test:lan && npm run build",
+    "check": "npm run typecheck && npm run test && npm run test:logic && npm run test:lan && npm run build && npm run test:startup",
     "check:full": "npm run check && npm run test:browser",
     "compile:logic": "tsc -p tsconfig.logic.json && node scripts/prepare-logic.cjs",
     "lan": "npm run compile:logic && npm run build && node server/lan.cjs",
     "lan:serve": "node server/lan.cjs",
     "test:lan": "npm run compile:logic && node scripts/test-lan.cjs",
-    "test:maps": "npm run compile:logic && node scripts/verify-maps.cjs"
+    "test:maps": "npm run compile:logic && node scripts/verify-maps.cjs",
+    "server": "node scripts/start-lan.cjs --mode dedicated",
+    "host": "node scripts/start-lan.cjs --mode host",
+    "test:startup": "node --test scripts/start-lan.test.cjs"
   },
   "dependencies": {
     "three": "^0.180.0",

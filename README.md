@@ -1,6 +1,17 @@
-# PROJECT IRONFRONT 0.20.0
+# PROJECT IRONFRONT 0.21.0
 
-当前网页版本 **0.20.0**：模块化建筑与 CC0 PBR 材质、地图选点飞机支援、喷气机滚转、玩家命中修复及 AI 分散。保留双地图、大厅、征服、前线推进与最多八人 LAN。开发、实际前后截图与剩余问题见 [详细报告](docs/DEVELOPMENT_020.md)、[DOCX](docs/DEVELOPMENT_020.docx) 和 [QA](QA_REPORT.md)。
+当前网页版本 **0.21.0**：新增 Windows 专用服务器与 Mac 房主游玩启动入口，统一网页和服务版本，恢复本机完整版音乐。保留 0.20.0 建筑环境、地图支援、双地图、大厅与最多八人 LAN。部署说明见 [详细说明](docs/DEPLOYMENT_021.md)、[DOCX](docs/DEPLOYMENT_021.docx) 和 [本轮验证](docs/qa/deployment-021.json)。
+
+## Windows 服务器与 Mac 房主
+
+运行服务的机器安装 Node.js 24 并执行 `npm ci`，然后选择：
+
+- `npm run server`：专用服务器，不自动打开浏览器。Windows 负责权威战局计算，Mac 玩家打开终端打印的局域网地址，在网页创建或加入房间。
+- `npm run host`：房主边玩边共享。Mac 运行同一权威服务并自动打开本机网页，朋友访问 Mac 的局域网地址。
+
+Windows 可双击 `Start-IRONFRONT.cmd`；Mac 可执行 `bash Start-IRONFRONT.command`。默认 TCP 7878，可用 `npm run server -- --port 8787` 修改。保持终端运行，Ctrl+C 停止服务。第一位玩家创建房间并分享链接，全员准备后由房主开始。
+
+Mac 浏览器负责画面、声音与输入预测；AI、伤害、票数、弹体及胜负由服务计算。房主权限移交不会把服务迁移到另一台机器。Mac 仅作为玩家时无需 Node 或源码；Mac 自己做服务器时需安装依赖，复制完整版的 `public/audio/music` 并重新构建。音乐继续保留在本机，GitHub 源码不含用户 MP3。
 
 建筑仍为低多边形程序化模型；多层室内、楼梯及可到达屋顶尚未完成。公开源码不含用户音乐，音乐仅随本地完整版分发。
 

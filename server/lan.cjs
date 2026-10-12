@@ -3,8 +3,10 @@ const http = require('node:http'), fs = require('node:fs'), path = require('node
 const { WebSocketServer, WebSocket } = require('ws');
 const {isMapId}=require('../.logic-build/world/Maps.js');
 const { Battle } = require('../.logic-build/core/Battle.js');
+const { version } = require('../package.json');
+const hostMode = process.env.IRONFRONT_HOST_MODE === 'host' ? 'host' : 'dedicated';
 const port = Number(process.env.PORT) || 7878, rooms = new Map(), dist = path.resolve(__dirname, '../dist');
-const addresses=()=>{const nets=Object.entries(os.networkInterfaces()).filter(([name])=>! /^(utun|tun|docker|veth|br-|bridge|tailscale|vmnet)/i.test(name)).flatMap(([,list])=>list||[]);return [...new Set(nets.filter(n=>n.family==='IPv4'&&!n.internal).map(n=>`http://${n.address}:${port}`))];};
+const addresses=()=>require('./addresses.cjs').lanAddresses().map(address=>`http://${address}:${port}`);
 const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -61,7 +63,7 @@ const server = http.createServer((req, res) => {
     if(req.url.startsWith('/api/rooms/')){const room=rooms.get(req.url.slice('/api/rooms/'.length).toUpperCase());res.setHeader('Content-Type','application/json');if(!room){res.writeHead(404);return res.end(JSON.stringify({error:'房间码不存在，请确认加入的是同一台房主服务器'}));}if(room.phase==='countdown'){res.writeHead(409);return res.end(JSON.stringify({error:'房间正在倒计时，请等待战斗开始后加入'}));}if(room.clients.size+room.reservations.size>=8){res.writeHead(409);return res.end(JSON.stringify({error:'房间已满（最多八人，含短暂掉线的保留席位）'}));}return res.end(JSON.stringify({code:room.code,players:room.clients.size,maxPlayers:8,phase:room.phase,port}));}
     if (req.url === '/api/status') {
         res.setHeader('Content-Type', 'application/json');
-        return res.end(JSON.stringify({ version: '0.20.0', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
+        return res.end(JSON.stringify({ version, hostMode, simulation: 'server-authoritative', port, addresses: addresses(), rooms: [...rooms.values()].map(r => ({ players: r.clients.size, phase:r.phase })) }));
     }
     let pathname;
     try {
@@ -309,3 +311,4 @@ setInterval(() => {
 }, 50).unref();
 server.on('error',error=>{console.error(error.code==='EADDRINUSE'?`端口 ${port} 已占用。关闭旧服务或使用 PORT=其他端口 npm run lan。`:`LAN 启动失败：${error.message}`);process.exitCode=1;});
 server.listen(port,'0.0.0.0',()=>{console.log(`IRONFRONT LAN 本机：http://localhost:${port} · 最多 8 人`);for(const url of addresses())console.log(`朋友访问：${url}（同一局域网）`);});
+module.exports = { server };

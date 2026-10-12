@@ -1,6 +1,7 @@
 import { Battle, type BattleEvent, type BattleSettings } from '../core/Battle';
 import {isMapId} from '../world/Maps';
 import {lanAddress,lanJSON} from './LanAddress';
+import {VERSION,LAN_VERSION_PREFIX} from '../version';
 export class LanClient {
     private socket: WebSocket | null = null;
     private pending: BattleEvent[] = [];
@@ -27,7 +28,7 @@ export class LanClient {
     onDisconnect: () => void = () => { };
     async connect(address: string, code: string, host: boolean, options: Record<string, unknown> = {}): Promise<Battle> {
         const url = lanAddress(address);this.address=url.host;
-        const info=await lanJSON(new URL('/api/status',url));if(!String(info.version).startsWith('0.20.'))throw new Error(`房主服务版本 ${info.version} 与当前网页不匹配，请房主更新到0.20并停止旧进程、重新运行 npm run lan`);this.shareUrls=Array.isArray(info.addresses)?info.addresses:[];
+        const info=await lanJSON(new URL('/api/status',url));if(!String(info.version).startsWith(LAN_VERSION_PREFIX))throw new Error(`房主服务版本 ${info.version} 与当前网页不匹配，请房主更新到 ${VERSION} 并停止旧进程、重新启动服务`);this.shareUrls=Array.isArray(info.addresses)?info.addresses:[];
         if(location.protocol==='https:'&&url.protocol==='http:')throw new Error('HTTPS 页面无法连接 HTTP 主机，请打开房主分享的 HTTP 网页再加入');
         let hostToken='';
         if(host){const room=await lanJSON(new URL('/api/rooms',url),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(options)});code=room.code;hostToken=room.hostToken;}

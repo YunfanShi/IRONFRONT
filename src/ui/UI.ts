@@ -1,4 +1,5 @@
 import {MAPS,isMapId} from '../world/Maps';
+import {VERSION} from '../version';
 import {MenuPreview} from '../rendering/MenuPreview';
 import {equipmentIcon} from './EquipmentIcon';
 import {weaponSilhouette} from './WeaponSilhouette';
@@ -85,7 +86,7 @@ export class UI {
   const nav=(tab:MenuTab,label:string)=>`<button class="menu-tab ${this.menuTab===tab?'active':''}" data-tab="${tab}">${label}</button>`;
   const map=MAPS[this.settings.mapId??'industrial-frontier'];
   this.modal.innerHTML=`<div class="menu-showcase" aria-hidden="true"><canvas id="operator-preview"></canvas></div>
-  <header class="lobby-header"><b>IRON<span>FRONT</span><small>0.20.0</small></b><nav aria-label="主导航"><button data-view="home" class="${this.lobbyView==='home'?'active':''}">大厅</button><button data-view="operations" class="${this.lobbyView==='operations'?'active':''}">作战</button><button data-view="loadout" class="${this.lobbyView==='loadout'?'active':''}">配装</button><button data-view="settings" class="${this.lobbyView==='settings'?'active':''}">设置</button></nav><button id="language">${this.settings.language==='zh'?'EN':'中文'}</button></header>
+  <header class="lobby-header"><b>IRON<span>FRONT</span><small>${VERSION}</small></b><nav aria-label="主导航"><button data-view="home" class="${this.lobbyView==='home'?'active':''}">大厅</button><button data-view="operations" class="${this.lobbyView==='operations'?'active':''}">作战</button><button data-view="loadout" class="${this.lobbyView==='loadout'?'active':''}">配装</button><button data-view="settings" class="${this.lobbyView==='settings'?'active':''}">设置</button></nav><button id="language">${this.settings.language==='zh'?'EN':'中文'}</button></header>
   <div class="menu-content lobby-content view-${this.lobbyView}">
   <section class="lobby-hero ${this.lobbyView==='home'?'':'hidden'}"><small>联合特遣队 / TASK FORCE</small><h1>准备行动</h1><p>选择任务，与小队一起部署。</p><div class="lobby-operation"><small>已选择行动</small><h3>${map.zh}</h3><p>${this.settings.mode==='breakthrough'?'前线推进':'征服'} · ${this.settings.size} vs ${this.settings.size}</p><button data-view="operations">浏览地图与玩法 →</button></div></section>
   <section class="operations-panel ${this.lobbyView==='operations'?'':'hidden'}"><small>选择战场 / OPERATIONS</small><h1>${map.zh}</h1><p>${map.description}</p><div class="map-cards">${Object.values(MAPS).map(m=>`<button data-map="${m.id}" class="map-card ${m.id===map.id?'selected':''}"><img src="${m.preview}" alt="${m.zh}游戏场景"/><strong>${m.zh}</strong><small>${m.size} × ${m.size} · 5 据点 · 8–32人/阵营</small></button>`).join('')}</div><div class="mode-cards">${(['conquest','breakthrough'] as const).map(mode=>`<button data-mode="${mode}" class="${this.settings.mode===mode?'selected':''}"><strong>${mode==='conquest'?'征服 / CONQUEST':'前线推进 / BREAKTHROUGH'}</strong><small>${mode==='conquest'?'夺取更多据点，消耗敌方兵力':'依次突破五个防守区域'}</small></button>`).join('')}</div><button data-view="settings">战局设置 →</button></section>
