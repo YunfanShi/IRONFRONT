@@ -1,0 +1,218 @@
+{
+  "blender": "5.2.2 LTS",
+  "passed": true,
+  "source": "/Users/liuwenjun/Downloads/e500d16c7909d01d470ae8ad618285a5.glb",
+  "source_sha256": "9f63645369a1935ff76aefd926990bc906ccecfab6dca8e50fe600f6077509de",
+  "exports": [
+    {
+      "file": "j20-lod0.glb",
+      "sha256": "950457c6497ed273b57a348259de2568e2b29cd9a908945297d4c3649543a13c",
+      "triangles": 40000,
+      "bytes": 12765736,
+      "bounds": [
+        [
+          -0.512418806552887,
+          -0.6527823805809021,
+          -7.201147673185915e-05
+        ],
+        [
+          0.5114520192146301,
+          0.4011912941932678,
+          0.444850891828537
+        ]
+      ],
+      "textures": {
+        "j20_basecolor_2k": [
+          2048,
+          2048
+        ],
+        "j20_metalrough_2k": [
+          2048,
+          2048
+        ],
+        "j20_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "file": "j20-lod0.fbx",
+      "sha256": "b7a0563568825164de133bc0f9935e02873c28e78b2947b19ff221daa5ee8d09",
+      "triangles": 40000,
+      "bytes": 1458348,
+      "bounds": [
+        [
+          -0.512418806552887,
+          -0.6527823805809021,
+          -7.194964564405382e-05
+        ],
+        [
+          0.5114520192146301,
+          0.4011913239955902,
+          0.4448508620262146
+        ]
+      ],
+      "textures": {
+        "j20_basecolor_2k.png": [
+          2048,
+          2048
+        ],
+        "j20_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 6.183108780533075e-08,
+      "passed": true
+    },
+    {
+      "file": "j20-lod1.glb",
+      "sha256": "5b45c5c7fa4565b109ee3de8ee98ecd968c0c49dacd25da1e0305d859dd362b6",
+      "triangles": 20000,
+      "bytes": 12160168,
+      "bounds": [
+        [
+          -0.5122405886650085,
+          -0.6527083516120911,
+          4.231975253787823e-06
+        ],
+        [
+          0.5113924145698547,
+          0.4011300206184387,
+          0.44505080580711365
+        ]
+      ],
+      "textures": {
+        "j20_basecolor_2k": [
+          2048,
+          2048
+        ],
+        "j20_metalrough_2k": [
+          2048,
+          2048
+        ],
+        "j20_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "file": "j20-lod1.fbx",
+      "sha256": "5dcf7fc3d40087c3bcca445ab30ba7ee5eaf33f3ff56073ffc38a94f98506134",
+      "triangles": 20000,
+      "bytes": 801820,
+      "bounds": [
+        [
+          -0.5122405886650085,
+          -0.6527083516120911,
+          4.29380952482461e-06
+        ],
+        [
+          0.5113924145698547,
+          0.4011300504207611,
+          0.44505077600479126
+        ]
+      ],
+      "textures": {
+        "j20_basecolor_2k.png": [
+          2048,
+          2048
+        ],
+        "j20_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 6.183427103678696e-08,
+      "passed": true
+    },
+    {
+      "file": "j20-lod2.glb",
+      "sha256": "3ac2015f8427a9fbd142e65951a23c74a73de90cd9d61deab1f5e8799d9a1077",
+      "triangles": 10000,
+      "bytes": 11809316,
+      "bounds": [
+        [
+          -0.5121902823448181,
+          -0.6527913212776184,
+          4.9771926569519565e-05
+        ],
+        [
+          0.511448085308075,
+          0.4011300206184387,
+          0.4452100396156311
+        ]
+      ],
+      "textures": {
+        "j20_basecolor_2k": [
+          2048,
+          2048
+        ],
+        "j20_metalrough_2k": [
+          2048,
+          2048
+        ],
+        "j20_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "file": "j20-lod2.fbx",
+      "sha256": "7d3c9c4505337f53e5917c49fe71f064c9b926c9d64a2125e867b35446267d52",
+      "triangles": 10000,
+      "bytes": 437692,
+      "bounds": [
+        [
+          -0.5121902823448181,
+          -0.6527913212776184,
+          4.9833208322525024e-05
+        ],
+        [
+          0.511448085308075,
+          0.4011300504207611,
+          0.4452100098133087
+        ]
+      ],
+      "textures": {
+        "j20_basecolor_2k.png": [
+          2048,
+          2048
+        ],
+        "j20_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 6.12817530054599e-08,
+      "passed": true
+    }
+  ]
+}

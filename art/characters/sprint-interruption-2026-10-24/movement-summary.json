@@ -1,0 +1,14 @@
+{
+  "version": "0.59.2",
+  "frames": 504,
+  "sequences": 4,
+  "fps": 30,
+  "max_controller_speed_error_mps": 0.0008999999999996788,
+  "interruption_frame": 36,
+  "shift_release_frame": 78,
+  "shift_repress_frame": 90,
+  "sprint_mps": 6.6,
+  "walk_mps": 4.2,
+  "aim_walk_mps": 2.73,
+  "verification": "Actual gameplay input-resolution methods and CharacterController displacement; no OS key injection."
+}

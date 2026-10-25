@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "version": "0.59.0",
+  "player_runtime_errors": 0,
+  "regression_groups": 5,
+  "fbx_round_trip_lods": 4,
+  "embedded_texture_dimensions": [
+    2048,
+    2048
+  ],
+  "player_images": 132,
+  "reload_frames_per_view": 58,
+  "preserved_checks": 34,
+  "leg_pose_source_regions_unchanged": 3,
+  "video": {
+    "width": 960,
+    "height": 640,
+    "fps": 30,
+    "duration_seconds": 8.366666666666667,
+    "decoded_frames_seconds": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  "tp_reload_min_right_grip_forward_m": 0.1915588,
+  "build_report_bytes": 542684060,
+  "limitations": [
+    "Existing combined-finger skeleton retained; no independent trigger-finger animation",
+    "Reload is a procedural magazine/handle sequence, not a motion-captured animation",
+    "No new multiplayer animation-state replication"
+  ],
+  "evidence": [
+    "evidence/player/results.txt",
+    "evidence/batch-results.txt",
+    "evidence/preservation.json",
+    "evidence/leg-code-preservation.json",
+    "evidence/packed-textures.json",
+    "evidence/image-checks.json"
+  ],
+  "whitespace_check": "Changed C# and documentation passed; broad repository check also reports pre-existing/generated Unity YAML trailing spaces, left intact."
+}

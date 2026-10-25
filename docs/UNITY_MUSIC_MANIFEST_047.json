@@ -1,0 +1,86 @@
+{
+  "version": "0.47.0",
+  "authorship": "Original procedural compositions for IRONFRONT; no vocals, no existing song or commercial loop.",
+  "sharedThemeMidi": [
+    62,
+    65,
+    67,
+    69
+  ],
+  "sharedTheme": "D4–F4–G4–A4 with original phrase responses and variations",
+  "rendering": "Apple AVAudioUnitSampler renders original note events using the host-installed macOS GM bank; bank not redistributed. Original NumPy percussion, warm harmonic bass, circular room DSP.",
+  "loopMethod": "Three native performance passes retain the middle pass; percussion/bass/tails and reverb wrap circularly; short endpoint correction prevents clicks without silence.",
+  "sourceFiles": [
+    "scripts/generate-unity-music.py",
+    "scripts/render-native-instrument.swift",
+    "docs/music-scores/*.json"
+  ],
+  "tracks": [
+    {
+      "durationSeconds": 53.333333,
+      "channels": 2,
+      "sampleRate": 44100,
+      "bitDepth": 16,
+      "peakDbfs": -5.958,
+      "rmsDbfs": -19.5,
+      "dcOffset": [
+        0.0,
+        1e-08
+      ],
+      "loopBoundaryJumpMax": 0.0,
+      "minimumOneSecondRmsDbfs": -21.947,
+      "maximumOneSecondRmsDbfs": -17.131,
+      "clippedSamples": 0,
+      "nonzeroFraction": 0.99964,
+      "id": "lobby",
+      "title": "Before the Front",
+      "bpm": 72,
+      "bars": 16,
+      "sha256": "78d2d9bd56b8da7458f18c4a861ec5f6bcc4f60cdfc8f9c0a49a06011537e023"
+    },
+    {
+      "durationSeconds": 60.0,
+      "channels": 2,
+      "sampleRate": 44100,
+      "bitDepth": 16,
+      "peakDbfs": -5.091,
+      "rmsDbfs": -19.5,
+      "dcOffset": [
+        -1e-08,
+        1e-08
+      ],
+      "loopBoundaryJumpMax": 0.0,
+      "minimumOneSecondRmsDbfs": -20.652,
+      "maximumOneSecondRmsDbfs": -17.996,
+      "clippedSamples": 0,
+      "nonzeroFraction": 0.999595,
+      "id": "victory-near",
+      "title": "The Final Advance",
+      "bpm": 128,
+      "bars": 32,
+      "sha256": "5befd53c33f787a254523b93c8357fb73e211f4e9fb1d69baa5663f47d38cd2c"
+    },
+    {
+      "durationSeconds": 68.571429,
+      "channels": 2,
+      "sampleRate": 44100,
+      "bitDepth": 16,
+      "peakDbfs": -5.479,
+      "rmsDbfs": -19.5,
+      "dcOffset": [
+        -1e-08,
+        -0.0
+      ],
+      "loopBoundaryJumpMax": 0.0,
+      "minimumOneSecondRmsDbfs": -21.098,
+      "maximumOneSecondRmsDbfs": -18.651,
+      "clippedSamples": 0,
+      "nonzeroFraction": 0.999607,
+      "id": "defeat-near",
+      "title": "Hold the Line",
+      "bpm": 112,
+      "bars": 32,
+      "sha256": "2c5bba8a7ce3877817c26aab543bb8eaa3a71628e4b047c63d3c9eab71562e97"
+    }
+  ]
+}

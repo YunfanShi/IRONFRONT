@@ -1,0 +1,500 @@
+{
+  "asset": "IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod0.glb",
+  "format": ".glb",
+  "objects": {
+    "Body": {
+      "type": "MESH",
+      "parent": "H8_Root",
+      "pivot_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot_unity": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_blender": [
+        [
+          -5.5795,
+          -8.3414,
+          -0.012
+        ],
+        [
+          5.6516,
+          10.8283,
+          6.7308
+        ]
+      ],
+      "bounds_unity": [
+        [
+          -5.5795,
+          -0.012,
+          -10.8283
+        ],
+        [
+          5.6516,
+          6.7308,
+          8.3414
+        ]
+      ],
+      "triangles": 43000,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Red_PBR"
+      ]
+    },
+    "ChinGun": {
+      "type": "MESH",
+      "parent": "H8_Root",
+      "pivot_blender": [
+        0.0,
+        -6.4538,
+        1.4323
+      ],
+      "pivot_unity": [
+        0.0,
+        1.4323,
+        6.4538
+      ],
+      "bounds_blender": [
+        [
+          -0.195,
+          -8.3852,
+          1.2516
+        ],
+        [
+          0.1815,
+          -6.758,
+          1.6264
+        ]
+      ],
+      "bounds_unity": [
+        [
+          -0.195,
+          1.2516,
+          6.758
+        ],
+        [
+          0.1815,
+          1.6264,
+          8.3852
+        ]
+      ],
+      "triangles": 1300,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Red_PBR"
+      ]
+    },
+    "H8_Root": {
+      "type": "EMPTY",
+      "parent": null,
+      "pivot_blender": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot_unity": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "MainRotor": {
+      "type": "EMPTY",
+      "parent": "H8_Root",
+      "pivot_blender": [
+        0.0,
+        -0.2528,
+        6.9762
+      ],
+      "pivot_unity": [
+        0.0,
+        6.9762,
+        0.2528
+      ]
+    },
+    "PortWeaponPod": {
+      "type": "MESH",
+      "parent": "H8_Root",
+      "pivot_blender": [
+        -5.0552,
+        -0.4213,
+        2.1063
+      ],
+      "pivot_unity": [
+        -5.0552,
+        2.1063,
+        0.4213
+      ],
+      "bounds_blender": [
+        [
+          -6.3844,
+          -2.1866,
+          1.4218
+        ],
+        [
+          -3.2798,
+          0.9451,
+          3.4981
+        ]
+      ],
+      "bounds_unity": [
+        [
+          -6.3844,
+          1.4218,
+          -0.9451
+        ],
+        [
+          -3.2798,
+          3.4981,
+          2.1866
+        ]
+      ],
+      "triangles": 1600,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Red_PBR"
+      ]
+    },
+    "RotorBlades": {
+      "type": "MESH",
+      "parent": "MainRotor",
+      "pivot_blender": [
+        0.0,
+        -0.2528,
+        6.9762
+      ],
+      "pivot_unity": [
+        0.0,
+        6.9762,
+        0.2528
+      ],
+      "bounds_blender": [
+        [
+          -4.8331,
+          -5.0858,
+          6.9487
+        ],
+        [
+          4.8331,
+          4.5803,
+          7.0037
+        ]
+      ],
+      "bounds_unity": [
+        [
+          -4.8331,
+          6.9487,
+          -4.5803
+        ],
+        [
+          4.8331,
+          7.0037,
+          5.0858
+        ]
+      ],
+      "triangles": 80,
+      "uv_layers": 0,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    },
+    "RotorCap": {
+      "type": "MESH",
+      "parent": "MainRotor",
+      "pivot_blender": [
+        0.0,
+        -0.2528,
+        6.9762
+      ],
+      "pivot_unity": [
+        0.0,
+        6.9762,
+        0.2528
+      ],
+      "bounds_blender": [
+        [
+          -0.37,
+          -0.6228,
+          6.8762
+        ],
+        [
+          0.37,
+          0.1172,
+          7.0762
+        ]
+      ],
+      "bounds_unity": [
+        [
+          -0.37,
+          6.8762,
+          -0.1172
+        ],
+        [
+          0.37,
+          7.0762,
+          0.6228
+        ]
+      ],
+      "triangles": 76,
+      "uv_layers": 1,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    },
+    "RotorHub": {
+      "type": "MESH",
+      "parent": "MainRotor",
+      "pivot_blender": [
+        0.0,
+        -0.2528,
+        6.9762
+      ],
+      "pivot_unity": [
+        0.0,
+        6.9762,
+        0.2528
+      ],
+      "bounds_blender": [
+        [
+          -1.8232,
+          -1.7826,
+          6.2801
+        ],
+        [
+          1.8318,
+          2.4601,
+          8.1609
+        ]
+      ],
+      "bounds_unity": [
+        [
+          -1.8232,
+          6.2801,
+          -2.4601
+        ],
+        [
+          1.8318,
+          8.1609,
+          1.7826
+        ]
+      ],
+      "triangles": 3200,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Red_PBR"
+      ]
+    },
+    "StarboardWeaponPod": {
+      "type": "MESH",
+      "parent": "H8_Root",
+      "pivot_blender": [
+        5.0552,
+        -0.4213,
+        2.1063
+      ],
+      "pivot_unity": [
+        5.0552,
+        2.1063,
+        0.4213
+      ],
+      "bounds_blender": [
+        [
+          3.0671,
+          -2.1861,
+          1.4353
+        ],
+        [
+          6.3821,
+          0.9402,
+          3.5
+        ]
+      ],
+      "bounds_unity": [
+        [
+          3.0671,
+          1.4353,
+          -0.9402
+        ],
+        [
+          6.3821,
+          3.5,
+          2.1861
+        ]
+      ],
+      "triangles": 1599,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Red_PBR"
+      ]
+    },
+    "TailRotor": {
+      "type": "EMPTY",
+      "parent": "H8_Root",
+      "pivot_blender": [
+        0.4718,
+        9.5712,
+        6.8919
+      ],
+      "pivot_unity": [
+        0.4718,
+        6.8919,
+        -9.5712
+      ]
+    },
+    "TailRotorBlades": {
+      "type": "MESH",
+      "parent": "TailRotor",
+      "pivot_blender": [
+        0.4718,
+        9.5712,
+        6.8919
+      ],
+      "pivot_unity": [
+        0.4718,
+        6.8919,
+        -9.5712
+      ],
+      "bounds_blender": [
+        [
+          0.4443,
+          8.5412,
+          5.8619
+        ],
+        [
+          0.4993,
+          10.6012,
+          7.9219
+        ]
+      ],
+      "bounds_unity": [
+        [
+          0.4443,
+          5.8619,
+          -10.6012
+        ],
+        [
+          0.4993,
+          7.9219,
+          -8.5412
+        ]
+      ],
+      "triangles": 80,
+      "uv_layers": 0,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    },
+    "TailRotorCap": {
+      "type": "MESH",
+      "parent": "TailRotor",
+      "pivot_blender": [
+        0.4718,
+        9.5712,
+        6.8919
+      ],
+      "pivot_unity": [
+        0.4718,
+        6.8919,
+        -9.5712
+      ],
+      "bounds_blender": [
+        [
+          0.3768,
+          9.4012,
+          6.7219
+        ],
+        [
+          0.5668,
+          9.7412,
+          7.0619
+        ]
+      ],
+      "bounds_unity": [
+        [
+          0.3768,
+          6.7219,
+          -9.7412
+        ],
+        [
+          0.5668,
+          7.0619,
+          -9.4012
+        ]
+      ],
+      "triangles": 76,
+      "uv_layers": 1,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    }
+  },
+  "materials": [
+    "H8_Red_PBR",
+    "H8_RotorGraphite",
+    "Material"
+  ],
+  "images": [
+    {
+      "name": "Viewer Node",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "h8_normal_2k",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "h8_orm_2k",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "h8_red_albedo_2k",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ],
+  "total_triangles": 51011,
+  "bounds_blender": [
+    [
+      -6.3844,
+      -8.3852,
+      -0.012
+    ],
+    [
+      6.3821,
+      10.8283,
+      8.1609
+    ]
+  ],
+  "bounds_unity": [
+    [
+      -6.3844,
+      -0.012,
+      -10.8283
+    ],
+    [
+      6.3821,
+      8.1609,
+      8.3852
+    ]
+  ],
+  "dimensions_m": [
+    12.7665,
+    19.2136,
+    8.1729
+  ]
+}

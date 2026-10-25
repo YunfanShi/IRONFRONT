@@ -1,0 +1,2 @@
+IRONFRONT/Verify Lobby Loadout|IRONFRONT lobby/loadout PASS:
+IRONFRONT/Verify Class Loadout Policy|IRONFRONT loadout policy PASS:

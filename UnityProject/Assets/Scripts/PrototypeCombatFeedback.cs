@@ -158,6 +158,10 @@ namespace Ironfront.UnityPrototype
                 .06f, .36f, .16f, Vector3.up * .8f);
         }
 
+        public static bool VehicleImpact(PrototypeRuntime game, IPrototypeVehicle vehicle,
+            Vector3 point, PrototypeDamageClass damageClass) =>
+            PrototypeVehicleImpactAudio.Play(game, vehicle, point, damageClass);
+
         public static void Explosion(PrototypeRuntime game, Vector3 center,
             float radius, PrototypeCombatSound sound)
         {
@@ -187,14 +191,7 @@ namespace Ironfront.UnityPrototype
         public static void Smoke(PrototypeRuntime game, Vector3 center)
         {
             PlayAt(center, PrototypeCombatSound.SmokeRelease);
-            for (int i = 0; i < 7; i++)
-            {
-                float angle = i * Mathf.PI * 2f / 7f;
-                Vector3 offset = new Vector3(Mathf.Cos(angle) * 1.2f,
-                    .8f + (i % 3) * .45f, Mathf.Sin(angle) * 1.2f);
-                SpawnPulse("Smoke plume", center + offset, game.GlassMaterial,
-                    1.1f, 2.5f, 8f, Vector3.up * .13f);
-            }
+            PrototypeSmokeCloud.Spawn(game, center);
         }
 
         public static void Support(PrototypeRuntime game, Vector3 point,
@@ -216,7 +213,9 @@ namespace Ironfront.UnityPrototype
             GameObject pulse = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             pulse.name = name;
             pulse.transform.position = point;
-            UnityEngine.Object.Destroy(pulse.GetComponent<Collider>());
+            Collider collider = pulse.GetComponent<Collider>();
+            collider.enabled = false;
+            UnityEngine.Object.Destroy(collider);
             pulse.GetComponent<Renderer>().sharedMaterial = material;
             pulse.AddComponent<PrototypePulseVisual>().Initialize(
                 Vector3.one * initial, Vector3.one * peak, lifetime, velocity);

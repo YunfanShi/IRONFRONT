@@ -1,0 +1,14 @@
+{
+  "version": "0.57.0",
+  "status": "complete",
+  "play_assertions": 160,
+  "fresh_fbx_count": 6,
+  "regression_groups": 4,
+  "runtime_errors": 0,
+  "player_exit_code": 0,
+  "original_files_preserved": 16,
+  "build": "UnityProject/Builds/Soldiers-0.57.0/IRONFRONT.app",
+  "build_files": 276,
+  "build_bytes_on_disk": 520759534,
+  "binary_sha256": "7a3f8c5b5e906d408249be8e6a9c9900f0a658df3a487d75d917bbaa885b1634"
+}

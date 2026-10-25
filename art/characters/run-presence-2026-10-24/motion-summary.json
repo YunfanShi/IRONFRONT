@@ -1,0 +1,37 @@
+{
+  "version": "0.59.3",
+  "range_unit": "metres for position; degrees for angles",
+  "steady_sprint": {
+    "camera_x": {
+      "min": -0.00867,
+      "max": 0.00867
+    },
+    "camera_y": {
+      "min": 1.64367,
+      "max": 1.65643
+    },
+    "pitch": {
+      "min": -0.19724,
+      "max": 0.19507
+    },
+    "yaw": {
+      "min": -0.09885,
+      "max": 0.09953
+    },
+    "roll": {
+      "min": -0.29858,
+      "max": 0.2965
+    },
+    "chest_yaw": {
+      "min": -5.17496,
+      "max": 5.18971
+    },
+    "pelvis_yaw": {
+      "min": -2.98581,
+      "max": 2.96502
+    }
+  },
+  "samples": 576,
+  "camera_weight_zero_after_combat_seconds": 0.1,
+  "actual_player_check": "player/results.txt"
+}

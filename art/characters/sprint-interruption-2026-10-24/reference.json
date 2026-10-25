@@ -1,0 +1,11 @@
+{
+  "source": "/Users/liuwenjun/Downloads/normal_video.mp4",
+  "sha256": "a1474bad6f8042f6847c121de6e1a43172cbb73c84baab65f145840bd7037784",
+  "duration": 10.241678004535148,
+  "size": [
+    544,
+    960
+  ],
+  "fps": 29.001072,
+  "review": "Counterclockwise 90 degree rotation for readable frames; sprint 3.25-4.5 seconds, ready 3.0 and 5.0 seconds"
+}

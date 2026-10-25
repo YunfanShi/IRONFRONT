@@ -1,0 +1,128 @@
+{
+  "version": "0.61.1",
+  "status": "PASS",
+  "verifiedAt": "2026-10-25T00:37:50.535996+08:00",
+  "preservedFiles": 341,
+  "changedPreservedFiles": [],
+  "runtimeErrors": 0,
+  "uiScreenshots": {
+    "calling-card-cjk.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 64.232,
+      "magentaFraction": 0.0
+    },
+    "lan-existing.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 30.163,
+      "magentaFraction": 0.0
+    },
+    "loadout-existing.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 45.406,
+      "magentaFraction": 0.0
+    },
+    "lobby-1280x800.png": {
+      "size": [
+        1280,
+        800
+      ],
+      "std": 63.82,
+      "magentaFraction": 0.0
+    },
+    "lobby-1600x900.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 64.098,
+      "magentaFraction": 0.0
+    },
+    "lobby-1920x1080.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "std": 63.971,
+      "magentaFraction": 0.0
+    },
+    "lobby-2560x1080.png": {
+      "size": [
+        2560,
+        1080
+      ],
+      "std": 68.499,
+      "magentaFraction": 0.0
+    },
+    "lobby-960x600.png": {
+      "size": [
+        960,
+        600
+      ],
+      "std": 63.948,
+      "magentaFraction": 0.0
+    },
+    "operations-existing.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 51.512,
+      "magentaFraction": 0.0
+    },
+    "settings-existing.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 52.249,
+      "magentaFraction": 0.0
+    },
+    "solo-existing.png": {
+      "size": [
+        1600,
+        900
+      ],
+      "std": 49.402,
+      "magentaFraction": 0.0
+    }
+  },
+  "buildFileCount": 278,
+  "buildBytes": 578036709,
+  "playerSettingsOnlyVersionChanged": true,
+  "sourceSha256": {
+    "UnityProject/Assets/Resources/Menu/LobbyTheme.uss": "19f5a055fb3513d1a100bd713d47b61e587e877dd924dc5369c816b3da1a9750",
+    "UnityProject/Assets/Editor/PrototypeLobbyFontBuilder.cs": "281115bc00061b9971d9bfa770f46cc07f449682e04a8835a43785328d0cbada",
+    "UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs": "e3b7d393055fc2adee01bbc576260c1117752deb17de25e3ceae3212623ef3b0",
+    "UnityProject/Assets/Fonts/Lobby/BlackOpsOne-Regular.ttf.meta": "9330fca9488c99bee91e5138bd9a0e69b5a4371874230f36559ecb8bf6119a2a",
+    "UnityProject/Assets/Fonts/Lobby/BlackOpsOne-OFL.txt.meta": "f860e884851880e3b09213291edb90fcd0c0963724d779e67b523c1f51616dde",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSansCN-Heavy.otf": "88c749b0a54a0800124ded6544e399302ed224aa49992ea364b88769f825c54c",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSansCN-Regular.otf": "e2bc8a2e7f37474b774fff8db758681ece40bb6947a90d571bce9dd60671a8e4",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSansCN-Medium.otf.meta": "85d72e0d2dab83dc5eb643954adf102a173eafc74816d6f137e1c723402d23d5",
+    "UnityProject/Assets/Fonts/Lobby/README.md": "589d18f6abde26efe41f4b44910bd8c4cb2e100e65127784f704313192f29472",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSansCN-Heavy.otf.meta": "db5f4caeed585e3b28e66f3d9fba60f11cb069ff2278cbaa2f83ccbb45c90282",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSans-LICENSE.txt": "fcac737e761ec63dbfbdce11030a1780161920d80315edba9c8beff1c2bac5a2",
+    "UnityProject/Assets/Fonts/Lobby/BlackOpsOne-Regular.ttf": "282a825b5f294377387e3969f765408157dbea8da0f5d0aae68c6bc704b145b3",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSans-LICENSE.txt.meta": "cfff2c15a5a9061548d870ff0edd2113a36e73a5168d2dc6b749331df09fed2f",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSansCN-Medium.otf": "a94e558a2fe972bee4f46bce0843abff37063fd68c33f1e7d9058f6f09432b01",
+    "UnityProject/Assets/Fonts/Lobby/BlackOpsOne-OFL.txt": "f67ca4a200424868ee8fcd5464d7b35ac1cbf7723f6bfdbd19a8524689fab9a8",
+    "UnityProject/Assets/Fonts/Lobby/SourceHanSansCN-Regular.otf.meta": "97823b2bca39d0cf98f3f3f01a9be6ad05ff0697948057344f335d2011b99d83",
+    "UnityProject/Assets/Fonts/Lobby/README.md.meta": "230d4bbc3c7b92819137f0383dd5b8425da0cc205064e43c4c5970ac13d0172b",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyMedium.asset": "e1974980cc7ef5c5c4edc94f4a004c39eaba1fbac088410cf8105ca04aee6b55",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyRegular.asset.meta": "dd5e9b304e13066467704885ac5fbd1ad14d38ae3d67baceb22a23a9e5c6d2ca",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyHeavy.asset": "4fa8352456125419c074891c6de4e3ae09bb5ef78c3bd0a00aaa79c19f3a02cd",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyStencil.asset": "bf2c1c592fcd46f8e92d06abbeb89be42dfcc8ce4acf53b2f59d87e71bbeb9cc",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyRegular.asset": "ee3d883ce9278c8e5f9841e2718b2afb52183f4d899412f8a2e182d8f2904011",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyMedium.asset.meta": "412759a8a349aacbab9edf25447a74a0957b96bb93eae14ba6837fcb02b4bf0b",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyHeavy.asset.meta": "90979b9bbb6334ce66630a69473358a1644296b94b5c30a9dd28497fcb9f0739",
+    "UnityProject/Assets/Resources/Menu/Fonts/LobbyStencil.asset.meta": "a4000ec8d73287a3d52f1b6a0fb349244d42c57916eaff54ded4f5b20399c4c6"
+  }
+}

@@ -10,8 +10,13 @@ namespace Ironfront.UnityPrototype
         private PrototypeRuntime runtime;
         private PrototypeTeam team;
         private Transform owner;
+        private object scoreActor;
+        private float guidedSpeed;
+        private PrototypeDamageClass damageClass;
         private IPrototypeVehicle target;
         private Vector3 velocity;
+        private Vector3 launchOrigin;
+        private Vector3 damageOrigin;
         private float remaining, damage, gravity, radius, armor;
         private LineRenderer trail;
         private readonly List<Vector3> points = new List<Vector3>();
@@ -22,18 +27,25 @@ namespace Ironfront.UnityPrototype
         public static PrototypeVehicleProjectile Launch(PrototypeRuntime game,
             PrototypeTeam side, Transform shooter, Vector3 origin, Vector3 direction,
             float speed, float range, float damage, float gravity, float radius,
-            float armor, IPrototypeVehicle guidedTarget = null)
+            float armor, IPrototypeVehicle guidedTarget = null, PrototypeDamageClass? weaponClass = null)
         {
             if (game == null || !game.MatchStarted || game.IsNetworkReplica ||
                 game.Match.Winner.HasValue || activeCount >= 96) return null;
             GameObject shell = new GameObject(guidedTarget == null ?
                 "Combined-arms round" : "Vehicle guided missile");
             shell.transform.position = origin;
+            shell.transform.rotation = Quaternion.LookRotation(direction.normalized);
             var projectile = shell.AddComponent<PrototypeVehicleProjectile>();
             projectile.runtime = game; projectile.team = side; projectile.owner = shooter;
+            projectile.launchOrigin = origin;
+            projectile.scoreActor = PrototypeScoreSystem.ActorForShooter(shooter);
+            projectile.damageClass = weaponClass ?? (guidedTarget != null ?
+                PrototypeDamageClass.AntiAirMissile : PrototypeDamageClass.Cannon);
+            projectile.guidedSpeed = speed;
             projectile.velocity = direction.normalized * speed; projectile.remaining = range;
             projectile.damage = damage; projectile.gravity = gravity;
             projectile.radius = radius; projectile.armor = armor; projectile.target = guidedTarget;
+            if (guidedTarget != null) PrototypeEquipmentVisual.BuildAntiAirMissile(shell.transform, game);
             projectile.trail = shell.AddComponent<LineRenderer>();
             projectile.trail.sharedMaterial = game.TracerMaterial(side);
             projectile.trail.startWidth = guidedTarget == null ? .10f : .16f;
@@ -44,6 +56,14 @@ namespace Ironfront.UnityPrototype
                 PrototypeCombatSound.TankCannon : PrototypeCombatSound.RocketLaunch);
             PrototypeCombatFeedback.Muzzle(game, origin, direction, .7f);
             return projectile;
+        }
+
+        // Flares sever the seeker immediately. There is no reacquisition path,
+        // even after the aircraft's ten-second immunity expires.
+        public static void BreakGuidanceTo(IPrototypeVehicle aircraft)
+        {
+            foreach (PrototypeVehicleProjectile missile in Object.FindObjectsByType<PrototypeVehicleProjectile>())
+                if (ReferenceEquals(missile.target, aircraft)) missile.target = null;
         }
 
         private void OnDestroy() { activeCount = Mathf.Max(0, activeCount - 1); }
@@ -74,11 +94,12 @@ namespace Ironfront.UnityPrototype
                     else
                     {
                         velocity = Vector3.RotateTowards(velocity.normalized, wanted,
-                            1.25f * dt, 0f) * 145f;
+                            1.25f * dt, 0f) * guidedSpeed;
                         if (target is PrototypeCombinedArmsVehicle warned) warned.WarnIncoming();
                     }
                 }
             }
+            if (velocity.sqrMagnitude > .001f) transform.rotation = Quaternion.LookRotation(velocity.normalized);
             Vector3 start = transform.position;
             Vector3 delta = velocity * dt + Vector3.down * (gravity * .5f * dt * dt);
             float allowed = Mathf.Min(delta.magnitude, remaining);
@@ -115,10 +136,11 @@ namespace Ironfront.UnityPrototype
 
         private void Explode(Vector3 center, Collider direct)
         {
+            damageOrigin = radius > 0f ? center : launchOrigin;
             PrototypeCombatFeedback.Explosion(runtime, center, Mathf.Max(.5f, radius),
                 PrototypeCombatSound.TankExplosion);
             var damaged = new HashSet<Object>();
-            if (direct != null) Apply(direct, damage, damaged);
+            if (direct != null) Apply(direct, damage, damaged, center);
             if (radius <= 0f) return;
             foreach (Collider nearby in Physics.OverlapSphere(center, radius,
                 ~0, QueryTriggerInteraction.Ignore))
@@ -127,6 +149,7 @@ namespace Ironfront.UnityPrototype
                 // Terrain is a non-convex mesh and has no damage receiver.
                 // Do not request Physics.ClosestPoint for decorative/static geometry.
                 if (PrototypeVehicleHit.Find(nearby) == null &&
+                    nearby.GetComponentInParent<PrototypeAmmoSupplyPoint>() == null &&
                     nearby.GetComponentInParent<PrototypePlayer>() == null &&
                     nearby.GetComponentInParent<PrototypeBot>() == null &&
                     nearby.GetComponentInParent<PrototypeRemotePlayer>() == null) continue;
@@ -145,35 +168,56 @@ namespace Ironfront.UnityPrototype
                         hit.collider.GetComponentInParent<PrototypePlayer>() == null &&
                         PrototypeVehicleHit.Find(hit.collider) == null) { blocked = true; break; }
                 }
-                if (!blocked) Apply(nearby, damage * Mathf.Clamp01(1f - line.magnitude / radius), damaged);
+                if (!blocked) Apply(nearby, damage * Mathf.Clamp01(1f - line.magnitude / radius), damaged, point);
             }
         }
 
-        private void Apply(Collider collider, float amount, HashSet<Object> damaged)
+        private void Apply(Collider collider, float amount, HashSet<Object> damaged, Vector3 impactPoint)
         {
             if (amount <= 0f) return;
+            PrototypeAmmoSupplyPoint supply = collider.GetComponentInParent<PrototypeAmmoSupplyPoint>();
+            if (supply != null)
+            { if (damaged.Add(supply)) supply.TakeDamage(amount); return; }
             IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(collider);
             if (vehicle != null)
             {
-                if (vehicle.Team == team || !damaged.Add(vehicle.VehicleTransform)) return;
-                vehicle.TakeDamage(amount * armor); return;
+                if (!damaged.Add(vehicle.VehicleTransform)) return;
+                PrototypeCombatFeedback.VehicleImpact(runtime, vehicle, impactPoint, damageClass);
+                if (vehicle.Team == team) return;
+                float hullDamage = PrototypeVehicleArmor.Resolve(vehicle, amount * armor, damageClass);
+                if (hullDamage <= 0f) return;
+                if (runtime.Scores != null)
+                    runtime.Scores.ApplyDamage(vehicle, scoreActor, team, hullDamage, () => vehicle.TakeDamage(hullDamage));
+                else vehicle.TakeDamage(hullDamage);
+                return;
             }
             PrototypePlayer player = collider.GetComponentInParent<PrototypePlayer>();
             if (player != null)
             {
                 if (player.Team != team && damaged.Add(player) && player.CurrentVehicle == null)
-                    player.TakeDamage(amount);
+                {
+                    if (runtime.Scores != null) runtime.Scores.ApplyDamage(player, scoreActor, team, amount, () => player.TakeDamageFrom(amount, damageOrigin));
+                    else player.TakeDamageFrom(amount, damageOrigin);
+                }
                 return;
             }
             PrototypeBot bot = collider.GetComponentInParent<PrototypeBot>();
             if (bot != null)
             {
                 if (bot.Team != team && !bot.IsPassenger && damaged.Add(bot))
-                    bot.TakeDamage(amount, owner == null ? (Vector2?)null : new Vector2(owner.position.x, owner.position.z));
+                {
+                    Vector2? location = owner == null ? (Vector2?)null : new Vector2(owner.position.x, owner.position.z);
+                    if (runtime.Scores != null) runtime.Scores.ApplyDamage(bot, scoreActor, team, amount, () => bot.TakeDamage(amount, location));
+                    else bot.TakeDamage(amount, location);
+                }
                 return;
             }
             PrototypeRemotePlayer remote = collider.GetComponentInParent<PrototypeRemotePlayer>();
-            if (remote != null && remote.Team != team && damaged.Add(remote)) remote.TakeDamage(amount);
+            if (remote != null && remote.Team != team && damaged.Add(remote))
+            {
+                if (runtime.Scores != null) runtime.Scores.ApplyDamage(remote, scoreActor, team, amount, () => remote.TakeDamageFrom(amount, damageOrigin));
+                else remote.TakeDamageFrom(amount, damageOrigin);
+            }
         }
     }
 }

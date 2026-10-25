@@ -101,12 +101,20 @@ async function run() {
     await denied({type:'snapshot',tick:1,players:[],bots:[],vehicles:[],points:[],blueTickets:0,redTickets:0,host:true});
     await wait(80);
     assert.equal(guest.events.filter(e=>e.type==='room'&&e.phase==='preparation').length,falseRoomCount);
-    const snapshot={type:'snapshot',tick:1,players:[{id:captain.welcome.id,x:1,y:2,z:3,yaw:90,hp:100,alive:true}],bots:[{id:1,x:0}],vehicles:[{id:1,x:0}],points:[{id:1,owner:'blue'}],blueTickets:299,redTickets:300,id:guest.welcome.id,host:false};
-    captain.ws.send(JSON.stringify(snapshot));
+    const standing={actorId:`player:${captain.welcome.id}`,displayName:'Commander',team:0,stableOrder:captain.welcome.id,
+        kills:2,assists:1,vehicleAssists:1,vehiclesDestroyed:1,totalEarned:550,alive:true,isHuman:true,connected:true};
+    const scoreboard={version:1,rows:[standing]};
+    const incomingDamage={sequence:4,amount:18,hasSource:true,x:25,y:2,z:-10,age:0.04};
+    const snapshot={type:'snapshot',tick:1,players:[{id:captain.welcome.id,x:1,y:2,z:3,yaw:90,hp:100,alive:true,incomingDamage}],bots:[{id:1,x:0}],vehicles:[{id:1,x:0}],points:[{id:1,owner:'blue'}],blueTickets:299,redTickets:300,id:guest.welcome.id,host:false};
+    captain.ws.send(JSON.stringify({...snapshot,scoreboard:{version:1,rows:[{...standing,host:true}]}}));
     const replicated=await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===1);
     assert.equal(replicated.players[0].id,captain.welcome.id);
     assert.equal(replicated.id,undefined);
     assert.equal(replicated.host,undefined);
+    assert.deepEqual(replicated.scoreboard,scoreboard);
+    assert.deepEqual(replicated.players[0].incomingDamage,incomingDamage,
+        "host-confirmed incoming damage source is relayed intact to the guest");
+    await denied({...snapshot,tick:100,scoreboard:{version:1,rows:[{...standing,totalEarned:2147483647}]},host:true});
     guest.ws.send(JSON.stringify({type:'input',id:captain.welcome.id,host:true,seq:1,forward:9,side:-8,yaw:9999,pitch:999,sprint:true,fire:true,callRescue:true,giveUp:true}));
     const input=await awaitEvent(captain,e=>e.type==='peerInput'&&e.input.seq===1);
     assert.deepEqual({id:input.id,forward:input.input.forward,side:input.input.side,yaw:input.input.yaw,pitch:input.input.pitch,sprint:input.input.sprint,fire:input.input.fire},
@@ -180,12 +188,24 @@ async function run() {
     await wait(25);
     resumed.ws.send(JSON.stringify({...snapshot,tick:3}));
     await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===3);
+    for (const [tick,invalid] of [[10,{version:1,rows:[{...standing,totalEarned:-1}]}],
+        [11,{version:1,rows:[standing,standing]}],
+        [12,{version:1,rows:Array.from({length:65},(_,i)=>({...standing,actorId:`bot:${i}`}))}]]) {
+        await wait(30);
+        resumed.ws.send(JSON.stringify({...snapshot,tick,scoreboard:invalid}));
+        const rejected=await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===tick);
+        assert.equal(rejected.scoreboard,undefined,'malformed optional standings are discarded while world replication continues');
+    }
+    await wait(30);
+    resumed.ws.send(JSON.stringify({...snapshot,tick:13}));
+    const legacySnapshot=await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===13);
+    assert.equal(legacySnapshot.scoreboard,undefined,'older hosts remain compatible');
     resumed.ws.send(JSON.stringify({type:'kick',targetId:guest.welcome.id}));
     assert.equal(await new Promise(resolve=>guest.ws.once('close',resolve)),4003);
     assert.equal(await rejectSocket(`ws://127.0.0.1:${port}/unity?room=${room.code}&resume=${guest.welcome.resumeToken}`),1008);
     resumed.ws.send(JSON.stringify({type:'leave'}));
     await new Promise(resolve=>resumed.ws.once('close',resolve));
     assert.equal((await fetch(`${base}/api/unity/rooms/${room.code}`)).status,404,'host voluntary leave must close room');
-    console.log('Unity room PASS: host-only controls and snapshots, server-bound movement, deployment and downed actions, rate limits, guest and host resume without promotion, kick, and voluntary host leave.');
+    console.log('Unity room PASS: host-only controls, snapshots and read-only scoreboard, malformed scoreboard bounds/duplicates/legacy compatibility, server-bound movement, deployment and downed actions, rate limits, guest and host resume without promotion, kick, and voluntary host leave.');
 }
 run().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>host.kill());

@@ -1,0 +1,14 @@
+{
+  "status": "Completed",
+  "version": "0.61.0",
+  "player": "player-02/results.txt",
+  "regressions": "batch-results.txt",
+  "visuals": "visual-validation.json",
+  "preservation": "preservation.json",
+  "app": "UnityProject/Builds/Lobby-0.61.0/IRONFRONT.app",
+  "scope": "Lobby upgrade; existing loadout/settings pages retained",
+  "app_file_count": 276,
+  "app_bytes": 552203618,
+  "new_compile_or_ui_errors": 0,
+  "reference": "approved-reference.png"
+}

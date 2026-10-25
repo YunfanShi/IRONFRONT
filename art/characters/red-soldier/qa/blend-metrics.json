@@ -1,0 +1,318 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/red-soldier-technical-v01.blend",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 4,
+      "images": [
+        "Soldier baked basecolor 2K",
+        "Soldier baked metallic 2K",
+        "Soldier baked normal 2K",
+        "Soldier baked roughness 2K"
+      ],
+      "name": "Trial neutral red gray",
+      "node_count": 7,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "Trial neutral red gray"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "RedSoldier_LOD0_Mesh",
+      "degenerate_faces": 0,
+      "edges": 29976,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral red gray"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RedSoldier_LOD0",
+      "non_manifold_edges": 0,
+      "polygons": 19984,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 19984,
+      "source_polygons": 19984,
+      "source_vertices": 9992,
+      "triangles": 19984,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 9992,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.487286,
+          -0.223726,
+          0.0
+        ],
+        [
+          0.486938,
+          0.269941,
+          1.8
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "RedSoldier_LOD1_Mesh",
+      "degenerate_faces": 0,
+      "edges": 9000,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral red gray"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RedSoldier_LOD1",
+      "non_manifold_edges": 0,
+      "polygons": 6000,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 6000,
+      "source_polygons": 6000,
+      "source_vertices": 3000,
+      "triangles": 6000,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 3000,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.486778,
+          -0.223739,
+          0.000376
+        ],
+        [
+          0.486197,
+          0.267383,
+          1.799033
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "RedSoldier_LOD2_Mesh",
+      "degenerate_faces": 0,
+      "edges": 3000,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral red gray"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RedSoldier_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 2000,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 2000,
+      "source_polygons": 2000,
+      "source_vertices": 1000,
+      "triangles": 2000,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 1000,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.487936,
+          -0.225061,
+          0.000909
+        ],
+        [
+          0.47997,
+          0.271561,
+          1.801592
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "LOD0"
+      ],
+      "dimensions": [
+        0.974224,
+        0.493667,
+        1.8
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RedSoldier_LOD0",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "LOD1"
+      ],
+      "dimensions": [
+        0.972975,
+        0.491122,
+        1.798657
+      ],
+      "hidden_render": true,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RedSoldier_LOD1",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "LOD2"
+      ],
+      "dimensions": [
+        0.967906,
+        0.496622,
+        1.800682
+      ],
+      "hidden_render": true,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RedSoldier_LOD2",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        0.974874,
+        0.496622,
+        1.801592
+      ],
+      "max": [
+        0.486938,
+        0.271561,
+        1.801592
+      ],
+      "min": [
+        -0.487936,
+        -0.225061,
+        0.0
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 0,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 41976,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 4,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 1,
+    "mesh_objects": 3,
+    "missing_material_faces": 0,
+    "node_materials": 1,
+    "non_manifold_edges": 0,
+    "objects": 3,
+    "polygons": 27984,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 27984,
+    "textured_materials": 1,
+    "triangles": 27984,
+    "uv_mapped_meshes": 3,
+    "vertices": 13992,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "action": "strafe-left",
+    "old_min_segment_distance": 0.00254,
+    "new_min_segment_distance": 0.27835,
+    "new_min_foot_lane_after_warmup": 0.33914
+  },
+  {
+    "action": "strafe-right",
+    "old_min_segment_distance": 0.00476,
+    "new_min_segment_distance": 0.24248,
+    "new_min_foot_lane_after_warmup": 0.33914
+  },
+  {
+    "action": "diagonal-left",
+    "old_min_segment_distance": 0.00238,
+    "new_min_segment_distance": 0.29158,
+    "new_min_foot_lane_after_warmup": 0.33996
+  },
+  {
+    "action": "diagonal-right",
+    "old_min_segment_distance": 0.00176,
+    "new_min_segment_distance": 0.30202,
+    "new_min_foot_lane_after_warmup": 0.33996
+  },
+  {
+    "action": "crouch-left",
+    "old_min_segment_distance": 0.00126,
+    "new_min_segment_distance": 0.30321,
+    "new_min_foot_lane_after_warmup": 0.35922
+  },
+  {
+    "action": "crouch-right",
+    "old_min_segment_distance": 0.00532,
+    "new_min_segment_distance": 0.23704,
+    "new_min_foot_lane_after_warmup": 0.3591
+  },
+  {
+    "action": "reverse-diagonal-left",
+    "old_min_segment_distance": null,
+    "new_min_segment_distance": 0.29205,
+    "new_min_foot_lane_after_warmup": 0.33987
+  },
+  {
+    "action": "reverse-diagonal-right",
+    "old_min_segment_distance": null,
+    "new_min_segment_distance": 0.26223,
+    "new_min_foot_lane_after_warmup": 0.33987
+  },
+  {
+    "action": "turn-left-right",
+    "old_min_segment_distance": null,
+    "new_min_segment_distance": 0.26776,
+    "new_min_foot_lane_after_warmup": -0.59274
+  }
+]

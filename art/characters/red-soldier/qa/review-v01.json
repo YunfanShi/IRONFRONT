@@ -1,0 +1,815 @@
+{
+  "schema_version": 2,
+  "version": "v01",
+  "scope": "technical",
+  "appearance_target": "Keep the supplied red soldier's recognizable helmet, black visor, salmon-red armor accents, chest armor, pouches, backpack, gloves, knee pads, boots, tan-gray uniform and complete human silhouette; the result must read well from front, side, back and three-quarter views.",
+  "primary_quality_difficulty": "Preserving the red shoulder, knee and helmet accents and the armored silhouette when reducing a densely fragmented Hunyuan source mesh.",
+  "target_card": {
+    "version": "target-v01",
+    "requested_level": "L2",
+    "purpose": "Optimize the supplied red-team Hunyuan soldier as a Unity character mesh for IRONFRONT's 8v8 game",
+    "appearance_target": "Keep the supplied red soldier's recognizable helmet, black visor, salmon-red armor accents, chest armor, pouches, backpack, gloves, knee pads, boots, tan-gray uniform and complete human silhouette; the result must read well from front, side, back and three-quarter views.",
+    "primary_quality_difficulty": "Preserving the red shoulder, knee and helmet accents and the armored silhouette when reducing a densely fragmented Hunyuan source mesh.",
+    "technical_scope": "Static low-poly LOD meshes with preserved UVs/textures; approximately 1.8 m grounded height; editable Blender source and GLB/FBX exports; fresh-import and multiview visual checks.",
+    "required_technical_checks": [
+      "lod_triangle_counts",
+      "scale_and_orientation",
+      "uv_material_survival",
+      "fresh_export_import",
+      "visual_preservation"
+    ],
+    "technical_check_definitions": {
+      "lod_triangle_counts": "Measure exported triangles for each LOD; LOD0 should be near 12,000-20,000 triangles and lower LODs progressively smaller without losing the human silhouette.",
+      "scale_and_orientation": "Confirm approximately 1.8 m total height, grounded feet, and documented facing axis after import.",
+      "uv_material_survival": "Confirm the exported mesh has UVs and the expected base-color, normal and metallic/roughness texture connections.",
+      "fresh_export_import": "Load the generated GLB and FBX in a clean Blender process and inspect geometry, scale and material assignments.",
+      "visual_preservation": "Open front, side, back and three-quarter previews of the generated LOD0 and inspect against the source's distinctive shapes and material readability."
+    },
+    "reference_version": "321440aa04626db0bf4784f23712f7b8.glb and art/hunyuan-character-refs/red-{front,left,back}.png",
+    "confirmation_mode": "autonomous",
+    "current_stage": "static technical delivery"
+  },
+  "requirements": {
+    "structure": true,
+    "user_confirmation": false,
+    "technical_scope": "Static low-poly LOD meshes with preserved UVs/textures; approximately 1.8 m grounded height; editable Blender source and GLB/FBX exports; fresh-import and multiview visual checks.",
+    "technical_checks": [
+      "lod_triangle_counts",
+      "scale_and_orientation",
+      "uv_material_survival",
+      "fresh_export_import",
+      "visual_preservation"
+    ]
+  },
+  "state": "complete",
+  "appearance": {
+    "status": "pass",
+    "rationale": "Assistant visual self-review of final static LOD0 against the red source and the three supplied front/left/back references. All eight final 1600 px neutral/textured QA views were opened. Front, side, back and three-quarter views preserve the complete human silhouette, helmet and glossy black visor, salmon-red armor accents, gray chest armor and pouches, rear backpack, gloves, knee guards, boots and tan-gray uniform. No significant missing part, collapse, dark patch or texture loss is visible. Small helmet/pouch surface details and fingers are softened by reduction. This is static asset self-review, not user acceptance, deformation quality or runtime character approval.",
+    "evidence": [
+      "model-lod0",
+      "character-qa-manifest",
+      "character-qa-neutral-front",
+      "character-qa-neutral-side",
+      "character-qa-neutral-back",
+      "character-qa-neutral-three_quarter",
+      "character-qa-target-front",
+      "character-qa-target-side",
+      "character-qa-target-back",
+      "character-qa-target-three_quarter"
+    ]
+  },
+  "user_acceptance": {
+    "status": "not_requested"
+  },
+  "structure": {
+    "status": "pass",
+    "evidence": [
+      "metrics-blend",
+      "metrics-fbx-lod0",
+      "metrics-fbx-lod1",
+      "metrics-fbx-lod2",
+      "model-lod0"
+    ],
+    "rationale": "Editable Blender source contains three UV-mapped static LOD meshes with one material. Final Blender and FBX clean-import inspections report each authored LOD as one closed component with zero boundary or degenerate edges. No armature, vertex weights or animation are in this static pass. GLB fresh import splits vertices along UV/tangent seams; its boundary-edge metric does not describe the authored closed topology."
+  },
+  "technical": {
+    "status": "pass",
+    "evidence": [
+      "metrics-blend",
+      "metrics-glb-lod0",
+      "metrics-glb-lod1",
+      "metrics-glb-lod2",
+      "metrics-fbx-lod0",
+      "metrics-fbx-lod1",
+      "metrics-fbx-lod2",
+      "unity-static-import-log",
+      "render-glb-lod0-perspective",
+      "render-fbx-lod0-perspective",
+      "render-run-glb-lod0",
+      "render-run-glb-lod1",
+      "render-run-glb-lod2",
+      "render-run-fbx-lod0",
+      "character-qa-manifest",
+      "model-lod0",
+      "character-qa-neutral-front",
+      "character-qa-neutral-side",
+      "character-qa-neutral-back",
+      "character-qa-neutral-three_quarter",
+      "character-qa-target-front",
+      "character-qa-target-side",
+      "character-qa-target-back",
+      "character-qa-target-three_quarter",
+      "render-glb-lod0-front",
+      "render-glb-lod0-back"
+    ],
+    "rationale": "All five target-card checks have current final-version evidence: six fresh GLB/FBX imports, three progressively reduced LODs, approximately 1.8 m scale, UV and PBR material survival, reviewed neutral/textured multiview renders, and a successful Unity batch import of the static preview prefab. This is limited to static LOD delivery."
+  },
+  "visual_qa": {
+    "preset": "character-qa-v1",
+    "views": [
+      "front",
+      "side",
+      "back",
+      "three_quarter"
+    ],
+    "resolution": [
+      1600,
+      1600
+    ],
+    "projection": {
+      "front": "orthographic",
+      "side": "orthographic",
+      "back": "orthographic",
+      "three_quarter": "perspective"
+    },
+    "camera": "Blender 5.2.2 LTS QA cameras; front/side/back ORTHO, three_quarter PERSP; target z=0.94 m, orthographic scale 2.38 m, perspective 65 mm",
+    "lighting": {
+      "neutral": "QA_LIGHT_NEUTRAL_Key/Fill/Rear",
+      "target": "QA_LIGHT_STYLE_Key/Fill/Rim"
+    },
+    "background": "neutral-gray",
+    "evidence_naming": "{version}__{stage}__{style}__{view}.png",
+    "applicability": "Full-body static armored LOD0; all four views and both neutral and target material styles apply. Facial expression is hidden by the visor and outside this static scope.",
+    "required_views": [
+      "front",
+      "side",
+      "back",
+      "three_quarter"
+    ],
+    "required_styles": [
+      "neutral",
+      "target"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "metrics-blend",
+      "kind": "report",
+      "version": "v01",
+      "path": "blend-metrics.json",
+      "sha256": "34954e17deeae105da7aeacba32a432357ffa5f270119fbec5b08245f58675b6",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "metrics-glb-lod0",
+      "kind": "report",
+      "version": "v01",
+      "path": "glb-lod0-metrics.json",
+      "sha256": "d6b6a54e8041efacecf2c9afddb91a29e173f3815918dcc4274525ee82735c91",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "metrics-glb-lod1",
+      "kind": "report",
+      "version": "v01",
+      "path": "glb-lod1-metrics.json",
+      "sha256": "40965460505fe072913775bc11cd7091bc5e7543269a49957b4de5799e7e5a08",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "metrics-glb-lod2",
+      "kind": "report",
+      "version": "v01",
+      "path": "glb-lod2-metrics.json",
+      "sha256": "00338dd75b1378c552818d42bf791be86967a9e2141d301d8f01dd17e6153b90",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "metrics-fbx-lod0",
+      "kind": "report",
+      "version": "v01",
+      "path": "fbx-lod0-metrics.json",
+      "sha256": "e6bbda3c57486ea58e39ebd58338242c08252682039de443873610266761f034",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "metrics-fbx-lod1",
+      "kind": "report",
+      "version": "v01",
+      "path": "fbx-lod1-metrics.json",
+      "sha256": "dfcda4f346618b5db18b8220c7d81ec628cab71944c7d412db1105de56f3ffa5",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "metrics-fbx-lod2",
+      "kind": "report",
+      "version": "v01",
+      "path": "fbx-lod2-metrics.json",
+      "sha256": "0c2356739bd90bdf871f740433cc209ac3acf39beadf628e352284e34ccda862",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "model-lod0",
+      "kind": "model",
+      "version": "v01",
+      "path": "red-soldier-lod0-reviewed.glb",
+      "sha256": "d2a68df2f5cc5a8b0a92f535dc34dee3e024552c20a18fd54c781030bc6d968b",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "character-qa-manifest",
+      "kind": "report",
+      "version": "v01",
+      "path": "character-qa-v1/manifest.json",
+      "sha256": "fa627b5749e2bcf63783e2bc58e585c84053a2d3d062ac4a6f1914caaa5fab0a",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "character-qa-neutral-front",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__neutral__front.png",
+      "sha256": "983ebc477b1e6b15e23d0ab9dbc161af959e1d143d94fb7aa9928cf01612fc34",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "neutral",
+      "qa_view": "front"
+    },
+    {
+      "id": "character-qa-neutral-side",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__neutral__side.png",
+      "sha256": "86012f3a75fbe4df1ba2299d6773c2a20631d64d14fe67e912c8b1ca17c40a70",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "neutral",
+      "qa_view": "side"
+    },
+    {
+      "id": "character-qa-neutral-back",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__neutral__back.png",
+      "sha256": "f0f23a82a965dc9e1347478344187accee2cd00229bc9d80acfe2329bde1a33a",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "neutral",
+      "qa_view": "back"
+    },
+    {
+      "id": "character-qa-neutral-three_quarter",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__neutral__three_quarter.png",
+      "sha256": "204fde988b673432e6ca8138c131fa59d3afadf6d44c11e4b56a610711ce2150",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "neutral",
+      "qa_view": "three_quarter"
+    },
+    {
+      "id": "character-qa-target-front",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__target__front.png",
+      "sha256": "2b2cc814177d19ef76b50f09022f27900cffd877868d78ee61d197f5a7e7c33e",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "target",
+      "qa_view": "front"
+    },
+    {
+      "id": "character-qa-target-side",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__target__side.png",
+      "sha256": "9f72c59cb46b074c87a6c0c11c12b6f59112f8a3b97ab53b24fe2ae978a951c1",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "target",
+      "qa_view": "side"
+    },
+    {
+      "id": "character-qa-target-back",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__target__back.png",
+      "sha256": "1d5e7dedccf2e5faa23d234fc7ba3fc2863bc1b932feec167a0ebf2b6bf6aa52",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "target",
+      "qa_view": "back"
+    },
+    {
+      "id": "character-qa-target-three_quarter",
+      "kind": "render",
+      "version": "v01",
+      "path": "character-qa-v1/v01__technical__target__three_quarter.png",
+      "sha256": "ffc919a5cb8be434171677fbea204ec677450eae8618a8b4a269fe402703672a",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "character-qa-v1",
+      "qa_style": "target",
+      "qa_view": "three_quarter"
+    },
+    {
+      "id": "render-run-glb-lod0",
+      "kind": "report",
+      "version": "v01",
+      "path": "render-lod0/evidence.json",
+      "sha256": "b3108d1560fabb2a649dae80885233ced66a3f178dcd022be99a6c0bed4b99e3",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "render-glb-lod0-perspective",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod0/perspective.png",
+      "sha256": "0ecf8221d54685510e3ea5b4f5451de9bbbfc3e5b8e3e7ed383dda954d221a7f",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "three_quarter"
+    },
+    {
+      "id": "render-glb-lod0-front",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod0/front.png",
+      "sha256": "a13ac3f444e9a5f0da96e31a9547e200aa4bc5ae3f5e50ab699b5eb1be31fea0",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "front"
+    },
+    {
+      "id": "render-glb-lod0-back",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod0/back.png",
+      "sha256": "c6e863b70d0f3ed6899fffeb0d0318f03415edb11df3d8a656f7fe432a329b66",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "back"
+    },
+    {
+      "id": "render-run-glb-lod1",
+      "kind": "report",
+      "version": "v01",
+      "path": "render-lod1/evidence.json",
+      "sha256": "bf7e8a72a30768c5463cac0a5d4a373825f149fd446fd0f1ddaf1fa30897a668",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "render-glb-lod1-perspective",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod1/perspective.png",
+      "sha256": "ff80d8cd403456e75b85753cca2e77abd5a0a40cb34d9d2b9d08a425016a0cf1",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "three_quarter"
+    },
+    {
+      "id": "render-glb-lod1-front",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod1/front.png",
+      "sha256": "7e61c622fdfd900cc648b2ab65a929534437ba0dcb14d956e71cda90d779b590",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "front"
+    },
+    {
+      "id": "render-glb-lod1-back",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod1/back.png",
+      "sha256": "55fc5d5130a8938438ad587993dfdc5723804570a35764f89d5f3bd4b2bf6215",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "back"
+    },
+    {
+      "id": "render-run-glb-lod2",
+      "kind": "report",
+      "version": "v01",
+      "path": "render-lod2/evidence.json",
+      "sha256": "532449b3fb85a883e62a485948622d21014b6c7d6181058fc7be0496741f15b9",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "render-glb-lod2-perspective",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod2/perspective.png",
+      "sha256": "3ad3ba08391d631fe078e71e3ddc3fb05512ed0a050388d19a4574a894cd4b6e",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "three_quarter"
+    },
+    {
+      "id": "render-glb-lod2-front",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod2/front.png",
+      "sha256": "7f6d5d33021b6e3ba4a2ee4276427828c17a07d9d80b6519a10939a665270066",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "front"
+    },
+    {
+      "id": "render-glb-lod2-back",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-lod2/back.png",
+      "sha256": "f9c8b04785b66c849c3fc85e4ac32695298fadea545fea27a006519bb1af0356",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "back"
+    },
+    {
+      "id": "render-run-fbx-lod0",
+      "kind": "report",
+      "version": "v01",
+      "path": "render-fbx-lod0/evidence.json",
+      "sha256": "57e6eeabb705ad1025c6f5ea922f105f91558bfaeb8d6bb258e6aa0d43764c4e",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    },
+    {
+      "id": "render-fbx-lod0-perspective",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-fbx-lod0/perspective.png",
+      "sha256": "e239a6a0f512df7ddc4b37abb03322d6962068c3654994508f1e8e8a04d9e84e",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "three_quarter"
+    },
+    {
+      "id": "render-fbx-lod0-front",
+      "kind": "render",
+      "version": "v01",
+      "path": "render-fbx-lod0/front.png",
+      "sha256": "8beab6489cabe1d28522573754c447df8ad49b25ac85e86c0d992451fef4a454",
+      "lifecycle": [
+        "generated",
+        "written"
+      ],
+      "qa_preset": "blender-agent-studio-preview",
+      "qa_style": "target-preview",
+      "qa_view": "front"
+    },
+    {
+      "id": "unity-static-import-log",
+      "kind": "report",
+      "version": "v01",
+      "path": "unity-import-verify.log",
+      "sha256": "cffbf9b329b502af922f49998d18a6c8cb08beb16c38cc7673c6941098bdb2d6",
+      "lifecycle": [
+        "generated",
+        "written"
+      ]
+    }
+  ],
+  "deliverables_outside_record_root": [
+    {
+      "path_from_review": "../red-soldier-technical-v01.blend",
+      "sha256": "83419121692b992038f92c217cf165a72b41576ff2eb4cc7e3e46326552adc73",
+      "bytes": 9056649
+    },
+    {
+      "path_from_review": "../exports/red-soldier-lod0.glb",
+      "sha256": "d2a68df2f5cc5a8b0a92f535dc34dee3e024552c20a18fd54c781030bc6d968b",
+      "bytes": 8169896
+    },
+    {
+      "path_from_review": "../exports/red-soldier-lod1.glb",
+      "sha256": "b6049e2ea7b9e5b6169cb9a54575c652ad22c83bbf9d3a327ba74ed97c9e1ee3",
+      "bytes": 7550756
+    },
+    {
+      "path_from_review": "../exports/red-soldier-lod2.glb",
+      "sha256": "48664c84053442a8c1c5f8f3d64851f77c26b78cb4675165ab45f86c29b6ac2a",
+      "bytes": 7323952
+    },
+    {
+      "path_from_review": "../exports/red-soldier-lod0.fbx",
+      "sha256": "d0053a457fc8e35e9d7ea5fd304811fb47353cd47817a22e837b48b75428ad8a",
+      "bytes": 688540
+    },
+    {
+      "path_from_review": "../exports/red-soldier-lod1.fbx",
+      "sha256": "89d8b2c2bd69dcdb84249b9276edb178191c7ba01c8d4d106ce385e5680fdf49",
+      "bytes": 238428
+    },
+    {
+      "path_from_review": "../exports/red-soldier-lod2.fbx",
+      "sha256": "08136f4710392b3843c479e042148bd6bc3e686d727de61a251141e034e3f44e",
+      "bytes": 99180
+    },
+    {
+      "path_from_review": "../textures/red-soldier-basecolor-2k.png",
+      "sha256": "fcd4c855d38383852e82108a880b98c2eeb5295e91fb11c622d2fd9576e47015",
+      "bytes": 2598009
+    },
+    {
+      "path_from_review": "../textures/red-soldier-normal-2k.png",
+      "sha256": "bdd9d4996432afb3dc40e6b78fd8e634aff8714f5dfbf861a3b1e5c15d81d06c",
+      "bytes": 2653084
+    },
+    {
+      "path_from_review": "../textures/red-soldier-roughness-2k.png",
+      "sha256": "18d81ea577287392db79cf50d7d6e739dc7783c88fce729d708515f37f78c52f",
+      "bytes": 1444001
+    },
+    {
+      "path_from_review": "../textures/red-soldier-metallic-2k.png",
+      "sha256": "9a33febd9d01887c2bbcedc4140342eda54ff870a786f3140e85150ded236713",
+      "bytes": 1291336
+    },
+    {
+      "path_from_review": "../source/hunyuan-red-original.glb",
+      "sha256": "2b84446794bfb34b47146132ce759a59d738de6b4a04b3c73e8789de6e0a6b52",
+      "bytes": 82698800
+    }
+  ],
+  "issues": [],
+  "scope_exclusions": [
+    "Final skinning",
+    "animation",
+    "weapon grip",
+    "Unity runtime replacement"
+  ],
+  "tests": [
+    {
+      "id": "lod_triangle_counts",
+      "definition": "Measure exported triangles for each LOD; LOD0 should be near 12,000-20,000 triangles and lower LODs progressively smaller without losing the human silhouette.",
+      "status": "pass",
+      "history": [
+        {
+          "definition": "Measure exported triangles for each LOD; LOD0 should be near 12,000-20,000 triangles and lower LODs progressively smaller without losing the human silhouette.",
+          "result": "pass",
+          "evidence": [
+            "metrics-blend",
+            "metrics-glb-lod0",
+            "metrics-glb-lod1",
+            "metrics-glb-lod2",
+            "metrics-fbx-lod0",
+            "metrics-fbx-lod1",
+            "metrics-fbx-lod2",
+            "unity-static-import-log"
+          ]
+        }
+      ],
+      "evidence": [
+        "metrics-blend",
+        "metrics-glb-lod0",
+        "metrics-glb-lod1",
+        "metrics-glb-lod2",
+        "metrics-fbx-lod0",
+        "metrics-fbx-lod1",
+        "metrics-fbx-lod2",
+        "unity-static-import-log"
+      ],
+      "note": "Clean GLB and FBX imports report 19,984 / 6,000 / 2,000 triangles for LOD0/1/2. All three are progressively lighter, and the distant silhouette remains recognizable in the LOD previews. Unity batch import reports the same counts."
+    },
+    {
+      "id": "scale_and_orientation",
+      "definition": "Confirm approximately 1.8 m total height, grounded feet, and documented facing axis after import.",
+      "status": "pass",
+      "history": [
+        {
+          "definition": "Confirm approximately 1.8 m total height, grounded feet, and documented facing axis after import.",
+          "result": "pass",
+          "evidence": [
+            "metrics-blend",
+            "metrics-glb-lod0",
+            "metrics-fbx-lod0",
+            "unity-static-import-log"
+          ]
+        }
+      ],
+      "evidence": [
+        "metrics-blend",
+        "metrics-glb-lod0",
+        "metrics-fbx-lod0",
+        "unity-static-import-log"
+      ],
+      "note": "The authoring Blender scene and GLB/FBX clean imports measure about 1.8 m and feet at ground level. The build report documents Blender +Z up / -Y front and FBX +Y up / +Z target front; Unity batch import also measures about 1.8 m."
+    },
+    {
+      "id": "uv_material_survival",
+      "definition": "Confirm the exported mesh has UVs and the expected base-color, normal and metallic/roughness texture connections.",
+      "status": "pass",
+      "history": [
+        {
+          "definition": "Confirm the exported mesh has UVs and the expected base-color, normal and metallic/roughness texture connections.",
+          "result": "pass",
+          "evidence": [
+            "metrics-blend",
+            "metrics-glb-lod0",
+            "metrics-fbx-lod0",
+            "render-glb-lod0-perspective",
+            "render-fbx-lod0-perspective"
+          ]
+        }
+      ],
+      "evidence": [
+        "metrics-blend",
+        "metrics-glb-lod0",
+        "metrics-fbx-lod0",
+        "render-glb-lod0-perspective",
+        "render-fbx-lod0-perspective"
+      ],
+      "note": "All three LODs have one UV layer and one material. GLB reimport resolves base color, normal and packed metallic/roughness images; FBX reimport resolves four external 2K image nodes. Reimported GLB and FBX previews display the expected palette."
+    },
+    {
+      "id": "fresh_export_import",
+      "definition": "Load the generated GLB and FBX in a clean Blender process and inspect geometry, scale and material assignments.",
+      "status": "pass",
+      "history": [
+        {
+          "definition": "Load the generated GLB and FBX in a clean Blender process and inspect geometry, scale and material assignments.",
+          "result": "pass",
+          "evidence": [
+            "metrics-glb-lod0",
+            "metrics-glb-lod1",
+            "metrics-glb-lod2",
+            "metrics-fbx-lod0",
+            "metrics-fbx-lod1",
+            "metrics-fbx-lod2",
+            "render-run-glb-lod0",
+            "render-run-glb-lod1",
+            "render-run-glb-lod2",
+            "render-run-fbx-lod0"
+          ]
+        }
+      ],
+      "evidence": [
+        "metrics-glb-lod0",
+        "metrics-glb-lod1",
+        "metrics-glb-lod2",
+        "metrics-fbx-lod0",
+        "metrics-fbx-lod1",
+        "metrics-fbx-lod2",
+        "render-run-glb-lod0",
+        "render-run-glb-lod1",
+        "render-run-glb-lod2",
+        "render-run-fbx-lod0"
+      ],
+      "note": "Each of the six GLB/FBX LOD files was imported into a clean Blender process and inspected for mesh geometry, dimensions, UVs and material. GLB shows UV seam split vertices/edges after reimport; the editable Blender meshes and all FBX reimports are single closed components with zero boundary edges."
+    },
+    {
+      "id": "visual_preservation",
+      "definition": "Open front, side, back and three-quarter previews of the generated LOD0 and inspect against the source's distinctive shapes and material readability.",
+      "status": "pass",
+      "history": [
+        {
+          "definition": "Open front, side, back and three-quarter previews of the generated LOD0 and inspect against the source's distinctive shapes and material readability.",
+          "result": "pass",
+          "evidence": [
+            "character-qa-manifest",
+            "model-lod0",
+            "character-qa-neutral-front",
+            "character-qa-neutral-side",
+            "character-qa-neutral-back",
+            "character-qa-neutral-three_quarter",
+            "character-qa-target-front",
+            "character-qa-target-side",
+            "character-qa-target-back",
+            "character-qa-target-three_quarter",
+            "render-glb-lod0-perspective",
+            "render-glb-lod0-front",
+            "render-glb-lod0-back"
+          ]
+        }
+      ],
+      "evidence": [
+        "character-qa-manifest",
+        "model-lod0",
+        "character-qa-neutral-front",
+        "character-qa-neutral-side",
+        "character-qa-neutral-back",
+        "character-qa-neutral-three_quarter",
+        "character-qa-target-front",
+        "character-qa-target-side",
+        "character-qa-target-back",
+        "character-qa-target-three_quarter",
+        "render-glb-lod0-perspective",
+        "render-glb-lod0-front",
+        "render-glb-lod0-back"
+      ],
+      "note": "The final eight formal 1600 px front/side/back/three-quarter neutral and textured renders were opened against red-front, red-left and red-back reference images. Helmet/black visor, salmon-red accents, armor, pouches, backpack, gloves, knee pads, boots and complete human silhouette are retained. Small surface details are smoother, as expected at this LOD. Fresh-import GLB previews confirm exported appearance."
+    }
+  ],
+  "supplementary_unity_static_preview": {
+    "status": "pass",
+    "evidence": [
+      "unity-static-import-log"
+    ],
+    "scope": "Unity batch import and static LOD preview prefab generation; no animation or runtime soldier replacement.",
+    "observed_lod_triangles": [
+      19984,
+      6000,
+      2000
+    ],
+    "observed_world_height_m": [
+      1.8,
+      1.798657,
+      1.800683
+    ],
+    "evidence_note": "Final batch log reports all three red LOD counts/heights and generated RedSoldier_StaticLODPreview.prefab; Unity licensing printed a nonblocking token refresh message earlier in the log."
+  }
+}

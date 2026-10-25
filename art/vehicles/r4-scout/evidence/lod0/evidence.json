@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      478.5702840200429,
+      191.42811360801716,
+      717.8554260300643
+    ],
+    "camera_distance": 2.5157686710357665,
+    "ortho_scale": 1.5860280752182006,
+    "floor_size": 218.76249313354492,
+    "floor_offset": 0.0065628747940063474,
+    "clip_start": 0.0010938124656677246,
+    "clip_end": 1093.8124656677246
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": null,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/exports/r4-lod0.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 512,
+  "requested_views": [
+    "perspective",
+    "front",
+    "back",
+    "left",
+    "right",
+    "top"
+  ],
+  "evidence_scope": "full_multiview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.329934,
+      -0.553471,
+      0.000142
+    ],
+    "max": [
+      0.330734,
+      0.540342,
+      0.664319
+    ],
+    "dimensions": [
+      0.660667,
+      1.093812,
+      0.664178
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/front.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/back.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/left.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/right.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/top.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/r4-scout/evidence/lod0/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

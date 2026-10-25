@@ -1,0 +1,15 @@
+{
+  "request": "Check for existing optimized versions; optimize only if none exists.",
+  "prior_asset_check": "No J20 or R4 optimized assets found among project GLB/FBX/Blend files or source references. Existing vehicle outputs are H8 and A40.",
+  "scope": "Static geometry and texture optimization of the two uploaded meshes, retaining original design, paint, normalized scale and orientation.",
+  "parts_to_preserve": {
+    "j20": ["pointed nose", "canopy", "side intakes", "swept wings", "two vertical tails", "exhaust", "pylons and missiles", "landing gear"],
+    "r4": ["enclosed armored cabin", "four tires", "doors and windows", "sloped hood", "roof machine gun and shield", "rear cabin and bumper"]
+  },
+  "budgets": {"j20": [40000, 20000, 10000], "r4": [60000, 30000, 15000]},
+  "textures": "2048x2048 basecolor, tangent normal and metallic/roughness, packed into GLB and Blend; external PNG for FBX",
+  "deliverables": ["deterministic source script", "editable blend", "3 GLB LODs", "3 FBX LODs", "metrics", "six-view LOD0 and LOD2 preview"],
+  "review_questions": ["Are thin wings, missiles, gear and gun preserved?", "Are wheels round enough at intended distance?", "Do UV seams remain joined after reduction?", "Do exports retain the same appearance and bounds?"],
+  "reference_observations": "The supplied source meshes are the appearance reference. J20 is a pale blue angular single-exhaust jet with two outward-canted vertical tails and three landing-gear positions. R4 is a pale blue four-wheel scout car with dark windows, chunky tread and a roof gun shield. Source perspective/right renders have been opened. Optimization should retain these relationships; physical real-world dimensions and moving-part rigs are not supplied.",
+  "stages": "Existing source supplies proportions, primary/secondary forms and surface design. This pass revisits topology, texture packaging and export validation. No rebuilding of accepted forms."
+}

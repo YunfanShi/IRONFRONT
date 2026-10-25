@@ -1,0 +1,161 @@
+PASS
+Every actual bot uses skinned art
+Actual local player uses skinned art
+Blue has three skinned LODs
+Blue gameplay bone map complete
+Blue standing right grip error=0
+Blue standing left grip error=0
+Blue LOD0 standing finite skin
+Blue LOD0 standing no exploded skin (0.65, 1.80, 0.62)
+Blue standing feet contact=0.0003242493
+Blue standing scale 1.799675
+Blue crouch right grip error=0
+Blue crouch left grip error=0
+Blue LOD0 crouch finite skin
+Blue LOD0 crouch no exploded skin (0.66, 1.30, 0.70)
+Blue crouch feet contact=0
+Blue prone right grip error=0
+Blue prone left grip error=0
+Blue LOD0 prone finite skin
+Blue LOD0 prone no exploded skin (0.54, 0.66, 1.87)
+Blue run right grip error=0
+Blue run left grip error=1.907349E-06
+Blue LOD0 run finite skin
+Blue LOD0 run no exploded skin (0.73, 1.65, 0.71)
+Blue standing right grip error=0
+Blue standing left grip error=0
+Blue LOD1 standing finite skin
+Blue LOD1 standing no exploded skin (0.65, 1.80, 0.63)
+Blue standing feet contact=0.0004882813
+Blue standing scale 1.798309
+Blue crouch right grip error=0
+Blue crouch left grip error=0
+Blue LOD1 crouch finite skin
+Blue LOD1 crouch no exploded skin (0.66, 1.31, 0.70)
+Blue crouch feet contact=0.0001678467
+Blue prone right grip error=0
+Blue prone left grip error=0
+Blue LOD1 prone finite skin
+Blue LOD1 prone no exploded skin (0.54, 0.67, 1.87)
+Blue run right grip error=0
+Blue run left grip error=1.907349E-06
+Blue LOD1 run finite skin
+Blue LOD1 run no exploded skin (0.73, 1.65, 0.70)
+Blue standing right grip error=0
+Blue standing left grip error=0
+Blue LOD2 standing finite skin
+Blue LOD2 standing no exploded skin (0.63, 1.80, 0.62)
+Blue standing feet contact=-4.196167E-05
+Blue standing scale 1.800777
+Blue crouch right grip error=0
+Blue crouch left grip error=0
+Blue LOD2 crouch finite skin
+Blue LOD2 crouch no exploded skin (0.65, 1.30, 0.70)
+Blue crouch feet contact=-0.0003662109
+Blue prone right grip error=0
+Blue prone left grip error=0
+Blue LOD2 prone finite skin
+Blue LOD2 prone no exploded skin (0.52, 0.66, 1.87)
+Blue run right grip error=0
+Blue run left grip error=1.907349E-06
+Blue LOD2 run finite skin
+Blue LOD2 run no exploded skin (0.72, 1.65, 0.70)
+Blue FP hides body and preserves authored arms
+Blue TP restores body
+Blue fallback stays hidden after perspective switch
+Red has three skinned LODs
+Red gameplay bone map complete
+Red standing right grip error=0
+Red standing left grip error=0
+Red LOD0 standing finite skin
+Red LOD0 standing no exploded skin (0.65, 1.80, 0.63)
+Red standing feet contact=0.0003242493
+Red standing scale 1.799675
+Red crouch right grip error=0
+Red crouch left grip error=0
+Red LOD0 crouch finite skin
+Red LOD0 crouch no exploded skin (0.66, 1.31, 0.70)
+Red crouch feet contact=0
+Red prone right grip error=0
+Red prone left grip error=0
+Red LOD0 prone finite skin
+Red LOD0 prone no exploded skin (0.55, 0.67, 1.86)
+Red run right grip error=0
+Red run left grip error=1.907349E-06
+Red LOD0 run finite skin
+Red LOD0 run no exploded skin (0.74, 1.65, 0.70)
+Red standing right grip error=0
+Red standing left grip error=0
+Red LOD1 standing finite skin
+Red LOD1 standing no exploded skin (0.65, 1.80, 0.63)
+Red standing feet contact=0.0007019043
+Red standing scale 1.798332
+Red crouch right grip error=0
+Red crouch left grip error=0
+Red LOD1 crouch finite skin
+Red LOD1 crouch no exploded skin (0.66, 1.31, 0.70)
+Red crouch feet contact=0.000377655
+Red prone right grip error=0
+Red prone left grip error=0
+Red LOD1 prone finite skin
+Red LOD1 prone no exploded skin (0.55, 0.67, 1.86)
+Red run right grip error=0
+Red run left grip error=1.907349E-06
+Red LOD1 run finite skin
+Red LOD1 run no exploded skin (0.74, 1.65, 0.69)
+Red standing right grip error=0
+Red standing left grip error=0
+Red LOD2 standing finite skin
+Red LOD2 standing no exploded skin (0.65, 1.80, 0.64)
+Red standing feet contact=0.001232147
+Red standing scale 1.800362
+Red crouch right grip error=0
+Red crouch left grip error=0
+Red LOD2 crouch finite skin
+Red LOD2 crouch no exploded skin (0.65, 1.30, 0.70)
+Red crouch feet contact=0.0009078979
+Red prone right grip error=0
+Red prone left grip error=0
+Red LOD2 prone finite skin
+Red LOD2 prone no exploded skin (0.55, 0.67, 1.86)
+Red run right grip error=0
+Red run left grip error=1.907349E-06
+Red LOD2 run finite skin
+Red LOD2 run no exploded skin (0.73, 1.65, 0.69)
+Red FP hides body and preserves authored arms
+Red TP restores body
+Red fallback stays hidden after perspective switch
+Real player enters M2
+M2 seat 0 steer -1 hand=1.192093E-07
+M2 seat 0 foot=2.980232E-08
+M2 seat 0 steer -1 hand=0.01757631
+M2 seat 0 foot=1.490116E-07
+M2 seat 0 steer 0 hand=0.002744048
+M2 seat 0 foot=2.980232E-08
+M2 seat 0 steer 0 hand=0.01394134
+M2 seat 0 foot=2.980232E-08
+M2 seat 0 steer 1 hand=0.01417344
+M2 seat 0 foot=5.960464E-08
+M2 seat 0 steer 1 hand=0.002511296
+M2 seat 0 foot=0
+M2 FP uses authored arms only
+Passenger seat switch
+M2 seat 1 steer -1 hand=0
+M2 seat 1 foot=0
+M2 seat 1 steer -1 hand=0
+M2 seat 1 foot=5.960464E-08
+M2 seat 1 steer 0 hand=0
+M2 seat 1 foot=0
+M2 seat 1 steer 0 hand=0
+M2 seat 1 foot=5.960464E-08
+M2 seat 1 steer 1 hand=0
+M2 seat 1 foot=0
+M2 seat 1 steer 1 hand=0
+M2 seat 1 foot=5.960464E-08
+M2 FP uses authored arms only
+M2 exit restores authored full body
+Carbine authored first person arms
+Carbine FP mesh has no hidden torso influences
+Pistol authored first person arms
+Pistol FP mesh has no hidden torso influences
+Network replica uses authored red soldier

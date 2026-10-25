@@ -75,6 +75,29 @@ namespace Ironfront.UnityPrototype
                 new Vector2(17,80), new Vector2(-186,185) }
         };
 
+        // Visual footing must include the rendered road/pad surfaces. Gameplay
+        // collision/navigation remain owned by PrototypeLayout.
+        public static float InfantrySurfaceAt(float x,float z)
+        {
+            float terrain=PrototypeLayout.HeightAt(x,z), surface=terrain;
+            for(int team=0;team<2;team++)
+            {
+                Vector2 origin=team==0?PrototypeLayout.BlueBase:PrototypeLayout.RedBase;
+                if(Mathf.Abs(x-origin.x)<=20f && Mathf.Abs(z-(origin.y-21f))<=8f)
+                    surface=Mathf.Max(surface,PrototypeLayout.HeightAt(origin.x,origin.y)+.37f);
+            }
+            Vector2 point=new Vector2(x,z);
+            foreach(var line in RoadLines)
+            for(int i=1;i<line.Length;i++)
+            {
+                Vector2 direction=line[i]-line[i-1];
+                float t=Mathf.Clamp01(Vector2.Dot(point-line[i-1],direction)/direction.sqrMagnitude);
+                float distance=Vector2.Distance(point,line[i-1]+direction*t);
+                if(distance<=7f)surface=Mathf.Max(surface,terrain+(distance<=5.5f?.12f:.09f));
+            }
+            return surface;
+        }
+
         private readonly Dictionary<Material, MeshBatch> batches =
             new Dictionary<Material, MeshBatch>();
         private Material concrete, plaster, olive, roof, roofLight, trim;

@@ -1,0 +1,104 @@
+PASS
+Version=0.58.2
+Unity=6000.5.10f1
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+strafe-left right grip max=0.00000
+strafe-left no deep ground penetration min=-0.00109
+strafe-left planted ankle travel/frame max=0.00004
+strafe-left 90 frames: finite skin and fixed bone lengths
+strafe-left foot lane=0.3391 knee lane=0.3118 leg clearance=0.3111
+strafe-left feet stay in separate travel lanes
+strafe-left knees stay in separate travel lanes
+strafe-left legs do not intersect
+strafe-right right grip max=0.00000
+strafe-right no deep ground penetration min=-0.00157
+strafe-right planted ankle travel/frame max=0.00006
+strafe-right 90 frames: finite skin and fixed bone lengths
+strafe-right foot lane=0.3391 knee lane=0.3117 leg clearance=0.3110
+strafe-right feet stay in separate travel lanes
+strafe-right knees stay in separate travel lanes
+strafe-right legs do not intersect
+diagonal-left right grip max=0.00004
+diagonal-left no deep ground penetration min=-0.00243
+diagonal-left planted ankle travel/frame max=0.00006
+diagonal-left 90 frames: finite skin and fixed bone lengths
+diagonal-left foot lane=0.3400 knee lane=0.3269 leg clearance=0.3329
+diagonal-left feet stay in separate travel lanes
+diagonal-left knees stay in separate travel lanes
+diagonal-left legs do not intersect
+diagonal-right right grip max=0.00000
+diagonal-right no deep ground penetration min=-0.00243
+diagonal-right planted ankle travel/frame max=0.00004
+diagonal-right 90 frames: finite skin and fixed bone lengths
+diagonal-right foot lane=0.3400 knee lane=0.3268 leg clearance=0.3329
+diagonal-right feet stay in separate travel lanes
+diagonal-right knees stay in separate travel lanes
+diagonal-right legs do not intersect
+crouch-left right grip max=0.00003
+crouch-left no deep ground penetration min=0.00000
+crouch-left planted ankle travel/frame max=0.00004
+crouch-left 90 frames: finite skin and fixed bone lengths
+crouch-left foot lane=0.3592 knee lane=0.3123 leg clearance=0.3032
+crouch-left feet stay in separate travel lanes
+crouch-left knees stay in separate travel lanes
+crouch-left legs do not intersect
+crouch-right right grip max=0.00000
+crouch-right no deep ground penetration min=0.00000
+crouch-right planted ankle travel/frame max=0.00006
+crouch-right 90 frames: finite skin and fixed bone lengths
+crouch-right foot lane=0.3591 knee lane=0.3124 leg clearance=0.3032
+crouch-right feet stay in separate travel lanes
+crouch-right knees stay in separate travel lanes
+crouch-right legs do not intersect
+reverse-diagonal-left right grip max=0.00000
+reverse-diagonal-left no deep ground penetration min=0.00000
+reverse-diagonal-left planted ankle travel/frame max=0.00004
+reverse-diagonal-left 90 frames: finite skin and fixed bone lengths
+reverse-diagonal-left foot lane=0.3399 knee lane=0.3143 leg clearance=0.3294
+reverse-diagonal-left feet stay in separate travel lanes
+reverse-diagonal-left knees stay in separate travel lanes
+reverse-diagonal-left legs do not intersect
+reverse-diagonal-right right grip max=0.00000
+reverse-diagonal-right no deep ground penetration min=-0.00031
+reverse-diagonal-right planted ankle travel/frame max=0.00073
+reverse-diagonal-right 90 frames: finite skin and fixed bone lengths
+reverse-diagonal-right foot lane=0.3399 knee lane=0.3144 leg clearance=0.3294
+reverse-diagonal-right feet stay in separate travel lanes
+reverse-diagonal-right knees stay in separate travel lanes
+reverse-diagonal-right legs do not intersect
+turn-left-right right grip max=0.00000
+turn-left-right no deep ground penetration min=-0.00109
+turn-left-right planted ankle travel/frame max=0.00004
+turn-left-right 90 frames: finite skin and fixed bone lengths
+turn-left-right foot lane=-0.5927 knee lane=-0.4012 leg clearance=0.2678
+turn-left-right legs do not intersect
+run right grip max=0.00003
+run no deep ground penetration min=-0.00274
+run planted ankle travel/frame max=0.00004
+run 90 frames: finite skin and fixed bone lengths
+walk right grip max=0.00000
+walk no deep ground penetration min=0.00000
+walk planted ankle travel/frame max=0.00004
+walk 90 frames: finite skin and fixed bone lengths
+crouch right grip max=0.00003
+crouch no deep ground penetration min=0.00000
+crouch planted ankle travel/frame max=0.00006
+crouch 90 frames: finite skin and fixed bone lengths
+crawl right grip max=0.00000
+crawl no deep ground penetration min=-0.00335
+crawl planted ankle travel/frame max=0.00006
+crawl 90 frames: finite skin and fixed bone lengths
+crawl-strafe right grip max=0.00000
+crawl-strafe no deep ground penetration min=-0.00463
+crawl-strafe planted ankle travel/frame max=0.00006
+crawl-strafe 90 frames: finite skin and fixed bone lengths
+crawl-reverse right grip max=0.00000
+crawl-reverse no deep ground penetration min=-0.00443
+crawl-reverse planted ankle travel/frame max=0.00004
+crawl-reverse 90 frames: finite skin and fixed bone lengths
+prone-aim right grip max=0.00000
+prone-aim no deep ground penetration min=0.00748
+prone-aim planted ankle travel/frame max=0.00000
+prone-aim 45 frames: finite skin and fixed bone lengths

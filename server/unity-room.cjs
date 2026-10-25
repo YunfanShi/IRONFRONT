@@ -15,6 +15,29 @@ const cleanName = value => {
     return cleaned || 'Player';
 };
 
+// Standings are read-only host data, carried with the same authorized world
+// snapshot. Older hosts can omit this optional field.
+function cleanScoreboard(value) {
+    if (!value || value.version !== 1 || !Array.isArray(value.rows) || value.rows.length > 64) return null;
+    const ids=new Set(), rows=[];
+    const integer=(number,max=2147483647)=>Number.isSafeInteger(number)&&number>=0&&number<=max;
+    for (const row of value.rows) {
+        if (!row || typeof row.actorId !== 'string' ||
+            !/^(?:player:(?:local|\d{1,10})|bot:\d{1,10}|vehicle:\d{1,10})$/.test(row.actorId) || ids.has(row.actorId) ||
+            typeof row.displayName !== 'string' || row.displayName.length>64 ||
+            !integer(row.team,1) || !integer(row.stableOrder,1000000) ||
+            !integer(row.kills) || !integer(row.assists) || !integer(row.vehicleAssists) ||
+            !integer(row.vehiclesDestroyed) || !integer(row.totalEarned) ||
+            typeof row.alive !== 'boolean' || typeof row.isHuman !== 'boolean' || typeof row.connected !== 'boolean') return null;
+        ids.add(row.actorId);
+        rows.push({actorId:row.actorId,displayName:row.displayName.replace(/[\p{Cc}\p{Cf}]/gu,''),
+            team:row.team,stableOrder:row.stableOrder,kills:row.kills,assists:row.assists,
+            vehicleAssists:row.vehicleAssists,vehiclesDestroyed:row.vehiclesDestroyed,totalEarned:row.totalEarned,
+            alive:row.alive,isHuman:row.isHuman,connected:row.connected});
+    }
+    return {version:1,rows};
+}
+
 function createUnityRooms(server) {
     const rooms = new Map();
     const wss = new WebSocketServer({ noServer: true, maxPayload: 65536 });
@@ -201,6 +224,8 @@ function createUnityRooms(server) {
                 room.lastSnapshotAt=now; room.lastTick=m.tick;
                 const snapshot={type:'snapshot',tick:m.tick,players:m.players,bots:m.bots,vehicles:m.vehicles,
                     points:m.points,blueTickets:clamp(m.blueTickets,0,100000),redTickets:clamp(m.redTickets,0,100000)};
+                const scoreboard=cleanScoreboard(m.scoreboard);
+                if (scoreboard) snapshot.scoreboard=scoreboard;
                 for (const [peerWs, peer] of room.clients) if (!peer.host) send(peerWs,snapshot);
                 return;
             }

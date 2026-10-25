@@ -9,10 +9,15 @@ namespace Ironfront.UnityPrototype
         public PrototypeTeam Team { get; private set; }
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public Transform Turret { get; private set; }
+        public Transform DriverOptic { get; private set; }
         public Transform BarrelPivot { get; private set; }
         public Transform CannonMuzzle { get; private set; }
         public BoxCollider HullCollider { get; private set; }
         private float recoilUntil;
+        private Vector3 barrelRestPosition = new Vector3(0f, .68f, 1.24f);
+        private GameObject artRoot;
+        private Renderer[] prototypeRenderers;
+        public bool HasAuthoredArt => artRoot != null;
 
         public void Initialize(PrototypeRuntime game, PrototypeTeam team,
             Vector2 position, float yaw)
@@ -109,6 +114,11 @@ namespace Ironfront.UnityPrototype
             turret.SetParent(transform, false);
             turret.localPosition = new Vector3(0f, 2.06f, -.55f);
             Turret = turret;
+            DriverOptic = new GameObject("Stabilized driver optic").transform;
+            DriverOptic.SetParent(turret, false);
+            // Left of, above and ahead of the mantlet. The real bore enters
+            // from the lower right without placing the eye inside turret armor.
+            DriverOptic.localPosition = new Vector3(-.90f, 1.45f, 1.95f);
             Cylinder("Turret race", turret, new Vector3(0f, .04f, 0f),
                 2.85f, .16f, steel);
             Wedge("Cast turret armor", turret, 3.35f, 2.65f,
@@ -176,6 +186,46 @@ namespace Ironfront.UnityPrototype
             HullCollider = gameObject.AddComponent<BoxCollider>();
             HullCollider.center = new Vector3(0f, 1.15f, 0f);
             HullCollider.size = new Vector3(5.50f, 2.30f, 7.55f);
+            TryAttachAuthoredArt(team);
+        }
+
+        private void TryAttachAuthoredArt(PrototypeTeam team)
+        {
+            GameObject prefab = Resources.Load<GameObject>("Vehicles/T90_" +
+                (team == PrototypeTeam.Blue ? "Blue" : "Red"));
+            if (prefab == null) return;
+            prototypeRenderers = GetComponentsInChildren<Renderer>(true);
+            GameObject instance = Instantiate(prefab, transform, false);
+            instance.name = "T90 authored art";
+            PrototypeVehicleArtRig rig = instance.GetComponent<PrototypeVehicleArtRig>();
+            if (rig == null)
+            {
+                Destroy(instance); return;
+            }
+            Vector3 previousTurret = Turret.localPosition, previousBarrel = BarrelPivot.localPosition,
+                previousMuzzle = CannonMuzzle.localPosition;
+            rig.CalibrateWeapon(Turret, BarrelPivot, CannonMuzzle);
+            if (!rig.Bind(this))
+            {
+                Turret.localPosition = previousTurret; BarrelPivot.localPosition = previousBarrel;
+                CannonMuzzle.localPosition = previousMuzzle; Destroy(instance);
+                Debug.LogWarning("T90 art prefab has incomplete pivots; using prototype visuals.");
+                return;
+            }
+            artRoot = instance;
+            barrelRestPosition = BarrelPivot.localPosition;
+            HullCollider.center = rig.HullCenter; HullCollider.size = rig.HullSize;
+            // Observation is ahead of the turret cheek and to the left of the
+            // bore, preserving the real lower-right cannon in first person.
+            DriverOptic.localPosition = new Vector3(-.85f, 1.18f, 2.65f);
+            foreach (Renderer renderer in prototypeRenderers) renderer.enabled = false;
+        }
+
+        public void SetVisible(bool visible)
+        {
+            if (artRoot != null) artRoot.SetActive(visible);
+            else if (prototypeRenderers != null)
+                foreach (Renderer renderer in prototypeRenderers) renderer.enabled = visible;
         }
 
         public void AimAt(Vector3 target, float deltaTime)
@@ -191,7 +241,7 @@ namespace Ironfront.UnityPrototype
             if (BarrelPivot == null) return;
             float phase = 1f - Mathf.Clamp01((recoilUntil - Time.time) / .28f);
             float kick = Time.time < recoilUntil ? Mathf.Sin(phase * Mathf.PI) * .32f : 0f;
-            BarrelPivot.localPosition = new Vector3(0f, .68f, 1.24f - kick);
+            BarrelPivot.localPosition = barrelRestPosition - Vector3.forward * kick;
         }
 
         private static GameObject Box(string name, Transform parent,
@@ -220,7 +270,7 @@ namespace Ironfront.UnityPrototype
             part.transform.localPosition = position;
             part.transform.localScale = scale;
             Collider primitiveCollider = part.GetComponent<Collider>();
-            if (primitiveCollider != null) Destroy(primitiveCollider);
+            if (primitiveCollider != null) { primitiveCollider.enabled = false; Destroy(primitiveCollider); }
             part.GetComponent<Renderer>().sharedMaterial = material;
             return part;
         }

@@ -1,0 +1,161 @@
+{
+  "title": "V12 LANCER",
+  "source": "/Users/liuwenjun/Downloads/fae886068598e465b15c7b0082fb3061.glb",
+  "source_sha256": "6770e5c9fd945cbd881fa80c91d1618e9473beeb03b46b3a89558d621803d9fc",
+  "blender": "5.2.2 LTS",
+  "original": {
+    "triangles": 1491418,
+    "vertices": 924726,
+    "min": [
+      -0.39510899782180786,
+      -0.5326741337776184,
+      3.452229790923411e-08
+    ],
+    "max": [
+      0.3949750065803528,
+      0.43894603848457336,
+      0.6338400840759277
+    ],
+    "dimensions": [
+      0.7900840044021606,
+      0.9716201722621918,
+      0.6338400495536298
+    ],
+    "boundary_edges": 344304,
+    "nonmanifold_edges": 344304,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "welded": {
+    "triangles": 1491418,
+    "vertices": 745547,
+    "min": [
+      -0.39510899782180786,
+      -0.5326741337776184,
+      3.452229790923411e-08
+    ],
+    "max": [
+      0.3949750065803528,
+      0.43894603848457336,
+      0.6338400840759277
+    ],
+    "dimensions": [
+      0.7900840044021606,
+      0.9716201722621918,
+      0.6338400495536298
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "textures": [
+    {
+      "name": "v12_basecolor_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "v12_metalrough_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "v12_normal_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  ],
+  "authored_lods": [
+    {
+      "triangles": 70000,
+      "vertices": 34838,
+      "min": [
+        -0.39516812562942505,
+        -0.5325342416763306,
+        -3.418621054152027e-05
+      ],
+      "max": [
+        0.39502984285354614,
+        0.4389859139919281,
+        0.6341196298599243
+      ],
+      "dimensions": [
+        0.7901979684829712,
+        0.9715201556682587,
+        0.6341538160704658
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 0,
+      "name": "V12_LANCER_LOD0"
+    },
+    {
+      "triangles": 35000,
+      "vertices": 17338,
+      "min": [
+        -0.39511606097221375,
+        -0.532295823097229,
+        -0.0002187900390708819
+      ],
+      "max": [
+        0.3950173556804657,
+        0.4385712444782257,
+        0.6340788006782532
+      ],
+      "dimensions": [
+        0.7901334166526794,
+        0.9708670675754547,
+        0.6342975907173241
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 1,
+      "name": "V12_LANCER_LOD1"
+    },
+    {
+      "triangles": 17500,
+      "vertices": 8588,
+      "min": [
+        -0.39511120319366455,
+        -0.5324066281318665,
+        3.7025820347480476e-05
+      ],
+      "max": [
+        0.3949931561946869,
+        0.43902021646499634,
+        0.6330853700637817
+      ],
+      "dimensions": [
+        0.7901043593883514,
+        0.9714268445968628,
+        0.6330483442434343
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 2,
+      "name": "V12_LANCER_LOD2"
+    }
+  ],
+  "contract": "Static mesh optimization: original proportions, orientation, UVs, paint and normalized scale retained. No new animation rig or gameplay replacement."
+}

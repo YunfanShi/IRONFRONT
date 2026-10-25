@@ -1,0 +1,127 @@
+{
+  "license": "Original procedural audio created for IRONFRONT; no external samples",
+  "generator": "scripts/generate-unity-player-audio.py",
+  "sample_rate": 44100,
+  "clips": [
+    {
+      "name": "StepWalk",
+      "duration": 0.21,
+      "samples": 9261,
+      "peak": 0.78,
+      "rms_dbfs": -16.733,
+      "sha256": "012cebb8260a61514b54948ec786470c925315244127b758b86aba209643908f"
+    },
+    {
+      "name": "StepRun",
+      "duration": 0.26,
+      "samples": 11466,
+      "peak": 0.7799999999999999,
+      "rms_dbfs": -17.994,
+      "sha256": "6a4b1f706cc20391a3e3bd57975fba2c2bbf4b8eb797d08cef14f4bddcee3470"
+    },
+    {
+      "name": "StepCrouch",
+      "duration": 0.18,
+      "samples": 7938,
+      "peak": 0.78,
+      "rms_dbfs": -17.972,
+      "sha256": "39b3e88f9d0e03e608dcc2373621c26d81fe46d41ec057c1b04dbae511ee38cd"
+    },
+    {
+      "name": "StepProne",
+      "duration": 0.3,
+      "samples": 13230,
+      "peak": 0.78,
+      "rms_dbfs": -19.079,
+      "sha256": "8586bdb564e2690643518b1d26912a5974815fbc5e916f39f3aa9f5ace263b8a"
+    },
+    {
+      "name": "Crouch",
+      "duration": 0.24,
+      "samples": 10584,
+      "peak": 0.78,
+      "rms_dbfs": -17.589,
+      "sha256": "fe110be87c21b19abdfe9c1528ac245e5b1e99e0d2bd542c04b3b43afba1e7ed"
+    },
+    {
+      "name": "Stand",
+      "duration": 0.23,
+      "samples": 10143,
+      "peak": 0.78,
+      "rms_dbfs": -15.818,
+      "sha256": "d993116d159d7873d6c65253ddc3a976a6d1bc97bb5e7b585f30fa513fe4ae6d"
+    },
+    {
+      "name": "Prone",
+      "duration": 0.36,
+      "samples": 15876,
+      "peak": 0.78,
+      "rms_dbfs": -18.242,
+      "sha256": "41d734de4e24c7cdbccff7514cdddd6fbf63e685c4fb760fa5cf488b22b32f59"
+    },
+    {
+      "name": "Rise",
+      "duration": 0.32,
+      "samples": 14112,
+      "peak": 0.78,
+      "rms_dbfs": -17.457,
+      "sha256": "aa9694b9d9fc8ccb01dab455f90afc76e6e7b5e3a5733bc4e6939242ce177d0f"
+    },
+    {
+      "name": "Board",
+      "duration": 0.32,
+      "samples": 14112,
+      "peak": 0.78,
+      "rms_dbfs": -17.516,
+      "sha256": "0420b1f3935886fd10a51b7445c9b4f73624363b12e81fe80243ef59f4b77eef"
+    },
+    {
+      "name": "Hit",
+      "duration": 0.075,
+      "samples": 3308,
+      "peak": 0.78,
+      "rms_dbfs": -16.912,
+      "sha256": "abe2dd91ba98173f74c96e28b75caf1457f09e03030e5c0b52468d09d2e03643"
+    },
+    {
+      "name": "Kill",
+      "duration": 0.28,
+      "samples": 12348,
+      "peak": 0.78,
+      "rms_dbfs": -15.244,
+      "sha256": "4c6321e32f138480a249b0dabe54f33286d2328678d28953fa0c8521d6baf4e2"
+    },
+    {
+      "name": "LockTick",
+      "duration": 0.065,
+      "samples": 2866,
+      "peak": 0.78,
+      "rms_dbfs": -12.906,
+      "sha256": "9fd3c26c1e8c806cd7d1c830e50c9dfbd88cdf1001f170097793ecdfb791c222"
+    },
+    {
+      "name": "LockReady",
+      "duration": 0.24,
+      "samples": 10584,
+      "peak": 0.78,
+      "rms_dbfs": -13.337,
+      "sha256": "5c60cbcdf8f8252032f6f169b246809f9f2b127fb35d88a861461e9dc1c7093f"
+    },
+    {
+      "name": "LockLost",
+      "duration": 0.23,
+      "samples": 10143,
+      "peak": 0.78,
+      "rms_dbfs": -13.261,
+      "sha256": "757fbc81482c121e7208ed0549c0eb229a03e1e7a2d075f4c2bdddbf3e7b9095"
+    },
+    {
+      "name": "Zoom",
+      "duration": 0.13,
+      "samples": 5733,
+      "peak": 0.78,
+      "rms_dbfs": -16.643,
+      "sha256": "f606f41cdc2968dff1d01687081c2265fb449729440e2f83a0312e18dd5733fc"
+    }
+  ]
+}

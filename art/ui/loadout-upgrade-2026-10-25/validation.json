@@ -1,0 +1,24 @@
+{
+  "version": "0.62.0",
+  "preserved_files": 406,
+  "changed_preserved_files": [],
+  "preserved_page_subtrees": {
+    "page-lobby": true,
+    "page-settings": true,
+    "page-operations": true,
+    "identity-card": true,
+    "deployment-actions": true
+  },
+  "project_settings_diff": [
+    "--- \n",
+    "+++ \n",
+    "@@ -151 +151 @@\n",
+    "-  bundleVersion: 0.61.1",
+    "+  bundleVersion: 0.62.0"
+  ],
+  "standalone_probe": [
+    "PASS",
+    "Version=0.62.0",
+    "RuntimeErrors=0"
+  ]
+}

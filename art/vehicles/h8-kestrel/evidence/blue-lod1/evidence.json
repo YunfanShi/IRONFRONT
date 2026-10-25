@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      147476.0514628666,
+      58990.42058514664,
+      221214.0771942999
+    ],
+    "camera_distance": 44.16300239562988,
+    "ortho_scale": 27.84189281463623,
+    "floor_size": 3840.2610778808594,
+    "floor_offset": 0.11520783233642579,
+    "clip_start": 0.0192013053894043,
+    "clip_end": 19201.305389404297
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": 0.09255299958735688,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod1.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 768,
+  "requested_views": [
+    "perspective",
+    "top"
+  ],
+  "evidence_scope": "partial_preview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -6.404146,
+      -8.382565,
+      -0.071105
+    ],
+    "max": [
+      6.404759,
+      10.81874,
+      8.175175
+    ],
+    "dimensions": [
+      12.808905,
+      19.201305,
+      8.24628
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod1/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod1/top.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod1/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

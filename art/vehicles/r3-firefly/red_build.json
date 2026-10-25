@@ -1,0 +1,34 @@
+{
+  "asset": "r3",
+  "team": "Red",
+  "blender": "5.2.2 LTS",
+  "blue_blend_sha256": "08b50ad452a5f4281d5f22467f0995b7a9e644611dc7d9dd214582f2c7880997",
+  "texture": "textures/r3_red_basecolor_2k.png",
+  "palette_linear": [
+    1.65,
+    0.65,
+    0.48
+  ],
+  "geometry": "Existing optimized mesh, normals and UVs reused without modification",
+  "exports": [
+    {
+      "lod": 0,
+      "triangles": 50000,
+      "glb": "exports/r3-red-lod0.glb",
+      "fbx": "exports/r3-red-lod0.fbx"
+    },
+    {
+      "lod": 1,
+      "triangles": 25000,
+      "glb": "exports/r3-red-lod1.glb",
+      "fbx": "exports/r3-red-lod1.fbx"
+    },
+    {
+      "lod": 2,
+      "triangles": 12500,
+      "glb": "exports/r3-red-lod2.glb",
+      "fbx": "exports/r3-red-lod2.fbx"
+    }
+  ],
+  "scope": "Static paint variant; no new articulation or Unity integration"
+}

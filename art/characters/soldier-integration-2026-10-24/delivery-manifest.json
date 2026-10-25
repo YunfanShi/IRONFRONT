@@ -1,0 +1,197 @@
+[
+  {
+    "file": "art/characters/blue-soldier/rigged/blue-soldier-rigged-v01.blend",
+    "bytes": 9199110,
+    "sha256": "a5bfdb44e0be970c9675fc98c923ed8a4befe36e5177d45569f69ce26092a835"
+  },
+  {
+    "file": "art/characters/blue-soldier/rigged/blue-soldier-skinned-lod2.fbx",
+    "bytes": 188652,
+    "sha256": "042e93d7b71cea33b8a44fb6c8e03e6184b4d1c7b1c1c64f2c1fb6e288e6f953"
+  },
+  {
+    "file": "art/characters/blue-soldier/rigged/blue-soldier-skinned-lod1.fbx",
+    "bytes": 350124,
+    "sha256": "b73af7e681dbf5e4048931146da261ed00def5734b55a13adac6823fc239edd1"
+  },
+  {
+    "file": "art/characters/blue-soldier/rigged/blue-soldier-skinned-lod0.fbx",
+    "bytes": 879340,
+    "sha256": "a93233c918667fe972702e374350f14eb72691e2ee0f220cd3dbbd190378911a"
+  },
+  {
+    "file": "art/characters/blue-soldier/rigged/rig-report.json",
+    "bytes": 3639,
+    "sha256": "d98c556c21d1f8107b706710862eb7cd2ca488e31d6632780adb6a95a6c57d85"
+  },
+  {
+    "file": "art/characters/red-soldier/rigged/red-soldier-rigged-v01.blend",
+    "bytes": 9223426,
+    "sha256": "c994cd4c21507c2948fdcbe43307fe6e36b347ab3daf39450967bd8e10502159"
+  },
+  {
+    "file": "art/characters/red-soldier/rigged/red-soldier-skinned-lod2.fbx",
+    "bytes": 187452,
+    "sha256": "79e56d6466bec79b0cb422252c13569624dcd72a1007e9edeeb7a2d1f047cee8"
+  },
+  {
+    "file": "art/characters/red-soldier/rigged/red-soldier-skinned-lod0.fbx",
+    "bytes": 878812,
+    "sha256": "d373272a4e8a49d11f50fff82f1b429f1f934eab279f360d50ddd1863b13a60e"
+  },
+  {
+    "file": "art/characters/red-soldier/rigged/red-soldier-skinned-lod1.fbx",
+    "bytes": 351372,
+    "sha256": "4f033545acdc588dccc079eb2c66e48901ab19375900920ef66498b5c576a1f6"
+  },
+  {
+    "file": "art/characters/red-soldier/rigged/rig-report.json",
+    "bytes": 3629,
+    "sha256": "b67803c8548ce2d13e70e7b9d96df7c7b19509205a011af020b44202df065ab1"
+  },
+  {
+    "file": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab",
+    "bytes": 57559,
+    "sha256": "1ed1e3d11581f16cf86979429953736d367944108810d3ece09fde604855988d"
+  },
+  {
+    "file": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab",
+    "bytes": 57519,
+    "sha256": "4984b8db0691abdcb54a262abfa31274d8863422a0b18de2c366f87dbaa6c1ff"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/blue-soldier-skinned-lod2.fbx",
+    "bytes": 188652,
+    "sha256": "042e93d7b71cea33b8a44fb6c8e03e6184b4d1c7b1c1c64f2c1fb6e288e6f953"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/blue-soldier-skinned-lod1.fbx",
+    "bytes": 350124,
+    "sha256": "b73af7e681dbf5e4048931146da261ed00def5734b55a13adac6823fc239edd1"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/blue-soldier-skinned-lod0.fbx",
+    "bytes": 879340,
+    "sha256": "a93233c918667fe972702e374350f14eb72691e2ee0f220cd3dbbd190378911a"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/BlueSoldier_LOD0_ArmR_FirstPerson.asset",
+    "bytes": 329938,
+    "sha256": "ddc49b248c430725af09fd55d4f96a0e7e49bd5b3454a50a47618e6e6b253d5a"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/BlueSoldier_LOD0_ArmL_FirstPerson.asset",
+    "bytes": 330919,
+    "sha256": "2738327c3af6a4a99fee534e7581d241028ef2f9abc214e5239af335429f6a7d"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/BlueSoldier_LOD1_ArmL_FirstPerson.asset",
+    "bytes": 132937,
+    "sha256": "7920bd4476ac989d4a213e84c0b4df64b51672856385d2a7840b143ddd4ddf14"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/BlueSoldier_LOD1_ArmR_FirstPerson.asset",
+    "bytes": 131576,
+    "sha256": "6f9b36ded1d6c85c00447e7b619e78c9a226af6b6328cd79bc79bb6b17bb6a87"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/BlueSoldier_LOD2_ArmL_FirstPerson.asset",
+    "bytes": 63893,
+    "sha256": "e56e646d4547768a1ff099a244ad4b64fea7946034014ee1ae1a5f1b69f7e08c"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/BlueSoldier/rigged/BlueSoldier_LOD2_ArmR_FirstPerson.asset",
+    "bytes": 60061,
+    "sha256": "f88f83cc59cddb20c2d2dd4e5c992c1e0fe9127693af41a91e74e3c72269c8bf"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/red-soldier-skinned-lod2.fbx",
+    "bytes": 187452,
+    "sha256": "79e56d6466bec79b0cb422252c13569624dcd72a1007e9edeeb7a2d1f047cee8"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/red-soldier-skinned-lod0.fbx",
+    "bytes": 878812,
+    "sha256": "d373272a4e8a49d11f50fff82f1b429f1f934eab279f360d50ddd1863b13a60e"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/red-soldier-skinned-lod1.fbx",
+    "bytes": 351372,
+    "sha256": "4f033545acdc588dccc079eb2c66e48901ab19375900920ef66498b5c576a1f6"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/RedSoldier_LOD1_ArmL_FirstPerson.asset",
+    "bytes": 137614,
+    "sha256": "08f7c2194868f2346a6945e675b7a3fe895dd40171841244d6c473a29e4c6b4d"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/RedSoldier_LOD1_ArmR_FirstPerson.asset",
+    "bytes": 126094,
+    "sha256": "592156d7ca74ad4c89e2f39762e868d640a7caa45cb0ad25079ecb4ac119161a"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/RedSoldier_LOD2_ArmL_FirstPerson.asset",
+    "bytes": 61372,
+    "sha256": "42728a7b3e1d4cb00c8ec3a4f4818d9a840a20cfbe27a57bcbe07c727842223b"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/RedSoldier_LOD2_ArmR_FirstPerson.asset",
+    "bytes": 60130,
+    "sha256": "da74d130e75cc10e0f8282a81da5ea670d1a8e0f957deb95a3585dd0942623c3"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/RedSoldier_LOD0_ArmR_FirstPerson.asset",
+    "bytes": 334518,
+    "sha256": "280ea42535fd8ab664e50da6325ccf2c5bcf19b21938af14a1af768521864c7b"
+  },
+  {
+    "file": "UnityProject/Assets/Art/Characters/RedSoldier/rigged/RedSoldier_LOD0_ArmL_FirstPerson.asset",
+    "bytes": 325271,
+    "sha256": "52c72fb6d3ce2b706dfca9465899baf59ecb9949dd7df3874fa7daadeaa7dbd7"
+  },
+  {
+    "file": "art/characters/build_rigged_soldiers.py",
+    "bytes": 6112,
+    "sha256": "b1969f99e84e29adad5202a4c0c8692a3c4fcfeb7418498d7b4b9f547fb22328"
+  },
+  {
+    "file": "art/characters/validate_rigged_soldiers.py",
+    "bytes": 2670,
+    "sha256": "948ada1ff422ad939ee50f11b1d20f55987fde8fdc8cff8c33bc2448d141e965"
+  },
+  {
+    "file": "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs",
+    "bytes": 52440,
+    "sha256": "a0005b9705061142a25490e992432a7eb242c1e48b3bcf328828cc0bc0213aaa"
+  },
+  {
+    "file": "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs",
+    "bytes": 4484,
+    "sha256": "7168df79c89bc6817421ce523116ac155b7d6eaa6b060cf7489605f49aa5c477"
+  },
+  {
+    "file": "UnityProject/Assets/Scripts/PrototypeSoldierArtProbe.cs",
+    "bytes": 8143,
+    "sha256": "9bcf10f7871c07d65185a00cdc8dee087a9ebe940773e3d00f6e729f29e3a4a9"
+  },
+  {
+    "file": "UnityProject/Assets/Scripts/PrototypeMenuPreview.cs",
+    "bytes": 13786,
+    "sha256": "9bac2d9e645c9a78a9e3c372af1adf0e74f344d07d8e009b71dd1cbd04d0a1e2"
+  },
+  {
+    "file": "UnityProject/Assets/Scripts/PrototypeCombinedVehicleVisual.cs",
+    "bytes": 34131,
+    "sha256": "460d159c1373f2499b7455b06b17ee531f5f6809460ccfcf1069d741546649e5"
+  },
+  {
+    "file": "UnityProject/Assets/Editor/SoldierArtAssetSetup.cs",
+    "bytes": 10400,
+    "sha256": "5193f93783ef2999bd4c35f208c163fea39983cd62df18627c9a2bf6c3a0e5e4"
+  },
+  {
+    "file": "UnityProject/Assets/Editor/SoldierArtPlaySmoke.cs",
+    "bytes": 15967,
+    "sha256": "6ead9fcf9462e4d0c0d6111f1bb6817c44bb2262bdf5d0e85dce84c53313f690"
+  }
+]

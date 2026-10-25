@@ -1,0 +1,426 @@
+{
+  "source": "/Users/liuwenjun/Downloads/d722c1edebb754a5735858477acc4459.glb",
+  "blender_version": "5.2.2 LTS",
+  "dimensions_target_m": {
+    "width": 4.7,
+    "length": 7.1
+  },
+  "local_source_to_blender_world": "X width, local +Z front => Blender -Y, local +Y up => Blender +Z",
+  "unity_axes": "Unity Y up, +Z forward",
+  "textures": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/a40-watchtower/textures/A40_Blue_basecolor_2K.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/a40-watchtower/textures/A40_normal_2K.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/a40-watchtower/textures/A40_Red_basecolor_2K.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/a40-watchtower/textures/A40_metalrough_2K.png"
+  ],
+  "materials": [
+    "A40_Blue_PBR",
+    "A40_Red_PBR"
+  ],
+  "lods": [
+    {
+      "lod": 0,
+      "triangles": 87937,
+      "mesh_objects": 15,
+      "bounds_blender_xyz": [
+        [
+          -2.347055673599243,
+          -3.6075987815856934,
+          0.0
+        ],
+        [
+          2.352551221847534,
+          3.4922034740448,
+          3.8763160705566406
+        ]
+      ],
+      "dimensions_m": [
+        4.699606895446777,
+        7.099802255630493,
+        3.8763160705566406
+      ],
+      "names": [
+        "Barrel_Lower_L",
+        "Barrel_Lower_R",
+        "Barrel_Upper_L",
+        "Barrel_Upper_R",
+        "Hull",
+        "RadarArray",
+        "TurretArmor",
+        "Wheel_L_Front",
+        "Wheel_L_MidFront",
+        "Wheel_L_MidRear",
+        "Wheel_L_Rear",
+        "Wheel_R_Front",
+        "Wheel_R_MidFront",
+        "Wheel_R_MidRear",
+        "Wheel_R_Rear"
+      ],
+      "attachment_points_unity_xyz_m": {
+        "Turret": [
+          0.0,
+          2.0,
+          -0.10000000149011612
+        ],
+        "Wheel_L_Front": [
+          -1.5985369682312012,
+          0.6499999761581421,
+          2.178380012512207
+        ],
+        "Wheel_L_MidFront": [
+          -1.6009037494659424,
+          0.6499999761581421,
+          0.7047699689865112
+        ],
+        "Wheel_L_MidRear": [
+          -1.56050443649292,
+          0.6499999761581421,
+          -0.7047699689865112
+        ],
+        "Wheel_L_Rear": [
+          -1.6084496974945068,
+          0.6499999761581421,
+          -2.178380012512207
+        ],
+        "Wheel_R_Front": [
+          1.6266822814941406,
+          0.6499999761581421,
+          2.178380012512207
+        ],
+        "Wheel_R_MidFront": [
+          1.597470998764038,
+          0.6499999761581421,
+          0.7047699689865112
+        ],
+        "Wheel_R_MidRear": [
+          1.6272077560424805,
+          0.6499999761581421,
+          -0.7047699689865112
+        ],
+        "Wheel_R_Rear": [
+          1.5981688499450684,
+          0.6499999761581421,
+          -2.178380012512207
+        ],
+        "Barrels": [
+          0.0,
+          2.4800000190734863,
+          -0.10000000149011612
+        ],
+        "Radar": [
+          0.25,
+          3.119999885559082,
+          -1.1699999570846558
+        ],
+        "TurretArmor": [
+          0.0,
+          2.0,
+          -0.10000000149011612
+        ],
+        "RadarArray": [
+          0.25,
+          3.119999885559082,
+          -1.1699999570846558
+        ],
+        "Muzzle_LeftLower": [
+          -0.5748559236526489,
+          2.235494375228882,
+          2.592865467071533
+        ]
+      },
+      "hierarchy": {
+        "A40_LOD0": null,
+        "Hull": "A40_LOD0",
+        "Turret": "A40_LOD0",
+        "Wheel_L_Front": "A40_LOD0",
+        "Wheel_L_MidFront": "A40_LOD0",
+        "Wheel_L_MidRear": "A40_LOD0",
+        "Wheel_L_Rear": "A40_LOD0",
+        "Wheel_R_Front": "A40_LOD0",
+        "Wheel_R_MidFront": "A40_LOD0",
+        "Wheel_R_MidRear": "A40_LOD0",
+        "Wheel_R_Rear": "A40_LOD0",
+        "Barrels": "Turret",
+        "Radar": "Turret",
+        "TurretArmor": "Turret",
+        "RadarArray": "Radar",
+        "Barrel_Lower_L": "Barrels",
+        "Barrel_Lower_R": "Barrels",
+        "Barrel_Upper_L": "Barrels",
+        "Barrel_Upper_R": "Barrels",
+        "Muzzle_LeftLower": "Barrels"
+      }
+    },
+    {
+      "lod": 1,
+      "triangles": 52751,
+      "mesh_objects": 15,
+      "bounds_blender_xyz": [
+        [
+          -2.3460681438446045,
+          -3.6066434383392334,
+          0.0003968477249145508
+        ],
+        [
+          2.3519272804260254,
+          3.4921536445617676,
+          3.8764004707336426
+        ]
+      ],
+      "dimensions_m": [
+        4.69799542427063,
+        7.098797082901001,
+        3.876003623008728
+      ],
+      "names": [
+        "Barrel_Lower_L_LOD1",
+        "Barrel_Lower_R_LOD1",
+        "Barrel_Upper_L_LOD1",
+        "Barrel_Upper_R_LOD1",
+        "Hull_LOD1",
+        "RadarArray_LOD1",
+        "TurretArmor_LOD1",
+        "Wheel_L_Front_LOD1",
+        "Wheel_L_MidFront_LOD1",
+        "Wheel_L_MidRear_LOD1",
+        "Wheel_L_Rear_LOD1",
+        "Wheel_R_Front_LOD1",
+        "Wheel_R_MidFront_LOD1",
+        "Wheel_R_MidRear_LOD1",
+        "Wheel_R_Rear_LOD1"
+      ],
+      "attachment_points_unity_xyz_m": {
+        "Turret.001": [
+          0.0,
+          2.0,
+          -0.10000000149011612
+        ],
+        "Wheel_L_Front_LOD1": [
+          -1.5974875688552856,
+          0.6499999761581421,
+          2.178380012512207
+        ],
+        "Wheel_L_MidFront_LOD1": [
+          -1.601161003112793,
+          0.6499999761581421,
+          0.7047699689865112
+        ],
+        "Wheel_L_MidRear_LOD1": [
+          -1.562652826309204,
+          0.6499999761581421,
+          -0.7047699689865112
+        ],
+        "Wheel_L_Rear_LOD1": [
+          -1.6102850437164307,
+          0.6499999761581421,
+          -2.178380012512207
+        ],
+        "Wheel_R_Front_LOD1": [
+          1.6261413097381592,
+          0.6499999761581421,
+          2.178380012512207
+        ],
+        "Wheel_R_MidFront_LOD1": [
+          1.5980353355407715,
+          0.6499999761581421,
+          0.7047699689865112
+        ],
+        "Wheel_R_MidRear_LOD1": [
+          1.6283490657806396,
+          0.6499999761581421,
+          -0.7047699689865112
+        ],
+        "Wheel_R_Rear_LOD1": [
+          1.598785161972046,
+          0.6499999761581421,
+          -2.178380012512207
+        ],
+        "Barrels.001": [
+          0.0,
+          2.4800000190734863,
+          -0.10000000149011612
+        ],
+        "Radar.001": [
+          0.25,
+          3.119999885559082,
+          -1.1699999570846558
+        ],
+        "TurretArmor_LOD1": [
+          0.0,
+          2.0,
+          -0.10000000149011612
+        ],
+        "RadarArray_LOD1": [
+          0.25,
+          3.119999885559082,
+          -1.1699999570846558
+        ],
+        "Muzzle_LeftLower.001": [
+          -0.5758398175239563,
+          2.2328431606292725,
+          2.592865467071533
+        ]
+      },
+      "hierarchy": {
+        "A40_LOD1": null,
+        "Hull_LOD1": "A40_LOD1",
+        "Turret.001": "A40_LOD1",
+        "Wheel_L_Front_LOD1": "A40_LOD1",
+        "Wheel_L_MidFront_LOD1": "A40_LOD1",
+        "Wheel_L_MidRear_LOD1": "A40_LOD1",
+        "Wheel_L_Rear_LOD1": "A40_LOD1",
+        "Wheel_R_Front_LOD1": "A40_LOD1",
+        "Wheel_R_MidFront_LOD1": "A40_LOD1",
+        "Wheel_R_MidRear_LOD1": "A40_LOD1",
+        "Wheel_R_Rear_LOD1": "A40_LOD1",
+        "Barrels.001": "Turret.001",
+        "Radar.001": "Turret.001",
+        "TurretArmor_LOD1": "Turret.001",
+        "RadarArray_LOD1": "Radar.001",
+        "Barrel_Lower_L_LOD1": "Barrels.001",
+        "Barrel_Lower_R_LOD1": "Barrels.001",
+        "Barrel_Upper_L_LOD1": "Barrels.001",
+        "Barrel_Upper_R_LOD1": "Barrels.001",
+        "Muzzle_LeftLower.001": "Barrels.001"
+      }
+    },
+    {
+      "lod": 2,
+      "triangles": 26372,
+      "mesh_objects": 15,
+      "bounds_blender_xyz": [
+        [
+          -2.3460681438446045,
+          -3.605297327041626,
+          0.0022385716438293457
+        ],
+        [
+          2.3514492511749268,
+          3.4923977851867676,
+          3.8761842250823975
+        ]
+      ],
+      "dimensions_m": [
+        4.697517395019531,
+        7.0976951122283936,
+        3.873945653438568
+      ],
+      "names": [
+        "Barrel_Lower_L_LOD2",
+        "Barrel_Lower_R_LOD2",
+        "Barrel_Upper_L_LOD2",
+        "Barrel_Upper_R_LOD2",
+        "Hull_LOD2",
+        "RadarArray_LOD2",
+        "TurretArmor_LOD2",
+        "Wheel_L_Front_LOD2",
+        "Wheel_L_MidFront_LOD2",
+        "Wheel_L_MidRear_LOD2",
+        "Wheel_L_Rear_LOD2",
+        "Wheel_R_Front_LOD2",
+        "Wheel_R_MidFront_LOD2",
+        "Wheel_R_MidRear_LOD2",
+        "Wheel_R_Rear_LOD2"
+      ],
+      "attachment_points_unity_xyz_m": {
+        "Turret.002": [
+          0.0,
+          2.0,
+          -0.10000000149011612
+        ],
+        "Wheel_L_Front_LOD2": [
+          -1.597350835800171,
+          0.6499999761581421,
+          2.178380012512207
+        ],
+        "Wheel_L_MidFront_LOD2": [
+          -1.6032071113586426,
+          0.6499999761581421,
+          0.7047699689865112
+        ],
+        "Wheel_L_MidRear_LOD2": [
+          -1.5629044771194458,
+          0.6499999761581421,
+          -0.7047699689865112
+        ],
+        "Wheel_L_Rear_LOD2": [
+          -1.6111297607421875,
+          0.6499999761581421,
+          -2.178380012512207
+        ],
+        "Wheel_R_Front_LOD2": [
+          1.6265251636505127,
+          0.6499999761581421,
+          2.178380012512207
+        ],
+        "Wheel_R_MidFront_LOD2": [
+          1.5980353355407715,
+          0.6499999761581421,
+          0.7047699689865112
+        ],
+        "Wheel_R_MidRear_LOD2": [
+          1.6306458711624146,
+          0.6499999761581421,
+          -0.7047699689865112
+        ],
+        "Wheel_R_Rear_LOD2": [
+          1.598785161972046,
+          0.6499999761581421,
+          -2.178380012512207
+        ],
+        "Barrels.002": [
+          0.0,
+          2.4800000190734863,
+          -0.10000000149011612
+        ],
+        "Radar.002": [
+          0.25,
+          3.119999885559082,
+          -1.1699999570846558
+        ],
+        "TurretArmor_LOD2": [
+          0.0,
+          2.0,
+          -0.10000000149011612
+        ],
+        "RadarArray_LOD2": [
+          0.25,
+          3.119999885559082,
+          -1.1699999570846558
+        ],
+        "Muzzle_LeftLower.002": [
+          -0.5654132962226868,
+          2.2323684692382812,
+          2.591270685195923
+        ]
+      },
+      "hierarchy": {
+        "A40_LOD2": null,
+        "Hull_LOD2": "A40_LOD2",
+        "Turret.002": "A40_LOD2",
+        "Wheel_L_Front_LOD2": "A40_LOD2",
+        "Wheel_L_MidFront_LOD2": "A40_LOD2",
+        "Wheel_L_MidRear_LOD2": "A40_LOD2",
+        "Wheel_L_Rear_LOD2": "A40_LOD2",
+        "Wheel_R_Front_LOD2": "A40_LOD2",
+        "Wheel_R_MidFront_LOD2": "A40_LOD2",
+        "Wheel_R_MidRear_LOD2": "A40_LOD2",
+        "Wheel_R_Rear_LOD2": "A40_LOD2",
+        "Barrels.002": "Turret.002",
+        "Radar.002": "Turret.002",
+        "TurretArmor_LOD2": "Turret.002",
+        "RadarArray_LOD2": "Radar.002",
+        "Barrel_Lower_L_LOD2": "Barrels.002",
+        "Barrel_Lower_R_LOD2": "Barrels.002",
+        "Barrel_Upper_L_LOD2": "Barrels.002",
+        "Barrel_Upper_R_LOD2": "Barrels.002",
+        "Muzzle_LeftLower.002": "Barrels.002"
+      }
+    }
+  ],
+  "export_axis": {
+    "forward": "-Z",
+    "up": "Y",
+    "scale": 1
+  }
+}

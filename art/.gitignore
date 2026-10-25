@@ -1,0 +1,38 @@
+# Runtime models, textures and audio are versioned in UnityProject/Assets.
+# Keep production scripts, provenance and text validation; retain bulky working
+# originals, renders, recordings and duplicate exports locally.
+*
+!*/
+!.gitignore
+!*.md
+!*.txt
+!*.json
+!*.csv
+!*.py
+!*.cs
+!*.swift
+!*.sh
+!*.js
+!*.cjs
+!*.mjs
+!*.yaml
+!*.yml
+!*.toml
+
+# Snapshots and transient diagnostics are not source deliverables.
+**/baseline/
+**/backup/
+**/backups/
+**/work/
+**/frames/
+**/screenshots/
+**/renders/
+**/captures/
+**/logs/
+**/__pycache__/
+**/*.app/
+/hunyuan-vehicle-refs 2/
+
+# Required by the existing Build Runtime Soldiers editor command.
+!/characters/blue-soldier/rigged-v02/*.fbx
+!/characters/red-soldier/rigged-v02/*.fbx

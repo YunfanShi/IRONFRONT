@@ -1,0 +1,5 @@
+IRONFRONT/Verify Player and Vehicle Cameras|IRONFRONT perspective PASS:
+IRONFRONT/Verify Held Equipment|IRONFRONT held equipment PASS:
+IRONFRONT/Verify All Vehicle Seats|IRONFRONT vehicle seats PASS:
+IRONFRONT/Verify Lobby Loadout|IRONFRONT lobby/loadout PASS:
+IRONFRONT/Verify Infantry Locomotion|IRONFRONT infantry locomotion PASS:

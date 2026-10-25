@@ -1,0 +1,44 @@
+{
+  "asset": "IF-27 supplied carbine",
+  "source": "source/original.glb",
+  "scope": "Preserve supplied silhouette, make articulated runtime asset and replace Carbine only in all Unity presentations",
+  "finish": "smooth detailed military rifle, source PBR retained",
+  "world_length_m": 0.92,
+  "triangle_budgets": [
+    65000,
+    19000,
+    6500,
+    2500
+  ],
+  "parts": [
+    "Body",
+    "Magazine",
+    "ChargingHandle",
+    "Bolt",
+    "Stock"
+  ],
+  "anchors": [
+    "RightGrip",
+    "LeftGrip",
+    "Muzzle",
+    "Sight",
+    "MagazineGrip",
+    "ChargingGrip"
+  ],
+  "verification": [
+    "source hash preservation",
+    "fresh FBX import",
+    "six views",
+    "first person hip and ADS",
+    "animated reload",
+    "third person standing run crouch prone",
+    "other guns and locomotion regressions"
+  ],
+  "approval_gates": [],
+  "assumptions": [
+    "IF-27 remains fictional; supplied GLB defines appearance",
+    "0.92m is an artistic game scale, not a measured real weapon specification",
+    "finger rig remains current combined finger bones"
+  ],
+  "note": "Highest source/export LOD includes stock; first-person rendering hides the stock and renders ~48074 weapon triangles plus reticle. World starts at LOD1."
+}

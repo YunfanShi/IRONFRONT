@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      519.6203980292978,
+      207.84815921171912,
+      779.4305970439467
+    ],
+    "camera_distance": 2.621446120738983,
+    "ortho_scale": 1.6526508152484893,
+    "floor_size": 227.95183658599854,
+    "floor_offset": 0.006838555097579956,
+    "clip_start": 0.0011397591829299927,
+    "clip_end": 1139.7591829299927
+  },
+  "requested_presentation": "auto",
+  "subject_luminance_hint": null,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Downloads/33717aab9aa8b9b3fb2bb108d94498cb.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 384,
+  "requested_views": [
+    "perspective",
+    "front",
+    "left",
+    "top"
+  ],
+  "evidence_scope": "partial_preview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.397353,
+      -0.497258,
+      -0.0
+    ],
+    "max": [
+      0.397869,
+      0.642501,
+      0.485016
+    ],
+    "dimensions": [
+      0.795222,
+      1.139759,
+      0.485016
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicle-glb-review/metrics/preview-33717aab/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicle-glb-review/metrics/preview-33717aab/front.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicle-glb-review/metrics/preview-33717aab/left.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicle-glb-review/metrics/preview-33717aab/top.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicle-glb-review/metrics/preview-33717aab/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

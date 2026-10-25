@@ -1,0 +1,10 @@
+{
+  "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs": "a0005b9705061142a25490e992432a7eb242c1e48b3bcf328828cc0bc0213aaa",
+  "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": "7168df79c89bc6817421ce523116ac155b7d6eaa6b060cf7489605f49aa5c477",
+  "UnityProject/Assets/Editor/SoldierArtAssetSetup.cs": "5193f93783ef2999bd4c35f208c163fea39983cd62df18627c9a2bf6c3a0e5e4",
+  "UnityProject/Assets/Editor/SoldierArtPlaySmoke.cs": "6ead9fcf9462e4d0c0d6111f1bb6817c44bb2262bdf5d0e85dce84c53313f690",
+  "art/characters/build_rigged_soldiers.py": "b1969f99e84e29adad5202a4c0c8692a3c4fcfeb7418498d7b4b9f547fb22328",
+  "package.json": "f4211e221b0415e6b79ca14761a321b9bfb81fb56ed2f53c83e52a26ff12423e",
+  "package-lock.json": "8d3adcd201508743906a0c01101424c2fcd553b0f511e0bd7c3f0ef05a54dea6",
+  "UnityProject/ProjectSettings/ProjectSettings.asset": "d70587f849b2f7948ccd5a380996135c73607ca0d93ea91dfadcf5f439134fbd"
+}

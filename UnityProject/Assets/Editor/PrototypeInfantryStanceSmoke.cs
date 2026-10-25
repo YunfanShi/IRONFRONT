@@ -31,6 +31,7 @@ namespace Ironfront.UnityPrototype.Editor
             {
                 PrototypeRuntime game = FindGame();
                 player = game.Player;
+                player.ClearHeldEquipment();
                 Check(player.Alive && player.CurrentVehicle == null, "player is alive and on foot");
                 PrototypeSoldierVisual visual = player.GetComponent<PrototypeSoldierVisual>();
                 Check(visual != null && Pose != null, "articulated infantry rig exists");

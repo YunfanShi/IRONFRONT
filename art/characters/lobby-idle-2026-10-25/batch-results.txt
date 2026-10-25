@@ -1,0 +1,8 @@
+IRONFRONT actual Unity Play verification
+IRONFRONT/Verify Lobby Loadout
+IRONFRONT lobby/loadout PASS: actual UI callbacks, class weapon choices, primary/pistol previews, original three-dimensional geometry/transparent layers, live percentage preferences, resolved class/weapon/settings/operation cards and unobstructed deployment; preferences restored
+
+IRONFRONT/Verify Class Loadout Policy
+IRONFRONT loadout policy PASS: all four class weapon matrices, legacy and malformed saved loadouts, real player primary/pistol inventories and visuals, class changes, deployment validation, replica rejection and existing LAN request boundary
+
+FINAL PASS: All configured checks passed.

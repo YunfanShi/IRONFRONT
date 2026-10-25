@@ -11,6 +11,12 @@ namespace Ironfront.UnityPrototype
 
         public static void Deploy(PrototypeRuntime runtime, Vector3 origin, bool aircraft)
         {
+            if (!aircraft)
+            {
+                PrototypeSmokeCloud.Spawn(runtime, origin, true);
+                PrototypeCombatFeedback.PlayAt(origin, PrototypeCombatSound.SmokeRelease);
+                return;
+            }
             var effect = new GameObject(aircraft ? "Aircraft thermal flares" : "Vehicle defensive smoke")
                 .AddComponent<PrototypeVehicleCountermeasure>();
             effect.transform.position = origin; effect.createdAt = Time.time; effect.flares = aircraft;

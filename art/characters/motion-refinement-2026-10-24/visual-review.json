@@ -1,0 +1,24 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_SCOPE",
+  "reviewed": [
+    "crawl-cycle.png",
+    "delivery-preview.png",
+    "Blue/Red LOD0 standing/crouch/prone profiles",
+    "development/soldiers-standing.png",
+    "development/soldiers-prone.png",
+    "video-review/video-12s.png"
+  ],
+  "findings": [
+    "Pelvis, lumbar and chest maintain contiguous armor silhouette in prone pose.",
+    "Alternating folded/extended legs are visible in top view; no simultaneous frog-kick cycle.",
+    "Forearm support and low chest replace the former raised torso/flat standing boots.",
+    "Walking/running/crouch samples keep contact foot stable while root advances.",
+    "Independent final-player platform check exposes full boots and prone limbs above the rendered pad."
+  ],
+  "limitations": [
+    "Procedural motion, not copied or motion-captured Battlefield/Delta Force animation.",
+    "Ground surface correction is visual; existing gameplay collision/navigation remains unchanged.",
+    "Local slope estimate does not solve arbitrary stairs or individual obstacle contacts.",
+    "Sequence and encoded-video keyframes inspected; browser local-file preview was unavailable, so no manual real-time playback judgment is claimed."
+  ]
+}

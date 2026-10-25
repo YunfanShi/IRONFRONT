@@ -10,6 +10,15 @@ namespace Ironfront.UnityPrototype
         private const float SightHalfAngle = 70f;
         private const float FireHalfAngle = 12f;
         private const float CombatTurnRate = 210f;
+        // These rockets are the engineer's existing anti-armor equipment, not
+        // the armor/repair gadget charges. Other classes do not receive any.
+        private const int EngineerRocketCapacity = 2;
+        private const float RocketCooldown = 10f;
+        private const float LauncherRaiseSeconds = .65f;
+        private const float RocketSafetyDistance = 10f;
+        private const float RocketVelocity = 110f;
+        private const float RocketFireHalfAngle = 1f;
+        private const float LauncherPitchLimit = 55f;
         private PrototypeRuntime runtime;
         private PrototypeNavigation navigation;
         private PrototypeCommander commander;
@@ -17,7 +26,7 @@ namespace Ironfront.UnityPrototype
         private int memberIndex;
         private Vector2 spawn;
         private Vector2 objective;
-        private List<Vector2> route = new List<Vector2>();
+        private readonly List<Vector2> route = new List<Vector2>(16);
         private int waypoint;
         private float repathAt;
         private float nextShot;
@@ -42,10 +51,21 @@ namespace Ironfront.UnityPrototype
         private int transportSeat = -1;
         private float boardAgainAt;
         private float boardingDeadline;
+        private bool receivedNetworkState;
+        private int rocketCount;
+        private float nextRocketAt;
+        private float launcherReadyAt;
+        private GameObject heldLauncher;
+        private IPrototypeVehicle heldRocketTarget;
 
         public PrototypeTeam Team { get; private set; }
+        public string DisplayName { get; private set; } = "Soldier";
         public PrototypeInfantryClass Class => kit.Role;
         public PrototypeInfantryKit Kit => kit;
+        public int RocketCount => rocketCount;
+        public float RocketReadyAt => Mathf.Max(nextRocketAt, launcherReadyAt);
+        public bool IsUsingLauncher => heldLauncher != null && heldLauncher.activeSelf;
+        public float LauncherAimPitch { get; private set; }
         public bool Alive => Health > 0f;
         public bool IsPassenger => transport != null;
         public float Health { get; private set; } = 100f;
@@ -63,6 +83,11 @@ namespace Ironfront.UnityPrototype
             runtime = game;
             navigation = nav;
             Team = team;
+            int nameOrdinal = 0;
+            foreach (PrototypeBot peer in game.Bots)
+                if (peer != this && peer.Team == team) nameOrdinal++;
+            DisplayName = PrototypeBotRoster.NameFor(team, nameOrdinal);
+            name = Team + " " + DisplayName;
             kit = new PrototypeInfantryKit(role);
             spawn = spawnPoint;
             objective = spawnPoint;
@@ -78,7 +103,7 @@ namespace Ironfront.UnityPrototype
             commander = assignedCommander;
             squad = assignedSquad;
             memberIndex = member;
-            name = Team + " Squad " + squad.Id + " / " + (member + 1);
+            name = Team + " " + DisplayName + " / Squad " + squad.Id;
         }
 
         public void SetObjective(Vector2 destination, string id)
@@ -101,18 +126,23 @@ namespace Ironfront.UnityPrototype
                 float.IsInfinity(position.x) || float.IsInfinity(position.y) ||
                 float.IsInfinity(position.z) || float.IsInfinity(yaw) ||
                 float.IsInfinity(health)) return;
+            bool wasAlive = Alive;
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
             Health = alive ? Mathf.Clamp(health, 0.01f, 100f) : 0f;
             if (visual != null) visual.SetVisible(alive);
             if (bodyCollider != null) bodyCollider.enabled = alive;
             TacticalState = alive ? PrototypeTacticalState.Advance : PrototypeTacticalState.Down;
+            if (receivedNetworkState && wasAlive && !Alive)
+                runtime.NotifyBotDowned(this);
+            receivedNetworkState = true;
         }
 
         private void Update()
         {
             if (runtime == null || runtime.IsNetworkReplica || !runtime.MatchStarted ||
-                runtime.Match.Winner.HasValue) return;
+                runtime.Match.Winner.HasValue || Time.timeScale <= 0f ||
+                runtime.PauseOpen && !runtime.IsNetworkSession) return;
             if (!Alive)
             {
                 TacticalState = PrototypeTacticalState.Down;
@@ -122,7 +152,7 @@ namespace Ironfront.UnityPrototype
             if (transport != null)
             {
                 if (!transport.Alive) DisembarkTransport();
-                else { TacticalState = PrototypeTacticalState.Hold; return; }
+                else { HideLauncher(); TacticalState = PrototypeTacticalState.Hold; return; }
             }
             kit.Tick(Time.time);
             TrySupportNearby();
@@ -141,8 +171,11 @@ namespace Ironfront.UnityPrototype
             if (inCombat)
             {
                 investigateUntil = 0f;
-                TurnToward(enemy, CombatTurnRate);
+                Vector2 facing = vehicle != null ? RocketAimMapPosition(vehicle) : enemy;
+                TurnToward(facing, CombatTurnRate);
             }
+            if (vehicle != null) ShowLauncher(vehicle);
+            else HideLauncher();
             if (inCombat && squad != null) squad.ReportContact(enemy, Time.time);
             if (inCombat && commander != null && Time.time - lastReportAt >= 1f)
             {
@@ -150,7 +183,8 @@ namespace Ironfront.UnityPrototype
                 lastReportAt = Time.time;
             }
             float enemyDistance = inCombat ? Vector2.Distance(MapPosition, enemy) : float.PositiveInfinity;
-            if (inCombat && IsAimedAtPosition(enemy) &&
+            if (vehicle != null) TryFireVehicleRocket(vehicle);
+            else if (inCombat && IsAimedAtPosition(enemy) &&
                 enemyDistance < kit.Weapon.MaxRange && Time.time >= nextShot &&
                 kit.TryFire(Time.time))
             {
@@ -159,8 +193,7 @@ namespace Ironfront.UnityPrototype
                 Vector3 origin = transform.position + Vector3.up * 0.55f;
                 Vector3 aim = player != null ? player.transform.position + Vector3.up * 1.1f :
                     remote != null ? remote.transform.position + Vector3.up * 1.1f :
-                    bot != null ? bot.transform.position :
-                    vehicle.VehicleTransform.position + Vector3.up * 1.2f;
+                    bot.transform.position;
                 float flight = Vector3.Distance(origin, aim) / kit.Weapon.MuzzleVelocity;
                 aim.y -= Physics.gravity.y * 0.5f * flight * flight;
                 float accuracy = Mathf.Lerp(0.78f, 0.32f,
@@ -173,6 +206,11 @@ namespace Ironfront.UnityPrototype
                 PrototypeBallisticProjectile.LaunchBullet(runtime, Team, transform,
                     origin, aim - origin, kit.Weapon, .29f);
             }
+
+            // A spent launcher is no reason to run into a nearby enemy hull.
+            // Keep observation separate from attack capability, so a vehicle
+            // inside the blast safety distance never becomes a rifle target.
+            if (vehicle == null && TryAvoidNearbyVehicle()) return;
 
             Vector2 threat = enemy;
             bool recentContact = !inCombat && squad != null &&
@@ -189,7 +227,7 @@ namespace Ironfront.UnityPrototype
                 Time.time >= nextCoverSearch && coverUntil <= Time.time)
             {
                 nextCoverSearch = Time.time + 3.5f;
-                Vector2 mate = squad.Members.Length > 1 ?
+                Vector2 mate = squad != null && squad.Members.Length > 1 ?
                     squad.Members[1 - memberIndex].ReservedCover : MapPosition;
                 if (PrototypeTactics.TryFindCover(MapPosition, threat, objective, mate,
                     navigation, out Vector2 chosen))
@@ -205,7 +243,7 @@ namespace Ironfront.UnityPrototype
                 if (Vector2.Distance(MapPosition, coverPoint) > 1.8f)
                 {
                     TacticalState = PrototypeTacticalState.SeekCover;
-                    MoveToward(coverPoint, false);
+                    MoveToward(coverPoint, false, null, vehicle);
                 }
                 else
                 {
@@ -243,14 +281,23 @@ namespace Ironfront.UnityPrototype
             if (inCombat)
             {
                 TacticalState = PrototypeTacticalState.Engage;
-                float preferredRange = memberIndex == 0 ? 24f : 38f;
+                float preferredRange = vehicle != null ? 45f : memberIndex == 0 ? 24f : 38f;
+                Vector2 engageFacing = vehicle != null ? RocketAimMapPosition(vehicle) : enemy;
+                // An engineer waits for a reload at a useful stand-off range;
+                // capture orders must not walk them into the enemy hull.
+                if (vehicle != null && enemyDistance < 25f)
+                {
+                    Vector2 away = (MapPosition - enemy).normalized;
+                    if (away.sqrMagnitude < .5f) away = -new Vector2(transform.forward.x, transform.forward.z);
+                    MoveToward(MapPosition + away * 18f, false, engageFacing, vehicle);
+                }
                 // An attacker that stops at firing range can remain outside the
                 // 25 m capture circle forever, especially on the long C-D route.
                 // Keep shooting while pressing the assigned objective.
-                if (squad != null && squad.Mission == PrototypeMission.Capture &&
+                else if (squad != null && squad.Mission == PrototypeMission.Capture &&
                     Vector2.Distance(MapPosition, objective) > 20f)
-                    MoveToward(objective, true, enemy);
-                else if (enemyDistance > preferredRange) MoveToward(enemy, false, enemy);
+                    MoveToward(objective, true, engageFacing, vehicle);
+                else if (enemyDistance > preferredRange) MoveToward(enemy, false, engageFacing, vehicle);
                 else { lastProgressAt = Time.time; lastProgressPosition = MapPosition; }
                 return;
             }
@@ -362,13 +409,17 @@ namespace Ironfront.UnityPrototype
                 selectedVehicle = null;
                 selectedRemote = null;
             }
+            // Anti-armor carriers give an active, visible vehicle priority.
+            // A soldier with no effective explosive keeps the infantry target
+            // above instead of repeatedly wasting rifle rounds on the hull.
+            float nearestVehicle = kit.DetectionRange;
             foreach (IPrototypeVehicle candidate in runtime.Vehicles)
             {
-                if (!candidate.Alive || candidate.Team == Team || !candidate.IsActiveThreat) continue;
+                if (!CanAttackVehicle(candidate)) continue;
                 Vector2 point = candidate.MapPosition;
-                float distance = Vector2.Distance(position, point);
-                if (distance >= bestDistance || !CanSeePosition(point)) continue;
-                bestDistance = distance;
+                float distance = Vector3.Distance(RocketEyePosition, VehicleAimPoint(candidate));
+                if (distance >= nearestVehicle) continue;
+                nearestVehicle = distance;
                 selectedPosition = point;
                 selectedBot = null;
                 selectedPlayer = null;
@@ -378,13 +429,218 @@ namespace Ironfront.UnityPrototype
             return selectedPosition;
         }
 
+        private Vector3 RocketEyePosition => transform.position + Vector3.up * .55f;
+
+        private static Collider VehicleHull(IPrototypeVehicle vehicle)
+        {
+            if (vehicle == null || vehicle.VehicleTransform == null ||
+                !vehicle.VehicleTransform.gameObject.activeInHierarchy) return null;
+            Collider hull = vehicle.VehicleTransform.GetComponent<Collider>();
+            if (hull != null && hull.enabled && !hull.isTrigger) return hull;
+            foreach (Collider candidate in vehicle.VehicleTransform.GetComponentsInChildren<Collider>())
+                if (candidate.enabled && !candidate.isTrigger) return candidate;
+            return null;
+        }
+
+        private static Vector3 VehicleAimPoint(IPrototypeVehicle vehicle)
+        {
+            Collider hull = VehicleHull(vehicle);
+            return hull != null ? hull.bounds.center : vehicle.VehicleTransform.position;
+        }
+
+        // This is also the selection policy: cooldown does not invalidate an
+        // otherwise useful target, but exhausted inventory and ineffective
+        // damage types do. Aircraft are checked at their actual altitude.
+        public bool CanAttackVehicle(IPrototypeVehicle vehicle)
+        {
+            if (kit == null || kit.Role != PrototypeInfantryClass.Engineer ||
+                rocketCount <= 0 ||
+                PrototypeVehicleArmor.Resolve(vehicle, 210f,
+                    PrototypeDamageClass.AntiArmorRocket) <= 0f ||
+                !CanObserveVehicle(vehicle, out Collider hull)) return false;
+            Vector3 origin = RocketEyePosition;
+            Vector3 delta = hull.bounds.center - origin;
+            float horizontal = new Vector2(delta.x, delta.z).magnitude;
+            return Vector3.Distance(origin, hull.ClosestPoint(origin)) >= RocketSafetyDistance &&
+                Mathf.Abs(Mathf.Atan2(delta.y, Mathf.Max(.01f, horizontal)) * Mathf.Rad2Deg) <=
+                    LauncherPitchLimit;
+        }
+
+        private bool CanObserveVehicle(IPrototypeVehicle vehicle, out Collider hull)
+        {
+            hull = null;
+            if (!Alive || IsPassenger || vehicle == null || !vehicle.Alive ||
+                vehicle.Team == Team || !vehicle.IsActiveThreat || vehicle.VehicleTransform == null)
+                return false;
+            Physics.SyncTransforms();
+            hull = VehicleHull(vehicle);
+            if (hull == null) return false;
+            Vector3 origin = RocketEyePosition;
+            Vector3 point = hull.bounds.center;
+            if (!Finite(origin) || !Finite(point)) return false;
+            Vector3 delta = point - origin;
+            if (delta.magnitude >= kit.DetectionRange ||
+                !IsFacing(vehicle.MapPosition, SightHalfAngle)) return false;
+            return RocketSightClear(origin, point, vehicle.VehicleTransform, false);
+        }
+
+        private bool TryAvoidNearbyVehicle()
+        {
+            if (kit.Role != PrototypeInfantryClass.Engineer) return false;
+            IPrototypeVehicle nearest = null;
+            float clearance = RocketSafetyDistance + 4f;
+            foreach (IPrototypeVehicle candidate in runtime.Vehicles)
+            {
+                if (!CanObserveVehicle(candidate, out Collider hull)) continue;
+                float distance = Vector3.Distance(RocketEyePosition, hull.ClosestPoint(RocketEyePosition));
+                if (distance >= clearance) continue;
+                clearance = distance;
+                nearest = candidate;
+            }
+            if (nearest == null) return false;
+            Vector2 away = (MapPosition - nearest.MapPosition).normalized;
+            if (away.sqrMagnitude < .5f) away = -new Vector2(transform.forward.x, transform.forward.z);
+            TacticalState = PrototypeTacticalState.SeekCover;
+            MoveToward(MapPosition + away * 18f, false, nearest.MapPosition, nearest);
+            return true;
+        }
+
+        private static bool Finite(Vector3 value) =>
+            !float.IsNaN(value.x) && !float.IsNaN(value.y) && !float.IsNaN(value.z) &&
+            !float.IsInfinity(value.x) && !float.IsInfinity(value.y) && !float.IsInfinity(value.z);
+
+        private bool RocketSightClear(Vector3 origin, Vector3 point, Transform target, bool swept)
+        {
+            if (PrototypeSmokeCloud.SegmentBlocked(origin, point)) return false;
+            Vector3 delta = point - origin;
+            if (delta.sqrMagnitude < .0001f) return false;
+            Physics.SyncTransforms();
+            RaycastHit[] hits = swept ? Physics.SphereCastAll(origin, .09f, delta.normalized,
+                delta.magnitude, ~0, QueryTriggerInteraction.Ignore) :
+                Physics.RaycastAll(origin, delta.normalized, delta.magnitude,
+                    ~0, QueryTriggerInteraction.Ignore);
+            foreach (RaycastHit hit in hits)
+                if (!hit.collider.transform.IsChildOf(transform) &&
+                    (target == null || !hit.collider.transform.IsChildOf(target))) return false;
+            return true;
+        }
+
+        private Vector3 RocketAimPoint(IPrototypeVehicle vehicle, Vector3 origin)
+        {
+            Vector3 point = VehicleAimPoint(vehicle);
+            float speed = vehicle.Speed;
+            Vector3 velocity = !float.IsNaN(speed) && !float.IsInfinity(speed) ?
+                vehicle.VehicleTransform.forward * speed : Vector3.zero;
+            float flight = Vector3.Distance(point, origin) / RocketVelocity;
+            // A second estimate includes the target's own travel time. This is
+            // an unguided rocket, not a new instant-lock anti-air weapon.
+            for (int step = 0; step < 2; step++)
+                flight = Vector3.Distance(point + velocity * flight, origin) / RocketVelocity;
+            point += velocity * flight;
+            point.y -= Physics.gravity.y * .075f * flight * flight;
+            return point;
+        }
+
+        private Vector2 RocketAimMapPosition(IPrototypeVehicle vehicle)
+        {
+            Vector3 point = RocketAimPoint(vehicle, RocketEyePosition);
+            return new Vector2(point.x, point.z);
+        }
+
+        private void ShowLauncher(IPrototypeVehicle target)
+        {
+            if (heldLauncher == null)
+                heldLauncher = PrototypeEquipmentVisual.BuildLauncher(visual.WeaponMount, runtime);
+            bool newlyRaised = !IsUsingLauncher || heldRocketTarget == null;
+            heldRocketTarget = target;
+            heldLauncher.SetActive(true);
+            if (visual.HeldWeapon != null) visual.HeldWeapon.SetActive(false);
+            if (newlyRaised)
+            {
+                launcherReadyAt = Time.time + LauncherRaiseSeconds;
+                visual.SetHeldEquipment(heldLauncher, PrototypeHeldEquipment.Launcher);
+            }
+            AlignLauncher(target);
+        }
+
+        private void AlignLauncher(IPrototypeVehicle target)
+        {
+            // Recompute after posing: the actual muzzle moves when the shoulder
+            // launcher is tilted, and both hands follow that same equipment.
+            for (int step = 0; step < 2; step++)
+            {
+                Vector3 origin = heldLauncher.transform.TransformPoint(new Vector3(0f, 0f, .76f));
+                Vector3 delta = RocketAimPoint(target, origin) - origin;
+                LauncherAimPitch = -Mathf.Clamp(Mathf.Atan2(delta.y,
+                    Mathf.Max(.01f, new Vector2(delta.x, delta.z).magnitude)) * Mathf.Rad2Deg,
+                    -LauncherPitchLimit, LauncherPitchLimit);
+                visual.RefreshPose(true);
+            }
+        }
+
+        private void HideLauncher()
+        {
+            heldRocketTarget = null;
+            LauncherAimPitch = 0f;
+            if (heldLauncher == null || !heldLauncher.activeSelf) return;
+            heldLauncher.SetActive(false);
+            visual.SetHeldEquipment(null, PrototypeHeldEquipment.Firearm);
+            if (visual.HeldWeapon != null) visual.HeldWeapon.SetActive(true);
+        }
+
+        private bool TryFireVehicleRocket(IPrototypeVehicle target)
+        {
+            if (runtime == null || runtime.IsNetworkReplica || !runtime.MatchStarted ||
+                runtime.Match.Winner.HasValue || Time.timeScale <= 0f ||
+                runtime.PauseOpen && !runtime.IsNetworkSession || !IsUsingLauncher ||
+                Time.time < RocketReadyAt || !CanAttackVehicle(target)) return false;
+            AlignLauncher(target);
+            Vector3 origin = heldLauncher.transform.TransformPoint(new Vector3(0f, 0f, .76f));
+            Vector3 direction = heldLauncher.transform.forward;
+            Vector3 point = RocketAimPoint(target, origin);
+            Collider hull = VehicleHull(target);
+            if (!Finite(origin) || !Finite(point) || Vector3.Distance(origin, point) >= 160f ||
+                hull == null || Vector3.Distance(origin, hull.ClosestPoint(origin)) < RocketSafetyDistance ||
+                Vector3.Angle(direction, point - origin) > RocketFireHalfAngle ||
+                !RocketSightClear(RocketEyePosition, origin, null, true) ||
+                !RocketSightClear(origin, point, target.VehicleTransform, true) ||
+                !RocketFlightClear(origin, direction, Vector3.Distance(origin, point),
+                    target.VehicleTransform)) return false;
+            foreach (Collider nearby in Physics.OverlapSphere(origin, .1f, ~0,
+                QueryTriggerInteraction.Ignore))
+                if (!nearby.transform.IsChildOf(transform)) return false;
+            if (PrototypeBallisticProjectile.LaunchRocket(runtime, Team, transform,
+                origin, direction) == null) return false;
+            rocketCount--;
+            nextRocketAt = Time.time + RocketCooldown;
+            return true;
+        }
+
+        private bool RocketFlightClear(Vector3 origin, Vector3 direction, float distance, Transform target)
+        {
+            float flight = distance / RocketVelocity;
+            int steps = Mathf.Max(1, Mathf.CeilToInt(flight / .06f));
+            Vector3 previous = origin;
+            for (int step = 1; step <= steps; step++)
+            {
+                float time = flight * step / steps;
+                // Match the existing rocket's reduced-gravity flight, checking
+                // the curved corridor as well as the straight optical sight.
+                Vector3 point = origin + direction * (RocketVelocity * time) +
+                    Physics.gravity * (.075f * time * time);
+                if (!RocketSightClear(previous, point, target, true)) return false;
+                previous = point;
+            }
+            return true;
+        }
+
         // Horizontal body direction is the soldier's view. Distance and cover
         // alone must not reveal an enemy standing behind them.
         public bool CanSeePosition(Vector2 point)
         {
             if (Vector2.Distance(MapPosition, point) >= kit.DetectionRange ||
                 !IsFacing(point, SightHalfAngle)) return false;
-            return !PrototypeLayout.LineBlocked(MapPosition, point, 0.1f);
+            return !PrototypeLayout.SightBlocked(MapPosition, point, 0.1f);
         }
 
         public bool IsAimedAtPosition(Vector2 point) => IsFacing(point, FireHalfAngle);
@@ -457,6 +713,7 @@ namespace Ironfront.UnityPrototype
 
         internal void BoardTransport(PrototypeTransportVehicle vehicle, int seat)
         {
+            HideLauncher();
             transport = vehicle;
             boardingTarget = null;
             transportSeat = seat;
@@ -567,12 +824,13 @@ namespace Ironfront.UnityPrototype
             if (Alive) Health = Mathf.Clamp(health, Health, 100f);
         }
 
-        private void MoveToward(Vector2 destination, bool onMission, Vector2? lookAt = null)
+        private void MoveToward(Vector2 destination, bool onMission, Vector2? lookAt = null,
+            IPrototypeVehicle keepClearOf = null)
         {
             if (Time.time >= repathAt || (route.Count > 0 &&
                 Vector2.Distance(route[route.Count - 1], destination) > 8f))
             {
-                route = navigation.Find(MapPosition, destination);
+                navigation.Find(MapPosition, destination, route);
                 waypoint = 0;
                 repathAt = Time.time + 2f;
             }
@@ -585,7 +843,19 @@ namespace Ironfront.UnityPrototype
                 waypoint++;
             if (waypoint >= route.Count) return;
 
-            Vector2 next = Vector2.MoveTowards(MapPosition, route[waypoint], 5.8f * Time.deltaTime);
+            float pace = TacticalState == PrototypeTacticalState.Revive || TacticalState == PrototypeTacticalState.InCover ? 2f : 5.8f;
+            Vector2 next = Vector2.MoveTowards(MapPosition, route[waypoint], pace * Time.deltaTime);
+            if (keepClearOf != null)
+            {
+                Collider hull = VehicleHull(keepClearOf);
+                Vector3 nextEye = new Vector3(next.x,
+                    PrototypeLayout.HeightAt(next.x, next.y) + 1.55f, next.y);
+                float nowClearance = hull != null ? Vector3.Distance(RocketEyePosition,
+                    hull.ClosestPoint(RocketEyePosition)) : float.PositiveInfinity;
+                float nextClearance = hull != null ? Vector3.Distance(nextEye,
+                    hull.ClosestPoint(nextEye)) : float.PositiveInfinity;
+                if (nextClearance < RocketSafetyDistance + 2f && nextClearance < nowClearance) return;
+            }
             if (PrototypeLayout.Collides(next, 0.5f))
             {
                 repathAt = 0f;
@@ -616,7 +886,8 @@ namespace Ironfront.UnityPrototype
 
         public void TakeDamage(float amount, Vector2? sourcePosition = null)
         {
-            if (runtime == null || runtime.IsNetworkReplica || !Alive || IsPassenger) return;
+            if (runtime == null || runtime.IsNetworkReplica || !Alive || IsPassenger ||
+                float.IsNaN(amount) || float.IsInfinity(amount) || amount <= 0f) return;
             Health = Mathf.Max(0f, Health - kit.AbsorbDamage(amount));
             underFireUntil = Time.time + 4f;
             if (sourcePosition.HasValue && Health > 0f)
@@ -625,6 +896,9 @@ namespace Ironfront.UnityPrototype
                 investigateUntil = Time.time + 1.25f;
             }
             if (Alive) return;
+            HideLauncher();
+            runtime.Scores?.ResolveDefeat(this, Team);
+            runtime.NotifyBotDowned(this);
             runtime.Match.RecordDeath(Team);
             respawnAt = Time.time + 6f;
             visual.SetVisible(false);
@@ -635,11 +909,15 @@ namespace Ironfront.UnityPrototype
         private void Respawn()
         {
             if (transport != null) DisembarkTransport();
+            HideLauncher();
             boardingTarget = null;
             kit.ResetForSpawn();
+            rocketCount = kit.Role == PrototypeInfantryClass.Engineer ? EngineerRocketCapacity : 0;
+            nextRocketAt = launcherReadyAt = 0f;
             Vector2 point = spawn;
             transform.position = new Vector3(point.x, PrototypeLayout.HeightAt(point.x, point.y) + 1f, point.y);
             Health = 100f;
+            runtime.Scores?.BeginLife(this);
             route.Clear();
             waypoint = 0;
             repathAt = 0f;

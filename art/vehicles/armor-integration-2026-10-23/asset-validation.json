@@ -1,0 +1,158 @@
+{
+  "preserved_static_blends": {
+    "art/vehicles/t90-bastion/t90-red.blend": true,
+    "art/vehicles/t90-bastion/t90-optimized.blend": true,
+    "art/vehicles/v12-lancer/v12-red.blend": true,
+    "art/vehicles/v12-lancer/v12-optimized.blend": true
+  },
+  "assets": {
+    "t90": {
+      "scale": 9.019718524891093,
+      "lods": [
+        {
+          "lod": 0,
+          "unity_source_triangles": 83938,
+          "fresh_blender_import_triangles": 83938,
+          "mesh_objects": 5,
+          "invalid_vertices": 0,
+          "degenerate_faces": 0,
+          "sha256": "332ef306bb137d993195ac6ac368bf8be77038711fbdd50287f79cc660a27c9a"
+        },
+        {
+          "lod": 1,
+          "unity_source_triangles": 42983,
+          "fresh_blender_import_triangles": 42981,
+          "mesh_objects": 5,
+          "invalid_vertices": 0,
+          "degenerate_faces": 0,
+          "sha256": "1b085bb6aa8d3c7878c3219fd6deef8072259c737a1d3ae5ec4872611150d7d8"
+        },
+        {
+          "lod": 2,
+          "unity_source_triangles": 22351,
+          "fresh_blender_import_triangles": 22351,
+          "mesh_objects": 5,
+          "invalid_vertices": 0,
+          "degenerate_faces": 0,
+          "sha256": "a07f48b1d53e824a52cc26989e680f708cf62d2dcb90ac5569a30103cc639313"
+        }
+      ],
+      "anchors": {
+        "T90_LOD0": [
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "Turret": [
+          0.0,
+          1.9482592344284058,
+          -0.0
+        ],
+        "Barrels": [
+          0.0,
+          2.43532395362854,
+          2.43532395362854
+        ],
+        "Muzzle": [
+          -0.016516994684934616,
+          2.4044463634490967,
+          6.08492374420166
+        ]
+      }
+    },
+    "v12": {
+      "scale": 5.947876595906408,
+      "lods": [
+        {
+          "lod": 0,
+          "unity_source_triangles": 88749,
+          "fresh_blender_import_triangles": 88729,
+          "mesh_objects": 13,
+          "invalid_vertices": 0,
+          "degenerate_faces": 0,
+          "sha256": "ed44527ce43c4941ecb2a97eb2edc8daf828ce67c223f5b14ff34d387e97c6bb"
+        },
+        {
+          "lod": 1,
+          "unity_source_triangles": 48995,
+          "fresh_blender_import_triangles": 48966,
+          "mesh_objects": 13,
+          "invalid_vertices": 0,
+          "degenerate_faces": 0,
+          "sha256": "41740bb150c11ff02b7f6eaaddc5d951e3e9e64353dcbf29bb5ff55e2f54edd6"
+        },
+        {
+          "lod": 2,
+          "unity_source_triangles": 27929,
+          "fresh_blender_import_triangles": 27919,
+          "mesh_objects": 13,
+          "invalid_vertices": 0,
+          "degenerate_faces": 0,
+          "sha256": "0fc07f65e639055622b9cdee9250215ba73d9105c26f01d6f9c5aebbaa23e49a"
+        }
+      ],
+      "anchors": {
+        "V12_LOD0": [
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "Turret": [
+          0.0,
+          2.087704658508301,
+          -0.2676544487476349
+        ],
+        "Barrels": [
+          0.0,
+          2.3969943523406982,
+          0.862442135810852
+        ],
+        "Muzzle": [
+          0.004536523949354887,
+          2.389951705932617,
+          3.2074475288391113
+        ],
+        "Wheel_L_0_LOD0": [
+          -1.8553564548492432,
+          0.6304749250411987,
+          1.3442201614379883
+        ],
+        "Wheel_L_1_LOD0": [
+          -1.853053331375122,
+          0.6304749250411987,
+          0.4401428699493408
+        ],
+        "Wheel_L_2_LOD0": [
+          -1.87062406539917,
+          0.6304749250411987,
+          -0.6661621928215027
+        ],
+        "Wheel_L_3_LOD0": [
+          -1.8554216623306274,
+          0.6304749250411987,
+          -1.5642915964126587
+        ],
+        "Wheel_R_0_LOD0": [
+          1.854482650756836,
+          0.6304749250411987,
+          1.3442201614379883
+        ],
+        "Wheel_R_1_LOD0": [
+          1.8518296480178833,
+          0.6304749250411987,
+          0.4401428699493408
+        ],
+        "Wheel_R_2_LOD0": [
+          1.8702975511550903,
+          0.6304749250411987,
+          -0.6661621928215027
+        ],
+        "Wheel_R_3_LOD0": [
+          1.854837417602539,
+          0.6304749250411987,
+          -1.5642915964126587
+        ]
+      }
+    }
+  }
+}

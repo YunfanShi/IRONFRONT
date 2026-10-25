@@ -1,0 +1,143 @@
+{
+  "file": "h8-kestrel/blue-h8-lod1.glb",
+  "sha256": "9bd5aa1fd6ca786f4273db6cbe9d5ab9b813130158ad25edcaa1b1f6881fa557",
+  "bytes": 11657972,
+  "meshes": 9,
+  "triangles": 25656,
+  "min": [
+    -6.385756969451904,
+    -8.380709648132324,
+    0.0011569985654205084
+  ],
+  "max": [
+    6.376863956451416,
+    10.825979232788086,
+    8.178330421447754
+  ],
+  "dimensions": [
+    12.76262092590332,
+    19.20668888092041,
+    8.177173422882333
+  ],
+  "nodes": [
+    "Body",
+    "ChinGun",
+    "H8_Root",
+    "MainRotor",
+    "PortWeaponPod",
+    "RotorBlades",
+    "RotorCap",
+    "RotorHub",
+    "StarboardWeaponPod",
+    "TailRotor",
+    "TailRotorBlades",
+    "TailRotorCap"
+  ],
+  "mesh_details": [
+    {
+      "name": "Body",
+      "triangles": 21499,
+      "geometric_boundary_edges": 3993,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Blue_PBR"
+      ]
+    },
+    {
+      "name": "ChinGun",
+      "triangles": 648,
+      "geometric_boundary_edges": 144,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Blue_PBR"
+      ]
+    },
+    {
+      "name": "RotorBlades",
+      "triangles": 80,
+      "geometric_boundary_edges": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 0,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    },
+    {
+      "name": "RotorCap",
+      "triangles": 76,
+      "geometric_boundary_edges": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    },
+    {
+      "name": "RotorHub",
+      "triangles": 1599,
+      "geometric_boundary_edges": 365,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Blue_PBR"
+      ]
+    },
+    {
+      "name": "PortWeaponPod",
+      "triangles": 800,
+      "geometric_boundary_edges": 382,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Blue_PBR"
+      ]
+    },
+    {
+      "name": "StarboardWeaponPod",
+      "triangles": 798,
+      "geometric_boundary_edges": 408,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_Blue_PBR"
+      ]
+    },
+    {
+      "name": "TailRotorBlades",
+      "triangles": 80,
+      "geometric_boundary_edges": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 0,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    },
+    {
+      "name": "TailRotorCap",
+      "triangles": 76,
+      "geometric_boundary_edges": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "H8_RotorGraphite"
+      ]
+    }
+  ],
+  "texture_dimensions": {
+    "h8_blue_albedo_2k": [
+      2048,
+      2048
+    ],
+    "h8_orm_2k": [
+      2048,
+      2048
+    ],
+    "h8_normal_2k": [
+      2048,
+      2048
+    ]
+  },
+  "pass": true
+}

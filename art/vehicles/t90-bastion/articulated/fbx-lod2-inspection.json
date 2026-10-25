@@ -1,0 +1,599 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/t90-bastion/articulated/exports/t90-articulated-lod2.fbx",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 0,
+      "images": [],
+      "name": "JointSteel",
+      "node_count": 2,
+      "use_nodes": true
+    },
+    {
+      "image_texture_nodes": 2,
+      "images": [
+        "t90_basecolor_2k.png",
+        "t90_normal_2k.png"
+      ],
+      "name": "t90_Blue_PBR",
+      "node_count": 5,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "JointSteel",
+    "t90_Blue_PBR"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "node_0.003",
+      "degenerate_faces": 0,
+      "edges": 639,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "t90_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Cannon_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 426,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 426,
+      "source_polygons": 426,
+      "source_vertices": 207,
+      "triangles": 426,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 207,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.387434,
+          -6.044442,
+          2.084275
+        ],
+        [
+          0.40312,
+          -2.480422,
+          2.755081
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "Sphere.002",
+      "degenerate_faces": 0,
+      "edges": 552,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "GunTrunnion_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 288,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 288,
+      "source_polygons": 288,
+      "source_vertices": 266,
+      "triangles": 528,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 266,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.32471,
+          -2.760033,
+          2.110615
+        ],
+        [
+          0.32471,
+          -2.110614,
+          2.760034
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 3,
+      "connected_components": 3,
+      "data_name": "node_0.008",
+      "degenerate_faces": 0,
+      "edges": 25167,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "t90_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Hull_LOD2",
+      "non_manifold_edges": 3,
+      "polygons": 16777,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 16777,
+      "source_polygons": 16777,
+      "source_vertices": 8223,
+      "triangles": 16777,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 8223,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -2.735988,
+          -3.730189,
+          0.00123
+        ],
+        [
+          2.763575,
+          4.303525,
+          2.590503
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "node_0.009",
+      "degenerate_faces": 0,
+      "edges": 6648,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "t90_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "TurretArmor_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 4432,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 4432,
+      "source_polygons": 4432,
+      "source_vertices": 2172,
+      "triangles": 4432,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 2172,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -2.514936,
+          -2.480422,
+          1.948259
+        ],
+        [
+          2.647458,
+          2.180389,
+          4.509374
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "Cylinder.002",
+      "degenerate_faces": 0,
+      "edges": 144,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "TurretBearing_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 50,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 50,
+      "source_polygons": 50,
+      "source_vertices": 96,
+      "triangles": 188,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 96,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -1.533352,
+          -1.533352,
+          1.840022
+        ],
+        [
+          1.533352,
+          1.533352,
+          2.002378
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -2.435324,
+        0.487065
+      ],
+      "name": "Barrels.002",
+      "parent": "Turret.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.790554,
+        3.56402,
+        0.670806
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Cannon_LOD2",
+      "parent": "Barrels.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.64942,
+        0.64942,
+        0.64942
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "GunTrunnion_LOD2",
+      "parent": "Barrels.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        5.499563,
+        8.033714,
+        2.589272
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Hull_LOD2",
+      "parent": "T90_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.011933,
+        -3.649119,
+        -0.018129
+      ],
+      "name": "Muzzle.002",
+      "parent": "Barrels.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "T90_LOD2",
+      "parent": null,
+      "rotation_euler": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        1.948259
+      ],
+      "name": "Turret.002",
+      "parent": "T90_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        5.162395,
+        4.66081,
+        2.561114
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "TurretArmor_LOD2",
+      "parent": "Turret.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        3.066704,
+        3.066704,
+        0.162355
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        1.9212
+      ],
+      "name": "TurretBearing_LOD2",
+      "parent": "T90_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        5.499563,
+        10.347967,
+        4.508144
+      ],
+      "max": [
+        2.763575,
+        4.303525,
+        4.509374
+      ],
+      "min": [
+        -2.735988,
+        -6.044442,
+        0.00123
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 3,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 33150,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 2,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 2,
+    "mesh_objects": 5,
+    "missing_material_faces": 0,
+    "node_materials": 2,
+    "non_manifold_edges": 3,
+    "objects": 9,
+    "polygons": 21973,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 21973,
+    "textured_materials": 1,
+    "triangles": 22351,
+    "uv_mapped_meshes": 5,
+    "vertices": 10964,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "task": "Optimize the five supplied vehicle GLBs using the previous static asset workflow",
+  "date": "2026-10-23",
+  "assets": ["t90", "v12", "u8", "m2", "r3"],
+  "source_appearance": "Preserve supplied proportions, orientation, normalized scale, UVs and paint",
+  "geometry": "Weld coincident glTF seam vertices before independent LOD decimation; recompute weighted panel normals",
+  "triangle_budgets": {
+    "t90": [80000, 40000, 20000],
+    "v12": [70000, 35000, 17500],
+    "u8": [60000, 30000, 15000],
+    "m2": [50000, 25000, 12500],
+    "r3": [50000, 25000, 12500]
+  },
+  "textures": "2048 x 2048 PBR PNGs, packed into GLB and blend, relative textures for FBX",
+  "deliverables": "Three GLBs, three FBXs, one editable blend and build metrics per vehicle",
+  "scope": "Static mesh optimization; articulation, red paint, physical scale calibration and Unity integration are subsequent work",
+  "user_instruction": "Proceed directly; no separate quality review or inspection requested",
+  "excluded": ["pre-optimization quality audit", "full multiview quality review", "fresh-import validation suite", "Unity Play Mode checks"],
+  "build_guards": "Retain existing in-process export assertions to detect build failures",
+  "approval_gates": []
+}

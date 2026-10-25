@@ -1,0 +1,1125 @@
+PASS
+Version=0.63.1
+RuntimeErrors=0
+PASS: Real application opens to lobby before battle
+PASS: Actual UI Toolkit menu initializes without fallback
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 960x600
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 960x600
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 960x600
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 960x600
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 960x600
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 960x600
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 960x600
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 960x600
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 960x600
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 960x600
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 960x600
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 960x600
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 960x600
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 960x600
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 960x600
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 960x600
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 1280x800
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 1280x800
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 1280x800
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 1280x800
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 1280x800
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 1280x800
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 1280x800
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 1280x800
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1280x800
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1280x800
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1280x800
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1280x800
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1280x800
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1280x800
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1280x800
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1280x800
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 1600x900
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 1600x900
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 1600x900
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 1600x900
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 1600x900
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 1600x900
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 1600x900
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 1600x900
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1600x900
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1600x900
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1600x900
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1600x900
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1600x900
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1600x900
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1600x900
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1600x900
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 1920x1080
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 1920x1080
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 1920x1080
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 1920x1080
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 1920x1080
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 1920x1080
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 1920x1080
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 1920x1080
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1920x1080
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1920x1080
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1920x1080
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1920x1080
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1920x1080
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1920x1080
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1920x1080
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1920x1080
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 2560x1080
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 2560x1080
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 2560x1080
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 2560x1080
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 2560x1080
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 2560x1080
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 2560x1080
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 2560x1080
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 2560x1080
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 2560x1080
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 2560x1080
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 2560x1080
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 2560x1080
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 2560x1080
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 2560x1080
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 2560x1080
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Calling card is bound to the actual editable player name
+PASS: Button exists: browse-operation
+PASS: Right mission action opens existing operation selector
+PASS: Breakthrough selection uses original mode callback
+PASS: Button exists: operation-back
+PASS: Return to lobby updates mission summary
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 1600x900
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 1600x900
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 1600x900
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 1600x900
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 1600x900
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 1600x900
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 1600x900
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 1600x900
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1600x900
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1600x900
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1600x900
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1600x900
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1600x900
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1600x900
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1600x900
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1600x900
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Button exists: tab-loadout
+PASS: Button exists: class-assault
+PASS: Button exists: slot-primary
+PASS: Button exists: weapon-carbine
+PASS: Button exists: loadout-picker-done
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 突击兵 resolves to embedded LobbyHeavy
+PASS: 突击兵 has all glyphs in its embedded face: 突击兵
+PASS: Actual font face is used without synthetic bold
+PASS: 突击兵 fits its text area at 960x600
+PASS: 弹药包 resolves to embedded LobbyHeavy
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 960x600
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 960x600
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: 
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 960x600
+PASS: 571 RPM resolves to embedded LobbyRegular
+PASS: 571 RPM has all glyphs in its embedded face: 
+PASS: Actual font face is used without synthetic bold
+PASS: 571 RPM fits its text area at 960x600
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 960x600
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: 
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 960x600
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 弹药包 resolves to embedded LobbyMedium
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 960x600
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 960x600
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 突击兵 resolves to embedded LobbyHeavy
+PASS: 突击兵 has all glyphs in its embedded face: 突击兵
+PASS: Actual font face is used without synthetic bold
+PASS: 突击兵 fits its text area at 1280x800
+PASS: 弹药包 resolves to embedded LobbyHeavy
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1280x800
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1280x800
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1280x800
+PASS: 571 RPM resolves to embedded LobbyRegular
+PASS: 571 RPM has all glyphs in its embedded face: 571 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 571 RPM fits its text area at 1280x800
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1280x800
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1280x800
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 弹药包 resolves to embedded LobbyMedium
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1280x800
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1280x800
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 突击兵 resolves to embedded LobbyHeavy
+PASS: 突击兵 has all glyphs in its embedded face: 突击兵
+PASS: Actual font face is used without synthetic bold
+PASS: 突击兵 fits its text area at 1600x900
+PASS: 弹药包 resolves to embedded LobbyHeavy
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1600x900
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1600x900
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1600x900
+PASS: 571 RPM resolves to embedded LobbyRegular
+PASS: 571 RPM has all glyphs in its embedded face: 571 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 571 RPM fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 弹药包 resolves to embedded LobbyMedium
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1600x900
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 突击兵 resolves to embedded LobbyHeavy
+PASS: 突击兵 has all glyphs in its embedded face: 突击兵
+PASS: Actual font face is used without synthetic bold
+PASS: 突击兵 fits its text area at 1920x1080
+PASS: 弹药包 resolves to embedded LobbyHeavy
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1920x1080
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1920x1080
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1920x1080
+PASS: 571 RPM resolves to embedded LobbyRegular
+PASS: 571 RPM has all glyphs in its embedded face: 571 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 571 RPM fits its text area at 1920x1080
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1920x1080
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1920x1080
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 弹药包 resolves to embedded LobbyMedium
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1920x1080
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1920x1080
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 突击兵 resolves to embedded LobbyHeavy
+PASS: 突击兵 has all glyphs in its embedded face: 突击兵
+PASS: Actual font face is used without synthetic bold
+PASS: 突击兵 fits its text area at 2560x1080
+PASS: 弹药包 resolves to embedded LobbyHeavy
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 2560x1080
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 2560x1080
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 2560x1080
+PASS: 571 RPM resolves to embedded LobbyRegular
+PASS: 571 RPM has all glyphs in its embedded face: 571 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 571 RPM fits its text area at 2560x1080
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 2560x1080
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 2560x1080
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 弹药包 resolves to embedded LobbyMedium
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 2560x1080
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 2560x1080
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: Button exists: class-assault
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 突击兵 resolves to embedded LobbyHeavy
+PASS: 突击兵 has all glyphs in its embedded face: 突击兵
+PASS: Actual font face is used without synthetic bold
+PASS: 突击兵 fits its text area at 1600x900
+PASS: 弹药包 resolves to embedded LobbyHeavy
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1600x900
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1600x900
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1600x900
+PASS: 571 RPM resolves to embedded LobbyRegular
+PASS: 571 RPM has all glyphs in its embedded face: 571 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 571 RPM fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: IF-27 卡宾枪 resolves to embedded LobbyMedium
+PASS: IF-27 卡宾枪 has all glyphs in its embedded face: IF-27 卡宾枪
+PASS: Actual font face is used without synthetic bold
+PASS: IF-27 卡宾枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 弹药包 resolves to embedded LobbyMedium
+PASS: 弹药包 has all glyphs in its embedded face: 弹药包
+PASS: Actual font face is used without synthetic bold
+PASS: 弹药包 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1600x900
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: Button exists: slot-primary
+PASS: Primary card opens selection panel
+PASS: Modal blocks keyboard and pointer interaction with underlying equipment/footer
+PASS: Picker panel stays on screen
+PASS: Assault shows only allowed primary weapons
+PASS: Assault shows only allowed primary weapons
+PASS: Assault shows only allowed primary weapons
+PASS: Assault shows only allowed primary weapons
+PASS: Assault shows only allowed primary weapons
+PASS: Assault shows only allowed primary weapons
+PASS: Assault shows only allowed primary weapons
+PASS: Button exists: weapon-carbine
+PASS: Equipment click updates actual loadout and held weapon: Assault/Carbine
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Button exists: weapon-battlerifle
+PASS: Equipment click updates actual loadout and held weapon: Assault/BattleRifle
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Escape closes picker before leaving loadout
+PASS: Button exists: slot-secondary
+PASS: Secondary only exposes P8
+PASS: Button exists: weapon-pistol
+PASS: P8 model and secondary stats update together
+PASS: Secondary inspection leaves overview primary stats unchanged
+PASS: Button exists: slot-gadget
+PASS: Class equipment opens the correct explanatory panel
+PASS: Button exists: loadout-picker-close
+PASS: Button exists: class-medic
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 医疗兵 resolves to embedded LobbyHeavy
+PASS: 医疗兵 has all glyphs in its embedded face: 医疗兵
+PASS: Actual font face is used without synthetic bold
+PASS: 医疗兵 fits its text area at 1600x900
+PASS: 战地治疗 resolves to embedded LobbyHeavy
+PASS: 战地治疗 has all glyphs in its embedded face: 战地治疗
+PASS: Actual font face is used without synthetic bold
+PASS: 战地治疗 fits its text area at 1600x900
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1600x900
+PASS: VX-9 冲锋枪 resolves to embedded LobbyMedium
+PASS: VX-9 冲锋枪 has all glyphs in its embedded face: 
+PASS: Actual font face is used without synthetic bold
+PASS: VX-9 冲锋枪 fits its text area at 1600x900
+PASS: 909 RPM resolves to embedded LobbyRegular
+PASS: 909 RPM has all glyphs in its embedded face: 909 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 909 RPM fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: VX-9 冲锋枪 resolves to embedded LobbyMedium
+PASS: VX-9 冲锋枪 has all glyphs in its embedded face: VX-9 冲锋枪
+PASS: Actual font face is used without synthetic bold
+PASS: VX-9 冲锋枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 战地治疗 resolves to embedded LobbyMedium
+PASS: 战地治疗 has all glyphs in its embedded face: 战地治疗
+PASS: Actual font face is used without synthetic bold
+PASS: 战地治疗 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1600x900
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: Button exists: slot-primary
+PASS: Primary card opens selection panel
+PASS: Modal blocks keyboard and pointer interaction with underlying equipment/footer
+PASS: Picker panel stays on screen
+PASS: Medic shows only allowed primary weapons
+PASS: Medic shows only allowed primary weapons
+PASS: Medic shows only allowed primary weapons
+PASS: Medic shows only allowed primary weapons
+PASS: Medic shows only allowed primary weapons
+PASS: Medic shows only allowed primary weapons
+PASS: Medic shows only allowed primary weapons
+PASS: Button exists: weapon-smg
+PASS: Equipment click updates actual loadout and held weapon: Medic/Smg
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Button exists: weapon-carbine
+PASS: Equipment click updates actual loadout and held weapon: Medic/Carbine
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Escape closes picker before leaving loadout
+PASS: Button exists: slot-secondary
+PASS: Secondary only exposes P8
+PASS: Button exists: weapon-pistol
+PASS: P8 model and secondary stats update together
+PASS: Secondary inspection leaves overview primary stats unchanged
+PASS: Button exists: slot-gadget
+PASS: Class equipment opens the correct explanatory panel
+PASS: Button exists: loadout-picker-close
+PASS: Button exists: class-recon
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 侦察兵 resolves to embedded LobbyHeavy
+PASS: 侦察兵 has all glyphs in its embedded face: 侦察兵
+PASS: Actual font face is used without synthetic bold
+PASS: 侦察兵 fits its text area at 1600x900
+PASS: 复活信标 resolves to embedded LobbyHeavy
+PASS: 复活信标 has all glyphs in its embedded face: 复活信标
+PASS: Actual font face is used without synthetic bold
+PASS: 复活信标 fits its text area at 1600x900
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1600x900
+PASS: M89 射手步枪 resolves to embedded LobbyMedium
+PASS: M89 射手步枪 has all glyphs in its embedded face: M89 射手步枪
+PASS: Actual font face is used without synthetic bold
+PASS: M89 射手步枪 fits its text area at 1600x900
+PASS: 188 RPM resolves to embedded LobbyRegular
+PASS: 188 RPM has all glyphs in its embedded face: 188 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 188 RPM fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: M89 射手步枪 resolves to embedded LobbyMedium
+PASS: M89 射手步枪 has all glyphs in its embedded face: M89 射手步枪
+PASS: Actual font face is used without synthetic bold
+PASS: M89 射手步枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 复活信标 resolves to embedded LobbyMedium
+PASS: 复活信标 has all glyphs in its embedded face: 复活信标
+PASS: Actual font face is used without synthetic bold
+PASS: 复活信标 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1600x900
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: Button exists: slot-primary
+PASS: Primary card opens selection panel
+PASS: Modal blocks keyboard and pointer interaction with underlying equipment/footer
+PASS: Picker panel stays on screen
+PASS: Recon shows only allowed primary weapons
+PASS: Recon shows only allowed primary weapons
+PASS: Recon shows only allowed primary weapons
+PASS: Recon shows only allowed primary weapons
+PASS: Recon shows only allowed primary weapons
+PASS: Recon shows only allowed primary weapons
+PASS: Recon shows only allowed primary weapons
+PASS: Button exists: weapon-marksman
+PASS: Equipment click updates actual loadout and held weapon: Recon/Marksman
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Button exists: weapon-sniper
+PASS: Equipment click updates actual loadout and held weapon: Recon/Sniper
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Escape closes picker before leaving loadout
+PASS: Button exists: slot-secondary
+PASS: Secondary only exposes P8
+PASS: Button exists: weapon-pistol
+PASS: P8 model and secondary stats update together
+PASS: Secondary inspection leaves overview primary stats unchanged
+PASS: Button exists: slot-gadget
+PASS: Class equipment opens the correct explanatory panel
+PASS: Button exists: loadout-picker-close
+PASS: Button exists: class-engineer
+PASS: B overview and close operator composition are active
+PASS: Overview contains equipment actions only
+PASS: 工程兵 resolves to embedded LobbyHeavy
+PASS: 工程兵 has all glyphs in its embedded face: 工程兵
+PASS: Actual font face is used without synthetic bold
+PASS: 工程兵 fits its text area at 1600x900
+PASS: 修理工具 resolves to embedded LobbyHeavy
+PASS: 修理工具 has all glyphs in its embedded face: 修理工具
+PASS: Actual font face is used without synthetic bold
+PASS: 修理工具 fits its text area at 1600x900
+PASS: 完成配装  → resolves to embedded LobbyHeavy
+PASS: 完成配装  → has all glyphs in its embedded face: 完成配装  →
+PASS: Actual font face is used without synthetic bold
+PASS: 完成配装  → fits its text area at 1600x900
+PASS: BR-44 战斗步枪 resolves to embedded LobbyMedium
+PASS: BR-44 战斗步枪 has all glyphs in its embedded face: 
+PASS: Actual font face is used without synthetic bold
+PASS: BR-44 战斗步枪 fits its text area at 1600x900
+PASS: 353 RPM resolves to embedded LobbyRegular
+PASS: 353 RPM has all glyphs in its embedded face: 353 RPM
+PASS: Actual font face is used without synthetic bold
+PASS: 353 RPM fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: primary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: primary
+PASS: Card uses high-resolution real equipment thumbnail: primary
+PASS: BR-44 战斗步枪 resolves to embedded LobbyMedium
+PASS: BR-44 战斗步枪 has all glyphs in its embedded face: BR-44 战斗步枪
+PASS: Actual font face is used without synthetic bold
+PASS: BR-44 战斗步枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: secondary
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: secondary
+PASS: Card uses high-resolution real equipment thumbnail: secondary
+PASS: P8 手枪 resolves to embedded LobbyMedium
+PASS: P8 手枪 has all glyphs in its embedded face: P8 手枪
+PASS: Actual font face is used without synthetic bold
+PASS: P8 手枪 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: gadget
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: gadget
+PASS: Card uses high-resolution real equipment thumbnail: gadget
+PASS: 修理工具 resolves to embedded LobbyMedium
+PASS: 修理工具 has all glyphs in its embedded face: 修理工具
+PASS: Actual font face is used without synthetic bold
+PASS: 修理工具 fits its text area at 1600x900
+PASS: Equipment card is readable along bottom: throwable
+PASS: Equipment cards align without overlap
+PASS: Actual picking reaches equipment card: throwable
+PASS: Card uses high-resolution real equipment thumbnail: throwable
+PASS: 破片手雷 resolves to embedded LobbyMedium
+PASS: 破片手雷 has all glyphs in its embedded face: 破片手雷
+PASS: Actual font face is used without synthetic bold
+PASS: 破片手雷 fits its text area at 1600x900
+PASS: Class description stays clear of bottom equipment row
+PASS: class-assault is visible and receives actual picking
+PASS: class-medic is visible and receives actual picking
+PASS: class-recon is visible and receives actual picking
+PASS: class-engineer is visible and receives actual picking
+PASS: loadout-back is visible and receives actual picking
+PASS: loadout-complete is visible and receives actual picking
+PASS: Rendered upper body stays clear of class copy and top navigation
+PASS: Button exists: slot-primary
+PASS: Primary card opens selection panel
+PASS: Modal blocks keyboard and pointer interaction with underlying equipment/footer
+PASS: Picker panel stays on screen
+PASS: Engineer shows only allowed primary weapons
+PASS: Engineer shows only allowed primary weapons
+PASS: Engineer shows only allowed primary weapons
+PASS: Engineer shows only allowed primary weapons
+PASS: Engineer shows only allowed primary weapons
+PASS: Engineer shows only allowed primary weapons
+PASS: Engineer shows only allowed primary weapons
+PASS: Button exists: weapon-battlerifle
+PASS: Equipment click updates actual loadout and held weapon: Engineer/BattleRifle
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Button exists: weapon-lmg
+PASS: Equipment click updates actual loadout and held weapon: Engineer/Lmg
+PASS: Actual saved selection follows weapon callback
+PASS: Overview stats follow primary definition
+PASS: Escape closes picker before leaving loadout
+PASS: Button exists: slot-secondary
+PASS: Secondary only exposes P8
+PASS: Button exists: weapon-pistol
+PASS: P8 model and secondary stats update together
+PASS: Secondary inspection leaves overview primary stats unchanged
+PASS: Button exists: slot-gadget
+PASS: Class equipment opens the correct explanatory panel
+PASS: Button exists: loadout-picker-close
+PASS: Button exists: slot-throwable
+PASS: Button exists: throwable-smoke
+PASS: Smoke selection updates saved loadout and bottom card
+PASS: Button exists: throwable-frag
+PASS: Button exists: loadout-picker-done
+PASS: Button exists: loadout-complete
+PASS: Complete saves and returns to lobby without starting the game
+PASS: Lobby carries selected class and actual primary weapon
+PASS: 准备行动 resolves to embedded LobbyHeavy
+PASS: 准备行动 has all glyphs in its embedded face: 准备行动
+PASS: Actual font face is used without synthetic bold
+PASS: 准备行动 fits its text area at 1600x900
+PASS: 工业前线 resolves to embedded LobbyHeavy
+PASS: 工业前线 has all glyphs in its embedded face: 工业前线
+PASS: Actual font face is used without synthetic bold
+PASS: 工业前线 fits its text area at 1600x900
+PASS: 开始游戏  → resolves to embedded LobbyHeavy
+PASS: 开始游戏  → has all glyphs in its embedded face: 开始游戏  →
+PASS: Actual font face is used without synthetic bold
+PASS: 开始游戏  → fits its text area at 1600x900
+PASS: IRONFRONT resolves to embedded LobbyStencil
+PASS: IRONFRONT has all glyphs in its embedded face: IRONFRONT
+PASS: Actual font face is used without synthetic bold
+PASS: IRONFRONT fits its text area at 1600x900
+PASS: 大厅 resolves to embedded LobbyMedium
+PASS: 大厅 has all glyphs in its embedded face: 大厅
+PASS: Actual font face is used without synthetic bold
+PASS: 大厅 fits its text area at 1600x900
+PASS: 选择作战  → resolves to embedded LobbyMedium
+PASS: 选择作战  → has all glyphs in its embedded face: 选择作战  →
+PASS: Actual font face is used without synthetic bold
+PASS: 选择作战  → fits its text area at 1600x900
+PASS: 联机房间  /  LAN  → resolves to embedded LobbyMedium
+PASS: 联机房间  /  LAN  → has all glyphs in its embedded face: 联机房间  /  LAN  →
+PASS: Actual font face is used without synthetic bold
+PASS: 联机房间  /  LAN  → fits its text area at 1600x900
+PASS: 攻防 · 8v8 · 逐点进攻 resolves to embedded LobbyRegular
+PASS: 攻防 · 8v8 · 逐点进攻 has all glyphs in its embedded face: 攻防 · 8v8 · 逐点进攻
+PASS: Actual font face is used without synthetic bold
+PASS: 攻防 · 8v8 · 逐点进攻 fits its text area at 1600x900
+PASS: Editable Chinese player names use the embedded dynamic font
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1600x900
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1600x900
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1600x900
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1600x900
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1600x900
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1600x900
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1600x900
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1600x900
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Button exists: tab-loadout
+PASS: Overview Escape returns without deployment
+PASS: Button exists: tab-loadout
+PASS: Overview Enter completes without deployment
+PASS: Button exists: tab-loadout
+PASS: Button exists: class-assault
+PASS: Button exists: slot-primary
+PASS: Button exists: weapon-carbine
+PASS: Button exists: loadout-picker-done
+PASS: Button exists: loadout-complete
+PASS: Button exists: tab-settings
+PASS: Original settings controls remain visible
+PASS: Page navigation does not alter audio, sensitivity or crosshair preferences
+PASS: Button exists: tab-lobby
+PASS: Button exists: lan-button
+PASS: Real LAN button enters original room screen through frontend lifecycle
+PASS: Actual UI Toolkit menu initializes without fallback
+PASS: Button exists: browse-operation
+PASS: Button exists: operation-back
+PASS: Button exists: solo-button
+PASS: Real start button enters original 8v8 solo match and closes all lobby layers

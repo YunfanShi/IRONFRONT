@@ -1,0 +1,28 @@
+{
+  "version": "0.58.1",
+  "status": "TECHNICAL_CHECKS_PASS_VISUAL_SAMPLE_FOR_REVIEW",
+  "build": "UnityProject/Builds/Motion-0.58.1/IRONFRONT.app",
+  "actual_build_bytes": 520783161,
+  "player_motion_samples": 1260,
+  "image_checks": 1313,
+  "regression_groups": 5,
+  "runtime_errors": 0,
+  "prone_curves_equal_to_058": {
+    "crawl": 0.0,
+    "crawl-strafe": 0.0,
+    "crawl-reverse": 0.0,
+    "prone-aim": 0.0
+  },
+  "visual_review": [
+    "Dense run/crouch sequences side/front",
+    "Final-player side/front/rear preview",
+    "Final-player battlefield blue/red crouch and run",
+    "Encoded comparison video frames at 1s and 9s"
+  ],
+  "limitations": [
+    "Crouch reference not a complete full-body cycle.",
+    "Sequence review and encoded frame inspection; no claim of manual real-time playback approval.",
+    "Procedural authored curves; not game animation extraction or mocap retargeting."
+  ],
+  "code_diff_whitespace_check": "PASS"
+}

@@ -7,10 +7,10 @@ namespace Ironfront.UnityPrototype.Editor
 {
     public static class PrototypeExpansionIntegrationSmoke
     {
-        [MenuItem("IRONFRONT/Verify 0.46 Scene and Seat Deployment", true)]
+        [MenuItem("IRONFRONT/Verify 0.48 Scene and Seat Deployment", true)]
         private static bool CanVerify() => EditorApplication.isPlaying;
 
-        [MenuItem("IRONFRONT/Verify 0.46 Scene and Seat Deployment")]
+        [MenuItem("IRONFRONT/Verify 0.48 Scene and Seat Deployment")]
         private static void Verify()
         {
             try
@@ -21,7 +21,7 @@ namespace Ironfront.UnityPrototype.Editor
                 game.Frontend?.Close();
                 PrototypePlayer player = game.Player;
                 player.ForceExitVehicle();
-                Check(game.Vehicles.Count == 16, "each team has all eight vehicle kinds");
+                Check(game.Vehicles.Count == 18, "each team has all nine vehicle kinds");
                 foreach (PrototypeTeam team in new[] { PrototypeTeam.Blue, PrototypeTeam.Red })
                 {
                     int count = 0, seats = 0;
@@ -37,7 +37,7 @@ namespace Ironfront.UnityPrototype.Editor
                         Check(!PrototypeLayout.Collides(vehicle.MapPosition, radius),
                             vehicle.VehicleName + " has a clear initial parking bay");
                     }
-                    Check(count == 8 && seats == 25, team + " has eight vehicles and 25 seats");
+                    Check(count == 9 && seats == 28, team + " has nine vehicles and 28 seats");
                     foreach (PrototypeVehicleKind kind in Enum.GetValues(typeof(PrototypeVehicleKind)))
                     {
                         int matching = 0;
@@ -88,12 +88,12 @@ namespace Ironfront.UnityPrototype.Editor
                 game.Frontend?.Close();
                 Check(selected.Occupant == null && selected.GetSeatOccupant(0) == null,
                     "exit releases the deployed driver slot");
-                Debug.Log("IRONFRONT 0.46 integration PASS: 16 vehicles, 50 seats, " +
+                Debug.Log("IRONFRONT 0.48 integration PASS: 18 vehicles, 56 seats, " +
                     "clear bays, explicit passenger deployment, permissions, transfer and exit");
             }
             catch (Exception error)
             {
-                Debug.LogError("IRONFRONT 0.46 integration FAIL: " + error);
+                Debug.LogError("IRONFRONT 0.48 integration FAIL: " + error);
             }
         }
 

@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      1295.9999313354501,
+      518.39997253418,
+      1943.9998970031752
+    ],
+    "camera_distance": 4.139999890327453,
+    "ortho_scale": 2.609999930858612,
+    "floor_size": 359.99999046325684,
+    "floor_offset": 0.010799999713897706,
+    "clip_start": 0.0017999999523162843,
+    "clip_end": 1799.9999523162842
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": null,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/exports/red-soldier-lod0.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 768,
+  "requested_views": [
+    "perspective",
+    "front",
+    "back",
+    "left",
+    "right",
+    "top"
+  ],
+  "evidence_scope": "full_multiview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.487286,
+      -0.223726,
+      0.0
+    ],
+    "max": [
+      0.486938,
+      0.269941,
+      1.8
+    ],
+    "dimensions": [
+      0.974224,
+      0.493667,
+      1.8
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/front.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/back.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/left.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/right.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/top.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod0/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

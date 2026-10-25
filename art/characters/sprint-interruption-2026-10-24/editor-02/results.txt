@@ -1,0 +1,8 @@
+FAIL
+Version=0.59.2
+RuntimeErrors=0
+Runtime starts
+System.InvalidOperationException: CharacterController grounded on flat fixture
+  at Ironfront.UnityPrototype.PrototypeSprintProbe.Check (System.Boolean pass, System.String detail) [0x00013] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSprintProbe.cs:206 
+  at Ironfront.UnityPrototype.PrototypeSprintProbe+<Verify>d__14.MoveNext () [0x002a1] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSprintProbe.cs:91 
+  at Ironfront.UnityPrototype.PrototypeSprintProbe+<Start>d__13.MoveNext () [0x00066] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSprintProbe.cs:48 

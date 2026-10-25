@@ -1,0 +1,7 @@
+PASS
+Unity=6000.5.10f1
+Version=0.56.0
+Device=Mac17,4
+GPU=Apple M5
+RuntimeErrors=0
+All nine blue/red vehicles bind authored art with three LODs; five actual player frames captured.

@@ -1,0 +1,18 @@
+{
+  "version": "0.58.2",
+  "status": "PASS_WITH_DOCUMENTED_SCOPE",
+  "actual_build_bytes": 520788633,
+  "runtime_errors": 0,
+  "motion_samples": 1395,
+  "image_checks": 1442,
+  "regression_groups": 5,
+  "directional_regression_samples": 2304,
+  "minimum_leg_segment_clearance_all_frames_m": 0.23704,
+  "preserved_motion_max_delta_after_startup": 8.000000000407681e-05,
+  "notes": [
+    "Real Player instance, gameplay-equivalent input vectors and speeds; no physical keyboard injection claim.",
+    "Segment clearance plus rendered skin review, not exact triangle collision.",
+    "Actual player image sequences and encoded-video frames reviewed.",
+    "Previous builds, source models, rig and gameplay speed retained."
+  ]
+}

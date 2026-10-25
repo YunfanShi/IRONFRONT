@@ -1,0 +1,3372 @@
+{
+  "blender": "5.2.2 LTS",
+  "exports": 20,
+  "paired_glb_fbx_match": true,
+  "passed": true,
+  "assets": [
+    {
+      "file": "h8-kestrel/blue-h8-lod0.glb",
+      "sha256": "9ac890abc9efd66171529a953e7bc33d742882a9514bc71dab9dffdf991e8b90",
+      "bytes": 12552428,
+      "meshes": 9,
+      "triangles": 51009,
+      "min": [
+        -6.385756969451904,
+        -8.378642082214355,
+        0.0011569985654205084
+      ],
+      "max": [
+        6.3771586418151855,
+        10.825508117675781,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76291561126709,
+        19.204150199890137,
+        8.177173422882333
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 42999,
+          "geometric_boundary_edges": 4277,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 1299,
+          "geometric_boundary_edges": 159,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 3200,
+          "geometric_boundary_edges": 650,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 1600,
+          "geometric_boundary_edges": 570,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 1599,
+          "geometric_boundary_edges": 633,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_blue_albedo_2k": [
+          2048,
+          2048
+        ],
+        "h8_orm_2k": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/blue-h8-lod1.glb",
+      "sha256": "9bd5aa1fd6ca786f4273db6cbe9d5ab9b813130158ad25edcaa1b1f6881fa557",
+      "bytes": 11657972,
+      "meshes": 9,
+      "triangles": 25656,
+      "min": [
+        -6.385756969451904,
+        -8.380709648132324,
+        0.0011569985654205084
+      ],
+      "max": [
+        6.376863956451416,
+        10.825979232788086,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76262092590332,
+        19.20668888092041,
+        8.177173422882333
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 21499,
+          "geometric_boundary_edges": 3993,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 648,
+          "geometric_boundary_edges": 144,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1599,
+          "geometric_boundary_edges": 365,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 800,
+          "geometric_boundary_edges": 382,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 798,
+          "geometric_boundary_edges": 408,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_blue_albedo_2k": [
+          2048,
+          2048
+        ],
+        "h8_orm_2k": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/blue-h8-lod2.glb",
+      "sha256": "547ff31645f31d7f7394924e9639c9db4b8248ea495149db4a10300ec4e9bc25",
+      "bytes": 11475752,
+      "meshes": 9,
+      "triangles": 20587,
+      "min": [
+        -6.41936731338501,
+        -8.380709648132324,
+        0.0018027592450380325
+      ],
+      "max": [
+        6.405635356903076,
+        10.826026916503906,
+        8.196866035461426
+      ],
+      "dimensions": [
+        12.825002670288086,
+        19.20673656463623,
+        8.195063276216388
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 17199,
+          "geometric_boundary_edges": 3773,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 518,
+          "geometric_boundary_edges": 132,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1280,
+          "geometric_boundary_edges": 316,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 640,
+          "geometric_boundary_edges": 328,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 638,
+          "geometric_boundary_edges": 348,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_blue_albedo_2k": [
+          2048,
+          2048
+        ],
+        "h8_orm_2k": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/red-h8-lod0.glb",
+      "sha256": "8aae482981d85f6f503efed5fba62a4e3ca8ec8944b614aded439986cbc57a85",
+      "bytes": 12564652,
+      "meshes": 9,
+      "triangles": 51009,
+      "min": [
+        -6.385756969451904,
+        -8.378642082214355,
+        0.0011569985654205084
+      ],
+      "max": [
+        6.3771586418151855,
+        10.825508117675781,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76291561126709,
+        19.204150199890137,
+        8.177173422882333
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 42999,
+          "geometric_boundary_edges": 4277,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 1299,
+          "geometric_boundary_edges": 159,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 3200,
+          "geometric_boundary_edges": 650,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 1600,
+          "geometric_boundary_edges": 570,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 1599,
+          "geometric_boundary_edges": 633,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_red_albedo_2k": [
+          2048,
+          2048
+        ],
+        "h8_orm_2k": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/red-h8-lod1.glb",
+      "sha256": "99a89cb59762bf86544377a6d710d6109ef206497fed52fdd02317f729ac9d8a",
+      "bytes": 11670200,
+      "meshes": 9,
+      "triangles": 25656,
+      "min": [
+        -6.385756969451904,
+        -8.380709648132324,
+        0.0011569985654205084
+      ],
+      "max": [
+        6.376863956451416,
+        10.825979232788086,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76262092590332,
+        19.20668888092041,
+        8.177173422882333
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 21499,
+          "geometric_boundary_edges": 3993,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 648,
+          "geometric_boundary_edges": 144,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1599,
+          "geometric_boundary_edges": 365,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 800,
+          "geometric_boundary_edges": 382,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 798,
+          "geometric_boundary_edges": 408,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_red_albedo_2k": [
+          2048,
+          2048
+        ],
+        "h8_orm_2k": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/red-h8-lod2.glb",
+      "sha256": "273bc63728de85cd23b3645c8c03fff893f5cec823db4f1e9ff83d4eff2f07e2",
+      "bytes": 11487980,
+      "meshes": 9,
+      "triangles": 20587,
+      "min": [
+        -6.41936731338501,
+        -8.380709648132324,
+        0.0018027592450380325
+      ],
+      "max": [
+        6.405635356903076,
+        10.826026916503906,
+        8.196866035461426
+      ],
+      "dimensions": [
+        12.825002670288086,
+        19.20673656463623,
+        8.195063276216388
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 17199,
+          "geometric_boundary_edges": 3773,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 518,
+          "geometric_boundary_edges": 132,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1280,
+          "geometric_boundary_edges": 316,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 640,
+          "geometric_boundary_edges": 328,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 638,
+          "geometric_boundary_edges": 348,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_red_albedo_2k": [
+          2048,
+          2048
+        ],
+        "h8_orm_2k": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/blue-h8-lod0.fbx",
+      "sha256": "42ee4627de92861f9a2e6843b1cb02b3523d0788018929f89963777f241b60c5",
+      "bytes": 2021676,
+      "meshes": 9,
+      "triangles": 51009,
+      "min": [
+        -6.385756969451904,
+        -8.378642082214355,
+        0.0011576908873394132
+      ],
+      "max": [
+        6.3771586418151855,
+        10.825509071350098,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76291561126709,
+        19.204151153564453,
+        8.177172730560414
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 42999,
+          "geometric_boundary_edges": 4277,
+          "isolated_vertices": 8,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 1299,
+          "geometric_boundary_edges": 159,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 3200,
+          "geometric_boundary_edges": 650,
+          "isolated_vertices": 51,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 1600,
+          "geometric_boundary_edges": 570,
+          "isolated_vertices": 75,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 1599,
+          "geometric_boundary_edges": 633,
+          "isolated_vertices": 57,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_blue_albedo_2k.png": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/blue-h8-lod1.fbx",
+      "sha256": "158c67f5931ac00c9a5a068887d50b20de509cb2053956cfd3afe4d30bffd3bb",
+      "bytes": 1093724,
+      "meshes": 9,
+      "triangles": 25656,
+      "min": [
+        -6.385756969451904,
+        -8.380709648132324,
+        0.0011576908873394132
+      ],
+      "max": [
+        6.376863956451416,
+        10.825980186462402,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76262092590332,
+        19.206689834594727,
+        8.177172730560414
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 21499,
+          "geometric_boundary_edges": 3993,
+          "isolated_vertices": 8,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 800,
+          "geometric_boundary_edges": 382,
+          "isolated_vertices": 78,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 648,
+          "geometric_boundary_edges": 144,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1599,
+          "geometric_boundary_edges": 365,
+          "isolated_vertices": 58,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 798,
+          "geometric_boundary_edges": 408,
+          "isolated_vertices": 60,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_blue_albedo_2k.png": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/blue-h8-lod2.fbx",
+      "sha256": "f91d28029596d6edcee3aa97183245554706419e25e3698e798abf917e17c28c",
+      "bytes": 903468,
+      "meshes": 9,
+      "triangles": 20587,
+      "min": [
+        -6.41936731338501,
+        -8.380709648132324,
+        0.0018033444648608565
+      ],
+      "max": [
+        6.405635356903076,
+        10.826027870178223,
+        8.196866035461426
+      ],
+      "dimensions": [
+        12.825002670288086,
+        19.206737518310547,
+        8.195062690996565
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 17199,
+          "geometric_boundary_edges": 3773,
+          "isolated_vertices": 8,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 518,
+          "geometric_boundary_edges": 132,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1280,
+          "geometric_boundary_edges": 316,
+          "isolated_vertices": 58,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 640,
+          "geometric_boundary_edges": 328,
+          "isolated_vertices": 87,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 638,
+          "geometric_boundary_edges": 348,
+          "isolated_vertices": 74,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_blue_albedo_2k.png": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/red-h8-lod0.fbx",
+      "sha256": "b023c347022090c6b4c2d67a0e67a061cccfa2b9b2c2b9df61f7b3cc59d793ea",
+      "bytes": 2021660,
+      "meshes": 9,
+      "triangles": 51009,
+      "min": [
+        -6.385756969451904,
+        -8.378642082214355,
+        0.0011576908873394132
+      ],
+      "max": [
+        6.3771586418151855,
+        10.825509071350098,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76291561126709,
+        19.204151153564453,
+        8.177172730560414
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 42999,
+          "geometric_boundary_edges": 4277,
+          "isolated_vertices": 8,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 1600,
+          "geometric_boundary_edges": 570,
+          "isolated_vertices": 75,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 1299,
+          "geometric_boundary_edges": 159,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 3200,
+          "geometric_boundary_edges": 650,
+          "isolated_vertices": 51,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 1599,
+          "geometric_boundary_edges": 633,
+          "isolated_vertices": 57,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_red_albedo_2k.png": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/red-h8-lod1.fbx",
+      "sha256": "74d7255e4c1152a3146c8455d50431a46b4243c44ebc018c1ce55f932c9745a3",
+      "bytes": 1093724,
+      "meshes": 9,
+      "triangles": 25656,
+      "min": [
+        -6.385756969451904,
+        -8.380709648132324,
+        0.0011576908873394132
+      ],
+      "max": [
+        6.376863956451416,
+        10.825980186462402,
+        8.178330421447754
+      ],
+      "dimensions": [
+        12.76262092590332,
+        19.206689834594727,
+        8.177172730560414
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 21499,
+          "geometric_boundary_edges": 3993,
+          "isolated_vertices": 8,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 648,
+          "geometric_boundary_edges": 144,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1599,
+          "geometric_boundary_edges": 365,
+          "isolated_vertices": 58,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 800,
+          "geometric_boundary_edges": 382,
+          "isolated_vertices": 78,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 798,
+          "geometric_boundary_edges": 408,
+          "isolated_vertices": 60,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_red_albedo_2k.png": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "h8-kestrel/red-h8-lod2.fbx",
+      "sha256": "b76c44657d84931badee9bf06aebf66acc7de51d422a7d97d44c7a9b428022b4",
+      "bytes": 903468,
+      "meshes": 9,
+      "triangles": 20587,
+      "min": [
+        -6.41936731338501,
+        -8.380709648132324,
+        0.0018033444648608565
+      ],
+      "max": [
+        6.405635356903076,
+        10.826027870178223,
+        8.196866035461426
+      ],
+      "dimensions": [
+        12.825002670288086,
+        19.206737518310547,
+        8.195062690996565
+      ],
+      "nodes": [
+        "Body",
+        "ChinGun",
+        "H8_Root",
+        "MainRotor",
+        "PortWeaponPod",
+        "RotorBlades",
+        "RotorCap",
+        "RotorHub",
+        "StarboardWeaponPod",
+        "TailRotor",
+        "TailRotorBlades",
+        "TailRotorCap"
+      ],
+      "mesh_details": [
+        {
+          "name": "Body",
+          "triangles": 17199,
+          "geometric_boundary_edges": 3773,
+          "isolated_vertices": 8,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "RotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "PortWeaponPod",
+          "triangles": 640,
+          "geometric_boundary_edges": 328,
+          "isolated_vertices": 87,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "ChinGun",
+          "triangles": 518,
+          "geometric_boundary_edges": 132,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorBlades",
+          "triangles": 80,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 0,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        },
+        {
+          "name": "RotorHub",
+          "triangles": 1280,
+          "geometric_boundary_edges": 316,
+          "isolated_vertices": 58,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "StarboardWeaponPod",
+          "triangles": 638,
+          "geometric_boundary_edges": 348,
+          "isolated_vertices": 74,
+          "uv_layers": 1,
+          "materials": [
+            "H8_Red_PBR"
+          ]
+        },
+        {
+          "name": "TailRotorCap",
+          "triangles": 76,
+          "geometric_boundary_edges": 0,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "H8_RotorGraphite"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "h8_red_albedo_2k.png": [
+          2048,
+          2048
+        ],
+        "h8_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD0.glb",
+      "sha256": "5cd1a060f6773fdc758cc1cce770e2073a80df1db8ad1da3a6557a83089f2603",
+      "bytes": 14673180,
+      "meshes": 15,
+      "triangles": 87937,
+      "min": [
+        -2.347055673599243,
+        -3.6075987815856934,
+        0.0
+      ],
+      "max": [
+        2.352551221847534,
+        3.4922034740448,
+        3.8763160705566406
+      ],
+      "dimensions": [
+        4.699606895446777,
+        7.099802255630493,
+        3.8763160705566406
+      ],
+      "nodes": [
+        "A40_LOD0",
+        "Barrel_Lower_L",
+        "Barrel_Lower_R",
+        "Barrel_Upper_L",
+        "Barrel_Upper_R",
+        "Barrels",
+        "Hull",
+        "Muzzle_LeftLower",
+        "Radar",
+        "RadarArray",
+        "Turret",
+        "TurretArmor",
+        "Wheel_L_Front",
+        "Wheel_L_MidFront",
+        "Wheel_L_MidRear",
+        "Wheel_L_Rear",
+        "Wheel_R_Front",
+        "Wheel_R_MidFront",
+        "Wheel_R_MidRear",
+        "Wheel_R_Rear"
+      ],
+      "mesh_details": [
+        {
+          "name": "Hull",
+          "triangles": 47294,
+          "geometric_boundary_edges": 7808,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_L",
+          "triangles": 801,
+          "geometric_boundary_edges": 43,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R",
+          "triangles": 828,
+          "geometric_boundary_edges": 38,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L",
+          "triangles": 967,
+          "geometric_boundary_edges": 59,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R",
+          "triangles": 921,
+          "geometric_boundary_edges": 53,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray",
+          "triangles": 3041,
+          "geometric_boundary_edges": 339,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor",
+          "triangles": 11217,
+          "geometric_boundary_edges": 1377,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front",
+          "triangles": 3097,
+          "geometric_boundary_edges": 245,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront",
+          "triangles": 2697,
+          "geometric_boundary_edges": 367,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear",
+          "triangles": 2641,
+          "geometric_boundary_edges": 543,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear",
+          "triangles": 3004,
+          "geometric_boundary_edges": 510,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front",
+          "triangles": 3041,
+          "geometric_boundary_edges": 207,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront",
+          "triangles": 2618,
+          "geometric_boundary_edges": 428,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear",
+          "triangles": 2816,
+          "geometric_boundary_edges": 596,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear",
+          "triangles": 2954,
+          "geometric_boundary_edges": 542,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Blue_basecolor_2K": [
+          2048,
+          2048
+        ],
+        "A40_metalrough_2K": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD1.glb",
+      "sha256": "aec1251fd35a5b869b9fc544c6c5232549a20f2795be68126c1b4f9dffd0cc19",
+      "bytes": 13450072,
+      "meshes": 15,
+      "triangles": 52751,
+      "min": [
+        -2.3460681438446045,
+        -3.6066434383392334,
+        0.0003968477249145508
+      ],
+      "max": [
+        2.3519272804260254,
+        3.4921536445617676,
+        3.8764004707336426
+      ],
+      "dimensions": [
+        4.69799542427063,
+        7.098797082901001,
+        3.876003623008728
+      ],
+      "nodes": [
+        "A40_LOD1",
+        "Barrel_Lower_L_LOD1",
+        "Barrel_Lower_R_LOD1",
+        "Barrel_Upper_L_LOD1",
+        "Barrel_Upper_R_LOD1",
+        "Barrels.001",
+        "Hull_LOD1",
+        "Muzzle_LeftLower.001",
+        "Radar.001",
+        "RadarArray_LOD1",
+        "Turret.001",
+        "TurretArmor_LOD1",
+        "Wheel_L_Front_LOD1",
+        "Wheel_L_MidFront_LOD1",
+        "Wheel_L_MidRear_LOD1",
+        "Wheel_L_Rear_LOD1",
+        "Wheel_R_Front_LOD1",
+        "Wheel_R_MidFront_LOD1",
+        "Wheel_R_MidRear_LOD1",
+        "Wheel_R_Rear_LOD1"
+      ],
+      "mesh_details": [
+        {
+          "name": "Hull_LOD1",
+          "triangles": 28376,
+          "geometric_boundary_edges": 7258,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_L_LOD1",
+          "triangles": 479,
+          "geometric_boundary_edges": 43,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R_LOD1",
+          "triangles": 496,
+          "geometric_boundary_edges": 36,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L_LOD1",
+          "triangles": 580,
+          "geometric_boundary_edges": 50,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R_LOD1",
+          "triangles": 552,
+          "geometric_boundary_edges": 42,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray_LOD1",
+          "triangles": 1824,
+          "geometric_boundary_edges": 336,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor_LOD1",
+          "triangles": 6730,
+          "geometric_boundary_edges": 1300,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front_LOD1",
+          "triangles": 1857,
+          "geometric_boundary_edges": 179,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront_LOD1",
+          "triangles": 1618,
+          "geometric_boundary_edges": 268,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear_LOD1",
+          "triangles": 1583,
+          "geometric_boundary_edges": 385,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear_LOD1",
+          "triangles": 1801,
+          "geometric_boundary_edges": 397,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front_LOD1",
+          "triangles": 1824,
+          "geometric_boundary_edges": 114,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront_LOD1",
+          "triangles": 1570,
+          "geometric_boundary_edges": 326,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear_LOD1",
+          "triangles": 1689,
+          "geometric_boundary_edges": 439,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear_LOD1",
+          "triangles": 1772,
+          "geometric_boundary_edges": 448,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Blue_basecolor_2K": [
+          2048,
+          2048
+        ],
+        "A40_metalrough_2K": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD2.glb",
+      "sha256": "235c9ac0c2030cb2ef4898c44530d9b511f916166dd402715af0ab7c1d7d6566",
+      "bytes": 12478464,
+      "meshes": 15,
+      "triangles": 26372,
+      "min": [
+        -2.3460681438446045,
+        -3.605297327041626,
+        0.0022385716438293457
+      ],
+      "max": [
+        2.3514492511749268,
+        3.4923977851867676,
+        3.8761842250823975
+      ],
+      "dimensions": [
+        4.697517395019531,
+        7.0976951122283936,
+        3.873945653438568
+      ],
+      "nodes": [
+        "A40_LOD2",
+        "Barrel_Lower_L_LOD2",
+        "Barrel_Lower_R_LOD2",
+        "Barrel_Upper_L_LOD2",
+        "Barrel_Upper_R_LOD2",
+        "Barrels.002",
+        "Hull_LOD2",
+        "Muzzle_LeftLower.002",
+        "Radar.002",
+        "RadarArray_LOD2",
+        "Turret.002",
+        "TurretArmor_LOD2",
+        "Wheel_L_Front_LOD2",
+        "Wheel_L_MidFront_LOD2",
+        "Wheel_L_MidRear_LOD2",
+        "Wheel_L_Rear_LOD2",
+        "Wheel_R_Front_LOD2",
+        "Wheel_R_MidFront_LOD2",
+        "Wheel_R_MidRear_LOD2",
+        "Wheel_R_Rear_LOD2"
+      ],
+      "mesh_details": [
+        {
+          "name": "Hull_LOD2",
+          "triangles": 14188,
+          "geometric_boundary_edges": 5238,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_L_LOD2",
+          "triangles": 239,
+          "geometric_boundary_edges": 35,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R_LOD2",
+          "triangles": 248,
+          "geometric_boundary_edges": 28,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L_LOD2",
+          "triangles": 290,
+          "geometric_boundary_edges": 32,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R_LOD2",
+          "triangles": 276,
+          "geometric_boundary_edges": 28,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray_LOD2",
+          "triangles": 911,
+          "geometric_boundary_edges": 293,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor_LOD2",
+          "triangles": 3364,
+          "geometric_boundary_edges": 942,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front_LOD2",
+          "triangles": 928,
+          "geometric_boundary_edges": 132,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront_LOD2",
+          "triangles": 809,
+          "geometric_boundary_edges": 205,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear_LOD2",
+          "triangles": 792,
+          "geometric_boundary_edges": 290,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear_LOD2",
+          "triangles": 900,
+          "geometric_boundary_edges": 308,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front_LOD2",
+          "triangles": 912,
+          "geometric_boundary_edges": 76,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront_LOD2",
+          "triangles": 785,
+          "geometric_boundary_edges": 225,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear_LOD2",
+          "triangles": 844,
+          "geometric_boundary_edges": 320,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear_LOD2",
+          "triangles": 886,
+          "geometric_boundary_edges": 364,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Blue_basecolor_2K": [
+          2048,
+          2048
+        ],
+        "A40_metalrough_2K": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_RED_LOD0.glb",
+      "sha256": "ae23b89779d95011e7afd01237507ed962d5fda97269106449cd803db94a4f60",
+      "bytes": 14616240,
+      "meshes": 15,
+      "triangles": 87937,
+      "min": [
+        -2.347055673599243,
+        -3.6075987815856934,
+        0.0
+      ],
+      "max": [
+        2.352551221847534,
+        3.4922034740448,
+        3.8763160705566406
+      ],
+      "dimensions": [
+        4.699606895446777,
+        7.099802255630493,
+        3.8763160705566406
+      ],
+      "nodes": [
+        "A40_LOD0",
+        "Barrel_Lower_L",
+        "Barrel_Lower_R",
+        "Barrel_Upper_L",
+        "Barrel_Upper_R",
+        "Barrels",
+        "Hull",
+        "Muzzle_LeftLower",
+        "Radar",
+        "RadarArray",
+        "Turret",
+        "TurretArmor",
+        "Wheel_L_Front",
+        "Wheel_L_MidFront",
+        "Wheel_L_MidRear",
+        "Wheel_L_Rear",
+        "Wheel_R_Front",
+        "Wheel_R_MidFront",
+        "Wheel_R_MidRear",
+        "Wheel_R_Rear"
+      ],
+      "mesh_details": [
+        {
+          "name": "Hull",
+          "triangles": 47294,
+          "geometric_boundary_edges": 7808,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_L",
+          "triangles": 801,
+          "geometric_boundary_edges": 43,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R",
+          "triangles": 828,
+          "geometric_boundary_edges": 38,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L",
+          "triangles": 967,
+          "geometric_boundary_edges": 59,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R",
+          "triangles": 921,
+          "geometric_boundary_edges": 53,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray",
+          "triangles": 3041,
+          "geometric_boundary_edges": 339,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor",
+          "triangles": 11217,
+          "geometric_boundary_edges": 1377,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front",
+          "triangles": 3097,
+          "geometric_boundary_edges": 245,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront",
+          "triangles": 2697,
+          "geometric_boundary_edges": 367,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear",
+          "triangles": 2641,
+          "geometric_boundary_edges": 543,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear",
+          "triangles": 3004,
+          "geometric_boundary_edges": 510,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front",
+          "triangles": 3041,
+          "geometric_boundary_edges": 207,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront",
+          "triangles": 2618,
+          "geometric_boundary_edges": 428,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear",
+          "triangles": 2816,
+          "geometric_boundary_edges": 596,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear",
+          "triangles": 2954,
+          "geometric_boundary_edges": 542,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Red_basecolor_2K": [
+          2048,
+          2048
+        ],
+        "A40_metalrough_2K": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD0.fbx",
+      "sha256": "2859049658eaa5a21b677eff38b97b59593137f2ede1ff190abf08afa93b604d",
+      "bytes": 3481244,
+      "meshes": 15,
+      "triangles": 87937,
+      "min": [
+        -2.347055673599243,
+        -3.6075985431671143,
+        3.6859628949059697e-07
+      ],
+      "max": [
+        2.352551221847534,
+        3.492203712463379,
+        3.8763158321380615
+      ],
+      "dimensions": [
+        4.699606895446777,
+        7.099802255630493,
+        3.876315463541772
+      ],
+      "nodes": [
+        "A40_LOD0",
+        "Barrel_Lower_L",
+        "Barrel_Lower_R",
+        "Barrel_Upper_L",
+        "Barrel_Upper_R",
+        "Barrels",
+        "Hull",
+        "Muzzle_LeftLower",
+        "Radar",
+        "RadarArray",
+        "Turret",
+        "TurretArmor",
+        "Wheel_L_Front",
+        "Wheel_L_MidFront",
+        "Wheel_L_MidRear",
+        "Wheel_L_Rear",
+        "Wheel_R_Front",
+        "Wheel_R_MidFront",
+        "Wheel_R_MidRear",
+        "Wheel_R_Rear"
+      ],
+      "mesh_details": [
+        {
+          "name": "Barrel_Lower_L",
+          "triangles": 801,
+          "geometric_boundary_edges": 43,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R",
+          "triangles": 828,
+          "geometric_boundary_edges": 38,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Hull",
+          "triangles": 47294,
+          "geometric_boundary_edges": 7808,
+          "isolated_vertices": 17,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear",
+          "triangles": 3004,
+          "geometric_boundary_edges": 510,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor",
+          "triangles": 11217,
+          "geometric_boundary_edges": 1377,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront",
+          "triangles": 2618,
+          "geometric_boundary_edges": 428,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear",
+          "triangles": 2816,
+          "geometric_boundary_edges": 596,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear",
+          "triangles": 2954,
+          "geometric_boundary_edges": 542,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear",
+          "triangles": 2641,
+          "geometric_boundary_edges": 543,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R",
+          "triangles": 921,
+          "geometric_boundary_edges": 53,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front",
+          "triangles": 3097,
+          "geometric_boundary_edges": 245,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray",
+          "triangles": 3041,
+          "geometric_boundary_edges": 339,
+          "isolated_vertices": 1,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront",
+          "triangles": 2697,
+          "geometric_boundary_edges": 367,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front",
+          "triangles": 3041,
+          "geometric_boundary_edges": 207,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L",
+          "triangles": 967,
+          "geometric_boundary_edges": 59,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Blue_basecolor_2K.png": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD1.fbx",
+      "sha256": "17d8ee2b1d0492ebb0acc39ccc2d9f41568cdd04e761c0570af89102f13c30ee",
+      "bytes": 2201692,
+      "meshes": 15,
+      "triangles": 52751,
+      "min": [
+        -2.3460681438446045,
+        -3.6066431999206543,
+        0.000397209805669263
+      ],
+      "max": [
+        2.3519272804260254,
+        3.4921538829803467,
+        3.8764002323150635
+      ],
+      "dimensions": [
+        4.69799542427063,
+        7.098797082901001,
+        3.876003022509394
+      ],
+      "nodes": [
+        "A40_LOD1",
+        "Barrel_Lower_L_LOD1",
+        "Barrel_Lower_R_LOD1",
+        "Barrel_Upper_L_LOD1",
+        "Barrel_Upper_R_LOD1",
+        "Barrels.001",
+        "Hull_LOD1",
+        "Muzzle_LeftLower.001",
+        "Radar.001",
+        "RadarArray_LOD1",
+        "Turret.001",
+        "TurretArmor_LOD1",
+        "Wheel_L_Front_LOD1",
+        "Wheel_L_MidFront_LOD1",
+        "Wheel_L_MidRear_LOD1",
+        "Wheel_L_Rear_LOD1",
+        "Wheel_R_Front_LOD1",
+        "Wheel_R_MidFront_LOD1",
+        "Wheel_R_MidRear_LOD1",
+        "Wheel_R_Rear_LOD1"
+      ],
+      "mesh_details": [
+        {
+          "name": "Hull_LOD1",
+          "triangles": 28376,
+          "geometric_boundary_edges": 7258,
+          "isolated_vertices": 17,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor_LOD1",
+          "triangles": 6730,
+          "geometric_boundary_edges": 1300,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R_LOD1",
+          "triangles": 496,
+          "geometric_boundary_edges": 36,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear_LOD1",
+          "triangles": 1801,
+          "geometric_boundary_edges": 397,
+          "isolated_vertices": 2,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront_LOD1",
+          "triangles": 1570,
+          "geometric_boundary_edges": 326,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear_LOD1",
+          "triangles": 1689,
+          "geometric_boundary_edges": 439,
+          "isolated_vertices": 2,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray_LOD1",
+          "triangles": 1824,
+          "geometric_boundary_edges": 336,
+          "isolated_vertices": 1,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear_LOD1",
+          "triangles": 1772,
+          "geometric_boundary_edges": 448,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_L_LOD1",
+          "triangles": 479,
+          "geometric_boundary_edges": 43,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L_LOD1",
+          "triangles": 580,
+          "geometric_boundary_edges": 50,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear_LOD1",
+          "triangles": 1583,
+          "geometric_boundary_edges": 385,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront_LOD1",
+          "triangles": 1618,
+          "geometric_boundary_edges": 268,
+          "isolated_vertices": 1,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front_LOD1",
+          "triangles": 1824,
+          "geometric_boundary_edges": 114,
+          "isolated_vertices": 2,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R_LOD1",
+          "triangles": 552,
+          "geometric_boundary_edges": 42,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front_LOD1",
+          "triangles": 1857,
+          "geometric_boundary_edges": 179,
+          "isolated_vertices": 2,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Blue_basecolor_2K.png": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD2.fbx",
+      "sha256": "4eb320096b94fdc39c1e96bd561c6b05bd6f51044570c5913b5bc36147a5821f",
+      "bytes": 1203564,
+      "meshes": 15,
+      "triangles": 26372,
+      "min": [
+        -2.3460681438446045,
+        -3.605297088623047,
+        0.002238923916593194
+      ],
+      "max": [
+        2.3514492511749268,
+        3.4923980236053467,
+        3.8761839866638184
+      ],
+      "dimensions": [
+        4.697517395019531,
+        7.0976951122283936,
+        3.873945062747225
+      ],
+      "nodes": [
+        "A40_LOD2",
+        "Barrel_Lower_L_LOD2",
+        "Barrel_Lower_R_LOD2",
+        "Barrel_Upper_L_LOD2",
+        "Barrel_Upper_R_LOD2",
+        "Barrels.002",
+        "Hull_LOD2",
+        "Muzzle_LeftLower.002",
+        "Radar.002",
+        "RadarArray_LOD2",
+        "Turret.002",
+        "TurretArmor_LOD2",
+        "Wheel_L_Front_LOD2",
+        "Wheel_L_MidFront_LOD2",
+        "Wheel_L_MidRear_LOD2",
+        "Wheel_L_Rear_LOD2",
+        "Wheel_R_Front_LOD2",
+        "Wheel_R_MidFront_LOD2",
+        "Wheel_R_MidRear_LOD2",
+        "Wheel_R_Rear_LOD2"
+      ],
+      "mesh_details": [
+        {
+          "name": "Barrel_Lower_L_LOD2",
+          "triangles": 239,
+          "geometric_boundary_edges": 35,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R_LOD2",
+          "triangles": 248,
+          "geometric_boundary_edges": 28,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Hull_LOD2",
+          "triangles": 14188,
+          "geometric_boundary_edges": 5238,
+          "isolated_vertices": 33,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear_LOD2",
+          "triangles": 900,
+          "geometric_boundary_edges": 308,
+          "isolated_vertices": 7,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor_LOD2",
+          "triangles": 3364,
+          "geometric_boundary_edges": 942,
+          "isolated_vertices": 2,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront_LOD2",
+          "triangles": 785,
+          "geometric_boundary_edges": 225,
+          "isolated_vertices": 15,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear_LOD2",
+          "triangles": 844,
+          "geometric_boundary_edges": 320,
+          "isolated_vertices": 9,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear_LOD2",
+          "triangles": 886,
+          "geometric_boundary_edges": 364,
+          "isolated_vertices": 6,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear_LOD2",
+          "triangles": 792,
+          "geometric_boundary_edges": 290,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R_LOD2",
+          "triangles": 276,
+          "geometric_boundary_edges": 28,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front_LOD2",
+          "triangles": 928,
+          "geometric_boundary_edges": 132,
+          "isolated_vertices": 9,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray_LOD2",
+          "triangles": 911,
+          "geometric_boundary_edges": 293,
+          "isolated_vertices": 1,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront_LOD2",
+          "triangles": 809,
+          "geometric_boundary_edges": 205,
+          "isolated_vertices": 4,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front_LOD2",
+          "triangles": 912,
+          "geometric_boundary_edges": 76,
+          "isolated_vertices": 4,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L_LOD2",
+          "triangles": 290,
+          "geometric_boundary_edges": 32,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Blue_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Blue_basecolor_2K.png": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    },
+    {
+      "file": "a40-watchtower/exports/A40_WATCHTOWER_RED_LOD0.fbx",
+      "sha256": "5775efe62fd7c7d19ab5ac6bfed3f731a40a71bcf1d41fdf4acba82cb5357a01",
+      "bytes": 3481244,
+      "meshes": 15,
+      "triangles": 87937,
+      "min": [
+        -2.347055673599243,
+        -3.6075985431671143,
+        3.6859628949059697e-07
+      ],
+      "max": [
+        2.352551221847534,
+        3.492203712463379,
+        3.8763158321380615
+      ],
+      "dimensions": [
+        4.699606895446777,
+        7.099802255630493,
+        3.876315463541772
+      ],
+      "nodes": [
+        "A40_LOD0",
+        "Barrel_Lower_L",
+        "Barrel_Lower_R",
+        "Barrel_Upper_L",
+        "Barrel_Upper_R",
+        "Barrels",
+        "Hull",
+        "Muzzle_LeftLower",
+        "Radar",
+        "RadarArray",
+        "Turret",
+        "TurretArmor",
+        "Wheel_L_Front",
+        "Wheel_L_MidFront",
+        "Wheel_L_MidRear",
+        "Wheel_L_Rear",
+        "Wheel_R_Front",
+        "Wheel_R_MidFront",
+        "Wheel_R_MidRear",
+        "Wheel_R_Rear"
+      ],
+      "mesh_details": [
+        {
+          "name": "Hull",
+          "triangles": 47294,
+          "geometric_boundary_edges": 7808,
+          "isolated_vertices": 17,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "TurretArmor",
+          "triangles": 11217,
+          "geometric_boundary_edges": 1377,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_R",
+          "triangles": 828,
+          "geometric_boundary_edges": 38,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Rear",
+          "triangles": 3004,
+          "geometric_boundary_edges": 510,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidFront",
+          "triangles": 2618,
+          "geometric_boundary_edges": 428,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_MidRear",
+          "triangles": 2816,
+          "geometric_boundary_edges": 596,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "RadarArray",
+          "triangles": 3041,
+          "geometric_boundary_edges": 339,
+          "isolated_vertices": 1,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Rear",
+          "triangles": 2954,
+          "geometric_boundary_edges": 542,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Lower_L",
+          "triangles": 801,
+          "geometric_boundary_edges": 43,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_L",
+          "triangles": 967,
+          "geometric_boundary_edges": 59,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidRear",
+          "triangles": 2641,
+          "geometric_boundary_edges": 543,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_MidFront",
+          "triangles": 2697,
+          "geometric_boundary_edges": 367,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_R_Front",
+          "triangles": 3041,
+          "geometric_boundary_edges": 207,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Barrel_Upper_R",
+          "triangles": 921,
+          "geometric_boundary_edges": 53,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        },
+        {
+          "name": "Wheel_L_Front",
+          "triangles": 3097,
+          "geometric_boundary_edges": 245,
+          "isolated_vertices": 0,
+          "uv_layers": 1,
+          "materials": [
+            "A40_Red_PBR"
+          ]
+        }
+      ],
+      "texture_dimensions": {
+        "A40_Red_basecolor_2K.png": [
+          2048,
+          2048
+        ],
+        "A40_normal_2K.png": [
+          2048,
+          2048
+        ]
+      },
+      "pass": true
+    }
+  ]
+}

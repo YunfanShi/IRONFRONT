@@ -1,0 +1,250 @@
+ M CHANGELOG.md
+ M PROGRESS.md
+ M README.md
+ M UnityProject/Assets/Editor/PrototypeBuild.cs
+ M UnityProject/Assets/Editor/PrototypeCombinedArmsSmoke.cs
+ M UnityProject/Assets/Editor/PrototypeExpansionIntegrationSmoke.cs
+ M UnityProject/Assets/Editor/PrototypeInfantryStanceSmoke.cs
+ M UnityProject/Assets/Editor/PrototypeVehicleSeatSmoke.cs
+ M UnityProject/Assets/Resources/Menu/StartMenu.uxml
+ M UnityProject/Assets/Resources/Menu/StartMenuTheme.uss
+ M UnityProject/Assets/Scripts/PrototypeBallisticProjectile.cs
+ M UnityProject/Assets/Scripts/PrototypeBot.cs
+ M UnityProject/Assets/Scripts/PrototypeCombatFeedback.cs
+ M UnityProject/Assets/Scripts/PrototypeCombinedArmsVehicle.cs
+ M UnityProject/Assets/Scripts/PrototypeCombinedVehicleVisual.cs
+ M UnityProject/Assets/Scripts/PrototypeEquipmentIcons.cs
+ M UnityProject/Assets/Scripts/PrototypeEquipmentVisual.cs
+ M UnityProject/Assets/Scripts/PrototypeFrontend.cs
+ M UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs
+ M UnityProject/Assets/Scripts/PrototypeLanClient.cs
+ M UnityProject/Assets/Scripts/PrototypeLayout.cs
+ M UnityProject/Assets/Scripts/PrototypeLoadout.cs
+ M UnityProject/Assets/Scripts/PrototypeMatch.cs
+ M UnityProject/Assets/Scripts/PrototypeMenuPreview.cs
+ M UnityProject/Assets/Scripts/PrototypeNavigation.cs
+ M UnityProject/Assets/Scripts/PrototypePlayer.cs
+ M UnityProject/Assets/Scripts/PrototypeRemotePlayer.cs
+ M UnityProject/Assets/Scripts/PrototypeRuntime.cs
+ M UnityProject/Assets/Scripts/PrototypeScoutVehicle.cs
+ M UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs
+ M UnityProject/Assets/Scripts/PrototypeStartMenuView.cs
+ M UnityProject/Assets/Scripts/PrototypeTankVehicle.cs
+ M UnityProject/Assets/Scripts/PrototypeTankVisual.cs
+ M UnityProject/Assets/Scripts/PrototypeTransportVehicle.cs
+ M UnityProject/Assets/Scripts/PrototypeVehicleCountermeasure.cs
+ M UnityProject/Assets/Scripts/PrototypeVehicleDefinition.cs
+ M UnityProject/Assets/Scripts/PrototypeVehicleProjectile.cs
+ M UnityProject/Assets/Scripts/PrototypeVehicleRoute.cs
+ M UnityProject/Assets/Settings/DefaultVolumeProfile.asset
+ M UnityProject/Assets/Settings/Mobile_RPAsset.asset
+ M UnityProject/Assets/Settings/PC_RPAsset.asset
+ M UnityProject/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+ M UnityProject/Packages/manifest.json
+ M UnityProject/Packages/packages-lock.json
+ M UnityProject/ProjectSettings/ProjectAuditorSettings.asset
+ M UnityProject/ProjectSettings/ProjectSettings.asset
+ M UnityProject/ProjectSettings/ShaderGraphSettings.asset
+ M UnityProject/ProjectSettings/UnityConnectSettings.asset
+ M package-lock.json
+ M package.json
+ M scripts/test-unity-room.cjs
+ M server/unity-room.cjs
+ M src/ui/UI.ts
+?? UnityProject/Assets/Art.meta
+?? UnityProject/Assets/Art/
+?? UnityProject/Assets/Editor/ArmorArtPlaySmoke.cs
+?? UnityProject/Assets/Editor/ArmorArtPlaySmoke.cs.meta
+?? UnityProject/Assets/Editor/BlueSoldierAssetSetup.cs
+?? UnityProject/Assets/Editor/BlueSoldierAssetSetup.cs.meta
+?? UnityProject/Assets/Editor/PrototypeAmmoSupplySmoke.cs
+?? UnityProject/Assets/Editor/PrototypeAmmoSupplySmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeAntiAirZoomSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeAntiAirZoomSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeArmorDamageScoreSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeArmorDamageScoreSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeBatchVerification.cs
+?? UnityProject/Assets/Editor/PrototypeBatchVerification.cs.meta
+?? UnityProject/Assets/Editor/PrototypeBotRosterSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeBotRosterSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeBotVehicleCombatSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeBotVehicleCombatSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeCenterHealthSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeCenterHealthSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeCombatScoreAttributionSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeCombatScoreAttributionSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeCrosshairCannonSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeCrosshairCannonSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeEngineerAntiAirPreview.cs
+?? UnityProject/Assets/Editor/PrototypeEngineerAntiAirPreview.cs.meta
+?? UnityProject/Assets/Editor/PrototypeEngineerAntiAirSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeEngineerAntiAirSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeHeldEquipmentSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeHeldEquipmentSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeHelicopterEngineSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeHelicopterEngineSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeHitFeedbackSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeHitFeedbackSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeInfantryLocomotionSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeInfantryLocomotionSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeLoadoutPolicySmoke.cs
+?? UnityProject/Assets/Editor/PrototypeLoadoutPolicySmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeLobbyLoadoutSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeLobbyLoadoutSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeMotorcycleSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeMotorcycleSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeMusicSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeMusicSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeOptimizationBuild.cs
+?? UnityProject/Assets/Editor/PrototypeOptimizationBuild.cs.meta
+?? UnityProject/Assets/Editor/PrototypeOptimizationSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeOptimizationSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypePlayerAudioSmoke.cs
+?? UnityProject/Assets/Editor/PrototypePlayerAudioSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeReviveTimerPauseSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeReviveTimerPauseSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeScorePopupSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeScorePopupSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeScoreSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeScoreSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeScoreboardCapture.cs
+?? UnityProject/Assets/Editor/PrototypeScoreboardCapture.cs.meta
+?? UnityProject/Assets/Editor/PrototypeScoreboardPlayerLifecycleSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeScoreboardPlayerLifecycleSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeScoreboardSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeScoreboardSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeScoreboardVehicleCoastSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeScoreboardVehicleCoastSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeSmokeCollisionFuseSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeSmokeCollisionFuseSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeSmokeScreenSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeSmokeScreenSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeSoloAircraftAiSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeSoloAircraftAiSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeSupportRequisitionSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeSupportRequisitionSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeVehicleArmorHudSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeVehicleArmorHudSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeVehicleImpactAudioSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeVehicleImpactAudioSmoke.cs.meta
+?? UnityProject/Assets/Editor/PrototypeVehicleSightSmoke.cs
+?? UnityProject/Assets/Editor/PrototypeVehicleSightSmoke.cs.meta
+?? UnityProject/Assets/Editor/RedSoldierAssetSetup.cs
+?? UnityProject/Assets/Editor/RedSoldierAssetSetup.cs.meta
+?? UnityProject/Assets/Editor/RemainingArtPlaySmoke.cs
+?? UnityProject/Assets/Editor/RemainingArtPlaySmoke.cs.meta
+?? UnityProject/Assets/Editor/RemainingVehicleArtSetup.cs
+?? UnityProject/Assets/Editor/RemainingVehicleArtSetup.cs.meta
+?? UnityProject/Assets/Editor/SoldierArtAssetSetup.cs
+?? UnityProject/Assets/Editor/SoldierArtAssetSetup.cs.meta
+?? UnityProject/Assets/Editor/SoldierArtPlaySmoke.cs
+?? UnityProject/Assets/Editor/SoldierArtPlaySmoke.cs.meta
+?? UnityProject/Assets/Editor/VehicleArtAssetSetup.cs
+?? UnityProject/Assets/Editor/VehicleArtAssetSetup.cs.meta
+?? UnityProject/Assets/Editor/VehicleArtPlaySmoke.cs
+?? UnityProject/Assets/Editor/VehicleArtPlaySmoke.cs.meta
+?? UnityProject/Assets/Resources/Audio/Engines.meta
+?? UnityProject/Assets/Resources/Audio/Engines/
+?? UnityProject/Assets/Resources/Audio/Music.meta
+?? UnityProject/Assets/Resources/Audio/Music/
+?? UnityProject/Assets/Resources/Audio/PlayerCues.meta
+?? UnityProject/Assets/Resources/Audio/PlayerCues/
+?? UnityProject/Assets/Resources/Audio/VehicleImpacts.meta
+?? UnityProject/Assets/Resources/Audio/VehicleImpacts/
+?? UnityProject/Assets/Resources/Effects.meta
+?? UnityProject/Assets/Resources/Effects/
+?? UnityProject/Assets/Resources/Menu/HangarBackdrop053.png
+?? UnityProject/Assets/Resources/Menu/HangarBackdrop053.png.meta
+?? UnityProject/Assets/Resources/Soldiers.meta
+?? UnityProject/Assets/Resources/Soldiers/
+?? UnityProject/Assets/Resources/Vehicles.meta
+?? UnityProject/Assets/Resources/Vehicles/
+?? UnityProject/Assets/Scripts/PrototypeAmmoSupplyPoint.cs
+?? UnityProject/Assets/Scripts/PrototypeAmmoSupplyPoint.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeAmmoSupplySystem.cs
+?? UnityProject/Assets/Scripts/PrototypeAmmoSupplySystem.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeAntiAirHud.cs
+?? UnityProject/Assets/Scripts/PrototypeAntiAirHud.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeAntiAirLock.cs
+?? UnityProject/Assets/Scripts/PrototypeAntiAirLock.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeArmorArtProbe.cs
+?? UnityProject/Assets/Scripts/PrototypeArmorArtProbe.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeBotRoster.cs
+?? UnityProject/Assets/Scripts/PrototypeBotRoster.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeHitFeedback.cs
+?? UnityProject/Assets/Scripts/PrototypeHitFeedback.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeMusicDirector.cs
+?? UnityProject/Assets/Scripts/PrototypeMusicDirector.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeOptimizationBenchmark.cs
+?? UnityProject/Assets/Scripts/PrototypeOptimizationBenchmark.cs.meta
+?? UnityProject/Assets/Scripts/PrototypePathWorkspace.cs
+?? UnityProject/Assets/Scripts/PrototypePathWorkspace.cs.meta
+?? UnityProject/Assets/Scripts/PrototypePlayerAudio.cs
+?? UnityProject/Assets/Scripts/PrototypePlayerAudio.cs.meta
+?? UnityProject/Assets/Scripts/PrototypePlayerHealthHud.cs
+?? UnityProject/Assets/Scripts/PrototypePlayerHealthHud.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeReconRadar.cs
+?? UnityProject/Assets/Scripts/PrototypeReconRadar.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeRemainingArtProbe.cs
+?? UnityProject/Assets/Scripts/PrototypeRemainingArtProbe.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeScoreIcons.cs
+?? UnityProject/Assets/Scripts/PrototypeScoreIcons.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeScorePopup.cs
+?? UnityProject/Assets/Scripts/PrototypeScorePopup.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeScoreSystem.cs
+?? UnityProject/Assets/Scripts/PrototypeScoreSystem.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeScoreboard.cs
+?? UnityProject/Assets/Scripts/PrototypeScoreboard.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeSmokeCloud.cs
+?? UnityProject/Assets/Scripts/PrototypeSmokeCloud.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeSmokeGrenadeFuse.cs
+?? UnityProject/Assets/Scripts/PrototypeSmokeGrenadeFuse.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeSoldierArtProbe.cs
+?? UnityProject/Assets/Scripts/PrototypeSoldierArtProbe.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs
+?? UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeSupportRequisition.cs
+?? UnityProject/Assets/Scripts/PrototypeSupportRequisition.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeTankSightHud.cs
+?? UnityProject/Assets/Scripts/PrototypeTankSightHud.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeThrowableTrajectory.cs
+?? UnityProject/Assets/Scripts/PrototypeThrowableTrajectory.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeThrowableVisual.cs
+?? UnityProject/Assets/Scripts/PrototypeThrowableVisual.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeTracerPool.cs
+?? UnityProject/Assets/Scripts/PrototypeTracerPool.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeVehicleArmor.cs
+?? UnityProject/Assets/Scripts/PrototypeVehicleArmor.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeVehicleArtRig.cs
+?? UnityProject/Assets/Scripts/PrototypeVehicleArtRig.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeVehicleEngineAudio.cs
+?? UnityProject/Assets/Scripts/PrototypeVehicleEngineAudio.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeVehicleImpactAudio.cs
+?? UnityProject/Assets/Scripts/PrototypeVehicleImpactAudio.cs.meta
+?? UnityProject/Assets/Scripts/PrototypeWeaponMenuPreview.cs
+?? UnityProject/Assets/Scripts/PrototypeWeaponMenuPreview.cs.meta
+?? art/
+?? docs/UNITY_ENGINE_AUDIO_MANIFEST_048.json
+?? docs/UNITY_HANDOFF_048.md
+?? docs/UNITY_HANDOFF_049.md
+?? docs/UNITY_HANDOFF_050.md
+?? docs/UNITY_HANDOFF_051.md
+?? docs/UNITY_HANDOFF_052.md
+?? docs/UNITY_HANDOFF_0521.md
+?? docs/UNITY_HANDOFF_053.md
+?? docs/UNITY_HANDOFF_054.md
+?? docs/UNITY_HANDOFF_0541.md
+?? docs/UNITY_HANDOFF_0542.md
+?? docs/UNITY_HANDOFF_055.md
+?? docs/UNITY_HANDOFF_056.md
+?? docs/UNITY_HANDOFF_057.md
+?? docs/UNITY_MENU_ART_MANIFEST_053.json
+?? docs/UNITY_MUSIC_047.md
+?? docs/UNITY_MUSIC_MANIFEST_047.json
+?? docs/UNITY_PLAYER_AUDIO_MANIFEST_051.json
+?? docs/music-scores/
+?? scripts/generate-unity-engines.py
+?? scripts/generate-unity-music.py
+?? scripts/generate-unity-player-audio.py
+?? scripts/generate-unity-vehicle-impacts.py
+?? scripts/render-native-instrument.swift

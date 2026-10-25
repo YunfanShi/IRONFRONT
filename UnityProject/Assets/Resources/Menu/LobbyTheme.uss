@@ -1,0 +1,61 @@
+/* Font faces are embedded TextCore assets: do not inherit OS-dependent CJK fonts. */
+.lobby-view .lobby-page, .lobby-view .identity-card, .lobby-view .navigation {
+    -unity-font-definition: url("Fonts/LobbyRegular.asset");
+    -unity-font-style: normal;
+}
+.brand-title {
+    -unity-font-definition: url("Fonts/LobbyStencil.asset");
+    -unity-font-style: normal;
+    font-size: 24px;
+    letter-spacing: .4px;
+    color: rgb(241, 239, 230);
+}
+.navigation .nav-button, .navigation .nav-button.active, .lobby-view .secondary-button, .lobby-view .text-action {
+    -unity-font-definition: url("Fonts/LobbyMedium.asset");
+    -unity-font-style: normal;
+}
+.lobby-view .hero-title, .lobby-view .operation-title, .lobby-view .primary-button {
+    -unity-font-definition: url("Fonts/LobbyHeavy.asset");
+    -unity-font-style: normal;
+}
+.lobby-view .version, .lobby-view .operator-caption, .lobby-view .identity-role, .lobby-view .legacy-identity { display: none; }
+.lobby-view .scene-veil { opacity: 0; }
+.lobby-view .operator-image { top: 18px; }
+.lobby-view .lobby-page { left: auto; right: 30px; top: 78px; bottom: 64px; width: 27%; min-width: 245px; max-width: 330px; }
+.lobby-view .eyebrow { font-size: 11px; letter-spacing: 2px; color: rgb(218, 214, 199); }
+.lobby-view .hero-title { margin: 3px 0 14px 0; height: 66px; font-size: 52px; letter-spacing: 0; flex-shrink: 0; -unity-text-align: middle-left; color: rgb(248, 246, 238); }
+.lobby-mission-card { position: relative; flex-grow: 1; min-height: 180px; max-height: 265px; justify-content: flex-end; border-width: 1px; border-color: rgba(209, 212, 201, .56); border-radius: 2px; background-color: rgb(17, 21, 22); overflow: hidden; }
+.lobby-map-art, .lobby-map-shade { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.lobby-mission-copy { padding: 0 12px 10px 12px; }
+.lobby-view .operation-title { margin: 0 0 3px 0; font-size: 27px; letter-spacing: .5px; color: rgb(244, 241, 231); }
+.lobby-view .body-text { font-size: 11px; color: rgb(221, 220, 208); }
+.lobby-view .text-action { height: 34px; flex-shrink: 0; margin: 0; padding: 0 12px; background-color: rgba(19, 26, 28, .92); border-top-width: 1px; border-top-color: rgba(209, 212, 201, .34); color: rgb(235, 232, 219); font-size: 12px; }
+.lobby-view .text-action:hover, .lobby-view .text-action:focus { background-color: rgb(40, 47, 45); color: rgb(249, 204, 120); }
+.lobby-view .text-action:active { background-color: rgb(15, 19, 20); }
+.lobby-deployment-slot { flex-shrink: 0; }
+.lobby-view .deployment-actions { position: relative; left: auto; top: auto; right: auto; bottom: auto; width: auto; margin-top: 12px; }
+.lobby-view .primary-button { height: 50px; flex-shrink: 0; padding: 0 12px; font-size: 24px; letter-spacing: .3px; color: rgb(21, 22, 17); background-color: rgb(232, 182, 95); border-radius: 2px; border-top-color: rgb(255, 224, 155); border-bottom-color: rgb(161, 116, 50); }
+.lobby-view .primary-button:hover, .lobby-view .primary-button:focus { background-color: rgb(252, 205, 125); border-color: rgb(255, 235, 180); }
+.lobby-view .primary-button:active { background-color: rgb(205, 151, 70); border-top-color: rgb(161, 116, 50); }
+.lobby-view .secondary-button { height: 41px; flex-shrink: 0; margin: 9px 0 0 0; padding: 0 12px; background-color: rgba(17, 24, 26, .91); border-color: rgba(211, 214, 202, .60); border-radius: 2px; color: rgb(235, 234, 221); font-size: 15px; -unity-font-style: normal; -unity-text-align: middle-center; }
+.lobby-view .secondary-button:hover, .lobby-view .secondary-button:focus { background-color: rgb(37, 43, 42); border-color: rgb(232, 182, 95); }
+.lobby-view .secondary-button:active { background-color: rgb(10, 15, 16); }
+.lobby-view .lobby-note { display: flex; }
+.calling-card, .player-avatar { display: none; }
+.lobby-view .identity-card { left: 30px; bottom: 42px; width: 29%; min-width: 248px; max-width: 340px; height: 70px; border-width: 1px; border-color: rgba(203, 199, 177, .52); border-radius: 2px; background-color: rgba(11, 16, 17, .95); overflow: hidden; }
+.lobby-view .calling-card { display: flex; position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.lobby-view .identity-badge { position: relative; width: 52px; height: 52px; flex-shrink: 0; margin: 8px; border-color: rgba(210, 209, 188, .55); background-color: rgb(34, 39, 37); }
+.lobby-view .player-avatar { display: flex; width: 50px; height: 50px; }
+.lobby-view .name-area { margin: 0 10px 0 4px; justify-content: center; }
+.lobby-view .name-area .unity-text-field { height: 31px; }
+.lobby-view .name-area .unity-text-field__input { font-size: 17px; -unity-font-style: normal; color: rgb(241, 239, 225); }
+.lobby-view .name-area .unity-text-field__input:hover { background-color: rgba(240, 207, 140, .06); }
+.lobby-view .name-area .unity-text-field__input:focus { background-color: rgba(12, 18, 18, .75); }
+.operation-back { position: absolute; right: 14px; top: 15px; height: 26px; margin: 0; padding: 0 7px; background-color: rgba(12, 16, 17, .8); color: rgb(232, 182, 95); border-width: 1px; border-color: rgba(232, 182, 95, .4); font-size: 10px; }
+.operation-back:hover { background-color: rgb(48, 44, 32); }
+.compact.lobby-view .lobby-page { top: 70px; bottom: 42px; }
+.compact.lobby-view .hero-title { font-size: 50px; height: 63px; margin-bottom: 11px; }
+.compact.lobby-view .identity-card { bottom: 32px; }
+.compact.lobby-view .lobby-mission-card { min-height: 160px; }
+
+.calling-card-art { flex-grow: 1; overflow: hidden; }

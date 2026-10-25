@@ -1,0 +1,23 @@
+[
+  {
+    "name": "if27_normal",
+    "dimensions": [
+      2048,
+      2048
+    ]
+  },
+  {
+    "name": "if27_basecolor",
+    "dimensions": [
+      2048,
+      2048
+    ]
+  },
+  {
+    "name": "if27_metalrough",
+    "dimensions": [
+      2048,
+      2048
+    ]
+  }
+]

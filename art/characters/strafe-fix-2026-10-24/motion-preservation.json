@@ -1,0 +1,9 @@
+{
+  "run": 8.000000000407681e-05,
+  "walk": 3e-05,
+  "crouch": 3e-05,
+  "crawl": 6e-05,
+  "crawl-strafe": 3e-05,
+  "crawl-reverse": 3e-05,
+  "prone-aim": 0.0
+}

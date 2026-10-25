@@ -1,0 +1,11 @@
+FAIL
+Version=0.63.0
+RuntimeErrors=0
+MaxGripErrorM=0.0481956
+MaxAnkleDriftM=0.0002643122
+MaxLoopPositionStepM=0.0002258642
+MinChestMotionM=0.007453751
+Verified=7 weapons; 201 samples per loop; live playback; two complete cycles at 30 fps
+System.InvalidOperationException: Every weapon remains in both hands: 0.0481956
+  at Ironfront.UnityPrototype.PrototypeMenuPoseProbe+<Run>d__8.MoveNext () [0x005a6] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeMenuPoseProbe.cs:101 
+  at Ironfront.UnityPrototype.PrototypeMenuPoseProbe+<Start>d__7.MoveNext () [0x0005c] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeMenuPoseProbe.cs:33 

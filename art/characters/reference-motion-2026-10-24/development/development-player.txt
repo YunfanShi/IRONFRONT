@@ -1,0 +1,49 @@
+PASS
+Version=0.58.1
+Unity=6000.5.10f1
+Device=Mac17,4
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+Bot Blue bound
+Bot Blue bound
+Bot Blue bound
+Bot Blue bound
+Bot Red bound
+Bot Red bound
+Bot Red bound
+Bot Red bound
+Rendered spawn pad has testable surface
+Captured soldiers-standing
+Blue standing clear of rendered pad=0.0000
+Blue standing grounded on rendered pad
+Red standing clear of rendered pad=0.0000
+Red standing grounded on rendered pad
+Captured soldiers-crouch
+Blue crouch clear of rendered pad=0.0000
+Blue crouch grounded on rendered pad
+Red crouch clear of rendered pad=0.0000
+Red crouch grounded on rendered pad
+Captured soldiers-run
+Blue run clear of rendered pad=0.0016
+Red run clear of rendered pad=0.0008
+Captured soldiers-prone
+Blue prone clear of rendered pad=0.0075
+Blue prone grounded on rendered pad
+Red prone clear of rendered pad=-0.0130
+Red prone grounded on rendered pad
+Carbine first-person art active
+Captured first-person-Carbine
+Pistol first-person art active
+Captured first-person-Pistol
+M2 player enters
+Captured motorcycle-seat0-TP
+M2 seat 0 visibility False
+Captured motorcycle-seat0-FP
+M2 seat 0 visibility True
+M2 passenger enters
+Captured motorcycle-seat1-TP
+M2 seat 1 visibility False
+Captured motorcycle-seat1-FP
+M2 seat 1 visibility True
+M2 exit restores soldier

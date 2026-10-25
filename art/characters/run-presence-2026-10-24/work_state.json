@@ -1,0 +1,10 @@
+{
+  "version": "0.59.3",
+  "stage": "Completed",
+  "completed_at": "2026-10-24T13:19:37.301247+08:00",
+  "app": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/UnityProject/Builds/RunMotion-0.59.3/IRONFRONT.app",
+  "player_verification": "player/results.txt",
+  "regression": "batch-results.txt",
+  "preview": "run-motion-0.59.3.mp4",
+  "remaining": []
+}

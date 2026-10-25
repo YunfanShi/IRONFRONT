@@ -4,7 +4,7 @@ namespace Ironfront.UnityPrototype
 {
     // Player-driven T90 with a traversing, elevating, gravity-driven main gun.
     public sealed class PrototypeTankVehicle : MonoBehaviour, IPrototypeSeatedVehicle,
-        IPrototypeWeaponAim
+        IPrototypeWeaponAim, IPrototypeArmoredVehicle
     {
         private const float MaxHealth = 820f;
         private const float MaxForward = 10f;
@@ -35,8 +35,12 @@ namespace Ironfront.UnityPrototype
         public bool Alive => Health > 0f;
         public bool IsActiveThreat => Occupant != null;
         public bool DriverCanFire => true;
+        public bool HasAuthoredArt => model != null && model.HasAuthoredArt;
         public float Health { get; private set; }
+        public float MaximumHealth => MaxHealth;
+        public int ArmorRating => 6;
         public float Speed { get; private set; }
+        public bool EngineRunning => Alive && Driver != null;
         public float CannonReadyIn => Mathf.Max(0f, nextShot - Time.time);
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public Transform VehicleTransform => transform;
@@ -56,15 +60,20 @@ namespace Ironfront.UnityPrototype
         public float WeaponRange => PlayerSeat == 1 ? 110f : CannonRange;
         public Vector3 SeatPosition => GetSeatPosition(PlayerSeat);
         public Vector3 CameraPosition => GetSeatCameraPosition(PlayerSeat);
-        public Vector3 GetSeatPosition(int seat) => transform.TransformPoint(
-            seat == 1 ? new Vector3(-.67f, 2.1f, -.87f) :
-            seat == 2 ? new Vector3(-.8f, .65f, -1.65f) :
-            seat == 3 ? new Vector3(.8f, .65f, -1.65f) :
-            new Vector3(-.65f, .65f, -.55f));
+        public Vector3 GetSeatPosition(int seat)
+        {
+            if (HasAuthoredArt)
+                return seat == 1 ? model.Turret.TransformPoint(new Vector3(-.76f, .45f, -.55f)) :
+                    transform.TransformPoint(seat >= 2 ? new Vector3(seat == 2 ? -.8f : .8f, .85f, -1.8f) :
+                        new Vector3(-.65f, .85f, 2.5f));
+            return transform.TransformPoint(seat == 1 ? new Vector3(-.67f, 2.1f, -.87f) :
+                seat == 2 ? new Vector3(-.8f, .65f, -1.65f) :
+                seat == 3 ? new Vector3(.8f, .65f, -1.65f) : new Vector3(-.65f, .65f, -.55f));
+        }
         public Vector3 GetSeatCameraPosition(int seat) => seat == 1 && gunnerMount != null ?
             gunnerMount.TransformPoint(new Vector3(-.30f, .20f, .60f)) :
             seat >= 2 ? transform.TransformPoint(new Vector3(seat == 2 ? -1.3f : 1.3f,
-                3.35f, -2.75f)) : model.Turret.TransformPoint(new Vector3(.73f, 1.22f, .90f));
+                3.35f, -2.75f)) : model.DriverOptic.position;
         public Vector3 ExitPosition
         {
             get
@@ -81,11 +90,14 @@ namespace Ironfront.UnityPrototype
             spawn = position;
             spawnYaw = yaw;
             Health = MaxHealth;
+            runtime.Scores?.BeginLife(this);
             model = gameObject.AddComponent<PrototypeTankVisual>();
             model.Initialize(game, team, position, yaw);
             seats = new PrototypeVehicleSeats(this, game, 4, true);
             BuildGunnerWeapon();
             renderers = GetComponentsInChildren<Renderer>();
+            if (HasAuthoredArt) renderers = gunnerMount.GetComponentsInChildren<Renderer>();
+            PrototypeVehicleEngineAudio.Attach(gameObject, game, this, PrototypeEngineSound.HeavyDiesel, MaxForward);
         }
 
         public void ApplyNetworkState(Vector3 position, float yaw, float health, bool alive)
@@ -95,7 +107,9 @@ namespace Ironfront.UnityPrototype
                 !Finite(yaw) || !Finite(health)) return;
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+            bool wasAlive = Alive;
             Health = alive ? Mathf.Clamp(health, 0.01f, MaxHealth) : 0f;
+            if (!wasAlive && Alive) runtime.Scores?.BeginLife(this);
             Speed = 0f;
             SetVisible(alive);
         }
@@ -123,6 +137,7 @@ namespace Ironfront.UnityPrototype
                 runtime.Match.Winner.HasValue || !Alive || !Finite(amount) || amount <= 0f) return;
             Health = Mathf.Max(0f, Health - amount);
             if (Alive) return;
+            runtime.Scores?.ResolveDefeat(this, Team);
             Speed = 0f;
             PrototypePlayer occupant = Occupant;
             if (occupant != null) occupant.TakeDamage(1000f);
@@ -163,6 +178,11 @@ namespace Ironfront.UnityPrototype
             // disable W or swallow the click used to return to the game.
             if (runtime.PauseOpen || (runtime.Frontend != null && runtime.Frontend.IsOpen))
                 return;
+            if (runtime.ScoreboardOpen)
+            {
+                if (SeatCanDrive) Drive(0f, 0f, dt);
+                return;
+            }
             ApplyPlayerInput(Input.GetAxisRaw("Vertical"),
                 Input.GetAxisRaw("Horizontal"), Input.GetMouseButton(0),
                 Cursor.lockState == CursorLockMode.Locked, dt);
@@ -226,6 +246,7 @@ namespace Ironfront.UnityPrototype
             if (model.BarrelPivot != null) model.BarrelPivot.localRotation = Quaternion.identity;
             seats.Clear();
             Health = MaxHealth;
+            runtime.Scores?.BeginLife(this);
             Speed = 0f;
             nextGunnerShot = Time.time + 1f;
             nextShot = Time.time + 1f;
@@ -256,7 +277,8 @@ namespace Ironfront.UnityPrototype
         {
             gunnerMount = new GameObject("Independent commander MG").transform;
             gunnerMount.SetParent(model.Turret, false);
-            gunnerMount.localPosition = new Vector3(-.67f, 1.62f, -.32f);
+            gunnerMount.localPosition = HasAuthoredArt ? new Vector3(-.76f, 1.38f, -.55f) :
+                new Vector3(-.67f, 1.62f, -.32f);
             gunnerBarrel = new GameObject("Commander MG elevation").transform;
             gunnerBarrel.SetParent(gunnerMount, false);
             GameObject barrel = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -264,7 +286,8 @@ namespace Ironfront.UnityPrototype
             barrel.transform.SetParent(gunnerBarrel, false);
             barrel.transform.localPosition = new Vector3(0f, 0f, .68f);
             barrel.transform.localScale = new Vector3(.14f, .14f, 1.32f);
-            Destroy(barrel.GetComponent<Collider>());
+            Collider decorativeCollider = barrel.GetComponent<Collider>();
+            decorativeCollider.enabled = false; Destroy(decorativeCollider);
             barrel.GetComponent<Renderer>().sharedMaterial = runtime.GunMaterial;
             gunnerMuzzle = new GameObject("Commander MG muzzle").transform;
             gunnerMuzzle.SetParent(gunnerBarrel, false);
@@ -283,6 +306,7 @@ namespace Ironfront.UnityPrototype
         private void SetVisible(bool visible)
         {
             if (model.HullCollider != null) model.HullCollider.enabled = visible;
+            if (HasAuthoredArt) model.SetVisible(visible);
             if (renderers != null)
                 foreach (Renderer part in renderers) part.enabled = visible;
         }

@@ -1,0 +1,207 @@
+{
+  "file": "a40-watchtower/exports/A40_WATCHTOWER_LOD2.fbx",
+  "sha256": "4eb320096b94fdc39c1e96bd561c6b05bd6f51044570c5913b5bc36147a5821f",
+  "bytes": 1203564,
+  "meshes": 15,
+  "triangles": 26372,
+  "min": [
+    -2.3460681438446045,
+    -3.605297088623047,
+    0.002238923916593194
+  ],
+  "max": [
+    2.3514492511749268,
+    3.4923980236053467,
+    3.8761839866638184
+  ],
+  "dimensions": [
+    4.697517395019531,
+    7.0976951122283936,
+    3.873945062747225
+  ],
+  "nodes": [
+    "A40_LOD2",
+    "Barrel_Lower_L_LOD2",
+    "Barrel_Lower_R_LOD2",
+    "Barrel_Upper_L_LOD2",
+    "Barrel_Upper_R_LOD2",
+    "Barrels.002",
+    "Hull_LOD2",
+    "Muzzle_LeftLower.002",
+    "Radar.002",
+    "RadarArray_LOD2",
+    "Turret.002",
+    "TurretArmor_LOD2",
+    "Wheel_L_Front_LOD2",
+    "Wheel_L_MidFront_LOD2",
+    "Wheel_L_MidRear_LOD2",
+    "Wheel_L_Rear_LOD2",
+    "Wheel_R_Front_LOD2",
+    "Wheel_R_MidFront_LOD2",
+    "Wheel_R_MidRear_LOD2",
+    "Wheel_R_Rear_LOD2"
+  ],
+  "mesh_details": [
+    {
+      "name": "Barrel_Lower_L_LOD2",
+      "triangles": 239,
+      "geometric_boundary_edges": 35,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Barrel_Lower_R_LOD2",
+      "triangles": 248,
+      "geometric_boundary_edges": 28,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Hull_LOD2",
+      "triangles": 14188,
+      "geometric_boundary_edges": 5238,
+      "isolated_vertices": 33,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_L_Rear_LOD2",
+      "triangles": 900,
+      "geometric_boundary_edges": 308,
+      "isolated_vertices": 7,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "TurretArmor_LOD2",
+      "triangles": 3364,
+      "geometric_boundary_edges": 942,
+      "isolated_vertices": 2,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_R_MidFront_LOD2",
+      "triangles": 785,
+      "geometric_boundary_edges": 225,
+      "isolated_vertices": 15,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_R_MidRear_LOD2",
+      "triangles": 844,
+      "geometric_boundary_edges": 320,
+      "isolated_vertices": 9,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_R_Rear_LOD2",
+      "triangles": 886,
+      "geometric_boundary_edges": 364,
+      "isolated_vertices": 6,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_L_MidRear_LOD2",
+      "triangles": 792,
+      "geometric_boundary_edges": 290,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Barrel_Upper_R_LOD2",
+      "triangles": 276,
+      "geometric_boundary_edges": 28,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_L_Front_LOD2",
+      "triangles": 928,
+      "geometric_boundary_edges": 132,
+      "isolated_vertices": 9,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "RadarArray_LOD2",
+      "triangles": 911,
+      "geometric_boundary_edges": 293,
+      "isolated_vertices": 1,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_L_MidFront_LOD2",
+      "triangles": 809,
+      "geometric_boundary_edges": 205,
+      "isolated_vertices": 4,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Wheel_R_Front_LOD2",
+      "triangles": 912,
+      "geometric_boundary_edges": 76,
+      "isolated_vertices": 4,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    },
+    {
+      "name": "Barrel_Upper_L_LOD2",
+      "triangles": 290,
+      "geometric_boundary_edges": 32,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "materials": [
+        "A40_Blue_PBR"
+      ]
+    }
+  ],
+  "texture_dimensions": {
+    "A40_Blue_basecolor_2K.png": [
+      2048,
+      2048
+    ],
+    "A40_normal_2K.png": [
+      2048,
+      2048
+    ]
+  },
+  "pass": true
+}

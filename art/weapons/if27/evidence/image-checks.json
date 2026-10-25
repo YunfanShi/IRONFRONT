@@ -1,0 +1,1190 @@
+[
+  {
+    "file": "evidence/player/fire/0000.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00025065104166666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0001.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002392578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0002.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00024251302083333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0003.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002392578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0004.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00024576822916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0005.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002587890625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0006.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00024739583333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0007.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00025390625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fire/0008.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00024739583333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fp-ads.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0006266276041666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/fp-hip.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00024576822916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/menu-if27.png",
+    "size": [
+      320,
+      152
+    ],
+    "dark_fraction": 0.7934004934210527,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0000.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0005712890625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0001.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00045084635416666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0002.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0003434244791666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0003.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002897135416666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0004.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.000263671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0005.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00030598958333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0006.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00028157552083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0007.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00046875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0008.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0008544921875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0009.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0006136067708333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0010.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0005045572916666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0011.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0003955078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0012.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0004524739583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0013.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0005712890625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0014.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0004703776041666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0015.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00042154947916666664,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0016.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0001904296875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0017.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00010904947916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0018.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 6.998697916666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0019.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 8.138020833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0020.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 9.440104166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0021.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0001123046875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0022.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 7.8125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0023.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00013834635416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0024.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0001416015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0025.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 7.161458333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0026.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0001171875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0027.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 9.928385416666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0028.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 9.27734375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0029.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00011393229166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0030.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 8.951822916666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0031.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00010904947916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0032.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 7.32421875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0033.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00012532552083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0034.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00015299479166666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0035.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0001611328125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0036.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002571614583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0037.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00036295572916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0038.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.000458984375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0039.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0005875651041666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0040.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0007080078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0041.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0007991536458333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0042.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0006624348958333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0043.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00048502604166666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0044.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00019694010416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0045.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00017903645833333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0046.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0047.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00014811197916666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0048.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00014973958333333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0049.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0001025390625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0050.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00011393229166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0051.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 8.951822916666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0052.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 9.928385416666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0053.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0004150390625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0054.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0005859375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0055.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.000537109375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0056.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002766927083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-fp/0057.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00020833333333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0000.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.001455078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0001.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.001484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0002.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015055338541666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0003.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0016259765625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0004.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.001533203125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0005.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014225260416666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0006.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0016015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0007.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015104166666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0008.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015218098958333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0009.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015169270833333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0010.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014453125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0011.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0013997395833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0012.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014322916666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0013.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.00150390625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0014.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0015.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014697265625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0016.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014697265625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0017.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015266927083333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0018.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015299479166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0019.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015364583333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0020.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0016145833333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0021.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014973958333333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0022.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014876302083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0023.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015901692708333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0024.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015657552083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0025.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015690104166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0026.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015934244791666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0027.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.001572265625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0028.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015299479166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0029.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015413411458333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0030.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015445963541666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0031.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014583333333333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0032.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015266927083333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0033.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0016585286458333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0034.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0016080729166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0035.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015152994791666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0036.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015445963541666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0037.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015592447916666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0038.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014127604166666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0039.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014778645833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0040.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014290364583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0041.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014453125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0042.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014274088541666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0043.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014225260416666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0044.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015364583333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0045.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015169270833333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0046.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015869140625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0047.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.001533203125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0048.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015478515625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0049.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014925130208333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0050.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015104166666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0051.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014095052083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0052.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015462239583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0053.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014371744791666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0054.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014111328125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0055.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.001435546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0056.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0014534505208333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/reload-tp/0057.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0015543619791666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/tp-crouch.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0003662109375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/tp-prone.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 8.7890625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/tp-run.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0002099609375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "file": "evidence/player/tp-standing.png",
+    "size": [
+      960,
+      640
+    ],
+    "dark_fraction": 0.0004654947916666667,
+    "magenta_fraction": 0.0
+  }
+]

@@ -1,0 +1,170 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/blue-soldier/exports/blue-soldier-lod1.fbx",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 4,
+      "images": [
+        "blue-soldier-basecolor-2k.png",
+        "blue-soldier-metallic-2k.png",
+        "blue-soldier-normal-2k.png",
+        "blue-soldier-roughness-2k.png"
+      ],
+      "name": "Trial neutral blue gray",
+      "node_count": 7,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "Trial neutral blue gray"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "BlueSoldier_LOD1_Mesh",
+      "degenerate_faces": 0,
+      "edges": 9000,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral blue gray"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "BlueSoldier_LOD1",
+      "non_manifold_edges": 0,
+      "polygons": 6000,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 6000,
+      "source_polygons": 6000,
+      "source_vertices": 3002,
+      "triangles": 6000,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 3002,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.485086,
+          -0.201382,
+          0.000166
+        ],
+        [
+          0.483385,
+          0.258939,
+          1.798797
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.968471,
+        0.46032,
+        1.798631
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "BlueSoldier_LOD1",
+      "parent": null,
+      "rotation_euler": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        0.968471,
+        0.460321,
+        1.798631
+      ],
+      "max": [
+        0.483385,
+        0.258939,
+        1.798797
+      ],
+      "min": [
+        -0.485086,
+        -0.201382,
+        0.000166
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 0,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 9000,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 4,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 1,
+    "mesh_objects": 1,
+    "missing_material_faces": 0,
+    "node_materials": 1,
+    "non_manifold_edges": 0,
+    "objects": 1,
+    "polygons": 6000,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 6000,
+    "textured_materials": 1,
+    "triangles": 6000,
+    "uv_mapped_meshes": 1,
+    "vertices": 3002,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

@@ -1,158 +1,121 @@
-.screen { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(12, 22, 26); color: rgb(231, 238, 238); }
-.hangar-image { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
-.scene-veil { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
-.scene-vignette { position: absolute; left: 0; bottom: 0; right: 0; height: 76px; background-color: rgba(7, 17, 21, 0.25); }
-.top-bar { position: absolute; left: 0; top: 0; right: 0; height: 68px; flex-direction: row; align-items: center; padding-left: 40px; padding-right: 38px; background-color: rgba(5, 13, 18, 0.95); border-bottom-width: 1px; border-bottom-color: rgb(43, 67, 73); }
-.brand { width: 260px; flex-direction: row; align-items: center; }
-.brand-white, .brand-accent { font-size: 24px; -unity-font-style: bold; letter-spacing: 2px; margin: 0; padding: 0; }
-.brand-white { color: rgb(234, 242, 243); }
-.brand-accent { color: rgb(112, 198, 208); }
-.version { color: rgb(129, 151, 158); font-size: 10px; margin-left: 12px; }
-.navigation { flex-grow: 1; flex-direction: row; justify-content: center; height: 100%; align-items: center; }
-.nav-button { width: 78px; height: 58px; margin-left: 4px; margin-right: 4px; background-color: transparent; border-width: 0; border-bottom-width: 2px; border-bottom-color: transparent; color: rgb(173, 192, 198); font-size: 16px; }
-.nav-button:hover { color: white; background-color: rgba(52, 83, 91, 0.27); }
-.nav-button.active { color: rgb(237, 245, 246); border-bottom-color: rgb(113, 199, 209); -unity-font-style: bold; }
-.header-right { width: 180px; -unity-text-align: middle-right; color: rgb(164, 184, 189); font-size: 12px; }
-.page { position: absolute; left: 48px; top: 85px; width: 506px; bottom: 81px; }
+.screen { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(18, 19, 18); color: rgb(230, 227, 217); }
+.hangar-image, .operator-image, .scene-veil { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.scene-vignette { position: absolute; left: 0; bottom: 0; right: 0; height: 90px; background-color: rgba(7, 9, 9, .15); }
 .hidden { display: none; }
-.lobby-page { background-color: transparent; }
-.panel-page { left: 35px; top: 89px; width: 525px; bottom: 81px; padding: 22px 20px 16px 20px; background-color: rgba(5, 17, 24, 0.85); border-top-width: 2px; border-top-color: rgb(113, 199, 209); }
-.eyebrow { color: rgb(191, 209, 213); font-size: 12px; -unity-font-style: bold; letter-spacing: 0.5px; }
-.hero-title { margin-top: 9px; color: rgb(243, 247, 247); font-size: 47px; -unity-font-style: bold; letter-spacing: 2px; }
-.hero-subtitle { margin-top: 2px; color: rgb(178, 198, 203); font-size: 16px; }
-.operation-summary { position: absolute; top: 145px; width: 440px; height: 128px; background-color: rgba(5, 17, 24, 0.85); border-left-width: 3px; border-left-color: rgb(113, 199, 209); }
-.operation-summary .eyebrow { position: absolute; left: 20px; top: 9px; }
-.operation-title { position: absolute; left: 20px; top: 30px; color: rgb(235, 242, 243); font-size: 23px; -unity-font-style: bold; }
-.operation-summary .body-text { position: absolute; left: 20px; top: 65px; }
-.body-text { color: rgb(189, 205, 208); font-size: 13px; }
-.text-action { position: absolute; left: 20px; top: 92px; height: 25px; width: 165px; padding: 0 6px; -unity-text-align: middle-left; color: rgb(214, 232, 234); font-size: 12px; background-color: rgba(30, 53, 61, 0.8); border-width: 1px; border-color: rgb(65, 96, 103); }
-.text-action:hover { background-color: rgb(42, 83, 94); }
-.section-label { color: rgb(181, 201, 206); font-size: 12px; -unity-font-style: bold; margin-top: 22px; margin-bottom: 8px; }
-.lobby-page .section-label { position: absolute; top: 293px; margin-top: 0; margin-bottom: 0; }
-.squad-row { position: absolute; top: 320px; width: 506px; flex-direction: row; justify-content: space-between; }
-.squad-card { width: 96px; height: 50px; padding: 4px 7px 3px 8px; background-color: rgba(8, 23, 30, 0.88); border-top-width: 1px; border-top-color: rgb(59, 87, 96); }
-.squad-card.current { border-top-color: rgb(113, 199, 209); }
-.squad-number { color: rgb(192, 212, 216); font-size: 10px; -unity-font-style: bold; }
-.squad-role { color: rgb(236, 241, 241); font-size: 13px; -unity-font-style: bold; }
-.squad-note { color: rgb(138, 161, 167); font-size: 9px; }
-.page-title { margin-top: 13px; margin-bottom: 8px; color: rgb(243, 247, 247); font-size: 30px; -unity-font-style: bold; }
-.map-row { flex-direction: row; width: 100%; margin-top: 17px; justify-content: space-between; }
-.map-card { width: 235px; height: 139px; background-color: rgba(18, 42, 52, 0.88); border-width: 1px; border-color: rgb(59, 85, 95); }
-.map-card.selected { border-color: rgb(113, 199, 209); }
-.map-card.pending { padding: 17px 13px; }
-.map-thumb { height: 91px; width: 100%; }
-.map-name { margin: 6px 9px 0 9px; color: rgb(234, 241, 242); font-size: 14px; -unity-font-style: bold; }
-.map-meta { margin: 1px 9px; color: rgb(150, 179, 185); font-size: 10px; }
-.map-pending-title { margin-top: 12px; margin-bottom: 11px; color: rgb(224, 234, 235); font-size: 19px; -unity-font-style: bold; }
-.mode-row { flex-direction: row; width: 100%; justify-content: space-between; }
-.mode-card { width: 235px; height: 65px; padding: 8px 12px; background-color: rgba(18, 42, 52, 0.88); border-width: 1px; border-color: rgb(59, 85, 95); }
-.mode-card.selected { border-color: rgb(113, 199, 209); }
-.mode-name { color: rgb(230, 239, 240); font-size: 16px; -unity-font-style: bold; margin-bottom: 4px; }
-.class-grid { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-top: 13px; }
-.class-card { width: 235px; height: 62px; margin-bottom: 8px; padding: 8px 12px; -unity-text-align: middle-left; white-space: normal; background-color: rgba(18, 42, 52, 0.89); color: rgb(222, 236, 238); font-size: 14px; border-width: 1px; border-color: rgb(58, 84, 94); }
-.class-card:hover { background-color: rgb(38, 72, 82); }
-.class-card.selected { background-color: rgba(39, 82, 92, 0.96); border-color: rgb(113, 199, 209); }
-.equipment-card { width: 100%; height: 125px; margin-top: 9px; padding: 10px 13px; background-color: rgba(8, 24, 32, 0.93); border-top-width: 2px; border-top-color: rgb(113, 199, 209); }
-.weapon-name { color: rgb(242, 246, 246); font-size: 20px; -unity-font-style: bold; margin-top: 6px; }
-.stats-row { flex-direction: row; justify-content: space-between; margin-top: 9px; }
-.stat { width: 106px; height: 43px; padding: 4px 8px; background-color: rgba(57, 75, 66, 0.57); }
-.stat-caption { color: rgb(155, 190, 194); font-size: 10px; }
-.stat-value { color: rgb(241, 245, 245); font-size: 16px; -unity-font-style: bold; }
-.settings-card { background-color: rgba(8, 24, 32, 0.89); margin-top: 20px; padding: 16px 18px; }
-.settings-card .unity-slider { margin-top: 12px; }
-.control-text { color: rgb(194, 213, 215); font-size: 13px; margin-top: 12px; }
-.operator-caption { position: absolute; right: 39px; bottom: 103px; width: 175px; padding-top: 8px; border-top-width: 2px; border-top-color: rgb(113, 199, 209); background-color: rgba(5, 18, 23, 0.32); }
-.operator-caption .body-text { margin-top: 6px; }
-.bottom-bar { position: absolute; left: 0; bottom: 0; right: 0; height: 72px; flex-direction: row; align-items: center; padding: 6px 39px; background-color: rgba(5, 15, 20, 0.94); border-top-width: 1px; border-top-color: rgb(46, 73, 79); }
-.name-area { width: 225px; margin-right: 15px; }
-.field-label { color: rgb(166, 190, 194); font-size: 11px; -unity-font-style: bold; margin-bottom: 5px; }
-.name-area .unity-text-field__input { background-color: rgb(30, 51, 58); color: rgb(237, 245, 245); border-width: 0; padding-left: 8px; font-size: 17px; height: 35px; }
-.primary-button, .secondary-button { height: 48px; border-width: 1px; margin-right: 9px; font-size: 16px; -unity-font-style: bold; }
-.primary-button { width: 190px; color: rgb(8, 36, 43); background-color: rgb(129, 205, 216); border-color: rgb(129, 205, 216); }
-.primary-button:hover { background-color: rgb(164, 224, 232); }
-.secondary-button { width: 203px; color: rgb(224, 238, 240); background-color: rgb(20, 43, 53); border-color: rgb(61, 92, 101); }
-.secondary-button:hover { background-color: rgb(35, 70, 82); }
-.footer-note { flex-grow: 1; color: rgb(143, 170, 175); font-size: 10px; -unity-text-align: middle-right; }
-
-/* Fixed positions keep the four menu pages clear of the persistent action bar. */
-.squad-card { position: relative; padding: 0; }
-.squad-number { position: absolute; left: 8px; top: 4px; font-size: 9px; }
-.squad-role { position: absolute; left: 8px; top: 20px; font-size: 12px; }
-.squad-note { position: absolute; left: 8px; top: 37px; font-size: 8px; }
-
-.operations-page > .eyebrow, .loadout-page > .eyebrow, .settings-page > .eyebrow { position: absolute; left: 20px; top: 15px; }
-.operations-page > .page-title, .loadout-page > .page-title, .settings-page > .page-title { position: absolute; left: 20px; top: 39px; margin: 0; font-size: 27px; }
-.operations-page > .body-text, .loadout-page > .body-text { position: absolute; left: 20px; top: 82px; }
-
-.operations-page .map-row { position: absolute; left: 20px; top: 112px; width: 485px; margin: 0; }
-.operations-page .map-card { position: relative; height: 112px; }
-.operations-page .map-thumb { height: 67px; }
-.operations-page .map-card .map-name { position: absolute; left: 8px; top: 70px; margin: 0; font-size: 12px; }
-.operations-page .map-card .map-meta { position: absolute; left: 8px; top: 92px; margin: 0; font-size: 9px; }
-.operations-page .map-card.pending { padding: 0; }
-.operations-page .map-card.pending .eyebrow { position: absolute; left: 11px; top: 8px; font-size: 10px; }
-.operations-page .map-pending-title { position: absolute; left: 11px; top: 35px; margin: 0; font-size: 19px; }
-.operations-page .map-card.pending .body-text { position: absolute; left: 11px; top: 77px; font-size: 11px; }
-.operations-page > .section-label { position: absolute; left: 20px; top: 238px; margin: 0; }
-.operations-page .mode-row { position: absolute; left: 20px; top: 261px; width: 485px; }
-.operations-page .mode-card { position: relative; height: 65px; padding: 0; }
-.operations-page .mode-card .mode-name { position: absolute; left: 10px; top: 8px; margin: 0; font-size: 14px; }
-.operations-page .mode-card .body-text { position: absolute; left: 10px; top: 38px; font-size: 10px; }
-.operations-page .team-size-label { position: absolute; left: 20px; top: 342px; color: rgb(181, 201, 206); font-size: 12px; -unity-font-style: bold; }
-.operations-page .team-size-button { position: absolute; left: 20px; top: 367px; width: 485px; height: 42px; color: rgb(224, 237, 238); background-color: rgba(39, 82, 92, .96); border-width: 1px; border-color: rgb(113, 199, 209); -unity-text-align: middle-center; }
-
-.loadout-page .class-grid { position: absolute; left: 20px; top: 114px; width: 485px; height: 120px; margin: 0; }
-.loadout-page .class-card { width: 235px; min-width: 0; height: 52px; margin-bottom: 8px; padding: 6px 8px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
-.loadout-page .assault-card { position: absolute; left: 0; top: 0; }
-.loadout-page .medic-card { position: absolute; left: 245px; top: 0; }
-.loadout-page .recon-card { position: absolute; left: 0; top: 60px; }
-.loadout-page .engineer-card { position: absolute; left: 245px; top: 60px; }
-.loadout-page .equipment-card { position: absolute; left: 20px; top: 246px; width: 485px; height: 103px; margin: 0; padding: 0; }
-.loadout-page .equipment-card > .eyebrow { position: absolute; left: 10px; top: 6px; font-size: 10px; }
-.loadout-page .weapon-name { position: absolute; left: 10px; top: 28px; margin: 0; font-size: 18px; }
-.loadout-page .stats-row { position: absolute; left: 10px; top: 60px; width: 465px; margin: 0; }
-.loadout-page .stat { position: relative; width: 108px; height: 34px; padding: 0; }
-.loadout-page .stat-caption { position: absolute; left: 6px; top: 1px; font-size: 8px; }
-.loadout-page .stat-value { position: absolute; left: 6px; top: 14px; font-size: 14px; }
-
-.settings-page .audio-card { position: absolute; left: 20px; top: 113px; width: 485px; height: 105px; margin: 0; padding: 0; }
-.settings-page .controls-card { position: absolute; left: 20px; top: 232px; width: 485px; height: 100px; margin: 0; padding: 0; }
-.settings-page .settings-card .mode-name { position: absolute; left: 15px; top: 12px; margin: 0; font-size: 15px; }
-.settings-page .audio-card .unity-slider { position: absolute; left: 15px; top: 48px; width: 450px; margin: 0; }
-.settings-page .audio-card .body-text { position: absolute; left: 15px; top: 79px; }
-.settings-page .control-text { position: absolute; left: 15px; top: 44px; margin: 0; font-size: 11px; white-space: normal; }
-
-/* Interactive loadout: four slots, weapon choices and live statistics. */
-.loadout-page .class-grid { top: 112px; height: 43px; }
-.loadout-page .class-card { top: 0; width: 115px; height: 42px; margin: 0; font-size: 11px; padding: 5px; -unity-text-align: middle-center; }
-.loadout-page .assault-card { left: 0; }
-.loadout-page .medic-card { left: 123px; }
-.loadout-page .recon-card { left: 246px; }
-.loadout-page .engineer-card { left: 369px; }
-.loadout-slots { position: absolute; left: 20px; top: 164px; width: 485px; height: 58px; flex-direction: row; justify-content: space-between; }
-.loadout-slot { position: relative; width: 116px; height: 58px; margin: 0; padding: 0; color: rgb(224, 237, 238); background-color: rgba(19, 43, 51, .95); border-width: 1px; border-color: rgb(65, 92, 101); }
-.loadout-slot.selected { border-color: rgb(113, 199, 209); background-color: rgba(39, 82, 92, .96); }
-.slot-icon { position: absolute; left: 6px; top: 4px; width: 65px; height: 19px; }
-.slot-name { position: absolute; left: 6px; top: 21px; width: 104px; color: rgb(233, 242, 242); font-size: 9px; -unity-font-style: bold; -unity-text-align: middle-left; white-space: nowrap; overflow: hidden; }
-.slot-key { position: absolute; left: 6px; top: 39px; color: rgb(155, 183, 189); font-size: 8px; }
-.weapon-options { position: absolute; left: 20px; top: 231px; width: 485px; height: 94px; flex-direction: row; flex-wrap: wrap; }
-.weapon-option { position: relative; width: 145px; height: 43px; margin-right: 8px; margin-bottom: 5px; padding: 0; background-color: rgba(16, 38, 47, .93); color: rgb(229, 239, 240); border-width: 1px; border-color: rgb(58, 85, 95); }
-.weapon-option:hover { background-color: rgb(37, 71, 82); }
-.weapon-option.selected { border-color: rgb(113, 199, 209); background-color: rgba(39, 82, 92, .96); }
-.weapon-option-icon { position: absolute; left: 7px; top: 3px; width: 83px; height: 18px; }
-.weapon-option-name { position: absolute; left: 7px; top: 22px; width: 137px; font-size: 10px; -unity-text-align: middle-left; }
-.loadout-page .equipment-card { top: 335px; height: 78px; }
-.loadout-page .equipment-card > .eyebrow { top: 6px; font-size: 9px; }
-.loadout-page .weapon-name { top: 22px; font-size: 16px; }
-.loadout-page .stats-row { top: 46px; }
-.loadout-page .stat { height: 26px; }
-.loadout-page .stat-caption { top: 1px; font-size: 8px; }
-.loadout-page .stat-value { top: 11px; font-size: 12px; }
-
-.settings-page .audio-card { height: 88px; }
-.settings-page .sensitivity-card { position: absolute; left: 20px; top: 207px; width: 485px; height: 88px; margin: 0; padding: 0; }
-.settings-page .sensitivity-card .unity-slider { position: absolute; left: 15px; top: 45px; width: 450px; margin: 0; }
-.settings-page .sensitivity-card .body-text { position: absolute; left: 15px; top: 70px; }
-.settings-page .controls-card { top: 302px; height: 88px; }
-.settings-page .control-text { top: 40px; }
-.gadget-info { position: absolute; left: 20px; top: 240px; width: 485px; height: 75px; padding: 16px 12px; font-size: 13px; color: rgb(194, 217, 220); background-color: rgba(15, 39, 46, .93); border-left-width: 2px; border-left-color: rgb(113, 199, 209); }
+.top-bar { position: absolute; left: 0; top: 0; right: 0; height: 48px; background-color: rgba(8, 10, 11, .72); border-bottom-width: 1px; border-bottom-color: rgba(207, 205, 192, .20); }
+.brand { position: absolute; left: 30px; top: 11px; flex-direction: row; align-items: center; }
+.brand-title { margin: 0; padding: 0; font-size: 23px; -unity-font-style: bold; letter-spacing: 1px; color: rgb(235, 230, 214); }
+.version { margin-left: 8px; font-size: 9px; color: rgb(153, 152, 146); }
+.navigation { position: absolute; left: 26%; top: 0; width: 270px; height: 48px; flex-direction: row; }
+.nav-button { width: 90px; height: 48px; margin: 0; padding: 0; background-color: transparent; border-width: 0; border-bottom-width: 2px; border-bottom-color: transparent; color: rgb(196, 195, 188); font-size: 15px; }
+.nav-button:hover { color: rgb(244, 206, 135); background-color: rgba(232, 182, 95, .06); }
+.nav-button.active { color: rgb(232, 182, 95); border-bottom-color: rgb(232, 182, 95); -unity-font-style: bold; }
+.settings-button { position: absolute; right: 24px; top: 13px; width: 94px; height: 34px; margin: 0; padding: 0; background-color: rgba(12, 14, 15, .36); border-width: 1px; border-color: rgba(206, 207, 198, .38); color: rgb(216, 214, 205); font-size: 13px; }
+.settings-button:hover, .settings-button.active { color: rgb(232, 182, 95); border-color: rgb(232, 182, 95); }
+.page { position: absolute; left: 24px; top: 82px; bottom: 112px; }
+.lobby-page { width: 236px; }
+.eyebrow { margin: 0; padding: 0; font-size: 10px; color: rgb(193, 188, 172); letter-spacing: 1px; }
+.hero-title { margin: 8px 0 18px 0; padding: 0; font-size: 30px; -unity-font-style: bold; }
+.operation-summary { padding: 12px 14px; background-color: rgba(8, 11, 12, .55); border-left-width: 2px; border-left-color: rgb(232, 182, 95); }
+.field-label { margin: 0 0 6px 0; padding: 0; font-size: 11px; color: rgb(193, 191, 180); }
+.operation-title { margin: 1px 0 5px 0; padding: 0; font-size: 21px; -unity-font-style: bold; }
+.body-text { margin: 0; padding: 0; font-size: 11px; color: rgb(184, 184, 176); }
+.text-action { height: 27px; margin: 9px 0 0 0; padding: 0; background-color: transparent; border-width: 0; color: rgb(232, 182, 95); font-size: 12px; -unity-text-align: middle-left; }
+.text-action:hover { color: rgb(255, 218, 145); }
+.lobby-note { display: none; margin: 9px 0 0 0; padding: 0; color: rgb(189, 187, 177); font-size: 10px; -unity-text-align: middle-left; }
+.identity-card { position: absolute; left: 24px; bottom: 22px; width: 246px; height: 65px; flex-direction: row; background-color: rgba(6, 9, 10, .67); border-left-width: 2px; border-left-color: rgb(232, 182, 95); }
+.identity-badge { width: 53px; margin: 8px; background-color: rgba(124, 135, 120, .23); border-width: 1px; border-color: rgba(176, 182, 163, .28); justify-content: center; align-items: center; }
+.identity-mark { font-size: 18px; color: rgb(232, 182, 95); -unity-font-style: bold; }
+.name-area { flex-grow: 1; margin: 9px 12px 6px 0; }
+.name-area .unity-text-field { margin: 0; height: 29px; }
+.name-area .unity-text-field__input { padding: 0 3px; background-color: transparent; color: rgb(240, 236, 224); border-width: 0; font-size: 18px; -unity-font-style: bold; }
+.name-area .unity-text-field__input:focus { border-bottom-width: 1px; border-bottom-color: rgb(232, 182, 95); }
+.identity-role { margin: 3px 0 0 3px; padding: 0; color: rgb(180, 183, 169); font-size: 10px; }
+.deployment-actions { position: absolute; right: 24px; bottom: 22px; width: 244px; }
+.secondary-button { height: 30px; margin: 0 0 7px 0; padding: 0 12px; border-width: 1px; border-color: rgba(178, 173, 155, .34); background-color: rgba(8, 11, 12, .60); color: rgb(208, 204, 190); font-size: 12px; -unity-text-align: middle-right; }
+.secondary-button:hover { border-color: rgb(232, 182, 95); color: rgb(232, 182, 95); }
+.primary-button { height: 62px; margin: 0; padding: 0 20px; border-width: 1px; border-color: rgb(245, 207, 136); background-color: rgb(232, 182, 95); color: rgb(33, 27, 16); font-size: 25px; -unity-font-style: bold; }
+.primary-button:hover { background-color: rgb(246, 204, 131); }
+.operator-caption { position: absolute; right: 24px; top: 84px; width: 138px; padding-top: 7px; border-top-width: 1px; border-top-color: rgba(232, 182, 95, .50); }
+.operator-caption .body-text { margin-top: 4px; color: rgb(215, 207, 187); font-size: 13px; }
+.preview-equipment { margin-top: 4px; padding: 0; font-size: 9px; color: rgb(168, 170, 154); }
+.operations-view .operator-caption, .settings-view .operator-caption { display: none; }
+.loadout-view .identity-card { display: none; }
+.loadout-view .deployment-actions { width: 124px; right: 12px; }
+.loadout-view .primary-button { height: 54px; font-size: 19px; padding: 0 8px; }
+.loadout-view .secondary-button { font-size: 10px; padding: 0 8px; }
+.panel-page { width: 388px; padding: 14px; background-color: rgba(7, 10, 12, .72); border-top-width: 1px; border-top-color: rgb(232, 182, 95); }
+.page-title { margin: 0 0 12px 0; padding: 0; font-size: 24px; -unity-font-style: bold; }
+.map-card { position: relative; height: 154px; border-width: 1px; border-color: rgba(232, 182, 95, .65); background-color: rgba(23, 26, 25, .38); }
+.map-thumb { width: 100%; height: 112px; }
+.map-name { position: absolute; left: 10px; top: 118px; margin: 0; padding: 0; font-size: 13px; }
+.map-meta { position: absolute; right: 10px; top: 122px; margin: 0; padding: 0; font-size: 9px; color: rgb(160, 168, 148); }
+.section-label { margin: 12px 0 6px 0; padding: 0; font-size: 11px; color: rgb(184, 185, 174); }
+.mode-row { flex-direction: row; justify-content: space-between; }
+.mode-card { width: 48.6%; height: 58px; padding: 8px; background-color: rgba(11, 16, 17, .56); border-width: 1px; border-color: rgba(184, 184, 169, .24); }
+.mode-card.selected { border-color: rgb(232, 182, 95); background-color: rgba(91, 67, 30, .26); }
+.mode-name { margin: 0; padding: 0; font-size: 13px; color: rgb(223, 223, 208); }
+.mode-card .body-text { margin-top: 5px; font-size: 9px; }
+.team-size-button { height: 33px; margin: 0; border-width: 1px; border-color: rgba(232, 182, 95, .38); background-color: rgba(37, 34, 24, .48); color: rgb(213, 208, 188); font-size: 10px; }
+.loadout-page { width: 364px; bottom: 22px; }
+.class-rail { position: absolute; left: 0; top: 0; width: 260px; }
+.class-card { height: 34px; margin: 0 0 4px 0; padding: 0 12px; flex-direction: row; align-items: center; background-color: rgba(10, 14, 15, .67); border-width: 1px; border-color: rgba(179, 183, 171, .25); }
+.class-card:hover { background-color: rgba(91, 67, 30, .40); }
+.class-card.selected { border-color: rgb(232, 182, 95); border-left-width: 3px; background-color: rgba(132, 86, 31, .39); }
+.class-symbol { width: 31px; padding: 0; margin: 0 7px 0 0; font-size: 23px; color: rgb(177, 185, 171); -unity-text-align: middle-center; }
+.class-card.selected .class-symbol { color: rgb(232, 182, 95); }
+.class-name { margin: 0; padding: 0; color: rgb(223, 222, 210); font-size: 15px; }
+.loadout-workbench { position: absolute; left: 0; top: 178px; right: 0; bottom: 0; }
+.weapon-slots, .utility-slots { flex-direction: row; justify-content: space-between; }
+.loadout-slot { position: relative; margin: 0; padding: 0; background-color: rgba(9, 13, 15, .72); border-width: 1px; border-color: rgba(165, 175, 164, .29); }
+.loadout-slot:hover { background-color: rgba(46, 42, 31, .72); }
+.loadout-slot.selected { border-color: rgb(232, 182, 95); background-color: rgba(53, 43, 28, .70); }
+.primary-slot { width: 60%; height: 96px; }
+.secondary-slot { width: 38%; height: 96px; }
+.slot-key { position: absolute; left: 8px; top: 6px; margin: 0; padding: 0; font-size: 10px; color: rgb(177, 179, 166); }
+.slot-icon { position: absolute; left: 8px; right: 8px; top: 23px; height: 47px; }
+.slot-name { position: absolute; left: 8px; right: 4px; bottom: 7px; margin: 0; padding: 0; color: rgb(227, 225, 211); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.secondary-slot .slot-name { font-size: 11px; }
+.utility-slots { margin-top: 6px; }
+.utility-slot { width: 49%; height: 50px; }
+.utility-icon { position: absolute; left: 8px; top: 8px; width: 37px; height: 32px; }
+.utility-name { position: absolute; left: 54px; top: 8px; right: 2px; margin: 0; padding: 0; font-size: 11px; }
+.utility-key { position: absolute; left: 54px; top: 27px; margin: 0; padding: 0; color: rgb(148, 155, 140); font-size: 9px; }
+.selection-title { margin: 7px 0 4px 0; padding: 0; font-size: 10px; color: rgb(196, 188, 161); }
+.weapon-options { height: 48px; flex-direction: row; justify-content: flex-start; }
+.weapon-option { position: relative; width: 49%; height: 48px; margin: 0 6px 0 0; padding: 0; background-color: rgba(8, 12, 14, .69); border-width: 1px; border-color: rgba(154, 170, 160, .24); }
+.weapon-option:hover { background-color: rgba(74, 57, 31, .58); }
+.weapon-option.selected { border-color: rgb(232, 182, 95); background-color: rgba(104, 72, 31, .47); }
+.weapon-option-icon { position: absolute; left: 7px; top: 3px; width: 108px; height: 25px; }
+.weapon-option-name { position: absolute; left: 7px; right: 3px; bottom: 4px; margin: 0; padding: 0; font-size: 10px; color: rgb(203, 203, 186); }
+.gadget-info { height: 54px; margin: 0; padding: 8px 10px; font-size: 11px; color: rgb(213, 207, 181); white-space: normal; background-color: rgba(13, 18, 17, .68); border-left-width: 2px; border-left-color: rgb(232, 182, 95); }
+.equipment-card { margin-top: 7px; }
+.stats-row { flex-direction: row; justify-content: space-between; }
+.stat { width: 23.7%; height: 31px; background-color: rgba(12, 18, 18, .50); padding: 3px 6px; flex-direction: row; align-items: center; }
+.stat-caption { padding: 0; margin: 0; color: rgb(155, 163, 148); font-size: 10px; }
+.stat-value { padding: 0; margin: 0; flex-grow: 1; -unity-text-align: middle-right; color: rgb(232, 219, 185); font-size: 13px; }
+.settings-page { width: 412px; }
+.settings-page .page-title { margin-bottom: 9px; }
+.settings-card { position: relative; height: 57px; flex-shrink: 0; margin: 0 0 6px 0; padding: 0; background-color: rgba(15, 21, 21, .51); }
+.settings-card .mode-name { position: absolute; left: 12px; top: 6px; font-size: 12px; }
+.settings-card .body-text { position: absolute; right: 12px; top: 6px; width: 58px; -unity-text-align: middle-right; font-size: 11px; color: rgb(217, 205, 172); }
+.settings-card .unity-slider { position: absolute; left: 10px; right: 12px; top: 29px; height: 16px; margin: 0; }
+.settings-card .unity-base-slider__tracker { background-color: rgb(95, 102, 91); }
+.settings-card .unity-base-slider__dragger { background-color: rgb(232, 182, 95); border-color: rgb(232, 182, 95); }
+.settings-page .crosshair-card { height: 68px; }
+.crosshair-card .unity-slider { right: 90px; top: 37px; }
+.crosshair-card .body-text { right: 87px; }
+.crosshair-preview { position: absolute; right: 8px; top: 3px; width: 62px; height: 62px; background-color: rgba(8, 14, 14, .68); }
+.settings-page .controls-card { height: 62px; margin-bottom: 0; }
+.control-text { position: absolute; left: 12px; right: 10px; top: 25px; margin: 0; padding: 0; font-size: 9px; color: rgb(178, 184, 164); white-space: normal; }
+.compact .page { top: 76px; bottom: 105px; }
+.compact .loadout-page { bottom: 18px; }
+.compact .class-card { height: 31px; margin-bottom: 3px; }
+.compact .loadout-workbench { top: 164px; }
+.compact .settings-card { height: 50px; }
+.compact .settings-page .crosshair-card { height: 62px; }
+.compact .settings-page .controls-card { height: 53px; }
+.compact .settings-card .unity-slider { top: 25px; }
+.compact .crosshair-card .unity-slider { top: 33px; }
+.compact .settings-page .page-title { font-size: 22px; margin-bottom: 7px; }
+.compact .control-text { top: 23px; }

@@ -1,0 +1,7 @@
+PASS
+Unity=6000.5.10f1
+Version=0.55.0
+Device=Mac17,4
+GPU=Apple M5
+RuntimeErrors=0
+Blue/red T90 and V12 authored prefabs present; three moving LODs; actual player frame captured.

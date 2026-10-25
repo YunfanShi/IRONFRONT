@@ -1,0 +1,134 @@
+FAIL
+Version=0.61.0
+RuntimeErrors=0
+PASS: Real application opens to lobby before battle
+PASS: Actual UI Toolkit menu initializes without fallback
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 960x600
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 960x600
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 960x600
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 960x600
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 960x600
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 960x600
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 960x600
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 960x600
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1280x800
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1280x800
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1280x800
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1280x800
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1280x800
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1280x800
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1280x800
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1280x800
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1600x900
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1600x900
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1600x900
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1600x900
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1600x900
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1600x900
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1600x900
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1600x900
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 1920x1080
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 1920x1080
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 1920x1080
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 1920x1080
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 1920x1080
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 1920x1080
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 1920x1080
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 1920x1080
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+PASS: Rendered silhouette stays clear of navigation, mission, play action and calling card
+PASS: Top navigation has only lobby/loadout/settings
+PASS: Lobby displays no class caption or class selection
+PASS: Mission, start and LAN form one aligned right column
+PASS: Avatar/name/calling-card sits at bottom left
+PASS: Calling card shows actual model portrait
+PASS: Lobby background is independently replaceable; original pages keep old background
+PASS: Actual soldier is centered at 50 percent of viewport
+PASS: tab-lobby stays within 2560x1080
+PASS: tab-lobby has unobstructed actual picking
+PASS: tab-loadout stays within 2560x1080
+PASS: tab-loadout has unobstructed actual picking
+PASS: tab-settings stays within 2560x1080
+PASS: tab-settings has unobstructed actual picking
+PASS: browse-operation stays within 2560x1080
+PASS: browse-operation has unobstructed actual picking
+PASS: solo-button stays within 2560x1080
+PASS: solo-button has unobstructed actual picking
+PASS: lan-button stays within 2560x1080
+PASS: lan-button has unobstructed actual picking
+PASS: identity-card stays within 2560x1080
+PASS: identity-card has unobstructed actual picking
+PASS: player-name stays within 2560x1080
+PASS: player-name has unobstructed actual picking
+PASS: Real model foreground contains opaque pixels
+System.InvalidOperationException: Rendered silhouette stays clear of navigation, mission, play action and calling card
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe.Check (System.Boolean condition, System.String text) [0x00020] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:224 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe.ValidateLobby () [0x00603] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:195 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe+<Verify>d__20.MoveNext () [0x001da] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:81 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe+<Start>d__19.MoveNext () [0x000bc] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:48 

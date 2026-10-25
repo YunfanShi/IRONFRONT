@@ -1,0 +1,34 @@
+[
+  {
+    "file": "if27-left.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1217103,
+    "sha256": "916bc7687528d79b472c3a72a4a79a450e18cec6493ec888346e07e5258bd9e1",
+    "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-67b615a3-4742-4206-a28e-61a008604b3a.png"
+  },
+  {
+    "file": "if27-right.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1613880,
+    "sha256": "cb110d41372bd50c157922f38427d834f142d43ab2af3eb830c7c000e0278746",
+    "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-3bcc019f-71ee-4f76-8764-cc4b8e75f885.png"
+  },
+  {
+    "file": "if27-front.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1497782,
+    "sha256": "9323b5c022226e100eb4597d06cc8c5faf43fbd27230c110dc05d0593c33472c",
+    "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-6ed102f9-b867-469a-9cbd-0aff8e92dde4.png"
+  },
+  {
+    "file": "if27-back.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1488440,
+    "sha256": "e5a37dd3998958fe72615742c2cf15099ea67d89ca4f66a4986feb633b886fc4",
+    "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-7fa7ae37-5e2a-4f44-8ed1-4d625eac1032.png"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "version": "0.53.0",
+  "date": "2026-10-13",
+  "generator": "built-in image_gen__imagegen",
+  "asset": "UnityProject/Assets/Resources/Menu/HangarBackdrop053.png",
+  "purpose": "Environment-only background for the real Unity UI Toolkit lobby; live 3D soldier and actual controls are separate layers.",
+  "referenceRole": "User screenshots provided as layout/mood references; not pasted as functional UI.",
+  "prompt": "Use case: stylized-concept. Asset type: finished 16:9 background plate for a Unity military shooter lobby.\nPrimary request: a polished cinematic military aircraft hangar at dusk, based on the user's lobby reference mood: dark metal hangar frame, stacked military supply crates near the outer left and right edges, a parked utility helicopter outside on the far right, distant mountains, soft amber sunset through the broad hangar entrance, wet concrete with subtle warm reflections and a few cool industrial lights.\nComposition: eye-level wide landscape 16:9. Keep the central floor and center-right foreground EMPTY for the game's live 3D soldier, and keep left middle dark and quiet for real equipment panels. Leave clean darker margins at top and bottom for actual interface navigation/buttons. Helicopter is behind the character area, small enough to remain a background element.\nStyle: premium realtime game concept art with restrained geometric forms and convincing materials, not photography. Muted charcoal, olive metal, golden warm light, cooler blue-grey shadows; no oversaturated orange or excessive fog. Rich depth without distracting foreground clutter.\nConstraints: background only, no people, no soldiers, no character silhouettes, no weapon product shot, no UI, no panels, no text, no letters, no logos, no currency, no HUD, no borders. Do not bake the interface or selectable equipment into the image. Do not put crates across the center floor. High quality 16:9 landscape.",
+  "characterAndWeapons": "Existing real Unity meshes and rendered runtime previews, not generated bitmap substitutes."
+}

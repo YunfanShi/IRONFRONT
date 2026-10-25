@@ -1,0 +1,26 @@
+PASS
+Version=0.58.0
+Unity=6000.5.10f1
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+run right grip max=0.00003
+run no deep ground penetration min=-0.00274
+run planted ankle travel/frame max=0.00004
+run 90 frames: finite skin and fixed bone lengths
+crouch right grip max=0.00003
+crouch no deep ground penetration min=0.00000
+crouch planted ankle travel/frame max=0.00006
+crouch 90 frames: finite skin and fixed bone lengths
+walk right grip max=0.00000
+walk no deep ground penetration min=0.00000
+walk planted ankle travel/frame max=0.00004
+walk 90 frames: finite skin and fixed bone lengths
+run-front right grip max=0.00003
+run-front no deep ground penetration min=-0.00274
+run-front planted ankle travel/frame max=0.00004
+run-front 90 frames: finite skin and fixed bone lengths
+crouch-front right grip max=0.00003
+crouch-front no deep ground penetration min=0.00000
+crouch-front planted ankle travel/frame max=0.00006
+crouch-front 90 frames: finite skin and fixed bone lengths

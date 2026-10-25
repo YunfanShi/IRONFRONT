@@ -1,0 +1,283 @@
+{
+  "version": "2026-10-25-v1",
+  "purpose": "混元图生三维的外观概念参考",
+  "mode": "内置 image_gen；初次生成 + 参考图编辑；没有三维模型生成或游戏接入",
+  "complete_view_sets": 6,
+  "four_view_images": 24,
+  "extra_side_images": 0,
+  "quality": "概念参考草案；M89、H60、S12 存在已知跨视图差异。",
+  "known_issues": {
+    "m89": "右视图多出球形柄，与左视图的外观设定不一致；修图被工具审核拦截，仍待修正。",
+    "h60": "前视图握把过长、后视图枪托过高，底部轮廓与侧视图不一致；修图被工具审核拦截，仍待修正。",
+    "s12": "左右两侧出现重复球形柄，前视图有俯视透视，后视图多出支架且柄的左右位置不一致；修图被工具审核拦截，仍待修正。",
+    "at": "仅两张侧视图。前视图角度错误未采用，后视图被工具审核拦截。",
+    "aa": "图像生成被工具审核拦截，未完成。"
+  },
+  "images": [
+    {
+      "asset": "ammo",
+      "name": "弹药补给包",
+      "view": "front",
+      "file": "ammo/ammo-front.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2664032,
+      "sha256": "f262d271abc7e622cde1ee2cb99cfdf27568e0d51528b7634e713b38c003d5a7",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "medkit",
+      "name": "医疗急救包",
+      "view": "front",
+      "file": "medkit/medkit-front.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2422317,
+      "sha256": "a7e389992594a8798b1791f04ad2408b049886bff9b483a992cd218b412241ec",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "repair",
+      "name": "工程维修工具",
+      "view": "left",
+      "file": "repair/repair-left.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1566526,
+      "sha256": "5599cb48c96a4b062b79f3d3e00ccdc4c439a5671300c4114bab10bbe8c78480",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "beacon",
+      "name": "复活信标",
+      "view": "front",
+      "file": "beacon/beacon-front.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1299767,
+      "sha256": "66f208f7adfb8dcc3d0e4ee1e747a14f84ba24b2cf1f240c0fb2602960841c71",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "frag",
+      "name": "破片手雷",
+      "view": "front",
+      "file": "frag/frag-front.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1457845,
+      "sha256": "35cb2917b52fbd182ff0412f9f0e07c363241cc35f31daeab520815a59ab54fd",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "smoke",
+      "name": "烟雾弹",
+      "view": "front",
+      "file": "smoke/smoke-front.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1314557,
+      "sha256": "857f24d949209b28b03a962a9fcb37ab40cc57be0b1c962eb72d6bd8bd5a8515",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "ammo",
+      "name": "弹药补给包",
+      "view": "left",
+      "file": "ammo/ammo-left.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1588064,
+      "sha256": "336ce69b1d1b7560bfc2c691da15a8c01066857b69a99550d3bdceb9e15af84b",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "ammo",
+      "name": "弹药补给包",
+      "view": "right",
+      "file": "ammo/ammo-right.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1464822,
+      "sha256": "db7bed31d2813587496317a2db9b6da6c63a45fcfa23cf58c8f29549e3af2eb8",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "ammo",
+      "name": "弹药补给包",
+      "view": "back",
+      "file": "ammo/ammo-back.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2844239,
+      "sha256": "fd61ca250fba796aae906cc2c17a20e64e9177cc129e74c5033db7485d828403",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "medkit",
+      "name": "医疗急救包",
+      "view": "left",
+      "file": "medkit/medkit-left.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2076931,
+      "sha256": "1f1cce6841d2ce7fd87a339b680ea51bdaa223f325ddb68cafab6171fc098ab4",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "medkit",
+      "name": "医疗急救包",
+      "view": "right",
+      "file": "medkit/medkit-right.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2070977,
+      "sha256": "c4aa2163466f34934c7e5f6cdf7719181aec27e0aecac1b1b12835ca51b43c27",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "medkit",
+      "name": "医疗急救包",
+      "view": "back",
+      "file": "medkit/medkit-back.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2592760,
+      "sha256": "20e9761ae892057b86e705209d7046fff06e084515fa8b9c0b5df31ae69ceb78",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "repair",
+      "name": "工程维修工具",
+      "view": "front",
+      "file": "repair/repair-front.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1631474,
+      "sha256": "29119150bb34fc8d955aa7d2d0a5f1e303443b3786e3fd5a1779ee64a2efd7be",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "repair",
+      "name": "工程维修工具",
+      "view": "back",
+      "file": "repair/repair-back.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1629499,
+      "sha256": "8769322c32e2fbd7354a9e010bfb3e9b013f197644314ec236799ebba2995e2c",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "repair",
+      "name": "工程维修工具",
+      "view": "right",
+      "file": "repair/repair-right.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1467348,
+      "sha256": "ca8e5ccd43fa9a3f1788528812d490c1538b1b9bad9a58867ab88c08dd0e4dbc",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "beacon",
+      "name": "复活信标",
+      "view": "left",
+      "file": "beacon/beacon-left.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1530700,
+      "sha256": "fbf5a33a2e2a413117fb4ddf1348605cb9ab9129b1feee679a1a183c52ef4ab7",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "beacon",
+      "name": "复活信标",
+      "view": "right",
+      "file": "beacon/beacon-right.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1574269,
+      "sha256": "e7e8c954162e5282ad3b31b5c055eb97c0262e19310f5bbaef40a40ea64effa9",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "beacon",
+      "name": "复活信标",
+      "view": "back",
+      "file": "beacon/beacon-back.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1313507,
+      "sha256": "a577b163020f324b3449a2b44fcf46fbccd474b6a8e1922d98033a9934d67eec",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "frag",
+      "name": "破片手雷",
+      "view": "back",
+      "file": "frag/frag-back.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1756687,
+      "sha256": "aad2a9e17d185c6cd680e7e39bc4df6bb802d3a1c057d7e60301a96a28898677",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "frag",
+      "name": "破片手雷",
+      "view": "left",
+      "file": "frag/frag-left.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1714642,
+      "sha256": "3566ce72ad3aeeb9881a37dd94cc9c10e20c3e17237371df29165a1f69aae9ac",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "frag",
+      "name": "破片手雷",
+      "view": "right",
+      "file": "frag/frag-right.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1773375,
+      "sha256": "3475fdf8c4e4347e37ead14a96832b2ac2fb1b053f86878f6930ceb96812508e",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "smoke",
+      "name": "烟雾弹",
+      "view": "back",
+      "file": "smoke/smoke-back.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1633888,
+      "sha256": "6d427c43cd5f1b2576a7242d2674aaf51a246fbf2e72611529b152aeefeb772b",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "smoke",
+      "name": "烟雾弹",
+      "view": "left",
+      "file": "smoke/smoke-left.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1639335,
+      "sha256": "e918a075bce1452cc919fd42c483b1820294a9cda96497c2bdbf7536239e7257",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    },
+    {
+      "asset": "smoke",
+      "name": "烟雾弹",
+      "view": "right",
+      "file": "smoke/smoke-right.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1693230,
+      "sha256": "e14d31f7270fa3ccc408fb07eff47283f9f3cc81e08d336561e5dc820e7b9b6f",
+      "review_note": "概念参考；未经同一三维模型投影校验。"
+    }
+  ],
+  "archive_scope": "ironfront-props-6-four-views-v1.zip"
+}

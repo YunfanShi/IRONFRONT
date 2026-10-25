@@ -1,0 +1,161 @@
+{
+  "title": "R3 FIREFLY",
+  "source": "/Users/liuwenjun/Downloads/616637844d883cd74eac2eb255af4b8e.glb",
+  "source_sha256": "eefc9953fd619dc419349bbce4eb4aa546dc779875744871a9874ac1bfcbf557",
+  "blender": "5.2.2 LTS",
+  "original": {
+    "triangles": 1499780,
+    "vertices": 875590,
+    "min": [
+      -0.4010609984397888,
+      -0.37919604778289795,
+      -2.92033011106696e-08
+    ],
+    "max": [
+      0.3993619978427887,
+      0.7122280597686768,
+      0.4566640555858612
+    ],
+    "dimensions": [
+      0.8004229962825775,
+      1.0914241075515747,
+      0.4566640847891623
+    ],
+    "boundary_edges": 245774,
+    "nonmanifold_edges": 245774,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "welded": {
+    "triangles": 1499780,
+    "vertices": 749824,
+    "min": [
+      -0.4010609984397888,
+      -0.37919604778289795,
+      -2.92033011106696e-08
+    ],
+    "max": [
+      0.3993619978427887,
+      0.7122280597686768,
+      0.4566640555858612
+    ],
+    "dimensions": [
+      0.8004229962825775,
+      1.0914241075515747,
+      0.4566640847891623
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "textures": [
+    {
+      "name": "r3_basecolor_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "r3_metalrough_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "r3_normal_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  ],
+  "authored_lods": [
+    {
+      "triangles": 50000,
+      "vertices": 24934,
+      "min": [
+        -0.4010680913925171,
+        -0.37915462255477905,
+        -2.564467467891518e-05
+      ],
+      "max": [
+        0.3993644714355469,
+        0.7121001482009888,
+        0.4566609859466553
+      ],
+      "dimensions": [
+        0.800432562828064,
+        1.0912547707557678,
+        0.4566866306213342
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 0,
+      "name": "R3_FIREFLY_LOD0"
+    },
+    {
+      "triangles": 25000,
+      "vertices": 12434,
+      "min": [
+        -0.4011339247226715,
+        -0.3791501224040985,
+        8.826403791317716e-05
+      ],
+      "max": [
+        0.39921510219573975,
+        0.7120348811149597,
+        0.4563811123371124
+      ],
+      "dimensions": [
+        0.8003490269184113,
+        1.0911850035190582,
+        0.45629284829919925
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 1,
+      "name": "R3_FIREFLY_LOD1"
+    },
+    {
+      "triangles": 12500,
+      "vertices": 6184,
+      "min": [
+        -0.4013887941837311,
+        -0.3792916536331177,
+        8.826403791317716e-05
+      ],
+      "max": [
+        0.39931732416152954,
+        0.7122600674629211,
+        0.45635780692100525
+      ],
+      "dimensions": [
+        0.8007061183452606,
+        1.0915517210960388,
+        0.45626954288309207
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 2,
+      "name": "R3_FIREFLY_LOD2"
+    }
+  ],
+  "contract": "Static mesh optimization: original proportions, orientation, UVs, paint and normalized scale retained. No new animation rig or gameplay replacement."
+}

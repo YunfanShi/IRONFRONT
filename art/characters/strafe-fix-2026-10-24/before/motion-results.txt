@@ -1,0 +1,36 @@
+PASS
+Version=0.58.1
+Unity=6000.5.10f1
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+strafe-left right grip max=0.00000
+strafe-left no deep ground penetration min=0.00000
+strafe-left planted ankle travel/frame max=0.00006
+strafe-left 90 frames: finite skin and fixed bone lengths
+strafe-left foot lane=-0.0022 knee lane=-0.1709 leg clearance=0.0063
+strafe-right right grip max=0.00000
+strafe-right no deep ground penetration min=0.00000
+strafe-right planted ankle travel/frame max=0.00006
+strafe-right 90 frames: finite skin and fixed bone lengths
+strafe-right foot lane=-0.0024 knee lane=-0.1736 leg clearance=0.0048
+diagonal-left right grip max=0.00004
+diagonal-left no deep ground penetration min=-0.00243
+diagonal-left planted ankle travel/frame max=0.00007
+diagonal-left 90 frames: finite skin and fixed bone lengths
+diagonal-left foot lane=0.2404 knee lane=0.0024 leg clearance=0.0024
+diagonal-right right grip max=0.00004
+diagonal-right no deep ground penetration min=-0.00243
+diagonal-right planted ankle travel/frame max=0.00004
+diagonal-right 90 frames: finite skin and fixed bone lengths
+diagonal-right foot lane=0.2404 knee lane=0.0021 leg clearance=0.0018
+crouch-left right grip max=0.00003
+crouch-left no deep ground penetration min=0.00000
+crouch-left planted ankle travel/frame max=0.00006
+crouch-left 90 frames: finite skin and fixed bone lengths
+crouch-left foot lane=0.0000 knee lane=-0.0432 leg clearance=0.0013
+crouch-right right grip max=0.00003
+crouch-right no deep ground penetration min=0.00000
+crouch-right planted ankle travel/frame max=0.00006
+crouch-right 90 frames: finite skin and fixed bone lengths
+crouch-right foot lane=0.0000 knee lane=-0.0449 leg clearance=0.0053

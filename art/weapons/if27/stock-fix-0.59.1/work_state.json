@@ -1,0 +1,8 @@
+{
+  "version": "0.59.1",
+  "status": "completed",
+  "change": "Restore entire first-person Stock mesh",
+  "evidence": "player/results.txt",
+  "source_and_old_app_preserved": true,
+  "remaining": []
+}

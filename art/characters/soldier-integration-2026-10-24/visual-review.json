@@ -1,0 +1,25 @@
+{
+  "accepted_source": "Existing blue/red technical-v01 blend and 2K atlases",
+  "form_preserved": true,
+  "reviewed": [
+    "front/back/profile/three-quarter",
+    "shoulders/elbows/hips/knees",
+    "hand grip and boot closeups",
+    "standing/crouch/prone/run",
+    "M2 driver/passenger",
+    "first-person carbine/pistol"
+  ],
+  "fixed": [
+    "arm-to-vest webbing replaced by bone-heat weights",
+    "Unity FBX facing and side conversion",
+    "M2 crossed contact targets",
+    "first-person hidden torso influence spikes",
+    "lobby hardcoded arm dimensions and lost PBR"
+  ],
+  "limitations": [
+    "Combined gloved fingers, no independent finger articulation",
+    "No face rig beneath mask",
+    "Existing procedural weapon models retained"
+  ],
+  "image_errors": {}
+}

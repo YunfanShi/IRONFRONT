@@ -1,0 +1,34 @@
+PASS
+Version=0.57.0
+Unity=6000.5.10f1
+Device=Mac17,4
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+Bot Blue bound
+Bot Blue bound
+Bot Blue bound
+Bot Blue bound
+Bot Red bound
+Bot Red bound
+Bot Red bound
+Bot Red bound
+Captured soldiers-standing
+Captured soldiers-crouch
+Captured soldiers-run
+Captured soldiers-prone
+Carbine first-person art active
+Captured first-person-Carbine
+Pistol first-person art active
+Captured first-person-Pistol
+M2 player enters
+Captured motorcycle-seat0-TP
+M2 seat 0 visibility False
+Captured motorcycle-seat0-FP
+M2 seat 0 visibility True
+M2 passenger enters
+Captured motorcycle-seat1-TP
+M2 seat 1 visibility False
+Captured motorcycle-seat1-FP
+M2 seat 1 visibility True
+M2 exit restores soldier

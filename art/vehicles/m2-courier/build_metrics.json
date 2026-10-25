@@ -1,0 +1,161 @@
+{
+  "title": "M2 COURIER",
+  "source": "/Users/liuwenjun/Downloads/17f7e3624bd9b87fcc6e3efe8f6bc47c.glb",
+  "source_sha256": "e3a3baafa1649cae3ca71b26b18be1166b62b79cc69d18ffe04e8c6d2960efa5",
+  "blender": "5.2.2 LTS",
+  "original": {
+    "triangles": 1489086,
+    "vertices": 1003490,
+    "min": [
+      -0.2632170021533966,
+      -0.5692750811576843,
+      -5.081344411905775e-08
+    ],
+    "max": [
+      0.26472899317741394,
+      0.5640119910240173,
+      0.696026086807251
+    ],
+    "dimensions": [
+      0.5279459953308105,
+      1.1332870721817017,
+      0.6960261376206951
+    ],
+    "boundary_edges": 487356,
+    "nonmanifold_edges": 487356,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "welded": {
+    "triangles": 1489086,
+    "vertices": 743237,
+    "min": [
+      -0.2632170021533966,
+      -0.5692750811576843,
+      -5.081344411905775e-08
+    ],
+    "max": [
+      0.26472899317741394,
+      0.5640119910240173,
+      0.696026086807251
+    ],
+    "dimensions": [
+      0.5279459953308105,
+      1.1332870721817017,
+      0.6960261376206951
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "textures": [
+    {
+      "name": "m2_basecolor_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "m2_metalrough_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "m2_normal_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  ],
+  "authored_lods": [
+    {
+      "triangles": 50000,
+      "vertices": 23694,
+      "min": [
+        -0.26323235034942627,
+        -0.5688741207122803,
+        0.000595763442106545
+      ],
+      "max": [
+        0.26476994156837463,
+        0.5642328858375549,
+        0.696050226688385
+      ],
+      "dimensions": [
+        0.5280022919178009,
+        1.1331070065498352,
+        0.6954544632462785
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 0,
+      "name": "M2_COURIER_LOD0"
+    },
+    {
+      "triangles": 25000,
+      "vertices": 11194,
+      "min": [
+        -0.2624485194683075,
+        -0.5688741207122803,
+        0.000595763442106545
+      ],
+      "max": [
+        0.26406726241111755,
+        0.563603937625885,
+        0.6977173686027527
+      ],
+      "dimensions": [
+        0.526515781879425,
+        1.1324780583381653,
+        0.6971216051606461
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 1,
+      "name": "M2_COURIER_LOD1"
+    },
+    {
+      "triangles": 12500,
+      "vertices": 4944,
+      "min": [
+        -0.26267072558403015,
+        -0.5663695335388184,
+        0.0053910450078547
+      ],
+      "max": [
+        0.264926940202713,
+        0.5623733401298523,
+        0.6987462043762207
+      ],
+      "dimensions": [
+        0.5275976657867432,
+        1.1287428736686707,
+        0.693355159368366
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 2,
+      "name": "M2_COURIER_LOD2"
+    }
+  ],
+  "contract": "Static mesh optimization: original proportions, orientation, UVs, paint and normalized scale retained. No new animation rig or gameplay replacement."
+}

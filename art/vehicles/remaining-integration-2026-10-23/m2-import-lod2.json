@@ -1,0 +1,836 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/m2-courier/articulated/exports/m2-articulated-lod2.fbx",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 0,
+      "images": [],
+      "name": "JointSteel",
+      "node_count": 2,
+      "use_nodes": true
+    },
+    {
+      "image_texture_nodes": 2,
+      "images": [
+        "m2_basecolor_2k.png",
+        "m2_normal_2k.png"
+      ],
+      "name": "m2_Blue_PBR",
+      "node_count": 5,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "JointSteel",
+    "m2_Blue_PBR"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 67,
+      "connected_components": 2,
+      "data_name": "node_0.012",
+      "degenerate_faces": 0,
+      "edges": 4584,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "m2_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Fork_LOD2",
+      "non_manifold_edges": 70,
+      "polygons": 3035,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 3035,
+      "source_polygons": 3035,
+      "source_vertices": 1471,
+      "triangles": 3035,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 1471,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.591127,
+          -1.247298,
+          0.347218
+        ],
+        [
+          0.596205,
+          -0.270054,
+          1.572493
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 16,
+      "connected_components": 6,
+      "data_name": "node_0.010",
+      "degenerate_faces": 0,
+      "edges": 16603,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "m2_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Hull_LOD2",
+      "non_manifold_edges": 18,
+      "polygons": 11064,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 11064,
+      "source_polygons": 11064,
+      "source_vertices": 4966,
+      "triangles": 11064,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 4966,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.425086,
+          -0.63012,
+          0.245671
+        ],
+        [
+          0.430327,
+          1.265593,
+          1.221595
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 34,
+      "connected_components": 6,
+      "data_name": "node_0.003",
+      "degenerate_faces": 0,
+      "edges": 5162,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "m2_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Wheel_Front_LOD2",
+      "non_manifold_edges": 34,
+      "polygons": 3430,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 3430,
+      "source_polygons": 3430,
+      "source_vertices": 1407,
+      "triangles": 3430,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 1407,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.09902,
+          -1.274586,
+          0.012132
+        ],
+        [
+          0.09902,
+          -0.452358,
+          0.778656
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 20,
+      "connected_components": 3,
+      "data_name": "node_0.011",
+      "degenerate_faces": 0,
+      "edges": 5741,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "m2_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Wheel_Rear_LOD2",
+      "non_manifold_edges": 21,
+      "polygons": 3821,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 3821,
+      "source_polygons": 3821,
+      "source_vertices": 1733,
+      "triangles": 3821,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 1733,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.09902,
+          0.372678,
+          0.019774
+        ],
+        [
+          0.09902,
+          1.159649,
+          0.778655
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.292558,
+        1.65408
+      ],
+      "name": "DriverEye.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.225045,
+        0.911432
+      ],
+      "name": "DriverSeat.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        1.187332,
+        0.977244,
+        1.225275
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Fork_LOD2",
+      "parent": "Steering.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.855413,
+        1.895713,
+        0.975924
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Hull_LOD2",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.528856,
+        0.040508,
+        0.186787
+      ],
+      "name": "LeftGrip.002",
+      "parent": "Steering.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.39833,
+        0.067513,
+        0.391578
+      ],
+      "name": "LeftPeg.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "M2_LOD2",
+      "parent": null,
+      "rotation_euler": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.810162,
+        1.845369
+      ],
+      "name": "PassengerEye.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.270054,
+        0.765153,
+        1.00145
+      ],
+      "name": "PassengerLeftGrip.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.337567,
+        0.607621,
+        0.483847
+      ],
+      "name": "PassengerLeftPeg.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.270054,
+        0.765153,
+        1.00145
+      ],
+      "name": "PassengerRightGrip.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.337567,
+        0.607621,
+        0.483847
+      ],
+      "name": "PassengerRightPeg.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.720144,
+        1.00145
+      ],
+      "name": "PassengerSeat.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.528856,
+        0.040508,
+        0.186787
+      ],
+      "name": "RightGrip.002",
+      "parent": "Steering.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.39833,
+        0.067513,
+        0.391578
+      ],
+      "name": "RightPeg.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -0.479346,
+        1.125225
+      ],
+      "name": "Steering.002",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.19804,
+        0.822228,
+        0.766523
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -0.393829,
+        -0.729146
+      ],
+      "name": "Wheel_Front_LOD2",
+      "parent": "Steering.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.19804,
+        0.786972,
+        0.758881
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.774155,
+        0.396079
+      ],
+      "name": "Wheel_Rear_LOD2",
+      "parent": "M2_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        1.187332,
+        2.540179,
+        1.560361
+      ],
+      "max": [
+        0.596205,
+        1.265593,
+        1.572493
+      ],
+      "min": [
+        -0.591127,
+        -1.274586,
+        0.012132
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 137,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 32090,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 2,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 2,
+    "mesh_objects": 4,
+    "missing_material_faces": 0,
+    "node_materials": 2,
+    "non_manifold_edges": 143,
+    "objects": 18,
+    "polygons": 21350,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 21350,
+    "textured_materials": 1,
+    "triangles": 21350,
+    "uv_mapped_meshes": 4,
+    "vertices": 9577,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

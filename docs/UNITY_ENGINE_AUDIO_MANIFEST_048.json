@@ -1,0 +1,87 @@
+{
+  "version": "0.48.0",
+  "generator": "scripts/generate-unity-engines.py",
+  "license": "Original IRONFRONT procedural sound design; no external samples",
+  "clips": [
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/heavy-diesel-idle.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.219,
+      "seamDeltaPCM": 0,
+      "sha256": "8e46917e6d66fb0a5792e8aa716c5cf44224e12b57cd7d31d3e3302601e50dd9"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/heavy-diesel-load.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.486,
+      "seamDeltaPCM": 0,
+      "sha256": "dda11afec75f0387210b46b4ae07d69e22f1d91c246ba64be3d6b26d74c91372"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/light-diesel-idle.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.245,
+      "seamDeltaPCM": 0,
+      "sha256": "758cbe620f60b5f85fec09e8d1dea53ef91c027af990db337db6830107d15f9f"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/light-diesel-load.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.445,
+      "seamDeltaPCM": 0,
+      "sha256": "fe3d1150fe5aeab5f2da43114f2b46980c6ba0b75725c1ea6df1e6807770d7ec"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/motorcycle-idle.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.175,
+      "seamDeltaPCM": 0,
+      "sha256": "52e76c96b8360d7d8776b5d3bad1b19d496afe80a8fa019462f94d76ab37e1f9"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/motorcycle-load.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.428,
+      "seamDeltaPCM": 0,
+      "sha256": "180662180e8081c7c9f5c58708a48a4bc80825536af7df7096c5888eb86e453e"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/rotor-idle.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.355,
+      "seamDeltaPCM": 0,
+      "sha256": "3cfbce88135ae101db15438535278336d30cc007d65b8e3cb3e80a1fae5591fe"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/rotor-load.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.285,
+      "seamDeltaPCM": 0,
+      "sha256": "1ea4703468132207e6e8d632ab3ab57679af79177055af498ca95228537b4070"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/jet-idle.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.416,
+      "seamDeltaPCM": 0,
+      "sha256": "7f4b3988ba49a211940e643ae69aafb828731c3a573b7803559f0235b68e9c20"
+    },
+    {
+      "file": "UnityProject/Assets/Resources/Audio/Engines/jet-load.wav",
+      "seconds": 3.97501,
+      "rmsDbFS": -12.396,
+      "peakDbFS": -6.397,
+      "seamDeltaPCM": 0,
+      "sha256": "2eeb3eeb1803a84e08a31f86291258962e5a4feaf17710c549dc522c87fd36a2"
+    }
+  ]
+}

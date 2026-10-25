@@ -1,0 +1,28 @@
+{
+  "version": "target-v01",
+  "requested_level": "L2",
+  "purpose": "Optimize the supplied blue-team Hunyuan soldier as a Unity character mesh for IRONFRONT's 8v8 game",
+  "appearance_target": "Keep the supplied model's recognizable helmet, visor, torso armor, pouches, backpack, gloves, knee pads, boots, blue-gray palette and complete human silhouette; the result must still look good from front, side, back and three-quarter views.",
+  "primary_quality_difficulty": "Preserving the armor silhouette, hands, boots and textured detail when reducing a fragmented 1,500,000-triangle source mesh.",
+  "reference_version": "11ffe932eacb65e3cada3430ac781b41.glb and art/hunyuan-character-refs/blue-{front,left,back}.png",
+  "technical_scope": "Static low-poly LOD meshes with preserved UVs/textures; approximately 1.8 m grounded height; editable Blender source and GLB/FBX exports; fresh-import and multiview visual checks.",
+  "excluded_from_this_pass": [
+    "Final skinning, animation, weapon grip and Unity runtime replacement"
+  ],
+  "required_technical_checks": [
+    "lod_triangle_counts",
+    "scale_and_orientation",
+    "uv_material_survival",
+    "fresh_export_import",
+    "visual_preservation"
+  ],
+  "technical_check_definitions": {
+    "lod_triangle_counts": "Measure exported triangles for each LOD; LOD0 should be near 12,000-20,000 triangles and lower LODs progressively smaller without losing the human silhouette.",
+    "scale_and_orientation": "Confirm approximately 1.8 m total height, grounded feet, and documented facing axis after import.",
+    "uv_material_survival": "Confirm the exported mesh has UVs and the expected base-color, normal and metallic/roughness texture connections.",
+    "fresh_export_import": "Load the generated GLB and FBX in a clean Blender process and inspect geometry, scale and material assignments.",
+    "visual_preservation": "Open front, side, back and three-quarter previews of the generated LOD0 and inspect against the source's distinctive shapes and material readability."
+  },
+  "confirmation_mode": "autonomous",
+  "current_stage": "static technical delivery"
+}

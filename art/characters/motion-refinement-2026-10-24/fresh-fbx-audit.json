@@ -1,0 +1,68 @@
+[
+  {
+    "file": "blue-soldier/rigged-v02/blue-soldier-skinned-lod0.fbx",
+    "bones": 18,
+    "meshes": 3,
+    "triangles": 20000,
+    "vertices": 10082,
+    "height": 1.7999999582702308,
+    "max_influences": 4,
+    "posed_extent": 1.8000231632666912,
+    "errors": []
+  },
+  {
+    "file": "blue-soldier/rigged-v02/blue-soldier-skinned-lod1.fbx",
+    "bones": 18,
+    "meshes": 3,
+    "triangles": 6000,
+    "vertices": 3041,
+    "height": 1.798631218902301,
+    "max_influences": 4,
+    "posed_extent": 1.7988446502966093,
+    "errors": []
+  },
+  {
+    "file": "blue-soldier/rigged-v02/blue-soldier-skinned-lod2.fbx",
+    "bones": 18,
+    "meshes": 3,
+    "triangles": 2000,
+    "vertices": 1032,
+    "height": 1.8011022826249246,
+    "max_influences": 4,
+    "posed_extent": 1.8013703871844189,
+    "errors": []
+  },
+  {
+    "file": "red-soldier/rigged-v02/red-soldier-skinned-lod0.fbx",
+    "bones": 18,
+    "meshes": 3,
+    "triangles": 19984,
+    "vertices": 10091,
+    "height": 1.7999999506334021,
+    "max_influences": 4,
+    "posed_extent": 1.8001369020897864,
+    "errors": []
+  },
+  {
+    "file": "red-soldier/rigged-v02/red-soldier-skinned-lod1.fbx",
+    "bones": 18,
+    "meshes": 3,
+    "triangles": 6000,
+    "vertices": 3053,
+    "height": 1.7986566717154346,
+    "max_influences": 4,
+    "posed_extent": 1.7993087283223623,
+    "errors": []
+  },
+  {
+    "file": "red-soldier/rigged-v02/red-soldier-skinned-lod2.fbx",
+    "bones": 18,
+    "meshes": 3,
+    "triangles": 2000,
+    "vertices": 1027,
+    "height": 1.8006823033210821,
+    "max_influences": 4,
+    "posed_extent": 1.8022387094444587,
+    "errors": []
+  }
+]

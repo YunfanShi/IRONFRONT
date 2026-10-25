@@ -12,10 +12,10 @@ namespace Ironfront.UnityPrototype.Editor
         private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
         private static int preview;
 
-        [MenuItem("IRONFRONT/Verify Five Added Vehicles", true)]
+        [MenuItem("IRONFRONT/Verify Added Vehicles", true)]
         private static bool CanVerify() => EditorApplication.isPlaying;
 
-        [MenuItem("IRONFRONT/Verify Five Added Vehicles")]
+        [MenuItem("IRONFRONT/Verify Added Vehicles")]
         public static void Verify()
         {
             PrototypeRuntime game = Prepare();
@@ -31,7 +31,7 @@ namespace Ironfront.UnityPrototype.Editor
                     Reset(vehicle); Place(vehicle, new Vector2(-325f, -320f));
                     Check(Enter(player, vehicle), vehicle.VehicleName + " can be entered");
                     Check(vehicle.SeatCount == (kind == PrototypeVehicleKind.Jet ? 1 :
-                        kind == PrototypeVehicleKind.Motorcycle ? 2 : 4), kind + " has main's seat count");
+                        kind == PrototypeVehicleKind.Motorcycle ? 2 : kind == PrototypeVehicleKind.ReconHelicopter ? 3 : 4), kind + " has main's seat count");
                     float speed = vehicle.Speed;
                     Vector2 start = vehicle.MapPosition;
                     for (int step = 0; step < 60; step++)
@@ -94,15 +94,15 @@ namespace Ironfront.UnityPrototype.Editor
                         kind + " optional AI can move toward an objective");
                     vehicle.SetAiControlled(false); Reset(vehicle); checkedKinds++;
                 }
-                Check(checkedKinds == 5, "all five added kinds were exercised");
+                Check(checkedKinds == 6, "all six added kinds were exercised");
                 VerifyFlightViewHeading(game, player);
                 VerifyWeapons(game, player);
                 VerifyLossAndRespawn(game, player);
-                Debug.Log("IRONFRONT five vehicles PASS: V12/A40/H8/J20/M2 drive, seats, " +
+                Debug.Log("IRONFRONT added vehicles PASS: V12/A40/H8/J20/M2/R3 drive, seats, " +
                     "takeoff/steer/descent/landing/parachute, stable mouse heading, primary damage, AA lock/missile/flares, " +
                     "repair, crew loss, blocked spawn and respawn");
             }
-            catch (Exception error) { Debug.LogError("IRONFRONT five vehicles FAIL: " + error); }
+            catch (Exception error) { Debug.LogError("IRONFRONT added vehicles FAIL: " + error); }
             finally
             {
                 player.ForceExitVehicle();
@@ -231,7 +231,7 @@ namespace Ironfront.UnityPrototype.Editor
         private static void Preview()
         {
             PrototypeRuntime game = Prepare(); game.Player.ForceExitVehicle();
-            PrototypeVehicleKind kind = (PrototypeVehicleKind)(preview++ % 5);
+            PrototypeVehicleKind kind = (PrototypeVehicleKind)(preview++ % 6);
             PrototypeCombinedArmsVehicle vehicle = Find(game, game.Player.Team, kind);
             if (vehicle == null) return;
             Reset(vehicle); Enter(game.Player, vehicle);
@@ -244,7 +244,7 @@ namespace Ironfront.UnityPrototype.Editor
         public static void Capture()
         {
             PrototypeRuntime game = Prepare();
-            string folder = Path.Combine(Application.dataPath, "../Builds/Verification046");
+            string folder = Path.Combine(Application.dataPath, "../Builds/Verification048");
             Directory.CreateDirectory(folder);
             Camera camera = new GameObject("Vehicle QA camera").AddComponent<Camera>();
             camera.enabled = false; camera.fieldOfView = 38f; camera.nearClipPlane = .1f;

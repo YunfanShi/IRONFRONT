@@ -1,0 +1,51 @@
+{
+  "license": "Original procedural audio created for IRONFRONT; no external samples",
+  "generator": "scripts/generate-unity-vehicle-impacts.py",
+  "sample_rate": 44100,
+  "clips": [
+    {
+      "name": "Ricochet",
+      "duration": 0.18,
+      "samples": 7938,
+      "modal_hz": [
+        1680,
+        2693,
+        4117,
+        5813
+      ],
+      "peak": 0.78,
+      "rms_dbfs": -18.945,
+      "sha256": "24c03f36fa7defa3f02b67b084cd70fcca93de45ef33cea3bf957da18ca0b1e8"
+    },
+    {
+      "name": "MachineGun",
+      "duration": 0.22,
+      "samples": 9702,
+      "modal_hz": [
+        379,
+        917,
+        1739,
+        2671,
+        4273
+      ],
+      "peak": 0.78,
+      "rms_dbfs": -17.612,
+      "sha256": "94e5c5a3eed52fee8be63fe96d662642046935308177f892810405dfa27c4a9b"
+    },
+    {
+      "name": "HeavyImpact",
+      "duration": 0.86,
+      "samples": 37926,
+      "modal_hz": [
+        109,
+        213,
+        367,
+        541,
+        1123
+      ],
+      "peak": 0.78,
+      "rms_dbfs": -16.199,
+      "sha256": "36c5e9bd666b9d13b6506dc5653c04a980641c52d889c48832b72974ce8d93f0"
+    }
+  ]
+}

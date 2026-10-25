@@ -1,0 +1,622 @@
+{
+  "title": "Before the Front",
+  "id": "lobby",
+  "bpm": 72,
+  "bars": 16,
+  "beats": 64,
+  "sampleRate": 44100,
+  "harmony": [
+    "Dm9",
+    "Bbmaj7",
+    "Fmaj7",
+    "Csus2",
+    "Dm9",
+    "Bbmaj7",
+    "Gm9",
+    "Am7"
+  ],
+  "tracks": [
+    {
+      "name": "quiet sustained strings",
+      "program": 49,
+      "volume": 0.32,
+      "pan": -0.23,
+      "notes": [
+        {
+          "pitch": 50,
+          "velocity": 46,
+          "start": 0.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 53,
+          "velocity": 46,
+          "start": 0.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 57,
+          "velocity": 46,
+          "start": 0.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 60,
+          "velocity": 46,
+          "start": 0.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 64,
+          "velocity": 46,
+          "start": 0.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 53,
+          "velocity": 49,
+          "start": 8.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 57,
+          "velocity": 49,
+          "start": 8.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 58,
+          "velocity": 49,
+          "start": 8.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 62,
+          "velocity": 49,
+          "start": 8.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 53,
+          "velocity": 52,
+          "start": 16.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 57,
+          "velocity": 52,
+          "start": 16.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 60,
+          "velocity": 52,
+          "start": 16.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 64,
+          "velocity": 52,
+          "start": 16.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 55,
+          "velocity": 46,
+          "start": 24.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 60,
+          "velocity": 46,
+          "start": 24.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 62,
+          "velocity": 46,
+          "start": 24.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 64,
+          "velocity": 46,
+          "start": 24.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 50,
+          "velocity": 49,
+          "start": 32.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 53,
+          "velocity": 49,
+          "start": 32.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 57,
+          "velocity": 49,
+          "start": 32.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 60,
+          "velocity": 49,
+          "start": 32.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 64,
+          "velocity": 49,
+          "start": 32.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 53,
+          "velocity": 52,
+          "start": 40.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 57,
+          "velocity": 52,
+          "start": 40.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 58,
+          "velocity": 52,
+          "start": 40.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 62,
+          "velocity": 52,
+          "start": 40.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 53,
+          "velocity": 46,
+          "start": 48.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 57,
+          "velocity": 46,
+          "start": 48.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 58,
+          "velocity": 46,
+          "start": 48.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 62,
+          "velocity": 46,
+          "start": 48.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 52,
+          "velocity": 49,
+          "start": 56.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 55,
+          "velocity": 49,
+          "start": 56.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 60,
+          "velocity": 49,
+          "start": 56.0,
+          "duration": 7.7
+        },
+        {
+          "pitch": 64,
+          "velocity": 49,
+          "start": 56.0,
+          "duration": 7.7
+        }
+      ]
+    },
+    {
+      "name": "warm electric piano theme",
+      "program": 4,
+      "volume": 0.65,
+      "pan": 0.08,
+      "notes": [
+        {
+          "pitch": 62,
+          "velocity": 67,
+          "start": 2.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 65,
+          "velocity": 60,
+          "start": 3.5,
+          "duration": 1.05
+        },
+        {
+          "pitch": 67,
+          "velocity": 63,
+          "start": 5.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 69,
+          "velocity": 71,
+          "start": 6.5,
+          "duration": 2.4
+        },
+        {
+          "pitch": 67,
+          "velocity": 61,
+          "start": 9.5,
+          "duration": 0.9
+        },
+        {
+          "pitch": 65,
+          "velocity": 57,
+          "start": 11.0,
+          "duration": 2.55
+        },
+        {
+          "pitch": 69,
+          "velocity": 62,
+          "start": 18.0,
+          "duration": 2.25
+        },
+        {
+          "pitch": 72,
+          "velocity": 55,
+          "start": 21.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 69,
+          "velocity": 58,
+          "start": 22.5,
+          "duration": 1.05
+        },
+        {
+          "pitch": 67,
+          "velocity": 66,
+          "start": 24.0,
+          "duration": 2.25
+        },
+        {
+          "pitch": 65,
+          "velocity": 56,
+          "start": 27.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 62,
+          "velocity": 52,
+          "start": 28.5,
+          "duration": 1.2
+        },
+        {
+          "pitch": 62,
+          "velocity": 67,
+          "start": 34.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 65,
+          "velocity": 60,
+          "start": 35.5,
+          "duration": 1.05
+        },
+        {
+          "pitch": 67,
+          "velocity": 63,
+          "start": 37.0,
+          "duration": 2.4
+        },
+        {
+          "pitch": 69,
+          "velocity": 71,
+          "start": 40.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 72,
+          "velocity": 61,
+          "start": 41.5,
+          "duration": 1.05
+        },
+        {
+          "pitch": 74,
+          "velocity": 57,
+          "start": 43.0,
+          "duration": 2.55
+        },
+        {
+          "pitch": 69,
+          "velocity": 61,
+          "start": 50.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 67,
+          "velocity": 54,
+          "start": 51.5,
+          "duration": 1.05
+        },
+        {
+          "pitch": 65,
+          "velocity": 57,
+          "start": 53.0,
+          "duration": 2.4
+        },
+        {
+          "pitch": 64,
+          "velocity": 65,
+          "start": 56.0,
+          "duration": 2.25
+        },
+        {
+          "pitch": 62,
+          "velocity": 55,
+          "start": 59.0,
+          "duration": 2.55
+        }
+      ]
+    },
+    {
+      "name": "sparse vibraphone answer",
+      "program": 11,
+      "volume": 0.2,
+      "pan": 0.32,
+      "notes": [
+        {
+          "pitch": 62,
+          "velocity": 40,
+          "start": 1.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 65,
+          "velocity": 43,
+          "start": 3.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 69,
+          "velocity": 46,
+          "start": 5.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 72,
+          "velocity": 49,
+          "start": 7.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 69,
+          "velocity": 40,
+          "start": 9.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 70,
+          "velocity": 43,
+          "start": 11.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 74,
+          "velocity": 46,
+          "start": 13.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 65,
+          "velocity": 49,
+          "start": 15.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 72,
+          "velocity": 40,
+          "start": 17.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 76,
+          "velocity": 43,
+          "start": 19.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 65,
+          "velocity": 46,
+          "start": 21.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 69,
+          "velocity": 49,
+          "start": 23.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 76,
+          "velocity": 40,
+          "start": 25.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 67,
+          "velocity": 43,
+          "start": 27.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 72,
+          "velocity": 46,
+          "start": 29.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 74,
+          "velocity": 49,
+          "start": 31.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 76,
+          "velocity": 40,
+          "start": 33.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 62,
+          "velocity": 43,
+          "start": 35.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 65,
+          "velocity": 46,
+          "start": 37.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 69,
+          "velocity": 49,
+          "start": 39.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 69,
+          "velocity": 40,
+          "start": 41.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 70,
+          "velocity": 43,
+          "start": 43.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 74,
+          "velocity": 46,
+          "start": 45.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 65,
+          "velocity": 49,
+          "start": 47.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 70,
+          "velocity": 40,
+          "start": 49.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 74,
+          "velocity": 43,
+          "start": 51.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 65,
+          "velocity": 46,
+          "start": 53.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 69,
+          "velocity": 49,
+          "start": 55.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 76,
+          "velocity": 40,
+          "start": 57.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 64,
+          "velocity": 43,
+          "start": 59.0,
+          "duration": 0.65
+        },
+        {
+          "pitch": 67,
+          "velocity": 46,
+          "start": 61.5,
+          "duration": 0.65
+        },
+        {
+          "pitch": 72,
+          "velocity": 49,
+          "start": 63.0,
+          "duration": 0.65
+        }
+      ]
+    },
+    {
+      "name": "distant horn at return",
+      "program": 60,
+      "volume": 0.16,
+      "pan": -0.12,
+      "notes": [
+        {
+          "pitch": 50,
+          "velocity": 46,
+          "start": 35.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 53,
+          "velocity": 39,
+          "start": 36.5,
+          "duration": 1.05
+        },
+        {
+          "pitch": 55,
+          "velocity": 42,
+          "start": 38.0,
+          "duration": 1.05
+        },
+        {
+          "pitch": 57,
+          "velocity": 50,
+          "start": 39.5,
+          "duration": 2.4
+        },
+        {
+          "pitch": 55,
+          "velocity": 40,
+          "start": 42.5,
+          "duration": 0.9
+        },
+        {
+          "pitch": 53,
+          "velocity": 36,
+          "start": 44.0,
+          "duration": 2.55
+        }
+      ]
+    }
+  ]
+}

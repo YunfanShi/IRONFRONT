@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      147519.76861158037,
+      59007.90744463215,
+      221279.65291737055
+    ],
+    "camera_distance": 44.16954765319824,
+    "ortho_scale": 27.846019172668456,
+    "floor_size": 3840.8302307128906,
+    "floor_offset": 0.11522490692138672,
+    "clip_start": 0.019204151153564452,
+    "clip_end": 19204.151153564453
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": 0.09255299958735688,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod0.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 512,
+  "requested_views": [
+    "perspective",
+    "front",
+    "back",
+    "left",
+    "right",
+    "top"
+  ],
+  "evidence_scope": "full_multiview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -6.385757,
+      -8.378642,
+      0.001157
+    ],
+    "max": [
+      6.377159,
+      10.825508,
+      8.17833
+    ],
+    "dimensions": [
+      12.762916,
+      19.204151,
+      8.177174
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/front.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/back.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/left.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/right.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/top.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/evidence/blue-lod0/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

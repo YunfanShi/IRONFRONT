@@ -1,0 +1,29 @@
+"""Copy the optimized static meshes and textures into the Unity project."""
+
+from pathlib import Path
+from shutil import copy2
+
+
+ROOT = Path(__file__).resolve().parent
+UNITY = ROOT.parents[2] / "UnityProject" / "Assets" / "Art" / "Characters" / "BlueSoldier"
+
+
+def main():
+    for subdir, names in {
+        "exports": [f"blue-soldier-lod{i}.fbx" for i in range(3)],
+        "textures": [
+            "blue-soldier-basecolor-2k.png",
+            "blue-soldier-normal-2k.png",
+            "blue-soldier-roughness-2k.png",
+            "blue-soldier-metallic-2k.png",
+        ],
+    }.items():
+        destination = UNITY / subdir
+        destination.mkdir(parents=True, exist_ok=True)
+        for name in names:
+            copy2(ROOT / subdir / name, destination / name)
+            print(destination / name)
+
+
+if __name__ == "__main__":
+    main()

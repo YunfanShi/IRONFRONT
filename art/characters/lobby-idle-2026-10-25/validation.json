@@ -1,0 +1,14 @@
+{
+  "version": "0.63.0",
+  "finalBuild": "build-04.log",
+  "pose": "pose-03/results.txt",
+  "actualPlayerUI": "ui-04/results.txt",
+  "editor": "batch-results.txt",
+  "preservedFiles": 427,
+  "runtimeErrors": 0,
+  "video": "lobby-idle-0.63.0.mp4",
+  "videoSeconds": 6.666666666666667,
+  "modelsAndCombatAnimationPreserved": true,
+  "sourceUsed": "Quaternius CC0 Standard Idle_Loop body delta only",
+  "paidAssetsPurchased": false
+}

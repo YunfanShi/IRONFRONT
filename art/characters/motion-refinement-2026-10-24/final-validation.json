@@ -1,0 +1,92 @@
+{
+  "version": "0.58.0",
+  "status": "PASS",
+  "build": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/UnityProject/Builds/Motion-0.58.0/IRONFRONT.app",
+  "actual_app_bytes": 520781261,
+  "binary_sha256": "55125b67eee1af100706b472562a52372c64880f0cadc677c1687c559f32e08a",
+  "unity": "6000.5.10f1",
+  "device": "Mac17,4 Apple M5",
+  "runtime_errors": 0,
+  "motion_frames": 900,
+  "actions": {
+    "idle": {
+      "frames": 45,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 0.0
+    },
+    "walk": {
+      "frames": 90,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 4e-05
+    },
+    "run": {
+      "frames": 90,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 0.00284
+    },
+    "crouch": {
+      "frames": 90,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 4e-05
+    },
+    "crawl": {
+      "frames": 90,
+      "min_mesh_clearance_m": -0.00335,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 6e-05
+    },
+    "crawl-strafe": {
+      "frames": 90,
+      "min_mesh_clearance_m": -0.00462,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 6e-05
+    },
+    "crawl-reverse": {
+      "frames": 90,
+      "min_mesh_clearance_m": -0.00443,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 4e-05
+    },
+    "prone-aim": {
+      "frames": 45,
+      "min_mesh_clearance_m": 0.00748,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 0.0
+    },
+    "strafe": {
+      "frames": 90,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 4e-05
+    },
+    "reverse": {
+      "frames": 90,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 0.0,
+      "max_support_ankle_travel_per_frame_m": 4e-05
+    },
+    "transition": {
+      "frames": 90,
+      "min_mesh_clearance_m": 0.0,
+      "max_right_grip_error_m": 3e-05,
+      "max_support_ankle_travel_per_frame_m": 0.0
+    }
+  },
+  "integration_checks": 160,
+  "multiweapon_pose_samples": 864,
+  "regression_groups": 5,
+  "fbx_roundtrips": 6,
+  "original_files_preserved": 28,
+  "visual_review_file": "visual-review.json",
+  "timing_reference": "30 fps deterministic samples, 21 second encoded preview; no manual live playback observation claimed",
+  "image_frames_checked": 995,
+  "image_errors": 0,
+  "video_seconds": 21,
+  "video_frames": 630,
+  "video_sha256": "cb19329d3a61ecd4242a9d8fc415e4053ac8d00f3e27efeccc3f4b97de9c9f15",
+  "rendered_platform_contact": "PASS: independent raycast of rendered platform mesh; both teams standing/crouch/run/prone"
+}

@@ -13,7 +13,7 @@ namespace Ironfront.UnityPrototype
         private const string SaveKey = "ironfront.unity.loadout";
         public PrototypeInfantryClass role = PrototypeInfantryClass.Assault;
         public PrototypeWeaponId primary = PrototypeWeaponId.Carbine;
-        public PrototypeWeaponId secondary = PrototypeWeaponId.Marksman;
+        public PrototypeWeaponId secondary = PrototypeWeaponId.Pistol;
         public PrototypeThrowableId throwable = PrototypeThrowableId.Frag;
 
         public PrototypeLoadout Copy() => new PrototypeLoadout
@@ -26,13 +26,9 @@ namespace Ironfront.UnityPrototype
         {
             if (!Enum.IsDefined(typeof(PrototypeInfantryClass), role))
                 role = PrototypeInfantryClass.Assault;
-            if (!Enum.IsDefined(typeof(PrototypeWeaponId), primary) ||
-                primary == PrototypeWeaponId.Pistol)
+            if (!PrototypeInfantryRoles.IsPrimaryWeaponAllowed(role, primary))
                 primary = PrototypeInfantryRoles.DefaultWeapon(role);
-            if (secondary != PrototypeWeaponId.Pistol &&
-                secondary != PrototypeWeaponId.Marksman)
-                secondary = PrototypeWeaponId.Marksman;
-            if (primary == PrototypeWeaponId.Marksman)
+            if (!PrototypeInfantryRoles.IsSecondaryWeaponAllowed(secondary))
                 secondary = PrototypeWeaponId.Pistol;
             if (!Enum.IsDefined(typeof(PrototypeThrowableId), throwable))
                 throwable = PrototypeThrowableId.Frag;

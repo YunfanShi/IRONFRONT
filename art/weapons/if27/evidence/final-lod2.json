@@ -1,0 +1,699 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/exports/if27_lod2.fbx",
+  "issues": [
+    {
+      "code": "isolated_vertices",
+      "count": 1,
+      "severity": "warning"
+    }
+  ],
+  "material_details": [
+    {
+      "image_texture_nodes": 0,
+      "images": [],
+      "name": "Interior graphite",
+      "node_count": 2,
+      "use_nodes": true
+    },
+    {
+      "image_texture_nodes": 2,
+      "images": [
+        "if27_basecolor.png",
+        "if27_normal.png"
+      ],
+      "name": "Material.001",
+      "node_count": 5,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "Interior graphite",
+    "Material.001"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 10,
+      "connected_components": 1,
+      "data_name": "node_0.016",
+      "degenerate_faces": 0,
+      "edges": 6175,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Material.001",
+        "Interior graphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Body",
+      "non_manifold_edges": 15,
+      "polygons": 4115,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 4115,
+      "source_polygons": 4115,
+      "source_vertices": 1986,
+      "triangles": 4115,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 1986,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.066769,
+          -0.805018,
+          -0.301877
+        ],
+        [
+          0.06627,
+          0.273902,
+          0.156316
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "Cube.007",
+      "degenerate_faces": 0,
+      "edges": 27,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Interior graphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Bolt",
+      "non_manifold_edges": 0,
+      "polygons": 18,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 18,
+      "source_polygons": 18,
+      "source_vertices": 11,
+      "triangles": 18,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 11,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.038555,
+          -0.027317,
+          -0.00545
+        ],
+        [
+          -0.023811,
+          0.083031,
+          0.027051
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 34,
+      "connected_components": 4,
+      "data_name": "node_0.018",
+      "degenerate_faces": 0,
+      "edges": 103,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 1,
+      "material_slots": [
+        "Material.001",
+        "Interior graphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "ChargingHandle",
+      "non_manifold_edges": 45,
+      "polygons": 61,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 61,
+      "source_polygons": 61,
+      "source_vertices": 47,
+      "triangles": 61,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 47,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.055665,
+          0.170974,
+          0.050733
+        ],
+        [
+          0.059634,
+          0.210633,
+          0.074684
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 2,
+      "data_name": "node_0.017",
+      "degenerate_faces": 0,
+      "edges": 774,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Material.001",
+        "Interior graphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Magazine",
+      "non_manifold_edges": 0,
+      "polygons": 516,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 516,
+      "source_polygons": 516,
+      "source_vertices": 262,
+      "triangles": 516,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 262,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.047954,
+          -0.167652,
+          -0.359748
+        ],
+        [
+          0.047557,
+          0.041753,
+          -0.111177
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 2,
+      "data_name": "node_0.019",
+      "degenerate_faces": 0,
+      "edges": 2127,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Material.001",
+        "Interior graphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Stock",
+      "non_manifold_edges": 0,
+      "polygons": 1418,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 1418,
+      "source_polygons": 1418,
+      "source_vertices": 705,
+      "triangles": 1418,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 705,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.055257,
+          0.273598,
+          -0.264835
+        ],
+        [
+          0.054921,
+          0.60927,
+          0.04362
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.133039,
+        1.07892,
+        0.458192
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Body",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.014743,
+        0.110348,
+        0.032501
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Bolt",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.06,
+        0.1968,
+        0.0684
+      ],
+      "name": "ChargingGrip",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.115299,
+        0.039658,
+        0.02395
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "ChargingHandle",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "IF27",
+      "parent": null,
+      "rotation_euler": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.065,
+        -0.384,
+        -0.054
+      ],
+      "name": "LeftGrip",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.095512,
+        0.209405,
+        0.24857
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Magazine",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -0.066,
+        -0.24
+      ],
+      "name": "MagazineGrip",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -0.8088,
+        0.0072
+      ],
+      "name": "Muzzle",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.18,
+        -0.18
+      ],
+      "name": "RightGrip",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.012,
+        0.126
+      ],
+      "name": "Sight",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.110178,
+        0.335672,
+        0.308455
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Stock",
+      "parent": "IF27",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        0.133039,
+        1.414288,
+        0.516064
+      ],
+      "max": [
+        0.06627,
+        0.60927,
+        0.156316
+      ],
+      "min": [
+        -0.066769,
+        -0.805018,
+        -0.359748
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 44,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 9206,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 2,
+    "invalid_vertices": 0,
+    "isolated_vertices": 1,
+    "lights": 0,
+    "materials": 2,
+    "mesh_objects": 5,
+    "missing_material_faces": 0,
+    "node_materials": 2,
+    "non_manifold_edges": 60,
+    "objects": 12,
+    "polygons": 6128,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 6128,
+    "textured_materials": 1,
+    "triangles": 6128,
+    "uv_mapped_meshes": 5,
+    "vertices": 3011,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

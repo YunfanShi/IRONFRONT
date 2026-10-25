@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Profiling;
 
 namespace Ironfront.UnityPrototype
 {
@@ -15,12 +16,8 @@ namespace Ironfront.UnityPrototype
         private static readonly int[] Dx = { 1, -1, 0, 0, 1, -1, 1, -1 };
         private static readonly int[] Dz = { 0, 0, 1, -1, 1, 1, -1, -1 };
 
-        private readonly struct OpenNode
-        {
-            public readonly int Index;
-            public readonly float Score;
-            public OpenNode(int index, float score) { Index = index; Score = score; }
-        }
+        private readonly PrototypePathWorkspace search = new PrototypePathWorkspace(CellCount);
+        private static readonly ProfilerMarker FindMarker = new ProfilerMarker("IRONFRONT.Navigation.Vehicle");
 
         private PrototypeVehicleRoute(float radius)
         {
@@ -42,8 +39,16 @@ namespace Ironfront.UnityPrototype
         {
             int nearest = -1;
             float nearestDistance = 80f * 80f;
-            for (int i = 0; i < CellCount; i++)
+            // Only cells inside the original 80 m radius can improve the result.
+            // Row-major traversal preserves the original nearest-node tie break.
+            int minX = Mathf.Clamp(Mathf.CeilToInt((from.x + 280f) / Step - .5f), 0, Count - 1);
+            int maxX = Mathf.Clamp(Mathf.FloorToInt((from.x + 440f) / Step - .5f), 0, Count - 1);
+            int minZ = Mathf.Clamp(Mathf.CeilToInt((from.y + 280f) / Step - .5f), 0, Count - 1);
+            int maxZ = Mathf.Clamp(Mathf.FloorToInt((from.y + 440f) / Step - .5f), 0, Count - 1);
+            for (int z = minZ; z <= maxZ; z++)
+            for (int x = minX; x <= maxX; x++)
             {
+                int i = z * Count + x;
                 if (!walkable[i]) continue;
                 Vector2 point = Point(i);
                 float distance = (point - from).sqrMagnitude;
@@ -70,38 +75,45 @@ namespace Ironfront.UnityPrototype
         private static readonly Dictionary<float, PrototypeVehicleRoute> grids =
             new Dictionary<float, PrototypeVehicleRoute>();
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetGrids() => grids.Clear();
+
         public static List<Vector2> Find(Vector2 from, Vector2 to, float radius)
+        {
+            var result = new List<Vector2>();
+            Find(from, to, radius, result);
+            return result;
+        }
+
+        public static void Find(Vector2 from, Vector2 to, float radius, List<Vector2> result)
         {
             if (!grids.TryGetValue(radius, out PrototypeVehicleRoute grid))
             {
                 grid = new PrototypeVehicleRoute(radius);
                 grids.Add(radius, grid);
             }
-            return grid.FindRoute(from, to);
+            using (FindMarker.Auto()) grid.FindRoute(from, to, result);
         }
 
-        private List<Vector2> FindRoute(Vector2 from, Vector2 to)
+        private void FindRoute(Vector2 from, Vector2 to, List<Vector2> result)
         {
-            if (Clear(from, to)) return new List<Vector2> { to };
+            result.Clear();
+            if (Clear(from, to)) { result.Add(to); return; }
             int start = VisibleNode(from);
             int goal = VisibleNode(to);
-            if (start < 0 || goal < 0) return new List<Vector2>();
+            if (start < 0 || goal < 0) return;
 
-            var cost = new float[CellCount];
-            var prior = new int[CellCount];
-            var closed = new bool[CellCount];
-            for (int i = 0; i < CellCount; i++) { cost[i] = float.PositiveInfinity; prior[i] = -1; }
+            search.Reset();
+            float[] cost = search.Cost;
+            int[] prior = search.Prior;
+            bool[] closed = search.Closed;
             cost[start] = 0f;
-            var open = new List<OpenNode> { new OpenNode(start, Heuristic(start, goal)) };
+            search.Push(start, Heuristic(start, goal));
 
             int scanned = 0;
-            while (open.Count > 0 && scanned++ < 2200)
+            while (search.Count > 0 && scanned++ < 2200)
             {
-                int best = 0;
-                for (int i = 1; i < open.Count; i++)
-                    if (open[i].Score < open[best].Score) best = i;
-                int current = open[best].Index;
-                open.RemoveAt(best);
+                int current = search.Pop();
                 if (closed[current]) continue;
                 closed[current] = true;
                 if (current == goal) break;
@@ -121,30 +133,28 @@ namespace Ironfront.UnityPrototype
                     if (alternative >= cost[next]) continue;
                     cost[next] = alternative;
                     prior[next] = current;
-                    open.Add(new OpenNode(next, alternative + Heuristic(next, goal)));
+                    search.Push(next, alternative + Heuristic(next, goal));
                 }
             }
 
-            if (start != goal && prior[goal] < 0) return new List<Vector2>();
-            var raw = new List<Vector2>();
+            if (start != goal && prior[goal] < 0) return;
+            List<Vector2> raw = search.Raw;
             for (int at = goal; at != start && at >= 0; at = prior[at]) raw.Add(Point(at));
             raw.Reverse();
             raw.Insert(0, Point(start));
             raw.Add(to);
 
-            var result = new List<Vector2>();
             Vector2 position = from;
             for (int index = 0; index < raw.Count;)
             {
                 int furthest = -1;
                 for (int candidate = raw.Count - 1; candidate >= index; candidate--)
                     if (Clear(position, raw[candidate])) { furthest = candidate; break; }
-                if (furthest < 0) return new List<Vector2>();
+                if (furthest < 0) { result.Clear(); return; }
                 position = raw[furthest];
                 result.Add(position);
                 index = furthest + 1;
             }
-            return result;
         }
     }
 }

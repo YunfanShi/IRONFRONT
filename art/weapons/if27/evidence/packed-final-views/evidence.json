@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "light",
+    "floor_color": [
+      0.32,
+      0.34,
+      0.36,
+      1.0
+    ],
+    "light_powers": [
+      799.6087628380565,
+      319.8435051352226,
+      1199.4131442570847
+    ],
+    "camera_distance": 3.25189573764801,
+    "ortho_scale": 2.050108182430267,
+    "floor_size": 282.7735424041748,
+    "floor_offset": 0.008483206272125244,
+    "clip_start": 0.001413867712020874,
+    "clip_end": 1413.867712020874
+  },
+  "requested_presentation": "light",
+  "subject_luminance_hint": 0.029297999610379426,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/exports/if27.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 768,
+  "requested_views": [
+    "perspective",
+    "front",
+    "back",
+    "left",
+    "right",
+    "top"
+  ],
+  "evidence_scope": "full_multiview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.067036,
+      -0.804984,
+      -0.359996
+    ],
+    "max": [
+      0.066577,
+      0.608883,
+      0.156833
+    ],
+    "dimensions": [
+      0.133613,
+      1.413868,
+      0.51683
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/front.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/back.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/left.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/right.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/top.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/weapons/if27/evidence/packed-final-views/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

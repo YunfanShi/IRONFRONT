@@ -1,0 +1,663 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/j20-stratus/articulated/exports/j20-articulated-lod2.fbx",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 0,
+      "images": [],
+      "name": "JointSteel",
+      "node_count": 2,
+      "use_nodes": true
+    },
+    {
+      "image_texture_nodes": 2,
+      "images": [
+        "j20_basecolor_2k.png",
+        "j20_normal_2k.png"
+      ],
+      "name": "j20_Blue_PBR",
+      "node_count": 5,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "JointSteel",
+    "j20_Blue_PBR"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 6,
+      "connected_components": 1,
+      "data_name": "node_0.014",
+      "degenerate_faces": 0,
+      "edges": 325,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "j20_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Cannon_LOD2",
+      "non_manifold_edges": 9,
+      "polygons": 216,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 216,
+      "source_polygons": 216,
+      "source_vertices": 112,
+      "triangles": 216,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 112,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.368119,
+          -7.139079,
+          1.328374
+        ],
+        [
+          0.362737,
+          -6.470542,
+          1.648158
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 3,
+      "data_name": "node_0.012",
+      "degenerate_faces": 0,
+      "edges": 17079,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "j20_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Hull_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 11386,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 11386,
+      "source_polygons": 11386,
+      "source_vertices": 5683,
+      "triangles": 11386,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 5683,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -6.253112,
+          -7.969649,
+          0.805765
+        ],
+        [
+          6.244051,
+          4.897225,
+          5.43538
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "node_0.003",
+      "degenerate_faces": 0,
+      "edges": 480,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "j20_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Wheel_L_Main_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 320,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 320,
+      "source_polygons": 320,
+      "source_vertices": 162,
+      "triangles": 320,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 162,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -2.772984,
+          -0.017848,
+          0.048335
+        ],
+        [
+          -2.122144,
+          0.771824,
+          0.805766
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "node_0.013",
+      "degenerate_faces": 0,
+      "edges": 636,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "j20_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Wheel_Nose_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 424,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 424,
+      "source_polygons": 424,
+      "source_vertices": 210,
+      "triangles": 424,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 210,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.223802,
+          -4.976755,
+          0.000608
+        ],
+        [
+          0.219936,
+          -4.359284,
+          0.805767
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 1,
+      "data_name": "node_0.015",
+      "degenerate_faces": 0,
+      "edges": 468,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "j20_Blue_PBR",
+        "JointSteel"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Wheel_R_Main_LOD2",
+      "non_manifold_edges": 0,
+      "polygons": 312,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 312,
+      "source_polygons": 312,
+      "source_vertices": 158,
+      "triangles": 312,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 158,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          2.119042,
+          -0.01685,
+          0.050962
+        ],
+        [
+          2.767717,
+          0.773383,
+          0.805766
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Barrels.002",
+      "parent": "Turret.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.730856,
+        0.668537,
+        0.319784
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Cannon_LOD2",
+      "parent": "Barrels.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        12.497162,
+        12.866874,
+        4.629613
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Hull_LOD2",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "J20_LOD2",
+      "parent": null,
+      "rotation_euler": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -0.366257,
+        0.0
+      ],
+      "name": "Muzzle.002",
+      "parent": "Barrels.002",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -5.249686,
+        3.967786
+      ],
+      "name": "PilotEye.002",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -4.761343,
+        2.807971
+      ],
+      "name": "PilotSeat.002",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -6.592629,
+        1.53828
+      ],
+      "name": "Turret.002",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.650841,
+        0.789672,
+        0.75743
+      ],
+      "hidden_render": false,
+      "location": [
+        -2.447564,
+        0.376988,
+        0.427051
+      ],
+      "name": "Wheel_L_Main_LOD2",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.443737,
+        0.617471,
+        0.805158
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.001933,
+        -4.66802,
+        0.403187
+      ],
+      "name": "Wheel_Nose_LOD2",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.648675,
+        0.790232,
+        0.754804
+      ],
+      "hidden_render": false,
+      "location": [
+        2.44338,
+        0.378266,
+        0.428364
+      ],
+      "name": "Wheel_R_Main_LOD2",
+      "parent": "J20_LOD2",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        12.497163,
+        12.866874,
+        5.434772
+      ],
+      "max": [
+        6.244051,
+        4.897225,
+        5.43538
+      ],
+      "min": [
+        -6.253112,
+        -7.969649,
+        0.000608
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 6,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 18988,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 2,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 2,
+    "mesh_objects": 5,
+    "missing_material_faces": 0,
+    "node_materials": 2,
+    "non_manifold_edges": 9,
+    "objects": 11,
+    "polygons": 12658,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 12658,
+    "textured_materials": 1,
+    "triangles": 12658,
+    "uv_mapped_meshes": 5,
+    "vertices": 6325,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

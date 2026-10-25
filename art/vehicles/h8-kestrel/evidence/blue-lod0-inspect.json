@@ -1,0 +1,862 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod0.glb",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 3,
+      "images": [
+        "h8_blue_albedo_2k",
+        "h8_normal_2k",
+        "h8_orm_2k"
+      ],
+      "name": "H8_Blue_PBR",
+      "node_count": 7,
+      "use_nodes": true
+    },
+    {
+      "image_texture_nodes": 0,
+      "images": [],
+      "name": "H8_RotorGraphite",
+      "node_count": 2,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "H8_Blue_PBR",
+    "H8_RotorGraphite"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 46362,
+      "connected_components": 2606,
+      "data_name": "node_0.002",
+      "degenerate_faces": 0,
+      "edges": 87681,
+      "flat_polygons": 29,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_Blue_PBR"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "Body",
+      "non_manifold_edges": 46362,
+      "polygons": 43000,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 0.999326,
+      "smooth_polygons": 42971,
+      "source_polygons": 43000,
+      "source_vertices": 46887,
+      "triangles": 43000,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 46887,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -5.579465,
+          -8.341439,
+          -0.012032
+        ],
+        [
+          5.651556,
+          10.828343,
+          6.730839
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 1356,
+      "connected_components": 61,
+      "data_name": "node_0.004",
+      "degenerate_faces": 0,
+      "edges": 2628,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_Blue_PBR"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "ChinGun",
+      "non_manifold_edges": 1356,
+      "polygons": 1300,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 1300,
+      "source_polygons": 1300,
+      "source_vertices": 1377,
+      "triangles": 1300,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 1377,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.195041,
+          -8.385232,
+          1.251553
+        ],
+        [
+          0.181507,
+          -6.757967,
+          1.626428
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 2032,
+      "connected_components": 242,
+      "data_name": "node_0.005",
+      "degenerate_faces": 0,
+      "edges": 3416,
+      "flat_polygons": 13,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_Blue_PBR"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "PortWeaponPod",
+      "non_manifold_edges": 2032,
+      "polygons": 1600,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 0.991875,
+      "smooth_polygons": 1587,
+      "source_polygons": 1600,
+      "source_vertices": 2051,
+      "triangles": 1600,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 2051,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -6.384442,
+          -2.186638,
+          1.421842
+        ],
+        [
+          -3.279788,
+          0.945097,
+          3.498128
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 4,
+      "data_name": "RotorBladesMesh",
+      "degenerate_faces": 0,
+      "edges": 120,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_RotorGraphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RotorBlades",
+      "non_manifold_edges": 0,
+      "polygons": 80,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 80,
+      "source_polygons": 80,
+      "source_vertices": 48,
+      "triangles": 80,
+      "uv_layers": 0,
+      "vertex_groups": 0,
+      "vertices": 48,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -4.833075,
+          -5.085834,
+          6.948665
+        ],
+        [
+          4.833075,
+          4.580315,
+          7.003665
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 82,
+      "connected_components": 3,
+      "data_name": "Cylinder",
+      "degenerate_faces": 0,
+      "edges": 155,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_RotorGraphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RotorCap",
+      "non_manifold_edges": 82,
+      "polygons": 76,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 76,
+      "source_polygons": 76,
+      "source_vertices": 82,
+      "triangles": 76,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 82,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.37,
+          -0.62276,
+          6.876165
+        ],
+        [
+          0.37,
+          0.11724,
+          7.076165
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 4230,
+      "connected_components": 530,
+      "data_name": "node_0.003",
+      "degenerate_faces": 0,
+      "edges": 6915,
+      "flat_polygons": 17,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_Blue_PBR"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RotorHub",
+      "non_manifold_edges": 4230,
+      "polygons": 3200,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 0.994687,
+      "smooth_polygons": 3183,
+      "source_polygons": 3200,
+      "source_vertices": 4238,
+      "triangles": 3200,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 4238,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -1.823199,
+          -1.782555,
+          6.280073
+        ],
+        [
+          1.831759,
+          2.460056,
+          8.160878
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 1991,
+      "connected_components": 219,
+      "data_name": "node_0",
+      "degenerate_faces": 0,
+      "edges": 3394,
+      "flat_polygons": 12,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_Blue_PBR"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "StarboardWeaponPod",
+      "non_manifold_edges": 1991,
+      "polygons": 1599,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 0.992495,
+      "smooth_polygons": 1587,
+      "source_polygons": 1599,
+      "source_vertices": 2013,
+      "triangles": 1599,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 2013,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          3.067052,
+          -2.186057,
+          1.43527
+        ],
+        [
+          6.382096,
+          0.940155,
+          3.499951
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 0,
+      "connected_components": 4,
+      "data_name": "TailRotorBladesMesh",
+      "degenerate_faces": 0,
+      "edges": 120,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_RotorGraphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "TailRotorBlades",
+      "non_manifold_edges": 0,
+      "polygons": 80,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 80,
+      "source_polygons": 80,
+      "source_vertices": 48,
+      "triangles": 80,
+      "uv_layers": 0,
+      "vertex_groups": 0,
+      "vertices": 48,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          0.444318,
+          8.541164,
+          5.861912
+        ],
+        [
+          0.499318,
+          10.601164,
+          7.921912
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 82,
+      "connected_components": 3,
+      "data_name": "Cylinder.001",
+      "degenerate_faces": 0,
+      "edges": 155,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "H8_RotorGraphite"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "TailRotorCap",
+      "non_manifold_edges": 82,
+      "polygons": 76,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 76,
+      "source_polygons": 76,
+      "source_vertices": 82,
+      "triangles": 76,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 82,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          0.376818,
+          9.401164,
+          6.721912
+        ],
+        [
+          0.566818,
+          9.741164,
+          7.061912
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        11.231022,
+        19.169783,
+        6.742871
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Body",
+      "parent": "H8_Root",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.376548,
+        1.627264,
+        0.374876
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -6.453795,
+        1.432304
+      ],
+      "name": "ChinGun",
+      "parent": "H8_Root",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "H8_Root",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        -0.25276,
+        6.976165
+      ],
+      "name": "MainRotor",
+      "parent": "H8_Root",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        3.104654,
+        3.131735,
+        2.076286
+      ],
+      "hidden_render": false,
+      "location": [
+        -5.055192,
+        -0.421266,
+        2.10633
+      ],
+      "name": "PortWeaponPod",
+      "parent": "H8_Root",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        9.666149,
+        9.666149,
+        0.055
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RotorBlades",
+      "parent": "MainRotor",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.74,
+        0.74,
+        0.2
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RotorCap",
+      "parent": "MainRotor",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        3.654958,
+        4.24261,
+        1.880805
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RotorHub",
+      "parent": "MainRotor",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        3.315045,
+        3.126212,
+        2.064681
+      ],
+      "hidden_render": false,
+      "location": [
+        5.055192,
+        -0.421266,
+        2.10633
+      ],
+      "name": "StarboardWeaponPod",
+      "parent": "H8_Root",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.471818,
+        9.571164,
+        6.891912
+      ],
+      "name": "TailRotor",
+      "parent": "H8_Root",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "EMPTY"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.055,
+        2.06,
+        2.06
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "TailRotorBlades",
+      "parent": "TailRotor",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.34,
+        0.34,
+        0.19
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "TailRotorCap",
+      "parent": "TailRotor",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        12.766538,
+        19.213575,
+        8.17291
+      ],
+      "max": [
+        6.382096,
+        10.828343,
+        8.160878
+      ],
+      "min": [
+        -6.384442,
+        -8.385232,
+        -0.012032
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 56135,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 104584,
+    "flat_polygons": 71,
+    "geometry_nodes_modifiers": 0,
+    "images": 3,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 2,
+    "mesh_objects": 9,
+    "missing_material_faces": 0,
+    "node_materials": 2,
+    "non_manifold_edges": 56135,
+    "objects": 12,
+    "polygons": 51011,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 50940,
+    "textured_materials": 1,
+    "triangles": 51011,
+    "uv_mapped_meshes": 7,
+    "vertices": 56826,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

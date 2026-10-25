@@ -1,0 +1,264 @@
+{
+  "team": "red",
+  "height_m": 1.8,
+  "max_influences": 4,
+  "skeleton": {
+    "Pelvis": [
+      [
+        0,
+        0,
+        0.91
+      ],
+      [
+        0,
+        0,
+        1.03
+      ],
+      null
+    ],
+    "Torso": [
+      [
+        0,
+        0,
+        0.91
+      ],
+      [
+        0,
+        0,
+        1.51
+      ],
+      "Pelvis"
+    ],
+    "Head": [
+      [
+        0,
+        0,
+        1.51
+      ],
+      [
+        0,
+        0,
+        1.78
+      ],
+      "Torso"
+    ],
+    "UpperArm_L": [
+      [
+        -0.235,
+        0,
+        1.43
+      ],
+      [
+        -0.335,
+        0,
+        1.2
+      ],
+      "Torso"
+    ],
+    "Forearm_L": [
+      [
+        -0.335,
+        0,
+        1.2
+      ],
+      [
+        -0.435,
+        -0.015,
+        0.9
+      ],
+      "UpperArm_L"
+    ],
+    "Hand_L": [
+      [
+        -0.435,
+        -0.015,
+        0.9
+      ],
+      [
+        -0.45,
+        -0.015,
+        0.81
+      ],
+      "Forearm_L"
+    ],
+    "Fingers_L": [
+      [
+        -0.45,
+        -0.015,
+        0.855
+      ],
+      [
+        -0.448,
+        -0.015,
+        0.79
+      ],
+      "Hand_L"
+    ],
+    "Thigh_L": [
+      [
+        -0.17,
+        0,
+        0.91
+      ],
+      [
+        -0.17,
+        -0.005,
+        0.53
+      ],
+      "Pelvis"
+    ],
+    "Shin_L": [
+      [
+        -0.17,
+        -0.005,
+        0.53
+      ],
+      [
+        -0.21,
+        0,
+        0.14
+      ],
+      "Thigh_L"
+    ],
+    "Foot_L": [
+      [
+        -0.21,
+        0,
+        0.14
+      ],
+      [
+        -0.21,
+        -0.16,
+        0.045
+      ],
+      "Shin_L"
+    ],
+    "UpperArm_R": [
+      [
+        0.235,
+        0,
+        1.43
+      ],
+      [
+        0.335,
+        0,
+        1.2
+      ],
+      "Torso"
+    ],
+    "Forearm_R": [
+      [
+        0.335,
+        0,
+        1.2
+      ],
+      [
+        0.435,
+        -0.015,
+        0.9
+      ],
+      "UpperArm_R"
+    ],
+    "Hand_R": [
+      [
+        0.435,
+        -0.015,
+        0.9
+      ],
+      [
+        0.45,
+        -0.015,
+        0.81
+      ],
+      "Forearm_R"
+    ],
+    "Fingers_R": [
+      [
+        0.45,
+        -0.015,
+        0.855
+      ],
+      [
+        0.448,
+        -0.015,
+        0.79
+      ],
+      "Hand_R"
+    ],
+    "Thigh_R": [
+      [
+        0.17,
+        0,
+        0.91
+      ],
+      [
+        0.17,
+        -0.005,
+        0.53
+      ],
+      "Pelvis"
+    ],
+    "Shin_R": [
+      [
+        0.17,
+        -0.005,
+        0.53
+      ],
+      [
+        0.21,
+        0,
+        0.14
+      ],
+      "Thigh_R"
+    ],
+    "Foot_R": [
+      [
+        0.21,
+        0,
+        0.14
+      ],
+      [
+        0.21,
+        -0.16,
+        0.045
+      ],
+      "Shin_R"
+    ]
+  },
+  "lods": [
+    {
+      "lod": 0,
+      "triangles": 19984,
+      "parts": [
+        "RedSoldier_LOD0_Body",
+        "RedSoldier_LOD0_ArmL",
+        "RedSoldier_LOD0_ArmR"
+      ],
+      "vertices": 10091
+    },
+    {
+      "lod": 1,
+      "triangles": 6000,
+      "parts": [
+        "RedSoldier_LOD1_Body",
+        "RedSoldier_LOD1_ArmL",
+        "RedSoldier_LOD1_ArmR"
+      ],
+      "vertices": 3053
+    },
+    {
+      "lod": 2,
+      "triangles": 2000,
+      "parts": [
+        "RedSoldier_LOD2_Body",
+        "RedSoldier_LOD2_ArmL",
+        "RedSoldier_LOD2_ArmR"
+      ],
+      "vertices": 1027
+    }
+  ],
+  "facial_animation": false,
+  "finger_control": "combined gloved fingers per hand",
+  "weighting": "Blender bone heat diffusion, rigid helmet/sole, normalized strongest four influences",
+  "runtime": "Existing Unity procedural IK; combined gloved-finger curl; first-person seam mesh derived in Unity editor"
+}

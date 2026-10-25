@@ -1,0 +1,23 @@
+{
+  "team": "red",
+  "bones": 18,
+  "source": "rigged-v01",
+  "change": "lumbar/chest weight transfer; unchanged mesh, UV and limb weights",
+  "lods": [
+    {
+      "lod": 0,
+      "parts": 3,
+      "triangles": 19984
+    },
+    {
+      "lod": 1,
+      "parts": 3,
+      "triangles": 6000
+    },
+    {
+      "lod": 2,
+      "parts": 3,
+      "triangles": 2000
+    }
+  ]
+}

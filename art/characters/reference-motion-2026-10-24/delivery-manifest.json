@@ -1,0 +1,12 @@
+{
+  "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs": "5d7a0cb78ed8bd82afd3e761728dbaadba0d612f695e1521bbfffd772a5bf4dd",
+  "UnityProject/Assets/Scripts/PrototypeSoldierMotionProbe.cs": "304610b98b6c9b5269ee1f6c2b76648a83bab1280c843916bbb7db2d597c0792",
+  "UnityProject/Assets/Editor/PrototypeInfantryLocomotionSmoke.cs": "5ec572263fb22467c81f421677fd50ae7a5f6c0f473916e3a6715c86a3fa02d0",
+  "package.json": "32f38e03b73d7dc88a5f9b2e8ff5822788d459ce379946b15c072dcc05d4ebc3",
+  "package-lock.json": "9127293423761d5584a733aeb0015d80d01ee2e9a88cc4a493d32d5cc688f01f",
+  "UnityProject/ProjectSettings/ProjectSettings.asset": "da1a426c3e94d64d6951eeebe1809d90bd3da351d2c329a594398b316d59e9e6",
+  "docs/UNITY_HANDOFF_0581.md": "9bbaa49798b5cf83144e1ebd12060d2e42e176191c636b9a9bdb198a55915c80",
+  "art/characters/reference-motion-2026-10-24/run-crouch-before-after.mp4": "817fcf061cf861d7ccf8675c043391acdf06ee69ddb5817fedbffbf037281469",
+  "art/characters/reference-motion-2026-10-24/run-crouch-multiview.mp4": "d5e5b2d21cbfda2bf22025dd5c3623be734a8ebe290a46d99ab96f0adaacfae5",
+  "UnityProject/Builds/Motion-0.58.1/IRONFRONT.app/Contents/MacOS/IRONFRONT Unity Prototype": "4dd3e77bdd60ea369531049b3c23bbefea82013208b33f9e1b2b9b7df75eb1f6"
+}

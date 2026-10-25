@@ -1,0 +1,227 @@
+[
+  {
+    "key": "t90",
+    "title": "T90 BASTION 主战坦克",
+    "source": "/Users/liuwenjun/Downloads/c9fd2d8fd8c3ec5cfbcfff869985a9b8.glb",
+    "source_sha256": "bc47facc3030bdbf2e46383f6d8716892cd00c60768b98972201dd74009ee8c3",
+    "original_triangles": 1498808,
+    "lod_triangles": [
+      80000,
+      40000,
+      20000
+    ],
+    "lod0_mib": 14.74,
+    "files": [
+      {
+        "file": "t90-bastion/exports/t90-lod0.glb",
+        "bytes": 15459096
+      },
+      {
+        "file": "t90-bastion/exports/t90-lod0.fbx",
+        "bytes": 3295244
+      },
+      {
+        "file": "t90-bastion/exports/t90-lod1.glb",
+        "bytes": 13493488
+      },
+      {
+        "file": "t90-bastion/exports/t90-lod1.fbx",
+        "bytes": 1811228
+      },
+      {
+        "file": "t90-bastion/exports/t90-lod2.glb",
+        "bytes": 12699276
+      },
+      {
+        "file": "t90-bastion/exports/t90-lod2.fbx",
+        "bytes": 998076
+      },
+      {
+        "file": "t90-bastion/t90-optimized.blend",
+        "bytes": 18252502
+      }
+    ],
+    "status": "exported",
+    "independent_quality_review": "omitted at user request"
+  },
+  {
+    "key": "v12",
+    "title": "V12 LANCER 八轮步战车",
+    "source": "/Users/liuwenjun/Downloads/fae886068598e465b15c7b0082fb3061.glb",
+    "source_sha256": "6770e5c9fd945cbd881fa80c91d1618e9473beeb03b46b3a89558d621803d9fc",
+    "original_triangles": 1491418,
+    "lod_triangles": [
+      70000,
+      35000,
+      17500
+    ],
+    "lod0_mib": 13.09,
+    "files": [
+      {
+        "file": "v12-lancer/exports/v12-lod0.glb",
+        "bytes": 13721284
+      },
+      {
+        "file": "v12-lancer/exports/v12-lod0.fbx",
+        "bytes": 2768508
+      },
+      {
+        "file": "v12-lancer/exports/v12-lod1.glb",
+        "bytes": 12077872
+      },
+      {
+        "file": "v12-lancer/exports/v12-lod1.fbx",
+        "bytes": 1498460
+      },
+      {
+        "file": "v12-lancer/exports/v12-lod2.glb",
+        "bytes": 11403620
+      },
+      {
+        "file": "v12-lancer/exports/v12-lod2.fbx",
+        "bytes": 812748
+      },
+      {
+        "file": "v12-lancer/v12-optimized.blend",
+        "bytes": 16210557
+      }
+    ],
+    "status": "exported",
+    "independent_quality_review": "omitted at user request"
+  },
+  {
+    "key": "u8",
+    "title": "U8 ROVER 武装运输车",
+    "source": "/Users/liuwenjun/Downloads/4e6d759fd311d5370f59552486ec1ade.glb",
+    "source_sha256": "bdded3563e94c1d5e15f376292c26de94e3cc3552217971fbcc539c0d925d558",
+    "original_triangles": 1492006,
+    "lod_triangles": [
+      60000,
+      30000,
+      15000
+    ],
+    "lod0_mib": 14.38,
+    "files": [
+      {
+        "file": "u8-rover/exports/u8-lod0.glb",
+        "bytes": 15074244
+      },
+      {
+        "file": "u8-rover/exports/u8-lod0.fbx",
+        "bytes": 2720028
+      },
+      {
+        "file": "u8-rover/exports/u8-lod1.glb",
+        "bytes": 13528160
+      },
+      {
+        "file": "u8-rover/exports/u8-lod1.fbx",
+        "bytes": 1493916
+      },
+      {
+        "file": "u8-rover/exports/u8-lod2.glb",
+        "bytes": 12776140
+      },
+      {
+        "file": "u8-rover/exports/u8-lod2.fbx",
+        "bytes": 783116
+      },
+      {
+        "file": "u8-rover/u8-optimized.blend",
+        "bytes": 16909714
+      }
+    ],
+    "status": "exported",
+    "independent_quality_review": "omitted at user request"
+  },
+  {
+    "key": "m2",
+    "title": "M2 COURIER 双座摩托车",
+    "source": "/Users/liuwenjun/Downloads/17f7e3624bd9b87fcc6e3efe8f6bc47c.glb",
+    "source_sha256": "e3a3baafa1649cae3ca71b26b18be1166b62b79cc69d18ffe04e8c6d2960efa5",
+    "original_triangles": 1489086,
+    "lod_triangles": [
+      50000,
+      25000,
+      12500
+    ],
+    "lod0_mib": 12.18,
+    "files": [
+      {
+        "file": "m2-courier/exports/m2-lod0.glb",
+        "bytes": 12769040
+      },
+      {
+        "file": "m2-courier/exports/m2-lod0.fbx",
+        "bytes": 2337980
+      },
+      {
+        "file": "m2-courier/exports/m2-lod1.glb",
+        "bytes": 11403068
+      },
+      {
+        "file": "m2-courier/exports/m2-lod1.fbx",
+        "bytes": 1277372
+      },
+      {
+        "file": "m2-courier/exports/m2-lod2.glb",
+        "bytes": 10763104
+      },
+      {
+        "file": "m2-courier/exports/m2-lod2.fbx",
+        "bytes": 679868
+      },
+      {
+        "file": "m2-courier/m2-optimized.blend",
+        "bytes": 14117419
+      }
+    ],
+    "status": "exported",
+    "independent_quality_review": "omitted at user request"
+  },
+  {
+    "key": "r3",
+    "title": "R3 FIREFLY 侦察直升机",
+    "source": "/Users/liuwenjun/Downloads/616637844d883cd74eac2eb255af4b8e.glb",
+    "source_sha256": "eefc9953fd619dc419349bbce4eb4aa546dc779875744871a9874ac1bfcbf557",
+    "original_triangles": 1499780,
+    "lod_triangles": [
+      50000,
+      25000,
+      12500
+    ],
+    "lod0_mib": 12.34,
+    "files": [
+      {
+        "file": "r3-firefly/exports/r3-lod0.glb",
+        "bytes": 12938656
+      },
+      {
+        "file": "r3-firefly/exports/r3-lod0.fbx",
+        "bytes": 1895148
+      },
+      {
+        "file": "r3-firefly/exports/r3-lod1.glb",
+        "bytes": 12129932
+      },
+      {
+        "file": "r3-firefly/exports/r3-lod1.fbx",
+        "bytes": 1018060
+      },
+      {
+        "file": "r3-firefly/exports/r3-lod2.glb",
+        "bytes": 11690132
+      },
+      {
+        "file": "r3-firefly/exports/r3-lod2.fbx",
+        "bytes": 558204
+      },
+      {
+        "file": "r3-firefly/r3-optimized.blend",
+        "bytes": 15164674
+      }
+    ],
+    "status": "exported",
+    "independent_quality_review": "omitted at user request"
+  }
+]

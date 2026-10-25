@@ -1,0 +1,5 @@
+IRONFRONT actual Unity Play verification
+IRONFRONT/Verify Vehicle Steering and Tank Sight
+IRONFRONT vehicle steering and tank sight PASS: gradual speed-limited motorcycle yaw/recenter/reversal, level damped chassis camera/direct mouse look/passenger authority; real right-lower cannon geometry, world-stabilized optic, physical moving-target range/signed speed/muzzle elevation/reload, unchanged launched bore, V/seat/exit lifecycle; isolated state restored
+
+FINAL PASS: All configured checks passed.

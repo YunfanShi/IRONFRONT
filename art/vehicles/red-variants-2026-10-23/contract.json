@@ -1,0 +1,9 @@
+{
+  "task": "Create red faction paint for T90, V12, R4, U8, M2, R3 and J20",
+  "palette_reference": "Existing art/hunyuan-vehicle-refs/red-* images: warm grey-brown ground vehicles with red identification; brick red R3; warm grey J20 with brick wing and fuselage panels",
+  "method": "Blender material color masks baked into the existing 2K UV layout; reuse geometry, normals, roughness and metallic maps",
+  "deliverables": "21 red GLBs, 21 red FBXs, 7 red blend projects, 7 base color textures and perspective previews",
+  "scope": "Static paint variants of the existing optimized assets",
+  "review": "Targeted paint previews and export material/geometry smoke check only; no renewed model quality audit",
+  "approval_gates": []
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.62.0",
+  "app": "/Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Builds/Loadout-0.62.0/IRONFRONT.app",
+  "app_files": 278,
+  "app_bytes": 578093789,
+  "preservation": "406 files unchanged",
+  "build": "build-03.log",
+  "standalone": "player-03/results.txt",
+  "editor": "batch-results.txt",
+  "main_screenshot": "player-03/loadout-1600x900.png",
+  "source_sha256": {
+    "UnityProject/Assets/Resources/Menu/LoadoutTheme.uss": "fd9222327c97fc02e3886c8d1dcac6e6971101a9ed6333424ddea056403dc6dd",
+    "UnityProject/Assets/Resources/Menu/StartMenu.uxml": "2f39125734be422509561dacbd55d4cf75754dbe77f96721455c02e2f1a5bf27",
+    "UnityProject/Assets/Scripts/PrototypeStartMenuView.cs": "68639d4f971ddf206e98c8129ea1cbe62ef6491547837a826d4ffda71276979f",
+    "UnityProject/Assets/Scripts/PrototypeLoadoutSymbol.cs": "d3eed6ac2da046c6bb4fc15fb419d8f57af1bafad1a517363d3ef955200ce6f8",
+    "UnityProject/Assets/Scripts/PrototypeMenuPreview.cs": "2d4dd4480f730ca3b63d368b3c9969cd96cffd4299234337378960f4cd47784c",
+    "UnityProject/Assets/Scripts/PrototypeWeaponMenuPreview.cs": "f9c02644d6cdfa4790d81417d8ebd6ba35a016386bd40cc9623619f05eabdb6e"
+  }
+}

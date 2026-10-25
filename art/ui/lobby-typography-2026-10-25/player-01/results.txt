@@ -1,0 +1,13 @@
+FAIL
+Version=0.61.1
+RuntimeErrors=0
+PASS: Real application opens to lobby before battle
+PASS: Actual UI Toolkit menu initializes without fallback
+PASS: 准备行动 resolves to embedded LobbyHeavy
+System.InvalidOperationException: Embedded glyph U+51C6
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe.Check (System.Boolean condition, System.String text) [0x00020] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:254 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe.CheckFont (UnityEngine.UIElements.TextElement text, System.String expected) [0x00067] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:223 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe.ValidateTypography () [0x00000] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:204 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe.ValidateLobby () [0x00019] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:159 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe+<Verify>d__20.MoveNext () [0x001e2] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:81 
+  at Ironfront.UnityPrototype.PrototypeLobbyProbe+<Start>d__19.MoveNext () [0x000bc] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeLobbyProbe.cs:48 

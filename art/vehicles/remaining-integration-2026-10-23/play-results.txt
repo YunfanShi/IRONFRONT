@@ -1,0 +1,107 @@
+PASS
+R4 SCOUT authored spawn
+Blue R4 SCOUT complete LODs
+Blue R4 SCOUT team atlas Blue
+Blue R4 SCOUT URP materials
+U8 ROVER authored spawn
+Blue U8 ROVER complete LODs
+Blue U8 ROVER team atlas Blue
+Blue U8 ROVER URP materials
+M2 COURIER authored spawn
+Blue Motorcycle complete LODs
+Blue Motorcycle team atlas Blue
+Blue Motorcycle URP materials
+R3 FIREFLY RECON authored spawn
+Blue ReconHelicopter complete LODs
+Blue ReconHelicopter team atlas Blue
+Blue ReconHelicopter URP materials
+J20 STRATUS authored spawn
+Blue Jet complete LODs
+Blue Jet team atlas Blue
+Blue Jet URP materials
+R4 SCOUT authored spawn
+Red R4 SCOUT complete LODs
+Red R4 SCOUT team atlas Red
+Red R4 SCOUT URP materials
+U8 ROVER authored spawn
+Red U8 ROVER complete LODs
+Red U8 ROVER team atlas Red
+Red U8 ROVER URP materials
+M2 COURIER authored spawn
+Red Motorcycle complete LODs
+Red Motorcycle team atlas Red
+Red Motorcycle URP materials
+R3 FIREFLY RECON authored spawn
+Red ReconHelicopter complete LODs
+Red ReconHelicopter team atlas Red
+Red ReconHelicopter URP materials
+J20 STRATUS authored spawn
+Red Jet complete LODs
+Red Jet team atlas Red
+Red Jet URP materials
+H8 existing art remains bound
+A40 existing art remains bound
+T90 existing art remains bound
+V12 existing art remains bound
+R4 SCOUT enters actual player seat
+R4 SCOUT actual movement
+R4 SCOUT rolling wheels
+R4 SCOUT steering all LODs
+Blue R4 SCOUT yaw pivots aligned
+Blue R4 SCOUT elevation pivots aligned
+Blue R4 SCOUT art muzzle alignment
+R4 SCOUT launched projectile
+R4 SCOUT projectile uses visible bore
+U8 ROVER enters actual player seat
+U8 ROVER actual movement
+U8 ROVER rolling wheels
+U8 ROVER steering all LODs
+U8 driver transfers to gunner
+Blue U8 ROVER yaw pivots aligned
+Blue U8 ROVER elevation pivots aligned
+Blue U8 ROVER art muzzle alignment
+U8 ROVER launched projectile
+U8 ROVER projectile uses visible bore
+M2 COURIER enters actual player seat
+M2 COURIER actual movement
+M2 COURIER rolling wheels
+M2 COURIER steering all LODs
+M2 authored chassis leans with rider
+M2 grip calibrated to source handlebar
+M2 passenger authority retained
+M2 driver seat restored
+R3 FIREFLY RECON enters actual player seat
+R3 FIREFLY RECON actual movement
+R3 powered rotor rotates
+R3 main/tail synchronization all LODs
+Blue ReconHelicopter yaw pivots aligned
+Blue ReconHelicopter elevation pivots aligned
+Blue ReconHelicopter art muzzle alignment
+R3 FIREFLY RECON actual weapon accepts fire
+R3 FIREFLY RECON launched projectile
+R3 FIREFLY RECON projectile uses visible bore
+J20 STRATUS enters actual player seat
+J20 STRATUS actual movement
+J20 STRATUS rolling wheels
+Blue Jet yaw pivots aligned
+Blue Jet elevation pivots aligned
+Blue Jet art muzzle alignment
+J20 STRATUS actual weapon accepts fire
+J20 STRATUS launched projectile
+J20 STRATUS projectile uses visible bore
+R4 SCOUT prototype meshes stay hidden
+U8 ROVER prototype meshes stay hidden
+M2 COURIER art hides
+M2 COURIER prototype meshes stay hidden
+R3 FIREFLY RECON art hides
+R3 FIREFLY RECON prototype meshes stay hidden
+J20 STRATUS art hides
+J20 STRATUS prototype meshes stay hidden
+R4 SCOUT prototype meshes stay hidden
+U8 ROVER prototype meshes stay hidden
+M2 COURIER art hides
+M2 COURIER prototype meshes stay hidden
+R3 FIREFLY RECON art hides
+R3 FIREFLY RECON prototype meshes stay hidden
+J20 STRATUS art hides
+J20 STRATUS prototype meshes stay hidden

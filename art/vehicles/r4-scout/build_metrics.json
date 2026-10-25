@@ -1,0 +1,161 @@
+{
+  "title": "R4 SCOUT",
+  "source": "/Users/liuwenjun/Downloads/aeb2ce5110245d186594fb95589644f4.glb",
+  "source_sha256": "e26f508b431f64fb8a6c0fbc932d226e7a476939c61d2635c3c6423dc52eb98e",
+  "blender": "5.2.2 LTS",
+  "original": {
+    "triangles": 1498158,
+    "vertices": 972610,
+    "min": [
+      -0.33000001311302185,
+      -0.5534970760345459,
+      -4.4169265578375416e-08
+    ],
+    "max": [
+      0.3309119939804077,
+      0.5403790473937988,
+      0.6647710800170898
+    ],
+    "dimensions": [
+      0.6609120070934296,
+      1.0938761234283447,
+      0.6647711241863554
+    ],
+    "boundary_edges": 427118,
+    "nonmanifold_edges": 427118,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "welded": {
+    "triangles": 1498158,
+    "vertices": 748829,
+    "min": [
+      -0.33000001311302185,
+      -0.5534970760345459,
+      -4.4169265578375416e-08
+    ],
+    "max": [
+      0.3309119939804077,
+      0.5403790473937988,
+      0.6647710800170898
+    ],
+    "dimensions": [
+      0.6609120070934296,
+      1.0938761234283447,
+      0.6647711241863554
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "textures": [
+    {
+      "name": "r4_basecolor_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "r4_metalrough_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "r4_normal_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  ],
+  "authored_lods": [
+    {
+      "triangles": 60000,
+      "vertices": 29750,
+      "min": [
+        -0.32993370294570923,
+        -0.5534707307815552,
+        0.00014150307106319815
+      ],
+      "max": [
+        0.33073368668556213,
+        0.5403417348861694,
+        0.6643193364143372
+      ],
+      "dimensions": [
+        0.6606673896312714,
+        1.0938124656677246,
+        0.664177833343274
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 0,
+      "name": "R4_SCOUT_LOD0"
+    },
+    {
+      "triangles": 30000,
+      "vertices": 14750,
+      "min": [
+        -0.32993370294570923,
+        -0.5538240075111389,
+        0.00014150307106319815
+      ],
+      "max": [
+        0.33069363236427307,
+        0.5405789017677307,
+        0.6641297936439514
+      ],
+      "dimensions": [
+        0.6606273353099823,
+        1.0944029092788696,
+        0.6639882905728882
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 1,
+      "name": "R4_SCOUT_LOD1"
+    },
+    {
+      "triangles": 15000,
+      "vertices": 7250,
+      "min": [
+        -0.32899174094200134,
+        -0.5545395016670227,
+        -0.00030870482441969216
+      ],
+      "max": [
+        0.3297284245491028,
+        0.5416792631149292,
+        0.6647205948829651
+      ],
+      "dimensions": [
+        0.6587201654911041,
+        1.096218764781952,
+        0.6650292997073848
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 2,
+      "name": "R4_SCOUT_LOD2"
+    }
+  ],
+  "contract": "Static mesh optimization: original proportions, orientation, UVs, paint and normalized scale retained. No new animation rig or gameplay replacement."
+}

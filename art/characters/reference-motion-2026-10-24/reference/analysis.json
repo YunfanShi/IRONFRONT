@@ -1,0 +1,31 @@
+{
+  "path": "/Users/liuwenjun/Downloads/33018023437_qe1-1-192.mp4",
+  "sha256": "d707587d8a1adf26a2b555be890aadbe99b4a529b33dfce97d4770bf74f2e3d7",
+  "duration_seconds": 198.852,
+  "nominal_fps": 26.999966,
+  "width": 1152,
+  "height": 720,
+  "observations": [
+    {
+      "time": "00:41.6–00:43.0",
+      "use": "Nearby soldier running; useful complete lower-limb sequence, camera also moves. Interpret weight transfer and knee recovery, not calibrated world speed."
+    },
+    {
+      "time": "00:44–00:47",
+      "use": "Third-person carrying and forward lean; feet partly cropped. Useful torso/weapon reference only."
+    },
+    {
+      "time": "00:48.5–00:49.4",
+      "use": "Excluded: hit reaction and falling, not crouch locomotion."
+    },
+    {
+      "time": "02:28.6–02:31",
+      "use": "Third-person torso movement while travelling; feet cropped and equipment changes. Not a complete lower-body cycle."
+    }
+  ],
+  "limitations": [
+    "Reference inspected through overview and dense timestamped image sequences, not a claim of human real-time video playback.",
+    "No clean sustained full-body crouch walk cycle found in inspected segments; crouch revision is an authored correction, not a traced animation.",
+    "No game assets or animation data extracted from the video."
+  ]
+}

@@ -1,0 +1,1 @@
+Original run: Verify Lobby Loadout passed; Verify Class Loadout Policy failed because CheckModel still required placeholder weapon names. Full evidence: regression-01.log

@@ -1,0 +1,60 @@
+FAIL
+Version=0.58.1
+Unity=6000.5.10f1
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+strafe-left right grip max=0.00000
+strafe-left no deep ground penetration min=-0.00109
+strafe-left planted ankle travel/frame max=0.00004
+strafe-left 90 frames: finite skin and fixed bone lengths
+strafe-left foot lane=0.3391 knee lane=0.3118 leg clearance=0.3111
+strafe-left feet stay in separate travel lanes
+strafe-left knees stay in separate travel lanes
+strafe-left legs do not intersect
+strafe-right right grip max=0.00000
+strafe-right no deep ground penetration min=-0.00157
+strafe-right planted ankle travel/frame max=0.00006
+strafe-right 90 frames: finite skin and fixed bone lengths
+strafe-right foot lane=0.3391 knee lane=0.3117 leg clearance=0.3110
+strafe-right feet stay in separate travel lanes
+strafe-right knees stay in separate travel lanes
+strafe-right legs do not intersect
+diagonal-left right grip max=0.00004
+diagonal-left no deep ground penetration min=-0.00243
+diagonal-left planted ankle travel/frame max=0.00006
+diagonal-left 90 frames: finite skin and fixed bone lengths
+diagonal-left foot lane=0.3400 knee lane=0.3269 leg clearance=0.3329
+diagonal-left feet stay in separate travel lanes
+diagonal-left knees stay in separate travel lanes
+diagonal-left legs do not intersect
+diagonal-right right grip max=0.00000
+diagonal-right no deep ground penetration min=-0.00243
+diagonal-right planted ankle travel/frame max=0.00004
+diagonal-right 90 frames: finite skin and fixed bone lengths
+diagonal-right foot lane=0.3400 knee lane=0.3268 leg clearance=0.3329
+diagonal-right feet stay in separate travel lanes
+diagonal-right knees stay in separate travel lanes
+diagonal-right legs do not intersect
+crouch-left right grip max=0.00003
+crouch-left no deep ground penetration min=0.00000
+crouch-left planted ankle travel/frame max=0.00004
+crouch-left 90 frames: finite skin and fixed bone lengths
+crouch-left foot lane=0.3592 knee lane=0.3123 leg clearance=0.3032
+crouch-left feet stay in separate travel lanes
+crouch-left knees stay in separate travel lanes
+crouch-left legs do not intersect
+crouch-right right grip max=0.00000
+crouch-right no deep ground penetration min=0.00000
+crouch-right planted ankle travel/frame max=0.00006
+crouch-right 90 frames: finite skin and fixed bone lengths
+crouch-right foot lane=0.3591 knee lane=0.3124 leg clearance=0.3032
+crouch-right feet stay in separate travel lanes
+crouch-right knees stay in separate travel lanes
+crouch-right legs do not intersect
+reverse-diagonal-left right grip max=0.00000
+reverse-diagonal-left no deep ground penetration min=0.00000
+System.Exception: reverse-diagonal-left planted ankle travel/frame max=0.01401
+  at Ironfront.UnityPrototype.PrototypeSoldierMotionProbe.Check (System.Boolean b, System.String message) [0x00016] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSoldierMotionProbe.cs:186 
+  at Ironfront.UnityPrototype.PrototypeSoldierMotionProbe+<Verify>d__11.MoveNext () [0x015af] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSoldierMotionProbe.cs:156 
+  at Ironfront.UnityPrototype.PrototypeSoldierMotionProbe+<Start>d__10.MoveNext () [0x0005c] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSoldierMotionProbe.cs:35 

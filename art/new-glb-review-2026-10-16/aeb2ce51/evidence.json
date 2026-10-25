@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      478.6259893626493,
+      191.45039574505972,
+      717.938984043974
+    ],
+    "camera_distance": 2.5159150838851927,
+    "ortho_scale": 1.5861203789710998,
+    "floor_size": 218.77522468566895,
+    "floor_offset": 0.006563256740570069,
+    "clip_start": 0.0010938761234283447,
+    "clip_end": 1093.8761234283447
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": null,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Downloads/aeb2ce5110245d186594fb95589644f4.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 512,
+  "requested_views": [
+    "perspective",
+    "right"
+  ],
+  "evidence_scope": "partial_preview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.33,
+      -0.553497,
+      -0.0
+    ],
+    "max": [
+      0.330912,
+      0.540379,
+      0.664771
+    ],
+    "dimensions": [
+      0.660912,
+      1.093876,
+      0.664771
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/new-glb-review-2026-10-16/aeb2ce51/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/new-glb-review-2026-10-16/aeb2ce51/right.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/new-glb-review-2026-10-16/aeb2ce51/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

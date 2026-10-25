@@ -1,0 +1,74 @@
+{
+  "version": "0.55.0",
+  "status": "complete",
+  "date": "2026-10-23",
+  "play_assertions": 76,
+  "development_player": "PASS; runtime errors 0",
+  "files": [
+    {
+      "path": "docs/UNITY_HANDOFF_055.md",
+      "bytes": 8661,
+      "sha256": "dec95c2caa56986a688e00f3ec423e5d879a8ffe98e08c89086a04efc1add10e"
+    },
+    {
+      "path": "art/vehicles/t90-bastion/articulated/t90-articulated.blend",
+      "bytes": 25062730,
+      "sha256": "0f23b557beddd40fae21e44480a6566c1dbc88dec844dc2a17cf639ecbb2008a"
+    },
+    {
+      "path": "art/vehicles/t90-bastion/articulated/exports/t90-articulated-lod0.fbx",
+      "bytes": 3465852,
+      "sha256": "332ef306bb137d993195ac6ac368bf8be77038711fbdd50287f79cc660a27c9a"
+    },
+    {
+      "path": "art/vehicles/t90-bastion/articulated/exports/t90-articulated-lod1.fbx",
+      "bytes": 1940492,
+      "sha256": "1b085bb6aa8d3c7878c3219fd6deef8072259c737a1d3ae5ec4872611150d7d8"
+    },
+    {
+      "path": "art/vehicles/t90-bastion/articulated/exports/t90-articulated-lod2.fbx",
+      "bytes": 1100092,
+      "sha256": "a07f48b1d53e824a52cc26989e680f708cf62d2dcb90ac5569a30103cc639313"
+    },
+    {
+      "path": "art/vehicles/v12-lancer/articulated/v12-articulated.blend",
+      "bytes": 23959352,
+      "sha256": "bc881af094719ea91ea9cf1f4b4362b0f8e8ee070b8aa43d14f82a1e423a5cb8"
+    },
+    {
+      "path": "art/vehicles/v12-lancer/articulated/exports/v12-articulated-lod0.fbx",
+      "bytes": 3691740,
+      "sha256": "ed44527ce43c4941ecb2a97eb2edc8daf828ce67c223f5b14ff34d387e97c6bb"
+    },
+    {
+      "path": "art/vehicles/v12-lancer/articulated/exports/v12-articulated-lod1.fbx",
+      "bytes": 2199900,
+      "sha256": "41740bb150c11ff02b7f6eaaddc5d951e3e9e64353dcbf29bb5ff55e2f54edd6"
+    },
+    {
+      "path": "art/vehicles/v12-lancer/articulated/exports/v12-articulated-lod2.fbx",
+      "bytes": 1343884,
+      "sha256": "0fc07f65e639055622b9cdee9250215ba73d9105c26f01d6f9c5aebbaa23e49a"
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Vehicles/T90_Blue.prefab",
+      "bytes": 64630,
+      "sha256": "ea56b05bbc3a3853c8aa4cb3ac11556f49488bcf5152ee618450749677c0a70d"
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Vehicles/T90_Red.prefab",
+      "bytes": 64610,
+      "sha256": "5b82bfadba25166330615a5be06d5d64f3aaf3b4078538e5f2593a231c891c53"
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Vehicles/V12_Blue.prefab",
+      "bytes": 167282,
+      "sha256": "35bf8c6f7c99b6d42dc8848dacd39b0568583f4844c0e38e05eb53faeb788d2e"
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Vehicles/V12_Red.prefab",
+      "bytes": 167329,
+      "sha256": "7e904dc440f7eb18028e10215230dc7d92a3bc392898123380e8f95b90306624"
+    }
+  ]
+}

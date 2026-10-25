@@ -1,0 +1,169 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/exports/red-soldier-lod2.glb",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 3,
+      "images": [
+        "Soldier baked metallic 2K-Soldier baked roughness 2K",
+        "red-soldier-basecolor-2k",
+        "red-soldier-normal-2k"
+      ],
+      "name": "Trial neutral red gray",
+      "node_count": 7,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "Trial neutral red gray"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 2842,
+      "connected_components": 516,
+      "data_name": "RedSoldier_LOD2_Mesh",
+      "degenerate_faces": 0,
+      "edges": 4421,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral red gray"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "RedSoldier_LOD2",
+      "non_manifold_edges": 2842,
+      "polygons": 2000,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 2000,
+      "source_polygons": 2000,
+      "source_vertices": 2935,
+      "triangles": 2000,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 2935,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.487936,
+          -0.225061,
+          0.000909
+        ],
+        [
+          0.47997,
+          0.271561,
+          1.801592
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.967906,
+        0.496622,
+        1.800682
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "RedSoldier_LOD2",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        0.967906,
+        0.496622,
+        1.800683
+      ],
+      "max": [
+        0.47997,
+        0.271561,
+        1.801592
+      ],
+      "min": [
+        -0.487936,
+        -0.225061,
+        0.000909
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 2842,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 4421,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 3,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 1,
+    "mesh_objects": 1,
+    "missing_material_faces": 0,
+    "node_materials": 1,
+    "non_manifold_edges": 2842,
+    "objects": 1,
+    "polygons": 2000,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 2000,
+    "textured_materials": 1,
+    "triangles": 2000,
+    "uv_mapped_meshes": 1,
+    "vertices": 2935,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

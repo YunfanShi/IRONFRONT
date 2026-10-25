@@ -1,0 +1,169 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/j20-stratus/exports/j20-lod0.glb",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 3,
+      "images": [
+        "j20_basecolor_2k",
+        "j20_metalrough_2k",
+        "j20_normal_2k"
+      ],
+      "name": "J20_Source_PBR",
+      "node_count": 7,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "J20_Source_PBR"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 30144,
+      "connected_components": 1766,
+      "data_name": "node_0.001",
+      "degenerate_faces": 0,
+      "edges": 75072,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "J20_Source_PBR"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [],
+      "name": "J20_STRATUS_LOD0",
+      "non_manifold_edges": 30144,
+      "polygons": 40000,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 40000,
+      "source_polygons": 40000,
+      "source_vertices": 36500,
+      "triangles": 40000,
+      "uv_layers": 1,
+      "vertex_groups": 0,
+      "vertices": 36500,
+      "weighted_vertices": 0,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.512419,
+          -0.652782,
+          -7.2e-05
+        ],
+        [
+          0.511452,
+          0.401191,
+          0.444851
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        1.023871,
+        1.053974,
+        0.444923
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "J20_STRATUS_LOD0",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        1.023871,
+        1.053973,
+        0.444923
+      ],
+      "max": [
+        0.511452,
+        0.401191,
+        0.444851
+      ],
+      "min": [
+        -0.512419,
+        -0.652782,
+        -7.2e-05
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 0,
+    "bones": 0,
+    "boundary_edges": 30144,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 75072,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 3,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 1,
+    "mesh_objects": 1,
+    "missing_material_faces": 0,
+    "node_materials": 1,
+    "non_manifold_edges": 30144,
+    "objects": 1,
+    "polygons": 40000,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 40000,
+    "textured_materials": 1,
+    "triangles": 40000,
+    "uv_mapped_meshes": 1,
+    "vertices": 36500,
+    "weighted_meshes": 0,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

@@ -15,8 +15,32 @@ namespace Ironfront.UnityPrototype.Editor
         private static readonly string[] RequiredScripts =
         {
             "PrototypeRuntime.cs",
+            "PrototypeMusicDirector.cs",
+            "PrototypeBotRoster.cs",
+            "PrototypeScoreSystem.cs",
+            "PrototypeScoreboard.cs",
+            "PrototypePlayerHealthHud.cs",
+            "PrototypeScorePopup.cs",
+            "PrototypeScoreIcons.cs",
+            "PrototypeHitFeedback.cs",
+            "PrototypePlayerAudio.cs",
+            "PrototypeVehicleArmor.cs",
+            "PrototypeAmmoSupplySystem.cs",
+            "PrototypeAmmoSupplyPoint.cs",
+            "PrototypeSupportRequisition.cs",
+            "PrototypeVehicleEngineAudio.cs",
+            "PrototypeVehicleImpactAudio.cs",
+            "PrototypeReconRadar.cs",
+            "PrototypeAntiAirLock.cs",
+            "PrototypeAntiAirHud.cs",
+            "PrototypeSmokeCloud.cs",
+            "PrototypeSmokeGrenadeFuse.cs",
+            "PrototypeThrowableVisual.cs",
+            "PrototypeThrowableTrajectory.cs",
             "PrototypeLayout.cs",
             "PrototypeNavigation.cs",
+            "PrototypePathWorkspace.cs",
+            "PrototypeTracerPool.cs",
             "PrototypeMatch.cs",
             "PrototypePlayer.cs",
             "PrototypeBot.cs",
@@ -27,6 +51,7 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeLoadout.cs",
             "PrototypeEquipmentIcons.cs",
             "PrototypeMenuPreview.cs",
+            "PrototypeWeaponMenuPreview.cs",
             "PrototypeInfantryRoles.cs",
             "PrototypeBallisticProjectile.cs",
             "PrototypeDeployment.cs",
@@ -41,10 +66,12 @@ namespace Ironfront.UnityPrototype.Editor
             "PrototypeCombatFeedback.cs",
             "PrototypeTankVisual.cs",
             "PrototypeTankVehicle.cs",
+            "PrototypeTankSightHud.cs",
             "PrototypeVehicleSeats.cs",
             "PrototypeVehicleDefinition.cs",
             "PrototypeCombinedArmsVehicle.cs",
             "PrototypeCombinedVehicleVisual.cs",
+            "PrototypeVehicleArtRig.cs",
             "PrototypeVehicleProjectile.cs",
             "PrototypeVehicleRoute.cs",
             "PrototypeVehicleCountermeasure.cs",
@@ -52,7 +79,12 @@ namespace Ironfront.UnityPrototype.Editor
         };
 
         [MenuItem(MenuPath)]
-        public static void BuildMacOS()
+        public static void BuildMacOS() => BuildMacOSAt(false);
+
+        [MenuItem("IRONFRONT/Build macOS Versioned")]
+        public static void BuildMacOSVersioned() => BuildMacOSAt(true);
+
+        private static void BuildMacOSAt(bool versioned)
         {
             try
             {
@@ -60,7 +92,8 @@ namespace Ironfront.UnityPrototype.Editor
                 string[] scenes = ValidateProject();
                 string projectRoot = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
                 SyncBundleVersion(projectRoot);
-                string outputPath = Path.Combine(projectRoot, "Builds", "macOS", "IRONFRONT.app");
+                string outputPath = Path.Combine(projectRoot, "Builds",
+                    versioned ? "macOS-" + PlayerSettings.bundleVersion : "macOS", "IRONFRONT.app");
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
 
                 Debug.Log("IRONFRONT macOS build starting. Output: " + outputPath);
@@ -154,6 +187,31 @@ namespace Ironfront.UnityPrototype.Editor
                 AssetDatabase.LoadAssetAtPath<Material>(
                     "Assets/Resources/Materials/PrototypeUnlit.mat") == null)
                 throw new InvalidOperationException("Prototype URP material assets are missing.");
+
+            foreach (string music in new[] { "lobby", "victory-near", "defeat-near" })
+            {
+                string path = "Assets/Resources/Audio/Music/" + music + ".wav";
+                if (AssetDatabase.LoadAssetAtPath<AudioClip>(path) == null)
+                    throw new InvalidOperationException("Required background music is missing: " + path);
+            }
+
+            foreach (string engine in new[] { "heavy-diesel", "light-diesel", "motorcycle", "rotor", "jet" })
+                foreach (string layer in new[] { "idle", "load" })
+                {
+                    string path = "Assets/Resources/Audio/Engines/" + engine + "-" + layer + ".wav";
+                    if (AssetDatabase.LoadAssetAtPath<AudioClip>(path) == null)
+                        throw new InvalidOperationException("Required vehicle engine loop is missing: " + path);
+                }
+            foreach (string impact in new[] { "Ricochet", "MachineGun", "HeavyImpact" })
+            {
+                string path = "Assets/Resources/Audio/VehicleImpacts/" + impact + ".wav";
+                if (AssetDatabase.LoadAssetAtPath<AudioClip>(path) == null)
+                    throw new InvalidOperationException("Required vehicle impact sound is missing: " + path);
+            }
+            Shader smokeShader = AssetDatabase.LoadAssetAtPath<Shader>(
+                "Assets/Resources/Effects/PrototypeSmoke.shader");
+            if (smokeShader == null || ShaderUtil.ShaderHasError(smokeShader))
+                throw new InvalidOperationException("Prototype smoke shader is missing or failed to compile.");
 
             return scenes;
         }

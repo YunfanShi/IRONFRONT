@@ -1,0 +1,17 @@
+{
+  "version": "0.59.3",
+  "player": "PASS",
+  "runtime_errors": 0,
+  "regression_groups": 5,
+  "rendered_frames": 504,
+  "motion_samples": 576,
+  "video": {
+    "seconds": 16.8,
+    "width": 960,
+    "height": 640,
+    "fps": 30,
+    "decoded_check_frames": 9
+  },
+  "review": "Inspected first-person run, settled ADS and third-person chest rotation/hand contact; camera bob is intentionally subtle. Numeric checks are not a claim of motion-capture realism.",
+  "source_validation": "Scripted inputs through real production resolution, controller, visual Update and presentation methods; no physical keyboard injection."
+}

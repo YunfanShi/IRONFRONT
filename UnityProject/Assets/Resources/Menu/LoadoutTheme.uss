@@ -1,0 +1,94 @@
+/* B / class overview. These rules are isolated from the lobby and settings. */
+.loadout-view .loadout-page {
+    left: 30px; right: 30px; top: 69px; bottom: 22px; width: auto;
+    -unity-font-definition: url("Fonts/LobbyRegular.asset"); -unity-font-style: normal;
+    color: rgb(239, 237, 224);
+}
+.loadout-view .operator-caption, .loadout-view .deployment-actions { display: none; }
+.loadout-view .operator-image { top: 0; }
+.loadout-view .scene-veil { opacity: .65; }
+.loadout-view .class-rail { left: 0; top: 0; width: 47%; min-width: 420px; max-width: 535px; height: 35px; flex-direction: row; }
+.loadout-view .class-card {
+    flex-grow: 1; flex-basis: 0; height: 35px; margin: 0; padding: 0 10px;
+    justify-content: center; border-width: 0; border-bottom-width: 1px;
+    border-bottom-color: rgba(213, 215, 202, .55); background-color: rgba(7, 10, 10, .18);
+    color: rgb(202, 205, 196);
+}
+.loadout-view .class-card.selected { border-left-width: 0; border-bottom-width: 3px; border-bottom-color: rgb(241, 187, 86); background-color: rgba(232, 182, 95, .03); color: rgb(241, 187, 86); }
+.loadout-view .class-card:hover, .loadout-view .class-card:focus { background-color: rgba(220, 187, 119, .14); }
+.loadout-view .class-name { -unity-font-definition: url("Fonts/LobbyMedium.asset"); -unity-font-style: normal; color: rgb(202, 205, 196); font-size: 14px; }
+.loadout-view .class-card.selected .class-name { color: rgb(241, 187, 86); }
+.loadout-class-symbol { width: 21px; height: 22px; margin-right: 10px; flex-shrink: 0; }
+.loadout-symbol-drawing { width: 100%; height: 100%; }
+.loadout-intro { position: absolute; left: 3px; top: 50px; width: 35%; max-width: 370px; }
+.loadout-class-title { padding: 0; margin: 0; height: 88px; font-size: 65px; letter-spacing: 1px; -unity-font-definition: url("Fonts/LobbyHeavy.asset"); -unity-font-style: normal; -unity-text-align: middle-left; }
+.loadout-class-tagline { margin: 0; padding: 0; font-size: 20px; letter-spacing: 1.8px; -unity-font-definition: url("Fonts/LobbyMedium.asset"); -unity-font-style: normal; }
+.loadout-role-details { margin-top: 17px; padding-top: 16px; flex-direction: row; border-top-width: 1px; border-top-color: rgba(218, 219, 205, .40); }
+.loadout-role-symbol { width: 65px; height: 68px; margin: 6px 18px 0 3px; flex-shrink: 0; }
+.loadout-role-copy { flex-grow: 1; }
+.loadout-role-eyebrow { padding: 0; margin: 0; font-size: 12px; color: rgb(188, 190, 177); }
+.loadout-role-equipment { padding: 0; margin: 0 0 4px 0; font-size: 22px; -unity-font-definition: url("Fonts/LobbyHeavy.asset"); -unity-font-style: normal; }
+.loadout-role-description, .loadout-role-weapons { padding: 0; margin: 0 0 3px 0; font-size: 12px; color: rgb(203, 203, 190); white-space: normal; }
+.loadout-view .loadout-workbench { position: absolute; left: 0; right: 0; top: auto; bottom: 52px; height: 142px; flex-direction: row; }
+.overview-slot { position: relative; flex-grow: 1; flex-basis: 0; min-width: 0; margin: 0 7px 0 0; padding: 0; border-radius: 0; border-width: 1px; border-color: rgba(202, 207, 193, .62); background-color: rgba(12, 17, 18, .79); color: rgb(235, 234, 221); }
+.overview-slot.overview-primary { flex-grow: 1.42; }
+.overview-slot.overview-throwable { margin-right: 0; }
+.overview-slot.selected { border-color: rgb(241, 191, 100); background-color: rgba(66, 47, 22, .79); }
+.overview-slot:hover, .overview-slot:focus { border-color: rgb(250, 218, 153); background-color: rgba(64, 56, 38, .85); }
+.overview-slot:active { background-color: rgba(96, 69, 28, .86); }
+.card-corner { position: absolute; width: 6px; height: 6px; background-color: rgba(222, 224, 207, .67); }
+.corner-top { left: 0; top: 0; }
+.corner-bottom { right: 0; bottom: 0; }
+.overview-slot.selected .card-corner { background-color: rgb(247, 197, 103); }
+.overview-slot-key { position: absolute; left: 11px; top: 6px; margin: 0; padding: 0; font-size: 12px; -unity-font-definition: url("Fonts/LobbyMedium.asset"); -unity-font-style: normal; }
+.overview-slot-image { position: absolute; left: 16px; right: 16px; top: 24px; bottom: 36px; }
+.overview-slot-name { position: absolute; left: 12px; right: 12px; bottom: 11px; margin: 0; padding: 7px 0 0 0; border-top-width: 1px; border-top-color: rgba(195, 201, 184, .24); font-size: 13px; -unity-text-align: middle-center; white-space: nowrap; -unity-font-definition: url("Fonts/LobbyMedium.asset"); -unity-font-style: normal; }
+.overview-primary .overview-slot-image { top: 18px; bottom: 48px; left: 14px; right: 14px; }
+.overview-primary .overview-slot-name { bottom: 45px; border-top-width: 0; padding-top: 0; -unity-text-align: middle-left; }
+.overview-stats { position: absolute; left: 10px; right: 10px; bottom: 5px; height: 35px; padding-top: 4px; flex-direction: row; border-top-width: 1px; border-top-color: rgba(214, 213, 192, .48); }
+.overview-stat { flex-grow: 1; flex-basis: 0; align-items: center; border-right-width: 1px; border-right-color: rgba(210, 205, 180, .30); }
+.overview-stat-last { border-right-width: 0; }
+.overview-stat-caption { padding: 0; margin: 0; font-size: 8px; color: rgb(192, 190, 174); }
+.overview-stat-value { padding: 0; margin: 1px 0 0 0; font-size: 11px; color: rgb(242, 238, 221); }
+.loadout-footer { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; flex-direction: row; justify-content: space-between; align-items: center; }
+.loadout-back { margin: 0; padding: 0 0; height: 30px; border-width: 0; background-color: rgba(8, 11, 12, .65); color: rgb(207, 209, 197); font-size: 11px; }
+.loadout-back:hover, .loadout-back:focus { color: rgb(248, 203, 119); }
+.loadout-complete, .loadout-picker-done { height: 40px; width: 154px; margin: 0; padding: 0 12px; border-radius: 0; border-width: 1px; border-color: rgb(251, 216, 147); background-color: rgb(233, 179, 78); color: rgb(20, 23, 19); font-size: 18px; -unity-font-definition: url("Fonts/LobbyHeavy.asset"); -unity-font-style: normal; }
+.loadout-complete:hover, .loadout-complete:focus, .loadout-picker-done:hover, .loadout-picker-done:focus { background-color: rgb(255, 209, 124); }
+.loadout-complete:active, .loadout-picker-done:active { background-color: rgb(192, 139, 59); }
+.loadout-picker { position: absolute; left: -30px; right: -30px; top: -21px; bottom: -22px; align-items: center; justify-content: center; background-color: rgba(3, 7, 8, .77); }
+.loadout-picker-panel { width: 575px; padding: 22px; background-color: rgb(19, 25, 26); border-width: 1px; border-color: rgba(221, 218, 197, .7); border-top-width: 2px; border-top-color: rgb(235, 183, 91); }
+.loadout-picker-header { flex-direction: row; align-items: center; justify-content: space-between; }
+.loadout-view .selection-title { margin: 0; padding: 0; font-size: 24px; color: rgb(240, 237, 223); -unity-font-definition: url("Fonts/LobbyHeavy.asset"); -unity-font-style: normal; }
+.loadout-picker-close { height: 30px; margin: 0; padding: 0 8px; border-width: 1px; border-color: rgba(219, 219, 197, .4); background-color: rgba(0, 0, 0, .2); color: rgb(226, 224, 207); font-size: 11px; }
+.loadout-picker-close:hover, .loadout-picker-close:focus { border-color: rgb(235, 183, 91); color: rgb(235, 183, 91); }
+.loadout-picker-hint { margin: 8px 0 17px 0; padding: 0; font-size: 12px; color: rgb(166, 178, 171); }
+.loadout-view .weapon-options { height: 145px; }
+.loadout-view .weapon-option { flex-shrink: 0; width: 49%; height: 145px; margin: 0 2% 0 0; }
+.loadout-view .weapon-option-icon { left: 12px; right: 12px; top: 12px; bottom: 32px; width: auto; height: auto; }
+.loadout-view .weapon-option-name { left: 12px; right: 12px; bottom: 10px; font-size: 14px; }
+.loadout-view .weapon-option:hover, .loadout-view .weapon-option:focus { border-color: rgb(245, 204, 124); background-color: rgba(100, 74, 37, .45); }
+.loadout-view .equipment-card { margin-top: 18px; }
+.loadout-view .stat { height: 45px; flex-direction: column; align-items: flex-start; }
+.loadout-view .stat-caption { font-size: 10px; }
+.loadout-view .stat-value { font-size: 16px; -unity-text-align: middle-left; }
+.loadout-view .gadget-info { height: auto; min-height: 125px; padding: 22px; font-size: 16px; white-space: normal; }
+.loadout-picker-done { align-self: flex-end; margin-top: 20px; font-size: 15px; height: 35px; }
+.compact.loadout-view .loadout-page { top: 64px; bottom: 20px; }
+.compact.loadout-view .loadout-intro { top: 45px; }
+.compact.loadout-view .loadout-class-title { font-size: 60px; height: 80px; }
+.compact.loadout-view .loadout-role-details { margin-top: 13px; padding-top: 13px; }
+.compact.loadout-view .loadout-workbench { top: auto; bottom: 49px; height: 139px; }
+.compact.loadout-view .loadout-picker { top: -16px; bottom: -20px; }
+
+/* A wide window gives the panel fewer logical vertical pixels. Condense the
+   left explanation rather than allowing equipment to cover it. */
+.short-panel.loadout-view .loadout-intro { top: 30px; }
+.short-panel.loadout-view .loadout-class-title { font-size: 46px; height: 60px; }
+.short-panel.loadout-view .loadout-class-tagline { font-size: 16px; letter-spacing: 1px; }
+.short-panel.loadout-view .loadout-role-details { margin-top: 8px; padding-top: 8px; }
+.short-panel.loadout-view .loadout-role-eyebrow { display: none; }
+.short-panel.loadout-view .loadout-role-equipment { font-size: 18px; margin-bottom: 2px; }
+.short-panel.loadout-view .loadout-role-description, .short-panel.loadout-view .loadout-role-weapons { font-size: 11px; }
+.short-panel.loadout-view .loadout-role-symbol { width: 45px; height: 48px; margin-right: 14px; }
+.short-panel.loadout-view .loadout-workbench { height: 128px; }

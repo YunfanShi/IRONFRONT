@@ -1,0 +1,751 @@
+{
+  "generatedAt": "2026-10-25",
+  "mode": "builtin image_gen generation and reference-image edits",
+  "allSuccessfulOutputs": [
+    {
+      "id": "vx9",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-c8b3910b-04c4-4fab-8347-830025203188.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: VX-9 Wasp, a compact modern submachine-gun game prop. Short boxy graphite receiver, short ventilated black handguard, very short exposed barrel, narrow straight dark magazine ahead of the pistol grip, two-rod skeletal folding shoulder stock fully extended and locked, small open-window reflex optic. Visibly shorter and lighter than a rifle. Dark polymer textured grip. No foregrip or suppressor.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is a MATERIAL / RENDER STYLE reference only (IF-27); create the NEW distinct silhouette described above, not a copy of that carbine."
+    },
+    {
+      "id": "h60",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-6a55250b-99db-494d-858f-6d98a44ffc68.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: H60 Sentinel, a distinctive modern light machine-gun game prop. Broad angular graphite receiver with closed hinged feed cover, low olive fabric ammunition box attached below and slightly to the left, heavy long barrel with ventilated heat shield, solid dark polymer stock, textured pistol grip, compact open-window reflex optic on the receiver. A small carry handle lies folded against the side. Two bipod legs folded together along the underside of the front barrel. Keep box closed and no exposed ammunition. All parts attached.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is a MATERIAL / RENDER STYLE reference only (IF-27); create the NEW distinct silhouette described above, not a copy of that carbine."
+    },
+    {
+      "id": "br44",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-48636433-1ab5-4081-b1c0-d618261f791c.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: BR-44 Atlas, a robust full-size modern battle-rifle game prop, clearly distinct from IF-27. Chunky graphite metal receiver, shorter ribbed desaturated olive polymer handguard, moderately long exposed barrel with compact muzzle tip, wide short straight dark box magazine, solid thick charcoal fixed stock and rubber butt pad. Modest open-window optic, angled polymer grip and open trigger guard. Substantial weight in silhouette, few accessories, no bipod or foregrip.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is a MATERIAL / RENDER STYLE reference only (IF-27); create the NEW distinct silhouette described above, not a copy of that carbine."
+    },
+    {
+      "id": "s12",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1783f3ba-9c3d-41df-8b45-bcb8af5585e8.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: S12 Meridian, a modern precision bolt-action sniper-rifle video-game prop. Long slim barrel, desaturated sand-gray chassis with a graphite cylindrical receiver, long black tubular scope on two separated mounts, small discreet external bolt-handle knob on the RIGHT side only, small short box magazine, skeletal adjustable stock with raised cheek rest and rubber butt pad. Dark textured pistol grip. Two slim bipod legs folded FORWARD under the front chassis, no deployed feet. Elegant long precision silhouette, no suppressor, all parts attached.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is only the graphite-metal and polymer STYLE reference; make the NEW distinct design described."
+    },
+    {
+      "id": "p8",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b1c4d08e-fd1b-459e-a920-3856c0ccffc5.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: P8 Relay, a compact modern duty pistol game prop. Graphite beveled rectangular slide with clean rear serrations, charcoal textured polymer lower frame and grip, actual open trigger guard with visible curved trigger, small low iron sights, short accessory rail beneath the front frame. Flush seated magazine base. No optic, no suppressor, no accessories. Clean robust contemporary service sidearm.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is only the graphite-metal and polymer STYLE reference; make the NEW distinct design described."
+    },
+    {
+      "id": "ammo",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-7e09ad81-c668-420b-af78-964703fe700c.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A closed military ammunition supply satchel game prop: low wide rectangular semi-rigid desaturated olive canvas bag, black reinforced base, two tan vertical compression straps with black buckles on the FRONT, a substantial top carrying handle resting upright, subtle stitched seams and a broad flap, two small side pockets. A small plain muted yellow rectangular patch centered on the front flap, no lettering or bullet icons. Durable woven fabric clearly distinct from plastic buckles. Rear has horizontal webbing rows. No exposed ammunition or loose contents, no dangling shoulder strap.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "medkit",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-fd756e76-5d2e-4423-9ddf-c1c79c8e4544.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A closed military first-aid pouch game prop, medium-width rectangular olive fabric bag with rounded padded corners, dark reinforced base, a short top carry handle, perimeter zipper, single broad front pocket. A small ivory square patch centered on the FRONT with a simple muted green medical plus symbol. Rear has two vertical MOLLE attachment straps. Functional restrained design, taut fabric with light seam folds. No separate contents or hanging strap.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "repair",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1dc46b1f-f1f9-44b7-9435-bd05d050ca6b.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A fictional handheld vehicle repair tool for a video game, like a compact industrial cordless welding/repair gun. Short rectangular faded brick-red main housing, dark textured downward pistol grip, chunky integrated black battery base, slim dull-steel neck pointing forward ending in a rounded short tool nozzle. A small black adjustment knob on left housing, subtle vents. No cables, hoses, gas cylinders, flame, sparks, people or exposed mechanism. Modern rugged portable electric tool, not a firearm.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view."
+    },
+    {
+      "id": "beacon",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-01825dd4-c839-480c-abc8-6c0b02374457.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A fictional portable squad respawn beacon for a modern military game. A small squat rectangular graphite electronics case with chamfered olive protective corners and four short rubber feet, one slim black vertical whip antenna rising from the top rear RIGHT corner, sturdy recessed handle across the top center. FRONT has one small cyan-dark non-glowing rectangular screen and two simple small status buttons; BACK has a flush battery door and a single external connector cover. No text, cables, holograms, ground disk or extra legs.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "frag",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8a2798f5-5ba8-4f50-b718-6c2344925058.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: An inactive fictional fragmentation grenade exterior game prop: compact olive ovoid body with a few subtle broad shallow contour bands rather than ornate pineapple segmentation, dark metal top cap, one muted steel safety lever lying close down the RIGHT side, one intact simple metal pull ring near the top LEFT. Restrained solid modern design. Only the closed intact exterior, no cutaway, loose parts, action, smoke or environment.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "at",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-081a5f82-f3c1-4c50-9a1e-59ff639a3dc1.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A fictional modern shoulder-fired anti-armor launcher game prop shown as a complete closed external asset. A long desaturated olive cylindrical tube with robust black collars at both ends, compact black shoulder pad beneath the middle-rear, a downward dark textured grip and one small simple fold-up sight in its raised position near the front. Front collar slightly slimmer than rear collar. A few understated external ribs. No rockets, exposed ammunition, internals, inscriptions or cables. Clear simple silhouette, less bulky than the anti-air variant.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view."
+    },
+    {
+      "id": "smoke",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-18ef41a3-ac93-4813-830f-1c499fb387d0.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: An inactive fictional smoke grenade canister exterior game prop: tall narrow off-white cylindrical metal canister with rolled dark olive base rim, olive top cap, one narrow dull metal lever close to the RIGHT side and one intact simple ring near top LEFT, a single broad faded brick-red horizontal band around the upper middle. Blank clean surfaces without writing. Clearly taller and more cylindrical than the fragmentation grenade. Closed intact exterior, no smoke or loose parts.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "m89",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-cf337d38-056a-4055-aa10-10c33eda317f.png",
+      "prompt": "Create a clean white-background LEFT SIDE product render of a fictional M89 scoped marksman rifle for a video game. Long dark-gray rifle with slim ventilated handguard, solid fixed black stock, short straight magazine and a medium tubular scope. Full object horizontal, front points left, strict orthographic side view. Neutral soft lighting, readable graphite metal and rough charcoal polymer. No people, action, text, markings, diagrams or scene. 3:2 landscape, complete silhouette with white margins."
+    },
+    {
+      "id": "m89",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-78f0c368-fe14-4411-8feb-58c2cd3e6578.png"
+    },
+    {
+      "id": "m89",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-0ea3206f-ff7e-4787-8d62-6be9761b3d8f.png"
+    },
+    {
+      "id": "vx9",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-0f9a854f-d1f5-4c35-b46b-1f4aa6df7162.png"
+    },
+    {
+      "id": "vx9",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-c7c3070e-633e-4d5a-b145-aad9114abec8.png"
+    },
+    {
+      "id": "br44",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b4274e3e-131d-466e-b8b4-a8236f9de1c7.png"
+    },
+    {
+      "id": "h60",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-79b621e0-1f2f-423f-9d75-f933cecb39d8.png"
+    },
+    {
+      "id": "h60",
+      "view": "front",
+      "prompt": "Create a straight-on FRONT orthographic product render of this exact H60 fictional video-game gun. The camera looks along the long barrel axis from the front end, giving a narrow upright end-on silhouette with the optic above and the grip and magazine or box below. This must NOT be a side or three-quarter view. Keep all components and their scale from the supplied reference. Plain white background, even neutral lighting, no people, scene, motion or text. Single object, 3:2 landscape canvas.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b45a18a3-7ce5-4ca2-a819-db9cd19aadf3.png"
+    },
+    {
+      "id": "br44",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-fe48a964-e402-4550-9d2f-3be775b5b789.png"
+    },
+    {
+      "id": "br44",
+      "view": "front",
+      "prompt": "Create a straight-on FRONT orthographic product render of this exact BR44 fictional video-game gun. The camera looks along the long barrel axis from the front end, giving a narrow upright end-on silhouette with the optic above and the grip and magazine or box below. This must NOT be a side or three-quarter view. Keep all components and their scale from the supplied reference. Plain white background, even neutral lighting, no people, scene, motion or text. Single object, 3:2 landscape canvas.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-acf7f40c-0a81-4c0c-b462-821056e4f0ee.png"
+    },
+    {
+      "id": "s12",
+      "view": "front",
+      "prompt": "Render the same S12 fictional video-game gun in a straight-on FRONT orthographic product view. Camera looks from the front end along its long axis, giving a narrow upright silhouette, not a side view. Keep exact design, relative part sizes, materials, neutral state and accessories. Single complete object on pure white background, no people, action, labels or scene. 3:2 landscape, generous white side margins.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-abf4be47-6186-4713-b874-7a576bb84e73.png"
+    },
+    {
+      "id": "p8",
+      "view": "front",
+      "prompt": "Render the same P8 fictional video-game gun in a straight-on FRONT orthographic product view. Camera looks from the front end along its long axis, giving a narrow upright silhouette, not a side view. Keep exact design, relative part sizes, materials, neutral state and accessories. Single complete object on pure white background, no people, action, labels or scene. 3:2 landscape, generous white side margins.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-9d7d5658-b525-4409-8046-54b9ff6bea25.png"
+    },
+    {
+      "id": "p8",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8daf4ab3-586c-476e-a10a-bfa376948c64.png"
+    },
+    {
+      "id": "ammo",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是一只同样宽扁的弹药补给包，两个侧袋保持。背面是横向织带；前面的双扣和黄色贴片只能从对应方向自然可见。提手保持形状，不增加肩带。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2d5c168d-a973-4d64-b16a-ef860d8ec155.png"
+    },
+    {
+      "id": "ammo",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是一只同样宽扁的弹药补给包，两个侧袋保持。背面是横向织带；前面的双扣和黄色贴片只能从对应方向自然可见。提手保持形状，不增加肩带。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-e7f8b705-acbf-4f84-9ff2-3e3358d52f29.png"
+    },
+    {
+      "id": "ammo",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 这是一只同样宽扁的弹药补给包，两个侧袋保持。背面是横向织带；前面的双扣和黄色贴片只能从对应方向自然可见。提手保持形状，不增加肩带。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2433a7b1-2fa7-4f8f-88b7-5730707e1acf.png"
+    },
+    {
+      "id": "medkit",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是同一个竖向长方形医疗包，保持绿色加号贴片在正面且只有一个。背面是两条竖直挂带。保留同一提手和拉链。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-611b076c-808a-4f70-8d04-379a625095b2.png"
+    },
+    {
+      "id": "medkit",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是同一个竖向长方形医疗包，保持绿色加号贴片在正面且只有一个。背面是两条竖直挂带。保留同一提手和拉链。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-13e02a71-8d2a-4325-9119-84f8e9e81b5e.png"
+    },
+    {
+      "id": "medkit",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 这是同一个竖向长方形医疗包，保持绿色加号贴片在正面且只有一个。背面是两条竖直挂带。保留同一提手和拉链。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b085bd2a-10a5-45f8-82e6-e9118b06ab56.png"
+    },
+    {
+      "id": "repair",
+      "view": "front",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最前端向后端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。握把和弹匣等自然朝下，可见前端外表面。正确遮挡远端零件，不要把枪身侧面露出来。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-32044c1f-426a-4a57-ba48-ba8116bd0d94.png"
+    },
+    {
+      "id": "repair",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-94eee58d-7b11-4858-92f2-8a3fc61848d1.png"
+    },
+    {
+      "id": "repair",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-488e2aa0-4501-43b7-aead-8acecf999b3b.png"
+    },
+    {
+      "id": "beacon",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一机箱厚度、提手、四个橡胶短脚、唯一一根天线。原正面有屏幕，背面是电池盖和封闭接口盖。天线固定在同一机箱角上，转动后位置必须相应改变。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-3440f880-13d4-41f0-977a-079b35adfc1d.png"
+    },
+    {
+      "id": "beacon",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一机箱厚度、提手、四个橡胶短脚、唯一一根天线。原正面有屏幕，背面是电池盖和封闭接口盖。天线固定在同一机箱角上，转动后位置必须相应改变。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2fadaccd-ca0d-4899-b78e-d6387206e74c.png"
+    },
+    {
+      "id": "beacon",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 保持同一机箱厚度、提手、四个橡胶短脚、唯一一根天线。原正面有屏幕，背面是电池盖和封闭接口盖。天线固定在同一机箱角上，转动后位置必须相应改变。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-f3d2ce84-0e9a-414c-9bc0-8b89292939bc.png"
+    },
+    {
+      "id": "frag",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 保持同一枚未使用的封闭手雷道具的卵形外壳、金属顶盖、一根贴合的金属压片与一个完整拉环。只改变视角，不增加任何零件。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-4b86986f-dd68-4ebb-badf-39eba1487ed8.png"
+    },
+    {
+      "id": "frag",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一枚未使用的封闭手雷道具的卵形外壳、金属顶盖、一根贴合的金属压片与一个完整拉环。只改变视角，不增加任何零件。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-6ff7d1ce-0d24-4516-8ef5-99f533a82563.png"
+    },
+    {
+      "id": "frag",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一枚未使用的封闭手雷道具的卵形外壳、金属顶盖、一根贴合的金属压片与一个完整拉环。只改变视角，不增加任何零件。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-3b50d89a-5655-41a0-82ed-4a3ec5e1f086.png"
+    },
+    {
+      "id": "at",
+      "view": "right",
+      "prompt": "Create a RIGHT SIDE elevation, front end points to the right of this exact fictional shoulder-launcher video-game asset. Maintain the identical olive tube, collars, small sight, grip and shoulder support. An orthographic product render, one complete object, flat white background, soft neutral light. No people, action, text, diagrams or loose parts. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2f44f401-44ab-48b3-9530-d34fd2452c59.png"
+    },
+    {
+      "id": "smoke",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 保持同一枚封闭烟雾弹道具的白色圆柱、红色环带、橄榄绿顶盖和底沿、一根贴合的金属压片与一个完整拉环。只改变视角。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-f980b414-d5d5-4930-9082-7e31b101fcf4.png"
+    },
+    {
+      "id": "smoke",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一枚封闭烟雾弹道具的白色圆柱、红色环带、橄榄绿顶盖和底沿、一根贴合的金属压片与一个完整拉环。只改变视角。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-6c189b02-ab86-437f-bb24-9077595b5689.png"
+    },
+    {
+      "id": "smoke",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一枚封闭烟雾弹道具的白色圆柱、红色环带、橄榄绿顶盖和底沿、一根贴合的金属压片与一个完整拉环。只改变视角。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-5ba93193-0f29-4f72-ac8a-ed9783d43dce.png"
+    },
+    {
+      "id": "at",
+      "view": "front",
+      "prompt": "Create a FRONT END elevation, looking level along the tube axis from the front end of this exact fictional shoulder-launcher video-game asset. Maintain the identical olive tube, collars, small sight, grip and shoulder support. An orthographic product render, one complete object, flat white background, soft neutral light. No people, action, text, diagrams or loose parts. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-fa830846-dcf9-478d-b7ac-6a81c333b55b.png"
+    },
+    {
+      "id": "m89",
+      "view": "front",
+      "prompt": "Render the same M89 fictional game weapon as a clean FRONT END, viewed level along the barrel axis. Narrow vertical outline, optic on top, lower parts beneath, no visible barrel length. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-f38248f8-d7bb-4550-b59c-47a0bc13b319.png"
+    },
+    {
+      "id": "h60",
+      "view": "back",
+      "prompt": "Render the same H60 fictional game weapon as a clean REAR END, viewed level along the barrel axis from behind. Stock or back surface nearest the camera, optic above, no barrel visible. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-25eae967-e156-4d26-8778-b9de9aa5bb68.png"
+    },
+    {
+      "id": "p8",
+      "view": "right",
+      "prompt": "Render the same P8 fictional game weapon as a clean RIGHT SIDE, complete horizontal silhouette, muzzle to the right and stock/grip toward the left, opposite side of the reference. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-9d84b00e-592c-4aa9-98fc-fb9e6f03f69a.png"
+    },
+    {
+      "id": "s12",
+      "view": "back",
+      "prompt": "Render the same S12 fictional game weapon as a clean REAR END, viewed level along the barrel axis from behind. Stock or back surface nearest the camera, optic above, no barrel visible. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2eda0828-329d-4217-b19d-cac66394d304.png"
+    },
+    {
+      "id": "vx9",
+      "view": "front",
+      "prompt": "Render the same VX9 fictional game weapon as a clean FRONT END, viewed level along the barrel axis. Narrow vertical outline, optic on top, lower parts beneath, no visible barrel length. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-11587fcd-cbf4-48ac-ae2d-bd1afab7dae7.png"
+    },
+    {
+      "id": "s12",
+      "view": "right",
+      "prompt": "Render the same S12 fictional game weapon as a clean RIGHT SIDE, complete horizontal silhouette, muzzle to the right and stock/grip toward the left, opposite side of the reference. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-dad8d315-dbab-49bb-982a-098e5ba35a84.png"
+    },
+    {
+      "id": "frag",
+      "view": "left",
+      "prompt": "Render this exact fictional grenade video-game prop after a precise 90-degree turn from the supplied front view. View from the side OPPOSITE the long metal lever: the lever is on the FAR side and is hidden behind the opaque body. The top cap is seen end-on, and the ring is EDGE-ON as a narrow sliver, not a full circular loop. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8a2798f5-5ba8-4f50-b718-6c2344925058.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1c2ba8e9-dfc8-4619-a0ba-573642512bfd.png",
+      "revision": true
+    },
+    {
+      "id": "smoke",
+      "view": "left",
+      "prompt": "Render this exact fictional smoke-canister video-game prop after a precise 90-degree turn from the supplied front view. View from the side OPPOSITE the long metal lever: the lever is on the FAR side and is hidden behind the opaque body. The top cap is seen end-on, and the ring is EDGE-ON as a narrow sliver, not a full circular loop. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-18ef41a3-ac93-4813-830f-1c499fb387d0.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-bf5f74ef-07b2-460e-9264-dac46b3b9e49.png",
+      "revision": true
+    },
+    {
+      "id": "frag",
+      "view": "right",
+      "prompt": "Render this exact fictional grenade video-game prop after a precise 90-degree turn from the supplied front view. View directly from the LEVER side: the long flat metal lever runs vertically down the CENTER of the visible body face. The ring is on the far side and edge-on or hidden. It must not stick out as a large circular loop beside the body. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8a2798f5-5ba8-4f50-b718-6c2344925058.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-40c3aff9-63f0-4263-a465-01ff17f40dcc.png",
+      "revision": true
+    },
+    {
+      "id": "smoke",
+      "view": "right",
+      "prompt": "Render this exact fictional smoke-canister video-game prop after a precise 90-degree turn from the supplied front view. View directly from the LEVER side: the long flat metal lever runs vertically down the CENTER of the visible body face. The ring is on the far side and edge-on or hidden. It must not stick out as a large circular loop beside the body. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-18ef41a3-ac93-4813-830f-1c499fb387d0.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-523240f7-4d05-41d8-816e-7e02f1ddb7da.png",
+      "revision": true
+    },
+    {
+      "id": "at",
+      "view": "front",
+      "prompt": "Correct only the camera angle of this fictional launcher game-prop product image. Use a STRICT LEVEL FRONT ORTHOGRAPHIC projection, with camera optical axis coincident with the long cylindrical axis. Both circular end collars must be CONCENTRIC, not offset diagonally; no length of tube body may project upward or sideways. Keep original colors and attachments. Grip directly below, sight above. Complete object, white background, no text or scene. Do not redesign.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-fa830846-dcf9-478d-b7ac-6a81c333b55b.png",
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-081a5f82-f3c1-4c50-9a1e-59ff639a3dc1.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2377ac8e-a978-4e31-b165-f4221797bd61.png",
+      "revision": true
+    }
+  ],
+  "selected": [
+    {
+      "id": "vx9",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-c8b3910b-04c4-4fab-8347-830025203188.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: VX-9 Wasp, a compact modern submachine-gun game prop. Short boxy graphite receiver, short ventilated black handguard, very short exposed barrel, narrow straight dark magazine ahead of the pistol grip, two-rod skeletal folding shoulder stock fully extended and locked, small open-window reflex optic. Visibly shorter and lighter than a rifle. Dark polymer textured grip. No foregrip or suppressor.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is a MATERIAL / RENDER STYLE reference only (IF-27); create the NEW distinct silhouette described above, not a copy of that carbine."
+    },
+    {
+      "id": "h60",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-6a55250b-99db-494d-858f-6d98a44ffc68.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: H60 Sentinel, a distinctive modern light machine-gun game prop. Broad angular graphite receiver with closed hinged feed cover, low olive fabric ammunition box attached below and slightly to the left, heavy long barrel with ventilated heat shield, solid dark polymer stock, textured pistol grip, compact open-window reflex optic on the receiver. A small carry handle lies folded against the side. Two bipod legs folded together along the underside of the front barrel. Keep box closed and no exposed ammunition. All parts attached.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is a MATERIAL / RENDER STYLE reference only (IF-27); create the NEW distinct silhouette described above, not a copy of that carbine."
+    },
+    {
+      "id": "br44",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-48636433-1ab5-4081-b1c0-d618261f791c.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: BR-44 Atlas, a robust full-size modern battle-rifle game prop, clearly distinct from IF-27. Chunky graphite metal receiver, shorter ribbed desaturated olive polymer handguard, moderately long exposed barrel with compact muzzle tip, wide short straight dark box magazine, solid thick charcoal fixed stock and rubber butt pad. Modest open-window optic, angled polymer grip and open trigger guard. Substantial weight in silhouette, few accessories, no bipod or foregrip.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is a MATERIAL / RENDER STYLE reference only (IF-27); create the NEW distinct silhouette described above, not a copy of that carbine."
+    },
+    {
+      "id": "s12",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1783f3ba-9c3d-41df-8b45-bcb8af5585e8.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: S12 Meridian, a modern precision bolt-action sniper-rifle video-game prop. Long slim barrel, desaturated sand-gray chassis with a graphite cylindrical receiver, long black tubular scope on two separated mounts, small discreet external bolt-handle knob on the RIGHT side only, small short box magazine, skeletal adjustable stock with raised cheek rest and rubber butt pad. Dark textured pistol grip. Two slim bipod legs folded FORWARD under the front chassis, no deployed feet. Elegant long precision silhouette, no suppressor, all parts attached.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is only the graphite-metal and polymer STYLE reference; make the NEW distinct design described."
+    },
+    {
+      "id": "p8",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b1c4d08e-fd1b-459e-a920-3856c0ccffc5.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: P8 Relay, a compact modern duty pistol game prop. Graphite beveled rectangular slide with clean rear serrations, charcoal textured polymer lower frame and grip, actual open trigger guard with visible curved trigger, small low iron sights, short accessory rail beneath the front frame. Flush seated magazine base. No optic, no suppressor, no accessories. Clean robust contemporary service sidearm.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view.\nInput image is only the graphite-metal and polymer STYLE reference; make the NEW distinct design described."
+    },
+    {
+      "id": "ammo",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-7e09ad81-c668-420b-af78-964703fe700c.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A closed military ammunition supply satchel game prop: low wide rectangular semi-rigid desaturated olive canvas bag, black reinforced base, two tan vertical compression straps with black buckles on the FRONT, a substantial top carrying handle resting upright, subtle stitched seams and a broad flap, two small side pockets. A small plain muted yellow rectangular patch centered on the front flap, no lettering or bullet icons. Durable woven fabric clearly distinct from plastic buckles. Rear has horizontal webbing rows. No exposed ammunition or loose contents, no dangling shoulder strap.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "medkit",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-fd756e76-5d2e-4423-9ddf-c1c79c8e4544.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A closed military first-aid pouch game prop, medium-width rectangular olive fabric bag with rounded padded corners, dark reinforced base, a short top carry handle, perimeter zipper, single broad front pocket. A small ivory square patch centered on the FRONT with a simple muted green medical plus symbol. Rear has two vertical MOLLE attachment straps. Functional restrained design, taut fabric with light seam folds. No separate contents or hanging strap.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "repair",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1dc46b1f-f1f9-44b7-9435-bd05d050ca6b.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A fictional handheld vehicle repair tool for a video game, like a compact industrial cordless welding/repair gun. Short rectangular faded brick-red main housing, dark textured downward pistol grip, chunky integrated black battery base, slim dull-steel neck pointing forward ending in a rounded short tool nozzle. A small black adjustment knob on left housing, subtle vents. No cables, hoses, gas cylinders, flame, sparks, people or exposed mechanism. Modern rugged portable electric tool, not a firearm.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view."
+    },
+    {
+      "id": "beacon",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-01825dd4-c839-480c-abc8-6c0b02374457.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A fictional portable squad respawn beacon for a modern military game. A small squat rectangular graphite electronics case with chamfered olive protective corners and four short rubber feet, one slim black vertical whip antenna rising from the top rear RIGHT corner, sturdy recessed handle across the top center. FRONT has one small cyan-dark non-glowing rectangular screen and two simple small status buttons; BACK has a flush battery door and a single external connector cover. No text, cables, holograms, ground disk or extra legs.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "frag",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8a2798f5-5ba8-4f50-b718-6c2344925058.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: An inactive fictional fragmentation grenade exterior game prop: compact olive ovoid body with a few subtle broad shallow contour bands rather than ornate pineapple segmentation, dark metal top cap, one muted steel safety lever lying close down the RIGHT side, one intact simple metal pull ring near the top LEFT. Restrained solid modern design. Only the closed intact exterior, no cutaway, loose parts, action, smoke or environment.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "at",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-081a5f82-f3c1-4c50-9a1e-59ff639a3dc1.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: A fictional modern shoulder-fired anti-armor launcher game prop shown as a complete closed external asset. A long desaturated olive cylindrical tube with robust black collars at both ends, compact black shoulder pad beneath the middle-rear, a downward dark textured grip and one small simple fold-up sight in its raised position near the front. Front collar slightly slimmer than rear collar. A few understated external ribs. No rockets, exposed ammunition, internals, inscriptions or cables. Clear simple silhouette, less bulky than the anti-air variant.\nCamera: Strict LEFT SIDE elevation, long axis horizontal, front end pointing LEFT, back end on RIGHT, grip/magazine below. Landscape 3:2 canvas, center the full silhouette and leave 7% minimum white margin at both ends. No oblique view."
+    },
+    {
+      "id": "smoke",
+      "view": "front",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-18ef41a3-ac93-4813-830f-1c499fb387d0.png",
+      "prompt": "Use case: product-mockup. Asset type: individual multiview reference image for a fictional IRON FRONT video-game asset, for Hunyuan image-to-3D. Produce ONE object in ONE view, no multi-panel layout. Visual style: refined realistic 3D game asset product render, restrained modern military equipment, neutral charcoal metal and rough polymer or woven fabric as appropriate, subtle bevels and clean readable separate external components, very light wear only. Pure white background, no ground plane or cast shadow, soft neutral studio light, no text, labels, brand logos, watermark, grid, people or hands. Entire object fully inside frame, no cropping, no perspective, no dramatic light. Only external appearance, no dimensions or exploded diagrams.\nDesign: An inactive fictional smoke grenade canister exterior game prop: tall narrow off-white cylindrical metal canister with rolled dark olive base rim, olive top cap, one narrow dull metal lever close to the RIGHT side and one intact simple ring near top LEFT, a single broad faded brick-red horizontal band around the upper middle. Blank clean surfaces without writing. Clearly taller and more cylindrical than the fragmentation grenade. Closed intact exterior, no smoke or loose parts.\nCamera: Strict FRONT orthographic elevation, zero yaw and pitch. Object upright and centered. Landscape 3:2 canvas, entire silhouette fits in central 70% of canvas height with ample white margins. Do not show top surface or side faces."
+    },
+    {
+      "id": "m89",
+      "view": "left",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-cf337d38-056a-4055-aa10-10c33eda317f.png",
+      "prompt": "Create a clean white-background LEFT SIDE product render of a fictional M89 scoped marksman rifle for a video game. Long dark-gray rifle with slim ventilated handguard, solid fixed black stock, short straight magazine and a medium tubular scope. Full object horizontal, front points left, strict orthographic side view. Neutral soft lighting, readable graphite metal and rough charcoal polymer. No people, action, text, markings, diagrams or scene. 3:2 landscape, complete silhouette with white margins."
+    },
+    {
+      "id": "m89",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-78f0c368-fe14-4411-8feb-58c2cd3e6578.png"
+    },
+    {
+      "id": "m89",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-0ea3206f-ff7e-4787-8d62-6be9761b3d8f.png"
+    },
+    {
+      "id": "vx9",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-0f9a854f-d1f5-4c35-b46b-1f4aa6df7162.png"
+    },
+    {
+      "id": "vx9",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-c7c3070e-633e-4d5a-b145-aad9114abec8.png"
+    },
+    {
+      "id": "br44",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b4274e3e-131d-466e-b8b4-a8236f9de1c7.png"
+    },
+    {
+      "id": "h60",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-79b621e0-1f2f-423f-9d75-f933cecb39d8.png"
+    },
+    {
+      "id": "h60",
+      "view": "front",
+      "prompt": "Create a straight-on FRONT orthographic product render of this exact H60 fictional video-game gun. The camera looks along the long barrel axis from the front end, giving a narrow upright end-on silhouette with the optic above and the grip and magazine or box below. This must NOT be a side or three-quarter view. Keep all components and their scale from the supplied reference. Plain white background, even neutral lighting, no people, scene, motion or text. Single object, 3:2 landscape canvas.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b45a18a3-7ce5-4ca2-a819-db9cd19aadf3.png"
+    },
+    {
+      "id": "br44",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-fe48a964-e402-4550-9d2f-3be775b5b789.png"
+    },
+    {
+      "id": "br44",
+      "view": "front",
+      "prompt": "Create a straight-on FRONT orthographic product render of this exact BR44 fictional video-game gun. The camera looks along the long barrel axis from the front end, giving a narrow upright end-on silhouette with the optic above and the grip and magazine or box below. This must NOT be a side or three-quarter view. Keep all components and their scale from the supplied reference. Plain white background, even neutral lighting, no people, scene, motion or text. Single object, 3:2 landscape canvas.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-acf7f40c-0a81-4c0c-b462-821056e4f0ee.png"
+    },
+    {
+      "id": "s12",
+      "view": "front",
+      "prompt": "Render the same S12 fictional video-game gun in a straight-on FRONT orthographic product view. Camera looks from the front end along its long axis, giving a narrow upright silhouette, not a side view. Keep exact design, relative part sizes, materials, neutral state and accessories. Single complete object on pure white background, no people, action, labels or scene. 3:2 landscape, generous white side margins.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-abf4be47-6186-4713-b874-7a576bb84e73.png"
+    },
+    {
+      "id": "p8",
+      "view": "front",
+      "prompt": "Render the same P8 fictional video-game gun in a straight-on FRONT orthographic product view. Camera looks from the front end along its long axis, giving a narrow upright silhouette, not a side view. Keep exact design, relative part sizes, materials, neutral state and accessories. Single complete object on pure white background, no people, action, labels or scene. 3:2 landscape, generous white side margins.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-9d7d5658-b525-4409-8046-54b9ff6bea25.png"
+    },
+    {
+      "id": "p8",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8daf4ab3-586c-476e-a10a-bfa376948c64.png"
+    },
+    {
+      "id": "ammo",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是一只同样宽扁的弹药补给包，两个侧袋保持。背面是横向织带；前面的双扣和黄色贴片只能从对应方向自然可见。提手保持形状，不增加肩带。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2d5c168d-a973-4d64-b16a-ef860d8ec155.png"
+    },
+    {
+      "id": "ammo",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是一只同样宽扁的弹药补给包，两个侧袋保持。背面是横向织带；前面的双扣和黄色贴片只能从对应方向自然可见。提手保持形状，不增加肩带。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-e7f8b705-acbf-4f84-9ff2-3e3358d52f29.png"
+    },
+    {
+      "id": "ammo",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 这是一只同样宽扁的弹药补给包，两个侧袋保持。背面是横向织带；前面的双扣和黄色贴片只能从对应方向自然可见。提手保持形状，不增加肩带。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2433a7b1-2fa7-4f8f-88b7-5730707e1acf.png"
+    },
+    {
+      "id": "medkit",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是同一个竖向长方形医疗包，保持绿色加号贴片在正面且只有一个。背面是两条竖直挂带。保留同一提手和拉链。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-611b076c-808a-4f70-8d04-379a625095b2.png"
+    },
+    {
+      "id": "medkit",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 这是同一个竖向长方形医疗包，保持绿色加号贴片在正面且只有一个。背面是两条竖直挂带。保留同一提手和拉链。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-13e02a71-8d2a-4325-9119-84f8e9e81b5e.png"
+    },
+    {
+      "id": "medkit",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 这是同一个竖向长方形医疗包，保持绿色加号贴片在正面且只有一个。背面是两条竖直挂带。保留同一提手和拉链。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b085bd2a-10a5-45f8-82e6-e9118b06ab56.png"
+    },
+    {
+      "id": "repair",
+      "view": "front",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最前端向后端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。握把和弹匣等自然朝下，可见前端外表面。正确遮挡远端零件，不要把枪身侧面露出来。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-32044c1f-426a-4a57-ba48-ba8116bd0d94.png"
+    },
+    {
+      "id": "repair",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格沿物体纵向长轴，从最后端向前端观察的轴向正投影。长轴在画面里完全重叠，呈细窄竖直轮廓，不是横向侧视图。后端表面最靠近观察者，握把和弹匣自然朝下。前端被物体自身正确遮挡，不要露出俯视导轨，不要让远端顶端高过瞄具。零俯仰，零偏航。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-94eee58d-7b11-4858-92f2-8a3fc61848d1.png"
+    },
+    {
+      "id": "repair",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，相机移动到参考图的相反一侧，前端朝画面右方，后端朝左。保持源图全部大轮廓和长度比例，呈现合理的另一侧外表面，不是简单水平镜像。  整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-488e2aa0-4501-43b7-aead-8acecf999b3b.png"
+    },
+    {
+      "id": "beacon",
+      "view": "left",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格左侧正交投影，将物体相对正面旋转90度，只显示左侧面的轮廓。原正面朝画面左，原背面朝画面右。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一机箱厚度、提手、四个橡胶短脚、唯一一根天线。原正面有屏幕，背面是电池盖和封闭接口盖。天线固定在同一机箱角上，转动后位置必须相应改变。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-3440f880-13d4-41f0-977a-079b35adfc1d.png"
+    },
+    {
+      "id": "beacon",
+      "view": "right",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格右侧正交投影，将物体相对正面反向旋转90度，只显示右侧面的轮廓。原正面朝画面右，原背面朝画面左。不出现正面的宽幅面，不用三分之四视角，顶面不可见。 保持同一机箱厚度、提手、四个橡胶短脚、唯一一根天线。原正面有屏幕，背面是电池盖和封闭接口盖。天线固定在同一机箱角上，转动后位置必须相应改变。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2fadaccd-ca0d-4899-b78e-d6387206e74c.png"
+    },
+    {
+      "id": "beacon",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 保持同一机箱厚度、提手、四个橡胶短脚、唯一一根天线。原正面有屏幕，背面是电池盖和封闭接口盖。天线固定在同一机箱角上，转动后位置必须相应改变。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-f3d2ce84-0e9a-414c-9bc0-8b89292939bc.png"
+    },
+    {
+      "id": "frag",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 保持同一枚未使用的封闭手雷道具的卵形外壳、金属顶盖、一根贴合的金属压片与一个完整拉环。只改变视角，不增加任何零件。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-4b86986f-dd68-4ebb-badf-39eba1487ed8.png"
+    },
+    {
+      "id": "frag",
+      "view": "left",
+      "prompt": "Render this exact fictional grenade video-game prop after a precise 90-degree turn from the supplied front view. View from the side OPPOSITE the long metal lever: the lever is on the FAR side and is hidden behind the opaque body. The top cap is seen end-on, and the ring is EDGE-ON as a narrow sliver, not a full circular loop. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8a2798f5-5ba8-4f50-b718-6c2344925058.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1c2ba8e9-dfc8-4619-a0ba-573642512bfd.png",
+      "revision": true
+    },
+    {
+      "id": "frag",
+      "view": "right",
+      "prompt": "Render this exact fictional grenade video-game prop after a precise 90-degree turn from the supplied front view. View directly from the LEVER side: the long flat metal lever runs vertically down the CENTER of the visible body face. The ring is on the far side and edge-on or hidden. It must not stick out as a large circular loop beside the body. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-8a2798f5-5ba8-4f50-b718-6c2344925058.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-40c3aff9-63f0-4263-a465-01ff17f40dcc.png",
+      "revision": true
+    },
+    {
+      "id": "at",
+      "view": "right",
+      "prompt": "Create a RIGHT SIDE elevation, front end points to the right of this exact fictional shoulder-launcher video-game asset. Maintain the identical olive tube, collars, small sight, grip and shoulder support. An orthographic product render, one complete object, flat white background, soft neutral light. No people, action, text, diagrams or loose parts. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2f44f401-44ab-48b3-9530-d34fd2452c59.png"
+    },
+    {
+      "id": "smoke",
+      "view": "back",
+      "prompt": "Use case: precise-object-edit. 为参考图中的同一件 IRON FRONT 虚构游戏资产制作一个新的独立多视角外观参考。参考图是设计基准，只改变相机位置，保留现有全部造型、材质、色彩、附件、装配状态和相对比例。严格背面正交投影，将物体相对正面旋转180度，呈现相反一面。保持完全相同的外形、材质、宽高及附件位置。背面不可重复正面的徽章或显示屏，顶面不可见。 保持同一枚封闭烟雾弹道具的白色圆柱、红色环带、橄榄绿顶盖和底沿、一根贴合的金属压片与一个完整拉环。只改变视角。 整体端正居中，完整不裁切，柔和均匀中性产品光线，纯白背景，无人物、动作、文字、标注、网格或场景。画布3:2横向。正背轴向图保留两侧白色留白，不要为了填满画面而加宽物体。一次只输出一个视角的一件物体。",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-f980b414-d5d5-4930-9082-7e31b101fcf4.png"
+    },
+    {
+      "id": "smoke",
+      "view": "left",
+      "prompt": "Render this exact fictional smoke-canister video-game prop after a precise 90-degree turn from the supplied front view. View from the side OPPOSITE the long metal lever: the lever is on the FAR side and is hidden behind the opaque body. The top cap is seen end-on, and the ring is EDGE-ON as a narrow sliver, not a full circular loop. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-18ef41a3-ac93-4813-830f-1c499fb387d0.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-bf5f74ef-07b2-460e-9264-dac46b3b9e49.png",
+      "revision": true
+    },
+    {
+      "id": "smoke",
+      "view": "right",
+      "prompt": "Render this exact fictional smoke-canister video-game prop after a precise 90-degree turn from the supplied front view. View directly from the LEVER side: the long flat metal lever runs vertically down the CENTER of the visible body face. The ring is on the far side and edge-on or hidden. It must not stick out as a large circular loop beside the body. Strict level orthographic elevation. Keep the original closed silhouette, color, material, body bands and proportions. One intact prop on white, no text, diagram, person or action. Same 3:2 canvas.",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-18ef41a3-ac93-4813-830f-1c499fb387d0.png"
+      ],
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-523240f7-4d05-41d8-816e-7e02f1ddb7da.png",
+      "revision": true
+    },
+    {
+      "id": "m89",
+      "view": "front",
+      "prompt": "Render the same M89 fictional game weapon as a clean FRONT END, viewed level along the barrel axis. Narrow vertical outline, optic on top, lower parts beneath, no visible barrel length. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-f38248f8-d7bb-4550-b59c-47a0bc13b319.png"
+    },
+    {
+      "id": "h60",
+      "view": "back",
+      "prompt": "Render the same H60 fictional game weapon as a clean REAR END, viewed level along the barrel axis from behind. Stock or back surface nearest the camera, optic above, no barrel visible. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-25eae967-e156-4d26-8778-b9de9aa5bb68.png"
+    },
+    {
+      "id": "p8",
+      "view": "right",
+      "prompt": "Render the same P8 fictional game weapon as a clean RIGHT SIDE, complete horizontal silhouette, muzzle to the right and stock/grip toward the left, opposite side of the reference. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-9d84b00e-592c-4aa9-98fc-fb9e6f03f69a.png"
+    },
+    {
+      "id": "s12",
+      "view": "back",
+      "prompt": "Render the same S12 fictional game weapon as a clean REAR END, viewed level along the barrel axis from behind. Stock or back surface nearest the camera, optic above, no barrel visible. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2eda0828-329d-4217-b19d-cac66394d304.png"
+    },
+    {
+      "id": "vx9",
+      "view": "front",
+      "prompt": "Render the same VX9 fictional game weapon as a clean FRONT END, viewed level along the barrel axis. Narrow vertical outline, optic on top, lower parts beneath, no visible barrel length. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-11587fcd-cbf4-48ac-ae2d-bd1afab7dae7.png"
+    },
+    {
+      "id": "s12",
+      "view": "right",
+      "prompt": "Render the same S12 fictional game weapon as a clean RIGHT SIDE, complete horizontal silhouette, muzzle to the right and stock/grip toward the left, opposite side of the reference. Orthographic product-reference image on white, soft neutral light. Match the reference design and all attached components. One object, no people, action, labels, diagram or background scene. 3:2 landscape.",
+      "source": "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-dad8d315-dbab-49bb-982a-098e5ba35a84.png"
+    }
+  ],
+  "blockedFinalCorrections": [
+    {
+      "id": "m89",
+      "view": "right",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-78f0c368-fe14-4411-8feb-58c2cd3e6578.png"
+      ],
+      "prompt": "Edit this fictional rifle game-asset reference image only: remove the ball-ended bolt handle and its angled stalk from the side of the receiver. Replace the small affected patch with a clean matching dark receiver surface. Preserve every other element including the scope, receiver outline, stock, magazine, handguard, barrel, side camera orientation, scale and white background. No new elements, no text. This is a cosmetic visual correction of an imaginary game prop."
+    },
+    {
+      "id": "h60",
+      "view": "front",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-b45a18a3-7ce5-4ca2-a819-db9cd19aadf3.png"
+      ],
+      "prompt": "Correct the silhouette of this fictional H60 game-prop FRONT end view. The olive fabric box must be the LOWEST point of the entire object. Remove the black grip segment currently protruding downward below the fabric box: that grip is shorter and fully occluded BEHIND the box from this angle. Keep the cloth box and all components above it exactly as shown, including the circular front opening, folded support, and open optic. Maintain this straight end-on front camera and a plain white background. Single complete centered object, no labels. Do not turn it into a side view."
+    },
+    {
+      "id": "h60",
+      "view": "back",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-25eae967-e156-4d26-8778-b9de9aa5bb68.png"
+      ],
+      "prompt": "Correct this fictional H60 game prop rear end view, keeping its camera orientation unchanged. The tall black rubber butt pad in the foreground is erroneously too tall: shorten ONLY its LOWER half so its bottom ends at roughly the middle height of the olive fabric box. The fabric box must extend visibly lower than the butt pad; the pad is only about 60 percent as tall as now. Keep pad top and optic position unchanged. Preserve all materials, existing metal body, olive bag and white background. Single object, no labels, strict level rear elevation."
+    },
+    {
+      "id": "s12",
+      "view": "left",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-1783f3ba-9c3d-41df-8b45-bcb8af5585e8.png"
+      ],
+      "prompt": "Edit this LEFT side reference of an imaginary S12 rifle video-game prop. Remove ONLY the visible ball-ended bolt handle and its downward stalk beside the receiver, replacing their small area with matching clean receiver surfaces. The handle belongs to the opposite side and is fully hidden in this LEFT elevation. Keep camera, overall silhouette, scope, magazine, folded front bipod, sand-gray frame, stock and every other detail unchanged. Same white background, single complete object, no text."
+    },
+    {
+      "id": "s12",
+      "view": "front",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-abf4be47-6186-4713-b874-7a576bb84e73.png"
+      ],
+      "prompt": "Fix camera and projection for this imaginary S12 game-prop FRONT reference. Output a true level orthographic END VIEW looking exactly along its horizontal barrel axis. The circular muzzle end must overlap and hide the barrel length behind it, rather than revealing a barrel pointing down toward the viewer. Hide the receding top rail and handguard top surfaces. The large scope objective is a face-on circle directly above the muzzle. Folded bipod feet stay beside and below the muzzle. Keep material colors, same component shapes and white background. Bolt handle should appear on VIEWER LEFT, because it is on the prop's own right side. Do not output a profile or angled presentation. One complete centered object, no words."
+    },
+    {
+      "id": "s12",
+      "view": "back",
+      "refs": [
+        "/Users/liuwenjun/.codex/generated_images/01a16b9c-6d20-71a2-aac8-786b3468e09b/exec-2eda0828-329d-4217-b19d-cac66394d304.png"
+      ],
+      "prompt": "Correct this imaginary S12 game-prop REAR end reference. Remove the erroneous tubular bipod leg shown vertically along the VIEWER RIGHT side of the stock; no bipod leg exists at the rear stock. The folded bipod is beneath the distant front handguard and completely occluded at this angle. Also move the existing ball-ended bolt handle to VIEWER RIGHT of the receiver; there must be no ball-ended handle on viewer left. Preserve the stock butt pad, scope eyepiece and all other material/color/design details. Level straight rear end view, white background, single object, no text."
+    }
+  ],
+  "missing": [
+    {
+      "id": "aa",
+      "views": [
+        "front",
+        "back",
+        "left",
+        "right"
+      ],
+      "reason": "Image tool moderation rejected generation."
+    },
+    {
+      "id": "at",
+      "views": [
+        "front",
+        "back"
+      ],
+      "reason": "Front viewpoint did not pass review; back generation rejected by image tool moderation."
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "captures": [
+    {
+      "file": "lan-existing.png",
+      "width": 1600,
+      "height": 900,
+      "mean_rgb": [
+        70.73,
+        90.64,
+        108.07
+      ],
+      "std": 30.16,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "loadout-existing.png",
+      "width": 1600,
+      "height": 900,
+      "mean_rgb": [
+        61.96,
+        51.53,
+        44.43
+      ],
+      "std": 45.13,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "lobby-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mean_rgb": [
+        79.95,
+        67.47,
+        56.62
+      ],
+      "std": 62.29,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "lobby-1600x900.png",
+      "width": 1600,
+      "height": 900,
+      "mean_rgb": [
+        78.85,
+        66.4,
+        55.31
+      ],
+      "std": 62.57,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "lobby-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "mean_rgb": [
+        78.85,
+        66.4,
+        55.32
+      ],
+      "std": 62.46,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "lobby-2560x1080.png",
+      "width": 2560,
+      "height": 1080,
+      "mean_rgb": [
+        84.75,
+        71.4,
+        59.12
+      ],
+      "std": 67.0,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "lobby-960x600.png",
+      "width": 960,
+      "height": 600,
+      "mean_rgb": [
+        80.0,
+        67.53,
+        56.7
+      ],
+      "std": 62.45,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "operations-existing.png",
+      "width": 1600,
+      "height": 900,
+      "mean_rgb": [
+        64.81,
+        54.08,
+        44.01
+      ],
+      "std": 51.07,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "settings-existing.png",
+      "width": 1600,
+      "height": 900,
+      "mean_rgb": [
+        62.92,
+        52.35,
+        43.77
+      ],
+      "std": 51.81,
+      "magenta_fraction": 0.0
+    },
+    {
+      "file": "solo-existing.png",
+      "width": 1600,
+      "height": 900,
+      "mean_rgb": [
+        104.05,
+        121.44,
+        125.62
+      ],
+      "std": 49.26,
+      "magenta_fraction": 0.0
+    }
+  ],
+  "operator_alpha": {
+    "transparent_corners": true,
+    "partial_alpha_pixels": 4284
+  },
+  "reviewed": [
+    "lobby-1600x900.png",
+    "lobby-2560x1080.png",
+    "loadout-existing.png",
+    "settings-existing.png"
+  ],
+  "result": "PASS"
+}

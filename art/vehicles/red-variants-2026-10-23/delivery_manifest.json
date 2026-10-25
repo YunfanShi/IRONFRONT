@@ -1,0 +1,279 @@
+{
+  "assets": [
+    {
+      "key": "t90",
+      "title": "T90 主战坦克",
+      "blend": "t90-bastion/t90-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 80000,
+          "glb": "t90-bastion/exports/t90-red-lod0.glb",
+          "fbx": "t90-bastion/exports/t90-red-lod0.fbx",
+          "glb_sha256": "001a7c9329c4639e8f7893b41a0610e3f7012f5102c9a8d7bfd7807c901a19d8",
+          "glb_bytes": 16573736,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 40000,
+          "glb": "t90-bastion/exports/t90-red-lod1.glb",
+          "fbx": "t90-bastion/exports/t90-red-lod1.fbx",
+          "glb_sha256": "c864e57cedcc17f1a606f91477388748b75072d7f1bfb7409bc31a61aa7f1172",
+          "glb_bytes": 14608132,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 20000,
+          "glb": "t90-bastion/exports/t90-red-lod2.glb",
+          "fbx": "t90-bastion/exports/t90-red-lod2.fbx",
+          "glb_sha256": "114aa76586f05ea4d55991cb1a02475ed3658d46e124842935576a18863611ad",
+          "glb_bytes": 13813920,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "t90-bastion/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    },
+    {
+      "key": "v12",
+      "title": "V12 八轮步战车",
+      "blend": "v12-lancer/v12-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 70000,
+          "glb": "v12-lancer/exports/v12-red-lod0.glb",
+          "fbx": "v12-lancer/exports/v12-red-lod0.fbx",
+          "glb_sha256": "5c2a67da9ead16d8be71c3a9d02c4121ea21e73649b87ad6cee5df77b034bb69",
+          "glb_bytes": 14698152,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 35000,
+          "glb": "v12-lancer/exports/v12-red-lod1.glb",
+          "fbx": "v12-lancer/exports/v12-red-lod1.fbx",
+          "glb_sha256": "982ba4c95f11b833fa11f5ee7681e157e849bdc21e690ae9b3e35a67eb890845",
+          "glb_bytes": 13054744,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 17500,
+          "glb": "v12-lancer/exports/v12-red-lod2.glb",
+          "fbx": "v12-lancer/exports/v12-red-lod2.fbx",
+          "glb_sha256": "fff1ac87bbf0f8a102dbccff1e58cfabf92e0b5757cbdad0932569337d6f9ca2",
+          "glb_bytes": 12380492,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "v12-lancer/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    },
+    {
+      "key": "r4",
+      "title": "R4 装甲侦察车",
+      "blend": "r4-scout/r4-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 60000,
+          "glb": "r4-scout/exports/r4-red-lod0.glb",
+          "fbx": "r4-scout/exports/r4-red-lod0.fbx",
+          "glb_sha256": "3301a0bdc0e0722ef1c1a2b84c4a67a76cc3b7c6eb578d75d4b3492cc57d1465",
+          "glb_bytes": 15843164,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 30000,
+          "glb": "r4-scout/exports/r4-red-lod1.glb",
+          "fbx": "r4-scout/exports/r4-red-lod1.fbx",
+          "glb_sha256": "456c88f23ee9e1b7bbb164a7ebc68ea2f9b3e6d26eec3147e2bf1422bde7def9",
+          "glb_bytes": 14326972,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 15000,
+          "glb": "r4-scout/exports/r4-red-lod2.glb",
+          "fbx": "r4-scout/exports/r4-red-lod2.fbx",
+          "glb_sha256": "4d913b34b0d81abe36d5b5410e5cda4944fad965b808c5909132c576b8ca7ab8",
+          "glb_bytes": 13660200,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "r4-scout/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    },
+    {
+      "key": "u8",
+      "title": "U8 武装运输车",
+      "blend": "u8-rover/u8-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 60000,
+          "glb": "u8-rover/exports/u8-red-lod0.glb",
+          "fbx": "u8-rover/exports/u8-red-lod0.fbx",
+          "glb_sha256": "0638d51ea1b0df1e77763ce6d17f7871b3b5fff8e31487492bcb5ccea08e6207",
+          "glb_bytes": 16168172,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 30000,
+          "glb": "u8-rover/exports/u8-red-lod1.glb",
+          "fbx": "u8-rover/exports/u8-red-lod1.fbx",
+          "glb_sha256": "c90e9b461b99e09a8976723c5e7bac71c543f93ed5bba8ff104286586a045263",
+          "glb_bytes": 14622092,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 15000,
+          "glb": "u8-rover/exports/u8-red-lod2.glb",
+          "fbx": "u8-rover/exports/u8-red-lod2.fbx",
+          "glb_sha256": "869e076e0440d91684d7597cd7acd6f9b42a309942ecc660459169cf19012005",
+          "glb_bytes": 13870072,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "u8-rover/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    },
+    {
+      "key": "m2",
+      "title": "M2 双座摩托车",
+      "blend": "m2-courier/m2-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 50000,
+          "glb": "m2-courier/exports/m2-red-lod0.glb",
+          "fbx": "m2-courier/exports/m2-red-lod0.fbx",
+          "glb_sha256": "9d27baaada0000ccccdd3d2942936078f13662aef85a93902dd06a344588af1a",
+          "glb_bytes": 13733376,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 25000,
+          "glb": "m2-courier/exports/m2-red-lod1.glb",
+          "fbx": "m2-courier/exports/m2-red-lod1.fbx",
+          "glb_sha256": "f204d165e6f7bac6a600bd1d081bd537c333bf118f67169bac00374ee22cac52",
+          "glb_bytes": 12367404,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 12500,
+          "glb": "m2-courier/exports/m2-red-lod2.glb",
+          "fbx": "m2-courier/exports/m2-red-lod2.fbx",
+          "glb_sha256": "dfcc9d3e27adadaa3e2a1da295116ef698b6ac1ad7126c33956716b4816adea5",
+          "glb_bytes": 11727436,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "m2-courier/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    },
+    {
+      "key": "r3",
+      "title": "R3 侦察直升机",
+      "blend": "r3-firefly/r3-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 50000,
+          "glb": "r3-firefly/exports/r3-red-lod0.glb",
+          "fbx": "r3-firefly/exports/r3-red-lod0.fbx",
+          "glb_sha256": "258d44b5d1174ccd593e2a9fee4caa4b5d28dfdbd5613050316a21ece435e8e7",
+          "glb_bytes": 14109844,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 25000,
+          "glb": "r3-firefly/exports/r3-red-lod1.glb",
+          "fbx": "r3-firefly/exports/r3-red-lod1.fbx",
+          "glb_sha256": "73a7b57932087125b696b63ebb296b585e18e608cbe2436e1e2c73aea353d31f",
+          "glb_bytes": 13301120,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 12500,
+          "glb": "r3-firefly/exports/r3-red-lod2.glb",
+          "fbx": "r3-firefly/exports/r3-red-lod2.fbx",
+          "glb_sha256": "6e2075de69e51352f22159a157ad4e59934eef21b5bc28d1538f6eef383be6ec",
+          "glb_bytes": 12861320,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "r3-firefly/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    },
+    {
+      "key": "j20",
+      "title": "J20 喷气机",
+      "blend": "j20-stratus/j20-red.blend",
+      "exports": [
+        {
+          "lod": 0,
+          "triangles": 40000,
+          "glb": "j20-stratus/exports/j20-red-lod0.glb",
+          "fbx": "j20-stratus/exports/j20-red-lod0.fbx",
+          "glb_sha256": "6622372e7ece4e547c5c6fd9a0de4d2b31d993b00638d226d35ff472528b6f41",
+          "glb_bytes": 12943016,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 1,
+          "triangles": 20000,
+          "glb": "j20-stratus/exports/j20-red-lod1.glb",
+          "fbx": "j20-stratus/exports/j20-red-lod1.fbx",
+          "glb_sha256": "9d04fbb0482941e82d522124c12d2167f64fe33d0367aabdaca3396e6d59c1d6",
+          "glb_bytes": 12337448,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        },
+        {
+          "lod": 2,
+          "triangles": 10000,
+          "glb": "j20-stratus/exports/j20-red-lod2.glb",
+          "fbx": "j20-stratus/exports/j20-red-lod2.fbx",
+          "glb_sha256": "11376de5c930fdc9d43526479ccd86c5ace1c3ad524d6bea0e8f56247ef78045",
+          "glb_bytes": 11986596,
+          "geometry_normals_uv_indices_match_blue": true,
+          "red_basecolor_2k": true
+        }
+      ],
+      "preview": "j20-stratus/red-preview/perspective.png",
+      "blue_source_unchanged": true
+    }
+  ],
+  "export_confirmation": "21 GLBs retain exactly the blue mesh attributes and indices; each embeds a changed 2K base color. FBX files exported; no renewed full model quality audit.",
+  "scope": "Static red material variants; no Unity integration"
+}

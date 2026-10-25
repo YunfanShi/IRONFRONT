@@ -15,6 +15,7 @@ namespace Ironfront.UnityPrototype
         private Material markerRed;
         private Material blueTracer;
         private Material redTracer;
+        private PrototypeTracerPool tracerPool;
         private PrototypeLanClient lan;
         private readonly PrototypeRoomMenu roomMenu = new PrototypeRoomMenu();
         private readonly Dictionary<int, float> lastRemoteInputAt = new Dictionary<int, float>();
@@ -26,6 +27,7 @@ namespace Ironfront.UnityPrototype
         private bool networkHost;
         private string roomStatus = "";
         private const string SensitivityKey = "ironfront.unity.mouseSensitivity";
+        private const string CrosshairSizeKey = "ironfront.unity.crosshairSize";
 
         public PrototypeMatch Match { get; private set; }
         public PrototypeNavigation Navigation { get; private set; }
@@ -35,14 +37,31 @@ namespace Ironfront.UnityPrototype
         public bool MatchStarted { get; private set; }
         public int SoloTeamSize { get; private set; }
         public bool PauseOpen { get; private set; }
+        public bool SupportMenuOpen { get; private set; }
+        public bool ScoreboardOpen { get; private set; }
+        public PrototypeScoreboard Scoreboard { get; private set; }
+        public bool IsNetworkSession => networkModeActive;
+        public bool IsNetworkHost => networkModeActive && networkHost;
+        public PrototypeScoreSystem Scores { get; private set; }
+        public PrototypeSupportRequisition Support { get; private set; }
+        public PrototypeAmmoSupplySystem Supplies { get; private set; }
+        public PrototypeScorePopup ScorePopup { get; private set; }
+        public PrototypePlayerAudio PlayerAudio { get; private set; }
+        public PrototypeHitFeedback HitFeedback { get; private set; }
+        public PrototypeDamageFeedback DamageFeedback { get; private set; }
         public float MouseSensitivity { get; private set; } = 2.2f;
+        public float CrosshairSize { get; private set; } = 1f;
         public bool IsNetworkReplica => networkModeActive &&
             (!networkHost || lan == null || !lan.IsConnected ||
              (lan.LastRoom != null && lan.LastRoom.paused));
         public readonly List<PrototypeRemotePlayer> RemotePlayers =
             new List<PrototypeRemotePlayer>();
         public PrototypeFrontend Frontend { get; private set; }
+        public PrototypeMusicDirector Music { get; private set; }
+        public float MusicTicketLimit => networkModeActive && lan?.LastRoom?.settings != null ?
+            Mathf.Clamp(lan.LastRoom.settings.tickets, 100, 800) : Match?.TicketLimit ?? 100f;
         public readonly List<PrototypeBot> Bots = new List<PrototypeBot>();
+        public PrototypeBotDownFeed BotDownFeed { get; } = new PrototypeBotDownFeed();
         public readonly List<IPrototypeVehicle> Vehicles = new List<IPrototypeVehicle>();
         public Material BlueMaterial { get; private set; }
         public Material RedMaterial { get; private set; }
@@ -78,6 +97,7 @@ namespace Ironfront.UnityPrototype
         private void Awake()
         {
             MouseSensitivity = Mathf.Clamp(PlayerPrefs.GetFloat(SensitivityKey, 2.2f), .5f, 5f);
+            LoadCrosshairSize();
             foreach (Camera existing in Camera.allCameras)
             {
                 existing.enabled = false;
@@ -85,6 +105,9 @@ namespace Ironfront.UnityPrototype
                 if (listener != null) listener.enabled = false;
             }
             Match = new PrototypeMatch();
+            Scores = new PrototypeScoreSystem(this);
+            Scoreboard = new PrototypeScoreboard(this);
+            Match.ScoreSystem = Scores;
             Navigation = new PrototypeNavigation();
             BlueCommander = new PrototypeCommander(PrototypeTeam.Blue);
             RedCommander = new PrototypeCommander(PrototypeTeam.Red);
@@ -110,6 +133,8 @@ namespace Ironfront.UnityPrototype
             blueTracer = MakeMaterial(new Color(0.62f, 0.88f, 1f), true);
             redTracer = MakeMaterial(new Color(1f, 0.64f, 0.48f), true);
 
+            tracerPool = gameObject.AddComponent<PrototypeTracerPool>();
+
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color(0.58f, 0.69f, 0.72f);
             RenderSettings.fogDensity = 0.0027f;
@@ -123,11 +148,23 @@ namespace Ironfront.UnityPrototype
             BuildScouts();
             BuildTransports();
             BuildCombinedArmsVehicles();
+            Support = new PrototypeSupportRequisition(this, Scores);
+            Supplies = new PrototypeAmmoSupplySystem(this);
+            ScorePopup = new PrototypeScorePopup(Scores, Player);
+            PlayerAudio = Player.gameObject.AddComponent<PrototypePlayerAudio>();
+            PlayerAudio.Initialize(this, Player);
+            HitFeedback = gameObject.AddComponent<PrototypeHitFeedback>();
+            HitFeedback.Initialize(Scores, Player);
+            DamageFeedback = gameObject.AddComponent<PrototypeDamageFeedback>();
+            DamageFeedback.Initialize(this, Player);
             BlueCommander.Tick(Time.time, Match);
             RedCommander.Tick(Time.time, Match);
+            Music = gameObject.AddComponent<PrototypeMusicDirector>();
+            Music.Initialize();
             Frontend = new PrototypeFrontend(this);
             Frontend.Open();
             lan = new PrototypeLanClient();
+            Music.Tick(Match, Player.Team, MatchStarted, 0f);
         }
 
         private static Material MakeMaterial(Color color, bool unlit = false)
@@ -393,6 +430,12 @@ namespace Ironfront.UnityPrototype
                 AddCombinedArms(team, PrototypeVehicleKind.Motorcycle,
                     origin + Vector2.right * (side * 94f));
             }
+            // Append the new aircraft after all 0.46 vehicles so every existing
+            // vehicle ID remains stable in deployment and LAN snapshots.
+            AddCombinedArms(PrototypeTeam.Blue, PrototypeVehicleKind.ReconHelicopter,
+                new Vector2(-194f, -302f));
+            AddCombinedArms(PrototypeTeam.Red, PrototypeVehicleKind.ReconHelicopter,
+                new Vector2(194f, 302f));
         }
 
         private void AddCombinedArms(PrototypeTeam team, PrototypeVehicleKind kind,
@@ -410,10 +453,24 @@ namespace Ironfront.UnityPrototype
 
         private void Update()
         {
+            BotDownFeed.Expire(Time.time);
+            Music?.Tick(Match, Player == null ? PrototypeTeam.Blue : Player.Team,
+                MatchStarted, Time.unscaledDeltaTime, MusicTicketLimit);
             if (Match == null || Player == null) return;
             lan?.Poll();
+            if (SupportMenuOpen && (!Player.Alive || Match.Winner.HasValue ||
+                Player.CurrentVehicle != null || Frontend.IsOpen)) SetSupportMenu(false);
+            if (!MatchStarted && ScoreboardOpen) SetScoreboard(false);
             if (MatchStarted && Input.GetKeyDown(KeyCode.Escape))
-                SetPause(!PauseOpen);
+            {
+                if (ScoreboardOpen) SetScoreboard(false);
+                else if (SupportMenuOpen) SetSupportMenu(false);
+                else SetPause(!PauseOpen);
+            }
+            else if (MatchStarted && !PauseOpen && Input.GetKeyDown(KeyCode.Y))
+                SetScoreboard(!ScoreboardOpen);
+            else if (MatchStarted && !PauseOpen && Input.GetKeyDown(KeyCode.B))
+                SetSupportMenu(!SupportMenuOpen);
             if (PauseOpen && Input.GetKeyDown(KeyCode.L))
             {
                 ReturnToLobby();
@@ -447,6 +504,8 @@ namespace Ironfront.UnityPrototype
                 }
             }
             if (!MatchStarted) return;
+            Support?.Tick(Time.deltaTime);
+            Supplies?.Tick(Time.deltaTime);
             if (networkModeActive && IsNetworkReplica)
             {
                 if (lan != null && lan.IsConnected)
@@ -490,7 +549,23 @@ namespace Ironfront.UnityPrototype
         public void BeginBattle()
         {
             if (MatchStarted || Match == null || Player == null) return;
+            Support?.Reset();
+            Scores?.Reset();
+            Scoreboard?.Reset();
+            ScoreboardOpen = false;
+            Supplies?.Reset();
+            ScorePopup?.Reset();
+            PlayerAudio?.Reset();
+            HitFeedback?.Reset();
+            DamageFeedback?.Clear();
             MatchStarted = true;
+            // One existing hostile aircraft gives solo engineers a real SAM
+            // target. Keep the lobby parked and the LAN fleet unchanged.
+            if (!networkModeActive)
+                foreach (IPrototypeVehicle vehicle in Vehicles)
+                    if (vehicle is PrototypeCombinedArmsVehicle aircraft &&
+                        aircraft.Team == PrototypeTeam.Red && aircraft.Kind == PrototypeVehicleKind.Helicopter)
+                    { aircraft.SetAiControlled(true); break; }
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -502,17 +577,58 @@ namespace Ironfront.UnityPrototype
             PlayerPrefs.Save();
         }
 
+        public static float ClampCrosshairSize(float value) =>
+            float.IsNaN(value) || float.IsInfinity(value) ? 1f : Mathf.Clamp(value, .5f, 2f);
+
+        private void LoadCrosshairSize() =>
+            CrosshairSize = ClampCrosshairSize(PlayerPrefs.GetFloat(CrosshairSizeKey, 1f));
+
+        public void SetCrosshairSize(float value)
+        {
+            CrosshairSize = ClampCrosshairSize(value);
+            PlayerPrefs.SetFloat(CrosshairSizeKey, CrosshairSize);
+            PlayerPrefs.Save();
+        }
+
         private void SetPause(bool open)
         {
+            if (open && ScoreboardOpen) SetScoreboard(false);
+            if (open && SupportMenuOpen) SetSupportMenu(false);
             PauseOpen = open;
             if (!networkModeActive) Time.timeScale = open ? 0f : 1f;
-            Cursor.lockState = open ? CursorLockMode.None :
-                Player.Alive ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = open || !Player.Alive;
+            Cursor.lockState = open || ScoreboardOpen || !Player.Alive || Frontend.IsOpen ||
+                Match.Winner.HasValue ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = Cursor.lockState != CursorLockMode.Locked;
+        }
+
+        public bool SetSupportMenu(bool open)
+        {
+            if (open && (!MatchStarted || PauseOpen || !Player.Alive ||
+                Match.Winner.HasValue || Player.CurrentVehicle != null || Frontend.IsOpen)) return false;
+            if (open && ScoreboardOpen) SetScoreboard(false);
+            SupportMenuOpen = open;
+            if (open) Player.ClearHeldEquipment();
+            Cursor.lockState = open || PauseOpen || !Player.Alive || Frontend.IsOpen ||
+                Match.Winner.HasValue ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = Cursor.lockState != CursorLockMode.Locked;
+            return true;
+        }
+
+        public bool SetScoreboard(bool open)
+        {
+            if (open && (!MatchStarted || PauseOpen || Scoreboard == null)) return false;
+            if (open && SupportMenuOpen) SetSupportMenu(false);
+            ScoreboardOpen = open;
+            // Viewing standings never pauses a battle, including solo mode.
+            Cursor.lockState = open || PauseOpen || !Player.Alive || Frontend.IsOpen ||
+                Match.Winner.HasValue ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = Cursor.lockState != CursorLockMode.Locked;
+            return true;
         }
 
         private void ReturnToLobby()
         {
+            SetScoreboard(false);
             SetPause(false);
             Time.timeScale = 1f;
             lan?.Close();
@@ -700,7 +816,7 @@ namespace Ironfront.UnityPrototype
         {
             if (Time.unscaledTime < nextLanSend) return;
             nextLanSend = Time.unscaledTime + 0.05f;
-            bool active = Cursor.lockState == CursorLockMode.Locked && Player.Alive;
+            bool active = Cursor.lockState == CursorLockMode.Locked && Player.Alive && !ScoreboardOpen;
             float pitch = Player.ViewCamera.transform.eulerAngles.x;
             if (pitch > 180f) pitch -= 360f;
             lan.SendInput(new PrototypeLanInput {
@@ -708,10 +824,14 @@ namespace Ironfront.UnityPrototype
                 side = active ? Input.GetAxisRaw("Horizontal") : 0f,
                 yaw = Player.transform.eulerAngles.y,
                 pitch = pitch,
-                sprint = active && Input.GetKey(KeyCode.LeftShift),
-                fire = active && Input.GetMouseButton(0),
-                callRescue = Player.IsDowned && Input.GetKey(KeyCode.H),
-                giveUp = Player.IsDowned && Input.GetKey(KeyCode.Space)
+                sprint = active && Input.GetKey(KeyCode.LeftShift) && Player.SprintRequested &&
+                    !Input.GetMouseButton(0) && !Input.GetMouseButton(1),
+                fire = active && Player.HeldEquipment == PrototypeHeldEquipment.Firearm &&
+                    Input.GetMouseButton(0),
+                callRescue = !ScoreboardOpen && !PauseOpen && !SupportMenuOpen &&
+                    Player.IsDowned && Input.GetKey(KeyCode.H),
+                giveUp = !ScoreboardOpen && !PauseOpen && !SupportMenuOpen &&
+                    Player.IsDowned && Input.GetKey(KeyCode.Space)
             });
         }
 
@@ -725,6 +845,9 @@ namespace Ironfront.UnityPrototype
             players[0].respawnRemaining = Player.RespawnRemaining;
             players[0].downedRemaining = Player.DownedRemaining;
             players[0].rescueCalled = Player.RescueCalled;
+            players[0].revivePaused = Player.IsBeingRevived;
+            players[0].reviveProgress = Player.ReviveProgress;
+            players[0].incomingDamage = Player.LastIncomingDamage?.Snapshot();
             for (int i = 0; i < RemotePlayers.Count; i++)
             {
                 PrototypeRemotePlayer remote = RemotePlayers[i];
@@ -735,6 +858,9 @@ namespace Ironfront.UnityPrototype
                 players[i + 1].respawnRemaining = remote.RespawnRemaining;
                 players[i + 1].downedRemaining = remote.DownedRemaining;
                 players[i + 1].rescueCalled = remote.RescueCalled;
+                players[i + 1].revivePaused = remote.IsBeingRevived;
+                players[i + 1].reviveProgress = remote.ReviveProgress;
+                players[i + 1].incomingDamage = remote.LastIncomingDamage?.Snapshot();
             }
             var bots = new PrototypeLanActor[Bots.Count];
             for (int i = 0; i < Bots.Count; i++)
@@ -755,7 +881,8 @@ namespace Ironfront.UnityPrototype
             }
             return new PrototypeLanSnapshot { tick = ++snapshotTick, players = players,
                 bots = bots, vehicles = vehicles, points = points,
-                blueTickets = Match.BlueTickets, redTickets = Match.RedTickets };
+                blueTickets = Match.BlueTickets, redTickets = Match.RedTickets,
+                scoreboard = Scoreboard?.BuildSnapshot(lan.LastRoom?.roster, lan.LocalId) };
         }
 
         private static PrototypeLanActor CaptureActor(int id, Transform actor,
@@ -773,6 +900,7 @@ namespace Ironfront.UnityPrototype
             if (state == null || state.tick <= lastAppliedTick) return;
             lastAppliedTick = state.tick;
             Match.SetNetworkTickets(state.blueTickets, state.redTickets);
+            Scoreboard?.ApplyReadOnlySnapshot(state.scoreboard);
             if (state.points != null)
                 foreach (PrototypeLanPoint point in state.points)
                     Match.SetNetworkPoint(point.id, point.control,
@@ -782,9 +910,14 @@ namespace Ironfront.UnityPrototype
                 {
                     Vector3 position = new Vector3(actor.x, actor.y, actor.z);
                     if (actor.id == lan.LocalId)
+                    {
+                        float previousHealth = Player.Health;
                         Player.ApplyNetworkState(position, actor.yaw, actor.hp, actor.alive,
                             actor.ammo, actor.reserve, actor.respawnRemaining,
-                            actor.downedRemaining, actor.rescueCalled);
+                            actor.downedRemaining, actor.rescueCalled,
+                            actor.revivePaused, actor.reviveProgress);
+                        DamageFeedback?.ReceiveSnapshot(actor.incomingDamage, previousHealth, Player.Health);
+                    }
                     else
                         foreach (PrototypeRemotePlayer remote in RemotePlayers)
                             if (remote.Id == actor.id)
@@ -826,20 +959,18 @@ namespace Ironfront.UnityPrototype
             if (PauseOpen) Time.timeScale = 1f;
             Frontend?.Dispose();
             lan?.Close();
+            Music?.Dispose();
+            Support?.Dispose();
+            Supplies?.Dispose();
+            ScorePopup?.Dispose();
+            HitFeedback?.Dispose();
+            DamageFeedback?.Dispose();
+            PlayerAudio?.Dispose();
         }
 
         public void ShowTracer(Vector3 from, Vector3 to, PrototypeTeam team)
         {
-            var object3D = new GameObject("Tracer");
-            LineRenderer line = object3D.AddComponent<LineRenderer>();
-            line.sharedMaterial = TracerMaterial(team);
-            line.positionCount = 2;
-            line.SetPosition(0, from);
-            line.SetPosition(1, to);
-            line.startWidth = 0.035f;
-            line.endWidth = 0.012f;
-            line.numCapVertices = 2;
-            Destroy(object3D, 0.09f);
+            tracerPool.Show(from, to, TracerMaterial(team));
         }
 
         private void OnGUI()
@@ -877,6 +1008,13 @@ namespace Ironfront.UnityPrototype
                     networkModeActive, MouseSensitivity);
                 if (action == PrototypePauseAction.Resume) SetPause(false);
                 else if (action == PrototypePauseAction.MainMenu) ReturnToLobby();
+                DrawBotDownFeed(7f, 1, false);
+                GUI.matrix = previousMatrix;
+                return;
+            }
+            if (ScoreboardOpen)
+            {
+                Scoreboard.Draw(canvasWidth, canvasHeight, lan?.LastRoom?.roster, lan?.LocalId ?? -1);
                 GUI.matrix = previousMatrix;
                 return;
             }
@@ -885,6 +1023,7 @@ namespace Ironfront.UnityPrototype
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 if (DrawSoloResult(canvasWidth, canvasHeight)) ReturnToLobby();
+                DrawBotDownFeed(7f, 1, false);
                 GUI.matrix = previousMatrix;
                 return;
             }
@@ -902,7 +1041,7 @@ namespace Ironfront.UnityPrototype
             {
                 PrototypeDownedAction action = Frontend.DrawDowned(canvasWidth,
                     canvasHeight, Player.DownedRemaining, Player.RescueCalled,
-                    Player.ReviveProgress);
+                    Player.ReviveProgress, Player.IsBeingRevived);
                 if (action == PrototypeDownedAction.Rescue)
                 {
                     if (IsNetworkReplica) lan?.SendDownedAction("rescue");
@@ -913,6 +1052,8 @@ namespace Ironfront.UnityPrototype
                     if (IsNetworkReplica) lan?.SendDownedAction("giveUp");
                     else Player.GiveUpImmediately();
                 }
+                DrawBotDownFeed(12f);
+                ScorePopup?.Draw(canvasWidth, canvasHeight);
                 GUI.matrix = previousMatrix;
                 return;
             }
@@ -928,14 +1069,27 @@ namespace Ironfront.UnityPrototype
                     else if (Player.TryDeploy(location, Frontend.SelectedLoadout))
                         Frontend.Close();
                 }
+                DrawBotDownFeed(7f, 1, false);
+                GUI.matrix = previousMatrix;
+                return;
+            }
+            if (SupportMenuOpen)
+            {
+                DrawSupportPanel(canvasWidth, canvasHeight);
                 GUI.matrix = previousMatrix;
                 return;
             }
             DrawTicketBanner(canvasWidth);
+            DrawBotDownFeed(networkModeActive ? 222f : 199f);
+            DrawBotNames(canvasWidth, canvasHeight);
             var title = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
             title.normal.textColor = Color.white;
             var body = new GUIStyle(GUI.skin.label) { fontSize = 12 };
             body.normal.textColor = Color.white;
+            bool tankSight = Player.IsFirstPerson && Player.CurrentVehicle is PrototypeTankVehicle opticTank &&
+                opticTank.PlayerSeat == 0;
+            if (!tankSight)
+            {
             DrawHudRect(new Rect(12, 12, 270, networkModeActive ? 202 : 179),
                 new Color(.012f, .045f, .060f, .82f));
             DrawHudRect(new Rect(12, 12, 270, 2), new Color(.46f, .76f, .82f));
@@ -948,10 +1102,11 @@ namespace Ironfront.UnityPrototype
                         lan.LastRoom != null && lan.LastRoom.paused ? "PAUSED" : "CONNECTED" :
                         lan != null && lan.ReconnectFailed ? "SESSION ENDED" : "RECONNECTING"), body);
             if (Player.CurrentVehicle != null)
-                GUI.Label(new Rect(25, 51, 244, 23),
-                    Player.CurrentVehicle.VehicleName + "  ARMOR " +
+                GUI.Label(new Rect(25, 51, 244, 31),
+                    Player.CurrentVehicle.VehicleName + "  HP " +
                     Mathf.CeilToInt(Player.CurrentVehicle.Health) +
-                    "  SPEED " + Mathf.RoundToInt(Mathf.Abs(Player.CurrentVehicle.Speed) * 3.6f) +
+                    "\nARMOR " + PrototypeVehicleArmor.Rating(Player.CurrentVehicle) +
+                    "  |  " + Mathf.RoundToInt(Mathf.Abs(Player.CurrentVehicle.Speed) * 3.6f) +
                     " km/h", body);
             else
                 GUI.Label(new Rect(25, 51, 244, 23),
@@ -999,15 +1154,21 @@ namespace Ironfront.UnityPrototype
                 "BLUE  COVER " + blueCover + "  SEARCH " + blueSearch, body);
             GUI.Label(new Rect(ordersX + 12, summaryY + 19f, 245, 20),
                 "RED   COVER " + redCover + "  SEARCH " + redSearch, body);
+            }
             string controls = Player.CurrentVehicle != null ?
                 VehicleControls(Player.CurrentVehicle) :
-                "WASD move  |  Shift sprint  |  C crouch / slide  |  Ctrl prone  |  RMB aim  |  LMB fire  |  R reload  |  Esc menu";
+                Player.Class == PrototypeInfantryClass.Engineer ?
+                "WASD | 1/2 gun | 3 grenade | 4 AT | 5 AA | P fire | E supply | B support" :
+                Player.Class == PrototypeInfantryClass.Assault ?
+                "WASD | 1/2 gun | 3 grenade | X ammo | 6 box | E supply | B support" :
+                "WASD | 1/2 gun | 3 grenade | X gadget | E supply | B support";
             controls = "V view " + (Player.IsFirstPerson ? "1P" : "3P") +
-                "  |  " + controls;
-            GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f, canvasWidth - 285f), 25), controls, body);
+                "  |  " + controls + " | Y scores";
+            GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f,
+                canvasWidth - (Player.Class == PrototypeInfantryClass.Engineer ? 395f : 285f)), 25), controls, body);
             if (Player.CurrentVehicle is IPrototypeSeatedVehicle currentSeats)
                 DrawVehicleSeats(currentSeats, canvasHeight, body);
-            if (Player.CurrentVehicle is PrototypeTankVehicle tank)
+            if (!tankSight && Player.CurrentVehicle is PrototypeTankVehicle tank)
                 GUI.Label(new Rect(canvasWidth / 2f - 76f, canvasHeight / 2f + 42f,
                     152f, 23f), tank.PlayerSeat >= 2 ? "PASSENGER" :
                     tank.PlayerSeat == 1 ? "CREW MG" : tank.CannonReadyIn > 0f ?
@@ -1015,9 +1176,11 @@ namespace Ironfront.UnityPrototype
                     "CANNON READY", body);
             if (Player.CurrentVehicle is PrototypeCombinedArmsVehicle activeVehicle)
             {
+                activeVehicle.ReconRadar?.DrawHud(Player.ViewCamera, canvasWidth, canvasHeight);
                 string countermeasure = activeVehicle.IsAircraft ? "FLARES" : "SMOKE";
                 string defenseStatus = activeVehicle.Kind == PrototypeVehicleKind.Motorcycle ? "" :
-                    "\n" + countermeasure + (activeVehicle.CountermeasureActive ? " ACTIVE" :
+                    "\n" + countermeasure + (activeVehicle.CountermeasureActive ?
+                    activeVehicle.IsAircraft ? " LOCK IMMUNE " + activeVehicle.LockImmunityRemaining.ToString("0.0") + " s" : " ACTIVE" :
                     activeVehicle.CountermeasureReadyIn > 0f ? " " +
                     activeVehicle.CountermeasureReadyIn.ToString("0") + " s" : " READY") +
                     (activeVehicle.PlayerSeat == 0 ? " · X" : " · F1 TO USE");
@@ -1030,12 +1193,28 @@ namespace Ironfront.UnityPrototype
             }
             if (Player.CurrentVehicle == null && Player.Alive)
                 DrawCombatHud(canvasWidth, canvasHeight);
+            PrototypePlayerHealthHud.Draw(Player, canvasWidth, canvasHeight);
+            PrototypeTankSightHud.Draw(this, canvasWidth, canvasHeight);
+            DrawScoreHud(canvasWidth, canvasHeight);
+            ScorePopup?.Draw(canvasWidth, canvasHeight);
+            DrawAmmoSupplyHud(canvasWidth, canvasHeight);
+            DrawSupportDeliveryMarker(canvasWidth, canvasHeight);
+            PrototypeAntiAirHud.Draw(Player, canvasWidth, canvasHeight);
+            DrawAircraftThreatHud(canvasWidth);
             if (!string.IsNullOrEmpty(Player.SupportStatus))
-                GUI.Label(new Rect(12, canvasHeight - 59, 370, 24), Player.SupportStatus, body);
+            {
+                float supportY = Player.CurrentVehicle is IPrototypeSeatedVehicle seats ?
+                    canvasHeight - 224f - seats.SeatCount * 19f : canvasHeight - 202f;
+                GUI.Label(new Rect(12, supportY, 370, 24), Player.SupportStatus, body);
+            }
             if (Cursor.lockState == CursorLockMode.Locked && Player.Alive && !Match.Winner.HasValue)
             {
-                DrawCrosshair(canvasWidth, canvasHeight);
-                DrawVehicleBoreReticle(canvasWidth, canvasHeight, scale);
+                if (!tankSight)
+                {
+                    DrawCrosshair(canvasWidth, canvasHeight);
+                    DrawVehicleBoreReticle(canvasWidth, canvasHeight, scale);
+                }
+                HitFeedback?.Draw(canvasWidth, canvasHeight);
             }
             if (!Player.Alive && !Match.Winner.HasValue)
                 GUI.Label(new Rect(canvasWidth / 2f - 120, canvasHeight / 2f - 65,
@@ -1045,22 +1224,88 @@ namespace Ironfront.UnityPrototype
             GUI.matrix = previousMatrix;
         }
 
+        public void NotifyBotDowned(PrototypeBot bot)
+        {
+            if (bot == null || bot.Alive || !MatchStarted) return;
+            BotDownFeed.Add(bot.DisplayName, bot.Team, Time.time);
+        }
+
+        private void DrawBotDownFeed(float y, int visibleCount = 4, bool showHeading = true)
+        {
+            IReadOnlyList<PrototypeBotDownNotice> notices = BotDownFeed.Entries;
+            if (notices.Count == 0) return;
+            int count = Mathf.Min(notices.Count, visibleCount);
+            float headingHeight = showHeading ? 24f : 0f;
+            DrawHudRect(new Rect(12f, y, 270f, headingHeight + count * 25f),
+                new Color(.012f, .045f, .060f, .86f));
+            if (showHeading)
+            {
+                var heading = new GUIStyle(GUI.skin.label) { fontSize = 11 };
+                heading.normal.textColor = new Color(.72f, .84f, .86f);
+                GUI.Label(new Rect(23f, y + 4f, 248f, 20f), "战场播报 / DOWNED", heading);
+            }
+            var row = new GUIStyle(GUI.skin.label) { fontSize = 12, fontStyle = FontStyle.Bold };
+            for (int i = 0; i < count; i++)
+            {
+                PrototypeBotDownNotice notice = notices[i];
+                float alpha = Mathf.Clamp01(notice.ExpiresAt - Time.time);
+                row.normal.textColor = notice.Team == Player.Team ?
+                    new Color(.60f, .85f, 1f, alpha) : new Color(1f, .62f, .51f, alpha);
+                GUI.Label(new Rect(23f, y + headingHeight + i * 25f, 248f, 23f),
+                    (notice.Team == PrototypeTeam.Blue ? "[BLUE] " : "[RED] ") +
+                    notice.Name + "  被击倒", row);
+            }
+        }
+
+        private void DrawBotNames(float width, float height)
+        {
+            if (!Player.Alive || Player.ViewCamera == null || Player.CurrentVehicle != null) return;
+            var label = new GUIStyle(GUI.skin.label) { fontSize = 11,
+                fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
+            foreach (PrototypeBot bot in Bots)
+            {
+                if (bot == null || !bot.Alive || bot.IsPassenger ||
+                    Vector2.Distance(Player.MapPosition, bot.MapPosition) > 65f ||
+                    PrototypeLayout.SightBlocked(Player.MapPosition, bot.MapPosition, .1f)) continue;
+                Vector3 projected = Player.ViewCamera.WorldToViewportPoint(
+                    bot.transform.position + Vector3.up * 1.05f);
+                if (projected.z <= 0f || projected.x < 0f || projected.x > 1f ||
+                    projected.y < 0f || projected.y > 1f) continue;
+                float x = projected.x * width, y = (1f - projected.y) * height;
+                bool friendly = bot.Team == Player.Team;
+                if (!friendly && (Mathf.Abs(x - width * .5f) > 35f ||
+                    Mathf.Abs(y - height * .5f) > 60f)) continue;
+                float left = Mathf.Clamp(x - 65f, 0f, width - 130f);
+                DrawHudRect(new Rect(left, y - 21f, 130f, 20f),
+                    new Color(.015f, .035f, .043f, .74f));
+                label.normal.textColor = friendly ? new Color(.65f, .89f, 1f) :
+                    new Color(1f, .67f, .53f);
+                GUI.Label(new Rect(left, y - 21f, 130f, 20f), bot.DisplayName, label);
+            }
+        }
+
         private static string VehicleControls(IPrototypeVehicle vehicle)
         {
             IPrototypeSeatedVehicle seats = vehicle as IPrototypeSeatedVehicle;
             string drive = seats == null || seats.SeatCanDrive ? "WASD drive  |  " : "";
             if (vehicle is PrototypeCombinedArmsVehicle combined &&
-                (combined.Kind == PrototypeVehicleKind.Helicopter ||
-                 combined.Kind == PrototypeVehicleKind.Jet) && seats.SeatCanDrive)
+                combined.IsAircraft && seats.SeatCanDrive)
                 drive = "WASD fly  |  Space climb  |  Ctrl descend  |  Shift boost  |  ";
             string weapon = seats != null && seats.SeatCanFire ?
                 "Mouse aim  |  LMB fire  |  " : "";
             if (vehicle is PrototypeCombinedArmsVehicle armed && seats.SeatCanFire &&
                 seats.PlayerSeat == 0 &&
                 (armed.Kind == PrototypeVehicleKind.AntiAir ||
-                 armed.Kind == PrototypeVehicleKind.Helicopter ||
                  armed.Kind == PrototypeVehicleKind.Jet))
                 weapon = "1/2 weapon  |  LMB fire  |  RMB missile  |  X countermeasure  |  ";
+            else if (vehicle is PrototypeCombinedArmsVehicle helicopter &&
+                helicopter.Kind == PrototypeVehicleKind.Helicopter && seats.SeatCanFire)
+                weapon = (seats.PlayerSeat == 0 ? "1 cannon / 2 belly MG  |  " : "BELLY MG  |  ") +
+                    "LMB fire  |  " + (seats.PlayerSeat == 0 ? "X flares  |  " : "");
+            else if (vehicle is PrototypeCombinedArmsVehicle recon &&
+                recon.Kind == PrototypeVehicleKind.ReconHelicopter)
+                weapon = (seats.SeatCanFire ? "MG  |  LMB fire  |  " : "") +
+                    (seats.PlayerSeat == 0 ? "Q radar  |  X flares  |  " : "");
             else if (vehicle is PrototypeCombinedArmsVehicle ifv &&
                 ifv.Kind == PrototypeVehicleKind.Ifv && seats.SeatCanFire && seats.PlayerSeat == 0)
                 weapon = "1/2 weapon  |  Mouse aim  |  LMB fire  |  X smoke  |  ";
@@ -1070,7 +1315,7 @@ namespace Ironfront.UnityPrototype
         private void DrawVehicleSeats(IPrototypeSeatedVehicle vehicle,
             float canvasHeight, GUIStyle style)
         {
-            float y = canvasHeight - 100f - vehicle.SeatCount * 19f;
+            float y = canvasHeight - 180f - vehicle.SeatCount * 19f;
             DrawHudRect(new Rect(12f, y, 270f, 60f + vehicle.SeatCount * 19f),
                 new Color(.012f, .045f, .060f, .82f));
             GUI.Label(new Rect(24f, y + 8f, 248f, 21f),
@@ -1079,12 +1324,12 @@ namespace Ironfront.UnityPrototype
             {
                 MonoBehaviour occupant = vehicle.GetSeatOccupant(seat);
                 string state = seat == vehicle.PlayerSeat ? "YOU" :
-                    occupant == null ? "FREE" : occupant is PrototypeBot ? "AI" : "OCCUPIED";
+                    occupant == null ? "FREE" : occupant is PrototypeBot bot ? bot.DisplayName : "OCCUPIED";
                 GUI.Label(new Rect(24f, y + 31f + seat * 19f, 248f, 20f),
                     "F" + (seat + 1) + "  " + vehicle.GetSeatName(seat) + "  ·  " + state, style);
             }
             if (!string.IsNullOrEmpty(Player.VehicleSeatStatus))
-                GUI.Label(new Rect(12f, canvasHeight - 65f, 520f, 24f),
+                GUI.Label(new Rect(12f, y - 26f, 520f, 24f),
                     Player.VehicleSeatStatus, style);
         }
 
@@ -1131,8 +1376,12 @@ namespace Ironfront.UnityPrototype
                     (point.Owner == PrototypeTeam.Blue ? "BLU" :
                         point.Owner == PrototypeTeam.Red ? "RED" : "---") + "    ";
             GUI.Label(new Rect(x + 30f, y + 186f, 540f, 30f), objectives, detail);
-            GUI.Label(new Rect(x + 30f, y + 240f, 540f, 30f),
-                "本局已结束，可返回大厅再次选择战局。", detail);
+            var personal = Scores.Get(Player);
+            GUI.Label(new Rect(x + 30f, y + 228f, 540f, 30f),
+                "本局战绩 " + personal.Total + "  ·  剩余支援积分 " + personal.Credits, detail);
+            GUI.Label(new Rect(x + 30f, y + 265f, 540f, 26f),
+                "击杀 " + personal.Kills + "  助攻 " + personal.Assists +
+                "  占领 " + personal.Captures + "  毁车 " + personal.VehiclesDestroyed, detail);
             return GUI.Button(new Rect(x + 70f, y + 317f, 460f, 56f),
                 "返回大厅 / MAIN MENU", button);
         }
@@ -1199,18 +1448,7 @@ namespace Ironfront.UnityPrototype
             float cy = height * .5f;
             float gap = Player.CurrentVehicle != null ? 5f : Player.CrosshairSpread;
             float arm = Player.IsAiming ? 4f : 7f;
-            Color edge = new Color(.005f, .035f, .04f, .85f);
-            Color mark = Player.IsAiming ? new Color(.60f, .95f, .95f, .96f) :
-                new Color(.96f, .98f, .95f, .92f);
-            DrawHudRect(new Rect(cx - gap - arm - 1f, cy - 2f, arm + 2f, 4f), edge);
-            DrawHudRect(new Rect(cx + gap - 1f, cy - 2f, arm + 2f, 4f), edge);
-            DrawHudRect(new Rect(cx - 2f, cy - gap - arm - 1f, 4f, arm + 2f), edge);
-            DrawHudRect(new Rect(cx - 2f, cy + gap - 1f, 4f, arm + 2f), edge);
-            DrawHudRect(new Rect(cx - gap - arm, cy - 1f, arm, 2f), mark);
-            DrawHudRect(new Rect(cx + gap, cy - 1f, arm, 2f), mark);
-            DrawHudRect(new Rect(cx - 1f, cy - gap - arm, 2f, arm), mark);
-            DrawHudRect(new Rect(cx - 1f, cy + gap, 2f, arm), mark);
-            DrawHudRect(new Rect(cx - 1f, cy - 1f, 2f, 2f), mark);
+            DrawCrosshairMark(new Vector2(cx, cy), gap, arm, Player.IsAiming, CrosshairSize);
             if (Player.CurrentVehicle is IPrototypeWeaponAim weapon &&
                 weapon.PlayerControlsWeapon)
             {
@@ -1219,6 +1457,25 @@ namespace Ironfront.UnityPrototype
                 label.normal.textColor = new Color(.63f, .94f, .96f);
                 GUI.Label(new Rect(cx + 13f, cy + 8f, 62f, 17f), "AIM", label);
             }
+        }
+
+        public static void DrawCrosshairMark(Vector2 center, float gap, float arm, bool aiming, float size)
+        {
+            size = ClampCrosshairSize(size);
+            gap *= size; arm *= size;
+            float cx = center.x, cy = center.y, thickness = 2f * size, half = size;
+            Color edge = new Color(.005f, .035f, .04f, .85f);
+            Color mark = aiming ? new Color(.60f, .95f, .95f, .96f) :
+                new Color(.96f, .98f, .95f, .92f);
+            DrawHudRect(new Rect(cx - gap - arm - size, cy - thickness, arm + thickness, thickness * 2f), edge);
+            DrawHudRect(new Rect(cx + gap - size, cy - thickness, arm + thickness, thickness * 2f), edge);
+            DrawHudRect(new Rect(cx - thickness, cy - gap - arm - size, thickness * 2f, arm + thickness), edge);
+            DrawHudRect(new Rect(cx - thickness, cy + gap - size, thickness * 2f, arm + thickness), edge);
+            DrawHudRect(new Rect(cx - gap - arm, cy - half, arm, thickness), mark);
+            DrawHudRect(new Rect(cx + gap, cy - half, arm, thickness), mark);
+            DrawHudRect(new Rect(cx - half, cy - gap - arm, thickness, arm), mark);
+            DrawHudRect(new Rect(cx - half, cy + gap, thickness, arm), mark);
+            DrawHudRect(new Rect(cx - half, cy - half, thickness, thickness), mark);
         }
 
         private void DrawVehicleBoreReticle(float width, float height, float scale)
@@ -1240,15 +1497,16 @@ namespace Ironfront.UnityPrototype
             float y = Mathf.Clamp((Screen.height - screen.y) / scale, 24f, height - 38f);
             Color outline = new Color(.025f, .035f, .035f, .9f);
             Color bore = new Color(1f, .72f, .30f, .97f);
-            DrawHudRect(new Rect(x - 10f, y - 10f, 7f, 2f), outline);
-            DrawHudRect(new Rect(x + 3f, y - 10f, 7f, 2f), outline);
-            DrawHudRect(new Rect(x - 10f, y + 8f, 7f, 2f), outline);
-            DrawHudRect(new Rect(x + 3f, y + 8f, 7f, 2f), outline);
-            DrawHudRect(new Rect(x - 10f, y - 10f, 2f, 7f), bore);
-            DrawHudRect(new Rect(x + 8f, y - 10f, 2f, 7f), bore);
-            DrawHudRect(new Rect(x - 10f, y + 3f, 2f, 7f), bore);
-            DrawHudRect(new Rect(x + 8f, y + 3f, 2f, 7f), bore);
-            DrawHudRect(new Rect(x - 1f, y - 1f, 2f, 2f), bore);
+            float size = CrosshairSize;
+            DrawHudRect(new Rect(x - 10f * size, y - 10f * size, 7f * size, 2f * size), outline);
+            DrawHudRect(new Rect(x + 3f * size, y - 10f * size, 7f * size, 2f * size), outline);
+            DrawHudRect(new Rect(x - 10f * size, y + 8f * size, 7f * size, 2f * size), outline);
+            DrawHudRect(new Rect(x + 3f * size, y + 8f * size, 7f * size, 2f * size), outline);
+            DrawHudRect(new Rect(x - 10f * size, y - 10f * size, 2f * size, 7f * size), bore);
+            DrawHudRect(new Rect(x + 8f * size, y - 10f * size, 2f * size, 7f * size), bore);
+            DrawHudRect(new Rect(x - 10f * size, y + 3f * size, 2f * size, 7f * size), bore);
+            DrawHudRect(new Rect(x + 8f * size, y + 3f * size, 2f * size, 7f * size), bore);
+            DrawHudRect(new Rect(x - size, y - size, 2f * size, 2f * size), bore);
             var label = new GUIStyle(GUI.skin.label) { fontSize = 10,
                 fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
             label.normal.textColor = bore;
@@ -1257,8 +1515,11 @@ namespace Ironfront.UnityPrototype
 
         private void DrawCombatHud(float width, float height)
         {
+            bool firearm = Player.HeldEquipment == PrototypeHeldEquipment.Firearm;
+            bool throwable = Player.HeldEquipment == PrototypeHeldEquipment.Throwable;
+            bool antiAir = Player.HeldEquipment == PrototypeHeldEquipment.AntiAirLauncher;
             float right = width - 14f;
-            float top = height - 157f;
+            float top = height - 229f;
             var small = new GUIStyle(GUI.skin.label) { fontSize = 10, alignment = TextAnchor.MiddleLeft };
             small.normal.textColor = new Color(.79f, .89f, .91f);
             var number = new GUIStyle(GUI.skin.label) { fontSize = 27,
@@ -1271,30 +1532,32 @@ namespace Ironfront.UnityPrototype
             var accent = new Color(.49f, .79f, .83f);
             Rect info = new Rect(right - 200f, top, 200f, 77f);
             DrawHudRect(info, panel);
-            GUI.Label(new Rect(info.x + 10f, info.y + 5f, 105f, 16f),
-                Mathf.CeilToInt(Player.Health) + " HP", small);
-            DrawHudRect(new Rect(info.x + 10f, info.y + 23f, 180f, 3f), new Color(.23f, .35f, .38f));
-            DrawHudRect(new Rect(info.x + 10f, info.y + 23f, 180f * Mathf.Clamp01(Player.Health / 100f), 3f), accent);
+            GUI.Label(new Rect(info.x + 10f, info.y + 5f, 180f, 16f), "弹药 / AMMUNITION", small);
             GUI.Label(new Rect(info.x + 9f, info.y + 28f, 105f, 18f),
-                Player.ActiveWeapon.Name, small);
+                firearm ? Player.ActiveWeapon.Name : throwable ?
+                    Player.Loadout.throwable == PrototypeThrowableId.Smoke ? "SMOKE GRENADE" : "FRAG GRENADE" :
+                    antiAir ? "ANTI-AIR LAUNCHER" : "ANTI-ARMOR LAUNCHER", small);
             GUI.Label(new Rect(info.x + 8f, info.y + 46f, 53f, 17f),
-                Player.ActiveWeapon.Automatic ? "AUTO" : "SEMI", small);
+                firearm ? Player.ActiveWeapon.Automatic ? "AUTO" : "SEMI" :
+                    throwable ? "THROW" : antiAir ? "SEEKER" : "ROCKET", small);
             GUI.Label(new Rect(info.x + 66f, info.y + 35f, 75f, 39f),
-                Player.Reloading ? "…" : Player.Ammo.ToString(), number);
+                firearm ? Player.Reloading ? "…" : Player.Ammo.ToString() :
+                    throwable ? Player.ThrowableCount.ToString() : antiAir ?
+                    Player.AntiAirMissileCount.ToString() : Player.RocketCount.ToString(), number);
             GUI.Label(new Rect(info.x + 145f, info.y + 52f, 49f, 18f),
-                "/ " + Player.Reserve, small);
+                firearm ? "/ " + Player.Reserve : "LEFT", small);
 
-            float cardTop = top + 84f;
             bool engineer = Player.Class == PrototypeInfantryClass.Engineer;
-            int cardCount = engineer ? 5 : 4;
-            float first = right - cardCount * 57f - (cardCount - 1) * 5f;
+            bool ammoSupport = Player.Class == PrototypeInfantryClass.Assault;
+            int cardCount = engineer ? 6 : ammoSupport ? 5 : 4;
             Texture2D[] icons =
             {
                 PrototypeEquipmentIcons.Weapon(Player.Loadout.primary),
                 PrototypeEquipmentIcons.Weapon(Player.Loadout.secondary),
                 PrototypeEquipmentIcons.Gadget(Player.Class),
                 PrototypeEquipmentIcons.Throwable(Player.Loadout.throwable),
-                PrototypeEquipmentIcons.Rocket()
+                ammoSupport ? PrototypeEquipmentIcons.AmmoCrate() : PrototypeEquipmentIcons.Rocket(),
+                PrototypeEquipmentIcons.AntiAir()
             };
             string[] names =
             {
@@ -1302,15 +1565,20 @@ namespace Ironfront.UnityPrototype
                 ShortWeaponName(Player.Loadout.secondary),
                 PrototypeStartMenuView.GadgetName(Player.Class),
                 Player.Loadout.throwable == PrototypeThrowableId.Frag ? "FRAG" : "SMOKE",
-                "ROCKET"
+                ammoSupport ? "AMMO BOX" : "ROCKET", "AA"
             };
-            string[] keys = { "1", "2", "X", "G", "Z" };
+            string[] keys = { "1", "2", "X", "3", ammoSupport ? "6" : "4", "5" };
             string[] counts = { "", "", Player.Kit.GadgetCharges.ToString(),
-                Player.ThrowableCount.ToString(), Player.RocketCount.ToString() };
+                Player.ThrowableCount.ToString(), ammoSupport ? (Supplies?.OwnedCount(Player) ?? 0) + "/2" :
+                Player.RocketCount.ToString(), Player.AntiAirMissileCount.ToString() };
             for (int i = 0; i < cardCount; i++)
             {
-                float x = first + i * 62f;
-                bool selected = i == 0 && !Player.SecondaryEquipped || i == 1 && Player.SecondaryEquipped;
+                Rect card = PrototypePlayerHealthHud.EquipmentCard(width, height, i);
+                float x = card.x, cardTop = card.y;
+                bool selected = firearm && (i == 0 && !Player.SecondaryEquipped ||
+                    i == 1 && Player.SecondaryEquipped) ||
+                    i == 3 && throwable || i == 4 && Player.HeldEquipment == PrototypeHeldEquipment.Launcher ||
+                    i == 5 && antiAir;
                 DrawHudRect(new Rect(x, cardTop, 57f, 59f), selected ?
                     new Color(.11f, .29f, .32f, .93f) : panel);
                 if (selected) DrawHudRect(new Rect(x, cardTop, 57f, 2f), accent);
@@ -1320,6 +1588,150 @@ namespace Ironfront.UnityPrototype
                 if (counts[i].Length > 0)
                     GUI.Label(new Rect(x + 39f, cardTop + 42f, 18f, 15f), counts[i], key);
             }
+        }
+
+        private void DrawScoreHud(float width, float height)
+        {
+            if (Scores == null) return;
+            var score = Scores.Get(Player);
+            float y = height - 109f;
+            DrawHudRect(new Rect(12f, y, 230f, 61f), new Color(.012f, .045f, .060f, .86f));
+            var main = new GUIStyle(GUI.skin.label) { fontSize = 14, fontStyle = FontStyle.Bold };
+            main.normal.textColor = new Color(.72f, .91f, .89f);
+            GUI.Label(new Rect(23f, y + 4f, 210f, 22f),
+                IsNetworkReplica ? "[ Y ] 双方积分榜 · 主机同步" :
+                "可用积分 " + score.Credits + "   [ B ]", main);
+            var small = new GUIStyle(GUI.skin.label) { fontSize = 11 };
+            small.normal.textColor = new Color(.79f, .87f, .90f);
+            GUI.Label(new Rect(23f, y + 26f, 210f, 18f),
+                IsNetworkReplica ? "本局成绩由房主记录" :
+                "累计总分 " + score.Total + "   [ Y ] 积分榜", small);
+            foreach (var notice in Scores.Notices)
+            {
+                if (!ReferenceEquals(notice.Actor, Player) || Time.time - notice.Time > 5f) continue;
+                GUI.Label(new Rect(23f, y + 43f, 210f, 16f),
+                    (notice.Points >= 0 ? "+" : "") + notice.Points + "  " + notice.Reason, small);
+                break;
+            }
+            if (Support != null && !string.IsNullOrEmpty(Support.Status) &&
+                (Player.CurrentVehicle == null || Support.Pending))
+            {
+                float supportY = Player.CurrentVehicle is IPrototypeSeatedVehicle seats ?
+                    height - 270f - seats.SeatCount * 19f : height - 184f;
+                GUI.Label(new Rect(12f, supportY, 400f, 42f),
+                    Support.Status + (Support.Pending ? " · " + Support.DeliveryRemaining.ToString("0.0") + " s" : ""), small);
+            }
+        }
+
+        private void DrawAmmoSupplyHud(float width, float height)
+        {
+            if (Supplies == null || !Player.Alive || Player.CurrentVehicle != null) return;
+            var text = new GUIStyle(GUI.skin.label) { fontSize = 12 };
+            text.normal.textColor = new Color(.83f, .94f, .90f);
+            PrototypeAmmoSupplyPoint point = Supplies.NearestInteraction(Player.transform.position);
+            if (point != null)
+            {
+                float y = height - 267f;
+                DrawHudRect(new Rect(12f, y, 365f, 52f), new Color(.012f, .045f, .060f, .86f));
+                float wait = Supplies.ResupplyReadyIn(Player);
+                GUI.Label(new Rect(23f, y + 4f, 343f, 22f), "[ E ] " + point.DisplayName +
+                    (point.IsDeployable ? " · " + Mathf.CeilToInt(point.Health) + " HP" : " · 中立物资"), text);
+                text.fontSize = 11;
+                GUI.Label(new Rect(23f, y + 28f, 343f, 20f), !string.IsNullOrEmpty(Supplies.Status) ? Supplies.Status : wait > 0f ?
+                    "个人补给冷却 " + wait.ToString("0.0") + " s" : "补满主副武器、手雷与导弹 · 领取冷却 30 秒", text);
+            }
+            if (Player.Class == PrototypeInfantryClass.Assault)
+            {
+                text.fontSize = 11;
+                float wait = Supplies.DeployReadyIn(Player);
+                GUI.Label(new Rect(12f, height - 213f, 365f, 22f), IsNetworkSession ?
+                    "X 弹药包 · 6 补给箱仅用于单人战局" :
+                    "X 弹药包 · 6 布置补给箱 " + Supplies.OwnedCount(Player) + "/2" +
+                    (wait > 0f ? " · " + wait.ToString("0") + " s" : " · 可部署"), text);
+            }
+            if (point == null && !string.IsNullOrEmpty(Supplies.Status))
+                GUI.Label(new Rect(12f, height - 239f, 365f, 24f), Supplies.Status, text);
+        }
+
+        private void DrawSupportPanel(float width, float height)
+        {
+            DrawHudRect(new Rect(0f, 0f, width, height), new Color(.005f, .015f, .025f, .76f));
+            float x = width * .5f - 350f, y = height * .5f - 241f;
+            DrawHudRect(new Rect(x, y, 700f, 482f), new Color(.025f, .065f, .080f, .97f));
+            DrawHudRect(new Rect(x, y, 700f, 3f), new Color(.48f, .79f, .83f));
+            var title = new GUIStyle(GUI.skin.label) { fontSize = 24, fontStyle = FontStyle.Bold };
+            title.normal.textColor = Color.white;
+            var text = new GUIStyle(GUI.skin.label) { fontSize = 13, wordWrap = true };
+            text.normal.textColor = new Color(.80f, .90f, .92f);
+            var entry = Scores.Get(Player);
+            GUI.Label(new Rect(x + 24f, y + 16f, 640f, 36f), "战场支援 / REQUISITION", title);
+            GUI.Label(new Rect(x + 24f, y + 55f, 640f, 26f),
+                "可用积分 " + entry.Credits + "   ·   本局累计 " + entry.Total +
+                "   ·   冷却 " + Support.CooldownReadyIn.ToString("0") + " s", text);
+            GUI.Label(new Rect(x + 24f, y + 83f, 650f, 30f),
+                IsNetworkSession ? "载具支援当前用于单人战局，LAN 新载具同步尚未接入。" :
+                "击杀 100 / 助攻 50 / 占领 150 · 6 秒交付至己方基地增援位 · 战局继续运行", text);
+            int i = 0;
+            foreach (PrototypeSupportOption option in Support.Catalog)
+            {
+                float row = y + 116f + i++ * 56f;
+                DrawHudRect(new Rect(x + 24f, row, 652f, 50f), new Color(.055f, .13f, .16f, .96f));
+                GUI.Label(new Rect(x + 36f, row + 3f, 450f, 23f), option.ChineseName + "  ·  " + option.Cost + " 积分", text);
+                var description = new GUIStyle(text) { fontSize = 11 };
+                GUI.Label(new Rect(x + 36f, row + 26f, 450f, 20f), option.Description, description);
+                bool previousEnabled = GUI.enabled;
+                GUI.enabled = previousEnabled && !IsNetworkSession && !IsNetworkReplica &&
+                    !Support.Pending && Support.CooldownReadyIn <= 0f && entry.Credits >= option.Cost;
+                if (GUI.Button(new Rect(x + 518f, row + 8f, 146f, 34f), "呼叫 / REQUEST"))
+                    Support.TryRequest(option.Kind, out _);
+                GUI.enabled = previousEnabled;
+            }
+            GUI.Label(new Rect(x + 24f, y + 404f, 650f, 36f),
+                Support.Pending ? Support.Status + "  ·  " + Support.DeliveryRemaining.ToString("0.0") + " 秒" :
+                string.IsNullOrEmpty(Support.Status) ? "每队最多两辆支援载具；失败交付返还积分。" : Support.Status, text);
+            if (GUI.Button(new Rect(x + 24f, y + 443f, 652f, 29f), "关闭 / B 或 Esc")) SetSupportMenu(false);
+        }
+
+        private void DrawSupportDeliveryMarker(float width, float height)
+        {
+            IPrototypeVehicle delivered = Support?.LastDelivered;
+            if (delivered == null || !delivered.Alive || Player.CurrentVehicle == delivered || Player.ViewCamera == null) return;
+            Vector3 position = delivered.VehicleTransform.position + Vector3.up * 3f;
+            Vector3 screen = Player.ViewCamera.WorldToScreenPoint(position);
+            float scale = Screen.width / width;
+            float x = screen.x / scale, y = (Screen.height - screen.y) / scale;
+            if (screen.z <= 0f)
+            {
+                Vector3 local = Player.ViewCamera.transform.InverseTransformDirection(position - Player.ViewCamera.transform.position);
+                x = local.x >= 0f ? width - 115f : 115f;
+                y = height * .5f;
+            }
+            x = Mathf.Clamp(x, 115f, width - 115f); y = Mathf.Clamp(y, 110f, height - 215f);
+            var label = new GUIStyle(GUI.skin.label) { fontSize = 12, fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleCenter };
+            label.normal.textColor = new Color(1f, .82f, .38f);
+            DrawHudRect(new Rect(x - 105f, y, 210f, 43f), new Color(.04f, .055f, .065f, .85f));
+            GUI.Label(new Rect(x - 102f, y + 2f, 204f, 38f),
+                "基地支援 · " + delivered.VehicleName + "\n" +
+                Mathf.RoundToInt(Vector2.Distance(Player.MapPosition, delivered.MapPosition)) + " m · E 上车", label);
+        }
+
+        private void DrawAircraftThreatHud(float width)
+        {
+            if (!(Player.CurrentVehicle is PrototypeCombinedArmsVehicle aircraft) || !aircraft.IsAircraft ||
+                (!aircraft.BeingLocked && !aircraft.IncomingMissile) || aircraft.CountermeasureActive) return;
+            float x = width * .5f - 190f;
+            Color warning = aircraft.IncomingMissile ? new Color(1f, .35f, .22f) : new Color(1f, .76f, .27f);
+            DrawHudRect(new Rect(x, 106f, 380f, 66f), new Color(.11f, .025f, .015f, .92f));
+            DrawHudRect(new Rect(x, 106f, 380f, 3f), warning);
+            var label = new GUIStyle(GUI.skin.label) { fontSize = 19, fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleCenter };
+            label.normal.textColor = warning;
+            GUI.Label(new Rect(x + 5f, 113f, 370f, 27f), aircraft.IncomingMissile ?
+                "导弹来袭 / MISSILE INCOMING" : "正在被锁定 / TARGET LOCK", label);
+            label.fontSize = 12;
+            GUI.Label(new Rect(x + 5f, 143f, 370f, 23f), aircraft.PlayerSeat == 0 ?
+                "X 热诱弹 · 打断追踪并免疫锁定 10 秒" : "通知驾驶员使用 X 热诱弹", label);
         }
 
         private static string ShortWeaponName(PrototypeWeaponId id)

@@ -13,9 +13,11 @@ namespace Ironfront.UnityPrototype
         private PrototypeRuntime runtime;
         private PrototypeTeam team;
         private Transform owner;
+        private object scoreActor;
         private PrototypeWeaponDefinition weapon;
         private LineRenderer line;
         private Vector3 velocity;
+        private Vector3 launchOrigin;
         private float maxRange;
         private float distanceTravelled;
         private float damageScale;
@@ -67,6 +69,8 @@ namespace Ironfront.UnityPrototype
             projectile.runtime = game;
             projectile.team = side;
             projectile.owner = shooter;
+            projectile.launchOrigin = origin;
+            projectile.scoreActor = PrototypeScoreSystem.ActorForShooter(shooter);
             projectile.weapon = gun;
             projectile.velocity = initialVelocity;
             projectile.maxRange = range;
@@ -110,8 +114,13 @@ namespace Ironfront.UnityPrototype
                 Destroy(gameObject);
                 return;
             }
+            Step(Time.deltaTime);
+        }
+
+        private void Step(float elapsed)
+        {
             Physics.SyncTransforms();
-            float remaining = Time.deltaTime;
+            float remaining = elapsed;
             while (remaining > 0f && distanceTravelled < maxRange)
             {
                 float dt = Mathf.Min(remaining, StepSeconds);
@@ -194,20 +203,32 @@ namespace Ironfront.UnityPrototype
             float damage = weapon == null ? mountedDamage :
                 weapon.DamageAtRange(distance) * damageScale;
             if (damage <= 0f) return;
+            PrototypeAmmoSupplyPoint supply = hit.GetComponentInParent<PrototypeAmmoSupplyPoint>();
+            if (supply != null) { supply.TakeDamage(damage); return; }
             PrototypePlayer player = hit.GetComponentInParent<PrototypePlayer>();
-            if (player != null && player.Team != team) { player.TakeDamage(damage); return; }
+            if (player != null && player.Team != team) { ScoreDamage(player, damage, () => player.TakeDamageFrom(damage, launchOrigin)); return; }
             PrototypeBot bot = hit.GetComponentInParent<PrototypeBot>();
             if (bot != null && bot.Team != team)
             {
                 Vector2? source = owner != null ?
                     new Vector2(owner.position.x, owner.position.z) : (Vector2?)null;
-                bot.TakeDamage(damage, source);
+                ScoreDamage(bot, damage, () => bot.TakeDamage(damage, source));
                 return;
             }
             PrototypeRemotePlayer remote = hit.GetComponentInParent<PrototypeRemotePlayer>();
-            if (remote != null && remote.Team != team) { remote.TakeDamage(damage); return; }
+            if (remote != null && remote.Team != team) { ScoreDamage(remote, damage, () => remote.TakeDamageFrom(damage, launchOrigin)); return; }
             IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(hit);
-            if (vehicle != null && vehicle.Team != team) vehicle.TakeDamage(damage * 0.55f);
+            if (vehicle != null)
+            {
+                PrototypeDamageClass kind = weapon != null ? PrototypeDamageClass.InfantryBullet :
+                    PrototypeDamageClass.MountedMachineGun;
+                PrototypeCombatFeedback.VehicleImpact(runtime, vehicle,
+                    hit.ClosestPoint(transform.position), kind);
+                if (vehicle.Team == team) return;
+                float hullDamage = PrototypeVehicleArmor.Resolve(vehicle, damage,
+                    kind);
+                if (hullDamage > 0f) ScoreDamage(vehicle, hullDamage, () => vehicle.TakeDamage(hullDamage));
+            }
         }
 
         private void Explode(Vector3 center)
@@ -215,6 +236,7 @@ namespace Ironfront.UnityPrototype
             float radius = ShellBlastRadius;
             float damage = rocket ? 90f : 145f;
             var damaged = new HashSet<Component>();
+            var impacted = new HashSet<IPrototypeVehicle>();
             foreach (Collider nearby in Physics.OverlapSphere(center, radius,
                 ~0, QueryTriggerInteraction.Ignore))
             {
@@ -227,19 +249,29 @@ namespace Ironfront.UnityPrototype
                     nearby.bounds.ClosestPoint(center);
                 float distance = Vector3.Distance(center, closest);
                 float amount = damage * Mathf.Clamp01(1f - distance / radius);
+                PrototypeAmmoSupplyPoint supply = nearby.GetComponentInParent<PrototypeAmmoSupplyPoint>();
+                if (supply != null && damaged.Add(supply)) supply.TakeDamage(amount);
                 PrototypePlayer player = nearby.GetComponentInParent<PrototypePlayer>();
                 if (player != null && player.Team != team && damaged.Add(player))
-                    player.TakeDamage(amount);
+                    ScoreDamage(player, amount, () => player.TakeDamageFrom(amount, center));
                 PrototypeBot bot = nearby.GetComponentInParent<PrototypeBot>();
                 if (bot != null && bot.Team != team && damaged.Add(bot))
-                    bot.TakeDamage(amount, new Vector2(center.x, center.z));
+                    ScoreDamage(bot, amount, () => bot.TakeDamage(amount, new Vector2(center.x, center.z)));
                 PrototypeRemotePlayer remote = nearby.GetComponentInParent<PrototypeRemotePlayer>();
                 if (remote != null && remote.Team != team && damaged.Add(remote))
-                    remote.TakeDamage(amount);
+                    ScoreDamage(remote, amount, () => remote.TakeDamageFrom(amount, center));
                 IPrototypeVehicle vehicle = PrototypeVehicleHit.Find(nearby);
+                if (vehicle != null && amount > 0f && impacted.Add(vehicle))
+                    PrototypeCombatFeedback.VehicleImpact(runtime, vehicle, closest,
+                        rocket ? PrototypeDamageClass.AntiArmorRocket : PrototypeDamageClass.Cannon);
                 if (vehicle is Component component && vehicle.Team != team &&
-                    damaged.Add(component)) vehicle.TakeDamage(rocket ?
-                        210f * Mathf.Clamp01(1f - distance / radius) : amount);
+                    damaged.Add(component))
+                {
+                    float rawDamage = rocket ? 210f * Mathf.Clamp01(1f - distance / radius) : amount;
+                    float vehicleDamage = PrototypeVehicleArmor.Resolve(vehicle, rawDamage,
+                        rocket ? PrototypeDamageClass.AntiArmorRocket : PrototypeDamageClass.Cannon);
+                    if (vehicleDamage > 0f) ScoreDamage(vehicle, vehicleDamage, () => vehicle.TakeDamage(vehicleDamage));
+                }
             }
             // Include the local player's body even though it is on Ignore Raycast.
             PrototypePlayer local = runtime.Player;
@@ -249,11 +281,18 @@ namespace Ironfront.UnityPrototype
                 float distance = Vector3.Distance(center,
                     local.transform.position + Vector3.up);
                 if (distance < radius)
-                    local.TakeDamage(damage * (1f - distance / radius));
+                    ScoreDamage(local, damage * (1f - distance / radius),
+                        () => local.TakeDamageFrom(damage * (1f - distance / radius), center));
             }
             PrototypeCombatFeedback.Explosion(runtime, center, radius,
                 rocket ? PrototypeCombatSound.RocketExplosion :
                     PrototypeCombatSound.TankExplosion);
+        }
+
+        private void ScoreDamage(object target, float amount, System.Action apply)
+        {
+            if (runtime.Scores != null) runtime.Scores.ApplyDamage(target, scoreActor, team, amount, apply);
+            else apply();
         }
 
         private void AddTrailPoint(Vector3 point)

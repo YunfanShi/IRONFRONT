@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25",
+  "sources": {
+    "SourceHanSansCN": "https://github.com/adobe-fonts/source-han-sans/tree/release/SubsetOTF/CN",
+    "BlackOpsOne": "https://github.com/google/fonts/tree/main/ofl/blackopsone"
+  },
+  "license": "SIL Open Font License 1.1",
+  "sha256": {
+    "SourceHanSansCN-Heavy.otf": "88c749b0a54a0800124ded6544e399302ed224aa49992ea364b88769f825c54c",
+    "SourceHanSansCN-Regular.otf": "e2bc8a2e7f37474b774fff8db758681ece40bb6947a90d571bce9dd60671a8e4",
+    "SourceHanSans-LICENSE.txt": "fcac737e761ec63dbfbdce11030a1780161920d80315edba9c8beff1c2bac5a2",
+    "BlackOpsOne-Regular.ttf": "282a825b5f294377387e3969f765408157dbea8da0f5d0aae68c6bc704b145b3",
+    "SourceHanSansCN-Medium.otf": "a94e558a2fe972bee4f46bce0843abff37063fd68c33f1e7d9058f6f09432b01",
+    "BlackOpsOne-OFL.txt": "f67ca4a200424868ee8fcd5464d7b35ac1cbf7723f6bfdbd19a8524689fab9a8"
+  }
+}

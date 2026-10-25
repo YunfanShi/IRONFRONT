@@ -1,0 +1,77 @@
+PASS
+Blue T90 BASTION authored spawn and three moving LODs
+Blue T90 BASTION complete LODGroup
+Blue T90 BASTION Blue atlas
+Blue T90 BASTION URP materials
+Red T90 BASTION authored spawn and three moving LODs
+Red T90 BASTION complete LODGroup
+Red T90 BASTION Red atlas
+Red T90 BASTION URP materials
+Blue Ifv authored spawn and three moving LODs
+Blue Ifv complete LODGroup
+Blue Ifv Blue atlas
+Blue Ifv URP materials
+V12 eight wheels with measured radii and four steerable wheels per LOD
+Red Ifv authored spawn and three moving LODs
+Red Ifv complete LODGroup
+Red Ifv Red atlas
+Red Ifv URP materials
+V12 eight wheels with measured radii and four steerable wheels per LOD
+T90 BASTION real seat entry
+T90 real driver movement and turning
+T90 calibrated hull collider
+Blue T90 BASTION turret pose and real pivot
+Blue T90 BASTION elevation pose and real pivot
+Blue T90 BASTION rendered barrel tip matches gameplay muzzle
+T90 calibrated hull collider
+Red T90 BASTION turret pose and real pivot
+Red T90 BASTION elevation pose and real pivot
+Red T90 BASTION rendered barrel tip matches gameplay muzzle
+V12 calibrated hull collider
+Blue Ifv turret pose and real pivot
+Blue Ifv elevation pose and real pivot
+Blue Ifv rendered barrel tip matches gameplay muzzle
+V12 calibrated hull collider
+Red Ifv turret pose and real pivot
+Red Ifv elevation pose and real pivot
+Red Ifv rendered barrel tip matches gameplay muzzle
+T90 fires from calibrated real bore
+T90 gameplay recoil moves the calibrated barrel
+T90 visible cannon follows recoil without pivot drift
+V12 LANCER real seat entry
+V12 real player-input driving
+V12 wheel travel and front-two-axle steering on all LODs
+V12 real driver weapon accepts fire
+V12 projectile uses calibrated bore
+V12 passenger seat transfer
+passenger cannot drive or fire main weapon
+Blue T90 BASTION art hides
+Blue T90 BASTION art restores
+Blue T90 BASTION keeps replaced primitives hidden
+T90 calibrated hull collider
+Blue T90 BASTION turret pose and real pivot
+Blue T90 BASTION elevation pose and real pivot
+Blue T90 BASTION rendered barrel tip matches gameplay muzzle
+Red T90 BASTION art hides
+Red T90 BASTION art restores
+Red T90 BASTION keeps replaced primitives hidden
+T90 calibrated hull collider
+Red T90 BASTION turret pose and real pivot
+Red T90 BASTION elevation pose and real pivot
+Red T90 BASTION rendered barrel tip matches gameplay muzzle
+Blue Ifv art hides
+Blue Ifv art restores
+Blue Ifv keeps replaced primitives hidden
+V12 calibrated hull collider
+Blue Ifv turret pose and real pivot
+Blue Ifv elevation pose and real pivot
+Blue Ifv rendered barrel tip matches gameplay muzzle
+Red Ifv art hides
+Red Ifv art restores
+Red Ifv keeps replaced primitives hidden
+V12 calibrated hull collider
+Red Ifv turret pose and real pivot
+Red Ifv elevation pose and real pivot
+Red Ifv rendered barrel tip matches gameplay muzzle
+T90 BASTION real seat entry
+V12 LANCER real seat entry

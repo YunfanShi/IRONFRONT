@@ -123,7 +123,7 @@ namespace Ironfront.UnityPrototype.Editor
                 VerifyGroundAircraftInteraction(game, player);
                 VerifyAircraftExit(game, player, enter);
                 VerifyAntiAirMouseLook(game, player, enter);
-                Check(kinds.Count == 8, "all eight main vehicle kinds are present");
+                Check(kinds.Count == 9, "all eight main vehicle kinds plus reconnaissance helicopter are present");
                 Debug.Log("IRONFRONT vehicle seats PASS: " + kinds.Count + " kinds, " +
                     seatsChecked + " seat transitions, exclusive occupancy, controls, cameras, " +
                     "AI reservation, exit and destruction release");
@@ -172,30 +172,51 @@ namespace Ironfront.UnityPrototype.Editor
         private static void VerifyAiPassengerReservation(PrototypeRuntime game,
             PrototypePlayer player, MethodInfo enter)
         {
-            foreach (IPrototypeVehicle candidate in game.Vehicles)
+            // A live battlefield can have every friendly bot dead, embarked,
+            // or a rover moving faster than the boarding limit. Use actual
+            // initialized actors in an isolated stationary fixture instead.
+            // Keep all real boarding/seat authority paths and guards intact.
+            var vehicleObject = new GameObject("AI reservation smoke transport");
+            GameObject botObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            botObject.name = "AI reservation smoke infantry";
+            PrototypeBot bot = null;
+            try
             {
-                if (!(candidate is PrototypeTransportVehicle transport) ||
-                    candidate.Team != player.Team || !candidate.Alive) continue;
-                foreach (PrototypeBot bot in game.Bots)
-                {
-                    if (bot.Team != player.Team || !bot.Alive || bot.IsPassenger) continue;
-                    Vector3 saved = bot.transform.position;
-                    bot.transform.position = transport.transform.position + transport.transform.right * 3f;
-                    if (!transport.TryBoardPassenger(bot)) { bot.transform.position = saved; continue; }
-                    int occupiedSeat = transport.GetSeatOccupant(2) == bot ? 2 : 3;
-                    Check((bool)enter.Invoke(player, new object[] { transport }), "driver enters AI transport");
-                    Check(!player.TrySwitchVehicleSeat(occupiedSeat) && transport.PlayerSeat == 0 &&
-                        transport.GetSeatOccupant(occupiedSeat) == bot,
-                        "AI-occupied transfer is refused atomically");
-                    player.ForceExitVehicle();
-                    bot.DisembarkTransport();
-                    Check(transport.GetSeatOccupant(occupiedSeat) == null,
-                        "AI disembark releases its real seat");
-                    bot.transform.position = saved;
-                    return;
-                }
+                Vector2 bay = new Vector2(-325f, -320f);
+                var transport = vehicleObject.AddComponent<PrototypeTransportVehicle>();
+                transport.Initialize(game, player.Team, bay, false);
+                bot = botObject.AddComponent<PrototypeBot>();
+                bot.Initialize(game, game.Navigation, player.Team,
+                    bay + Vector2.right * 3f, PrototypeInfantryClass.Assault);
+                bot.transform.position = transport.transform.position + transport.transform.right * 3f;
+                Check(transport.TryBoardPassenger(bot) && bot.IsPassenger &&
+                    transport.GetSeatOccupant(2) == bot,
+                    "actual AI boarding reserves the first rear seat");
+                Check(!transport.TryBoardPassenger(bot) && transport.GetSeatOccupant(3) == null,
+                    "already embarked AI cannot reserve a second seat");
+                Check((bool)enter.Invoke(player, new object[] { transport }),
+                    "driver enters the AI-occupied transport");
+                Check(!player.TrySwitchVehicleSeat(2) && transport.PlayerSeat == 0 &&
+                    transport.GetSeatOccupant(0) == player && transport.Driver == player &&
+                    transport.GetSeatOccupant(2) == bot,
+                    "AI-occupied transfer fails without releasing either occupant");
+                player.ForceExitVehicle();
+                Check(transport.GetSeatOccupant(0) == null && transport.GetSeatOccupant(2) == bot &&
+                    bot.IsPassenger, "human exit preserves the AI reservation");
+                bot.DisembarkTransport();
+                Check(!bot.IsPassenger && transport.GetSeatOccupant(2) == null,
+                    "actual AI disembark releases its real seat");
+                Check((bool)enter.Invoke(player, new object[] { transport }) &&
+                    player.TrySwitchVehicleSeat(2) && transport.GetSeatOccupant(2) == player,
+                    "released AI seat is immediately available to the human");
             }
-            throw new InvalidOperationException("No friendly AI passenger was available for reservation test.");
+            finally
+            {
+                player.ForceExitVehicle();
+                if (bot != null && bot.IsPassenger) bot.DisembarkTransport();
+                UnityEngine.Object.DestroyImmediate(botObject);
+                UnityEngine.Object.DestroyImmediate(vehicleObject);
+            }
         }
 
         private static void VerifyDestroyedPassengerRelease(PrototypeRuntime game,

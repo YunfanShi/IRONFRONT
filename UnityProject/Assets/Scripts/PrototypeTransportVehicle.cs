@@ -5,7 +5,7 @@ namespace Ironfront.UnityPrototype
 {
     // U8 ROVER: four shared seats, with AI infantry eligible for rear seats 2/3.
     public sealed class PrototypeTransportVehicle : MonoBehaviour, IPrototypeSeatedVehicle,
-        IPrototypeWeaponAim
+        IPrototypeWeaponAim, IPrototypeArmoredVehicle
     {
         private const float MaxHealth = 140f;
         private const float Clearance = 1.85f;
@@ -36,6 +36,9 @@ namespace Ironfront.UnityPrototype
         private Transform barrelPivot;
         private Transform gunMuzzle;
         private Renderer[] renderers;
+        private GameObject artRoot;
+        private float wheelSteering;
+        public bool HasAuthoredArt => artRoot != null;
 
         public string VehicleName => "U8 ROVER";
         public Transform VehicleTransform => transform;
@@ -44,7 +47,10 @@ namespace Ironfront.UnityPrototype
         public bool Alive => Health > 0f;
         public bool IsActiveThreat => aiControlled || occupant != null || PassengerCount > 0;
         public float Health { get; private set; }
+        public float MaximumHealth => MaxHealth;
+        public int ArmorRating => 2;
         public float Speed { get; private set; }
+        public bool EngineRunning => Alive && (Driver != null || aiControlled);
         public Vector2 MapPosition => new Vector2(transform.position.x, transform.position.z);
         public PrototypePlayer Occupant => occupant;
         public PrototypePlayer Driver => seats?.Driver;
@@ -67,9 +73,9 @@ namespace Ironfront.UnityPrototype
         public Vector3 SeatPosition => GetSeatPosition(playerSeat);
         public Vector3 CameraPosition => GetSeatCameraPosition(playerSeat);
         public Vector3 GetSeatCameraPosition(int seat) => seat == 1 ?
-            gunMount.TransformPoint(new Vector3(-.36f, .32f, .68f)) :
+            gunMount.TransformPoint(HasAuthoredArt ? new Vector3(-.36f, .65f, .68f) : new Vector3(-.36f, .32f, .68f)) :
             seat >= 2 ? transform.TransformPoint(new Vector3(seat == 2 ? -.9f : .9f,
-                1.92f, -1.35f)) : transform.TransformPoint(new Vector3(-.65f, 1.78f, 1.72f));
+                HasAuthoredArt ? 2.65f : 1.92f, HasAuthoredArt ? -2.4f : -1.35f)) : transform.TransformPoint(HasAuthoredArt ? new Vector3(-.65f, 2.85f, 1.7f) : new Vector3(-.65f, 1.78f, 1.72f));
 
         public Vector3 GetSeatPosition(int seat)
         {
@@ -77,6 +83,7 @@ namespace Ironfront.UnityPrototype
                 seat == 2 ? new Vector3(-0.65f, 0.3f, -1.35f) :
                 seat == 3 ? new Vector3(0.65f, 0.3f, -1.35f) :
                 new Vector3(-0.65f, 0.22f, 0.65f);
+            if (HasAuthoredArt) offset = seat == 1 ? new Vector3(0, 1.9f, .3f) : seat >= 2 ? new Vector3(seat == 2 ? -.8f : .8f, 1.6f, -2.45f) : new Vector3(-.65f, 1.4f, 1f);
             return transform.TransformPoint(offset);
         }
 
@@ -112,12 +119,14 @@ namespace Ironfront.UnityPrototype
             Team = team;
             aiControlled = controlledByAi;
             Health = MaxHealth;
+            runtime.Scores?.BeginLife(this);
             goal = spawn;
             transform.position = GroundPosition(spawn);
             transform.rotation = Quaternion.Euler(0f,
                 team == PrototypeTeam.Blue ? 0f : 180f, 0f);
             BuildModel();
             seats = new PrototypeVehicleSeats(this, game, 4, false);
+            PrototypeVehicleEngineAudio.Attach(gameObject, game, this, PrototypeEngineSound.LightDiesel, MaxForward);
         }
 
         public void ApplyNetworkState(Vector3 position, float yaw, float health, bool alive)
@@ -130,11 +139,14 @@ namespace Ironfront.UnityPrototype
                 float.IsInfinity(health)) return;
             transform.position = position;
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+            bool wasAlive = Alive;
             Health = alive ? Mathf.Clamp(health, 0.01f, MaxHealth) : 0f;
+            if (!wasAlive && Alive) runtime.Scores?.BeginLife(this);
             Speed = 0f;
             if (hullCollider != null) hullCollider.enabled = alive;
             if (renderers != null)
                 foreach (Renderer visual in renderers) visual.enabled = alive;
+            if (artRoot != null) artRoot.SetActive(alive);
         }
 
         public bool TrySetDriver(PrototypePlayer player) => TrySetPlayerSeat(player, 0);
@@ -226,6 +238,7 @@ namespace Ironfront.UnityPrototype
                 runtime.Match.Winner.HasValue || amount <= 0f) return;
             Health = Mathf.Max(0f, Health - amount);
             if (Alive) return;
+            runtime.Scores?.ResolveDefeat(this, Team);
             Speed = 0f;
             if (occupant != null) occupant.ForceExitVehicle();
             UnloadPassengers(true);
@@ -235,6 +248,7 @@ namespace Ironfront.UnityPrototype
                 PrototypeCombatSound.TankExplosion);
             if (hullCollider != null) hullCollider.enabled = false;
             foreach (Renderer visual in renderers) visual.enabled = false;
+            if (artRoot != null) artRoot.SetActive(false);
             runtime.Match.RecordVehicleLoss(Team);
         }
 
@@ -259,6 +273,11 @@ namespace Ironfront.UnityPrototype
                     occupant.ForceExitVehicle();
                     return;
                 }
+                if (runtime.ScoreboardOpen)
+                {
+                    if (SeatCanDrive) Drive(0f, 0f, dt);
+                    return;
+                }
                 if (Cursor.lockState != CursorLockMode.Locked) return;
                 ApplyPlayerInput(Input.GetAxisRaw("Vertical"),
                     Input.GetAxisRaw("Horizontal"), Input.GetMouseButton(0), dt);
@@ -269,6 +288,7 @@ namespace Ironfront.UnityPrototype
 
         private void ApplyPlayerInput(float throttle, float steering, bool fire, float dt)
         {
+            if (runtime.ScoreboardOpen) return;
             if (SeatCanDrive) Drive(throttle, steering, dt);
             else Speed = Mathf.MoveTowards(Speed, 0f, Acceleration * 1.5f * dt);
             if (!SeatCanFire) return;
@@ -280,6 +300,7 @@ namespace Ironfront.UnityPrototype
 
         private void Drive(float throttle, float steering, float dt)
         {
+            wheelSteering = Mathf.MoveTowards(wheelSteering, Mathf.Clamp(steering, -1f, 1f), dt * 4f);
             float desired = Mathf.Clamp(throttle, -1f, 1f) *
                 (throttle < 0f ? MaxReverse : MaxForward);
             float acceleration = Mathf.Abs(throttle) < 0.05f ?
@@ -417,7 +438,7 @@ namespace Ironfront.UnityPrototype
                 Vector2 point = playerVehicle != null && playerVehicle.Alive ?
                     playerVehicle.MapPosition : runtime.Player.MapPosition;
                 float distance = Vector2.Distance(MapPosition, point);
-                if (distance < nearest && !PrototypeLayout.LineBlocked(MapPosition, point, 0.1f))
+                if (distance < nearest && !PrototypeLayout.SightBlocked(MapPosition, point, 0.1f))
                 {
                     nearest = distance;
                     selected = point;
@@ -431,7 +452,7 @@ namespace Ironfront.UnityPrototype
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(MapPosition, point);
                 if (distance >= nearest ||
-                    PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
+                    PrototypeLayout.SightBlocked(MapPosition, point, 0.1f)) continue;
                 nearest = distance;
                 selected = point;
                 selectedBot = null;
@@ -445,7 +466,7 @@ namespace Ironfront.UnityPrototype
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(MapPosition, point);
                 if (distance >= nearest ||
-                    PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
+                    PrototypeLayout.SightBlocked(MapPosition, point, 0.1f)) continue;
                 nearest = distance;
                 selected = point;
                 selectedBot = candidate;
@@ -460,7 +481,7 @@ namespace Ironfront.UnityPrototype
                 Vector2 point = candidate.MapPosition;
                 float distance = Vector2.Distance(MapPosition, point);
                 if (distance >= nearest ||
-                    PrototypeLayout.LineBlocked(MapPosition, point, 0.1f)) continue;
+                    PrototypeLayout.SightBlocked(MapPosition, point, 0.1f)) continue;
                 nearest = distance;
                 selected = point;
                 selectedBot = null;
@@ -672,6 +693,20 @@ namespace Ironfront.UnityPrototype
             gunMuzzle.SetParent(barrelPivot, false);
             gunMuzzle.localPosition = new Vector3(0f, -.09f, 1.14f);
             renderers = GetComponentsInChildren<Renderer>();
+            TryAttachAuthoredArt();
+        }
+
+        private void TryAttachAuthoredArt()
+        {
+            var prefab = Resources.Load<GameObject>("Vehicles/U8_" + (Team == PrototypeTeam.Blue ? "Blue" : "Red"));
+            if (prefab == null) return;
+            var instance = Instantiate(prefab, transform, false); instance.name = "U8 authored art";
+            var rig = instance.GetComponent<PrototypeVehicleArtRig>();
+            if (rig == null || !rig.BindLight(gunMount, barrelPivot, () => wheelSteering)) { Destroy(instance); return; }
+            rig.CalibrateWeapon(gunMount, barrelPivot, gunMuzzle);
+            hullCollider.center = rig.HullCenter; hullCollider.size = rig.HullSize;
+            foreach (var renderer in renderers) renderer.enabled = false;
+            artRoot = instance; renderers = instance.GetComponentsInChildren<Renderer>(true);
         }
 
         private static GameObject AddVisual(string label, PrimitiveType shape,
@@ -683,7 +718,7 @@ namespace Ironfront.UnityPrototype
             part.transform.localPosition = position;
             part.transform.localScale = scale;
             Collider collider = part.GetComponent<Collider>();
-            if (collider != null) Destroy(collider);
+            if (collider != null) { collider.enabled = false; Destroy(collider); }
             part.GetComponent<Renderer>().sharedMaterial = material;
             return part;
         }

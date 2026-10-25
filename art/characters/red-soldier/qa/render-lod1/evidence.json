@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      1294.0663727197034,
+      517.6265490878814,
+      1941.099559079555
+    ],
+    "camera_distance": 4.136910414695739,
+    "ortho_scale": 2.6080522179603576,
+    "floor_size": 359.7313404083252,
+    "floor_offset": 0.010791940212249756,
+    "clip_start": 0.001798656702041626,
+    "clip_end": 1798.656702041626
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": null,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/exports/red-soldier-lod1.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 768,
+  "requested_views": [
+    "perspective",
+    "front",
+    "back"
+  ],
+  "evidence_scope": "partial_preview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.486778,
+      -0.223739,
+      0.000376
+    ],
+    "max": [
+      0.486197,
+      0.267383,
+      1.799033
+    ],
+    "dimensions": [
+      0.972975,
+      0.491122,
+      1.798657
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod1/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod1/front.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod1/back.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/qa/render-lod1/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

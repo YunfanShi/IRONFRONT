@@ -1,0 +1,20 @@
+IRONFRONT actual Unity Play verification
+IRONFRONT/Verify Immediate Hit Feedback
+IRONFRONT immediate hit feedback PASS: real sub-point health loss, white marker, actual Hit/Kill audio, armor/friend/self/air/crate exclusion, foreign recipient, launch operator retention, red vehicle kill, multi-target blast dedup/one stronger sound, short expiry, pause queue cancellation, reset and unsubscribe
+
+IRONFRONT/Verify Center Health and Scoreboard Controls
+IRONFRONT center health and scoreboard controls PASS: actual open/close and cursor/input lifecycle, unchanged world clock/score, quarter-width centered injury bar, four display aspects and six equipment slots without overlaps
+
+IRONFRONT/Verify Vehicle Armor and Damage Scoring
+IRONFRONT armor and damage scoring PASS: all nine hull ratings, all seven ordinary guns blocked with physical impact, mounted penetration gate, real AT/cannon damage, fractional immediate damage credits, 100/200 recent-window kill top-ups, extra 50/100 assists, shared life healing budget, typed notices/sequence/event and budget deltas
+
+IRONFRONT/Verify Combat Score Attribution
+IRONFRONT combat score attribution PASS: actual infantry rifle, bot assist, remote-player damage, mounted round, T90 shell, anti-armor rocket, combined-arms round, guided engineer SAM and frag receivers; real health/death credit, launch-time operator retention across seat transfer/exit, vehicle destruction, friendly exclusion and multi-collider duplicate prevention
+
+IRONFRONT/Verify Player and Vehicle Cameras
+IRONFRONT perspective PASS: V toggles infantry and T90/R4/U8 cameras both ways, weapons and seat/exit state restore
+
+IRONFRONT/Verify Held Equipment
+IRONFRONT held equipment PASS: persistent launcher/frag models, exclusive two-view holding, standing/crouch/prone terrain clearance, launcher aiming, single-use ammo and cooldown, rocket/frag damage, thin-wall safe rocket release, wall-triggered short smoke fuse and continued falling physics, fixed-step collision-cut dotted trajectory, throw/switch/pause/menu/downed/vehicle cleanup and engineer restriction
+
+FINAL PASS: All configured checks passed.

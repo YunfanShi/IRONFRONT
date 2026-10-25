@@ -1,0 +1,31 @@
+IRONFRONT actual Unity Play verification
+IRONFRONT/Verify Player and Vehicle Cameras
+IRONFRONT perspective PASS: V toggles infantry and T90/R4/U8 cameras both ways, weapons and seat/exit state restore
+
+IRONFRONT/Verify Held Equipment
+IRONFRONT held equipment PASS: persistent launcher/frag models, exclusive two-view holding, standing/crouch/prone terrain clearance, launcher aiming, single-use ammo and cooldown, rocket/frag damage, thin-wall safe rocket release, wall-triggered short smoke fuse and continued falling physics, fixed-step collision-cut dotted trajectory, throw/switch/pause/menu/downed/vehicle cleanup and engineer restriction
+
+IRONFRONT/Verify All Vehicle Seats
+IRONFRONT vehicle seats PASS: 9 kinds, 28 seat transitions, exclusive occupancy, controls, cameras, AI reservation, exit and destruction release
+
+IRONFRONT/Verify Lobby Loadout
+IRONFRONT lobby/loadout PASS: actual UI callbacks, class weapon choices, primary/pistol previews, original three-dimensional geometry/transparent layers, live percentage preferences, resolved class/weapon/settings/operation cards and unobstructed deployment; preferences restored
+
+IRONFRONT/Verify Infantry Locomotion
+IRONFRONT infantry locomotion FAIL: System.InvalidOperationException: Teleport resets gait
+  at Ironfront.UnityPrototype.Editor.PrototypeInfantryLocomotionSmoke.Verify () [0x004cf] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Editor/PrototypeInfantryLocomotionSmoke.cs:60 
+UnityEngine.Debug:LogError (object)
+Ironfront.UnityPrototype.Editor.PrototypeInfantryLocomotionSmoke:Verify () (at Assets/Editor/PrototypeInfantryLocomotionSmoke.cs:67)
+UnityEditor.EditorApplication:ExecuteMenuItem (string)
+Ironfront.UnityPrototype.Editor.PrototypeBatchVerification:Update () (at Assets/Editor/PrototypeBatchVerification.cs:96)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:403)
+
+
+FINAL FAIL: IRONFRONT infantry locomotion FAIL: System.InvalidOperationException: Teleport resets gait
+  at Ironfront.UnityPrototype.Editor.PrototypeInfantryLocomotionSmoke.Verify () [0x004cf] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Editor/PrototypeInfantryLocomotionSmoke.cs:60 
+UnityEngine.Debug:LogError (object)
+Ironfront.UnityPrototype.Editor.PrototypeInfantryLocomotionSmoke:Verify () (at Assets/Editor/PrototypeInfantryLocomotionSmoke.cs:67)
+UnityEditor.EditorApplication:ExecuteMenuItem (string)
+Ironfront.UnityPrototype.Editor.PrototypeBatchVerification:Update () (at Assets/Editor/PrototypeBatchVerification.cs:96)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:403)
+

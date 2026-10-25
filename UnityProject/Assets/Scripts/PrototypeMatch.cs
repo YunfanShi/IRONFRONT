@@ -22,6 +22,9 @@ namespace Ironfront.UnityPrototype
     public sealed class PrototypeMatch
     {
         public readonly List<PrototypeCapturePoint> Points = new List<PrototypeCapturePoint>();
+        private readonly List<object> blueContributors = new List<object>();
+        private readonly List<object> redContributors = new List<object>();
+        public PrototypeScoreSystem ScoreSystem { get; set; }
         public float BlueTickets { get; private set; } = 100f;
         public float RedTickets { get; private set; } = 100f;
         public PrototypeTeam? Winner { get; private set; }
@@ -41,6 +44,7 @@ namespace Ironfront.UnityPrototype
 
         public void ConfigureSolo(PrototypeGameMode mode, int tickets = 100)
         {
+            ScoreSystem?.ResetCaptureProgress();
             Mode = mode;
             TicketLimit = Mathf.Clamp(tickets, 100, 800);
             BlueTickets = TicketLimit;
@@ -87,44 +91,62 @@ namespace Ironfront.UnityPrototype
             Elapsed += dt;
             foreach (PrototypeCapturePoint point in Points)
             {
-                if (!IsPointActive(point)) continue;
+                if (!IsPointActive(point))
+                { ScoreSystem?.ClearCaptureProgress(point); continue; }
                 int blue = 0;
                 int red = 0;
+                blueContributors.Clear();
+                redContributors.Clear();
                 Vector2 position = point.Definition.Position;
                 if (player != null && player.Alive &&
                     Vector2.Distance(player.MapPosition, position) < 25f)
                 {
-                    if (player.Team == PrototypeTeam.Blue) blue++;
-                    else red++;
+                    if (player.Team == PrototypeTeam.Blue)
+                    { blue++; blueContributors.Add(player); }
+                    else { red++; redContributors.Add(player); }
                 }
                 if (remotePlayers != null)
                     foreach (PrototypeRemotePlayer remote in remotePlayers)
                     {
                         if (remote == null || !remote.Alive ||
                             Vector2.Distance(remote.MapPosition, position) >= 25f) continue;
-                        if (remote.Team == PrototypeTeam.Blue) blue++;
-                        else red++;
+                        if (remote.Team == PrototypeTeam.Blue)
+                        { blue++; blueContributors.Add(remote); }
+                        else { red++; redContributors.Add(remote); }
                     }
                 foreach (PrototypeBot bot in bots)
                 {
                     if (!bot.Alive || bot.IsPassenger ||
                         Vector2.Distance(bot.MapPosition, position) >= 25f) continue;
-                    if (bot.Team == PrototypeTeam.Blue) blue++;
-                    else red++;
+                    if (bot.Team == PrototypeTeam.Blue)
+                    { blue++; blueContributors.Add(bot); }
+                    else { red++; redContributors.Add(bot); }
                 }
 
                 point.BlueCount = blue;
                 point.RedCount = red;
                 point.Contested = blue > 0 && red > 0;
-                if (point.Contested || blue + red == 0) continue;
+                if (point.Contested || blue + red == 0)
+                { ScoreSystem?.ClearCaptureProgress(point); continue; }
 
                 int units = blue + red;
                 float speed = 13f * (1f + Mathf.Min(1.3f, (units - 1) * 0.22f));
+                float previousControl = point.Control;
+                PrototypeTeam? previousOwner = point.Owner;
                 point.Control = Mathf.Clamp(point.Control + dt * speed * (blue > 0 ? 1f : -1f), -100f, 100f);
                 if (point.Owner == PrototypeTeam.Red && point.Control >= 0f) point.Owner = null;
                 if (point.Owner == PrototypeTeam.Blue && point.Control <= 0f) point.Owner = null;
                 if (point.Control >= 99.999f) point.Owner = PrototypeTeam.Blue;
                 if (point.Control <= -99.999f) point.Owner = PrototypeTeam.Red;
+                float effectiveSeconds = Mathf.Abs(point.Control - previousControl) / speed;
+                if (effectiveSeconds > 0f)
+                {
+                    PrototypeTeam capturingTeam = blue > 0 ? PrototypeTeam.Blue : PrototypeTeam.Red;
+                    bool captured = point.Owner == capturingTeam && previousOwner != capturingTeam;
+                    ScoreSystem?.RecordCaptureProgress(point, capturingTeam,
+                        blue > 0 ? blueContributors : redContributors, effectiveSeconds, captured);
+                }
+                else ScoreSystem?.ClearCaptureProgress(point);
             }
 
             if (Mode == PrototypeGameMode.Breakthrough)

@@ -1,0 +1,52 @@
+{
+  "source_file": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/red-soldier/source/hunyuan-red-original.glb",
+  "source_triangles": 1499976,
+  "source_height_m": 1.1297582521365257,
+  "uniform_scale": 1.5932612101712527,
+  "height_m": 1.7999999523162842,
+  "bounds_m": {
+    "min": [
+      -0.4872863292694092,
+      -0.22372619807720184,
+      0.0
+    ],
+    "max": [
+      0.48693811893463135,
+      0.2699410915374756,
+      1.7999999523162842
+    ]
+  },
+  "blender_up": "+Z",
+  "blender_front": "-Y",
+  "fbx_up": "+Y",
+  "fbx_front_target": "+Z",
+  "lods": {
+    "RedSoldier_LOD0": {
+      "edit_vertices": 9992,
+      "triangles": 19984,
+      "uv_layers": 1,
+      "material_slots": 1
+    },
+    "RedSoldier_LOD1": {
+      "edit_vertices": 3000,
+      "triangles": 6000,
+      "uv_layers": 1,
+      "material_slots": 1
+    },
+    "RedSoldier_LOD2": {
+      "edit_vertices": 1000,
+      "triangles": 2000,
+      "uv_layers": 1,
+      "material_slots": 1
+    }
+  },
+  "texture_files": [
+    "red-soldier-basecolor-2k.png",
+    "red-soldier-normal-2k.png",
+    "red-soldier-roughness-2k.png",
+    "red-soldier-metallic-2k.png"
+  ],
+  "bones": 0,
+  "animations": 0,
+  "elapsed_seconds": 0.7615091250045225
+}

@@ -1,0 +1,152 @@
+{
+  "assets": [
+    {
+      "file": "/Users/liuwenjun/Downloads/33717aab9aa8b9b3fb2bb108d94498cb.glb",
+      "sha256": "0ac02a1dcacf2350766a8359d1e78f6f8f58514502801af29226b93b40bf563e",
+      "bytes": 84363208,
+      "glb_version": 2,
+      "generator": "Khronos glTF Blender I/O v4.0.43",
+      "node_rotation_xyzw": [
+        0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ],
+      "mesh_primitives": 1,
+      "primitive_mode": 4,
+      "vertex_count": 937148,
+      "triangle_count": 1499888,
+      "connected_component_count": 10615,
+      "component_triangle_histogram_leq": {
+        "1": {
+          "components": 1763,
+          "triangles": 1763
+        },
+        "10": {
+          "components": 7281,
+          "triangles": 20728
+        },
+        "100": {
+          "components": 8476,
+          "triangles": 69830
+        },
+        "1000": {
+          "components": 10284,
+          "triangles": 713859
+        },
+        "10000": {
+          "components": 10614,
+          "triangles": 1489188
+        }
+      },
+      "largest_component_triangles": 10700,
+      "images": [
+        {
+          "name": "texture_pbr_20250901_normal",
+          "mime": "image/png",
+          "bytes": 8886557,
+          "width": 4096,
+          "height": 4096,
+          "png_bit_depth": 8,
+          "png_color_type": 2
+        },
+        {
+          "name": "texture_pbr_20250901",
+          "mime": "image/png",
+          "bytes": 17868245,
+          "width": 4096,
+          "height": 4096,
+          "png_bit_depth": 8,
+          "png_color_type": 2
+        },
+        {
+          "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+          "mime": "image/png",
+          "bytes": 9619021,
+          "width": 4096,
+          "height": 4096,
+          "png_bit_depth": 8,
+          "png_color_type": 2
+        }
+      ],
+      "material_double_sided": true,
+      "extensions_used": [
+        "KHR_materials_specular"
+      ]
+    },
+    {
+      "file": "/Users/liuwenjun/Downloads/d722c1edebb754a5735858477acc4459.glb",
+      "sha256": "64d06bc172968f3bf72eb0f92355bd54ceed5ca91443f78e31b8636368f0ffbf",
+      "bytes": 82809992,
+      "glb_version": 2,
+      "generator": "Khronos glTF Blender I/O v4.0.43",
+      "node_rotation_xyzw": [
+        0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ],
+      "mesh_primitives": 1,
+      "primitive_mode": 4,
+      "vertex_count": 957236,
+      "triangle_count": 1498458,
+      "connected_component_count": 12060,
+      "component_triangle_histogram_leq": {
+        "1": {
+          "components": 2084,
+          "triangles": 2084
+        },
+        "10": {
+          "components": 6908,
+          "triangles": 19044
+        },
+        "100": {
+          "components": 9040,
+          "triangles": 123089
+        },
+        "1000": {
+          "components": 11791,
+          "triangles": 930644
+        },
+        "10000": {
+          "components": 12059,
+          "triangles": 1486486
+        }
+      },
+      "largest_component_triangles": 11972,
+      "images": [
+        {
+          "name": "texture_pbr_20250901_normal",
+          "mime": "image/png",
+          "bytes": 7042993,
+          "width": 4096,
+          "height": 4096,
+          "png_bit_depth": 8,
+          "png_color_type": 2
+        },
+        {
+          "name": "texture_pbr_20250901",
+          "mime": "image/png",
+          "bytes": 17370471,
+          "width": 4096,
+          "height": 4096,
+          "png_bit_depth": 8,
+          "png_color_type": 2
+        },
+        {
+          "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+          "mime": "image/png",
+          "bytes": 9781491,
+          "width": 4096,
+          "height": 4096,
+          "png_bit_depth": 8,
+          "png_color_type": 2
+        }
+      ],
+      "material_double_sided": true,
+      "extensions_used": [
+        "KHR_materials_specular"
+      ]
+    }
+  ]
+}

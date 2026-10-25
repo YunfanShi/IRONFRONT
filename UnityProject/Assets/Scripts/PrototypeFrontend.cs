@@ -23,20 +23,20 @@ namespace Ironfront.UnityPrototype
 
         private static readonly string[] ClassDescriptions =
         {
-            "Lead the push  /  supply ammunition",
+            "Ammo packs  /  deploy neutral supply crates",
             "Hold the line  /  heal friendly soldiers",
             "Secure a return  /  place a respawn beacon",
-            "Maintain vehicles  /  fire anti-armor rockets"
+            "Repair vehicles  /  anti-armor and anti-air missiles"
         };
 
         private static readonly string[] ClassNamesChinese =
             { "突击兵", "医疗兵", "侦察兵", "工程兵" };
         private static readonly string[] ClassAbilities =
         {
-            "弹药补给  /  持续推进前线",
+            "弹药包与中立补给箱  /  支援前线",
             "治疗友军  /  优先救援队友",
             "部署复活信标  /  阵亡后再次部署",
-            "修理己方载具  /  使用反装甲火箭"
+            "修理载具  /  反装甲与防空导弹"
         };
 
         private enum MenuTab { Lobby, Operations, Loadout, Settings }
@@ -83,6 +83,7 @@ namespace Ironfront.UnityPrototype
         private Texture2D menuVeil;
         private Texture2D tacticalMapTexture;
         private MenuTab menuTab;
+        private int menuSlot;
         private float volume;
         private readonly PrototypeLoadout selectedLoadout;
 
@@ -116,6 +117,8 @@ namespace Ironfront.UnityPrototype
             AudioListener.volume = volume;
             selectedLoadout = PrototypeLoadout.Load();
             SelectedClass = selectedLoadout.role;
+            SelectedMode = PlayerPrefs.GetInt("ironfront.unity.soloMode", 0) == 1 ?
+                PrototypeGameMode.Breakthrough : PrototypeGameMode.Conquest;
         }
 
         public void Open(bool isRespawn = false)
@@ -185,7 +188,7 @@ namespace Ironfront.UnityPrototype
         }
 
         public PrototypeDownedAction DrawDowned(float canvasWidth, float canvasHeight,
-            float seconds, bool rescueCalled, float reviveProgress)
+            float seconds, bool rescueCalled, float reviveProgress, bool revivePaused = false)
         {
             if (!IsOpen || !IsDownedScreen) return PrototypeDownedAction.None;
             EnsureStyles();
@@ -198,9 +201,10 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(x + 22f, y + 10f, 455f, 38f),
                 "濒死 / DOWNED", logoStyle);
             GUI.Label(new Rect(x + 22f, y + 50f, 455f, 27f),
-                "等待救援  " + Mathf.Max(0f, seconds).ToString("0.0") + " s", headingStyle);
+                (revivePaused ? "救治中 · 倒计时暂停  " : "等待救援  ") +
+                Mathf.Max(0f, seconds).ToString("0.0") + " s", headingStyle);
             GUI.Label(new Rect(x + 22f, y + 78f, 465f, 28f),
-                reviveProgress > 0f ?
+                revivePaused || reviveProgress > 0f ?
                 "医疗兵正在扶起你  " + (reviveProgress * 4f).ToString("0.0") + " / 4.0 s" :
                 "按住右键观察周围（约 170°）；按住空格可放弃。", labelStyle);
             Rect rescue = new Rect(x + 22f, y + 113f, 220f, 42f);
@@ -219,12 +223,13 @@ namespace Ironfront.UnityPrototype
         public PrototypePauseAction DrawPause(float canvasWidth, float canvasHeight,
             bool isLan, float sensitivity)
         {
+            volume = AudioListener.volume;
             EnsureStyles();
             DrawRect(new Rect(0f, 0f, canvasWidth, canvasHeight),
                 new Color(.006f, .018f, .023f, .70f));
             float x = (canvasWidth - 520f) * .5f;
-            float y = Mathf.Max(12f, (canvasHeight - 530f) * .5f);
-            DrawRect(new Rect(x, y, 520f, 530f), new Color(.008f, .027f, .034f, .98f));
+            float y = Mathf.Max(12f, (canvasHeight - 570f) * .5f);
+            DrawRect(new Rect(x, y, 520f, 570f), new Color(.008f, .027f, .034f, .98f));
             DrawRect(new Rect(x, y, 520f, 2f), MenuAccent);
             DrawRect(new Rect(x + 28f, y + 115f, 464f, 1f), MenuDivider);
             GUI.Label(new Rect(x + 30f, y + 21f, 455f, 28f),
@@ -241,21 +246,19 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(x + 46f, y + 162f, 425f, 25f),
                 isLan ? "联机房间 · 房主与玩家权限按房间规则执行" :
                 "单人游戏 · 无需连接房间", smallStyle);
-            GUI.Label(new Rect(x + 30f, y + 211f, 380f, 30f),
+            GUI.Label(new Rect(x + 30f, y + 203f, 380f, 26f),
                 "鼠标灵敏度  /  SENSITIVITY", labelStyle);
-            DrawRect(new Rect(x + 32f, y + 256f, 380f, 2f), MenuDivider);
             float nextSensitivity = GUI.HorizontalSlider(
-                new Rect(x + 32f, y + 249f, 380f, 20f), sensitivity, .5f, 5f);
-            GUI.Label(new Rect(x + 425f, y + 239f, 58f, 30f),
+                new Rect(x + 32f, y + 234f, 380f, 18f), sensitivity, .5f, 5f);
+            GUI.Label(new Rect(x + 425f, y + 224f, 58f, 28f),
                 sensitivity.ToString("0.0"), labelStyle);
             if (!Mathf.Approximately(nextSensitivity, sensitivity))
                 runtime.SetMouseSensitivity(nextSensitivity);
-            GUI.Label(new Rect(x + 30f, y + 291f, 380f, 30f),
+            GUI.Label(new Rect(x + 30f, y + 258f, 380f, 26f),
                 "主音量  /  MASTER VOLUME", labelStyle);
-            DrawRect(new Rect(x + 32f, y + 336f, 380f, 2f), MenuDivider);
             float nextVolume = GUI.HorizontalSlider(
-                new Rect(x + 32f, y + 329f, 380f, 20f), volume, 0f, 1f);
-            GUI.Label(new Rect(x + 425f, y + 319f, 58f, 30f),
+                new Rect(x + 32f, y + 289f, 380f, 18f), volume, 0f, 1f);
+            GUI.Label(new Rect(x + 425f, y + 279f, 58f, 28f),
                 Mathf.RoundToInt(volume * 100f) + "%", labelStyle);
             if (!Mathf.Approximately(nextVolume, volume))
             {
@@ -264,14 +267,33 @@ namespace Ironfront.UnityPrototype
                 PlayerPrefs.SetFloat(VolumeKey, volume);
                 PlayerPrefs.Save();
             }
-            Rect resume = new Rect(x + 30f, y + 370f, 460f, 51f);
-            Rect lobby = new Rect(x + 30f, y + 432f, 460f, 49f);
+            float musicVolume = runtime.Music != null ? runtime.Music.MusicVolume : .55f;
+            GUI.Label(new Rect(x + 30f, y + 313f, 380f, 26f),
+                "背景音乐  /  MUSIC VOLUME", labelStyle);
+            float nextMusic = GUI.HorizontalSlider(
+                new Rect(x + 32f, y + 344f, 380f, 18f), musicVolume, 0f, 1f);
+            GUI.Label(new Rect(x + 425f, y + 334f, 58f, 28f),
+                Mathf.RoundToInt(musicVolume * 100f) + "%", labelStyle);
+            if (!Mathf.Approximately(nextMusic, musicVolume))
+                runtime.Music?.SetMusicVolume(nextMusic);
+            GUI.Label(new Rect(x + 30f, y + 370f, 380f, 26f),
+                "准星大小  /  CROSSHAIR SIZE", labelStyle);
+            float nextCrosshair = GUI.HorizontalSlider(new Rect(x + 32f, y + 405f, 305f, 18f),
+                runtime.CrosshairSize, .5f, 2f);
+            if (!Mathf.Approximately(nextCrosshair, runtime.CrosshairSize))
+                runtime.SetCrosshairSize(nextCrosshair);
+            GUI.Label(new Rect(x + 350f, y + 395f, 65f, 28f),
+                Mathf.RoundToInt(runtime.CrosshairSize * 100f) + "%", labelStyle);
+            DrawRect(new Rect(x + 430f, y + 370f, 60f, 60f), MenuCard);
+            PrototypeRuntime.DrawCrosshairMark(new Vector2(x + 460f, y + 400f), 6f, 7f, false, runtime.CrosshairSize);
+            Rect resume = new Rect(x + 30f, y + 445f, 460f, 43f);
+            Rect lobby = new Rect(x + 30f, y + 497f, 460f, 43f);
             DrawRect(resume, MenuAccent);
             DrawRect(lobby, MenuCard);
             GUI.Label(resume, "继续战斗 / RESUME", darkButtonStyle);
             GUI.Label(lobby, "退出战局 · 返回大厅 / MAIN MENU", lightButtonStyle);
-            GUI.Label(new Rect(x + 30f, y + 496f, 460f, 25f),
-                "Esc 继续  ·  C 蹲下 / 滑铲  ·  Ctrl 趴下  ·  V 切换人称", smallStyle);
+            GUI.Label(new Rect(x + 30f, y + 546f, 460f, 20f),
+                "3 手雷 · 4/5 导弹 · T 倍率 · P 发射 · 6 弹药箱 · E 补给 · B 支援", smallStyle);
             if (GUI.Button(resume, GUIContent.none, GUIStyle.none))
                 return PrototypePauseAction.Resume;
             if (GUI.Button(lobby, GUIContent.none, GUIStyle.none))
@@ -285,6 +307,16 @@ namespace Ironfront.UnityPrototype
             {
                 SelectedClass = soldierClass;
                 selectedLoadout.role = soldierClass;
+                if (startMenu != null)
+                {
+                    startMenu.SelectClass(soldierClass);
+                    PrototypeLoadout choice = startMenu.Loadout;
+                    selectedLoadout.primary = choice.primary;
+                    selectedLoadout.secondary = choice.secondary;
+                    selectedLoadout.throwable = choice.throwable;
+                }
+                selectedLoadout.Validate();
+                selectedLoadout.Save();
             }
         }
 
@@ -379,9 +411,14 @@ namespace Ironfront.UnityPrototype
             if (menuPreview != null)
             {
                 menuPreview.SetVisible(true);
-                menuPreview.SetClass(SelectedClass);
+                menuPreview.SetComposition(menuTab == MenuTab.Loadout);
+                menuPreview.SetClass(SelectedClass, menuTab == MenuTab.Loadout && menuSlot == 1 ?
+                    selectedLoadout.secondary : selectedLoadout.primary);
+                if (menuPreview.BackgroundTexture != null)
+                    GUI.DrawTexture(new Rect(0f, 0f, canvasWidth, canvasHeight),
+                        menuPreview.BackgroundTexture, ScaleMode.ScaleAndCrop, false);
                 GUI.DrawTexture(new Rect(0f, 0f, canvasWidth, canvasHeight),
-                    menuPreview.Texture, ScaleMode.StretchToFill, false);
+                    menuPreview.Texture, ScaleMode.StretchToFill, true);
             }
         }
 
@@ -395,9 +432,9 @@ namespace Ironfront.UnityPrototype
                 for (int i = 0; i < 256; i++)
                 {
                     float t = i / 255f;
-                    float opacity = Mathf.Lerp(.94f, .16f,
+                    float opacity = Mathf.Lerp(.32f, .025f,
                         Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / .75f)));
-                    menuVeil.SetPixel(i, 0, new Color(.005f, .014f, .019f, opacity));
+                    menuVeil.SetPixel(i, 0, new Color(.015f, .019f, .018f, opacity));
                 }
                 menuVeil.Apply();
             }
@@ -475,68 +512,112 @@ namespace Ironfront.UnityPrototype
             GUI.Label(new Rect(x, 356f, width, 20f), "模式  /  GAME MODE", smallStyle);
             Rect mode = new Rect(x, 380f, cardW, 68f);
             Rect futureMode = new Rect(x + cardW + 12f, 380f, cardW, 68f);
-            DrawRect(mode, MenuSelected);
-            DrawRect(new Rect(mode.x, mode.y, 3f, mode.height), MenuAccent);
+            DrawRect(mode, SelectedMode == PrototypeGameMode.Conquest ? MenuSelected : MenuCard);
+            if (SelectedMode == PrototypeGameMode.Conquest)
+                DrawRect(new Rect(mode.x, mode.y, 3f, mode.height), MenuAccent);
             GUI.Label(new Rect(mode.x + 14f, mode.y + 10f, cardW - 25f, 24f),
                 "征服  /  CONQUEST", headingStyle);
             GUI.Label(new Rect(mode.x + 14f, mode.y + 38f, cardW - 25f, 20f),
                 "争夺五处据点，耗尽敌方兵力", smallStyle);
-            DrawRect(futureMode, MenuCard);
+            DrawRect(futureMode, SelectedMode == PrototypeGameMode.Breakthrough ? MenuSelected : MenuCard);
+            if (SelectedMode == PrototypeGameMode.Breakthrough)
+                DrawRect(new Rect(futureMode.x, futureMode.y, 3f, futureMode.height), MenuAccent);
             GUI.Label(new Rect(futureMode.x + 14f, futureMode.y + 10f,
                 cardW - 25f, 24f), "攻防  /  BREAKTHROUGH", labelStyle);
             GUI.Label(new Rect(futureMode.x + 14f, futureMode.y + 38f,
-                cardW - 25f, 20f), "开发中，暂不可选择", smallStyle);
+                cardW - 25f, 20f), "蓝方依次夺取 A–E", smallStyle);
+            if (GUI.Button(mode, GUIContent.none, GUIStyle.none)) SelectFallbackMode(PrototypeGameMode.Conquest);
+            if (GUI.Button(futureMode, GUIContent.none, GUIStyle.none)) SelectFallbackMode(PrototypeGameMode.Breakthrough);
             GUI.Label(new Rect(x, 465f, width, 22f),
-                "当前选择：工业前线 · 征服模式", smallStyle);
+                "工业前线 · " + (SelectedMode == PrototypeGameMode.Conquest ? "征服" : "攻防") + " · 8v8", smallStyle);
+        }
+
+        private void SelectFallbackMode(PrototypeGameMode mode)
+        {
+            SelectedMode = mode;
+            PlayerPrefs.SetInt("ironfront.unity.soloMode", (int)mode);
+            PlayerPrefs.Save();
         }
 
         private void DrawLoadout(float x, float width)
         {
-            GUI.Label(new Rect(x, 100f, width, 21f), "兵种与配装  /  LOADOUT", smallStyle);
-            GUI.Label(new Rect(x, 126f, width, 42f), "选择你的兵种", menuTitleStyle);
-            GUI.Label(new Rect(x, 165f, width, 21f),
-                "点击兵种，预览当前默认武器与战场能力。", smallStyle);
-            float cardW = (width - 10f) / 2f;
+            Color gold = new Color(.91f, .714f, .37f, 1f);
+            Color dark = new Color(.03f, .045f, .05f, .72f);
+            GUI.Label(new Rect(x, 99f, width, 19f), "兵种", smallStyle);
             for (int i = 0; i < Classes.Length; i++)
             {
-                Rect card = new Rect(x + (i % 2) * (cardW + 10f),
-                    197f + (i / 2) * 74f, cardW, 66f);
+                Rect card = new Rect(x, 124f + i * 34f, Mathf.Min(260f, width), 30f);
                 bool selected = SelectedClass == Classes[i];
-                DrawRect(card, selected ? MenuSelected : MenuCard);
-                if (selected) DrawRect(new Rect(card.x, card.y, 3f, card.height), MenuAccent);
-                GUI.Label(new Rect(card.x + 13f, card.y + 5f, cardW - 20f, 30f),
-                    (i + 1).ToString("00") + "  " + ClassNamesChinese[i], headingStyle);
-                GUI.Label(new Rect(card.x + 13f, card.y + 36f, cardW - 20f, 24f),
-                    ClassAbilities[i], smallStyle);
-                if (GUI.Button(card, GUIContent.none, GUIStyle.none)) SelectedClass = Classes[i];
+                DrawRect(card, selected ? new Color(.36f, .24f, .10f, .67f) : dark);
+                if (selected) DrawRect(new Rect(card.x, card.y, 2f, card.height), gold);
+                GUI.Label(new Rect(card.x + 13f, card.y + 3f, card.width - 20f, 25f),
+                    ClassNamesChinese[i], labelStyle);
+                if (GUI.Button(card, GUIContent.none, GUIStyle.none)) SelectClass(Classes[i]);
             }
-
+            selectedLoadout.role = SelectedClass;
+            selectedLoadout.Validate();
+            GUI.Label(new Rect(x, 267f, width, 19f), "武器配置", smallStyle);
+            Rect primary = new Rect(x, 291f, width * .60f, 82f);
+            Rect secondary = new Rect(x + width * .62f, 291f, width * .38f, 82f);
+            Rect[] guns = { primary, secondary };
+            PrototypeWeaponId[] slots = { selectedLoadout.primary, selectedLoadout.secondary };
+            for (int slot = 0; slot < 2; slot++)
+            {
+                Rect card = guns[slot];
+                DrawRect(card, dark);
+                if (menuSlot == slot) DrawRect(new Rect(card.x, card.y, card.width, 2f), gold);
+                GUI.Label(new Rect(card.x + 8f, card.y + 4f, card.width - 16f, 18f),
+                    slot == 0 ? "主武器" : "副武器", smallStyle);
+                if (menuPreview != null)
+                    GUI.DrawTexture(new Rect(card.x + 8f, card.y + 22f, card.width - 16f, 36f),
+                        menuPreview.WeaponThumbnail(slots[slot]), ScaleMode.ScaleToFit, true);
+                GUI.Label(new Rect(card.x + 8f, card.y + 60f, card.width - 16f, 19f),
+                    PrototypeInfantryRoles.GetWeapon(slots[slot]).ChineseName,
+                    new GUIStyle(smallStyle) { fontSize = 11 });
+                if (GUI.Button(card, GUIContent.none, GUIStyle.none)) menuSlot = slot;
+            }
+            GUI.Label(new Rect(x, 378f, width, 18f),
+                "X " + PrototypeStartMenuView.GadgetName(SelectedClass) + "    3/G " +
+                (selectedLoadout.throwable == PrototypeThrowableId.Frag ? "破片手雷" : "烟雾弹"), smallStyle);
+            GUI.Label(new Rect(x, 404f, width, 19f), menuSlot == 0 ? "选择主武器" : "副武器 · P8 手枪", smallStyle);
+            IReadOnlyList<PrototypeWeaponId> allowed = menuSlot == 0 ?
+                PrototypeInfantryRoles.AllowedPrimaryWeapons(SelectedClass) : new[] { PrototypeWeaponId.Pistol };
+            float optionW = (width - 8f) / 2f;
+            for (int i = 0; i < allowed.Count; i++)
+            {
+                PrototypeWeaponId candidate = allowed[i];
+                Rect option = new Rect(x + i * (optionW + 8f), 430f, optionW, 32f);
+                bool selected = (menuSlot == 0 ? selectedLoadout.primary : selectedLoadout.secondary) == candidate;
+                DrawRect(option, selected ? new Color(.36f, .24f, .10f, .67f) : dark);
+                if (GUI.Button(option, PrototypeInfantryRoles.GetWeapon(candidate).ChineseName,
+                    new GUIStyle(lightButtonStyle) { fontSize = 12 }))
+                {
+                    if (menuSlot == 0 && PrototypeInfantryRoles.IsPrimaryWeaponAllowed(SelectedClass, candidate))
+                        selectedLoadout.primary = candidate;
+                    else if (menuSlot == 1 && PrototypeInfantryRoles.IsSecondaryWeaponAllowed(candidate))
+                        selectedLoadout.secondary = candidate;
+                    selectedLoadout.Save();
+                }
+            }
             PrototypeWeaponDefinition weapon = PrototypeInfantryRoles.GetWeapon(
-                PrototypeInfantryRoles.DefaultWeapon(SelectedClass));
-            Rect equipment = new Rect(x, 356f, width, 123f);
-            DrawRect(equipment, MenuPanel);
-            DrawRect(new Rect(x, 356f, width, 2f), MenuAccent);
-            GUI.Label(new Rect(x + 16f, 367f, width - 32f, 20f),
-                "当前默认装备  /  PRIMARY WEAPON", smallStyle);
-            GUI.Label(new Rect(x + 16f, 392f, width - 32f, 29f),
-                weapon.ChineseName, headingStyle);
+                menuSlot == 1 ? selectedLoadout.secondary : selectedLoadout.primary);
             string stats = "伤害 " + weapon.Damage.ToString("0") +
-                "     射速 " + Mathf.RoundToInt(60f / weapon.FireInterval) + " RPM" +
-                "     弹匣 " + weapon.Magazine +
-                "     有效射程 " + weapon.EffectiveRange.ToString("0") + "m";
-            GUI.Label(new Rect(x + 16f, 441f, width - 32f, 25f), stats, statStyle);
+                "  ·  射速 " + Mathf.RoundToInt(60f / weapon.FireInterval) + " RPM" +
+                "  ·  弹匣 " + weapon.Magazine + "  ·  射程 " + weapon.EffectiveRange.ToString("0") + "m";
+            GUI.Label(new Rect(x, 470f, width, 20f), stats, new GUIStyle(smallStyle) { fontSize = 11 });
         }
 
         private void DrawSettings(float x, float width)
         {
+            volume = AudioListener.volume;
             GUI.Label(new Rect(x, 100f, width, 21f), "系统设置  /  SETTINGS", smallStyle);
             GUI.Label(new Rect(x, 128f, width, 43f), "出击前设置", menuTitleStyle);
-            DrawRect(new Rect(x, 188f, width, 110f), MenuPanel);
-            GUI.Label(new Rect(x + 18f, 206f, width - 36f, 23f),
+            DrawRect(new Rect(x, 180f, width, 56f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 185f, width - 36f, 23f),
                 "主音量  /  MASTER VOLUME", headingStyle);
             float nextVolume = GUI.HorizontalSlider(
-                new Rect(x + 20f, 252f, width - 110f, 18f), volume, 0f, 1f);
-            GUI.Label(new Rect(x + width - 74f, 244f, 55f, 25f),
+                new Rect(x + 20f, 216f, width - 110f, 18f), volume, 0f, 1f);
+            GUI.Label(new Rect(x + width - 74f, 208f, 55f, 25f),
                 Mathf.RoundToInt(volume * 100f) + "%", labelStyle);
             if (!Mathf.Approximately(nextVolume, volume))
             {
@@ -545,13 +626,41 @@ namespace Ironfront.UnityPrototype
                 PlayerPrefs.SetFloat(VolumeKey, volume);
                 PlayerPrefs.Save();
             }
-            DrawRect(new Rect(x, 319f, width, 160f), MenuPanel);
-            GUI.Label(new Rect(x + 18f, 335f, width - 36f, 23f),
+            DrawRect(new Rect(x, 242f, width, 56f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 247f, width - 36f, 23f),
+                "背景音乐  /  MUSIC VOLUME", headingStyle);
+            float musicVolume = runtime.Music != null ? runtime.Music.MusicVolume : .55f;
+            float nextMusic = GUI.HorizontalSlider(
+                new Rect(x + 20f, 278f, width - 110f, 18f), musicVolume, 0f, 1f);
+            GUI.Label(new Rect(x + width - 74f, 270f, 55f, 25f),
+                Mathf.RoundToInt(musicVolume * 100f) + "%", labelStyle);
+            if (!Mathf.Approximately(nextMusic, musicVolume))
+                runtime.Music?.SetMusicVolume(nextMusic);
+            DrawRect(new Rect(x, 304f, width, 56f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 309f, width - 36f, 23f),
+                "鼠标灵敏度  /  SENSITIVITY", headingStyle);
+            float nextSensitivity = GUI.HorizontalSlider(
+                new Rect(x + 20f, 340f, width - 110f, 18f), runtime.MouseSensitivity, .5f, 5f);
+            GUI.Label(new Rect(x + width - 74f, 332f, 55f, 25f), runtime.MouseSensitivity.ToString("0.0"), labelStyle);
+            if (!Mathf.Approximately(nextSensitivity, runtime.MouseSensitivity))
+                runtime.SetMouseSensitivity(nextSensitivity);
+            DrawRect(new Rect(x, 366f, width, 64f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 371f, width - 110f, 23f),
+                "准星大小  /  CROSSHAIR SIZE", headingStyle);
+            float nextCrosshair = GUI.HorizontalSlider(
+                new Rect(x + 20f, 405f, width - 175f, 18f), runtime.CrosshairSize, .5f, 2f);
+            if (!Mathf.Approximately(nextCrosshair, runtime.CrosshairSize))
+                runtime.SetCrosshairSize(nextCrosshair);
+            GUI.Label(new Rect(x + width - 140f, 397f, 65f, 25f),
+                Mathf.RoundToInt(runtime.CrosshairSize * 100f) + "%", labelStyle);
+            PrototypeRuntime.DrawCrosshairMark(new Vector2(x + width - 40f, 398f), 6f, 7f, false, runtime.CrosshairSize);
+            DrawRect(new Rect(x, 436f, width, 64f), MenuPanel);
+            GUI.Label(new Rect(x + 18f, 439f, width - 36f, 23f),
                 "操作提示  /  CONTROLS", headingStyle);
-            GUI.Label(new Rect(x + 18f, 375f, width - 36f, 95f),
-                "W A S D  移动       鼠标  瞄准 / 射击\n" +
-                "F1–F4  切换页面       1–4  快速选兵种\n" +
-                "ENTER  开始游戏       L  打开联机房间", labelStyle);
+            GUI.Label(new Rect(x + 18f, 464f, width - 36f, 36f),
+                "WASD 移动 · 1/2 切枪 · 3 手雷 · 4 火箭筒 · 5 防空\n" +
+                "左键使用 · 右键瞄准 · T 防空倍率 · P 发射 · 6 弹药箱 · E 补给\n" +
+                "B 积分支援 · F1–F4 页面 · ENTER 出击 · L 联机房间", new GUIStyle(smallStyle) { fontSize = 10 });
         }
 
         private bool DrawMenuFooter(float canvasWidth, float canvasHeight)
@@ -764,7 +873,7 @@ namespace Ironfront.UnityPrototype
                 {
                     Rect role = new Rect(x + 85f + i * 98f, y + 484f, 94f, 32f);
                     DrawRect(role, SelectedClass == Classes[i] ? SelectedCard : Card);
-                    if (GUI.Button(role, ClassNames[i])) SelectedClass = Classes[i];
+                    if (GUI.Button(role, ClassNames[i])) SelectClass(Classes[i]);
                 }
             }
             else
@@ -789,7 +898,7 @@ namespace Ironfront.UnityPrototype
                 DrawRect(new Rect(rect.x, rect.y, 4f, rect.height), Accent);
                 DrawRect(new Rect(rect.x + 4f, rect.y, rect.width - 4f, 1f), Accent);
             }
-            if (GUI.Button(rect, GUIContent.none, GUIStyle.none)) SelectedClass = Classes[index];
+            if (GUI.Button(rect, GUIContent.none, GUIStyle.none)) SelectClass(Classes[index]);
 
             GUI.Label(new Rect(rect.x + 18f, rect.y + 11f, 48f, 23f),
                 (index + 1).ToString("00"), smallStyle);
@@ -819,7 +928,7 @@ namespace Ironfront.UnityPrototype
             }
             if (current.keyCode >= KeyCode.Alpha1 && current.keyCode <= KeyCode.Alpha4)
             {
-                SelectedClass = Classes[(int)current.keyCode - (int)KeyCode.Alpha1];
+                SelectClass(Classes[(int)current.keyCode - (int)KeyCode.Alpha1]);
                 current.Use();
             }
             else if (current.keyCode == KeyCode.Return || current.keyCode == KeyCode.KeypadEnter)

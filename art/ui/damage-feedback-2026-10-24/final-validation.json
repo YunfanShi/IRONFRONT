@@ -1,0 +1,18 @@
+{
+  "version": "0.60.0",
+  "editor_probe": "PASS",
+  "development_player": "PASS",
+  "runtime_errors": 0,
+  "regression_groups": 6,
+  "websocket_room_test": "PASS, including optional incomingDamage relay",
+  "screenshots": 361,
+  "visual_analysis": "visual-validation.json",
+  "video": {
+    "duration_seconds": 12,
+    "width": 960,
+    "height": 640,
+    "fps": 30,
+    "decoded_frames_checked": 12
+  },
+  "limits": "Controlled impacts through real production methods; not OS keyboard injection. Host/guest relay and snapshot receiver tested; no complete two-Unity-client battle run."
+}

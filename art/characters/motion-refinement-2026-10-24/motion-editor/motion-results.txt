@@ -1,0 +1,50 @@
+PASS
+Version=0.58.0
+Unity=6000.5.10f1
+GPU=Apple M5
+RuntimeErrors=0
+Runtime starts
+idle right grip max=0.00000
+idle no deep ground penetration min=0.00000
+idle planted ankle travel/frame max=0.00000
+idle 45 frames: finite skin and fixed bone lengths
+walk right grip max=0.00000
+walk no deep ground penetration min=0.00000
+walk planted ankle travel/frame max=0.00004
+walk 90 frames: finite skin and fixed bone lengths
+run right grip max=0.00000
+run no deep ground penetration min=0.00000
+run planted ankle travel/frame max=0.00284
+run 90 frames: finite skin and fixed bone lengths
+crouch right grip max=0.00000
+crouch no deep ground penetration min=0.00000
+crouch planted ankle travel/frame max=0.00004
+crouch 90 frames: finite skin and fixed bone lengths
+crawl right grip max=0.00000
+crawl no deep ground penetration min=-0.00335
+crawl planted ankle travel/frame max=0.00006
+crawl 90 frames: finite skin and fixed bone lengths
+crawl-strafe right grip max=0.00000
+crawl-strafe no deep ground penetration min=-0.00462
+crawl-strafe planted ankle travel/frame max=0.00006
+crawl-strafe 90 frames: finite skin and fixed bone lengths
+crawl-reverse right grip max=0.00000
+crawl-reverse no deep ground penetration min=-0.00443
+crawl-reverse planted ankle travel/frame max=0.00004
+crawl-reverse 90 frames: finite skin and fixed bone lengths
+prone-aim right grip max=0.00000
+prone-aim no deep ground penetration min=0.00748
+prone-aim planted ankle travel/frame max=0.00000
+prone-aim 45 frames: finite skin and fixed bone lengths
+strafe right grip max=0.00000
+strafe no deep ground penetration min=0.00000
+strafe planted ankle travel/frame max=0.00004
+strafe 90 frames: finite skin and fixed bone lengths
+reverse right grip max=0.00000
+reverse no deep ground penetration min=0.00000
+reverse planted ankle travel/frame max=0.00004
+reverse 90 frames: finite skin and fixed bone lengths
+transition right grip max=0.00000
+transition no deep ground penetration min=0.00000
+transition planted ankle travel/frame max=0.00000
+transition 90 frames: finite skin and fixed bone lengths

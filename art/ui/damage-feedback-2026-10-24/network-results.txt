@@ -1,0 +1,3 @@
+PASS
+node scripts/test-unity-room.cjs
+Actual localhost WebSocket host/guest relay preserves incomingDamage fields. Existing host-only controls, snapshot replication, scoreboards, pause, resume and deployment checks pass.

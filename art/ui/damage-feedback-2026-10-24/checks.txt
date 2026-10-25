@@ -1,0 +1,6 @@
+IRONFRONT/Verify Immediate Hit Feedback|IRONFRONT immediate hit feedback PASS:
+IRONFRONT/Verify Center Health and Scoreboard Controls|IRONFRONT center health and scoreboard controls PASS:
+IRONFRONT/Verify Vehicle Armor and Damage Scoring|IRONFRONT armor and damage scoring PASS:
+IRONFRONT/Verify Combat Score Attribution|IRONFRONT combat score attribution PASS:
+IRONFRONT/Verify Player and Vehicle Cameras|IRONFRONT perspective PASS:
+IRONFRONT/Verify Held Equipment|IRONFRONT held equipment PASS:

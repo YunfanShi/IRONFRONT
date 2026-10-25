@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "evidence_settings_version": 2,
+  "studio": {
+    "presentation": "neutral",
+    "floor_color": [
+      0.025,
+      0.032,
+      0.045,
+      1.0
+    ],
+    "light_powers": [
+      444.3000779615943,
+      177.72003118463772,
+      666.4501169423914
+    ],
+    "camera_distance": 2.424019086360931,
+    "ortho_scale": 1.5281859457492828,
+    "floor_size": 210.78426837921143,
+    "floor_offset": 0.0063235280513763426,
+    "clip_start": 0.0010539213418960572,
+    "clip_end": 1053.9213418960571
+  },
+  "requested_presentation": "neutral",
+  "subject_luminance_hint": null,
+  "render_engine": "BLENDER_EEVEE",
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/j20-stratus/exports/j20-lod2.glb",
+  "blender_version": "5.2.2 LTS",
+  "resolution": 512,
+  "requested_views": [
+    "perspective",
+    "right"
+  ],
+  "evidence_scope": "partial_preview",
+  "focus_objects": [],
+  "geometry_hidden_for_focus": false,
+  "underside_floor_hidden": false,
+  "material_mode": "source",
+  "hidden_objects": [],
+  "head_texture": null,
+  "bounds": {
+    "min": [
+      -0.51219,
+      -0.652791,
+      5e-05
+    ],
+    "max": [
+      0.511448,
+      0.40113,
+      0.44521
+    ],
+    "dimensions": [
+      1.023638,
+      1.053921,
+      0.44516
+    ]
+  },
+  "views": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/j20-stratus/evidence/lod2/perspective.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/j20-stratus/evidence/lod2/right.png"
+  ],
+  "contact_sheet": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/j20-stratus/evidence/lod2/contact_sheet.png",
+  "animation_frames": [],
+  "animation_contact_sheet": null
+}

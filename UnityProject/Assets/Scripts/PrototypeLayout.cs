@@ -76,8 +76,9 @@ namespace Ironfront.UnityPrototype
                 Mathf.Abs(point.y) > MapSize / 2f - radius)
                 return true;
 
-            foreach (Block block in Blocks)
+            for (int i = 0; i < Blocks.Count; i++)
             {
+                Block block = Blocks[i];
                 float x = Mathf.Clamp(point.x, block.Position.x - block.Width / 2f,
                     block.Position.x + block.Width / 2f);
                 float z = Mathf.Clamp(point.y, block.Position.y - block.Depth / 2f,
@@ -105,8 +106,9 @@ namespace Ironfront.UnityPrototype
         {
             float dx = to.x - from.x;
             float dz = to.y - from.y;
-            foreach (Block block in Blocks)
+            for (int i = 0; i < Blocks.Count; i++)
             {
+                Block block = Blocks[i];
                 float minX = block.Position.x - block.Width / 2f - padding;
                 float maxX = block.Position.x + block.Width / 2f + padding;
                 float minZ = block.Position.y - block.Depth / 2f - padding;
@@ -120,6 +122,17 @@ namespace Ironfront.UnityPrototype
                 if (enter <= exit && exit > 0.02f && enter < 0.98f) return true;
             }
             return false;
+        }
+
+        // Optical cover is distinct from route clearance and ballistics. The
+        // smoke query uses actual altitude so aircraft above a cloud retain
+        // their horizontal view while a ray down through it is obscured.
+        public static bool SightBlocked(Vector2 from, Vector2 to, float padding = 0f)
+        {
+            if (LineBlocked(from, to, padding)) return true;
+            Vector3 eye = new Vector3(from.x, HeightAt(from.x, from.y) + 1.65f, from.y);
+            Vector3 target = new Vector3(to.x, HeightAt(to.x, to.y) + 1.65f, to.y);
+            return PrototypeSmokeCloud.SegmentBlocked(eye, target);
         }
 
         private static bool ClipAxis(float origin, float delta, float min, float max,

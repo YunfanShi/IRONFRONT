@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ironfront.UnityPrototype
@@ -58,6 +59,41 @@ namespace Ironfront.UnityPrototype
 
     public static class PrototypeInfantryRoles
     {
+        private static readonly IReadOnlyList<PrototypeWeaponId> AssaultPrimary =
+            Array.AsReadOnly(new[] { PrototypeWeaponId.Carbine, PrototypeWeaponId.BattleRifle });
+        private static readonly IReadOnlyList<PrototypeWeaponId> MedicPrimary =
+            Array.AsReadOnly(new[] { PrototypeWeaponId.Smg, PrototypeWeaponId.Carbine });
+        private static readonly IReadOnlyList<PrototypeWeaponId> ReconPrimary =
+            Array.AsReadOnly(new[] { PrototypeWeaponId.Marksman, PrototypeWeaponId.Sniper });
+        private static readonly IReadOnlyList<PrototypeWeaponId> EngineerPrimary =
+            Array.AsReadOnly(new[] { PrototypeWeaponId.BattleRifle, PrototypeWeaponId.Lmg });
+        private static readonly IReadOnlyList<PrototypeWeaponId> NoPrimary =
+            Array.AsReadOnly(Array.Empty<PrototypeWeaponId>());
+
+        // Menu visibility and runtime validation share this class policy. A
+        // forged enum or a previous saved choice must not bypass a class slot.
+        public static IReadOnlyList<PrototypeWeaponId> AllowedPrimaryWeapons(PrototypeInfantryClass role)
+        {
+            switch (role)
+            {
+                case PrototypeInfantryClass.Assault: return AssaultPrimary;
+                case PrototypeInfantryClass.Medic: return MedicPrimary;
+                case PrototypeInfantryClass.Recon: return ReconPrimary;
+                case PrototypeInfantryClass.Engineer: return EngineerPrimary;
+                default: return NoPrimary;
+            }
+        }
+
+        public static bool IsPrimaryWeaponAllowed(PrototypeInfantryClass role, PrototypeWeaponId weapon)
+        {
+            foreach (PrototypeWeaponId allowed in AllowedPrimaryWeapons(role))
+                if (weapon == allowed) return true;
+            return false;
+        }
+
+        public static bool IsSecondaryWeaponAllowed(PrototypeWeaponId weapon) =>
+            weapon == PrototypeWeaponId.Pistol;
+
         // Numeric values mirror src/combat/Weapons.ts. The Unity prototype
         // currently uses one active primary weapon per soldier.
         private static readonly PrototypeWeaponDefinition[] Weapons =
@@ -172,6 +208,18 @@ namespace Ironfront.UnityPrototype
                 reserve < 0 || reserve > Weapon.Reserve) return;
             Ammo = ammo;
             Reserve = reserve;
+        }
+
+        // A physical neutral crate refills both weapon slots and gadget
+        // charges. It deliberately preserves firing/gadget cooldowns, armor
+        // and health; the lightweight ammo pack keeps its existing rules.
+        public bool RefillFromAmmoCrate()
+        {
+            bool changed = Ammo < Weapon.Magazine || Reserve < Weapon.Reserve || GadgetCharges < 2;
+            if (!changed) return false;
+            Ammo = Weapon.Magazine; Reserve = Weapon.Reserve; GadgetCharges = 2;
+            reloadEndsAt = 0f;
+            return true;
         }
 
         public void Tick(float now)

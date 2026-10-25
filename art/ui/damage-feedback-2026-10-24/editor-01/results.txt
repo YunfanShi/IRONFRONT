@@ -1,0 +1,36 @@
+PASS
+Version=0.60.0
+RuntimeErrors=0
+Runtime creates incoming damage UI
+Non-interactive overlay does not intercept controls
+front actual projectile health loss triggers flash and one direction
+front points toward incoming source
+front flash and marker expire
+right actual projectile health loss triggers flash and one direction
+right points toward incoming source
+right flash and marker expire
+rear actual projectile health loss triggers flash and one direction
+rear points toward incoming source
+rear flash and marker expire
+left actual projectile health loss triggers flash and one direction
+left points toward incoming source
+left flash and marker expire
+diagonal actual projectile health loss triggers flash and one direction
+diagonal points toward incoming source
+diagonal flash and marker expire
+Burst from three directions stays bounded and retains three markers
+Turning toward a right-hand attacker moves the marker to the front
+Unknown-source damage flashes without a false direction
+Zero, invalid and friendly projectile damage do not flash
+Repeated hits from the same direction merge
+Pause clears feedback
+Support menu does not retain stale damage
+Real shell explosion reports its blast centre
+Host peer damage survives JSON snapshot serialization
+First network snapshot seeds state without replaying old damage
+New guest health loss uses host-supplied direction
+Duplicate and older damage packets cannot replay feedback
+Old hosts without optional direction data still flash on health loss
+Guest respawn clears feedback
+Downed state clears combat overlay
+Local respawn restores a clean view

@@ -1,0 +1,8 @@
+PASS
+Version=0.63.0
+RuntimeErrors=0
+MaxGripErrorM=0.0002901269
+MaxAnkleDriftM=0.0002699803
+MaxLoopPositionStepM=0.0002258642
+MinChestMotionM=0.007463459
+Verified=7 weapons; 201 samples per loop; live playback; two complete cycles at 30 fps

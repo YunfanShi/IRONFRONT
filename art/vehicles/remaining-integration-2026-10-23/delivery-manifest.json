@@ -1,0 +1,192 @@
+{
+  "version": "0.56.0",
+  "play_assertions": 106,
+  "development_player": "PASS; runtime errors 0",
+  "source_blends_preserved": 10,
+  "files": {
+    "art/vehicles/r4-scout/articulated/r4-articulated.blend": {
+      "bytes": 24279854,
+      "sha256": "c23ac4812eb8fddf86d412aeda176a787088f694fa9924720039cc86e43c3c0b"
+    },
+    "art/vehicles/r4-scout/articulated/build.json": {
+      "bytes": 4651,
+      "sha256": "a646bc056c0bad1ed0c67db5735b0e8cd9cabcd44a09520c946b444aec3575b7"
+    },
+    "art/vehicles/r4-scout/articulated/exports/r4-articulated-lod0.fbx": {
+      "bytes": 3226780,
+      "sha256": "d380ad5cd2883155417f86376b46f4fb681587f1ed8b25c6b90fda5c41fe1c26"
+    },
+    "art/vehicles/r4-scout/articulated/exports/r4-articulated-lod1.fbx": {
+      "bytes": 1885100,
+      "sha256": "cfc4e9fb409f3f4151a2602c14d23c732ade04f7fa569fd860268a93d9b6ae6a"
+    },
+    "art/vehicles/r4-scout/articulated/exports/r4-articulated-lod2.fbx": {
+      "bytes": 1079084,
+      "sha256": "8c4c043aaa45b1b0c0a7b1c41c2450d5cd8e6b3de53cc9954c3d55d02854b448"
+    },
+    "art/vehicles/u8-rover/articulated/u8-articulated.blend": {
+      "bytes": 24411172,
+      "sha256": "623b42add90f0e83e4154b0d29de0800bf95056527aa926ea1ce1dc33d5e8516"
+    },
+    "art/vehicles/u8-rover/articulated/build.json": {
+      "bytes": 4589,
+      "sha256": "b3d3ae573e0afb003c3c3703975e8fe975f25bab264be4b13ac162bbb0fa5dc7"
+    },
+    "art/vehicles/u8-rover/articulated/exports/u8-articulated-lod0.fbx": {
+      "bytes": 3334908,
+      "sha256": "a27a916e0328649282582d57c5f9a8fe6b53a66782d121e11bf02eb497588385"
+    },
+    "art/vehicles/u8-rover/articulated/exports/u8-articulated-lod1.fbx": {
+      "bytes": 1945612,
+      "sha256": "70dd0f6bdacb3578ca7bfdee9d77a841f015372392dfcf682ed9f24be1df9675"
+    },
+    "art/vehicles/u8-rover/articulated/exports/u8-articulated-lod2.fbx": {
+      "bytes": 1080780,
+      "sha256": "d005ae94680267492c7b4380bb2e09470c58e19aad5152b71705e7d64eb73b16"
+    },
+    "art/vehicles/m2-courier/articulated/m2-articulated.blend": {
+      "bytes": 21762835,
+      "sha256": "4bdcee46211dc71e9f5a01bdee8757e0e036a562962fbf0c4790d87c53e5ea11"
+    },
+    "art/vehicles/m2-courier/articulated/build.json": {
+      "bytes": 7353,
+      "sha256": "1ea82aadfe523f6c7d0e44c7d6cb3260a42ecabe3e3a6714d4327b462ca2d8af"
+    },
+    "art/vehicles/m2-courier/articulated/exports/m2-articulated-lod0.fbx": {
+      "bytes": 3254428,
+      "sha256": "14b1f42304a9140cd69a9c511607ff9053a0ac22c8a0b38ce973fb364cd43394"
+    },
+    "art/vehicles/m2-courier/articulated/exports/m2-articulated-lod1.fbx": {
+      "bytes": 1916860,
+      "sha256": "78de30ab726718670cf87fb2200722fa9c349702a9e85d255d8470b415c8e293"
+    },
+    "art/vehicles/m2-courier/articulated/exports/m2-articulated-lod2.fbx": {
+      "bytes": 1143356,
+      "sha256": "0a177d65f3972ef270d0976a08dc5f21bda09aaff56fa04f84451a1d8ff60890"
+    },
+    "art/vehicles/r3-firefly/articulated/r3-articulated.blend": {
+      "bytes": 22005973,
+      "sha256": "ecf3be8dda4ed2450f41ab8f0d5ca063cd0673ef2345bc54c955251a6ea8e009"
+    },
+    "art/vehicles/r3-firefly/articulated/build.json": {
+      "bytes": 4783,
+      "sha256": "6939eb86b047a98b6d3ba482eb3bd9a852c10cc5b4c07261a3baef7f75defbd7"
+    },
+    "art/vehicles/r3-firefly/articulated/exports/r3-articulated-lod0.fbx": {
+      "bytes": 2336908,
+      "sha256": "1eede605930566f725ff394b88b27bfe7b12642bc1f30213b4be12e70e01542c"
+    },
+    "art/vehicles/r3-firefly/articulated/exports/r3-articulated-lod1.fbx": {
+      "bytes": 1342812,
+      "sha256": "74c5dd033fa4a74009a63619c659f8b64fcecaa66c8f3bbb5ca16899754445cc"
+    },
+    "art/vehicles/r3-firefly/articulated/exports/r3-articulated-lod2.fbx": {
+      "bytes": 799484,
+      "sha256": "e3ec91e1d0ac3dba11c11e95ac6437215d8cc77c385f3bb900c4d1ab28f7ee4e"
+    },
+    "art/vehicles/j20-stratus/articulated/j20-articulated.blend": {
+      "bytes": 19758339,
+      "sha256": "6de827f33f4135b445432552b3cb3a9330c22f733d82e69fe30d7375426f8a44"
+    },
+    "art/vehicles/j20-stratus/articulated/build.json": {
+      "bytes": 4688,
+      "sha256": "087183e4e5083064ddc5ed54cec0fa03bba6e320c3bb9c64b7626a654ee2597a"
+    },
+    "art/vehicles/j20-stratus/articulated/exports/j20-articulated-lod0.fbx": {
+      "bytes": 1702748,
+      "sha256": "38653b1236947e62e0916343f3c45b631b29910fc9a084e9bf7236ba6f9c6a22"
+    },
+    "art/vehicles/j20-stratus/articulated/exports/j20-articulated-lod1.fbx": {
+      "bytes": 980380,
+      "sha256": "9b170a7d42809f3d11efae19484813f5c5b6ed491193955a77c54a6fc8c1d46a"
+    },
+    "art/vehicles/j20-stratus/articulated/exports/j20-articulated-lod2.fbx": {
+      "bytes": 571244,
+      "sha256": "b87268a615f2f215c1611fed3fbd0e8c788e508748d7876107933d4a14a49f15"
+    },
+    "UnityProject/Assets/Editor/VehicleArtAssetSetup.cs": {
+      "bytes": 25453,
+      "sha256": "914634a4eb5f71355ef5eb6480beb3344101da8cd204c75ea999820cfe3f1ae1"
+    },
+    "UnityProject/Assets/Editor/RemainingVehicleArtSetup.cs": {
+      "bytes": 8586,
+      "sha256": "63380b7778c6275134e6dcb16f22a8b7ccfecd5557c5313c3e47eaf61b7c2820"
+    },
+    "UnityProject/Assets/Editor/RemainingArtPlaySmoke.cs": {
+      "bytes": 15733,
+      "sha256": "78586a75145464362446ed24abcb4b54871b694f2add5c67be3f674824b6b641"
+    },
+    "UnityProject/Assets/Scripts/PrototypeTransportVehicle.cs": {
+      "bytes": 35219,
+      "sha256": "bb9419417d0689bba715398e6a26852a152ae823861a9ba3d735284c82feac73"
+    },
+    "UnityProject/Assets/Scripts/PrototypeVehicleArtRig.cs": {
+      "bytes": 8587,
+      "sha256": "ceac9a7c5561243dff7b43afba151b3bcafc5f892c3af987e71e1841b33b96f3"
+    },
+    "UnityProject/Assets/Scripts/PrototypeRemainingArtProbe.cs": {
+      "bytes": 4224,
+      "sha256": "ac55843c619c17b8cc093cfe386690bd80bca7829f7a7e8d755e7aa001f9bbeb"
+    },
+    "UnityProject/Assets/Scripts/PrototypeCombinedArmsVehicle.cs": {
+      "bytes": 49287,
+      "sha256": "f7e1ce608b034f642582fb7d8c77aa58b492d589a932bb313d739b0672e38647"
+    },
+    "UnityProject/Assets/Scripts/PrototypeScoutVehicle.cs": {
+      "bytes": 31568,
+      "sha256": "d0699494782490f464b5d8f521c355e3c383ca405af4c35dd02876c62633aa62"
+    },
+    "UnityProject/Assets/Scripts/PrototypeCombinedVehicleVisual.cs": {
+      "bytes": 33658,
+      "sha256": "d701aefc4bd4200a7f9121a64fd8cd4186c7b461b158e0c61112effc2f40a5e3"
+    },
+    "art/vehicles/build_articulated_remaining.py": {
+      "bytes": 10885,
+      "sha256": "5ee3a108e794b24a8dbfd6ac8352cb635d7b6f9dccc4c1bceb067b824ad92dfe"
+    },
+    "docs/UNITY_HANDOFF_056.md": {
+      "bytes": 6827,
+      "sha256": "c5a8dd40adc72724607ce24f0a1a82c48334852d649776dc95a24a7a5ee12ec2"
+    },
+    "UnityProject/Assets/Resources/Vehicles/R4_Blue.prefab": {
+      "bytes": 107970,
+      "sha256": "eb5ad95f7fc43692f8a088a1ebbee3955f4b9ac87a3f8890d6056c8af5f5f38a"
+    },
+    "UnityProject/Assets/Resources/Vehicles/R4_Red.prefab": {
+      "bytes": 108007,
+      "sha256": "2c9d7bd5073463d60aafd854ad5441a63e378c2ddbe0925ea5094d97f7894ac6"
+    },
+    "UnityProject/Assets/Resources/Vehicles/U8_Blue.prefab": {
+      "bytes": 107948,
+      "sha256": "4821d42dfc280df86dc5b83b4b40d42450534a861e9e61dc5d83d4cb8ca4a6c7"
+    },
+    "UnityProject/Assets/Resources/Vehicles/U8_Red.prefab": {
+      "bytes": 107968,
+      "sha256": "90ae011917aaf7c100c4b2857fb7db8e5c9323d39d4784b2622cd0f39e97fecf"
+    },
+    "UnityProject/Assets/Resources/Vehicles/M2_Blue.prefab": {
+      "bytes": 89097,
+      "sha256": "ddedd85db3c9e7032bf2744f655d7f9db8156680621560c1c90e50a7cad60b36"
+    },
+    "UnityProject/Assets/Resources/Vehicles/M2_Red.prefab": {
+      "bytes": 89100,
+      "sha256": "eedcd731a95be40b9606c0287ff1b660258a0779ba8cb304e6d80cb381bcf3da"
+    },
+    "UnityProject/Assets/Resources/Vehicles/R3_Blue.prefab": {
+      "bytes": 87778,
+      "sha256": "623e7b6fe570aa6b85799d7ca7cc6f999791efb3b76837e8f693004dd8176855"
+    },
+    "UnityProject/Assets/Resources/Vehicles/R3_Red.prefab": {
+      "bytes": 87761,
+      "sha256": "e2c0efe4cd4ce4596dea2d4c4f157d24dc2545a8348029aa3e0ca9bac1049be8"
+    },
+    "UnityProject/Assets/Resources/Vehicles/J20_Blue.prefab": {
+      "bytes": 79804,
+      "sha256": "e04b5e5b0ccefefb523be39cb32191f78d212c26102e5fb582025021f2b76dce"
+    },
+    "UnityProject/Assets/Resources/Vehicles/J20_Red.prefab": {
+      "bytes": 79848,
+      "sha256": "5ddabba8d86a5015b9cd0a816185a424f1d29f77b6a391a16060fe8aab6aba75"
+    }
+  }
+}

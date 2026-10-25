@@ -1,0 +1,2522 @@
+[
+  {
+    "frame": "player/fp-fire-interrupt/0000.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0001.png",
+    "dark_fraction": 5.859375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0002.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0003.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0004.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0005.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0006.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0007.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0008.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0009.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0010.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0011.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0012.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0013.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0014.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0015.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0016.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0017.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0018.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0019.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0020.png",
+    "dark_fraction": 1.3020833333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0021.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0022.png",
+    "dark_fraction": 3.255208333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0023.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0024.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0025.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0026.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0027.png",
+    "dark_fraction": 1.1393229166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0028.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0029.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0030.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0031.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0032.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0033.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0034.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0035.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0036.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0037.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0038.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0039.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0040.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0041.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0042.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0043.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0044.png",
+    "dark_fraction": 6.510416666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0045.png",
+    "dark_fraction": 7.161458333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0046.png",
+    "dark_fraction": 7.161458333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0047.png",
+    "dark_fraction": 7.975260416666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0048.png",
+    "dark_fraction": 7.486979166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0049.png",
+    "dark_fraction": 7.649739583333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0050.png",
+    "dark_fraction": 9.440104166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0051.png",
+    "dark_fraction": 8.626302083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0052.png",
+    "dark_fraction": 6.34765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0053.png",
+    "dark_fraction": 5.5338541666666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0054.png",
+    "dark_fraction": 5.6966145833333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0055.png",
+    "dark_fraction": 3.255208333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0056.png",
+    "dark_fraction": 5.6966145833333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0057.png",
+    "dark_fraction": 4.720052083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0058.png",
+    "dark_fraction": 4.720052083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0059.png",
+    "dark_fraction": 4.557291666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0060.png",
+    "dark_fraction": 5.5338541666666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0061.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0062.png",
+    "dark_fraction": 5.37109375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0063.png",
+    "dark_fraction": 4.0690104166666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0064.png",
+    "dark_fraction": 8.626302083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0065.png",
+    "dark_fraction": 6.673177083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0066.png",
+    "dark_fraction": 4.8828125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0067.png",
+    "dark_fraction": 0.0001025390625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0068.png",
+    "dark_fraction": 5.859375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0069.png",
+    "dark_fraction": 3.092447916666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0070.png",
+    "dark_fraction": 4.557291666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0071.png",
+    "dark_fraction": 3.255208333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0072.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0073.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0074.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0075.png",
+    "dark_fraction": 7.486979166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0076.png",
+    "dark_fraction": 4.557291666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0077.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0078.png",
+    "dark_fraction": 6.510416666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0079.png",
+    "dark_fraction": 5.208333333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0080.png",
+    "dark_fraction": 5.37109375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0081.png",
+    "dark_fraction": 5.37109375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0082.png",
+    "dark_fraction": 5.859375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0083.png",
+    "dark_fraction": 6.673177083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0084.png",
+    "dark_fraction": 5.5338541666666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0085.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0086.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0087.png",
+    "dark_fraction": 6.8359375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0088.png",
+    "dark_fraction": 4.39453125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0089.png",
+    "dark_fraction": 7.32421875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0090.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0091.png",
+    "dark_fraction": 1.3020833333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0092.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0093.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0094.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0095.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0096.png",
+    "dark_fraction": 1.3020833333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0097.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0098.png",
+    "dark_fraction": 8.138020833333333e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0099.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0100.png",
+    "dark_fraction": 4.0690104166666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0101.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0102.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0103.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0104.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0105.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0106.png",
+    "dark_fraction": 3.255208333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0107.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0108.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0109.png",
+    "dark_fraction": 9.765625e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0110.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0111.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0112.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0113.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0114.png",
+    "dark_fraction": 3.255208333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0115.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0116.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0117.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0118.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0119.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0120.png",
+    "dark_fraction": 3.90625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0121.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0122.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0123.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0124.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-fire-interrupt/0125.png",
+    "dark_fraction": 4.0690104166666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0000.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0001.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0002.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0003.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0004.png",
+    "dark_fraction": 3.90625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0005.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0006.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0007.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0008.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0009.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0010.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0011.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0012.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0013.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0014.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0015.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0016.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0017.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0018.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0019.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0020.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0021.png",
+    "dark_fraction": 3.255208333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0022.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0023.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0024.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0025.png",
+    "dark_fraction": 1.1393229166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0026.png",
+    "dark_fraction": 4.0690104166666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0027.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0028.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0029.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0030.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0031.png",
+    "dark_fraction": 4.0690104166666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0032.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0033.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0034.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0035.png",
+    "dark_fraction": 1.1393229166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0036.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0037.png",
+    "dark_fraction": 8.138020833333333e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0038.png",
+    "dark_fraction": 1.6276041666666668e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0039.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0040.png",
+    "dark_fraction": 4.8828125e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0041.png",
+    "dark_fraction": 0.0,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0042.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0043.png",
+    "dark_fraction": 8.138020833333333e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0044.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0045.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0046.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0047.png",
+    "dark_fraction": 1.6276041666666668e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0048.png",
+    "dark_fraction": 0.0,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0049.png",
+    "dark_fraction": 3.2552083333333335e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0050.png",
+    "dark_fraction": 1.6276041666666668e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0051.png",
+    "dark_fraction": 1.1393229166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0052.png",
+    "dark_fraction": 1.6276041666666668e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0053.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0054.png",
+    "dark_fraction": 0.0,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0055.png",
+    "dark_fraction": 8.138020833333333e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0056.png",
+    "dark_fraction": 9.765625e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0057.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0058.png",
+    "dark_fraction": 9.765625e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0059.png",
+    "dark_fraction": 3.2552083333333335e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0060.png",
+    "dark_fraction": 6.510416666666667e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0061.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0062.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0063.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0064.png",
+    "dark_fraction": 1.953125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0065.png",
+    "dark_fraction": 6.184895833333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0066.png",
+    "dark_fraction": 4.720052083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0067.png",
+    "dark_fraction": 7.161458333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0068.png",
+    "dark_fraction": 5.0455729166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0069.png",
+    "dark_fraction": 9.440104166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0070.png",
+    "dark_fraction": 0.00010091145833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0071.png",
+    "dark_fraction": 4.39453125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0072.png",
+    "dark_fraction": 8.951822916666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0073.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0074.png",
+    "dark_fraction": 6.34765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0075.png",
+    "dark_fraction": 6.510416666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0076.png",
+    "dark_fraction": 5.5338541666666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0077.png",
+    "dark_fraction": 7.8125e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0078.png",
+    "dark_fraction": 6.998697916666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0079.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0080.png",
+    "dark_fraction": 6.022135416666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0081.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0082.png",
+    "dark_fraction": 4.720052083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0083.png",
+    "dark_fraction": 5.0455729166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0084.png",
+    "dark_fraction": 6.510416666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0085.png",
+    "dark_fraction": 0.00010091145833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0086.png",
+    "dark_fraction": 0.00010091145833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0087.png",
+    "dark_fraction": 7.161458333333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0088.png",
+    "dark_fraction": 5.0455729166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0089.png",
+    "dark_fraction": 6.673177083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0090.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0091.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0092.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0093.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0094.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0095.png",
+    "dark_fraction": 8.138020833333333e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0096.png",
+    "dark_fraction": 3.41796875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0097.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0098.png",
+    "dark_fraction": 4.0690104166666664e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0099.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0100.png",
+    "dark_fraction": 2.7669270833333332e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0101.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0102.png",
+    "dark_fraction": 9.765625e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0103.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0104.png",
+    "dark_fraction": 3.743489583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0105.png",
+    "dark_fraction": 1.7903645833333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0106.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0107.png",
+    "dark_fraction": 1.46484375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0108.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0109.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0110.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0111.png",
+    "dark_fraction": 1.3020833333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0112.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0113.png",
+    "dark_fraction": 3.90625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0114.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0115.png",
+    "dark_fraction": 2.44140625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0116.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0117.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0118.png",
+    "dark_fraction": 2.1158854166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0119.png",
+    "dark_fraction": 1.6276041666666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0120.png",
+    "dark_fraction": 3.580729166666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0121.png",
+    "dark_fraction": 8.138020833333333e-06,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0122.png",
+    "dark_fraction": 2.604166666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0123.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0124.png",
+    "dark_fraction": 2.9296875e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/fp-aim-interrupt/0125.png",
+    "dark_fraction": 2.2786458333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0000.png",
+    "dark_fraction": 0.00018229166666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0001.png",
+    "dark_fraction": 0.000185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0002.png",
+    "dark_fraction": 0.000205078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0003.png",
+    "dark_fraction": 0.00019205729166666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0004.png",
+    "dark_fraction": 0.00019368489583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0005.png",
+    "dark_fraction": 0.00015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0006.png",
+    "dark_fraction": 0.00010904947916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0007.png",
+    "dark_fraction": 0.00010091145833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0008.png",
+    "dark_fraction": 8.626302083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0009.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0010.png",
+    "dark_fraction": 0.00013834635416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0011.png",
+    "dark_fraction": 0.0001708984375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0012.png",
+    "dark_fraction": 0.0001513671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0013.png",
+    "dark_fraction": 0.00010579427083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0014.png",
+    "dark_fraction": 0.00012044270833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0015.png",
+    "dark_fraction": 0.00013671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0016.png",
+    "dark_fraction": 8.626302083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0017.png",
+    "dark_fraction": 0.00012369791666666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0018.png",
+    "dark_fraction": 0.0001708984375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0019.png",
+    "dark_fraction": 0.00012044270833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0020.png",
+    "dark_fraction": 0.00013834635416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0021.png",
+    "dark_fraction": 0.00018880208333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0022.png",
+    "dark_fraction": 0.00015462239583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0023.png",
+    "dark_fraction": 9.928385416666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0024.png",
+    "dark_fraction": 0.00011067708333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0025.png",
+    "dark_fraction": 8.463541666666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0026.png",
+    "dark_fraction": 9.602864583333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0027.png",
+    "dark_fraction": 0.000146484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0028.png",
+    "dark_fraction": 0.00012044270833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0029.png",
+    "dark_fraction": 0.00011881510416666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0030.png",
+    "dark_fraction": 0.00014322916666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0031.png",
+    "dark_fraction": 0.0001416015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0032.png",
+    "dark_fraction": 0.000126953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0033.png",
+    "dark_fraction": 0.00013509114583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0034.png",
+    "dark_fraction": 0.00012858072916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0035.png",
+    "dark_fraction": 0.00014485677083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0036.png",
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0037.png",
+    "dark_fraction": 0.00018229166666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0038.png",
+    "dark_fraction": 0.00021484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0039.png",
+    "dark_fraction": 0.00021158854166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0040.png",
+    "dark_fraction": 0.00020670572916666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0041.png",
+    "dark_fraction": 0.00021158854166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0042.png",
+    "dark_fraction": 0.00021809895833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0043.png",
+    "dark_fraction": 0.00015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0044.png",
+    "dark_fraction": 0.00020833333333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0045.png",
+    "dark_fraction": 0.00016276041666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0046.png",
+    "dark_fraction": 0.00017252604166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0047.png",
+    "dark_fraction": 0.00015462239583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0048.png",
+    "dark_fraction": 0.00016764322916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0049.png",
+    "dark_fraction": 0.00018229166666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0050.png",
+    "dark_fraction": 0.00020833333333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0051.png",
+    "dark_fraction": 0.00017415364583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0052.png",
+    "dark_fraction": 0.0001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0053.png",
+    "dark_fraction": 0.000185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0054.png",
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0055.png",
+    "dark_fraction": 0.00019368489583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0056.png",
+    "dark_fraction": 0.00022298177083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0057.png",
+    "dark_fraction": 0.000205078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0058.png",
+    "dark_fraction": 0.00016927083333333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0059.png",
+    "dark_fraction": 0.000166015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0060.png",
+    "dark_fraction": 0.00018391927083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0061.png",
+    "dark_fraction": 0.00017415364583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0062.png",
+    "dark_fraction": 0.00015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0063.png",
+    "dark_fraction": 0.0002294921875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0064.png",
+    "dark_fraction": 0.00015299479166666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0065.png",
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0066.png",
+    "dark_fraction": 0.0001904296875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0067.png",
+    "dark_fraction": 0.00021647135416666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0068.png",
+    "dark_fraction": 0.00019856770833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0069.png",
+    "dark_fraction": 0.0001904296875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0070.png",
+    "dark_fraction": 0.0001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0071.png",
+    "dark_fraction": 0.00014973958333333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0072.png",
+    "dark_fraction": 0.00022135416666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0073.png",
+    "dark_fraction": 0.00018717447916666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0074.png",
+    "dark_fraction": 0.00021484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0075.png",
+    "dark_fraction": 0.000185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0076.png",
+    "dark_fraction": 0.000205078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0077.png",
+    "dark_fraction": 0.00015299479166666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0078.png",
+    "dark_fraction": 0.0001806640625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0079.png",
+    "dark_fraction": 0.00017578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0080.png",
+    "dark_fraction": 0.00015299479166666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0081.png",
+    "dark_fraction": 0.00015462239583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0082.png",
+    "dark_fraction": 0.00019368489583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0083.png",
+    "dark_fraction": 0.00019694010416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0084.png",
+    "dark_fraction": 0.00020345052083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0085.png",
+    "dark_fraction": 0.000166015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0086.png",
+    "dark_fraction": 0.00018391927083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0087.png",
+    "dark_fraction": 0.00015787760416666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0088.png",
+    "dark_fraction": 0.00021484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0089.png",
+    "dark_fraction": 0.00017578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0090.png",
+    "dark_fraction": 0.000166015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0091.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0092.png",
+    "dark_fraction": 9.928385416666667e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0093.png",
+    "dark_fraction": 0.0001708984375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0094.png",
+    "dark_fraction": 0.0001416015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0095.png",
+    "dark_fraction": 0.00015787760416666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0096.png",
+    "dark_fraction": 0.00012532552083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0097.png",
+    "dark_fraction": 0.00015787760416666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0098.png",
+    "dark_fraction": 0.00012858072916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0099.png",
+    "dark_fraction": 0.00012044270833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0100.png",
+    "dark_fraction": 0.0001611328125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0101.png",
+    "dark_fraction": 0.00017415364583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0102.png",
+    "dark_fraction": 0.0001513671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0103.png",
+    "dark_fraction": 0.00016276041666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0104.png",
+    "dark_fraction": 0.00018717447916666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0105.png",
+    "dark_fraction": 0.00011067708333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0106.png",
+    "dark_fraction": 9.27734375e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0107.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0108.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0109.png",
+    "dark_fraction": 0.00013346354166666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0110.png",
+    "dark_fraction": 0.000166015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0111.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0112.png",
+    "dark_fraction": 0.000146484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0113.png",
+    "dark_fraction": 0.00011393229166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0114.png",
+    "dark_fraction": 0.00010416666666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0115.png",
+    "dark_fraction": 0.00017578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0116.png",
+    "dark_fraction": 0.00015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0117.png",
+    "dark_fraction": 0.000126953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0118.png",
+    "dark_fraction": 0.0001611328125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0119.png",
+    "dark_fraction": 0.00015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0120.png",
+    "dark_fraction": 0.00016276041666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0121.png",
+    "dark_fraction": 0.00014811197916666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0122.png",
+    "dark_fraction": 0.00011393229166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0123.png",
+    "dark_fraction": 0.00011067708333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0124.png",
+    "dark_fraction": 8.626302083333333e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-fire-interrupt/0125.png",
+    "dark_fraction": 0.0001025390625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0000.png",
+    "dark_fraction": 0.00015787760416666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0001.png",
+    "dark_fraction": 0.00016764322916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0002.png",
+    "dark_fraction": 0.00018229166666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0003.png",
+    "dark_fraction": 0.00022298177083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0004.png",
+    "dark_fraction": 0.00021809895833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0005.png",
+    "dark_fraction": 0.00017415364583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0006.png",
+    "dark_fraction": 0.0001318359375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0007.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0008.png",
+    "dark_fraction": 0.00010579427083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0009.png",
+    "dark_fraction": 9.440104166666666e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0010.png",
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0011.png",
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0012.png",
+    "dark_fraction": 0.0001416015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0013.png",
+    "dark_fraction": 0.0001171875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0014.png",
+    "dark_fraction": 0.0001171875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0015.png",
+    "dark_fraction": 0.00012858072916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0016.png",
+    "dark_fraction": 0.0001513671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0017.png",
+    "dark_fraction": 0.00014973958333333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0018.png",
+    "dark_fraction": 0.00015462239583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0019.png",
+    "dark_fraction": 0.00014485677083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0020.png",
+    "dark_fraction": 0.000185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0021.png",
+    "dark_fraction": 0.00013997395833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0022.png",
+    "dark_fraction": 0.00012369791666666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0023.png",
+    "dark_fraction": 9.114583333333334e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0024.png",
+    "dark_fraction": 0.00010416666666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0025.png",
+    "dark_fraction": 0.00010091145833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0026.png",
+    "dark_fraction": 0.0001220703125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0027.png",
+    "dark_fraction": 0.00016276041666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0028.png",
+    "dark_fraction": 0.00013997395833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0029.png",
+    "dark_fraction": 0.00012532552083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0030.png",
+    "dark_fraction": 0.00014811197916666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0031.png",
+    "dark_fraction": 0.0001220703125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0032.png",
+    "dark_fraction": 0.00014322916666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0033.png",
+    "dark_fraction": 0.0001171875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0034.png",
+    "dark_fraction": 0.00013020833333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0035.png",
+    "dark_fraction": 0.0001806640625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0036.png",
+    "dark_fraction": 0.0002571614583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0037.png",
+    "dark_fraction": 0.00024088541666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0038.png",
+    "dark_fraction": 0.00022786458333333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0039.png",
+    "dark_fraction": 0.00022298177083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0040.png",
+    "dark_fraction": 0.0002783203125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0041.png",
+    "dark_fraction": 0.000234375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0042.png",
+    "dark_fraction": 0.0002766927083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0043.png",
+    "dark_fraction": 0.00022623697916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0044.png",
+    "dark_fraction": 0.00023274739583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0045.png",
+    "dark_fraction": 0.0001904296875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0046.png",
+    "dark_fraction": 0.00022623697916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0047.png",
+    "dark_fraction": 0.00026041666666666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0048.png",
+    "dark_fraction": 0.000234375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0049.png",
+    "dark_fraction": 0.00024576822916666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0050.png",
+    "dark_fraction": 0.0002294921875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0051.png",
+    "dark_fraction": 0.0002669270833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0052.png",
+    "dark_fraction": 0.00025065104166666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0053.png",
+    "dark_fraction": 0.00020833333333333335,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0054.png",
+    "dark_fraction": 0.00023274739583333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0055.png",
+    "dark_fraction": 0.00025227864583333336,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0056.png",
+    "dark_fraction": 0.00023111979166666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0057.png",
+    "dark_fraction": 0.0002392578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0058.png",
+    "dark_fraction": 0.0002766927083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0059.png",
+    "dark_fraction": 0.00025065104166666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0060.png",
+    "dark_fraction": 0.0002001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0061.png",
+    "dark_fraction": 0.00019694010416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0062.png",
+    "dark_fraction": 0.00013834635416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0063.png",
+    "dark_fraction": 0.00017578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0064.png",
+    "dark_fraction": 0.00015299479166666668,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0065.png",
+    "dark_fraction": 0.0002001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0066.png",
+    "dark_fraction": 0.00017903645833333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0067.png",
+    "dark_fraction": 0.000234375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0068.png",
+    "dark_fraction": 0.0002099609375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0069.png",
+    "dark_fraction": 0.00018880208333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0070.png",
+    "dark_fraction": 0.0001904296875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0071.png",
+    "dark_fraction": 0.000185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0072.png",
+    "dark_fraction": 0.00018229166666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0073.png",
+    "dark_fraction": 0.00017578125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0074.png",
+    "dark_fraction": 0.00019694010416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0075.png",
+    "dark_fraction": 0.000244140625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0076.png",
+    "dark_fraction": 0.0002001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0077.png",
+    "dark_fraction": 0.000185546875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0078.png",
+    "dark_fraction": 0.00016764322916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0079.png",
+    "dark_fraction": 0.00016438802083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0080.png",
+    "dark_fraction": 0.0001513671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0081.png",
+    "dark_fraction": 0.00019205729166666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0082.png",
+    "dark_fraction": 0.00015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0083.png",
+    "dark_fraction": 0.0001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0084.png",
+    "dark_fraction": 0.000205078125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0085.png",
+    "dark_fraction": 0.00021321614583333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0086.png",
+    "dark_fraction": 0.00019694010416666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0087.png",
+    "dark_fraction": 0.0002001953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0088.png",
+    "dark_fraction": 0.00015787760416666665,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0089.png",
+    "dark_fraction": 0.00019856770833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0090.png",
+    "dark_fraction": 0.00022623697916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0091.png",
+    "dark_fraction": 0.00014973958333333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0092.png",
+    "dark_fraction": 0.00011881510416666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0093.png",
+    "dark_fraction": 0.000107421875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0094.png",
+    "dark_fraction": 0.00013020833333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0095.png",
+    "dark_fraction": 0.0001416015625,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0096.png",
+    "dark_fraction": 0.00013997395833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0097.png",
+    "dark_fraction": 0.00010579427083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0098.png",
+    "dark_fraction": 0.000126953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0099.png",
+    "dark_fraction": 0.00015462239583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0100.png",
+    "dark_fraction": 0.00011067708333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0101.png",
+    "dark_fraction": 0.000126953125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0102.png",
+    "dark_fraction": 0.00011393229166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0103.png",
+    "dark_fraction": 0.0001611328125,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0104.png",
+    "dark_fraction": 0.00015950520833333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0105.png",
+    "dark_fraction": 0.00016438802083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0106.png",
+    "dark_fraction": 0.00014322916666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0107.png",
+    "dark_fraction": 0.0001123046875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0108.png",
+    "dark_fraction": 0.00011555989583333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0109.png",
+    "dark_fraction": 0.00010579427083333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0110.png",
+    "dark_fraction": 0.0001123046875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0111.png",
+    "dark_fraction": 0.00016764322916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0112.png",
+    "dark_fraction": 0.00016764322916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0113.png",
+    "dark_fraction": 0.0001318359375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0114.png",
+    "dark_fraction": 0.00014973958333333332,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0115.png",
+    "dark_fraction": 0.000146484375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0116.png",
+    "dark_fraction": 0.00014322916666666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0117.png",
+    "dark_fraction": 0.00013020833333333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0118.png",
+    "dark_fraction": 0.0001513671875,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0119.png",
+    "dark_fraction": 0.0001708984375,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0120.png",
+    "dark_fraction": 0.00013997395833333334,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0121.png",
+    "dark_fraction": 0.00017252604166666667,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0122.png",
+    "dark_fraction": 0.00016438802083333333,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0123.png",
+    "dark_fraction": 0.00010904947916666666,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0124.png",
+    "dark_fraction": 9.765625e-05,
+    "magenta_fraction": 0.0
+  },
+  {
+    "frame": "player/tp-aim-interrupt/0125.png",
+    "dark_fraction": 9.440104166666666e-05,
+    "magenta_fraction": 0.0
+  }
+]

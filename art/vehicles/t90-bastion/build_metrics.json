@@ -1,0 +1,161 @@
+{
+  "title": "T90 BASTION",
+  "source": "/Users/liuwenjun/Downloads/c9fd2d8fd8c3ec5cfbcfff869985a9b8.glb",
+  "source_sha256": "bc47facc3030bdbf2e46383f6d8716892cd00c60768b98972201dd74009ee8c3",
+  "blender": "5.2.2 LTS",
+  "original": {
+    "triangles": 1498808,
+    "vertices": 970178,
+    "min": [
+      -0.30348798632621765,
+      -0.6700931191444397,
+      2.002444077220389e-08
+    ],
+    "max": [
+      0.3064349889755249,
+      0.4770190417766571,
+      0.499794065952301
+    ],
+    "dimensions": [
+      0.6099229753017426,
+      1.1471121609210968,
+      0.49979404592786025
+    ],
+    "boundary_edges": 421892,
+    "nonmanifold_edges": 421892,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "welded": {
+    "triangles": 1498808,
+    "vertices": 749180,
+    "min": [
+      -0.30348798632621765,
+      -0.6700931191444397,
+      2.002444077220389e-08
+    ],
+    "max": [
+      0.3064349889755249,
+      0.4770190417766571,
+      0.499794065952301
+    ],
+    "dimensions": [
+      0.6099229753017426,
+      1.1471121609210968,
+      0.49979404592786025
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "degenerate_faces": 0,
+    "isolated_vertices": 0,
+    "uv_layers": 1
+  },
+  "textures": [
+    {
+      "name": "t90_basecolor_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "t90_metalrough_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "t90_normal_2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  ],
+  "authored_lods": [
+    {
+      "triangles": 80000,
+      "vertices": 39776,
+      "min": [
+        -0.3033786118030548,
+        -0.6701898574829102,
+        -2.7738529752241448e-05
+      ],
+      "max": [
+        0.3063965141773224,
+        0.47694993019104004,
+        0.4996715486049652
+      ],
+      "dimensions": [
+        0.6097751259803772,
+        1.1471397876739502,
+        0.49969928713471745
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 0,
+      "name": "T90_BASTION_LOD0"
+    },
+    {
+      "triangles": 40000,
+      "vertices": 19776,
+      "min": [
+        -0.30335357785224915,
+        -0.6701598167419434,
+        1.45100284498767e-05
+      ],
+      "max": [
+        0.30638936161994934,
+        0.4768998622894287,
+        0.4999462068080902
+      ],
+      "dimensions": [
+        0.6097429394721985,
+        1.147059679031372,
+        0.49993169677964033
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 1,
+      "name": "T90_BASTION_LOD1"
+    },
+    {
+      "triangles": 20000,
+      "vertices": 9776,
+      "min": [
+        -0.30333411693573,
+        -0.6701365113258362,
+        0.00013647346349898726
+      ],
+      "max": [
+        0.3063925802707672,
+        0.47712409496307373,
+        0.4999462068080902
+      ],
+      "dimensions": [
+        0.6097266972064972,
+        1.14726060628891,
+        0.4998097333445912
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "uv_layers": 1,
+      "lod": 2,
+      "name": "T90_BASTION_LOD2"
+    }
+  ],
+  "contract": "Static mesh optimization: original proportions, orientation, UVs, paint and normalized scale retained. No new animation rig or gameplay replacement."
+}

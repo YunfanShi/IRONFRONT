@@ -1,0 +1,218 @@
+{
+  "blender": "5.2.2 LTS",
+  "passed": true,
+  "source": "/Users/liuwenjun/Downloads/aeb2ce5110245d186594fb95589644f4.glb",
+  "source_sha256": "e26f508b431f64fb8a6c0fbc932d226e7a476939c61d2635c3c6423dc52eb98e",
+  "exports": [
+    {
+      "file": "r4-lod0.glb",
+      "sha256": "80e57b109566534b80a6a744fe41a2be1324e6f33094a60154cf4d0f6c4738e9",
+      "triangles": 60000,
+      "bytes": 14709900,
+      "bounds": [
+        [
+          -0.32993370294570923,
+          -0.5534707307815552,
+          0.00014150307106319815
+        ],
+        [
+          0.33073368668556213,
+          0.5403417348861694,
+          0.6643193364143372
+        ]
+      ],
+      "textures": {
+        "r4_basecolor_2k": [
+          2048,
+          2048
+        ],
+        "r4_metalrough_2k": [
+          2048,
+          2048
+        ],
+        "r4_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "file": "r4-lod0.fbx",
+      "sha256": "c87b70b82f2d8c43e21305300df93962e855043652082fff3ae1c38d56be753b",
+      "triangles": 60000,
+      "bytes": 2606604,
+      "bounds": [
+        [
+          -0.32993370294570923,
+          -0.5534706711769104,
+          0.00014155640383251011
+        ],
+        [
+          0.33073368668556213,
+          0.5403417944908142,
+          0.6643193364143372
+        ]
+      ],
+      "textures": {
+        "r4_basecolor_2k.png": [
+          2048,
+          2048
+        ],
+        "r4_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 5.960464477539063e-08,
+      "passed": true
+    },
+    {
+      "file": "r4-lod1.glb",
+      "sha256": "b0bba00eb700b58cb098c0315a415ccf14ecd2bcd5bf8e587cb1d4e1ae1478e4",
+      "triangles": 30000,
+      "bytes": 13193708,
+      "bounds": [
+        [
+          -0.32993370294570923,
+          -0.5538240075111389,
+          0.00014150307106319815
+        ],
+        [
+          0.33069363236427307,
+          0.5405789017677307,
+          0.6641297936439514
+        ]
+      ],
+      "textures": {
+        "r4_basecolor_2k": [
+          2048,
+          2048
+        ],
+        "r4_metalrough_2k": [
+          2048,
+          2048
+        ],
+        "r4_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "file": "r4-lod1.fbx",
+      "sha256": "40143253195a8d2975e8d3ff8e493c55cb237269792c8d734ee0d0f675c84f81",
+      "triangles": 30000,
+      "bytes": 1436348,
+      "bounds": [
+        [
+          -0.32993370294570923,
+          -0.5538239479064941,
+          0.00014155640383251011
+        ],
+        [
+          0.33069363236427307,
+          0.5405789613723755,
+          0.6641297936439514
+        ]
+      ],
+      "textures": {
+        "r4_basecolor_2k.png": [
+          2048,
+          2048
+        ],
+        "r4_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 5.960464477539063e-08,
+      "passed": true
+    },
+    {
+      "file": "r4-lod2.glb",
+      "sha256": "f15da4eba09a9d9b5ae8b86053b4fe31e38912fbd41d540eaad97c882c08d19a",
+      "triangles": 15000,
+      "bytes": 12526936,
+      "bounds": [
+        [
+          -0.32899174094200134,
+          -0.5545395016670227,
+          -0.00030870482441969216
+        ],
+        [
+          0.3297284245491028,
+          0.5416792631149292,
+          0.6647205948829651
+        ]
+      ],
+      "textures": {
+        "r4_basecolor_2k": [
+          2048,
+          2048
+        ],
+        "r4_metalrough_2k": [
+          2048,
+          2048
+        ],
+        "r4_normal_2k": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "file": "r4-lod2.fbx",
+      "sha256": "6fa722ae3afda8506fdbd3f14675b2654cd947c55184095e326b97581a99c677",
+      "triangles": 15000,
+      "bytes": 770684,
+      "bounds": [
+        [
+          -0.32899174094200134,
+          -0.5545394420623779,
+          -0.00030865048756822944
+        ],
+        [
+          0.3297284245491028,
+          0.541679322719574,
+          0.6647205948829651
+        ]
+      ],
+      "textures": {
+        "r4_basecolor_2k.png": [
+          2048,
+          2048
+        ],
+        "r4_normal_2k.png": [
+          2048,
+          2048
+        ]
+      },
+      "geometric_boundary_edges": 0,
+      "degenerate_faces": 0,
+      "isolated_vertices": 0,
+      "authored_bounds_max_error": 5.960464477539063e-08,
+      "passed": true
+    }
+  ]
+}

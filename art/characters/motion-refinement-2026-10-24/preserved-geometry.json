@@ -1,0 +1,158 @@
+[
+  {
+    "team": "blue",
+    "pass_geometry_uv_materials": true,
+    "meshes": {
+      "BlueSoldier_LOD0_ArmL": {
+        "hash": "6bf9f22228fe3bc461c13fa44a5e7c6b2fc60000776989feb93a94b44d98b674",
+        "vertices": 1084,
+        "triangles": 2124,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD0_ArmR": {
+        "hash": "577c10adbe117493848d27acdea6c51ba134ca472fda01a60718b29357b4403a",
+        "vertices": 1081,
+        "triangles": 2122,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD0_Body": {
+        "hash": "b6da5d3f3502ba496b00257ee28ce1ee3f6c63c643ae87ee92bf0bb42348604e",
+        "vertices": 7917,
+        "triangles": 15754,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD1_ArmL": {
+        "hash": "a1db1e0141b2d021e1558b8f308ed52239b575990eb5fc0344bd3ecf48d71b5d",
+        "vertices": 327,
+        "triangles": 634,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD1_ArmR": {
+        "hash": "0058cdac4f1f98704d2b3004277fd5d584faa9a6a63e75e725b73105bc9e769b",
+        "vertices": 336,
+        "triangles": 649,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD1_Body": {
+        "hash": "4b5069d886be8132c154fc09ad6d1bcd2079b66c3b49eb76e83b5a21c78a4068",
+        "vertices": 2378,
+        "triangles": 4717,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD2_ArmL": {
+        "hash": "e3691ccb9832579e3156a9eb4e859c9762e9a821831e87a1c46d69a06d753b56",
+        "vertices": 111,
+        "triangles": 206,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD2_ArmR": {
+        "hash": "a151e8dfc95dbf6ebf46aadfa24bd3ecbde621b91c816f032d9e170bd1f67371",
+        "vertices": 111,
+        "triangles": 204,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      },
+      "BlueSoldier_LOD2_Body": {
+        "hash": "55c043f60e273a59f06a9429c6f0f2603cb02339556dedcc5b86ec0921141be6",
+        "vertices": 810,
+        "triangles": 1590,
+        "materials": [
+          "Trial neutral blue gray"
+        ]
+      }
+    }
+  },
+  {
+    "team": "red",
+    "pass_geometry_uv_materials": true,
+    "meshes": {
+      "RedSoldier_LOD0_ArmL": {
+        "hash": "720a81ab94fcfa8aa5631bfbb70a8feda41c75dc3f728c0e142b92d38bb487fb",
+        "vertices": 1054,
+        "triangles": 2058,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD0_ArmR": {
+        "hash": "ad3e42614712ac894829071fbd716f3572eec4e8f3823973b532c2fb1388274d",
+        "vertices": 1074,
+        "triangles": 2095,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD0_Body": {
+        "hash": "2196d3b15bdcbdd84453c31213033ce17ca5b3e3c471ccd3981707ba41f21f68",
+        "vertices": 7963,
+        "triangles": 15831,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD1_ArmL": {
+        "hash": "01299d43bad2c56783b171227ee1fe5a0041d4eeaecad5391633d72ee3023436",
+        "vertices": 332,
+        "triangles": 634,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD1_ArmR": {
+        "hash": "34ea7027393b1a291cd5728023822b7d34251c823fcf776747999585f3b2b73f",
+        "vertices": 321,
+        "triangles": 615,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD1_Body": {
+        "hash": "de5883b2ac690e17518f4573be575ee17a464d6a4b0e8a96056a180b64d2a968",
+        "vertices": 2400,
+        "triangles": 4751,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD2_ArmL": {
+        "hash": "cb4751f7cd81f141cd5df7ce749d73fd48219288b661c64e9eca2b4cade9f2ad",
+        "vertices": 108,
+        "triangles": 201,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD2_ArmR": {
+        "hash": "bd98f2fc3006299500136c159fb26cc7d8754d3d40566500c3bd48f4b5d9dc47",
+        "vertices": 117,
+        "triangles": 218,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      },
+      "RedSoldier_LOD2_Body": {
+        "hash": "70eb0a44dd2373c236517f99248400d3f854a0dde22924d035be49d0b528f71a",
+        "vertices": 802,
+        "triangles": 1581,
+        "materials": [
+          "Trial neutral red gray"
+        ]
+      }
+    }
+  }
+]

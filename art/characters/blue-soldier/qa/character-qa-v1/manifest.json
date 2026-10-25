@@ -1,0 +1,239 @@
+{
+  "qa_preset": "character-qa-v1",
+  "asset": "/Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/art/characters/blue-soldier/blue-soldier-technical-v01.blend",
+  "asset_sha256": "d50e4df235b3c8d08992605ee33ca7a96481d5b173e8a4f06ed7bbd3b92a1092",
+  "lod": "BlueSoldier_LOD0",
+  "version": "v01",
+  "stage": "technical",
+  "naming": "{version}__{stage}__{style}__{view}.png",
+  "resolution": [
+    1600,
+    1600
+  ],
+  "alpha": "opaque",
+  "background_rgba_linear": [
+    0.18,
+    0.18,
+    0.18,
+    1.0
+  ],
+  "world_strength": 0.8,
+  "engine": "BLENDER_EEVEE",
+  "blender_version": "5.2.2 LTS",
+  "color_management": {
+    "view_transform": "AgX",
+    "look": "AgX - Medium High Contrast",
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "camera_target_m": [
+    0.0,
+    0.0,
+    0.9399999976158142
+  ],
+  "camera_positions_m": {
+    "front": {
+      "location": [
+        0.0,
+        -4.8,
+        0.94
+      ],
+      "projection": "ORTHO"
+    },
+    "side": {
+      "location": [
+        -4.8,
+        0.0,
+        0.94
+      ],
+      "projection": "ORTHO"
+    },
+    "back": {
+      "location": [
+        0.0,
+        4.8,
+        0.94
+      ],
+      "projection": "ORTHO"
+    },
+    "three_quarter": {
+      "location": [
+        3.0,
+        -3.0,
+        1.8
+      ],
+      "projection": "PERSP"
+    }
+  },
+  "orthographic_scale_m": 2.38,
+  "perspective_lens_mm": 65.0,
+  "lights": {
+    "neutral": [
+      [
+        "QA_LIGHT_NEUTRAL_Key",
+        [
+          -3.4,
+          -4.0,
+          4.0
+        ],
+        450.0,
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        4.0
+      ],
+      [
+        "QA_LIGHT_NEUTRAL_Fill",
+        [
+          3.0,
+          -2.2,
+          2.7
+        ],
+        270.0,
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        4.0
+      ],
+      [
+        "QA_LIGHT_NEUTRAL_Rear",
+        [
+          0.6,
+          3.2,
+          3.2
+        ],
+        320.0,
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        3.5
+      ]
+    ],
+    "target": [
+      [
+        "QA_LIGHT_STYLE_Key",
+        [
+          -3.0,
+          -4.0,
+          4.0
+        ],
+        850.0,
+        [
+          0.87,
+          0.94,
+          1.0
+        ],
+        3.5
+      ],
+      [
+        "QA_LIGHT_STYLE_Fill",
+        [
+          3.2,
+          -2.2,
+          2.6
+        ],
+        360.0,
+        [
+          1.0,
+          0.95,
+          0.88
+        ],
+        4.2
+      ],
+      [
+        "QA_LIGHT_STYLE_Rim",
+        [
+          0.8,
+          3.1,
+          3.5
+        ],
+        650.0,
+        [
+          0.9,
+          0.96,
+          1.0
+        ],
+        3.0
+      ]
+    ]
+  },
+  "neutral_material": {
+    "base_color": [
+      0.16,
+      0.16,
+      0.16,
+      1.0
+    ],
+    "metallic": 0.0,
+    "roughness": 0.72
+  },
+  "target_material": [
+    "Trial neutral blue gray"
+  ],
+  "renders": [
+    {
+      "style": "neutral",
+      "view": "front",
+      "path": "v01__technical__neutral__front.png",
+      "sha256": "2e68fa32ee5b4ca9246553bf6ae021bc188e991a7c6fe53c63b7decc167741bb",
+      "bytes": 1539744
+    },
+    {
+      "style": "neutral",
+      "view": "side",
+      "path": "v01__technical__neutral__side.png",
+      "sha256": "c2f083037dd645def1c6e8082f3591a502f870ea818fb37b457ea2556c6f751d",
+      "bytes": 1480439
+    },
+    {
+      "style": "neutral",
+      "view": "back",
+      "path": "v01__technical__neutral__back.png",
+      "sha256": "a585167e0b43e8f30702fde7103edf1f8fb5752889113ef72990eb1e2dba72e0",
+      "bytes": 1555572
+    },
+    {
+      "style": "neutral",
+      "view": "three_quarter",
+      "path": "v01__technical__neutral__three_quarter.png",
+      "sha256": "a0a768d4d41da6ae75f11101bc2cf681ac141816f2f9b56fd5ea8fd7b41110f5",
+      "bytes": 1530821
+    },
+    {
+      "style": "target",
+      "view": "front",
+      "path": "v01__technical__target__front.png",
+      "sha256": "8dec189161d77cb895152171ca93f93f143aad1d61fd1e086460c2e752a6efd6",
+      "bytes": 1865341
+    },
+    {
+      "style": "target",
+      "view": "side",
+      "path": "v01__technical__target__side.png",
+      "sha256": "a41523cff9ce64879d2da0652c0c78ecc9d543fd2aebd23ec605171d8e992bbe",
+      "bytes": 1660436
+    },
+    {
+      "style": "target",
+      "view": "back",
+      "path": "v01__technical__target__back.png",
+      "sha256": "38817c0f1320c47f705f0d430691eb934a912c09bde384d70e4e2246e6b50c27",
+      "bytes": 1862779
+    },
+    {
+      "style": "target",
+      "view": "three_quarter",
+      "path": "v01__technical__target__three_quarter.png",
+      "sha256": "7d77d8489d6be56f7d01ab1d4e19c7b4dc652e9fa5d0d69e44e59edbd18fc621",
+      "bytes": 1841174
+    }
+  ],
+  "elapsed_seconds": 22.93,
+  "scope": "Static LOD0 external visual QA; no rig, animation or runtime check."
+}

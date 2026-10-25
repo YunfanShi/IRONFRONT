@@ -18,6 +18,20 @@ namespace Ironfront.UnityPrototype
             Bar(texture, 33, 9, 5, 6); Bar(texture, 70, 13, 8, 9);
         });
 
+        public static Texture2D AntiAir() => Get(41, texture =>
+        {
+            Bar(texture, 17, 13, 61, 8); Bar(texture, 14, 11, 6, 12);
+            Bar(texture, 74, 10, 8, 14); Bar(texture, 35, 7, 6, 8);
+            Bar(texture, 40, 23, 19, 6); Bar(texture, 48, 6, 6, 7);
+        });
+
+        public static Texture2D AmmoCrate() => Get(42, texture =>
+        {
+            Bar(texture, 27, 5, 43, 20); Bar(texture, 32, 26, 33, 3);
+            Bar(texture, 37, 3, 5, 25); Bar(texture, 56, 3, 5, 25);
+            Bar(texture, 44, 12, 9, 4);
+        });
+
         private static Texture2D Get(int key, System.Action<Texture2D> draw)
         {
             if (Cache.TryGetValue(key, out Texture2D cached) && cached != null) return cached;

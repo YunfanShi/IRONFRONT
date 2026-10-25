@@ -1,0 +1,10 @@
+{
+  "version": "0.59.2",
+  "stage": "Completed",
+  "completed_at": "2026-10-24T12:33:10.316084+08:00",
+  "player_verification": "player/results.txt",
+  "regression": "batch-results.txt",
+  "reference": "reference-normal-video.mp4",
+  "preview": "sprint-interruption-0.59.2.mp4",
+  "remaining": []
+}

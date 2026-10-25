@@ -1,0 +1,167 @@
+{
+  "source": "/Users/liuwenjun/Downloads/33717aab9aa8b9b3fb2bb108d94498cb.glb",
+  "source_triangle_groups": {
+    "Body": 1042937,
+    "RotorHub": 120613,
+    "ChinGun": 9421,
+    "Discard": 156587,
+    "PortWeaponPod": 88862,
+    "StarboardWeaponPod": 81468
+  },
+  "scale": 16.850640450088154,
+  "rotor_diameter_m": 13.4,
+  "lods": {
+    "lod0": {
+      "triangles": 51009,
+      "parts": {
+        "TailRotorCap": 76,
+        "TailRotorBlades": 80,
+        "StarboardWeaponPod": 1599,
+        "PortWeaponPod": 1600,
+        "RotorHub": 3200,
+        "RotorCap": 76,
+        "RotorBlades": 80,
+        "ChinGun": 1299,
+        "Body": 42999
+      },
+      "pivots": {
+        "H8_Root": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "TailRotor": [
+          0.4718,
+          9.5712,
+          6.8919
+        ],
+        "MainRotor": [
+          0.0,
+          -0.2528,
+          6.9762
+        ]
+      },
+      "objects": 12
+    },
+    "lod1": {
+      "triangles": 25656,
+      "parts": {
+        "TailRotorCap": 76,
+        "TailRotorBlades": 80,
+        "StarboardWeaponPod": 798,
+        "PortWeaponPod": 800,
+        "RotorHub": 1599,
+        "RotorCap": 76,
+        "RotorBlades": 80,
+        "ChinGun": 648,
+        "Body": 21499
+      },
+      "pivots": {
+        "H8_Root": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "TailRotor": [
+          0.4718,
+          9.5712,
+          6.8919
+        ],
+        "MainRotor": [
+          0.0,
+          -0.2528,
+          6.9762
+        ]
+      },
+      "objects": 12
+    },
+    "lod2": {
+      "triangles": 20587,
+      "parts": {
+        "TailRotorCap": 76,
+        "TailRotorBlades": 80,
+        "StarboardWeaponPod": 638,
+        "PortWeaponPod": 640,
+        "RotorHub": 1280,
+        "RotorCap": 76,
+        "RotorBlades": 80,
+        "ChinGun": 518,
+        "Body": 17199
+      },
+      "pivots": {
+        "H8_Root": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "TailRotor": [
+          0.4718,
+          9.5712,
+          6.8919
+        ],
+        "MainRotor": [
+          0.0,
+          -0.2528,
+          6.9762
+        ]
+      },
+      "objects": 12
+    }
+  },
+  "exports": [
+    {
+      "lod": 0,
+      "team": "blue",
+      "files": [
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod0.glb",
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod0.fbx"
+      ]
+    },
+    {
+      "lod": 0,
+      "team": "red",
+      "files": [
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod0.glb",
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod0.fbx"
+      ]
+    },
+    {
+      "lod": 1,
+      "team": "blue",
+      "files": [
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod1.glb",
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod1.fbx"
+      ]
+    },
+    {
+      "lod": 1,
+      "team": "red",
+      "files": [
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod1.glb",
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod1.fbx"
+      ]
+    },
+    {
+      "lod": 2,
+      "team": "blue",
+      "files": [
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod2.glb",
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/blue-h8-lod2.fbx"
+      ]
+    },
+    {
+      "lod": 2,
+      "team": "red",
+      "files": [
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod2.glb",
+        "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/red-h8-lod2.fbx"
+      ]
+    }
+  ],
+  "texture_files": [
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/textures/h8_blue_albedo_2k.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/textures/h8_normal_2k.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/textures/h8_orm_2k.png",
+    "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/vehicles/h8-kestrel/textures/h8_red_albedo_2k.png"
+  ]
+}

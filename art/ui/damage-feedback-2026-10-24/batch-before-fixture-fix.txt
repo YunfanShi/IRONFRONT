@@ -1,0 +1,25 @@
+IRONFRONT actual Unity Play verification
+IRONFRONT/Verify Immediate Hit Feedback
+IRONFRONT immediate hit feedback PASS: real sub-point health loss, white marker, actual Hit/Kill audio, armor/friend/self/air/crate exclusion, foreign recipient, launch operator retention, red vehicle kill, multi-target blast dedup/one stronger sound, short expiry, pause queue cancellation, reset and unsubscribe
+
+IRONFRONT/Verify Center Health and Scoreboard Controls
+IRONFRONT center health and scoreboard controls PASS: actual open/close and cursor/input lifecycle, unchanged world clock/score, quarter-width centered injury bar, four display aspects and six equipment slots without overlaps
+
+IRONFRONT/Verify Vehicle Armor and Damage Scoring
+IRONFRONT armor and damage scoring FAIL: System.InvalidOperationException: actual cannon shell penetrates U8 ROVER
+  at Ironfront.UnityPrototype.Editor.PrototypeArmorDamageScoreSmoke.Verify () [0x005e5] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Editor/PrototypeArmorDamageScoreSmoke.cs:84 
+UnityEngine.Debug:LogError (object)
+Ironfront.UnityPrototype.Editor.PrototypeArmorDamageScoreSmoke:Verify () (at Assets/Editor/PrototypeArmorDamageScoreSmoke.cs:140)
+UnityEditor.EditorApplication:ExecuteMenuItem (string)
+Ironfront.UnityPrototype.Editor.PrototypeBatchVerification:Update () (at Assets/Editor/PrototypeBatchVerification.cs:96)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:403)
+
+
+FINAL FAIL: IRONFRONT armor and damage scoring FAIL: System.InvalidOperationException: actual cannon shell penetrates U8 ROVER
+  at Ironfront.UnityPrototype.Editor.PrototypeArmorDamageScoreSmoke.Verify () [0x005e5] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Editor/PrototypeArmorDamageScoreSmoke.cs:84 
+UnityEngine.Debug:LogError (object)
+Ironfront.UnityPrototype.Editor.PrototypeArmorDamageScoreSmoke:Verify () (at Assets/Editor/PrototypeArmorDamageScoreSmoke.cs:140)
+UnityEditor.EditorApplication:ExecuteMenuItem (string)
+Ironfront.UnityPrototype.Editor.PrototypeBatchVerification:Update () (at Assets/Editor/PrototypeBatchVerification.cs:96)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:403)
+

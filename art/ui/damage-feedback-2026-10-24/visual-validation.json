@@ -1,0 +1,1841 @@
+{
+  "frames": 360,
+  "baseline_frames": 1,
+  "resolution": [
+    960,
+    640
+  ],
+  "fps": 30,
+  "seconds": 12,
+  "marker_geometry": {
+    "front": {
+      "red_marker_pixels": 320,
+      "visual_angle": -0.31274678205917184,
+      "expected_angle": 0
+    },
+    "right": {
+      "red_marker_pixels": 319,
+      "visual_angle": 89.74462350175536,
+      "expected_angle": 90
+    },
+    "rear": {
+      "red_marker_pixels": 326,
+      "visual_angle": -179.68419053558782,
+      "expected_angle": 180
+    },
+    "left": {
+      "red_marker_pixels": 323,
+      "visual_angle": -89.65160755333986,
+      "expected_angle": -90
+    },
+    "diagonal": {
+      "red_marker_pixels": 326,
+      "visual_angle": 44.48594851622085,
+      "expected_angle": 45
+    }
+  },
+  "center_mean_rgb_difference_hit_vs_faded": 0.7562666666666666,
+  "left_edge_redness_increase": 43.152,
+  "frame_quality_checks": [
+    {
+      "frame": "player/front/0000.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0001.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0002.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0003.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0004.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0005.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0006.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0007.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0008.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0009.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0010.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0011.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0012.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0013.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0014.png",
+      "dark_fraction": 6.8359375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0015.png",
+      "dark_fraction": 0.00010416666666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0016.png",
+      "dark_fraction": 7.649739583333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0017.png",
+      "dark_fraction": 6.184895833333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0018.png",
+      "dark_fraction": 0.00011067708333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0019.png",
+      "dark_fraction": 7.32421875e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0020.png",
+      "dark_fraction": 0.00011067708333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0021.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0022.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0023.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0024.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0025.png",
+      "dark_fraction": 7.161458333333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0026.png",
+      "dark_fraction": 7.649739583333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0027.png",
+      "dark_fraction": 0.000107421875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0028.png",
+      "dark_fraction": 0.00011555989583333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0029.png",
+      "dark_fraction": 8.30078125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0030.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0031.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0032.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0033.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0034.png",
+      "dark_fraction": 0.00010091145833333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0035.png",
+      "dark_fraction": 6.673177083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0036.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0037.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0038.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0039.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0040.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0041.png",
+      "dark_fraction": 6.510416666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0042.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0043.png",
+      "dark_fraction": 0.000107421875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/front/0044.png",
+      "dark_fraction": 0.0001220703125,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0000.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0001.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0002.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0003.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0004.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0005.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0006.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0007.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0008.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0009.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0010.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0011.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0012.png",
+      "dark_fraction": 2.1158854166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0013.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0014.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0015.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0016.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0017.png",
+      "dark_fraction": 0.0001171875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0018.png",
+      "dark_fraction": 5.6966145833333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0019.png",
+      "dark_fraction": 7.486979166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0020.png",
+      "dark_fraction": 0.000107421875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0021.png",
+      "dark_fraction": 0.00011067708333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0022.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0023.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0024.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0025.png",
+      "dark_fraction": 6.673177083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0026.png",
+      "dark_fraction": 8.138020833333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0027.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0028.png",
+      "dark_fraction": 9.602864583333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0029.png",
+      "dark_fraction": 0.00010579427083333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0030.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0031.png",
+      "dark_fraction": 0.00010579427083333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0032.png",
+      "dark_fraction": 5.5338541666666664e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0033.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0034.png",
+      "dark_fraction": 6.673177083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0035.png",
+      "dark_fraction": 0.00014485677083333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0036.png",
+      "dark_fraction": 5.37109375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0037.png",
+      "dark_fraction": 6.8359375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0038.png",
+      "dark_fraction": 0.00010416666666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0039.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0040.png",
+      "dark_fraction": 6.8359375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0041.png",
+      "dark_fraction": 8.138020833333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0042.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0043.png",
+      "dark_fraction": 7.486979166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/right/0044.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0000.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0001.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0002.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0003.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0004.png",
+      "dark_fraction": 1.953125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0005.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0006.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0007.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0008.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0009.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0010.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0011.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0012.png",
+      "dark_fraction": 1.953125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0013.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0014.png",
+      "dark_fraction": 7.486979166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0015.png",
+      "dark_fraction": 7.486979166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0016.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0017.png",
+      "dark_fraction": 6.673177083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0018.png",
+      "dark_fraction": 7.32421875e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0019.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0020.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0021.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0022.png",
+      "dark_fraction": 0.00010904947916666666,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0023.png",
+      "dark_fraction": 0.00011881510416666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0024.png",
+      "dark_fraction": 9.928385416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0025.png",
+      "dark_fraction": 6.510416666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0026.png",
+      "dark_fraction": 0.000107421875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0027.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0028.png",
+      "dark_fraction": 7.161458333333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0029.png",
+      "dark_fraction": 7.161458333333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0030.png",
+      "dark_fraction": 0.00010091145833333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0031.png",
+      "dark_fraction": 7.486979166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0032.png",
+      "dark_fraction": 6.022135416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0033.png",
+      "dark_fraction": 6.673177083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0034.png",
+      "dark_fraction": 7.649739583333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0035.png",
+      "dark_fraction": 5.859375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0036.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0037.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0038.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0039.png",
+      "dark_fraction": 6.022135416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0040.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0041.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0042.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0043.png",
+      "dark_fraction": 6.510416666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/rear/0044.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0000.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0001.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0002.png",
+      "dark_fraction": 1.953125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0003.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0004.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0005.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0006.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0007.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0008.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0009.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0010.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0011.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0012.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0013.png",
+      "dark_fraction": 1.953125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0014.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0015.png",
+      "dark_fraction": 0.0001123046875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0016.png",
+      "dark_fraction": 0.000107421875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0017.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0018.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0019.png",
+      "dark_fraction": 0.00011555989583333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0020.png",
+      "dark_fraction": 0.00010904947916666666,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0021.png",
+      "dark_fraction": 7.161458333333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0022.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0023.png",
+      "dark_fraction": 5.0455729166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0024.png",
+      "dark_fraction": 6.184895833333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0025.png",
+      "dark_fraction": 5.6966145833333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0026.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0027.png",
+      "dark_fraction": 0.00012532552083333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0028.png",
+      "dark_fraction": 0.00010416666666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0029.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0030.png",
+      "dark_fraction": 8.138020833333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0031.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0032.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0033.png",
+      "dark_fraction": 6.022135416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0034.png",
+      "dark_fraction": 0.000107421875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0035.png",
+      "dark_fraction": 0.00010416666666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0036.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0037.png",
+      "dark_fraction": 0.00011067708333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0038.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0039.png",
+      "dark_fraction": 0.00011881510416666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0040.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0041.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0042.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0043.png",
+      "dark_fraction": 9.27734375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/left/0044.png",
+      "dark_fraction": 0.000126953125,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0000.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0001.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0002.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0003.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0004.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0005.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0006.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0007.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0008.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0009.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0010.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0011.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0012.png",
+      "dark_fraction": 1.953125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0013.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0014.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0015.png",
+      "dark_fraction": 0.00010416666666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0016.png",
+      "dark_fraction": 0.00013997395833333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0017.png",
+      "dark_fraction": 9.602864583333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0018.png",
+      "dark_fraction": 6.510416666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0019.png",
+      "dark_fraction": 0.00012369791666666668,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0020.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0021.png",
+      "dark_fraction": 5.208333333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0022.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0023.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0024.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0025.png",
+      "dark_fraction": 0.00011393229166666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0026.png",
+      "dark_fraction": 0.0001123046875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0027.png",
+      "dark_fraction": 0.00010091145833333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0028.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0029.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0030.png",
+      "dark_fraction": 0.00013346354166666666,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0031.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0032.png",
+      "dark_fraction": 0.00011067708333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0033.png",
+      "dark_fraction": 7.649739583333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0034.png",
+      "dark_fraction": 5.859375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0035.png",
+      "dark_fraction": 6.34765625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0036.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0037.png",
+      "dark_fraction": 7.32421875e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0038.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0039.png",
+      "dark_fraction": 5.6966145833333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0040.png",
+      "dark_fraction": 9.765625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0041.png",
+      "dark_fraction": 7.32421875e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0042.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0043.png",
+      "dark_fraction": 9.602864583333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/diagonal/0044.png",
+      "dark_fraction": 6.8359375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0000.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0001.png",
+      "dark_fraction": 1.7903645833333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0002.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0003.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0004.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0005.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0006.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0007.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0008.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0009.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0010.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0011.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0012.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0013.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0014.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0015.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0016.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0017.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0018.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0019.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0020.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0021.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0022.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0023.png",
+      "dark_fraction": 0.0001123046875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0024.png",
+      "dark_fraction": 0.0001123046875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0025.png",
+      "dark_fraction": 5.208333333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0026.png",
+      "dark_fraction": 6.022135416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0027.png",
+      "dark_fraction": 0.00011393229166666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0028.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0029.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0030.png",
+      "dark_fraction": 0.00011067708333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0031.png",
+      "dark_fraction": 6.8359375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0032.png",
+      "dark_fraction": 6.8359375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0033.png",
+      "dark_fraction": 7.32421875e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0034.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0035.png",
+      "dark_fraction": 0.00012858072916666665,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0036.png",
+      "dark_fraction": 0.00011555989583333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0037.png",
+      "dark_fraction": 0.00010416666666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0038.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0039.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0040.png",
+      "dark_fraction": 9.765625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0041.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0042.png",
+      "dark_fraction": 7.161458333333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0043.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/burst/0044.png",
+      "dark_fraction": 8.463541666666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0000.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0001.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0002.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0003.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0004.png",
+      "dark_fraction": 1.953125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0005.png",
+      "dark_fraction": 2.44140625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0006.png",
+      "dark_fraction": 2.44140625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0007.png",
+      "dark_fraction": 2.44140625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0008.png",
+      "dark_fraction": 1.6276041666666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0009.png",
+      "dark_fraction": 2.1158854166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0010.png",
+      "dark_fraction": 2.1158854166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0011.png",
+      "dark_fraction": 2.2786458333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0012.png",
+      "dark_fraction": 2.7669270833333332e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0013.png",
+      "dark_fraction": 6.34765625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0014.png",
+      "dark_fraction": 0.0002750651041666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0015.png",
+      "dark_fraction": 0.0002897135416666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0016.png",
+      "dark_fraction": 0.0002587890625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0017.png",
+      "dark_fraction": 0.0002294921875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0018.png",
+      "dark_fraction": 0.00020670572916666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0019.png",
+      "dark_fraction": 0.00019856770833333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0020.png",
+      "dark_fraction": 0.00021484375,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0021.png",
+      "dark_fraction": 0.00018880208333333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0022.png",
+      "dark_fraction": 0.0002099609375,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0023.png",
+      "dark_fraction": 0.00022298177083333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0024.png",
+      "dark_fraction": 0.000234375,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0025.png",
+      "dark_fraction": 0.00024251302083333332,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0026.png",
+      "dark_fraction": 0.0002197265625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0027.png",
+      "dark_fraction": 0.000205078125,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0028.png",
+      "dark_fraction": 0.00017740885416666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0029.png",
+      "dark_fraction": 0.0002750651041666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0030.png",
+      "dark_fraction": 0.00022298177083333333,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0031.png",
+      "dark_fraction": 0.00024739583333333335,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0032.png",
+      "dark_fraction": 0.000185546875,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0033.png",
+      "dark_fraction": 0.000224609375,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0034.png",
+      "dark_fraction": 0.00018229166666666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0035.png",
+      "dark_fraction": 0.0002197265625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0036.png",
+      "dark_fraction": 0.00022135416666666666,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0037.png",
+      "dark_fraction": 0.0002099609375,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0038.png",
+      "dark_fraction": 0.00021484375,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0039.png",
+      "dark_fraction": 0.00020670572916666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0040.png",
+      "dark_fraction": 0.00017578125,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0041.png",
+      "dark_fraction": 0.00017740885416666667,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0042.png",
+      "dark_fraction": 0.0001953125,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0043.png",
+      "dark_fraction": 0.00022786458333333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/turn/0044.png",
+      "dark_fraction": 0.00021647135416666668,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0000.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0001.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0002.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0003.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0004.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0005.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0006.png",
+      "dark_fraction": 1.1393229166666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0007.png",
+      "dark_fraction": 1.3020833333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0008.png",
+      "dark_fraction": 4.8828125e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0009.png",
+      "dark_fraction": 9.765625e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0010.png",
+      "dark_fraction": 6.510416666666667e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0011.png",
+      "dark_fraction": 3.2552083333333335e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0012.png",
+      "dark_fraction": 1.46484375e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0013.png",
+      "dark_fraction": 8.138020833333333e-06,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0014.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0015.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0016.png",
+      "dark_fraction": 7.8125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0017.png",
+      "dark_fraction": 9.928385416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0018.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0019.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0020.png",
+      "dark_fraction": 9.765625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0021.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0022.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0023.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0024.png",
+      "dark_fraction": 7.486979166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0025.png",
+      "dark_fraction": 0.00014973958333333332,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0026.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0027.png",
+      "dark_fraction": 0.00010579427083333334,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0028.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0029.png",
+      "dark_fraction": 8.951822916666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0030.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0031.png",
+      "dark_fraction": 7.161458333333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0032.png",
+      "dark_fraction": 8.7890625e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0033.png",
+      "dark_fraction": 0.00010904947916666666,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0034.png",
+      "dark_fraction": 6.184895833333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0035.png",
+      "dark_fraction": 8.626302083333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0036.png",
+      "dark_fraction": 9.440104166666666e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0037.png",
+      "dark_fraction": 7.975260416666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0038.png",
+      "dark_fraction": 8.138020833333333e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0039.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0040.png",
+      "dark_fraction": 8.30078125e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0041.png",
+      "dark_fraction": 6.998697916666667e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0042.png",
+      "dark_fraction": 0.0001025390625,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0043.png",
+      "dark_fraction": 9.114583333333334e-05,
+      "magenta_fraction": 0.0
+    },
+    {
+      "frame": "player/unknown/0044.png",
+      "dark_fraction": 0.00013509114583333334,
+      "magenta_fraction": 0.0
+    }
+  ]
+}

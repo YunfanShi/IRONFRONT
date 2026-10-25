@@ -658,6 +658,32 @@ namespace Ironfront.UnityPrototype
         public PrototypeLanPoint[] points;
         public float blueTickets;
         public float redTickets;
+        // Optional authoritative view data. Older unity-3 snapshots omit it.
+        public PrototypeScoreboardSnapshot scoreboard;
+    }
+
+    [Serializable]
+    public sealed class PrototypeScoreboardSnapshot
+    {
+        public int version = 1;
+        public PrototypeScoreboardRow[] rows;
+    }
+
+    [Serializable]
+    public sealed class PrototypeScoreboardRow
+    {
+        public string actorId;
+        public string displayName;
+        public int team;
+        public int stableOrder;
+        public int kills;
+        public int assists;
+        public int vehicleAssists;
+        public int vehiclesDestroyed;
+        public int totalEarned;
+        public bool alive;
+        public bool isHuman;
+        public bool connected;
     }
 
     [Serializable]
@@ -676,6 +702,9 @@ namespace Ironfront.UnityPrototype
         public float respawnRemaining;
         public float downedRemaining;
         public bool rescueCalled;
+        public bool revivePaused;
+        public float reviveProgress;
+        public PrototypeIncomingDamage incomingDamage;
     }
 
     [Serializable]
