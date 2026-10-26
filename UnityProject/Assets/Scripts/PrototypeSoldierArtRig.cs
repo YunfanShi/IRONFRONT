@@ -58,7 +58,9 @@ namespace Ironfront.UnityPrototype
         private void CurlFingers()
         {
             for (int i = 0; i < Fingers.Length; i++)
-                Fingers[i].localRotation = FingerRest[i] * Quaternion.Euler(i == 0 ? Mathf.Lerp(55f, 12f, SupportHandWeight) : 55f, 0f, 0f);
+                // The imported finger X axis bends toward the palm at negative
+                // angles. Positive flex folded the fingers over the hand plate.
+                Fingers[i].localRotation = FingerRest[i] * Quaternion.Euler(i == 0 ? Mathf.Lerp(-65f, -12f, SupportHandWeight) : -65f, 0f, 0f);
             if (Thumbs != null && ThumbRest != null)
                 for (int i = 0; i < Thumbs.Length; i++)
                     Thumbs[i].localRotation = ThumbRest[i] * Quaternion.Euler(18f, 0f, 0f);
@@ -97,17 +99,25 @@ namespace Ironfront.UnityPrototype
         }
         public void PoseWeaponViewArms(Vector3 right,Vector3 left,Quaternion rightRotation,Quaternion leftRotation)
         {
-            PoseViewArm(true,ViewShoulder(true),transform.InverseTransformPoint(left),Quaternion.Inverse(transform.rotation)*leftRotation);
-            PoseViewArm(false,ViewShoulder(false),transform.InverseTransformPoint(right),Quaternion.Inverse(transform.rotation)*rightRotation);
+            PoseViewArm(true,ViewShoulder(true,left),transform.InverseTransformPoint(left),Quaternion.Inverse(transform.rotation)*leftRotation);
+            PoseViewArm(false,ViewShoulder(false,right),transform.InverseTransformPoint(right),Quaternion.Inverse(transform.rotation)*rightRotation);
             SetArmBone(7,transform.InverseTransformPoint(left),Quaternion.Inverse(transform.rotation)*leftRotation);
             SetArmBone(8,transform.InverseTransformPoint(right),Quaternion.Inverse(transform.rotation)*rightRotation);
             CurlFingers();
         }
-        private Vector3 ViewShoulder(bool left)
+        private Vector3 ViewShoulder(bool left, Vector3 target)
         {
             // Shoulders belong to the camera/chest frame, not the gun. Keeping
             // them on the weapon pushes both cuffs toward the sights in ADS.
-            if(viewCamera!=null)return transform.InverseTransformPoint(viewCamera.TransformPoint(new Vector3(left?-.22f:.22f,-.48f,-.02f)));
+            if(viewCamera!=null)
+            {
+                // A first-person sleeve must enter from below the image. Keep
+                // its shoulder behind the hand, rather than near the camera
+                // where perspective exposes the source body's shoulder cut.
+                float depth=Mathf.Max(.12f,viewCamera.InverseTransformPoint(target).z-.38f);
+                var shoulder=new Vector3(left?-.30f:.30f,-Mathf.Max(.58f,depth),depth);
+                return transform.InverseTransformPoint(viewCamera.TransformPoint(shoulder));
+            }
             return new Vector3(left?-.275f:.325f,-.4f,-.25f);
         }
         private void PoseViewArm(bool left, Vector3 origin, Vector3 target, Quaternion? gripRotation = null)
@@ -120,7 +130,9 @@ namespace Ironfront.UnityPrototype
             if (delta.magnitude > reach) { origin = target - delta.normalized * reach; delta = target - origin; }
             float distance = Mathf.Max(.001f, delta.magnitude);
             Vector3 direction = delta.normalized;
-            Vector3 pole = Vector3.ProjectOnPlane(new Vector3(left ? -1 : 1, -.7f, -.3f), direction).normalized;
+            Vector3 poleDirection=new Vector3(left ? -1 : 1, -.7f, -.3f);
+            if(viewCamera!=null)poleDirection=transform.InverseTransformDirection(viewCamera.TransformDirection(poleDirection));
+            Vector3 pole = Vector3.ProjectOnPlane(poleDirection, direction).normalized;
             float along = (upper * upper + distance * distance - lower * lower) / (2 * distance);
             Vector3 elbow = origin + direction * along + pole * Mathf.Sqrt(Mathf.Max(0, upper * upper - along * along));
             Quaternion upperArm = Quaternion.FromToRotation(Vector3.down, elbow - origin);

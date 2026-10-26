@@ -194,7 +194,7 @@ namespace Ironfront.UnityPrototype
             soldierVisual.SetWeapon(ActiveWeapon.Id, runtime);
             rifle = soldierVisual.HeldWeapon;
             rifleArt = rifle.GetComponent<PrototypeWeaponArtRig>();
-            magazineVisual = rifle.transform.Find("Magazine");
+            magazineVisual = rifleArt != null ? rifleArt.Magazine : rifle.transform.Find("Magazine");
             if (magazineVisual != null) magazineHome = magazineVisual.localPosition;
             if (firstPersonWeapon != null)
             {
@@ -206,7 +206,7 @@ namespace Ironfront.UnityPrototype
             firstPersonWeapon.transform.localPosition = new Vector3(.30f, -.29f, .74f);
             firstPersonWeapon.transform.localScale = Vector3.one * .55f;
             firstPersonArt = firstPersonWeapon.GetComponent<PrototypeWeaponArtRig>();
-            firstPersonMagazine = firstPersonWeapon.transform.Find("Magazine");
+            firstPersonMagazine = firstPersonArt != null ? firstPersonArt.Magazine : firstPersonWeapon.transform.Find("Magazine");
             if (firstPersonMagazine != null)
                 firstPersonMagazineHome = firstPersonMagazine.localPosition;
             ApplyPerspectiveVisibility();

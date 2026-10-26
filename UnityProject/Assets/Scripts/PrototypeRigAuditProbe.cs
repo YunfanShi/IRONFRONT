@@ -16,6 +16,8 @@ namespace Ironfront.UnityPrototype
         string output; int errors, failures; Camera camera;
         readonly List<string> checks=new List<string>();
         readonly List<string> samples=new List<string>{"team,weapon,pose,arm,upper_error,forearm_error,max_skin_edge_ratio,p95_skin_edge_ratio"};
+        [Serializable] class Sweep { public Fit[] fits; }
+        [Serializable] class Fit { public string name; public Vector3 rightOffset,rightAngles,leftOffset,leftAngles,fingerAngles; public bool isolateRight; }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot(){var a=Environment.GetCommandLineArgs();for(int i=0;i+1<a.Length;i++)if(a[i]=="-ironfrontRigAudit")new GameObject("Evaluated rig audit").AddComponent<PrototypeRigAuditProbe>().output=Path.GetFullPath(a[i+1]);}
         IEnumerator Start()
@@ -36,18 +38,46 @@ namespace Ironfront.UnityPrototype
             player.GetComponent<CharacterController>().enabled=false;player.transform.SetPositionAndRotation(center,Quaternion.identity);camera=player.ViewCamera;camera.enabled=false;
             bool calibration=Environment.GetCommandLineArgs().Contains("-gripCalibration");
             bool motion=Environment.GetCommandLineArgs().Contains("-rigMotion");
+            string[] args=Environment.GetCommandLineArgs();int sweepArg=Array.IndexOf(args,"-gripSweep");
+            Sweep sweep=sweepArg>=0?JsonUtility.FromJson<Sweep>(File.ReadAllText(args[sweepArg+1])):null;
             foreach(var team in new[]{PrototypeTeam.Blue,PrototypeTeam.Red})
             foreach(PrototypeWeaponId id in Enum.GetValues(typeof(PrototypeWeaponId)))
             {
                 if(calibration&&(team!=PrototypeTeam.Blue||id!=PrototypeWeaponId.Pistol))continue;
                 if(motion&&(team!=PrototypeTeam.Blue||(id!=PrototypeWeaponId.Pistol&&id!=PrototypeWeaponId.Carbine)))continue;
+                if(sweep!=null&&(team!=PrototypeTeam.Blue||id!=PrototypeWeaponId.Pistol))continue;
                 player.SetTeam(team);
                 player.GetComponent<CharacterController>().enabled=false;player.transform.SetPositionAndRotation(center,Quaternion.identity);
                 var role=id==PrototypeWeaponId.Smg?PrototypeInfantryClass.Medic:id==PrototypeWeaponId.Lmg?PrototypeInfantryClass.Engineer:id==PrototypeWeaponId.Marksman||id==PrototypeWeaponId.Sniper?PrototypeInfantryClass.Recon:PrototypeInfantryClass.Assault;
                 player.ApplyLoadout(new PrototypeLoadout{role=role,primary=id==PrototypeWeaponId.Pistol?PrototypeWeaponId.Carbine:id,secondary=PrototypeWeaponId.Pistol,throwable=PrototypeThrowableId.Frag});if(id==PrototypeWeaponId.Pistol)Invoke(player,"EquipSecondary",true);
                 var soldier=player.GetComponent<PrototypeSoldierVisual>();soldier.enabled=false;
                 var fp=((GameObject)Get(player,"firstPersonWeapon")).GetComponent<PrototypeWeaponArtRig>();var art=fp.GetComponentInChildren<PrototypeSoldierArtRig>();
+                string resource="Weapons/"+(id==PrototypeWeaponId.Carbine?"IF27":"Batch2/"+id)+"View";
+                var original=Resources.Load<GameObject>(resource).GetComponent<PrototypeWeaponArtRig>();
+                float ratio=Vector3.Distance(fp.Muzzle.position,fp.Sight.position)/Vector3.Distance(original.Muzzle.position,original.Sight.position)/fp.transform.lossyScale.x;
+                Check(Mathf.Abs(ratio-(id==PrototypeWeaponId.Pistol?1.55f:1.15f))<.001f,team+" "+id+" actual muzzle/sight size ratio="+ratio);
+                Check(Mathf.Abs(art.transform.lossyScale.x-.55f/.65f)<.001f,team+" "+id+" arms retain original scale");
                 if(!player.IsFirstPerson)player.TogglePerspective();
+                if(sweep!=null)
+                {
+                    for(int i=0;i<35;i++){Invoke(player,"UpdateInfantryPresentation");yield return null;}
+                    foreach(var fit in sweep.fits)
+                    {
+                        fp.RightGrip.position=fp.RightContactPosition+fp.transform.TransformVector(fit.rightOffset);
+                        fp.RightGrip.localRotation=Quaternion.Euler(fit.rightAngles);
+                        fp.LeftGrip.position=fp.RightContactPosition+fp.transform.TransformVector(fit.leftOffset);
+                        fp.LeftHandRotation=Quaternion.Euler(fit.leftAngles);
+                        Set(fp,"leftHome",fp.LeftGrip.localPosition);
+                        fp.SetPresentation(false,0,100);
+                        for(int f=0;f<art.Fingers.Length;f++)art.Fingers[f].localRotation=art.FingerRest[f]*Quaternion.Euler(fit.fingerAngles);
+                        foreach(var ar in art.Arms)ar.enabled=!fit.isolateRight||ar.name.EndsWith("_ArmL");
+                        yield return null;Capture(fit.name);
+                        var observer=new GameObject("Fit contact camera").AddComponent<Camera>();observer.CopyFrom(camera);
+                        observer.transform.position=fp.RightContactPosition+fp.transform.TransformDirection(new Vector3(.45f,.2f,.4f));observer.transform.LookAt(fp.RightContactPosition);observer.fieldOfView=30;
+                        camera=observer;Capture(fit.name+"-contact");camera=player.ViewCamera;Destroy(observer.gameObject);
+                    }
+                    continue;
+                }
                 foreach(string pose in new[]{"hip","ads","reload40","reload87"})
                 {
                     Set(player,"aiming",pose=="ads");Set(player,"lastShotAt",-10f);
@@ -137,6 +167,14 @@ namespace Ironfront.UnityPrototype
                 float lower=Mathf.Abs(Vector3.Distance(art.Bindings[b].Bone.position,art.Bindings[c].Bone.position)-art.ForearmLength*scale);
                 Check(upper<.001f&&lower<.001f,team+" "+id+" "+pose+" "+i+" arm length preserved");
                 var renderer=art.Arms[i];var rest=renderer.sharedMesh.vertices;var baked=new Mesh();renderer.BakeMesh(baked);var posed=baked.vertices;var triangles=baked.triangles;var ratios=new List<float>();
+                if(pose=="ads")
+                {
+                    var proxy=new GameObject("Evaluated hand sight-line check");proxy.transform.SetPositionAndRotation(renderer.transform.position,renderer.transform.rotation);
+                    proxy.transform.localScale=renderer.transform.lossyScale;
+                    var collider=proxy.AddComponent<MeshCollider>();collider.sharedMesh=baked;Physics.SyncTransforms();
+                    Check(!collider.Raycast(new Ray(camera.transform.position,camera.transform.forward),out var hit,2f),team+" "+id+" hands clear sight line "+i);
+                    DestroyImmediate(proxy);
+                }
                 for(int t=0;t<triangles.Length;t+=3)for(int e=0;e<3;e++)
                 {int v=triangles[t+e],w=triangles[t+(e+1)%3];float before=Vector3.Distance(rest[v],rest[w]);if(before>.003f)ratios.Add(Vector3.Distance(posed[v],posed[w])/before);}
                 ratios.Sort();samples.Add(string.Join(",",team,id,pose,i,upper,lower,ratios.Last(),ratios[(int)(ratios.Count*.95f)]));Destroy(baked);

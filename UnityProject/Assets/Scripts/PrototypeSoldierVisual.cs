@@ -431,7 +431,8 @@ namespace Ironfront.UnityPrototype
             {
                 // The authored receiver extends behind its origin. Keep its
                 // pistol grip in front of the vest, with the stock at the shoulder.
-                weaponMount.localPosition += new Vector3(.035f, 0f, .18f) * (1f-prone);
+                float sizeClearance=(weaponArt.VisualScale-1f)*(heldWeaponId==PrototypeWeaponId.Pistol?.06f:.30f);
+                weaponMount.localPosition += new Vector3(.035f, 0f, .18f+sizeClearance) * (1f-prone);
                 weaponMount.localRotation *= Quaternion.Euler(0f, -12f*(1f-prone), 0f);
             }
             if (firearm)

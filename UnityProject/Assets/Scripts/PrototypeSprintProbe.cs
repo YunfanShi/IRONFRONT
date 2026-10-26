@@ -180,7 +180,7 @@ namespace Ironfront.UnityPrototype
                         Check(maxY-minY>.008f&&maxY-minY<.025f,name+" subtle vertical camera bob");
                     }
                     var fp=(GameObject)Get(player,"firstPersonWeapon");
-                    Check(fp.transform.Find("Stock").gameObject.activeInHierarchy==first,name+" stock retained with view visibility");
+                    Check(fp.transform.Find("Weapon visual size/Stock").gameObject.activeInHierarchy==first,name+" stock retained with view visibility");
                 }
             // Real capsule obstruction: holding forward/Shift against a wall
             // must not keep shaking a stationary first-person view.

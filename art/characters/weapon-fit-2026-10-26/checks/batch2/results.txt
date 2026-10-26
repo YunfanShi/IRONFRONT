@@ -1,0 +1,132 @@
+PASS
+Version=0.66.2
+RuntimeErrors=0
+OK Runtime starts
+OK BattleRifle inventory uses authored FP and TP prefabs
+OK BattleRifle world has three distance LODs
+OK BattleRifle moving magazine has actual geometry
+OK BattleRifle supported material Surface
+OK BattleRifle supported material Interior
+OK BattleRifle supported material Surface
+OK BattleRifle supported material Interior
+OK BattleRifle supported material Surface
+OK BattleRifle supported material Reticle
+OK BattleRifle first person hand attached
+OK BattleRifle aim anchor centered (0.50, 0.50, 0.38)
+OK BattleRifle ADS clear through Body
+OK BattleRifle ADS clear through Magazine
+OK BattleRifle ADS clear through ChargingHandle
+OK BattleRifle first person hand attached
+OK BattleRifle magazine detaches and returns without drift
+OK BattleRifle reload hand follows grip 4.768372E-07
+OK BattleRifle firing consumes one round
+OK BattleRifle projectile originates at authored muzzle
+OK BattleRifle third person hand attached
+OK Lmg inventory uses authored FP and TP prefabs
+OK Lmg world has three distance LODs
+OK Lmg moving magazine has actual geometry
+OK Lmg supported material Surface
+OK Lmg supported material Interior
+OK Lmg supported material Surface
+OK Lmg supported material Interior
+OK Lmg supported material Surface
+OK Lmg supported material Interior
+OK Lmg supported material Reticle
+OK Lmg first person hand attached
+OK Lmg aim anchor centered (0.50, 0.50, 0.38)
+OK Lmg ADS clear through Body
+OK Lmg ADS clear through Magazine
+OK Lmg ADS clear through ChargingHandle
+OK Lmg first person hand attached
+OK Lmg magazine detaches and returns without drift
+OK Lmg reload hand follows grip 3.576279E-07
+OK Lmg firing consumes one round
+OK Lmg projectile originates at authored muzzle
+OK Lmg third person hand attached
+OK Marksman inventory uses authored FP and TP prefabs
+OK Marksman world has three distance LODs
+OK Marksman moving magazine has actual geometry
+OK Marksman supported material Surface
+OK Marksman supported material Interior
+OK Marksman supported material Surface
+OK Marksman supported material Interior
+OK Marksman supported material Surface
+OK Marksman supported material Interior
+OK Marksman supported material Reticle
+OK Marksman first person hand attached
+OK Marksman optical scope view active
+OK Marksman scope view clears foreground geometry
+OK Marksman aim anchor centered (0.50, 0.50, 0.08)
+OK Marksman ADS clear through Body
+OK Marksman ADS clear through Magazine
+OK Marksman ADS clear through ChargingHandle
+OK Marksman first person hand attached
+OK Marksman magazine detaches and returns without drift
+OK Marksman reload hand follows grip 3.576279E-07
+OK Marksman firing consumes one round
+OK Marksman projectile originates at authored muzzle
+OK Marksman third person hand attached
+OK Pistol inventory uses authored FP and TP prefabs
+OK Pistol world has three distance LODs
+OK Pistol moving magazine has actual geometry
+OK Pistol supported material Surface
+OK Pistol supported material Interior
+OK Pistol supported material Surface
+OK Pistol supported material Interior
+OK Pistol supported material Surface
+OK Pistol supported material Interior
+OK Pistol first person hand attached
+OK Pistol aim anchor centered (0.50, 0.50, 0.45)
+OK Pistol ADS clear through Body
+OK Pistol ADS clear through Magazine
+OK Pistol ADS clear through Bolt
+OK Pistol first person hand attached
+OK Pistol magazine detaches and returns without drift
+OK Pistol reload hand follows grip 4.768372E-07
+OK Pistol firing consumes one round
+OK Pistol projectile originates at authored muzzle
+OK Pistol slide recoils
+OK Pistol third person hand attached
+OK Sniper inventory uses authored FP and TP prefabs
+OK Sniper world has three distance LODs
+OK Sniper moving magazine has actual geometry
+OK Sniper supported material Surface
+OK Sniper supported material Interior
+OK Sniper supported material Surface
+OK Sniper supported material Interior
+OK Sniper supported material Surface
+OK Sniper supported material Reticle
+OK Sniper first person hand attached
+OK Sniper optical scope view active
+OK Sniper scope view clears foreground geometry
+OK Sniper aim anchor centered (0.50, 0.50, 0.07)
+OK Sniper ADS clear through Body
+OK Sniper ADS clear through Magazine
+OK Sniper ADS clear through ChargingHandle
+OK Sniper first person hand attached
+OK Sniper magazine detaches and returns without drift
+OK Sniper reload hand follows grip 4.768372E-07
+OK Sniper firing consumes one round
+OK Sniper projectile originates at authored muzzle
+OK Sniper third person hand attached
+OK Smg inventory uses authored FP and TP prefabs
+OK Smg world has three distance LODs
+OK Smg moving magazine has actual geometry
+OK Smg supported material Surface
+OK Smg supported material Interior
+OK Smg supported material Surface
+OK Smg supported material Interior
+OK Smg supported material Surface
+OK Smg supported material Reticle
+OK Smg first person hand attached
+OK Smg aim anchor centered (0.50, 0.50, 0.38)
+OK Smg ADS clear through Body
+OK Smg ADS clear through Magazine
+OK Smg ADS clear through ChargingHandle
+OK Smg first person hand attached
+OK Smg magazine detaches and returns without drift
+OK Smg reload hand follows grip 4.768372E-07
+OK Smg firing consumes one round
+OK Smg projectile originates at authored muzzle
+OK Smg third person hand attached
+OK Existing IF27 still uses its original authored prefab

@@ -1,0 +1,352 @@
+{
+  "fits": [
+    {
+      "name": "yaw0-x-20-curl0",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": -20,
+        "y": 0,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": -20,
+        "y": 0,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw0-x-20-curl80",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": -20,
+        "y": 0,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": -20,
+        "y": 0,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 80,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw0-x0-curl0",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw0-x0-curl80",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 80,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw0-x20-curl0",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw0-x20-curl80",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 80,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw180-x-20-curl0",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": -20,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": -20,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw180-x-20-curl80",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": -20,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": -20,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 80,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw180-x0-curl0",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw180-x0-curl80",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 0,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 80,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw180-x20-curl0",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 20,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 20,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "yaw180-x20-curl80",
+      "rightOffset": {
+        "x": 0.075,
+        "y": 0.09,
+        "z": -0.015
+      },
+      "rightAngles": {
+        "x": 20,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.06,
+        "y": 0.07,
+        "z": -0.015
+      },
+      "leftAngles": {
+        "x": 20,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 80,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    }
+  ]
+}

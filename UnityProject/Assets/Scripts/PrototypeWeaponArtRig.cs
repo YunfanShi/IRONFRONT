@@ -28,6 +28,7 @@ namespace Ironfront.UnityPrototype
         public Vector3 SupportPosition => transform.TransformPoint(supportLocal);
         public Quaternion SupportRotation => transform.rotation * supportLocalRotation;
         public bool ReloadActive { get; private set; }
+        public float VisualScale { get; private set; } = 1f;
 
         void Awake() => Initialize();
         void Initialize()
@@ -46,6 +47,7 @@ namespace Ironfront.UnityPrototype
             if (prefab == null) return null;
             var rig = Instantiate(prefab, parent, false).GetComponent<PrototypeWeaponArtRig>();
             rig.Initialize();
+            rig.ResizeWeapon(id == PrototypeWeaponId.Pistol ? 1.55f : 1.15f);
             rig.CalibrateWristTargets(id);
             if (firstPerson)
             {
@@ -54,29 +56,44 @@ namespace Ironfront.UnityPrototype
             }
             return rig;
         }
+        void ResizeWeapon(float scale)
+        {
+            // Scale the authored prop and all of its sockets together. Arms are
+            // instantiated afterwards, outside this node, and keep their size.
+            var parts = new Transform[transform.childCount];
+            for(int i=0;i<parts.Length;i++)parts[i]=transform.GetChild(i);
+            var visual=new GameObject("Weapon visual size").transform;
+            visual.SetParent(transform,false);
+            foreach(var part in parts)part.SetParent(visual,false);
+            visual.localScale=Vector3.one*scale;VisualScale=scale;
+            GetComponent<LODGroup>().RecalculateBounds();
+        }
         private void CalibrateWristTargets(PrototypeWeaponId id)
         {
             if (gripsCalibrated) return;
-            rightContactLocal = RightGrip.localPosition;
+            rightContactLocal = transform.InverseTransformPoint(RightGrip.position);
             gripsCalibrated = true;
             bool pistol = id == PrototypeWeaponId.Pistol;
             // Imported anchors describe contact on the prop. The pose solver
             // needs the wrist behind that contact, not the wrist inside it.
-            RightGrip.localPosition += new Vector3(.024f, .060f, -.125f);
-            RightGrip.localRotation = Quaternion.Euler(65f, 180f, -8f);
+            RightGrip.localPosition += new Vector3(.05f, .06f, -.10f)/VisualScale;
+            RightGrip.localRotation = Quaternion.Euler(35f, 180f, 0f);
             if (pistol)
             {
-                LeftGrip.localPosition = RightGrip.localPosition + new Vector3(-.075f, -.035f, .010f);
-                LeftHandRotation = Quaternion.Euler(65f, 180f, 10f);
+                LeftGrip.localPosition = RightGrip.localPosition + new Vector3(-.11f, -.02f, .02f)/VisualScale;
+                LeftHandRotation = Quaternion.Euler(35f, 180f, 0f);
             }
             else
             {
-                LeftGrip.localPosition += new Vector3(-.10f, -.025f, -.035f);
-                LeftHandRotation = Quaternion.Euler(180f, 0f, 75f);
+                // Keep the support hand on the rear of the longer handguard,
+                // within the character's reach after the visual enlargement.
+                Vector3 support=LeftGrip.localPosition;support.z/=VisualScale;
+                LeftGrip.localPosition = support + new Vector3(-.14f, -.04f, -.035f)/VisualScale;
+                LeftHandRotation = Quaternion.AngleAxis(90f,Vector3.forward)*Quaternion.Euler(10f,180f,0f);
             }
             leftHome = LeftGrip.localPosition;
-            MagazineGrip.localPosition += new Vector3(-.025f, .035f, -.035f);
-            ChargingGrip.localPosition += new Vector3(-.025f, -.015f, -.035f);
+            MagazineGrip.localPosition += new Vector3(-.075f, .09f, -.015f)/VisualScale;
+            ChargingGrip.localPosition += new Vector3(-.025f, -.015f, -.035f)/VisualScale;
         }
         public Vector3 AimPosition(float displayScale)
         {
@@ -138,9 +155,10 @@ namespace Ironfront.UnityPrototype
             Bolt.localPosition = boltHome + Vector3.back * (BoltTravel * Mathf.Max(charge,shot));
             float magReach=Ease(p,.03f,.17f)*(1f-Ease(p,.73f,.80f));
             float chargeReach=Ease(p,.78f,.82f)*(1f-Ease(p,.94f,1f));
-            supportLocal=Vector3.Lerp(leftHome,transform.InverseTransformPoint(MagazineGrip.position),magReach);
+            supportLocal=Vector3.Lerp(transform.InverseTransformPoint(LeftGrip.parent.TransformPoint(leftHome)),transform.InverseTransformPoint(MagazineGrip.position),magReach);
             supportLocal=Vector3.Lerp(supportLocal,transform.InverseTransformPoint(ChargingGrip.position),chargeReach);
-            supportLocalRotation=Quaternion.Slerp(LeftHandRotation,Quaternion.Euler(65f,180f,10f),magReach);
+            Quaternion magazineWrist=Quaternion.Inverse(transform.rotation)*MagazineGrip.rotation*Quaternion.Euler(10f,180f,0f);
+            supportLocalRotation=Quaternion.Slerp(LeftHandRotation,magazineWrist,magReach);
             supportLocalRotation=Quaternion.Slerp(supportLocalRotation,Quaternion.Euler(70f,180f,15f),chargeReach);
             if(viewArms!=null) viewArms.PoseWeaponViewArms(RightGrip.position,SupportPosition,
                 RightGrip.rotation,SupportRotation);

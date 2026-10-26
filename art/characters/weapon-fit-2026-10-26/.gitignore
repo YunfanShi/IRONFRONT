@@ -1,0 +1,15 @@
+# Preserve diagnostic iterations locally; version final evidence and scripts.
+/*
+!/.gitignore
+!/run_checks.py
+!/review_frames.py
+!/sweep3.json
+!/sweep4.json
+!/final-validation.json
+!/frame-checks.json
+!/checks/
+!/checks-05/
+/checks-05/*
+!/checks-05/sprint/
+!/checks-05/menu/
+!/checks-05/equipment/

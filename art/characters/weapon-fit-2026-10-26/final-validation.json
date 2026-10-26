@@ -1,0 +1,78 @@
+{
+  "version": "0.66.2",
+  "date": "2026-10-27",
+  "baseline": "413cf0ec1b58662be77746734d47946f58918c52",
+  "finalBuild": "build-06",
+  "app": "UnityProject/Builds/WeaponFit-0.66.2/IRONFRONT.app",
+  "checks": [
+    {
+      "name": "rig",
+      "build": "06",
+      "path": "art/characters/weapon-fit-2026-10-26/checks/rig/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    },
+    {
+      "name": "if27",
+      "build": "06",
+      "path": "art/characters/weapon-fit-2026-10-26/checks/if27/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    },
+    {
+      "name": "batch2",
+      "build": "06",
+      "path": "art/characters/weapon-fit-2026-10-26/checks/batch2/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    },
+    {
+      "name": "motion",
+      "build": "06",
+      "path": "art/characters/weapon-fit-2026-10-26/checks/motion/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    },
+    {
+      "name": "sprint",
+      "build": "05",
+      "path": "art/characters/weapon-fit-2026-10-26/checks-05/sprint/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    },
+    {
+      "name": "menu",
+      "build": "05",
+      "path": "art/characters/weapon-fit-2026-10-26/checks-05/menu/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    },
+    {
+      "name": "equipment",
+      "build": "05",
+      "path": "art/characters/weapon-fit-2026-10-26/checks-05/equipment/results.txt",
+      "status": "PASS",
+      "runtimeErrors": 0
+    }
+  ],
+  "skinSamples": 104,
+  "maxUpperErrorM": 2.192992e-05,
+  "maxForearmErrorM": 1.640602e-05,
+  "frameCount": 112,
+  "frameFailures": {},
+  "unchangedTrackedModelMaterialPrefabAssets": true,
+  "sourceSHA256": {
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": "f911efb308f5579325770547e5a16fbb3043965bfd9a8e7c883e08b7df6c8258",
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": "ec0ad5286734b31edca8dfad07290764e1253a94a30a424a933abff56d24c6b3",
+    "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs": "80c5bff28c20ad8e72df39f1eda3e5946e3c20f066469b8cac75bbd112bc49ca",
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": "28b5454d07cb63a26547c3c6df478371604baed3aba3ec49eb9b303f6344f520",
+    "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs": "3c482b2f4c4f5448ead72b6a7745095b1b03e47aec2458b83bfe91bf6b120d0b",
+    "UnityProject/Assets/Scripts/PrototypeSprintProbe.cs": "b4ff60a947b74998a673a2da2ecc7aac13604c3eb6db092388a3fb679c5e9d42"
+  },
+  "limitations": [
+    "Original heavy forearm armor remains",
+    "Original sleeve segmentation remains",
+    "Four fingers still share one bone; no independent trigger finger",
+    "Not a blanket visual acceptance of all closeup interpenetration"
+  ]
+}
