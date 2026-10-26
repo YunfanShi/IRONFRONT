@@ -104,21 +104,24 @@ async function run() {
     const standing={actorId:`player:${captain.welcome.id}`,displayName:'Commander',team:0,stableOrder:captain.welcome.id,
         kills:2,assists:1,vehicleAssists:1,vehiclesDestroyed:1,totalEarned:550,alive:true,isHuman:true,connected:true};
     const scoreboard={version:1,rows:[standing]};
+    const slideState={sliding:true,slideTime:.4,slideForcedExit:false,slideStandExit:false,slideRecovery:0,slidePoseTime:0,slideYaw:20,crouched:false,prone:false};
     const incomingDamage={sequence:4,amount:18,hasSource:true,x:25,y:2,z:-10,age:0.04};
-    const snapshot={type:'snapshot',tick:1,players:[{id:captain.welcome.id,x:1,y:2,z:3,yaw:90,hp:100,alive:true,incomingDamage}],bots:[{id:1,x:0}],vehicles:[{id:1,x:0}],points:[{id:1,owner:'blue'}],blueTickets:299,redTickets:300,id:guest.welcome.id,host:false};
+    const snapshot={type:'snapshot',tick:1,players:[{id:captain.welcome.id,x:1,y:2,z:3,yaw:90,hp:100,alive:true,incomingDamage,...slideState}],bots:[{id:1,x:0}],vehicles:[{id:1,x:0}],points:[{id:1,owner:'blue'}],blueTickets:299,redTickets:300,id:guest.welcome.id,host:false};
     captain.ws.send(JSON.stringify({...snapshot,scoreboard:{version:1,rows:[{...standing,host:true}]}}));
     const replicated=await awaitEvent(guest,e=>e.type==='snapshot'&&e.tick===1);
     assert.equal(replicated.players[0].id,captain.welcome.id);
     assert.equal(replicated.id,undefined);
     assert.equal(replicated.host,undefined);
+    for(const [key,value] of Object.entries(slideState))assert.equal(replicated.players[0][key],value,"host slide state roundtrip: "+key);
     assert.deepEqual(replicated.scoreboard,scoreboard);
     assert.deepEqual(replicated.players[0].incomingDamage,incomingDamage,
         "host-confirmed incoming damage source is relayed intact to the guest");
     await denied({...snapshot,tick:100,scoreboard:{version:1,rows:[{...standing,totalEarned:2147483647}]},host:true});
-    guest.ws.send(JSON.stringify({type:'input',id:captain.welcome.id,host:true,seq:1,forward:9,side:-8,yaw:9999,pitch:999,sprint:true,fire:true,callRescue:true,giveUp:true}));
+    guest.ws.send(JSON.stringify({type:'input',id:captain.welcome.id,host:true,seq:1,forward:9,side:-8,yaw:9999,pitch:999,sprint:true,fire:true,slide:true,aim:true,crouch:true,prone:"true",callRescue:true,giveUp:true}));
     const input=await awaitEvent(captain,e=>e.type==='peerInput'&&e.input.seq===1);
     assert.deepEqual({id:input.id,forward:input.input.forward,side:input.input.side,yaw:input.input.yaw,pitch:input.input.pitch,sprint:input.input.sprint,fire:input.input.fire},
         {id:guest.welcome.id,forward:1,side:-1,yaw:3600,pitch:89,sprint:true,fire:true});
+    assert.deepEqual([input.input.slide,input.input.aim,input.input.crouch,input.input.prone],[true,true,true,false],"slide and stance intents are strict booleans");
     assert.equal(input.input.callRescue,true);
     assert.equal(input.input.giveUp,true);
     guest.ws.send(JSON.stringify({type:'input',seq:1,forward:0,side:0,yaw:0,pitch:0}));

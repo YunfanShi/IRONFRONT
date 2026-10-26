@@ -183,6 +183,7 @@ namespace Ironfront.UnityPrototype
                                     peer.input = new PrototypeLanInput {
                                         seq = peer.seq, forward = peer.forward, side = peer.side,
                                         yaw = peer.yaw, pitch = peer.pitch, sprint = peer.sprint,
+                                        slide = peer.slide, aim = peer.aim, crouch = peer.crouch, prone = peer.prone,
                                         fire = peer.fire, callRescue = peer.callRescue,
                                         giveUp = peer.giveUp
                                     };
@@ -609,6 +610,7 @@ namespace Ironfront.UnityPrototype
         public float yaw;
         public float pitch;
         public bool sprint;
+        public bool slide, aim, crouch, prone;
         public bool fire;
         public bool callRescue;
         public bool giveUp;
@@ -626,6 +628,7 @@ namespace Ironfront.UnityPrototype
         public float yaw;
         public float pitch;
         public bool sprint;
+        public bool slide, aim, crouch, prone;
         public bool fire;
         public bool callRescue;
         public bool giveUp;
@@ -705,6 +708,8 @@ namespace Ironfront.UnityPrototype
         public bool revivePaused;
         public float reviveProgress;
         public PrototypeIncomingDamage incomingDamage;
+        public bool sliding, slideForcedExit, slideStandExit, crouched, prone;
+        public float slideTime, slideRecovery, slidePoseTime, slideYaw;
     }
 
     [Serializable]

@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "exports": [
+    {
+      "team": "blue",
+      "lod": 0,
+      "verticesTrianglesUVPreserved": true,
+      "maxVertexDisplacementM": 1.257802770743827e-07,
+      "bodyWeightsUnchanged": true,
+      "invalidSkinVertices": 0,
+      "newBones": [
+        "Thumb_L",
+        "Thumb_R"
+      ]
+    },
+    {
+      "team": "blue",
+      "lod": 1,
+      "verticesTrianglesUVPreserved": true,
+      "maxVertexDisplacementM": 1.2489448945403256e-07,
+      "bodyWeightsUnchanged": true,
+      "invalidSkinVertices": 0,
+      "newBones": [
+        "Thumb_L",
+        "Thumb_R"
+      ]
+    },
+    {
+      "team": "blue",
+      "lod": 2,
+      "verticesTrianglesUVPreserved": true,
+      "maxVertexDisplacementM": 1.2489448945403256e-07,
+      "bodyWeightsUnchanged": true,
+      "invalidSkinVertices": 0,
+      "newBones": [
+        "Thumb_L",
+        "Thumb_R"
+      ]
+    },
+    {
+      "team": "red",
+      "lod": 0,
+      "verticesTrianglesUVPreserved": true,
+      "maxVertexDisplacementM": 1.2818463544611077e-07,
+      "bodyWeightsUnchanged": true,
+      "invalidSkinVertices": 0,
+      "newBones": [
+        "Thumb_L",
+        "Thumb_R"
+      ]
+    },
+    {
+      "team": "red",
+      "lod": 1,
+      "verticesTrianglesUVPreserved": true,
+      "maxVertexDisplacementM": 1.2818463544611077e-07,
+      "bodyWeightsUnchanged": true,
+      "invalidSkinVertices": 0,
+      "newBones": [
+        "Thumb_L",
+        "Thumb_R"
+      ]
+    },
+    {
+      "team": "red",
+      "lod": 2,
+      "verticesTrianglesUVPreserved": true,
+      "maxVertexDisplacementM": 1.2818463544611077e-07,
+      "bodyWeightsUnchanged": true,
+      "invalidSkinVertices": 0,
+      "newBones": [
+        "Thumb_L",
+        "Thumb_R"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+ffmpeg version 8.0.1-g1834eb471506fe3f6296aa844825ac317e51bd5b Copyright (c) 2000-2022 the FFmpeg developers
+  built with clang 21.0.0
+  configuration: -Dbuildtype=debugoptimized -Dpkgconfig.relocatable=true -Dvaapi=disabled -Dno_uninit_ub=true -Denable-ssp=enabled -Denable-cfguard=disabled -Ddefault_library=shared -Dprograms=enabled -Dtests=disabled -Dffmpeg=enabled -Dffprobe=enabled -Dffplay=disabled -Davdevice=disabled -Davcodec=enabled -Davformat=enabled -Davutil=enabled -Dswresample=enabled -Dswscale=enabled -Dpostproc=disabled -Dsdl2=enabled -Dlibaom=enabled -Dzlib=enabled -Dimage2_demuxer=enabled -Dimage2_alias_pix_demuxer=enabled -Dimage2_brender_pix_demuxer=enabled -Dwebm_muxer=enabled -Dmatroska_muxer=enabled -Dogg_muxer=enabled -Dapng_muxer=enabled -Dlibwebp=enabled -Dpng_encoder=enabled -Dpng_decoder=enabled -Dapng_encoder=enabled -Dapng_decoder=enabled -Dlibaom_av1_encoder=enabled -Dlibvpl=auto -Dlibvpx=enabled -Dlibvpx_vp9_encoder=enabled -Dlibvpx_vp8_encoder=enabled -Dlibopenh264=enabled -Dlibtheora=enabled -Dflac_encoder=enabled -Daac_encoder=enabled -Dlibmp3lame=enabled -Dlibopus=enabled -Dlibvorbis=enabled -Dprefix=/Users/gitlab/builds/GZwHuM5xu/0/packaging/krita-deps-management/ext_ffmpeg/_install -Dlibdir=lib --native-file=/Users/gitlab/builds/GZwHuM5xu/0/packaging/krita-deps-management/ext_ffmpeg/_build/meson-compiler.ini --native-file=/Users/gitlab/builds/GZwHuM5xu/0/packaging/krita-deps-management/ext_ffmpeg/_build/meson-compiler_arm64.ini
+  libavutil      60.  8.100 / 60.  8.100
+  libavcodec     62. 11.100 / 62. 11.100
+  libavformat    62.  3.100 / 62.  3.100
+  libavfilter    11.  4.100 / 11.  4.100
+  libswscale      9.  1.100 /  9.  1.100
+  libswresample   6.  1.100 /  6.  1.100
+Input #0, image2, from 'art/characters/slide-2026-10-26/video-frames/%04d.png':
+  Duration: 00:00:05.70, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 960x640, 30 fps, 30 tbr, 30 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libopenh264))
+Press [q] to stop, [?] for help
+[libopenh264 @ 0xa7ac30000] [OpenH264] this = 0x0x104693500, Warning:layerId(0) doesn't support profile(578), change to UNSPECIFIC profile
+[libopenh264 @ 0xa7ac30000] [OpenH264] this = 0x0x104693500, Warning:bEnableFrameSkip = 0,bitrate can't be controlled for RC_QUALITY_MODE,RC_BITRATE_MODE and RC_TIMESTAMP_MODE without enabling skip frame.
+Output #0, mp4, to 'art/characters/slide-2026-10-26/slide-0.66.0.mp4':
+  Metadata:
+    encoder         : Lavf62.3.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 960x640, q=2-31, 5000 kb/s, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc62.11.100 libopenh264
+    Side data:
+      cpb: bitrate max/min/avg: 5000000/0/5000000 buffer size: 0 vbv_delay: N/A
+[out#0/mp4 @ 0xa7ac2c100] video:3080KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.049235%
+frame=  171 fps=0.0 q=-0.0 Lsize=    3082KiB time=00:00:05.70 bitrate=4429.2kbits/s speed=11.4x elapsed=0:00:00.49    

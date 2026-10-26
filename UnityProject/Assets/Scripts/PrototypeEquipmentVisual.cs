@@ -216,6 +216,7 @@ namespace Ironfront.UnityPrototype
             PrototypeInfantryClass role, PrototypeRuntime game,
             PrototypeTeam team = PrototypeTeam.Blue)
         {
+            if (PrototypeEquipmentArt.BuildClassGear(soldier, role, game)) return;
             Material accent = team == PrototypeTeam.Blue ?
                 game.BlueTrimMaterial : game.RedTrimMaterial;
             if (role == PrototypeInfantryClass.Engineer)

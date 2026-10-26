@@ -5,7 +5,7 @@ namespace Ironfront.UnityPrototype
     // The gameplay capsule stays on the parent. This small articulated rig only
     // changes the silhouette, leaving movement, hit rules and cameras untouched.
     [DefaultExecutionOrder(100)]
-    public sealed class PrototypeSoldierVisual : MonoBehaviour
+    public sealed partial class PrototypeSoldierVisual : MonoBehaviour
     {
         private float HipHeight = .86f;
         private float ThighLength = .38f;
@@ -68,6 +68,7 @@ namespace Ironfront.UnityPrototype
             artRig = null;
             bot = GetComponent<PrototypeBot>();
             player = GetComponent<PrototypePlayer>();
+            remotePlayer = GetComponent<PrototypeRemotePlayer>();
             downed = false;
             motorcycleFirstPerson = false;
             baseHeight = feetOffset;
@@ -153,7 +154,7 @@ namespace Ironfront.UnityPrototype
             weaponMount = Pivot("Held weapon", model.transform, new Vector3(.05f, 1.16f, .18f));
             weaponMount.localScale = Vector3.one * .65f;
             SetWeapon(PrototypeInfantryRoles.DefaultWeapon(role), game);
-            if (role == PrototypeInfantryClass.Medic)
+            if (role == PrototypeInfantryClass.Medic && artRig == null)
                 BodyPart("Medical insignia", PrimitiveType.Cube,
                     new Vector3(-.32f, 1.39f, .15f), new Vector3(.09f, .12f, .025f),
                     game.LampMaterial);
@@ -167,6 +168,7 @@ namespace Ironfront.UnityPrototype
                 // functional class identifiers fitted to its narrower silhouette.
                 foreach (Transform item in gear)
                 {
+                    if (item.GetComponent<PrototypeEquipmentArt>() != null) continue;
                     if (item.name == "Ammunition satchel" || item.name == "Magazine") item.gameObject.SetActive(false);
                     else if (item.name.StartsWith("Medical"))
                     { item.localPosition = new Vector3(-.22f, .99f, item.name == "Medical kit" ? .10f : .172f); item.localScale *= .6f; }
@@ -250,9 +252,9 @@ namespace Ironfront.UnityPrototype
                 PoseMotorcycle(bike);
                 return;
             }
-            bool prone = player != null && player.IsProne;
-            bool crouching = player != null ? player.IsCrouched || player.IsSliding :
-                bot != null && (bot.TacticalState == PrototypeTacticalState.InCover ||
+            bool prone = player != null ? player.IsProne : remotePlayer != null && remotePlayer.IsProne;
+            bool crouching = player != null ? player.IsCrouched || player.IsSliding && !player.Slide.StandExit :
+                remotePlayer != null ? remotePlayer.IsCrouched || remotePlayer.Slide.Active && !remotePlayer.Slide.StandExit : bot != null && (bot.TacticalState == PrototypeTacticalState.InCover ||
                 bot.TacticalState == PrototypeTacticalState.Revive);
             float crouchTarget = crouching && !prone ? 1f : 0f;
             float proneTarget = prone || downed ? 1f : 0f;
@@ -404,6 +406,7 @@ namespace Ironfront.UnityPrototype
                 foot.rotation = model.transform.rotation * Quaternion.Slerp(legFrame*Quaternion.Euler(footPitch,side*5f,0),crawlRotation,prone);
             }
 
+            ApplySlideBody();
             weaponMount.localPosition = new Vector3(Mathf.Lerp(.05f, .015f, prone),
                 Mathf.Lerp((artRig != null ? 1.33f : 1.16f) - crouch * .22f - strideLean*.06f, .36f, prone),
                 Mathf.Lerp((artRig != null ? .18f : .18f) + crouch * .10f, .49f, prone));
@@ -412,7 +415,7 @@ namespace Ironfront.UnityPrototype
             bool compact = heldWeaponId == PrototypeWeaponId.Pistol ||
                 heldWeaponId == PrototypeWeaponId.Smg;
             bool firearm = heldEquipmentKind == PrototypeHeldEquipment.Firearm;
-            float carry = firearm && (player == null || !player.Reloading) ?
+            float carry = slidePoseWeight < .001f && firearm && (player == null || !player.Reloading) ?
                 strideLean * (1f - aimWeight) : 0f;
             if (firearm && !compact)
             {
@@ -446,6 +449,7 @@ namespace Ironfront.UnityPrototype
                 weaponMount.localPosition = new Vector3(.45f, .28f, .15f);
                 weaponMount.localRotation = Quaternion.Euler(0f, 20f, 55f);
             }
+            ApplySlideWeapon();
             Transform weaponFrame = heldEquipment != null ? heldEquipment.transform :
                 heldWeapon != null ? heldWeapon.transform : weaponMount;
             bool pistol = heldWeaponId == PrototypeWeaponId.Pistol;
@@ -457,6 +461,7 @@ namespace Ironfront.UnityPrototype
                 weaponMount.localRotation = Quaternion.Slerp(Quaternion.identity,
                     Quaternion.Euler(63f, -5f, -8f), carry);
                 Vector3 currentGrip = model.transform.InverseTransformPoint(
+                    weaponArt != null ? weaponArt.RightGrip.position :
                     weaponFrame.TransformPoint(new Vector3(0f, -.18f, pistol ? -.045f : -.18f)));
                 Vector3 carryGrip = new Vector3(.37f + swing * .025f,
                     hipY + .23f + swing * .04f, .12f + swing * .25f);

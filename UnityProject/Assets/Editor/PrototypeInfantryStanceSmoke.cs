@@ -37,10 +37,10 @@ namespace Ironfront.UnityPrototype.Editor
                 Check(visual != null && Pose != null, "articulated infantry rig exists");
                 crouchedBefore = Flag(player, "crouched");
                 proneBefore = Flag(player, "prone");
-                slideBefore = (float)typeof(PrototypePlayer).GetField("slideEndsAt", Private).GetValue(player);
+                slideBefore = player.Slide.EndsAt;
                 firstPersonBefore = player.IsFirstPerson;
                 stateSaved = true;
-                typeof(PrototypePlayer).GetField("slideEndsAt", Private).SetValue(player, 0f);
+                player.Slide.EndsAt = 0f;
                 if (firstPersonBefore) player.TogglePerspective();
                 visual.SetDowned(false);
 
@@ -137,7 +137,7 @@ namespace Ironfront.UnityPrototype.Editor
                     PrototypeSoldierVisual visual = player.GetComponent<PrototypeSoldierVisual>();
                     visual.SetDowned(false);
                     SetStance(player, visual, crouchedBefore, proneBefore);
-                    typeof(PrototypePlayer).GetField("slideEndsAt", Private).SetValue(player, slideBefore);
+                    player.Slide.EndsAt = slideBefore;
                     if (player.IsFirstPerson != firstPersonBefore) player.TogglePerspective();
                     visual.RefreshPose(true);
                 }

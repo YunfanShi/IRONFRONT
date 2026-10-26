@@ -190,6 +190,7 @@ function createUnityRooms(server) {
                 if (host) send(host.ws, { type:'peerInput', id:c.id, input:{ seq:c.lastSeq,
                     forward:clamp(m.forward,-1,1), side:clamp(m.side,-1,1), yaw:clamp(m.yaw,-3600,3600),
                     pitch:clamp(m.pitch,-89,89), sprint:m.sprint===true,
+                    slide:m.slide===true, aim:m.aim===true, crouch:m.crouch===true, prone:m.prone===true,
                     fire:m.fire===true, callRescue:m.callRescue===true,
                     giveUp:m.giveUp===true } });
                 return;

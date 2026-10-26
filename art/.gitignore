@@ -36,3 +36,7 @@
 # Required by the existing Build Runtime Soldiers editor command.
 !/characters/blue-soldier/rigged-v02/*.fbx
 !/characters/red-soldier/rigged-v02/*.fbx
+
+# Current Build Runtime Soldiers hand-rig revision.
+!/characters/blue-soldier/rigged-v03/*.fbx
+!/characters/red-soldier/rigged-v03/*.fbx

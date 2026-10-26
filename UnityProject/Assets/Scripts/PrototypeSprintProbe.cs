@@ -250,7 +250,7 @@ namespace Ironfront.UnityPrototype
             Set(player,"crouched",true); Check(Resolve(Vector2.up,true,false,false)==2f,"Crouch speed preserved");
             Set(player,"crouched",false); Set(player,"prone",true);
             Check(Mathf.Abs(Resolve(Vector2.up,true,false,false)-.85f)<.001f,"Prone speed preserved");
-            Reset(); Set(player,"slideEndsAt",Time.time+.3f);
+            Reset(); player.Slide.TryStart(6.6f,Vector3.forward,true,true);
             Resolve(Vector2.up,true,false,true); Check(!player.IsSprinting&&!player.IsAiming&&player.IsSliding,"Slide remains separate from sprint and ADS");
             Reset(); Resolve(Vector2.up,true,false,false); player.Kit.ApplyNetworkAmmo(0,player.Kit.Weapon.Reserve);
             Resolve(Vector2.up,true,true,false); Invoke(player,"Fire");
@@ -274,7 +274,7 @@ namespace Ironfront.UnityPrototype
             Vector2 run=remote.MapPosition-new Vector2(origin.x,origin.z);
             remote.transform.position=origin; remote.ApplyInput(1,0,0,0,true,true,.05f);
             Vector2 fire=remote.MapPosition-new Vector2(origin.x,origin.z);
-            Check(run.magnitude>.6f&&fire.magnitude<.44f&&fire.magnitude>.4f,"Host rejects simultaneous sprint/fire speed in peer input");
+            Check(run.magnitude>.32f&&run.magnitude<.34f&&fire.magnitude<.22f&&fire.magnitude>.20f,"Host rejects simultaneous sprint/fire speed in peer input");
             Destroy(root);
         }
 
@@ -282,7 +282,7 @@ namespace Ironfront.UnityPrototype
         {
             controller.enabled=false;player.transform.SetPositionAndRotation(start,Quaternion.identity);controller.enabled=true;
             Set(player,"sprintInterrupted",false); Set(player,"sprinting",false); Set(player,"aiming",false);
-            Set(player,"crouched",false); Set(player,"prone",false); Set(player,"slideEndsAt",0f); Set(player,"pitch",0f); Set(player,"moveAmount",1f);
+            Set(player,"crouched",false); Set(player,"prone",false); player.Slide.Reset(); Set(player,"pitch",0f); Set(player,"moveAmount",1f);
             player.Kit.ResetForSpawn();player.ActiveKit.ResetForSpawn();
             Set(soldier,"runWeight",0f);Set(soldier,"motion",0f);Set(soldier,"gait",0f);Set(soldier,"sprintMotionWeight",0f);
             controller.height=1.8f;controller.center=Vector3.up*.9f;

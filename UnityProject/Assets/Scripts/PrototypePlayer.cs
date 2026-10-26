@@ -8,13 +8,12 @@ namespace Ironfront.UnityPrototype
     public enum PrototypeHeldEquipment { Firearm, Throwable, Launcher, AntiAirLauncher }
 
     [RequireComponent(typeof(CharacterController))]
-    public sealed class PrototypePlayer : MonoBehaviour
+    public sealed partial class PrototypePlayer : MonoBehaviour
     {
         private const float WalkSpeed = 4.2f;
         private const float SprintSpeed = 6.6f;
         private const float CrouchSpeed = 2.0f;
         private const float ProneSpeed = .85f;
-        private const float SlideDuration = .78f;
         private const float DownedViewHalfAngle = 85f;
         private const float ReviveDuration = 4f;
         private CharacterController controller;
@@ -80,8 +79,6 @@ namespace Ironfront.UnityPrototype
         private bool sprinting;
         private bool sprintInterrupted;
         private bool aiming;
-        private float slideEndsAt;
-        private Vector3 slideDirection;
         private float moveAmount;
         private float lastShotAt = -10f;
         private bool infantryThirdPerson = true;
@@ -115,7 +112,7 @@ namespace Ironfront.UnityPrototype
         public bool IsAiming => aiming && HeldEquipment != PrototypeHeldEquipment.Throwable && !Reloading && CurrentVehicle == null;
         public bool IsSprinting => sprinting;
         public bool SprintRequested { get; private set; }
-        public bool IsSliding => slideEndsAt > Time.time;
+        public bool IsSliding => Slide.Active;
         public bool IsCrouched => crouched && !IsSliding;
         public bool IsProne => prone;
         public float CrosshairSpread => Mathf.Clamp(
@@ -359,6 +356,7 @@ namespace Ironfront.UnityPrototype
                 ForceExitVehicle();
             if (!Alive)
             {
+                Slide.Reset();
                 if (!runtime.ScoreboardOpen && IsDowned && Input.GetMouseButton(1))
                     AdjustDownedView(Input.GetAxis("Mouse X") * runtime.MouseSensitivity,
                         -Input.GetAxis("Mouse Y") * runtime.MouseSensitivity);
@@ -423,39 +421,11 @@ namespace Ironfront.UnityPrototype
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             input = Vector2.ClampMagnitude(input, 1f);
             moveAmount = input.magnitude;
-            if (Input.GetKeyDown(KeyCode.LeftControl) ||
-                Input.GetKeyDown(KeyCode.RightControl))
-            {
-                if (prone) { prone = false; crouched = true; }
-                else { prone = true; crouched = false; slideEndsAt = 0f; }
-            }
-            // Combat intent is resolved before moving, even for an empty gun
-            // or a shot still on cooldown. A held Shift must not restart sprint.
-            bool wantsSprint = ResolveSprintInput(input, Input.GetKey(KeyCode.LeftShift),
-                Input.GetMouseButton(0), Input.GetMouseButton(1));
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (wantsSprint)
-                {
-                    slideDirection = (transform.right * input.x + transform.forward * input.y).normalized;
-                    slideEndsAt = Time.time + SlideDuration;
-                    crouched = false;
-                    prone = false;
-                }
-                else if (prone) { prone = false; crouched = true; }
-                else if (crouched) { if (CanStand()) crouched = false; }
-                else crouched = true;
-            }
-            if (slideEndsAt > 0f && Time.time >= slideEndsAt)
-            {
-                slideEndsAt = 0f;
-                crouched = true;
-            }
-            float speed = ResolveMovementSpeed(wantsSprint, Input.GetMouseButton(1));
-            Vector3 horizontal = IsSliding ? slideDirection *
-                Mathf.Lerp(14f, 5f, 1f - (slideEndsAt - Time.time) / SlideDuration) :
-                (transform.right * input.x + transform.forward * input.y) * speed;
-            float targetHeight = prone ? .75f : crouched || IsSliding ? 1.15f : 1.8f;
+            Vector3 horizontal = ResolveInfantryMotion(input, Input.GetKey(KeyCode.LeftShift),
+                Input.GetMouseButton(0), Input.GetMouseButton(1), Input.GetKeyDown(KeyCode.C),
+                Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl),
+                Input.GetKey(KeyCode.LeftAlt), Time.deltaTime);
+            float targetHeight = prone ? .75f : IsSliding ? Mathf.Lerp(1.15f, Slide.StandExit ? 1.8f : 1.15f, Slide.Recovery) : crouched ? 1.15f : 1.8f;
             controller.height = targetHeight;
             controller.center = new Vector3(0f, targetHeight * .5f, 0f);
             controller.stepOffset = prone ? .12f : .35f;
@@ -464,7 +434,9 @@ namespace Ironfront.UnityPrototype
                 !prone && !crouched && !IsSliding &&
                 Input.GetKeyDown(KeyCode.Space)) verticalSpeed = 6.2f;
             StepInfantryGravity(Time.deltaTime);
-            controller.Move((horizontal + Vector3.up * verticalSpeed) * Time.deltaTime);
+            Vector3 beforeMove = transform.position;
+            CollisionFlags moveFlags = controller.Move((horizontal + Vector3.up * verticalSpeed) * Time.deltaTime);
+            ResolveSlideCollision(moveFlags, beforeMove, horizontal, Time.deltaTime);
 
             if (!runtime.IsNetworkReplica && Input.GetKeyDown(KeyCode.E))
             {
@@ -517,7 +489,7 @@ namespace Ironfront.UnityPrototype
 
         private float ResolveMovementSpeed(bool wantsSprint, bool aimHeld)
         {
-            aiming = aimHeld && HeldEquipment != PrototypeHeldEquipment.Throwable && !IsSliding && !Reloading;
+            aiming = aimHeld && HeldEquipment != PrototypeHeldEquipment.Throwable && (!IsSliding || Slide.Recovering) && !Reloading;
             sprinting = wantsSprint && !sprintInterrupted && !aiming && !IsSliding && !prone && !crouched;
             return prone ? ProneSpeed : crouched ? CrouchSpeed :
                 aiming ? WalkSpeed * .65f : sprinting ? SprintSpeed : WalkSpeed;
@@ -620,21 +592,34 @@ namespace Ironfront.UnityPrototype
             }
             if(rifleArt!=null)rifleArt.SetPresentation(Reloading,reload,Time.time-lastShotAt);
             if(firstPersonArt!=null)firstPersonArt.SetPresentation(Reloading,reload,Time.time-lastShotAt);
+            if(firstPersonArt!=null)firstPersonArt.SetAiming(IsAiming && !Reloading && !infantryThirdPerson);
         }
 
         private void PositionInfantryCamera(float blend)
         {
-            float eyeHeight = prone ? .65f : crouched || IsSliding ? 1.05f : 1.65f;
+            float eyeHeight = prone ? .65f : crouched ? 1.05f : 1.65f;
+            if (IsSliding)
+            {
+                float enter = Mathf.SmoothStep(0f, 1f, Slide.Elapsed / PrototypeSlideState.EnterDuration);
+                eyeHeight = Mathf.Lerp(1.65f, .88f, enter);
+                if (Slide.Recovering) eyeHeight = Mathf.Lerp(eyeHeight, Slide.StandExit ? 1.65f : 1.05f,
+                    Mathf.SmoothStep(0f, 1f, Slide.Recovery));
+            }
             viewCamera.transform.rotation = transform.rotation * Quaternion.Euler(pitch, 0f, 0f);
             Vector3 focus = transform.position + Vector3.up * eyeHeight;
             if (!infantryThirdPerson)
             {
                 float phase = soldierVisual != null ? soldierVisual.GaitPhase : 0f;
-                float weight = soldierVisual != null ? soldierVisual.SprintMotionWeight : 0f;
+                float weight = !IsSliding && soldierVisual != null ? soldierVisual.SprintMotionWeight : 0f;
                 // Tiny, stride-driven head movement: two landings per cycle,
                 // one side-to-side weight shift. Never add onto last frame's rotation.
                 Vector3 offset = new Vector3(Mathf.Sin(phase) * .012f,
                     -Mathf.Cos(phase * 2f) * .014f, 0f) * weight;
+                if (IsSliding)
+                {
+                    offset = Vector3.zero;
+                    viewCamera.transform.rotation *= Quaternion.Euler(0f, 0f, -1.1f * Slide.Weight);
+                }
                 focus += transform.TransformDirection(offset);
                 viewCamera.transform.rotation *= Quaternion.Euler(
                     Mathf.Sin(phase * 2f) * .20f * weight,
@@ -734,7 +719,7 @@ namespace Ironfront.UnityPrototype
             ApplyPerspectiveVisibility();
             aiming = false;
             sprinting = false;
-            slideEndsAt = 0f;
+            Slide.Reset();
             UpdateVehicleCamera();
             return true;
         }
@@ -1061,6 +1046,7 @@ namespace Ironfront.UnityPrototype
                 PrototypeEquipmentVisual.BuildLauncher(viewCamera.transform, runtime) :
                 PrototypeEquipmentVisual.BuildThrowable(viewCamera.transform, loadout.throwable, runtime);
             PrototypeEquipmentVisual.AddHeldHands(firstPersonEquipment.transform, kind, runtime, Team);
+            PrototypeEquipmentArt.ForceNearLod(firstPersonEquipment);
             firstPersonEquipment.transform.localScale = Vector3.one *
                 (kind == PrototypeHeldEquipment.Throwable ? 1f : .6f);
             firstPersonEquipment.transform.localPosition = kind != PrototypeHeldEquipment.Throwable ?
@@ -1334,6 +1320,15 @@ namespace Ironfront.UnityPrototype
             ClearBeacon();
             beaconPosition = position;
             beaconAvailable = true;
+            beaconMarker = PrototypeEquipmentArt.Create(runtime.transform, "Beacon");
+            if (beaconMarker != null)
+            {
+                beaconMarker.name = "Recon respawn beacon";
+                beaconMarker.transform.SetPositionAndRotation(new Vector3(position.x,
+                    PrototypeWorldVisual.InfantrySurfaceAt(position.x, position.y) + .025f, position.y),
+                    Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+                return;
+            }
             beaconMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             beaconMarker.name = "Recon respawn beacon";
             beaconMarker.transform.position = new Vector3(position.x,
@@ -1733,7 +1728,7 @@ namespace Ironfront.UnityPrototype
             sprintInterrupted = false;
             SprintRequested = false;
             aiming = false;
-            slideEndsAt = 0f;
+            Slide.Reset();
             if (controller != null)
             {
                 controller.height = 1.8f;

@@ -1,0 +1,17 @@
+# Preserve diagnostic renders and experiments locally; version the reproducible
+# repair, final numeric evidence and review boundary.
+*
+!*/
+!.gitignore
+!repair_hand_skin.py
+!validate_hand_exports.py
+!run_regression.py
+!hand-repair-report.json
+!fresh-import-validation.json
+!preservation-report.json
+!metrics-summary.json
+!final-validation.json
+!accepted-rig/results.txt
+!accepted-rig/skin-metrics.csv
+!verified/*/results.txt
+!verified/menu/contacts.csv

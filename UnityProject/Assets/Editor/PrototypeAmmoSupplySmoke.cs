@@ -63,7 +63,7 @@ namespace Ironfront.UnityPrototype.Editor
             game.Player.ApplyLoadout(new PrototypeLoadout { role = PrototypeInfantryClass.Assault,
                 primary = PrototypeWeaponId.Carbine, secondary = PrototypeWeaponId.Pistol });
             Set(game.Player, "crouched", false); Set(game.Player, "prone", false);
-            Set(game.Player, "slideEndsAt", 0f);
+            game.Player.Slide.Reset();
             game.Supplies.Reset();
             game.Player.Kit.ApplyNetworkAmmo(8, 20);
             ((PrototypeInfantryKit)Field(game.Player, "secondaryKit")).ApplyNetworkAmmo(3, 10);

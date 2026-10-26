@@ -1,0 +1,8 @@
+{
+  "armSamples": 104,
+  "maxUpperErrorM": 2.634057e-05,
+  "maxForearmErrorM": 1.716512e-05,
+  "maxSkinEdgeRatio": 1.85388,
+  "maxP95SkinEdgeRatio": 1.002325,
+  "skinMetricsAreDiagnosticNotVisualAcceptance": true
+}

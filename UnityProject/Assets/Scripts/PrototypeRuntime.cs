@@ -784,7 +784,7 @@ namespace Ironfront.UnityPrototype
                             if (input.giveUp) remote.GiveUp(dt);
                         }
                         remote.ApplyInput(input.forward, input.side, input.yaw,
-                            input.pitch, input.sprint, input.fire, dt);
+                            input.pitch, input.sprint, input.fire, dt, input.slide, input.aim, input.crouch, input.prone);
                         break;
                     }
             }
@@ -816,7 +816,8 @@ namespace Ironfront.UnityPrototype
         {
             if (Time.unscaledTime < nextLanSend) return;
             nextLanSend = Time.unscaledTime + 0.05f;
-            bool active = Cursor.lockState == CursorLockMode.Locked && Player.Alive && !ScoreboardOpen;
+            bool active = Cursor.lockState == CursorLockMode.Locked && Player.Alive && !ScoreboardOpen && !PauseOpen && !SupportMenuOpen;
+            bool slidePress = Player.ConsumeSlideInput();
             float pitch = Player.ViewCamera.transform.eulerAngles.x;
             if (pitch > 180f) pitch -= 360f;
             lan.SendInput(new PrototypeLanInput {
@@ -824,8 +825,12 @@ namespace Ironfront.UnityPrototype
                 side = active ? Input.GetAxisRaw("Horizontal") : 0f,
                 yaw = Player.transform.eulerAngles.y,
                 pitch = pitch,
-                sprint = active && Input.GetKey(KeyCode.LeftShift) && Player.SprintRequested &&
+                sprint = active && Input.GetKey(KeyCode.LeftShift) && (Player.SprintRequested || Player.IsSliding) &&
                     !Input.GetMouseButton(0) && !Input.GetMouseButton(1),
+                slide = active && slidePress,
+                aim = active && Input.GetMouseButton(1),
+                crouch = active && Player.IsCrouched,
+                prone = active && Player.IsProne,
                 fire = active && Player.HeldEquipment == PrototypeHeldEquipment.Firearm &&
                     Input.GetMouseButton(0),
                 callRescue = !ScoreboardOpen && !PauseOpen && !SupportMenuOpen &&
@@ -848,6 +853,8 @@ namespace Ironfront.UnityPrototype
             players[0].revivePaused = Player.IsBeingRevived;
             players[0].reviveProgress = Player.ReviveProgress;
             players[0].incomingDamage = Player.LastIncomingDamage?.Snapshot();
+            Player.Slide.WriteSnapshot(players[0]);
+            players[0].crouched = Player.IsCrouched; players[0].prone = Player.IsProne;
             for (int i = 0; i < RemotePlayers.Count; i++)
             {
                 PrototypeRemotePlayer remote = RemotePlayers[i];
@@ -861,6 +868,8 @@ namespace Ironfront.UnityPrototype
                 players[i + 1].revivePaused = remote.IsBeingRevived;
                 players[i + 1].reviveProgress = remote.ReviveProgress;
                 players[i + 1].incomingDamage = remote.LastIncomingDamage?.Snapshot();
+                remote.Slide.WriteSnapshot(players[i + 1]);
+                players[i + 1].crouched = remote.IsCrouched; players[i + 1].prone = remote.IsProne;
             }
             var bots = new PrototypeLanActor[Bots.Count];
             for (int i = 0; i < Bots.Count; i++)
@@ -916,6 +925,7 @@ namespace Ironfront.UnityPrototype
                             actor.ammo, actor.reserve, actor.respawnRemaining,
                             actor.downedRemaining, actor.rescueCalled,
                             actor.revivePaused, actor.reviveProgress);
+                        Player.ApplyNetworkSlide(actor);
                         DamageFeedback?.ReceiveSnapshot(actor.incomingDamage, previousHealth, Player.Health);
                     }
                     else
@@ -924,6 +934,7 @@ namespace Ironfront.UnityPrototype
                             {
                                 remote.SetNetworkState(position, actor.yaw, actor.hp,
                                     actor.alive, actor.downedRemaining > 0f);
+                                remote.ApplyNetworkSlide(actor);
                                 break;
                             }
                 }
@@ -1158,10 +1169,10 @@ namespace Ironfront.UnityPrototype
             string controls = Player.CurrentVehicle != null ?
                 VehicleControls(Player.CurrentVehicle) :
                 Player.Class == PrototypeInfantryClass.Engineer ?
-                "WASD | 1/2 gun | 3 grenade | 4 AT | 5 AA | P fire | E supply | B support" :
+                "WASD | Alt slide | 1/2 gun | 3 grenade | 4 AT | 5 AA | P fire | E supply | B support" :
                 Player.Class == PrototypeInfantryClass.Assault ?
-                "WASD | 1/2 gun | 3 grenade | X ammo | 6 box | E supply | B support" :
-                "WASD | 1/2 gun | 3 grenade | X gadget | E supply | B support";
+                "WASD | Alt slide | 1/2 gun | 3 grenade | X ammo | 6 box | E supply | B support" :
+                "WASD | Alt slide | 1/2 gun | 3 grenade | X gadget | E supply | B support";
             controls = "V view " + (Player.IsFirstPerson ? "1P" : "3P") +
                 "  |  " + controls + " | Y scores";
             GUI.Label(new Rect(12, canvasHeight - 35, Mathf.Max(250f,
@@ -1444,6 +1455,8 @@ namespace Ironfront.UnityPrototype
 
         private void DrawCrosshair(float width, float height)
         {
+            if(Player.CurrentVehicle==null && Player.IsFirstPerson && Player.IsAiming && !Player.Reloading &&
+                (Player.ActiveWeapon.Id==PrototypeWeaponId.Marksman || Player.ActiveWeapon.Id==PrototypeWeaponId.Sniper))return;
             float cx = width * .5f;
             float cy = height * .5f;
             float gap = Player.CurrentVehicle != null ? 5f : Player.CrosshairSpread;

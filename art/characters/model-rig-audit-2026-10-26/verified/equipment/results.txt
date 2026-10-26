@@ -1,0 +1,38 @@
+PASS
+Version=0.66.1
+RuntimeErrors=0
+Runtime starts
+SupplyBag uses imported prefab
+SupplyBag has three LODs
+SupplyBag retains three PBR textures
+MedicalKit uses imported prefab
+MedicalKit has three LODs
+MedicalKit retains three PBR textures
+Beacon uses imported prefab
+Beacon has three LODs
+Beacon retains three PBR textures
+RepairTool uses imported prefab
+RepairTool has three LODs
+RepairTool retains three PBR textures
+Equip Frag
+FragGrenade uses imported prefab
+FragGrenade has three LODs
+FragGrenade retains three PBR textures
+Throw consumes one Frag
+Imported projectile keeps physics Frag
+Equip Smoke
+SmokeGrenade uses imported prefab
+SmokeGrenade has three LODs
+SmokeGrenade retains three PBR textures
+Throw consumes one Smoke
+Imported projectile keeps physics Smoke
+Beacon uses imported prefab
+Beacon has three LODs
+Beacon retains three PBR textures
+Beacon sits above rendered base pad
+Deploy supply: 中立弹药箱已放置 · 部署冷却 90 秒。
+SupplyBag uses imported prefab
+SupplyBag has three LODs
+SupplyBag retains three PBR textures
+Supply sits above rendered base pad
+Supply collision fits new bag; health retained

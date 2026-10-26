@@ -1,0 +1,40 @@
+{
+  "team": "red",
+  "preservedGeometry": true,
+  "bones": 20,
+  "changes": [
+    {
+      "mesh": "RedSoldier_LOD0_ArmL",
+      "reweightedVertices": 318,
+      "geometrySHA256": "1f348d85c2e0bffe22dccc4d3452842575fe414551aba99a9c28ea02d702c406"
+    },
+    {
+      "mesh": "RedSoldier_LOD0_ArmR",
+      "reweightedVertices": 318,
+      "geometrySHA256": "8327a636fb0f099956001c241bb7bd1984621a41bdc7f2f17a196faac614cb0e"
+    },
+    {
+      "mesh": "RedSoldier_LOD1_ArmL",
+      "reweightedVertices": 111,
+      "geometrySHA256": "d7676b23a1e6662d4bb877fbc1dee3a0a51f498792a6debde5b73dc33a0d22a1"
+    },
+    {
+      "mesh": "RedSoldier_LOD1_ArmR",
+      "reweightedVertices": 106,
+      "geometrySHA256": "d61aef57aa8e0e8ba145229bbc69976fa56907888bea7debec405fa790c312cb"
+    },
+    {
+      "mesh": "RedSoldier_LOD2_ArmL",
+      "reweightedVertices": 33,
+      "geometrySHA256": "8c15574fe1e644b3803691b18f88f291f5bb6580d005715e54e7598185dcc534"
+    },
+    {
+      "mesh": "RedSoldier_LOD2_ArmR",
+      "reweightedVertices": 36,
+      "geometrySHA256": "22a4273b2163668684c3ff02657e0f8c25ac73f8500f5ae8c382c9a1cf1e9dab"
+    }
+  ],
+  "source": "rigged-v02",
+  "bodyAndLocomotionWeights": "unchanged",
+  "maxHandInfluences": 4
+}

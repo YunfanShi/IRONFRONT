@@ -5,7 +5,7 @@ namespace Ironfront.UnityPrototype
     // The host owns position, damage, deaths and tickets. Guests submit only input.
     public sealed class PrototypeRemotePlayer : MonoBehaviour
     {
-        private const float WalkSpeed = 8.6f;
+        private const float WalkSpeed = 4.2f;
         private const float ReviveDuration = 4f;
         private PrototypeRuntime runtime;
         private readonly PrototypeInfantryKit kit =
@@ -23,6 +23,10 @@ namespace Ironfront.UnityPrototype
         private float lastInputAt;
         private bool fireHeld;
 
+        public PrototypeSlideState Slide { get; } = new PrototypeSlideState();
+        public bool IsCrouched { get; private set; }
+        public bool IsProne { get; private set; }
+        private float lastMoveSpeed;
         public int Id { get; private set; }
         public PrototypeTeam Team { get; private set; }
         public bool IsConnected { get; private set; } = true;
@@ -65,13 +69,13 @@ namespace Ironfront.UnityPrototype
             if (IsConnected == connected) return;
             IsConnected = connected;
             // A held trigger must not keep firing after its owner loses the socket.
-            if (!connected) fireHeld = false;
+            if (!connected) { fireHeld = false; Slide.Reset(); lastMoveSpeed = 0f; }
         }
 
         // Called by the host after validating the connection's player ID. Never accepts
         // client position, health, hit target or claimed team as an authority source.
         public void ApplyInput(float forward, float side, float yaw, float aimPitch,
-            bool sprint, bool fire, float dt)
+            bool sprint, bool fire, float dt, bool slidePress = false, bool aim = false, bool crouch = false, bool prone = false)
         {
             if (runtime == null || runtime.IsNetworkReplica || !IsConnected ||
                 !runtime.MatchStarted ||
@@ -85,15 +89,54 @@ namespace Ironfront.UnityPrototype
             lastInputAt = Time.unscaledTime;
             Vector2 input = Vector2.ClampMagnitude(new Vector2(
                 Mathf.Clamp(side, -1f, 1f), Mathf.Clamp(forward, -1f, 1f)), 1f);
-            float speed = sprint && !fire && input.y > 0.1f ? 13.7f : WalkSpeed;
-            Vector3 delta = (transform.right * input.x + transform.forward * input.y) *
-                (speed * dt);
+            bool finished = Slide.EndsAt > 0f && !Slide.Active;
+            if (finished) { IsCrouched = !Slide.StandExit; Slide.Finish(); }
+            else if (!Slide.Active) { IsCrouched = crouch; IsProne = prone; }
+            bool canSprint = sprint && !fire && !aim && input.y > .1f && !IsCrouched && !IsProne;
+            Vector3 direction = (transform.right * input.x + transform.forward * input.y).normalized;
+            if (slidePress && Slide.TryStart(lastMoveSpeed, direction, true, canSprint))
+            { IsCrouched = true; IsProne = false; }
+            if (Slide.Active)
+            {
+                if (aim || prone) Slide.Recover();
+                if (Slide.Recovering && !Slide.ForcedExit)
+                    Slide.StandExit = sprint && input.y > .1f && !fire && !aim && RemoteCanStand();
+                if (!Slide.Recovering)
+                    Slide.Direction = Quaternion.Euler(0, input.x * 25f * dt, 0) * Slide.Direction;
+            }
+            float speed = Slide.Active ? Slide.Speed : IsProne ? .85f : IsCrouched ? 2f :
+                canSprint ? 6.6f : aim ? 2.73f : WalkSpeed;
+            Vector3 delta = Slide.Active ? Slide.Direction * speed * dt :
+                (transform.right * input.x + transform.forward * input.y) * speed * dt;
+            float height = IsProne ? .75f : Slide.Active ?
+                Mathf.Lerp(1.15f, Slide.StandExit ? 1.8f : 1.15f, Slide.Recovery) : IsCrouched ? 1.15f : 1.8f;
+            hitbox.height = height; hitbox.center = Vector3.up * height * .5f;
             Vector2 start = MapPosition;
             Vector2 end = start + new Vector2(delta.x, delta.z);
-            if (!PrototypeLayout.Collides(end, 0.38f) &&
-                !PrototypeLayout.LineBlocked(start, end, 0.38f))
-                transform.position = new Vector3(end.x,
-                    PrototypeLayout.HeightAt(end.x, end.y) + 0.3f, end.y);
+            bool blocked = PrototypeLayout.Collides(end, .38f) || PrototypeLayout.LineBlocked(start, end, .38f);
+            if (!blocked && delta.sqrMagnitude > .000001f)
+                foreach (RaycastHit hit in Physics.CapsuleCastAll(transform.position + Vector3.up * .35f,
+                    transform.position + Vector3.up * Mathf.Max(.35f, height - .34f), .32f,
+                    delta.normalized, delta.magnitude, ~(1 << 2), QueryTriggerInteraction.Ignore))
+                    if (!hit.collider.transform.IsChildOf(transform)) { blocked = true; break; }
+            if (!blocked)
+                transform.position = new Vector3(end.x, PrototypeLayout.HeightAt(end.x, end.y) + .3f, end.y);
+            else if (Slide.Active) Slide.Recover(true);
+            lastMoveSpeed = blocked || dt <= 0f ? 0f : delta.magnitude / dt;
+        }
+
+        private bool RemoteCanStand()
+        {
+            foreach (Collider collider in Physics.OverlapCapsule(transform.position + Vector3.up * .36f,
+                transform.position + Vector3.up * 1.44f, .31f, ~(1 << 2), QueryTriggerInteraction.Ignore))
+                if (!collider.transform.IsChildOf(transform)) return false;
+            return true;
+        }
+
+        public void ApplyNetworkSlide(PrototypeLanActor actor)
+        {
+            if (runtime == null || !runtime.IsNetworkReplica) return;
+            Slide.ReadSnapshot(actor); IsCrouched = actor.crouched; IsProne = actor.prone;
         }
 
         public PrototypeIncomingDamage LastIncomingDamage { get; private set; }
@@ -107,6 +150,7 @@ namespace Ironfront.UnityPrototype
             Health = Mathf.Max(0f, Health - amount);
             LastIncomingDamage = PrototypeIncomingDamage.Record(LastIncomingDamage, previousHealth - Health, sourcePosition);
             if (Alive) return;
+            Slide.Reset();
             runtime.Scores?.ResolveDefeat(this, Team);
             downedUntil = Time.time + 30f;
             ResetReviveTracking();
@@ -257,6 +301,7 @@ namespace Ironfront.UnityPrototype
             transform.rotation = Quaternion.Euler(0f,
                 Team == PrototypeTeam.Blue ? 48f : 228f, 0f);
             Health = 100f;
+            Slide.Reset(); IsCrouched = IsProne = false; lastMoveSpeed = 0f;
             runtime.Scores?.BeginLife(this);
             downedUntil = 0f;
             ResetReviveTracking();

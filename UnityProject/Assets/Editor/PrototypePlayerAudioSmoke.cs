@@ -16,7 +16,7 @@ namespace Ironfront.UnityPrototype.Editor
         {
             PrototypeRuntime game = null; PrototypePlayer player = null; PrototypePlayerAudio audio = null;
             GameObject wall = null; Vector3 oldPosition = Vector3.zero; Quaternion oldRotation = Quaternion.identity;
-            float health = 100f; bool pause = false, captured = false;
+            float oldSlideEnd = 0f; float health = 100f; bool pause = false, captured = false;
             var fields = new Dictionary<string, object>();
             try
             {
@@ -28,9 +28,10 @@ namespace Ironfront.UnityPrototype.Editor
                 player.ForceExitVehicle(); oldPosition = player.transform.position; oldRotation = player.transform.rotation;
                 health = player.Health; pause = game.PauseOpen;
                 typeof(PrototypeRuntime).GetProperty("PauseOpen").SetValue(game, false);
-                foreach (string name in new[] { "crouched", "prone", "sprinting", "slideEndsAt" }) fields[name] = Field(player, name);
+                foreach (string name in new[] { "crouched", "prone", "sprinting" }) fields[name] = Field(player, name);
+                oldSlideEnd = player.Slide.EndsAt;
                 captured = true;
-                Set(player, "crouched", false); Set(player, "prone", false); Set(player, "sprinting", false); Set(player, "slideEndsAt", 0f);
+                Set(player, "crouched", false); Set(player, "prone", false); Set(player, "sprinting", false); player.Slide.EndsAt = 0f;
                 audio = player.GetComponent<PrototypePlayerAudio>(); Check(audio != null, "production player audio is attached");
                 audio.Reset();
                 foreach (string name in new[] { "StepWalk", "StepRun", "StepCrouch", "StepProne", "Crouch", "Stand", "Prone",
@@ -112,6 +113,7 @@ namespace Ironfront.UnityPrototype.Editor
                 if (player != null && captured)
                 {
                     typeof(PrototypePlayer).GetProperty("Health").SetValue(player, health); player.ForceExitVehicle();
+                    player.Slide.EndsAt = oldSlideEnd;
                     foreach (KeyValuePair<string, object> field in fields) Set(player, field.Key, field.Value);
                     Move(player, new Vector2(oldPosition.x, oldPosition.z), oldRotation.eulerAngles.y); player.transform.position = oldPosition;
                     typeof(PrototypeRuntime).GetProperty("PauseOpen").SetValue(game, pause); audio?.Reset();

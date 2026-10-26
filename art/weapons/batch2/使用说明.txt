@@ -1,0 +1,25 @@
+IRONFRONT 0.65.0 — 六款武器替换
+
+游戏：UnityProject/Builds/Weapons-0.65.0/IRONFRONT.app
+
+替换对应关系：
+Asset_01 → BR-44 战斗步枪；LOD 三角面：37229/12956/3547
+Asset_02 → H60 轻机枪；LOD 三角面：38258/13327/3656
+Asset_03 → M89 精确射手步枪；LOD 三角面：37426/12820/3526
+Asset_04 → P8 手枪；LOD 三角面：37678/12844/3546
+Asset_05 → S12 狙击步枪；LOD 三角面：38524/13842/4141
+Asset_06 → VX-9 冲锋枪；LOD 三角面：36772/12700/3456
+
+第一人称、第三人称、机器人持枪和配装缩略图共用新的资源映射。
+每款有独立弹匣；手枪带套筒后座，狙击枪带枪机动作。
+M89 与 S12 瞄准时使用实际游戏相机画面、原有 FOV 和中央分划，腰射/换弹仍显示模型倍镜。
+原 IF27、武器伤害、弹容量、射速、兵种限制均保留。
+
+资源：UnityProject/Assets/Art/Weapons/Batch2/
+预制体：UnityProject/Assets/Resources/Weapons/Batch2/
+再生成：用 Blender 运行 art/weapons/batch2/build.py；在 Unity 执行 Batch2WeaponAssetSetup.Build。
+构建与运行证据：unity-build.log、runtime/results.txt 和 runtime/ 截图。
+
+源模型未覆盖；优化后的原始交付文件仍在工作区“模型游戏优化_第二批_2026-10-26”。
+
+最终运行结果：PASS；129 项接入断言通过，运行错误 0。

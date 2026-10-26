@@ -9,6 +9,7 @@ namespace Ironfront.UnityPrototype.Editor
 {
     public static class SoldierArtAssetSetup
     {
+        public static void BuildPlayer() { Build(); PrototypeOptimizationBuild.Build(); }
         public static readonly string[] BoneNames = { "Pelvis", "Torso", "Head", "UpperArm_L", "UpperArm_R", "Forearm_L", "Forearm_R", "Hand_L", "Hand_R", "Thigh_L", "Thigh_R", "Shin_L", "Shin_R", "Foot_L", "Foot_R", "Spine" };
         [MenuItem("IRONFRONT/Art/Build Runtime Soldiers")]
         public static void Build()
@@ -26,7 +27,7 @@ namespace Ironfront.UnityPrototype.Editor
             string side = renderer.name.EndsWith("_ArmL") ? "_R" : "_L";
             int upper = Array.FindIndex(renderer.bones, b => b.name == "UpperArm" + side);
             if (upper < 0) throw new InvalidOperationException("Missing view arm bone");
-            var weights = mesh.boneWeights; var armAmount = new float[weights.Length];
+            var weights = mesh.boneWeights;
             for (int v = 0; v < weights.Length; v++)
             {
                 var w = weights[v]; int[] ids = { w.boneIndex0, w.boneIndex1, w.boneIndex2, w.boneIndex3 };
@@ -36,8 +37,8 @@ namespace Ironfront.UnityPrototype.Editor
                 {
                     if (values[j] <= 0) continue;
                     string name = renderer.bones[ids[j]].name;
-                    bool arm = name.EndsWith(side) && (name.StartsWith("UpperArm") || name.StartsWith("Forearm") || name.StartsWith("Hand") || name.StartsWith("Fingers"));
-                    if (arm) armAmount[v] += values[j]; else ids[j] = upper;
+                    bool arm = name.EndsWith(side) && (name.StartsWith("UpperArm") || name.StartsWith("Forearm") || name.StartsWith("Hand") || name.StartsWith("Fingers") || name.StartsWith("Thumb"));
+                    if (!arm) ids[j] = upper;
                     if (!merged.ContainsKey(ids[j])) merged[ids[j]] = 0;
                     merged[ids[j]] += values[j];
                 }
@@ -49,11 +50,9 @@ namespace Ironfront.UnityPrototype.Editor
                 weights[v] = n;
             }
             mesh.boneWeights = weights;
-            var source = mesh.triangles; var triangles = new List<int>();
-            for (int i = 0; i < source.Length; i += 3)
-                if ((armAmount[source[i]] + armAmount[source[i + 1]] + armAmount[source[i + 2]]) / 3f > .92f)
-                { triangles.Add(source[i]); triangles.Add(source[i + 1]); triangles.Add(source[i + 2]); }
-            mesh.triangles = triangles.ToArray();
+            // Arm objects already contain only arm geometry. Deleting triangles
+            // with a small torso influence punched holes through the elbow and
+            // sleeve. Remap those weights above and retain the complete surface.
             string path = folder + "/" + mesh.name + ".asset";
             var existing = AssetDatabase.LoadAssetAtPath<Mesh>(path);
             if (existing == null) { AssetDatabase.CreateAsset(mesh, path); return mesh; }
@@ -63,8 +62,8 @@ namespace Ironfront.UnityPrototype.Editor
         {
             string lower = team.ToLowerInvariant();
             string folder = "Assets/Art/Characters/" + team + "Soldier";
-            string destination = folder + "/rigged"; Directory.CreateDirectory(destination);
-            string source = Path.GetFullPath(Path.Combine(Application.dataPath, "../../art/characters/" + lower + "-soldier/rigged-v02"));
+            string destination = folder + "/rigged-v03"; Directory.CreateDirectory(destination);
+            string source = Path.GetFullPath(Path.Combine(Application.dataPath, "../../art/characters/" + lower + "-soldier/rigged-v03"));
             for (int i = 0; i < 3; i++) File.Copy(Path.Combine(source, lower + "-soldier-skinned-lod" + i + ".fbx"), destination + "/" + lower + "-soldier-skinned-lod" + i + ".fbx", true);
             AssetDatabase.Refresh();
             var root = new GameObject(team + "Soldier");
@@ -100,7 +99,7 @@ namespace Ironfront.UnityPrototype.Editor
                     if (rs.Length != 3) throw new InvalidOperationException("Expected body + two arms: " + rs.Length);
                     if (i == 0)
                     {
-                        skeleton = instance.GetComponentsInChildren<Transform>(true).Where(t => BoneNames.Contains(t.name) || t.name.StartsWith("Fingers_")).ToDictionary(t => t.name);
+                        skeleton = instance.GetComponentsInChildren<Transform>(true).Where(t => BoneNames.Contains(t.name) || t.name.StartsWith("Fingers_") || t.name.StartsWith("Thumb_")).ToDictionary(t => t.name);
                         var bindings = new List<PrototypeSoldierArtRig.Binding>();
                         for (int n = 0; n < BoneNames.Length; n++)
                         {
@@ -112,8 +111,11 @@ namespace Ironfront.UnityPrototype.Editor
                             Debug.Log(team + " bone " + bone.name + " pos=" + bone.position.ToString("F4") + " rot=" + bone.eulerAngles);
                         }
                         rig.Bindings = bindings.ToArray();
+                        rig.ForearmLength = Vector3.Distance(skeleton["Forearm_R"].position,skeleton["Hand_R"].position);
                         rig.Fingers = new[] { skeleton["Fingers_L"], skeleton["Fingers_R"] };
                         rig.FingerRest = rig.Fingers.Select(t => t.localRotation).ToArray();
+                        rig.Thumbs = new[] { skeleton["Thumb_L"], skeleton["Thumb_R"] };
+                        rig.ThumbRest = rig.Thumbs.Select(t => t.localRotation).ToArray();
                     }
                     foreach (var r in rs)
                     {

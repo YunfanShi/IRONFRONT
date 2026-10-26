@@ -1,0 +1,9 @@
+{
+  "baselineFiles": 796,
+  "unchanged": 794,
+  "changed": [
+    "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab",
+    "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab"
+  ],
+  "missing": []
+}

@@ -1,0 +1,407 @@
+{
+  "version": "0.65.0",
+  "application": "/Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Builds/Weapons-0.65.0/IRONFRONT.app",
+  "weapons": [
+    {
+      "key": "01",
+      "weapon": "BattleRifle",
+      "lods": [
+        {
+          "level": 0,
+          "parts": {
+            "Body": 33315,
+            "Magazine": 3368,
+            "ChargingHandle": 546
+          },
+          "triangles": 37229
+        },
+        {
+          "level": 1,
+          "parts": {
+            "Body": 11636,
+            "Magazine": 1092,
+            "ChargingHandle": 228
+          },
+          "triangles": 12956
+        },
+        {
+          "level": 2,
+          "parts": {
+            "Body": 3200,
+            "Magazine": 300,
+            "ChargingHandle": 47
+          },
+          "triangles": 3547
+        }
+      ],
+      "unityAnchors": {
+        "RightGrip": [
+          0.0,
+          -0.20531198382377625,
+          -0.18000000715255737
+        ],
+        "LeftGrip": [
+          0.0630769208073616,
+          -0.03269299119710922,
+          0.33001065254211426
+        ],
+        "Muzzle": [
+          0.0,
+          0.0,
+          0.745865523815155
+        ],
+        "Sight": [
+          0.0,
+          0.08369405567646027,
+          -0.04268943890929222
+        ],
+        "MagazineGrip": [
+          0.0,
+          -0.1830807477235794,
+          0.06846673041582108
+        ],
+        "ChargingGrip": [
+          0.0615384615957737,
+          0.020923513919115067,
+          -0.18000000715255737
+        ]
+      },
+      "source": "/Users/liuwenjun/Downloads/9f4a7a93eee797e473cf72ca4987e096.glb"
+    },
+    {
+      "key": "02",
+      "weapon": "Lmg",
+      "lods": [
+        {
+          "level": 0,
+          "parts": {
+            "Body": 31128,
+            "Magazine": 6894,
+            "ChargingHandle": 236
+          },
+          "triangles": 38258
+        },
+        {
+          "level": 1,
+          "parts": {
+            "Body": 10814,
+            "Magazine": 2447,
+            "ChargingHandle": 66
+          },
+          "triangles": 13327
+        },
+        {
+          "level": 2,
+          "parts": {
+            "Body": 3042,
+            "Magazine": 592,
+            "ChargingHandle": 22
+          },
+          "triangles": 3656
+        }
+      ],
+      "unityAnchors": {
+        "RightGrip": [
+          0.0,
+          -0.22213970124721527,
+          -0.18000000715255737
+        ],
+        "LeftGrip": [
+          0.10000000149011612,
+          -0.030690353363752365,
+          0.44842150807380676
+        ],
+        "Muzzle": [
+          0.0,
+          0.0,
+          0.8839322328567505
+        ],
+        "Sight": [
+          0.0,
+          0.1402987539768219,
+          -0.04116268828511238
+        ],
+        "MagazineGrip": [
+          0.0,
+          -0.16075898706912994,
+          0.11959630250930786
+        ],
+        "ChargingGrip": [
+          0.0615384615957737,
+          0.007307226769626141,
+          -0.10692773014307022
+        ]
+      },
+      "source": "/Users/liuwenjun/Downloads/77be857755729342c4986612b607a954.glb"
+    },
+    {
+      "key": "03",
+      "weapon": "Marksman",
+      "lods": [
+        {
+          "level": 0,
+          "parts": {
+            "Body": 35784,
+            "Magazine": 978,
+            "ChargingHandle": 664
+          },
+          "triangles": 37426
+        },
+        {
+          "level": 1,
+          "parts": {
+            "Body": 12284,
+            "Magazine": 318,
+            "ChargingHandle": 218
+          },
+          "triangles": 12820
+        },
+        {
+          "level": 2,
+          "parts": {
+            "Body": 3368,
+            "Magazine": 111,
+            "ChargingHandle": 47
+          },
+          "triangles": 3526
+        }
+      ],
+      "unityAnchors": {
+        "RightGrip": [
+          0.0,
+          -0.13876979053020477,
+          -0.18000000715255737
+        ],
+        "LeftGrip": [
+          0.0630769208073616,
+          -0.028769345954060555,
+          0.4630795121192932
+        ],
+        "Muzzle": [
+          0.0,
+          0.0,
+          1.0520049333572388
+        ],
+        "Sight": [
+          0.0,
+          0.09815423935651779,
+          0.04000088572502136
+        ],
+        "MagazineGrip": [
+          0.0,
+          -0.13876979053020477,
+          0.09077031910419464
+        ],
+        "ChargingGrip": [
+          0.0615384615957737,
+          0.02030777372419834,
+          -0.1292305588722229
+        ]
+      },
+      "source": "/Users/liuwenjun/Downloads/ec75bf22f89efca6769753488e11af04.glb"
+    },
+    {
+      "key": "04",
+      "weapon": "Pistol",
+      "lods": [
+        {
+          "level": 0,
+          "parts": {
+            "Body": 30692,
+            "Magazine": 1874,
+            "Bolt": 5112
+          },
+          "triangles": 37678
+        },
+        {
+          "level": 1,
+          "parts": {
+            "Body": 10392,
+            "Magazine": 650,
+            "Bolt": 1802
+          },
+          "triangles": 12844
+        },
+        {
+          "level": 2,
+          "parts": {
+            "Body": 2662,
+            "Magazine": 230,
+            "Bolt": 654
+          },
+          "triangles": 3546
+        }
+      ],
+      "unityAnchors": {
+        "RightGrip": [
+          0.0,
+          -0.08515068888664246,
+          -0.04500000178813934
+        ],
+        "LeftGrip": [
+          0.04153846204280853,
+          -0.08830441534519196,
+          -0.0008477926603518426
+        ],
+        "Muzzle": [
+          0.0,
+          0.0,
+          0.20666758716106415
+        ],
+        "Sight": [
+          0.0,
+          0.033114153891801834,
+          -0.07022983580827713
+        ],
+        "MagazineGrip": [
+          0.0,
+          -0.15926331281661987,
+          -0.05130745843052864
+        ],
+        "ChargingGrip": [
+          0.035384614020586014,
+          0.0,
+          -0.06707610189914703
+        ]
+      },
+      "source": "/Users/liuwenjun/Downloads/5a961efd6269ca608a6dd69e921c5d8a.glb"
+    },
+    {
+      "key": "05",
+      "weapon": "Sniper",
+      "lods": [
+        {
+          "level": 0,
+          "parts": {
+            "Body": 36765,
+            "Magazine": 1612,
+            "ChargingHandle": 147
+          },
+          "triangles": 38524
+        },
+        {
+          "level": 1,
+          "parts": {
+            "Body": 13188,
+            "Magazine": 584,
+            "ChargingHandle": 70
+          },
+          "triangles": 13842
+        },
+        {
+          "level": 2,
+          "parts": {
+            "Body": 4000,
+            "Magazine": 133,
+            "ChargingHandle": 8
+          },
+          "triangles": 4141
+        }
+      ],
+      "unityAnchors": {
+        "RightGrip": [
+          0.0,
+          -0.23633408546447754,
+          -0.18000000715255737
+        ],
+        "LeftGrip": [
+          0.0630769208073616,
+          -0.04985172301530838,
+          0.4846896231174469
+        ],
+        "Muzzle": [
+          0.0,
+          0.0,
+          1.1456865072250366
+        ],
+        "Sight": [
+          0.0,
+          0.11262796074151993,
+          0.04156320542097092
+        ],
+        "MagazineGrip": [
+          0.0,
+          -0.18832872807979584,
+          0.07849040627479553
+        ],
+        "ChargingGrip": [
+          0.0615384615957737,
+          -0.029541760683059692,
+          -0.10614559799432755
+        ]
+      },
+      "source": "/Users/liuwenjun/Downloads/51b7e0826d2de91cb8f8276e282d4712.glb"
+    },
+    {
+      "key": "06",
+      "weapon": "Smg",
+      "lods": [
+        {
+          "level": 0,
+          "parts": {
+            "Body": 33022,
+            "Magazine": 3156,
+            "ChargingHandle": 594
+          },
+          "triangles": 36772
+        },
+        {
+          "level": 1,
+          "parts": {
+            "Body": 11475,
+            "Magazine": 999,
+            "ChargingHandle": 226
+          },
+          "triangles": 12700
+        },
+        {
+          "level": 2,
+          "parts": {
+            "Body": 3138,
+            "Magazine": 258,
+            "ChargingHandle": 60
+          },
+          "triangles": 3456
+        }
+      ],
+      "unityAnchors": {
+        "RightGrip": [
+          0.0,
+          -0.1818695068359375,
+          -0.18000000715255737
+        ],
+        "LeftGrip": [
+          0.0630769208073616,
+          -0.02492627687752247,
+          0.17081426084041595
+        ],
+        "Muzzle": [
+          0.0,
+          0.0,
+          0.3536069691181183
+        ],
+        "Sight": [
+          0.0,
+          0.0840107873082161,
+          -0.05998459458351135
+        ],
+        "MagazineGrip": [
+          0.0,
+          -0.14217209815979004,
+          -0.009208844043314457
+        ],
+        "ChargingGrip": [
+          0.0615384615957737,
+          -0.01846390962600708,
+          -0.05075263977050781
+        ]
+      },
+      "source": "/Users/liuwenjun/Downloads/be89cfec856e0b688ff721d3cd5669d1.glb"
+    }
+  ],
+  "runtimeResult": "PASS",
+  "runtimeErrors": 0,
+  "passedChecks": 129,
+  "evidence": "runtime/results.txt",
+  "scopePresentation": "Actual aimed camera image with original weapon FOV and circular reticle; geometry visible in hip fire, reload and world views."
+}

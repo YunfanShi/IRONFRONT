@@ -80,7 +80,7 @@ namespace Ironfront.UnityPrototype.Editor
                 player.transform.SetPositionAndRotation(new Vector3(-325f, ground + .3f, -320f), Quaternion.identity);
                 controller.enabled = true;
                 SetField(player, "crouched", false); SetField(player, "prone", false);
-                SetField(player, "slideEndsAt", 0f); SetField(player, "sprinting", false);
+                player.Slide.Reset(); SetField(player, "sprinting", false);
                 if (!player.IsFirstPerson) player.TogglePerspective();
                 fixture = new GameObject("EDITOR ONLY - Engineer SAM visual preview fixture");
                 GameObject target = new GameObject("EDITOR ONLY - Actual enemy H8 lock target");

@@ -1,0 +1,41 @@
+{
+  "version": "0.66.0",
+  "date": "2026-10-26",
+  "build": "UnityProject/Builds/Slide-0.66.0/IRONFRONT.app",
+  "unity": "6000.5.10f1",
+  "sourceReproduction": {
+    "passed": true,
+    "blender": "5.2.2 LTS",
+    "resourceSHA256": "f6ed40a922619e13f6bfa55a4e798ff4931368720073f21c240333019ad76b71",
+    "log": "reproduce.log"
+  },
+  "checks": {
+    "slide": "probe-03/results.txt",
+    "sprint": "sprint/results.txt",
+    "ui": "ui/results.txt",
+    "preservation": "preservation-result.json",
+    "server": "scripts/test-unity-room.cjs passed in terminal"
+  },
+  "limitations": [
+    "Two-machine LAN and high-latency visual acceptance not performed",
+    "Complex slopes and stairs not exhaustively tested",
+    "No dedicated slide audio or dust particles",
+    "Native input tool cannot preserve Shift+W across two pressKey calls; Alt entry is verified by the actual runtime probe instead"
+  ],
+  "sha256": {
+    "UnityProject/Assets/Scripts/PrototypePlayerSlide.cs": "9087f921da796dbdd6b7d7882f1800ada123a2e801bdc7bc895282547d8a1b4a",
+    "UnityProject/Assets/Scripts/PrototypeSlideState.cs": "276c631f4b4f887475abb57d492fde7754d3888b1d3b75dc6d8e911d88b278de",
+    "UnityProject/Assets/Scripts/PrototypeSoldierSlidePose.cs": "51b0e05f8ca8db528e2c3c5243c76388879d9c55d938bc70fb8e03ae74f8d1d6",
+    "UnityProject/Assets/Scripts/PrototypeSlideProbe.cs": "21c3a65df314ecb5d5ec4802ec4c43732274b6e385d643e8828378976787179e",
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": "e0f1d9adae3cb6a3d53c9f5f84e48979851d7f467a6b57ce6d3af4427735a92c",
+    "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs": "74b0dc630282036cb59bc0b9cb6a50061811b90d788cc7aafa054f23b981e4a0",
+    "UnityProject/Assets/Scripts/PrototypeRemotePlayer.cs": "c6c0e04efddce8d2732a534f60957fca165bad9294d4acf20573e227ddfad06f",
+    "UnityProject/Assets/Scripts/PrototypeRuntime.cs": "a6a06a95189ecc0bab967b9aa3fef1b43ea09bafd4ab322100b3ebd9e2d09597",
+    "UnityProject/Assets/Scripts/PrototypeLanClient.cs": "4fc97c2cda74281c552549e230b1af45299afe0e6155066829dacdc386789455",
+    "UnityProject/Assets/Resources/Animation/InfantrySlide.json": "f6ed40a922619e13f6bfa55a4e798ff4931368720073f21c240333019ad76b71",
+    "server/unity-room.cjs": "6ca827de573108204ac562704166c85f3524f49a3c840199bf007b29be204546",
+    "scripts/test-unity-room.cjs": "c4afb742ee6b26453a65315172044c108e5ed608afde533f511ac8ab7f295859",
+    "UnityProject/Builds/Slide-0.66.0/IRONFRONT.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll": "bf9161a76cc568e4dabcd9c60b9a2e885802e54aa554ca90f6ac5486aab7b4d6",
+    "art/characters/slide-2026-10-26/slide-0.66.0.mp4": "db0fb9c2316d9a8dbfd4d60df9e4b131422796957b963607aade5270c08078e2"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "stage": "complete",
+  "source": "模型游戏优化_2026-10-26",
+  "target": "Unity 6000.5.10f1 / URP 17.5 / macOS",
+  "version": "0.64.0",
+  "scope": "six equipment models, runtime builders, loadout thumbnails, character gear, portable supply and beacon; existing support rules retained",
+  "baseline_files": [
+    "UnityProject/Assets/Scripts/PrototypeEquipmentVisual.cs",
+    "UnityProject/Assets/Scripts/PrototypeThrowableVisual.cs",
+    "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs",
+    "UnityProject/Assets/Scripts/PrototypeMenuPreview.cs",
+    "UnityProject/Assets/Scripts/PrototypeWeaponMenuPreview.cs",
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs",
+    "UnityProject/Assets/Scripts/PrototypeAmmoSupplyPoint.cs",
+    "package.json",
+    "package-lock.json",
+    "UnityProject/ProjectSettings/ProjectSettings.asset"
+  ],
+  "build": "UnityProject/Builds/Equipment-0.64.0/IRONFRONT.app",
+  "build_bytes": 686601913,
+  "runtime": "PASS; RuntimeErrors=0",
+  "handoff": "docs/UNITY_HANDOFF_064.md"
+}

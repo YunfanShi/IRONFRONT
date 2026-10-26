@@ -7,6 +7,7 @@ namespace Ironfront.UnityPrototype
     public sealed class PrototypeAmmoSupplyPoint : MonoBehaviour
     {
         public const float MaxHealth = 120f;
+        private Bounds? importedBounds;
         private PrototypeRuntime runtime;
         private BoxCollider hull;
         public bool Alive => Health > 0f && gameObject.activeInHierarchy;
@@ -30,10 +31,29 @@ namespace Ironfront.UnityPrototype
             hull = gameObject.AddComponent<BoxCollider>();
             hull.center = new Vector3(0f, IsDeployable ? .36f : .5f, 0f);
             hull.size = IsDeployable ? new Vector3(1.15f, .72f, .83f) : new Vector3(1.48f, 1f, 1.10f);
+            if (importedBounds.HasValue)
+            {
+                transform.position = new Vector3(position.x,
+                    PrototypeWorldVisual.InfantrySurfaceAt(position.x, position.y) + .025f, position.y);
+                hull.center = importedBounds.Value.center;
+                hull.size = importedBounds.Value.size + Vector3.one * .03f;
+            }
         }
 
         private void BuildModel()
         {
+            if (IsDeployable)
+            {
+                GameObject model = PrototypeEquipmentArt.Create(transform, "SupplyBag");
+                if (model != null)
+                {
+                    const float scale = 1.35f;
+                    model.transform.localScale = Vector3.one * scale;
+                    Bounds bounds = model.GetComponent<PrototypeEquipmentArt>().LocalBounds;
+                    importedBounds = new Bounds(bounds.center * scale, bounds.size * scale);
+                    return;
+                }
+            }
             Part("Neutral ammunition case", new Vector3(0f, .34f, 0f),
                 new Vector3(1.12f, .62f, .78f), runtime.ArmorMaterial);
             Part("Raised reinforced lid", new Vector3(0f, .68f, 0f),

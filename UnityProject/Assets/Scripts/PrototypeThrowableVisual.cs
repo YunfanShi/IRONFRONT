@@ -13,6 +13,13 @@ namespace Ironfront.UnityPrototype
         public static GameObject Build(Transform parent, PrototypeThrowableId kind,
             PrototypeRuntime runtime)
         {
+            GameObject authored = PrototypeEquipmentArt.Create(parent,
+                kind == PrototypeThrowableId.Smoke ? "SmokeGrenade" : "FragGrenade");
+            if (authored != null)
+            {
+                authored.name = kind == PrototypeThrowableId.Smoke ? "Smoke grenade model" : "Fragmentation grenade model";
+                return authored;
+            }
             var root = new GameObject(kind == PrototypeThrowableId.Smoke ?
                 "Smoke grenade model" : "Fragmentation grenade model");
             root.transform.SetParent(parent, false);

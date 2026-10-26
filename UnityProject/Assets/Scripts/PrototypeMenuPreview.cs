@@ -98,7 +98,8 @@ namespace Ironfront.UnityPrototype
             operatorRig.RefreshPose(true); operatorRig.enabled = false;
             soldier.AddComponent<PrototypeMenuOperatorPose>().Initialize(operatorRig, weapon);
             foreach (Renderer renderer in soldier.GetComponentsInChildren<Renderer>())
-                if (!(renderer is SkinnedMeshRenderer) && renderer.GetComponentInParent<PrototypeWeaponArtRig>()==null)
+                if (!(renderer is SkinnedMeshRenderer) && renderer.GetComponentInParent<PrototypeWeaponArtRig>() == null &&
+                    renderer.GetComponentInParent<PrototypeEquipmentArt>() == null)
                     renderer.sharedMaterial = MenuMaterial(renderer.sharedMaterial);
             AddContactShadow(soldier.transform);
             SetLayerRecursively(soldier.transform, PreviewLayer);

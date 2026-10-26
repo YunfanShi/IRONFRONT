@@ -1,0 +1,36 @@
+FAIL
+Version=0.66.0
+RuntimeErrors=0
+MaximumGripError=4.332663E-05
+MaximumBoneLengthError=2.762675E-05
+MinimumAnkleHeight=0.1399976
+Runtime starts
+Three source clips load from runtime resources
+Standing Alt cannot start slide
+C always crouches, including Shift+C
+Airborne Alt cannot start slide
+side-crouch: one Alt press starts once; held Alt cannot chain
+side-crouch: recovery finishes
+Default/blocked/ADS recovery remains crouched: side-crouch
+side-crouch: slide distance=4.607361
+front-run: one Alt press starts once; held Alt cannot chain
+front-run: recovery finishes
+Forward+Shift resumes sprint after recovery
+front-run: slide distance=4.760681
+fp-slide: one Alt press starts once; held Alt cannot chain
+fp-slide: recovery finishes
+Default/blocked/ADS recovery remains crouched: fp-slide
+fp-slide: slide distance=4.607361
+aim-cancel: one Alt press starts once; held Alt cannot chain
+aim-cancel: recovery finishes
+Default/blocked/ADS recovery remains crouched: aim-cancel
+wall-stop: one Alt press starts once; held Alt cannot chain
+wall-stop: recovery finishes
+Default/blocked/ADS recovery remains crouched: wall-stop
+low-ceiling: one Alt press starts once; held Alt cannot chain
+low-ceiling: recovery finishes
+Default/blocked/ADS recovery remains crouched: low-ceiling
+System.InvalidOperationException: 30 Hz distance=314.5
+  at Ironfront.UnityPrototype.PrototypeSlideProbe.Check (System.Boolean pass, System.String detail) [0x00013] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSlideProbe.cs:178 
+  at Ironfront.UnityPrototype.PrototypeSlideProbe+<Verify>d__16.MoveNext () [0x00b41] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSlideProbe.cs:117 
+  at Ironfront.UnityPrototype.PrototypeSlideProbe+<Start>d__15.MoveNext () [0x00066] in /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Assets/Scripts/PrototypeSlideProbe.cs:36 

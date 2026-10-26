@@ -96,7 +96,8 @@ namespace Ironfront.UnityPrototype
                     Vector3 supportHand=first?fp.GetComponentInChildren<PrototypeSoldierArtRig>().Bindings[7].Bone.position:
                         ((Transform)Get(soldier,"leftHand")).position;
                     maxHand=Mathf.Max(maxHand,Vector3.Distance(supportHand,(first?fp:tp).SupportPosition));
-                    if(!first)minGripForward=Mathf.Min(minGripForward,player.transform.InverseTransformPoint(tp.RightGrip.position).z);
+                    // Chest clearance uses the prop surface, not the wrist behind it.
+                    if(!first)minGripForward=Mathf.Min(minGripForward,player.transform.InverseTransformPoint(tp.RightContactPosition).z);
                     yield return Capture((first?"reload-fp":"reload-tp")+"/"+i.ToString("D4"));
                 }
                 Check(maxDrop>.25f&&maxCharge>.08f,"Magazine and handle articulate in "+(first?"FP":"TP"));
@@ -123,7 +124,7 @@ namespace Ironfront.UnityPrototype
             Check(FindObjectsByType<PrototypeBallisticProjectile>(FindObjectsSortMode.None).Any(b=>Vector3.Distance(b.transform.position,muzzle)<.001f),"Actual bullet spawns at authored muzzle");
             for(int i=0;i<9;i++){Invoke(player,"UpdateInfantryPresentation");yield return Capture("fire/"+i.ToString("D4"));}
             foreach(PrototypeWeaponId id in Enum.GetValues(typeof(PrototypeWeaponId)))
-            {var w=PrototypeWeaponVisual.Build(null,id,game);Check((w.GetComponent<PrototypeWeaponArtRig>()!=null)==(id==PrototypeWeaponId.Carbine),id+" replacement scope");Destroy(w);}
+            {var w=PrototypeWeaponVisual.Build(null,id,game);Check(w.GetComponent<PrototypeWeaponArtRig>()!=null,id+" authored weapon path");Destroy(w);}
             using(var preview=new PrototypeWeaponMenuPreview(game,null))
                 File.WriteAllBytes(Path.Combine(output,"menu-if27.png"),preview.Get(PrototypeWeaponId.Carbine).EncodeToPNG());
         }

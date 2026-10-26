@@ -43,6 +43,7 @@ namespace Ironfront.UnityPrototype
             if (cache.TryGetValue(id, out Texture2D image) && image != null) return image;
             if (weapon != null) { weapon.SetActive(false); UnityEngine.Object.Destroy(weapon); }
             weapon = PrototypeWeaponVisual.Build(stage.transform, id, game);
+            foreach (LODGroup group in weapon.GetComponentsInChildren<LODGroup>()) group.ForceLOD(0);
             PrototypeMenuPreview.SetLayerRecursively(weapon.transform, Layer);
             foreach (Renderer renderer in weapon.GetComponentsInChildren<Renderer>())
                 if(weapon.GetComponent<PrototypeWeaponArtRig>()==null)
@@ -76,13 +77,22 @@ namespace Ironfront.UnityPrototype
             if (throwable.HasValue) weapon = PrototypeEquipmentVisual.BuildThrowable(stage.transform, throwable.Value, game);
             else
             {
-                weapon = new GameObject("Actual class equipment thumbnail - " + role);
-                weapon.transform.SetParent(stage.transform, false);
-                PrototypeEquipmentVisual.BuildClassGear(weapon.transform, role, game);
-                // The card identifies the repair tool; launchers remain on the soldier.
-                Transform launcher = weapon.transform.Find("Stowed launcher");
-                if (launcher != null) launcher.gameObject.SetActive(false);
+                weapon = PrototypeEquipmentArt.Create(stage.transform, PrototypeEquipmentArt.ForRole(role));
+                if (weapon != null)
+                {
+                    if (role == PrototypeInfantryClass.Engineer)
+                        weapon.transform.localRotation = Quaternion.Euler(0f, -90f, 0f);
+                }
+                else
+                {
+                    weapon = new GameObject("Actual class equipment thumbnail - " + role);
+                    weapon.transform.SetParent(stage.transform, false);
+                    PrototypeEquipmentVisual.BuildClassGear(weapon.transform, role, game);
+                    Transform launcher = weapon.transform.Find("Stowed launcher");
+                    if (launcher != null) launcher.gameObject.SetActive(false);
+                }
             }
+            PrototypeEquipmentArt.ForceNearLod(weapon);
             PrototypeMenuPreview.SetLayerRecursively(weapon.transform, Layer);
             Renderer[] renderers = weapon.GetComponentsInChildren<Renderer>();
             Bounds bounds = renderers[0].bounds;

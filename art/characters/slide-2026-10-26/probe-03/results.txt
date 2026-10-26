@@ -1,0 +1,44 @@
+PASS
+Version=0.66.0
+RuntimeErrors=0
+MaximumGripError=4.332663E-05
+MaximumBoneLengthError=2.762675E-05
+MinimumAnkleHeight=0.1399976
+Runtime starts
+Three source clips load from runtime resources
+Standing Alt cannot start slide
+C always crouches, including Shift+C
+Airborne Alt cannot start slide
+side-crouch: one Alt press starts once; held Alt cannot chain
+side-crouch: recovery finishes
+Default/blocked/ADS recovery remains crouched: side-crouch
+side-crouch: slide distance=4.607361
+front-run: one Alt press starts once; held Alt cannot chain
+front-run: recovery finishes
+Forward+Shift resumes sprint after recovery
+front-run: slide distance=4.760681
+fp-slide: one Alt press starts once; held Alt cannot chain
+fp-slide: recovery finishes
+Default/blocked/ADS recovery remains crouched: fp-slide
+fp-slide: slide distance=4.607361
+aim-cancel: one Alt press starts once; held Alt cannot chain
+aim-cancel: recovery finishes
+Default/blocked/ADS recovery remains crouched: aim-cancel
+Capsule collision stops slide before the wall
+wall-stop: one Alt press starts once; held Alt cannot chain
+wall-stop: recovery finishes
+Default/blocked/ADS recovery remains crouched: wall-stop
+low-ceiling: one Alt press starts once; held Alt cannot chain
+low-ceiling: recovery finishes
+Default/blocked/ADS recovery remains crouched: low-ceiling
+30 Hz distance=4.607361
+60 Hz distance=4.611664
+120 Hz distance=4.631104
+Host rejects stationary slide request
+Host accepts sprinting remote slide
+Snapshot carries slide phase without restarting it
+Host ADS cancels remote slide
+Disconnect clears slide
+Blended slide feet stay above floor
+Hands remain attached to actual weapon grips
+Leg segment lengths remain unchanged
