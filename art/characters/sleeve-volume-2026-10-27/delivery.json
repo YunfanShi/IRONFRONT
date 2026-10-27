@@ -1,0 +1,41 @@
+{
+  "version": "0.66.6",
+  "baselineVersion": "0.66.5",
+  "baselineCommit": "c1050d2",
+  "scope": "First-person P8/IF27 sleeve section and forearm pad only, blue/red",
+  "sourceValidation": true,
+  "unchangedRuntimeFiles": {
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeSoldierPackMotion.cs": true,
+    "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json": true
+  },
+  "probes": {
+    "motion": "PASS",
+    "rig": "PASS",
+    "sprint": "PASS"
+  },
+  "runtimeErrors": 0,
+  "build": "UnityProject/Builds/SleeveVolume-0.66.6/IRONFRONT.app",
+  "geometry": {
+    "middleForearmWidthChangePercent": 33.3333,
+    "middleForearmDepthChangePercent": 32.2581,
+    "upperShoulderWidthChangePercent": 27.7778,
+    "innerCuffOpeningUnchanged": true,
+    "gloveVerticesUnchangedPerHand": 1689,
+    "changedSleevePadVerticesPerArm": 624
+  },
+  "video": {
+    "file": "art/characters/sleeve-volume-2026-10-27/sleeve-volume-30fps.mp4",
+    "frames": 306,
+    "fps": 30,
+    "seconds": 10.2,
+    "decodedSamples": 8,
+    "sha256": "52fb0fba537b4cb12d3302d491545eb8ec512f54182fe928bbd9c7a54ba4e83f"
+  },
+  "visualReview": "Viewed matching old/new hold and ADS captures, reload key poses and sequence sheets for P8/IF27, wrist/contact closeups, red team poses, sprint capture, decoded video sample. Continuous UI playback not observed.",
+  "limitations": "Existing simplified cloth folds/materials and animation behavior retained. This is a sleeve-volume revision, not final acceptance of the complete hand animation.",
+  "oldBuildPreserved": true,
+  "localOnly": true
+}

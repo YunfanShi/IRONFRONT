@@ -1,4 +1,6 @@
-# PROJECT IRONFRONT 0.66.5
+# PROJECT IRONFRONT 0.66.6
+
+0.66.6：加厚 P8、IF-27 第一人称候选袖管，调整袖口渐收与护臂片位置；手套、骨骼和动作保持一致。独立应用、新旧对比和验证见 [袖管修正交接](docs/UNITY_HANDOFF_0666.md)。
 
 0.66.5：使用用户提供的 Kevin Iglesias 免费士兵动作包，试做 IF-27 换弹／持枪与 P8 双手持枪。独立候选应用与原版保留，实际来源、适配和视觉边界见 [动作包试版交接](docs/UNITY_HANDOFF_0665.md)。
 

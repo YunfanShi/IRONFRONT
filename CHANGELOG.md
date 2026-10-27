@@ -1,3 +1,9 @@
+# 0.66.6
+
+- 双队 P8、IF-27 第一人称袖管前臂中段截面宽增加约 33%、厚增加约 32%，上臂适度加粗，袖口逐渐收紧。
+- 护臂片加宽并随新袖管表面外移；手套形状、骨骼、权重、动作和枪械比例保持一致。
+- 六份 FBX 重导入及实机 motion、rig、sprint 检查通过。独立应用和新旧对比见 [交接](docs/UNITY_HANDOFF_0666.md)。
+
 # 0.66.5
 
 - 从用户提供的 Human Soldier Animations FREE 2.0 原件提取实际 `AssaultRifle_Reload01`、`AssaultRifle_Aim01`、`Gun_Aim02`，按 60 Hz 计算约束后的骨骼轨迹。

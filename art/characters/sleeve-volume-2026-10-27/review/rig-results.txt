@@ -1,0 +1,194 @@
+PASS
+Version=0.66.6
+RuntimeErrors=0
+OK Runtime starts
+OK Blue Carbine actual muzzle/sight size ratio=1.150019
+OK Blue Carbine arms retain original scale
+OK Blue Carbine thirty independent finger joints
+OK Blue Carbine no legacy shared finger driver
+OK Blue Carbine authored soldier pack loaded
+OK Blue Carbine actual hold source=HumanM@AssaultRifle_Aim01
+OK Blue Carbine actual reload source=HumanM@AssaultRifle_Reload01
+OK Blue Carbine reload interruption resets props at 0.24
+OK Blue Carbine reload interruption resets props at 0.35
+OK Blue Carbine reload interruption resets props at 0.55
+OK Blue Carbine reload interruption resets props at 0.7
+OK Blue Carbine reload interruption resets props at 0.88
+OK Blue Carbine hip 0 arm length preserved
+OK Blue Carbine hip 1 arm length preserved
+OK Blue Carbine ads 0 arm length preserved
+OK Blue Carbine hands clear sight line 0
+OK Blue Carbine ads 1 arm length preserved
+OK Blue Carbine hands clear sight line 1
+OK Blue Carbine reload40 0 arm length preserved
+OK Blue Carbine reload40 1 arm length preserved
+OK Blue Carbine reload87 0 arm length preserved
+OK Blue Carbine reload87 1 arm length preserved
+OK Blue Marksman actual muzzle/sight size ratio=1.150001
+OK Blue Marksman arms retain original scale
+OK Blue Marksman hip 0 arm length preserved
+OK Blue Marksman hip 1 arm length preserved
+OK Blue Marksman reload40 0 arm length preserved
+OK Blue Marksman reload40 1 arm length preserved
+OK Blue Marksman reload87 0 arm length preserved
+OK Blue Marksman reload87 1 arm length preserved
+OK Blue Smg actual muzzle/sight size ratio=1.149977
+OK Blue Smg arms retain original scale
+OK Blue Smg hip 0 arm length preserved
+OK Blue Smg hip 1 arm length preserved
+OK Blue Smg ads 0 arm length preserved
+OK Blue Smg hands clear sight line 0
+OK Blue Smg ads 1 arm length preserved
+OK Blue Smg hands clear sight line 1
+OK Blue Smg reload40 0 arm length preserved
+OK Blue Smg reload40 1 arm length preserved
+OK Blue Smg reload87 0 arm length preserved
+OK Blue Smg reload87 1 arm length preserved
+OK Blue Lmg actual muzzle/sight size ratio=1.150026
+OK Blue Lmg arms retain original scale
+OK Blue Lmg hip 0 arm length preserved
+OK Blue Lmg hip 1 arm length preserved
+OK Blue Lmg ads 0 arm length preserved
+OK Blue Lmg hands clear sight line 0
+OK Blue Lmg ads 1 arm length preserved
+OK Blue Lmg hands clear sight line 1
+OK Blue Lmg reload40 0 arm length preserved
+OK Blue Lmg reload40 1 arm length preserved
+OK Blue Lmg reload87 0 arm length preserved
+OK Blue Lmg reload87 1 arm length preserved
+OK Blue BattleRifle actual muzzle/sight size ratio=1.149994
+OK Blue BattleRifle arms retain original scale
+OK Blue BattleRifle hip 0 arm length preserved
+OK Blue BattleRifle hip 1 arm length preserved
+OK Blue BattleRifle ads 0 arm length preserved
+OK Blue BattleRifle hands clear sight line 0
+OK Blue BattleRifle ads 1 arm length preserved
+OK Blue BattleRifle hands clear sight line 1
+OK Blue BattleRifle reload40 0 arm length preserved
+OK Blue BattleRifle reload40 1 arm length preserved
+OK Blue BattleRifle reload87 0 arm length preserved
+OK Blue BattleRifle reload87 1 arm length preserved
+OK Blue Sniper actual muzzle/sight size ratio=1.149995
+OK Blue Sniper arms retain original scale
+OK Blue Sniper hip 0 arm length preserved
+OK Blue Sniper hip 1 arm length preserved
+OK Blue Sniper reload40 0 arm length preserved
+OK Blue Sniper reload40 1 arm length preserved
+OK Blue Sniper reload87 0 arm length preserved
+OK Blue Sniper reload87 1 arm length preserved
+OK Blue Pistol actual muzzle/sight size ratio=1.55009
+OK Blue Pistol arms retain original scale
+OK Blue Pistol thirty independent finger joints
+OK Blue Pistol no legacy shared finger driver
+OK Blue Pistol authored soldier pack loaded
+OK Blue Pistol actual hold source=HumanM@Gun_Aim02
+OK Blue Pistol reload interruption resets props at 0.24
+OK Blue Pistol reload interruption resets props at 0.35
+OK Blue Pistol reload interruption resets props at 0.55
+OK Blue Pistol reload interruption resets props at 0.7
+OK Blue Pistol reload interruption resets props at 0.88
+OK Blue Pistol hip 0 arm length preserved
+OK Blue Pistol hip 1 arm length preserved
+OK Blue Pistol ads 0 arm length preserved
+OK Blue Pistol hands clear sight line 0
+OK Blue Pistol ads 1 arm length preserved
+OK Blue Pistol hands clear sight line 1
+OK Blue Pistol reload40 0 arm length preserved
+OK Blue Pistol reload40 1 arm length preserved
+OK Blue Pistol reload87 0 arm length preserved
+OK Blue Pistol reload87 1 arm length preserved
+OK Red Carbine actual muzzle/sight size ratio=1.150019
+OK Red Carbine arms retain original scale
+OK Red Carbine thirty independent finger joints
+OK Red Carbine no legacy shared finger driver
+OK Red Carbine authored soldier pack loaded
+OK Red Carbine actual hold source=HumanM@AssaultRifle_Aim01
+OK Red Carbine actual reload source=HumanM@AssaultRifle_Reload01
+OK Red Carbine reload interruption resets props at 0.24
+OK Red Carbine reload interruption resets props at 0.35
+OK Red Carbine reload interruption resets props at 0.55
+OK Red Carbine reload interruption resets props at 0.7
+OK Red Carbine reload interruption resets props at 0.88
+OK Red Carbine hip 0 arm length preserved
+OK Red Carbine hip 1 arm length preserved
+OK Red Carbine ads 0 arm length preserved
+OK Red Carbine hands clear sight line 0
+OK Red Carbine ads 1 arm length preserved
+OK Red Carbine hands clear sight line 1
+OK Red Carbine reload40 0 arm length preserved
+OK Red Carbine reload40 1 arm length preserved
+OK Red Carbine reload87 0 arm length preserved
+OK Red Carbine reload87 1 arm length preserved
+OK Red Marksman actual muzzle/sight size ratio=1.150001
+OK Red Marksman arms retain original scale
+OK Red Marksman hip 0 arm length preserved
+OK Red Marksman hip 1 arm length preserved
+OK Red Marksman reload40 0 arm length preserved
+OK Red Marksman reload40 1 arm length preserved
+OK Red Marksman reload87 0 arm length preserved
+OK Red Marksman reload87 1 arm length preserved
+OK Red Smg actual muzzle/sight size ratio=1.149977
+OK Red Smg arms retain original scale
+OK Red Smg hip 0 arm length preserved
+OK Red Smg hip 1 arm length preserved
+OK Red Smg ads 0 arm length preserved
+OK Red Smg hands clear sight line 0
+OK Red Smg ads 1 arm length preserved
+OK Red Smg hands clear sight line 1
+OK Red Smg reload40 0 arm length preserved
+OK Red Smg reload40 1 arm length preserved
+OK Red Smg reload87 0 arm length preserved
+OK Red Smg reload87 1 arm length preserved
+OK Red Lmg actual muzzle/sight size ratio=1.150026
+OK Red Lmg arms retain original scale
+OK Red Lmg hip 0 arm length preserved
+OK Red Lmg hip 1 arm length preserved
+OK Red Lmg ads 0 arm length preserved
+OK Red Lmg hands clear sight line 0
+OK Red Lmg ads 1 arm length preserved
+OK Red Lmg hands clear sight line 1
+OK Red Lmg reload40 0 arm length preserved
+OK Red Lmg reload40 1 arm length preserved
+OK Red Lmg reload87 0 arm length preserved
+OK Red Lmg reload87 1 arm length preserved
+OK Red BattleRifle actual muzzle/sight size ratio=1.149994
+OK Red BattleRifle arms retain original scale
+OK Red BattleRifle hip 0 arm length preserved
+OK Red BattleRifle hip 1 arm length preserved
+OK Red BattleRifle ads 0 arm length preserved
+OK Red BattleRifle hands clear sight line 0
+OK Red BattleRifle ads 1 arm length preserved
+OK Red BattleRifle hands clear sight line 1
+OK Red BattleRifle reload40 0 arm length preserved
+OK Red BattleRifle reload40 1 arm length preserved
+OK Red BattleRifle reload87 0 arm length preserved
+OK Red BattleRifle reload87 1 arm length preserved
+OK Red Sniper actual muzzle/sight size ratio=1.149995
+OK Red Sniper arms retain original scale
+OK Red Sniper hip 0 arm length preserved
+OK Red Sniper hip 1 arm length preserved
+OK Red Sniper reload40 0 arm length preserved
+OK Red Sniper reload40 1 arm length preserved
+OK Red Sniper reload87 0 arm length preserved
+OK Red Sniper reload87 1 arm length preserved
+OK Red Pistol actual muzzle/sight size ratio=1.55009
+OK Red Pistol arms retain original scale
+OK Red Pistol thirty independent finger joints
+OK Red Pistol no legacy shared finger driver
+OK Red Pistol authored soldier pack loaded
+OK Red Pistol actual hold source=HumanM@Gun_Aim02
+OK Red Pistol reload interruption resets props at 0.24
+OK Red Pistol reload interruption resets props at 0.35
+OK Red Pistol reload interruption resets props at 0.55
+OK Red Pistol reload interruption resets props at 0.7
+OK Red Pistol reload interruption resets props at 0.88
+OK Red Pistol hip 0 arm length preserved
+OK Red Pistol hip 1 arm length preserved
+OK Red Pistol ads 0 arm length preserved
+OK Red Pistol hands clear sight line 0
+OK Red Pistol ads 1 arm length preserved
+OK Red Pistol hands clear sight line 1
+OK Red Pistol reload40 0 arm length preserved
+OK Red Pistol reload40 1 arm length preserved
+OK Red Pistol reload87 0 arm length preserved
+OK Red Pistol reload87 1 arm length preserved
