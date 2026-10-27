@@ -15,10 +15,19 @@ namespace Ironfront.UnityPrototype.Editor
         public static void Build()
         {
             Directory.CreateDirectory("Assets/Resources/Soldiers");
-            foreach (string team in new[] { "Blue", "Red" }) BuildTeam(team);
+            foreach (string team in new[] { "Blue", "Red" }) BuildTeam(team, false);
             AssetDatabase.SaveAssets();
             Debug.Log("SOLDIER_ASSET_SETUP_PASS");
         }
+        public static void BuildHandCandidates()
+        {
+            Directory.CreateDirectory("Assets/Resources/Soldiers/HandCandidate");
+            foreach (string team in new[] { "Blue", "Red" }) BuildTeam(team, true);
+            AssetDatabase.SaveAssets();
+            Debug.Log("HAND_CANDIDATE_IMPORT_PASS");
+        }
+        public static void BuildHandCandidatePlayer() { BuildHandCandidates(); PrototypeOptimizationBuild.Build(); }
+        static bool IsDigit(string name) => new[] { "Index", "Middle", "Ring", "Pinky", "Thumb", "Fingers" }.Any(name.StartsWith);
         private static Mesh BuildViewMesh(SkinnedMeshRenderer renderer, string folder)
         {
             var mesh = UnityEngine.Object.Instantiate(renderer.sharedMesh); mesh.name = renderer.name + "_FirstPerson";
@@ -37,7 +46,7 @@ namespace Ironfront.UnityPrototype.Editor
                 {
                     if (values[j] <= 0) continue;
                     string name = renderer.bones[ids[j]].name;
-                    bool arm = name.EndsWith(side) && (name.StartsWith("UpperArm") || name.StartsWith("Forearm") || name.StartsWith("Hand") || name.StartsWith("Fingers") || name.StartsWith("Thumb"));
+                    bool arm = name.EndsWith(side) && (name.StartsWith("UpperArm") || name.StartsWith("Forearm") || name.StartsWith("Hand") || IsDigit(name));
                     if (!arm) ids[j] = upper;
                     if (!merged.ContainsKey(ids[j])) merged[ids[j]] = 0;
                     merged[ids[j]] += values[j];
@@ -58,12 +67,12 @@ namespace Ironfront.UnityPrototype.Editor
             if (existing == null) { AssetDatabase.CreateAsset(mesh, path); return mesh; }
             EditorUtility.CopySerialized(mesh, existing); EditorUtility.SetDirty(existing); UnityEngine.Object.DestroyImmediate(mesh); return existing;
         }
-        private static void BuildTeam(string team)
+        private static void BuildTeam(string team, bool candidate)
         {
             string lower = team.ToLowerInvariant();
             string folder = "Assets/Art/Characters/" + team + "Soldier";
-            string destination = folder + "/rigged-v03"; Directory.CreateDirectory(destination);
-            string source = Path.GetFullPath(Path.Combine(Application.dataPath, "../../art/characters/" + lower + "-soldier/rigged-v03"));
+            string destination = folder + (candidate ? "/hand-candidate-v04" : "/rigged-v03"); Directory.CreateDirectory(destination);
+            string source = Path.GetFullPath(Path.Combine(Application.dataPath, candidate ? "../../art/characters/hand-reload-2026-10-27/candidate/" + lower : "../../art/characters/" + lower + "-soldier/rigged-v03"));
             for (int i = 0; i < 3; i++) File.Copy(Path.Combine(source, lower + "-soldier-skinned-lod" + i + ".fbx"), destination + "/" + lower + "-soldier-skinned-lod" + i + ".fbx", true);
             AssetDatabase.Refresh();
             var root = new GameObject(team + "Soldier");
@@ -99,7 +108,7 @@ namespace Ironfront.UnityPrototype.Editor
                     if (rs.Length != 3) throw new InvalidOperationException("Expected body + two arms: " + rs.Length);
                     if (i == 0)
                     {
-                        skeleton = instance.GetComponentsInChildren<Transform>(true).Where(t => BoneNames.Contains(t.name) || t.name.StartsWith("Fingers_") || t.name.StartsWith("Thumb_")).ToDictionary(t => t.name);
+                        skeleton = instance.GetComponentsInChildren<Transform>(true).Where(t => BoneNames.Contains(t.name) || IsDigit(t.name)).ToDictionary(t => t.name);
                         var bindings = new List<PrototypeSoldierArtRig.Binding>();
                         for (int n = 0; n < BoneNames.Length; n++)
                         {
@@ -107,19 +116,57 @@ namespace Ironfront.UnityPrototype.Editor
                             string child = n == 3 ? "Forearm_L" : n == 4 ? "Forearm_R" : n == 5 ? "Hand_L" : n == 6 ? "Hand_R" : n == 9 ? "Shin_L" : n == 10 ? "Shin_R" : n == 11 ? "Foot_L" : n == 12 ? "Foot_R" : null;
                             if (child != null) direction = Quaternion.FromToRotation(Vector3.down, skeleton[child].position - bone.position);
                             Quaternion grip = n == 7 ? Quaternion.Euler(0, -90, 0) : n == 8 ? Quaternion.Euler(0, 90, 0) : Quaternion.identity;
-                            bindings.Add(new PrototypeSoldierArtRig.Binding { Bone = bone, Driver = n, RotationOffset = grip * Quaternion.Inverse(direction) * bone.rotation });
+                            Quaternion offset = grip * Quaternion.Inverse(direction) * bone.rotation;
+                            if (candidate && (n == 7 || n == 8))
+                            {
+                                // A hand pose now has anatomical axes: +Z wrist-to-knuckles,
+                                // +Y pinky-to-index. This removes the old mitten's arbitrary roll.
+                                string side = n == 7 ? "_L" : "_R";
+                                Vector3 distal = skeleton["Middle1" + side].position - bone.position;
+                                Vector3 across = skeleton["Index1" + side].position - skeleton["Pinky1" + side].position;
+                                offset = Quaternion.Inverse(Quaternion.LookRotation(distal, across)) * bone.rotation;
+                            }
+                            bindings.Add(new PrototypeSoldierArtRig.Binding { Bone = bone, Driver = n, RotationOffset = offset });
                             Debug.Log(team + " bone " + bone.name + " pos=" + bone.position.ToString("F4") + " rot=" + bone.eulerAngles);
                         }
                         rig.Bindings = bindings.ToArray();
                         rig.ForearmLength = Vector3.Distance(skeleton["Forearm_R"].position,skeleton["Hand_R"].position);
-                        rig.Fingers = new[] { skeleton["Fingers_L"], skeleton["Fingers_R"] };
-                        rig.FingerRest = rig.Fingers.Select(t => t.localRotation).ToArray();
-                        rig.Thumbs = new[] { skeleton["Thumb_L"], skeleton["Thumb_R"] };
-                        rig.ThumbRest = rig.Thumbs.Select(t => t.localRotation).ToArray();
+                        if (candidate)
+                        {
+                            rig.Fingers = Array.Empty<Transform>(); rig.FingerRest = Array.Empty<Quaternion>();
+                            rig.Thumbs = Array.Empty<Transform>(); rig.ThumbRest = Array.Empty<Quaternion>();
+                            var joints = new List<PrototypeSoldierArtRig.DigitJoint>();
+                            string[] digits = { "Index", "Middle", "Ring", "Pinky", "Thumb" };
+                            for (int side = 0; side < 2; side++)
+                            for (int digit = 0; digit < digits.Length; digit++)
+                            for (int joint = 0; joint < 3; joint++)
+                            {
+                                var t = skeleton[digits[digit] + (joint + 1) + (side == 0 ? "_L" : "_R")];
+                                joints.Add(new PrototypeSoldierArtRig.DigitJoint { Bone = t, Rest = t.localRotation,
+                                    Left = side == 0, Digit = digit, Joint = joint });
+                            }
+                            rig.Digits = joints.ToArray();
+                        }
+                        else
+                        {
+                            rig.Fingers = new[] { skeleton["Fingers_L"], skeleton["Fingers_R"] };
+                            rig.FingerRest = rig.Fingers.Select(t => t.localRotation).ToArray();
+                            rig.Thumbs = new[] { skeleton["Thumb_L"], skeleton["Thumb_R"] };
+                            rig.ThumbRest = rig.Thumbs.Select(t => t.localRotation).ToArray();
+                        }
                     }
                     foreach (var r in rs)
                     {
-                        r.sharedMaterial = material; r.quality = SkinQuality.Bone4;
+                        if (candidate && r.sharedMesh.subMeshCount > 1)
+                        {
+                            string glovePath = destination + "/HandGlove.mat";
+                            var glove = AssetDatabase.LoadAssetAtPath<Material>(glovePath);
+                            if (glove == null) { glove = new Material(Shader.Find("Universal Render Pipeline/Lit")); AssetDatabase.CreateAsset(glove, glovePath); }
+                            glove.SetColor("_BaseColor", new Color(.11f,.125f,.14f)); glove.SetFloat("_Smoothness", .18f);
+                            r.sharedMaterials = Enumerable.Range(0, r.sharedMesh.subMeshCount).Select(n => n == 0 ? material : glove).ToArray();
+                        }
+                        else r.sharedMaterial = material;
+                        r.quality = SkinQuality.Bone4;
                         if (i > 0) { r.bones = r.bones.Select(b => skeleton[b.name]).ToArray(); r.rootBone = skeleton["Pelvis"]; }
                         // Fixed conservative bounds cover prone, running and seated poses.
                         r.localBounds = new Bounds(Vector3.zero, Vector3.one * 5f);
@@ -140,7 +187,7 @@ namespace Ironfront.UnityPrototype.Editor
                 rig.ViewArmMeshes = arms.Select(r => BuildViewMesh(r, destination)).ToArray();
                 var group = root.AddComponent<LODGroup>(); group.SetLODs(lods);
                 group.localReferencePoint = new Vector3(0, .9f, 0); group.size = 1.8f;
-                PrefabUtility.SaveAsPrefabAsset(root, "Assets/Resources/Soldiers/" + team + "Soldier.prefab");
+                PrefabUtility.SaveAsPrefabAsset(root, "Assets/Resources/Soldiers/" + (candidate ? "HandCandidate/" : "") + team + "Soldier.prefab");
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
         }

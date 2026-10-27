@@ -57,6 +57,23 @@ namespace Ironfront.UnityPrototype
                 float ratio=Vector3.Distance(fp.Muzzle.position,fp.Sight.position)/Vector3.Distance(original.Muzzle.position,original.Sight.position)/fp.transform.lossyScale.x;
                 Check(Mathf.Abs(ratio-(id==PrototypeWeaponId.Pistol?1.55f:1.15f))<.001f,team+" "+id+" actual muzzle/sight size ratio="+ratio);
                 Check(Mathf.Abs(art.transform.lossyScale.x-.55f/.65f)<.001f,team+" "+id+" arms retain original scale");
+                if (fp.UsesHandCandidate)
+                {
+                    Check(art.Digits != null && art.Digits.Length == 30 && art.Digits.Select(j => j.Bone).Distinct().Count() == 30,
+                        team + " " + id + " thirty independent finger joints");
+                    Check(art.Fingers.Length == 0,team + " " + id + " no legacy shared finger driver");
+                    Vector3 home = fp.Magazine.localPosition;
+                    Quaternion homeRotation = fp.Magazine.localRotation;
+                    foreach (float interrupt in new[]{.24f,.35f,.55f,.70f,.88f})
+                    {
+                        fp.SetPresentation(true,interrupt,100f);
+                        fp.SetPresentation(false,0f,100f);
+                        Check(Vector3.Distance(home,fp.Magazine.localPosition)<.00001f &&
+                            Quaternion.Angle(homeRotation,fp.Magazine.localRotation)<.01f &&
+                            !((Transform)Get(fp,"freshMagazine")).gameObject.activeSelf,
+                            team + " " + id + " reload interruption resets props at " + interrupt);
+                    }
+                }
                 if(!player.IsFirstPerson)player.TogglePerspective();
                 if(sweep!=null)
                 {
@@ -78,21 +95,22 @@ namespace Ironfront.UnityPrototype
                     }
                     continue;
                 }
-                foreach(string pose in new[]{"hip","ads","reload40","reload87"})
+                foreach(string pose in (motion ? new[]{"hip","ads","reload10","reload24","reload34","reload40","reload55","reload66","reload74","reload87","reload96"} : new[]{"hip","ads","reload40","reload87"}))
                 {
                     Set(player,"aiming",pose=="ads");Set(player,"lastShotAt",-10f);
                     for(int i=0;i<35;i++)
                     {
-                        float phase=pose=="reload40"?.4f:pose=="reload87"?.87f:-1f;
+                        float phase=pose.StartsWith("reload") ? int.Parse(pose.Substring(6))/100f : -1f;
                         Set(player.ActiveKit,"reloadEndsAt",phase<0?0f:Time.time+(1-phase)*player.ActiveWeapon.ReloadSeconds);
                         Invoke(player,"UpdateInfantryPresentation");soldier.RefreshPose(true);yield return null;
                     }
                     if(motion&&pose=="hip")
                     {
                         Directory.CreateDirectory(Path.Combine(output,"motion-"+id));
-                        for(int f=0;f<180;f++)
+                        int reloadFrames = Mathf.CeilToInt(player.ActiveWeapon.ReloadSeconds * 30f);
+                        for(int f=0;f<75+reloadFrames+30;f++)
                         {
-                            bool aim=f>=30&&f<60;float phase=f>=75&&f<165?(f-75)/90f:-1f;
+                            bool aim=f>=30&&f<60;float phase=f>=75&&f<75+reloadFrames?(f-75)/(float)reloadFrames:-1f;
                             Set(player,"aiming",aim);Set(player.ActiveKit,"reloadEndsAt",phase<0?0f:Time.time+(1-phase)*player.ActiveWeapon.ReloadSeconds);
                             Invoke(player,"UpdateInfantryPresentation");soldier.RefreshPose(true);yield return null;
                             Capture("motion-"+id+"/"+f.ToString("D4"));
@@ -102,14 +120,14 @@ namespace Ironfront.UnityPrototype
                     }
                     string name=team+"-"+id+"-"+pose;
                     if(!fp.ScopeViewActive){AuditSkin(team,id,pose,art);Capture(name);}
-                    if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&pose=="hip")
+                    if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&(pose=="hip" || motion && (pose=="reload24" || pose=="reload34" || pose=="reload66" || pose=="reload87")))
                     {
                         ExportObj(name,fp,art);
                         Vector3 saved=camera.transform.position;Quaternion rotation=camera.transform.rotation;float fov=camera.fieldOfView;
                         // Inspect the same evaluated first-person mesh from the
                         // opposite side without moving its parent weapon.
                         var observer=new GameObject("Grip detail camera").AddComponent<Camera>();observer.CopyFrom(camera);
-                        Vector3 aim=fp.RightGrip.position;observer.transform.position=aim+fp.transform.TransformDirection(new Vector3(.5f,.25f,.45f));observer.transform.LookAt(aim);observer.fieldOfView=34;
+                        Vector3 aim=pose=="hip" ? fp.RightGrip.position : fp.SupportPosition;observer.transform.position=aim+fp.transform.TransformDirection(new Vector3(.5f,.25f,.45f));observer.transform.LookAt(aim);observer.fieldOfView=34;
                         camera=observer;Capture(name+"-contact");camera=player.ViewCamera;
                         if(calibration)
                         {

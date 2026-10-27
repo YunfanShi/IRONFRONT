@@ -22,6 +22,15 @@ namespace Ironfront.UnityPrototype
         PrototypeSoldierArtRig viewArms;
         bool initialized;
         bool gripsCalibrated;
+        bool handCandidate;
+        bool pistolCandidate;
+        Transform freshMagazine;
+        Renderer[] magazineRenderers;
+        public float SupportGrasp { get; private set; } = .85f;
+        public float SupportPinch { get; private set; }
+        public bool UsesHandCandidate => handCandidate;
+        public Vector3 ReloadViewPosition => pistolCandidate ? new Vector3(.13f,-.14f,.54f) : new Vector3(.20f,-.16f,.64f);
+        public Quaternion ReloadViewRotation => Quaternion.Euler(-8f,-12f,-14f);
         Vector3 supportLocal;
         Quaternion supportLocalRotation;
         public Vector3 RightContactPosition => gripsCalibrated ? transform.TransformPoint(rightContactLocal) : RightGrip.position;
@@ -47,11 +56,22 @@ namespace Ironfront.UnityPrototype
             if (prefab == null) return null;
             var rig = Instantiate(prefab, parent, false).GetComponent<PrototypeWeaponArtRig>();
             rig.Initialize();
+            rig.handCandidate = firstPerson && (id == PrototypeWeaponId.Pistol || id == PrototypeWeaponId.Carbine);
+            rig.pistolCandidate = id == PrototypeWeaponId.Pistol;
             rig.ResizeWeapon(id == PrototypeWeaponId.Pistol ? 1.55f : 1.15f);
             rig.CalibrateWristTargets(id);
             if (firstPerson)
             {
-                rig.viewArms = PrototypeSoldierArtRig.CreateWeaponViewArms(rig.transform, team);
+                rig.handCandidate = id == PrototypeWeaponId.Pistol || id == PrototypeWeaponId.Carbine;
+                rig.pistolCandidate = id == PrototypeWeaponId.Pistol;
+                rig.viewArms = PrototypeSoldierArtRig.CreateWeaponViewArms(rig.transform, team, rig.handCandidate);
+                if (rig.handCandidate)
+                {
+                    rig.freshMagazine = Instantiate(rig.Magazine.gameObject, rig.Magazine.parent, false).transform;
+                    rig.freshMagazine.name = "Fresh reload magazine";
+                    rig.freshMagazine.gameObject.SetActive(false);
+                    rig.magazineRenderers = rig.Magazine.GetComponentsInChildren<Renderer>();
+                }
                 rig.SetPresentation(false, 0, 100);
             }
             return rig;
@@ -94,6 +114,20 @@ namespace Ironfront.UnityPrototype
             leftHome = LeftGrip.localPosition;
             MagazineGrip.localPosition += new Vector3(-.075f, .09f, -.015f)/VisualScale;
             ChargingGrip.localPosition += new Vector3(-.025f, -.015f, -.035f)/VisualScale;
+            if (handCandidate)
+            {
+                RightGrip.position = transform.TransformPoint(rightContactLocal + new Vector3(.055f,.025f,-.11f));
+                RightGrip.localRotation = Quaternion.Euler(10f,0f,0f);
+                if (pistol)
+                {
+                    LeftGrip.localPosition = RightGrip.localPosition + new Vector3(-.115f,-.005f,.045f)/VisualScale;
+                    LeftHandRotation = Quaternion.Euler(10f,0f,0f);
+                }
+                else LeftHandRotation = Quaternion.LookRotation(Vector3.right,Vector3.forward);
+                MagazineGrip.localPosition += new Vector3(.005f,-.075f,-.085f)/VisualScale;
+                ChargingGrip.localPosition += new Vector3(-.095f,.04f,0f)/VisualScale;
+                leftHome = LeftGrip.localPosition;
+            }
         }
         public Vector3 AimPosition(float displayScale)
         {
@@ -160,8 +194,70 @@ namespace Ironfront.UnityPrototype
             Quaternion magazineWrist=Quaternion.Inverse(transform.rotation)*MagazineGrip.rotation*Quaternion.Euler(10f,180f,0f);
             supportLocalRotation=Quaternion.Slerp(LeftHandRotation,magazineWrist,magReach);
             supportLocalRotation=Quaternion.Slerp(supportLocalRotation,Quaternion.Euler(70f,180f,15f),chargeReach);
-            if(viewArms!=null) viewArms.PoseWeaponViewArms(RightGrip.position,SupportPosition,
+            if (handCandidate) PresentHandReload(reloading, p, shot, cycle);
+            if(viewArms!=null)
+            {
+                viewArms.LeftGrasp = SupportGrasp;
+                viewArms.LeftPinch = SupportPinch;
+                viewArms.TriggerRelease = reloading ? Ease(p,0f,.08f)*(1f-Ease(p,.94f,1f)) : 0f;
+                viewArms.PoseWeaponViewArms(RightGrip.position,SupportPosition,
                 RightGrip.rotation,SupportRotation);
+            }
+        }
+        void PresentHandReload(bool reloading, float p, float shot, float cycle)
+        {
+            Vector3 rest = transform.InverseTransformPoint(LeftGrip.parent.TransformPoint(leftHome));
+            Vector3 withdrawal = pistolCandidate ? new Vector3(-.035f,-.22f,-.035f) : new Vector3(-.06f,-.27f,-.025f);
+            Vector3 pouch = withdrawal + new Vector3(-.18f,-.28f,-.10f);
+            float pull = Ease(p,.26f,.38f), stow = Ease(p,.38f,.47f);
+            float clear = Ease(p,.34f,.38f);
+            Vector3 extracted = new Vector3(withdrawal.x*clear,withdrawal.y*pull,withdrawal.z*pull);
+            Magazine.localPosition = magazineHome + Vector3.Lerp(extracted,pouch,stow);
+            Magazine.localRotation = magazineRotation * Quaternion.Euler(-8f*clear, 0f, -5f*clear);
+            Vector3 ready = withdrawal + new Vector3(-.035f,-.025f,.01f);
+            Vector3 aligned = new Vector3(0,withdrawal.y,withdrawal.z);
+            Vector3 newOffset = Vector3.Lerp(pouch, ready, Ease(p,.49f,.60f));
+            newOffset = Vector3.Lerp(newOffset, aligned, Ease(p,.60f,.64f));
+            newOffset = Vector3.Lerp(newOffset, Vector3.zero, Ease(p,.64f,.72f));
+            freshMagazine.localPosition = magazineHome + newOffset;
+            freshMagazine.localRotation = magazineRotation * Quaternion.Euler(-8f*(1f-Ease(p,.60f,.64f)),0,0);
+            bool spareVisible = reloading && p >= .49f && p < .72f;
+            freshMagazine.gameObject.SetActive(spareVisible);
+            bool originalVisible = !reloading || p < .47f || p >= .72f;
+            foreach (var r in magazineRenderers) r.enabled = originalVisible;
+            if (!reloading || p >= .72f)
+            { Magazine.localPosition = magazineHome; Magazine.localRotation = magazineRotation; }
+            Vector3 magTarget = transform.InverseTransformPoint(MagazineGrip.position);
+            if (p >= .47f && p < .72f)
+                magTarget = transform.InverseTransformPoint(freshMagazine.TransformPoint(MagazineGrip.localPosition));
+            Quaternion wrist = Quaternion.Inverse(transform.rotation) * (p >= .47f && p < .72f ? freshMagazine.rotation : Magazine.rotation) * Quaternion.Euler(10f,0f,0f);
+            float reach = Ease(p,.08f,.22f);
+            supportLocal = Vector3.Lerp(rest + new Vector3(-.035f,-.015f,0)*Ease(p,0,.09f), magTarget, reach);
+            supportLocalRotation = Quaternion.Slerp(LeftHandRotation,wrist,reach);
+            SupportGrasp = Mathf.Lerp(.85f,.08f,Ease(p,0,.10f));
+            SupportGrasp = Mathf.Lerp(SupportGrasp,.92f,Ease(p,.20f,.26f));
+            // The old magazine leaves with a closed hand; fingers open in the
+            // pouch region, then close on a separate fresh magazine.
+            if (p > .41f && p < .53f)
+                SupportGrasp = Mathf.Lerp(.92f,.10f,Ease(p,.41f,.46f)) + .82f*Ease(p,.48f,.53f);
+            if (p >= .53f) SupportGrasp = Mathf.Lerp(.92f,.10f,Ease(p,.72f,.77f));
+            float chargeReach = Ease(p,.76f,.82f);
+            float charge = Ease(p,.83f,.88f)*(1f-Ease(p,.895f,.915f));
+            ChargingHandle.localPosition = chargingHome + Vector3.back*(ChargingTravel*Mathf.Max(charge,cycle));
+            Bolt.localPosition = boltHome + Vector3.back*(BoltTravel*Mathf.Max(charge,shot));
+            if (p >= .72f)
+            {
+                supportLocal = Vector3.Lerp(magTarget,transform.InverseTransformPoint(ChargingGrip.position),chargeReach);
+                supportLocalRotation = Quaternion.Slerp(wrist,Quaternion.LookRotation(Vector3.right,Vector3.back),chargeReach);
+                SupportGrasp = Mathf.Lerp(SupportGrasp,pistolCandidate?.85f:.8f,Ease(p,.80f,.83f));
+                SupportGrasp = Mathf.Lerp(SupportGrasp,.12f,Ease(p,.89f,.92f));
+                float home = Ease(p,.92f,1f);
+                supportLocal = Vector3.Lerp(supportLocal,rest,home);
+                supportLocalRotation = Quaternion.Slerp(supportLocalRotation,LeftHandRotation,home);
+                SupportGrasp = Mathf.Lerp(SupportGrasp,.85f,home);
+            }
+            SupportPinch = pistolCandidate ? 0f : chargeReach*(1f-Ease(p,.90f,.94f));
+            if (!reloading) { supportLocal=rest; supportLocalRotation=LeftHandRotation; SupportGrasp=.85f; SupportPinch=0f; }
         }
     }
 }

@@ -1,0 +1,311 @@
+{
+  "actions": [
+    {
+      "frame_end": 1.0,
+      "frame_start": 1.0,
+      "name": "T-Pose",
+      "users": 2
+    }
+  ],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/hand-reload-2026-10-27/source/FPS ARMS RIG 1.blend",
+  "issues": [
+    {
+      "code": "isolated_vertices",
+      "count": 5,
+      "severity": "warning"
+    }
+  ],
+  "material_details": [
+    {
+      "image_texture_nodes": 1,
+      "images": [
+        "new_diff"
+      ],
+      "name": "Material",
+      "node_count": 3,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "Material"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 40,
+      "connected_components": 7,
+      "data_name": "caucasian_male_1:Body",
+      "degenerate_faces": 0,
+      "edges": 8172,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 5,
+      "material_slots": [
+        "Material"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [
+        {
+          "name": "Armature",
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "caucasian_male_1:Body",
+      "non_manifold_edges": 40,
+      "polygons": 4076,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 4076,
+      "source_polygons": 4076,
+      "source_vertices": 4103,
+      "triangles": 8152,
+      "uv_layers": 1,
+      "vertex_groups": 48,
+      "vertices": 4103,
+      "weighted_vertices": 4099,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -5.7949,
+          -0.864746,
+          -4.497032
+        ],
+        [
+          5.794901,
+          3.698756,
+          0.959069
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Collection 1"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        1.189627
+      ],
+      "name": "Camera",
+      "parent": null,
+      "rotation_euler": [
+        1.570796,
+        0.0,
+        6.283185
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "CAMERA"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Collection 1"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        4.076245,
+        1.005454,
+        5.903862
+      ],
+      "name": "Lamp",
+      "parent": null,
+      "rotation_euler": [
+        -0.770911,
+        0.300434,
+        1.561995
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "LIGHT"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Collection 1"
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hidden_render": false,
+      "location": [
+        4.076245,
+        1.005454,
+        5.903862
+      ],
+      "name": "Lamp.001",
+      "parent": null,
+      "rotation_euler": [
+        0.715095,
+        0.035404,
+        1.869326
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "LIGHT"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Collection 2",
+        "caucasian_male_1"
+      ],
+      "dimensions": [
+        11.47794,
+        3.631492,
+        5.16252
+      ],
+      "hidden_render": false,
+      "location": [
+        -0.0,
+        -0.152545,
+        0.0
+      ],
+      "name": "caucasian_male_1",
+      "parent": null,
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        3.141593
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "ARMATURE"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Collection 1",
+        "caucasian_male_1"
+      ],
+      "dimensions": [
+        11.5898,
+        4.563501,
+        5.4561
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "caucasian_male_1:Body",
+      "parent": "caucasian_male_1",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        11.589801,
+        4.563502,
+        5.456101
+      ],
+      "max": [
+        5.794901,
+        3.698756,
+        0.959069
+      ],
+      "min": [
+        -5.7949,
+        -0.864746,
+        -4.497032
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 1,
+    "armatures": 1,
+    "bones": 50,
+    "boundary_edges": 40,
+    "cameras": 1,
+    "constraints": 20,
+    "degenerate_faces": 0,
+    "edges": 8172,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 1,
+    "invalid_vertices": 0,
+    "isolated_vertices": 5,
+    "lights": 2,
+    "materials": 1,
+    "mesh_objects": 1,
+    "missing_material_faces": 0,
+    "node_materials": 1,
+    "non_manifold_edges": 40,
+    "objects": 5,
+    "polygons": 4076,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 4076,
+    "textured_materials": 1,
+    "triangles": 8152,
+    "uv_mapped_meshes": 1,
+    "vertices": 4103,
+    "weighted_meshes": 1,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

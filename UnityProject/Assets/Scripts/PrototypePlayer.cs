@@ -565,12 +565,12 @@ namespace Ironfront.UnityPrototype
                     firstHome += new Vector3(.06f, -.12f, -.07f);
                 firstHome += new Vector3(0f, bob - reloadDip * .18f, 0f);
                 if(firstPersonArt!=null && Reloading)
-                    firstHome=Vector3.Lerp(firstPersonArt.HipPosition,new Vector3(.13f,-.06f,.63f),reloadDip);
+                    firstHome=Vector3.Lerp(firstPersonArt.HipPosition,firstPersonArt.UsesHandCandidate?firstPersonArt.ReloadViewPosition:new Vector3(.13f,-.06f,.63f),reloadDip);
                 Quaternion firstPose = Quaternion.Euler(reloadDip * 28f +
                     (sprinting ? -11f : 0f), 0f, reloadDip * 14f +
                     (IsSliding ? -11f : 0f));
                 if(firstPersonArt!=null && Reloading)
-                    firstPose=Quaternion.Euler(-10f*reloadDip,-22f*reloadDip,-22f*reloadDip);
+                    firstPose=firstPersonArt.UsesHandCandidate?Quaternion.Slerp(Quaternion.identity,firstPersonArt.ReloadViewRotation,reloadDip):Quaternion.Euler(-10f*reloadDip,-22f*reloadDip,-22f*reloadDip);
                 if(firstPersonArt!=null && !Reloading)
                 {
                     float age=Time.time-lastShotAt;

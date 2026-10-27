@@ -1,0 +1,70 @@
+PASS
+Version=0.66.3
+RuntimeErrors=0
+OK Runtime starts
+OK Blue Carbine actual muzzle/sight size ratio=1.150019
+OK Blue Carbine arms retain original scale
+OK Blue Carbine thirty independent finger joints
+OK Blue Carbine no legacy shared finger driver
+OK Blue Carbine reload interruption resets props at 0.24
+OK Blue Carbine reload interruption resets props at 0.35
+OK Blue Carbine reload interruption resets props at 0.55
+OK Blue Carbine reload interruption resets props at 0.7
+OK Blue Carbine reload interruption resets props at 0.88
+OK Blue Carbine hip 0 arm length preserved
+OK Blue Carbine hip 1 arm length preserved
+OK Blue Carbine ads 0 arm length preserved
+OK Blue Carbine hands clear sight line 0
+OK Blue Carbine ads 1 arm length preserved
+OK Blue Carbine hands clear sight line 1
+OK Blue Carbine reload10 0 arm length preserved
+OK Blue Carbine reload10 1 arm length preserved
+OK Blue Carbine reload24 0 arm length preserved
+OK Blue Carbine reload24 1 arm length preserved
+OK Blue Carbine reload34 0 arm length preserved
+OK Blue Carbine reload34 1 arm length preserved
+OK Blue Carbine reload40 0 arm length preserved
+OK Blue Carbine reload40 1 arm length preserved
+OK Blue Carbine reload55 0 arm length preserved
+OK Blue Carbine reload55 1 arm length preserved
+OK Blue Carbine reload66 0 arm length preserved
+OK Blue Carbine reload66 1 arm length preserved
+OK Blue Carbine reload74 0 arm length preserved
+OK Blue Carbine reload74 1 arm length preserved
+OK Blue Carbine reload87 0 arm length preserved
+OK Blue Carbine reload87 1 arm length preserved
+OK Blue Carbine reload96 0 arm length preserved
+OK Blue Carbine reload96 1 arm length preserved
+OK Blue Pistol actual muzzle/sight size ratio=1.55009
+OK Blue Pistol arms retain original scale
+OK Blue Pistol thirty independent finger joints
+OK Blue Pistol no legacy shared finger driver
+OK Blue Pistol reload interruption resets props at 0.24
+OK Blue Pistol reload interruption resets props at 0.35
+OK Blue Pistol reload interruption resets props at 0.55
+OK Blue Pistol reload interruption resets props at 0.7
+OK Blue Pistol reload interruption resets props at 0.88
+OK Blue Pistol hip 0 arm length preserved
+OK Blue Pistol hip 1 arm length preserved
+OK Blue Pistol ads 0 arm length preserved
+OK Blue Pistol hands clear sight line 0
+OK Blue Pistol ads 1 arm length preserved
+OK Blue Pistol hands clear sight line 1
+OK Blue Pistol reload10 0 arm length preserved
+OK Blue Pistol reload10 1 arm length preserved
+OK Blue Pistol reload24 0 arm length preserved
+OK Blue Pistol reload24 1 arm length preserved
+OK Blue Pistol reload34 0 arm length preserved
+OK Blue Pistol reload34 1 arm length preserved
+OK Blue Pistol reload40 0 arm length preserved
+OK Blue Pistol reload40 1 arm length preserved
+OK Blue Pistol reload55 0 arm length preserved
+OK Blue Pistol reload55 1 arm length preserved
+OK Blue Pistol reload66 0 arm length preserved
+OK Blue Pistol reload66 1 arm length preserved
+OK Blue Pistol reload74 0 arm length preserved
+OK Blue Pistol reload74 1 arm length preserved
+OK Blue Pistol reload87 0 arm length preserved
+OK Blue Pistol reload87 1 arm length preserved
+OK Blue Pistol reload96 0 arm length preserved
+OK Blue Pistol reload96 1 arm length preserved

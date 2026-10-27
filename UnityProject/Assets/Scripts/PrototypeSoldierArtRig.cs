@@ -13,6 +13,17 @@ namespace Ironfront.UnityPrototype
             public int Driver;
             public Quaternion RotationOffset;
         }
+        [Serializable] public struct DigitJoint
+        {
+            public Transform Bone;
+            public Quaternion Rest;
+            public bool Left;
+            public int Digit, Joint;
+        }
+        public DigitJoint[] Digits;
+        [NonSerialized] public float LeftGrasp = .85f;
+        [NonSerialized] public float LeftPinch;
+        [NonSerialized] public float TriggerRelease;
         public Binding[] Bindings;
         public SkinnedMeshRenderer[] Bodies;
         public SkinnedMeshRenderer[] Arms;
@@ -25,14 +36,14 @@ namespace Ironfront.UnityPrototype
         public float UpperArmLength = .25080f, ForearmLength = .31658f;
         private Transform[] drivers;
         private Transform viewCamera;
-        private Material viewArmMaterial;
-        private void OnDestroy(){if(viewArmMaterial!=null)Destroy(viewArmMaterial);}
+        private Material[] viewArmMaterials;
+        private void OnDestroy(){if(viewArmMaterials!=null)foreach(var m in viewArmMaterials)Destroy(m);}
         [NonSerialized] public float SupportHandWeight;
         public bool FirstPerson { get; private set; }
 
-        public static PrototypeSoldierArtRig Create(Transform parent, PrototypeTeam team)
+        public static PrototypeSoldierArtRig Create(Transform parent, PrototypeTeam team, bool candidate = false)
         {
-            var prefab = Resources.Load<GameObject>("Soldiers/" + team + "Soldier");
+            var prefab = Resources.Load<GameObject>("Soldiers/" + (candidate ? "HandCandidate/" : "") + team + "Soldier");
             if (prefab == null) return null;
             return Instantiate(prefab, parent, false).GetComponent<PrototypeSoldierArtRig>();
         }
@@ -57,6 +68,22 @@ namespace Ironfront.UnityPrototype
         }
         private void CurlFingers()
         {
+            if (Digits != null && Digits.Length > 0)
+            {
+                foreach (var joint in Digits)
+                {
+                    float grasp = joint.Left ? LeftGrasp : 1f;
+                    if (joint.Left && LeftPinch > 0f && joint.Digit > 1 && joint.Digit < 4)
+                        grasp = Mathf.Lerp(grasp, .20f, LeftPinch);
+                    float max = joint.Joint == 0 ? 58f : joint.Joint == 1 ? 78f : 46f;
+                    if (joint.Digit == 0 && !joint.Left) grasp = Mathf.Lerp(.35f, .08f, TriggerRelease);
+                    if (joint.Digit == 4) max = joint.Joint == 0 ? 30f : joint.Joint == 1 ? 42f : 30f;
+                    float relaxed = joint.Digit == 4 ? 3f : 7f;
+                    float spread = !joint.Left && joint.Digit == 0 && joint.Joint == 0 ? Mathf.Lerp(4f,14f,TriggerRelease) : 0f;
+                    joint.Bone.localRotation = joint.Rest * Quaternion.Euler(-Mathf.Lerp(relaxed, max, grasp), 0f, spread);
+                }
+                return;
+            }
             for (int i = 0; i < Fingers.Length; i++)
                 // The imported finger X axis bends toward the palm at negative
                 // angles. Positive flex folded the fingers over the hand plate.
@@ -81,17 +108,22 @@ namespace Ironfront.UnityPrototype
             art.CurlFingers();
             return true;
         }
-        public static PrototypeSoldierArtRig CreateWeaponViewArms(Transform parent, PrototypeTeam team)
+        public static PrototypeSoldierArtRig CreateWeaponViewArms(Transform parent, PrototypeTeam team, bool candidate = false)
         {
-            var art=Create(parent,team); if(art==null)return null;
+            var art=Create(parent,team,candidate); if(art==null)return null;
             art.name="Authored first person arms";art.SetFirstPerson(true,true);
             var camera=parent.GetComponentInParent<Camera>();
             art.viewCamera=camera!=null?camera.transform:null;
             // Camera arms can be viewed from inside their shoulder seam. Render
             // the existing inner surface instead of culling it into a hole.
-            art.viewArmMaterial=new Material(art.Arms[0].sharedMaterial){name="First-person sleeve surface"};
-            art.viewArmMaterial.SetFloat("_Cull",0f);
-            foreach(var arm in art.Arms)arm.sharedMaterial=art.viewArmMaterial;
+            var sourceMaterials = art.Arms[0].sharedMaterials;
+            art.viewArmMaterials = new Material[sourceMaterials.Length];
+            for (int i = 0; i < sourceMaterials.Length; i++)
+            {
+                art.viewArmMaterials[i] = new Material(sourceMaterials[i]) { name = "First-person surface " + i };
+                art.viewArmMaterials[i].SetFloat("_Cull", 0f);
+            }
+            foreach(var arm in art.Arms)arm.sharedMaterials=art.viewArmMaterials;
             // Authored weapons are normalized by 1/.65 during import. Match
             // that scale, instead of doubling only the hands relative to guns.
             art.transform.localScale=Vector3.one/.65f;art.GetComponent<LODGroup>().ForceLOD(0);
@@ -140,10 +172,12 @@ namespace Ironfront.UnityPrototype
             if (gripRotation.HasValue)
             {
                 Quaternion hand = gripRotation.Value * Quaternion.Euler(0,left?-90f:90f,0);
-                Vector3 forward = Vector3.ProjectOnPlane(hand * Vector3.forward, target-elbow);
+                Vector3 handForward = Digits != null && Digits.Length > 0 ?
+                    gripRotation.Value * (left ? Vector3.right : Vector3.left) : hand * Vector3.forward;
+                Vector3 forward = Vector3.ProjectOnPlane(handForward, target-elbow);
                 if (forward.sqrMagnitude > .0001f)
                     forearm = Quaternion.LookRotation(forward.normalized, (elbow-target).normalized);
-                Vector3 upperForward = Vector3.ProjectOnPlane(hand * Vector3.forward, elbow-origin);
+                Vector3 upperForward = Vector3.ProjectOnPlane(handForward, elbow-origin);
                 if (upperForward.sqrMagnitude > .0001f)
                     upperArm = Quaternion.LookRotation(upperForward.normalized, (origin-elbow).normalized);
             }

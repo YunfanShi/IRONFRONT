@@ -1,0 +1,13 @@
+{
+  "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": "ec0ad5286734b31edca8dfad07290764e1253a94a30a424a933abff56d24c6b3",
+  "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": "f911efb308f5579325770547e5a16fbb3043965bfd9a8e7c883e08b7df6c8258",
+  "UnityProject/Assets/Scripts/PrototypePlayer.cs": "28b5454d07cb63a26547c3c6df478371604baed3aba3ec49eb9b303f6344f520",
+  "UnityProject/Assets/Scripts/PrototypeSoldierVisual.cs": "80c5bff28c20ad8e72df39f1eda3e5946e3c20f066469b8cac75bbd112bc49ca",
+  "UnityProject/Assets/Editor/SoldierArtAssetSetup.cs": "e83aea70f3c15b5dd17964b9e3a20fe19d03a500be3bba8db8592a49d949f5b8",
+  "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+  "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+  "UnityProject/ProjectSettings/ProjectSettings.asset": "9d2aee4521cea4fc2da28cf717dd1944c99221a852cf01e06fd2ff4b59acb48e",
+  "README.md": "aae31cb53ed7a1a36696330020112b5f346238ea6ed6f2371689fe277ab0fb82",
+  "CHANGELOG.md": "4e3f8cb492890b608142f668b66c369e29033ab7c44a91e9a156fd7a133e2bc6",
+  "PROGRESS.md": "c645a971f1df5d666e87e81e4f9fbc7eaecd5990e2e7dfa9408a43cc4b1d76e7"
+}

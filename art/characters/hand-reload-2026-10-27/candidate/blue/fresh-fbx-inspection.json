@@ -1,0 +1,374 @@
+{
+  "actions": [],
+  "blender": {
+    "background": true,
+    "build_hash": "d13f752e3b9c",
+    "version": "5.2.2 LTS",
+    "version_tuple": [
+      5,
+      2,
+      2
+    ]
+  },
+  "hard_gate_pass": true,
+  "input": "/Users/liuwenjun/Documents/ChatGPT/\u4f18\u5316IRON FRONT/IRONFRONT/art/characters/hand-reload-2026-10-27/candidate/blue/blue-soldier-skinned-lod0.fbx",
+  "issues": [],
+  "material_details": [
+    {
+      "image_texture_nodes": 0,
+      "images": [],
+      "name": "HandGlove",
+      "node_count": 2,
+      "use_nodes": true
+    },
+    {
+      "image_texture_nodes": 4,
+      "images": [
+        "Soldier baked basecolor 2K",
+        "Soldier baked metallic 2K",
+        "Soldier baked normal 2K",
+        "Soldier baked roughness 2K"
+      ],
+      "name": "Trial neutral blue gray",
+      "node_count": 7,
+      "use_nodes": true
+    }
+  ],
+  "materials": [
+    "HandGlove",
+    "Trial neutral blue gray"
+  ],
+  "meshes": [
+    {
+      "boundary_edges": 151,
+      "connected_components": 3,
+      "data_name": "BlueSoldier_LOD0_Mesh.002",
+      "degenerate_faces": 0,
+      "edges": 5538,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral blue gray",
+        "HandGlove"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [
+        {
+          "name": "SoldierRig",
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "BlueSoldier_LOD0_ArmL",
+      "non_manifold_edges": 151,
+      "polygons": 3073,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 3073,
+      "source_polygons": 3073,
+      "source_vertices": 2466,
+      "triangles": 4779,
+      "uv_layers": 1,
+      "vertex_groups": 21,
+      "vertices": 2466,
+      "weighted_vertices": 2466,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.516052,
+          -0.062654,
+          0.808111
+        ],
+        [
+          -0.165656,
+          0.138746,
+          1.504982
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 152,
+      "connected_components": 3,
+      "data_name": "BlueSoldier_LOD0_Mesh.003",
+      "degenerate_faces": 0,
+      "edges": 5571,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral blue gray",
+        "HandGlove"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [
+        {
+          "name": "SoldierRig",
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "BlueSoldier_LOD0_ArmR",
+      "non_manifold_edges": 152,
+      "polygons": 3094,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 3094,
+      "source_polygons": 3094,
+      "source_vertices": 2478,
+      "triangles": 4802,
+      "uv_layers": 1,
+      "vertex_groups": 21,
+      "vertices": 2478,
+      "weighted_vertices": 2478,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          0.164578,
+          -0.06623,
+          0.808111
+        ],
+        [
+          0.516052,
+          0.135586,
+          1.497121
+        ]
+      ],
+      "zero_length_edges": 0
+    },
+    {
+      "boundary_edges": 80,
+      "connected_components": 1,
+      "data_name": "BlueSoldier_LOD0_Mesh.001",
+      "degenerate_faces": 0,
+      "edges": 23671,
+      "flat_polygons": 0,
+      "invalid_vertices": 0,
+      "isolated_vertices": 0,
+      "material_slots": [
+        "Trial neutral blue gray"
+      ],
+      "missing_material_faces": 0,
+      "modifiers": [
+        {
+          "name": "SoldierRig",
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "BlueSoldier_LOD0_Body",
+      "non_manifold_edges": 80,
+      "polygons": 15754,
+      "refinement_modifiers": [],
+      "shape_keys": 0,
+      "smooth_polygon_ratio": 1.0,
+      "smooth_polygons": 15754,
+      "source_polygons": 15754,
+      "source_vertices": 7917,
+      "triangles": 15754,
+      "uv_layers": 1,
+      "vertex_groups": 14,
+      "vertices": 7917,
+      "weighted_vertices": 7917,
+      "wire_edges": 0,
+      "world_bounds": [
+        [
+          -0.297037,
+          -0.201378,
+          -0.0
+        ],
+        [
+          0.297414,
+          0.259575,
+          1.8
+        ]
+      ],
+      "zero_length_edges": 0
+    }
+  ],
+  "objects": [
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.350395,
+        0.2014,
+        0.696871
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "BlueSoldier_LOD0_ArmL",
+      "parent": "SoldierRig",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.351474,
+        0.201816,
+        0.68901
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "BlueSoldier_LOD0_ArmR",
+      "parent": "SoldierRig",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        0.594451,
+        0.460953,
+        1.8
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "BlueSoldier_LOD0_Body",
+      "parent": "SoldierRig",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "MESH"
+    },
+    {
+      "action": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "dimensions": [
+        1.044037,
+        0.373952,
+        1.908911
+      ],
+      "hidden_render": false,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "SoldierRig",
+      "parent": null,
+      "rotation_euler": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "transform_is_finite": true,
+      "type": "ARMATURE"
+    }
+  ],
+  "scene": {
+    "bounds": {
+      "dimensions": [
+        1.032104,
+        0.460953,
+        1.8
+      ],
+      "max": [
+        0.516052,
+        0.259575,
+        1.8
+      ],
+      "min": [
+        -0.516052,
+        -0.201378,
+        -0.0
+      ]
+    },
+    "fps": 24.0,
+    "frame_end": 250,
+    "frame_start": 1,
+    "name": "Scene"
+  },
+  "schema_version": 3,
+  "totals": {
+    "actions": 0,
+    "armatures": 1,
+    "bones": 46,
+    "boundary_edges": 383,
+    "cameras": 0,
+    "constraints": 0,
+    "degenerate_faces": 0,
+    "edges": 34780,
+    "flat_polygons": 0,
+    "geometry_nodes_modifiers": 0,
+    "images": 4,
+    "invalid_vertices": 0,
+    "isolated_vertices": 0,
+    "lights": 0,
+    "materials": 2,
+    "mesh_objects": 3,
+    "missing_material_faces": 0,
+    "node_materials": 2,
+    "non_manifold_edges": 383,
+    "objects": 4,
+    "polygons": 21921,
+    "refinement_modifiers": 0,
+    "rigid_body_objects": 0,
+    "shape_keys": 0,
+    "simulation_modifiers": 0,
+    "smooth_polygons": 21921,
+    "textured_materials": 1,
+    "triangles": 25335,
+    "uv_mapped_meshes": 3,
+    "vertices": 12861,
+    "weighted_meshes": 3,
+    "wire_edges": 0,
+    "zero_length_edges": 0
+  }
+}

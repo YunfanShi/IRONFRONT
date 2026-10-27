@@ -1,0 +1,15 @@
+# Local diagnostic frames and reproducible intermediate experiments.
+baseline/
+checks/
+*.log
+*.blend1
+hand-*.png
+reference-*.png
+grip-sweep*
+original-structure.json
+reference-structure.json
+run_checks[0-9]*.py
+summary-*.json
+source/*
+!source/fps-arms-para-cc0.7z
+!source/inspection.json

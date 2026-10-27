@@ -1,0 +1,80 @@
+[
+  {
+    "team": "blue",
+    "bones": 46,
+    "meshes": [
+      {
+        "mesh": "BlueSoldier_LOD0_ArmL",
+        "vertices": 2466,
+        "triangles": 4779
+      },
+      {
+        "mesh": "BlueSoldier_LOD0_ArmR",
+        "vertices": 2478,
+        "triangles": 4802
+      },
+      {
+        "mesh": "BlueSoldier_LOD1_ArmL",
+        "vertices": 1948,
+        "triangles": 3783
+      },
+      {
+        "mesh": "BlueSoldier_LOD1_ArmR",
+        "vertices": 1953,
+        "triangles": 3788
+      },
+      {
+        "mesh": "BlueSoldier_LOD2_ArmL",
+        "vertices": 1803,
+        "triangles": 3508
+      },
+      {
+        "mesh": "BlueSoldier_LOD2_ArmR",
+        "vertices": 1802,
+        "triangles": 3505
+      }
+    ],
+    "source": "v03 + para FPS arms CC0 hand topology",
+    "body": "unchanged",
+    "scope": "first-person P8/IF27 candidate"
+  },
+  {
+    "team": "red",
+    "bones": 46,
+    "meshes": [
+      {
+        "mesh": "RedSoldier_LOD0_ArmL",
+        "vertices": 2480,
+        "triangles": 4800
+      },
+      {
+        "mesh": "RedSoldier_LOD0_ArmR",
+        "vertices": 2504,
+        "triangles": 4842
+      },
+      {
+        "mesh": "RedSoldier_LOD1_ArmL",
+        "vertices": 1964,
+        "triangles": 3802
+      },
+      {
+        "mesh": "RedSoldier_LOD1_ArmR",
+        "vertices": 1960,
+        "triangles": 3795
+      },
+      {
+        "mesh": "RedSoldier_LOD2_ArmL",
+        "vertices": 1804,
+        "triangles": 3513
+      },
+      {
+        "mesh": "RedSoldier_LOD2_ArmR",
+        "vertices": 1813,
+        "triangles": 3528
+      }
+    ],
+    "source": "v03 + para FPS arms CC0 hand topology",
+    "body": "unchanged",
+    "scope": "first-person P8/IF27 candidate"
+  }
+]
