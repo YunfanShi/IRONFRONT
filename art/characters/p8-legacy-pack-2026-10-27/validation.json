@@ -1,0 +1,145 @@
+{
+  "version": "0.66.10",
+  "baselineCommit": "ed6143ff7e5e03112ae540ca0cec5fc2cc3c35ce",
+  "build": "build02.log",
+  "buildStatus": "PASS",
+  "app": "UnityProject/Builds/LegacyPistolReload02-0.66.10/IRONFRONT.app",
+  "probes": [
+    {
+      "probe": "pistol",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "report": "review/pistol-results.txt"
+    },
+    {
+      "probe": "rig",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "report": "review/rig-results.txt"
+    }
+  ],
+  "media": [
+    {
+      "path": "legacy-arms-reload02-30fps.mp4",
+      "frames": 432,
+      "fps": 30,
+      "durationSeconds": 14.4,
+      "dimensions": [
+        960,
+        640
+      ],
+      "bytes": 5169678,
+      "sha256": "2c3caca77075b13f03846b949034e7ee80d8f0366a24ccba9403417abc7e4355",
+      "nativeDecode": "PASS; 8 extracted frames"
+    },
+    {
+      "path": "legacy-arms-reload02-comparison.mp4",
+      "frames": 276,
+      "fps": 30,
+      "durationSeconds": 9.2,
+      "dimensions": [
+        1920,
+        800
+      ],
+      "bytes": 4859793,
+      "sha256": "cb98a535458ce3bbb05f1a3d831ea43ce0e0b2f381dd1f38b13773329c65686a",
+      "nativeDecode": "PASS; 8 extracted frames"
+    }
+  ],
+  "baselineFiles": [
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs",
+      "sha256": "250d2f1d12a49ae6e1025c5a1dd079a101f19c0874b9becddcdb4a0f2ea411a8",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs",
+      "sha256": "06b0a132e718d1f6a58de9a0cc47b3266bd446cbea2e5a30c85b88c735324311",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs",
+      "sha256": "5a11c89c0673a8f78e60982a5f973f626a8fbe95793d55b93611b0bc36ba756e",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypePlayer.cs",
+      "sha256": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs",
+      "sha256": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json",
+      "sha256": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab",
+      "sha256": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab.meta",
+      "sha256": "36a9dec7c7e8b0e91c4435ea295423c7a298b3dea79fed3100a2c6344d5106e8",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate.meta",
+      "sha256": "14284c092cee5b951f564f72ae030d1e859c8b53daf62f6ce6250611007bf0e3",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab",
+      "sha256": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab.meta",
+      "sha256": "c5417482e42e615999b64fc0f95d985da418109dc10b93b133da4fabbe2f0b8b",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab",
+      "sha256": "cd08cd344855dcddacadeefb3fd6a9198a9d806181f121d2fd37d966e3d2cb81",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab.meta",
+      "sha256": "51470c00396ef37c81e891aae88de530c6426bba38cc23e67ba9e50f088dc32a",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab",
+      "sha256": "0af08008260f76c1314d2112fe0a0abbaf2760b4de05c2357195ae4814245f61",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab.meta",
+      "sha256": "d18331f831389954ae6894667d2a6af309cd7a420b648d0d03272ce66d30ff0a",
+      "unchanged": true
+    }
+  ],
+  "unchangedBaselineFiles": 12,
+  "changedBaselineFiles": [
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs",
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs",
+    "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs"
+  ],
+  "framesChecked": 283,
+  "blankOrMagentaErrorFrames": 0,
+  "visualEvidence": [
+    "review/P8-final-poses.jpg",
+    "review/P8-final-sequence.jpg",
+    "review/P8-final-contact.jpg",
+    "review/P8-legacy-comparisons-49.jpg"
+  ],
+  "limits": [
+    "Shared fingers preserve source opening timing approximately; independent finger shapes cannot be represented.",
+    "Original hard sleeve/armor and shared finger mesh remain; numeric probes do not prove no triangle intersections.",
+    "QuickTime playback observations are discrete, not continuous human visual certification."
+  ]
+}

@@ -1,0 +1,2553 @@
+{
+  "framesChecked": 283,
+  "errorFrames": [],
+  "frames": [
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5256,
+      "std_luma": 0.2333
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-hip-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.2955,
+      "std_luma": 0.0964
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4342,
+      "std_luma": 0.228
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload10.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.459,
+      "std_luma": 0.2047
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload24-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.3236,
+      "std_luma": 0.1666
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload24.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4649,
+      "std_luma": 0.2067
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload34-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.3393,
+      "std_luma": 0.2121
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload34.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2066
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4647,
+      "std_luma": 0.2067
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload55.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4667,
+      "std_luma": 0.2086
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload66-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.3834,
+      "std_luma": 0.2632
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload66.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4633,
+      "std_luma": 0.2077
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload70-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4119,
+      "std_luma": 0.2728
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload70.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4621,
+      "std_luma": 0.2084
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload74-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4288,
+      "std_luma": 0.2735
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload74.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4618,
+      "std_luma": 0.2072
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload75-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4221,
+      "std_luma": 0.2731
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload75.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4614,
+      "std_luma": 0.2073
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload79-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.3696,
+      "std_luma": 0.2605
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload79.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4608,
+      "std_luma": 0.2075
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload87-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.3086,
+      "std_luma": 0.2154
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4603,
+      "std_luma": 0.2046
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-reload96.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4663,
+      "std_luma": 0.2037
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5269,
+      "std_luma": 0.2333
+    },
+    {
+      "frame": "checks/pistol-pistol/Blue-Pistol-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5164,
+      "std_luma": 0.2339
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0000.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0001.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0002.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0003.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0004.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0005.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0006.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0007.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0008.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0009.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0010.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0011.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0012.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0013.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0014.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0015.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0016.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0017.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0018.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0019.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0020.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0021.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0022.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0023.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0024.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0025.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0026.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0027.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0028.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0029.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0030.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4912,
+      "std_luma": 0.2028
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0031.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.503,
+      "std_luma": 0.2047
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0032.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.511,
+      "std_luma": 0.2068
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0033.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5161,
+      "std_luma": 0.2085
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0034.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.52,
+      "std_luma": 0.2097
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0035.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5226,
+      "std_luma": 0.2105
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0036.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5242,
+      "std_luma": 0.2111
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0037.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5254,
+      "std_luma": 0.2114
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0038.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5261,
+      "std_luma": 0.2117
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0039.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5266,
+      "std_luma": 0.2119
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0040.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5268,
+      "std_luma": 0.2121
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0041.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5271,
+      "std_luma": 0.2121
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0042.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5272,
+      "std_luma": 0.2123
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0043.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5274,
+      "std_luma": 0.2123
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0044.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2121
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0045.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0046.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0047.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0048.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0049.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0050.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2123
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0051.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0052.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0053.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2123
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0054.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0055.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0056.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0057.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0058.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2122
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0059.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5277,
+      "std_luma": 0.2121
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0060.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5094,
+      "std_luma": 0.2064
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0061.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4976,
+      "std_luma": 0.2037
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0062.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4897,
+      "std_luma": 0.2025
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0063.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4843,
+      "std_luma": 0.202
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0064.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4808,
+      "std_luma": 0.2015
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0065.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4788,
+      "std_luma": 0.2012
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0066.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4773,
+      "std_luma": 0.201
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0067.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4761,
+      "std_luma": 0.2009
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0068.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4756,
+      "std_luma": 0.2007
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0069.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4751,
+      "std_luma": 0.2007
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0070.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4749,
+      "std_luma": 0.2006
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0071.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4746,
+      "std_luma": 0.2007
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0072.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4745,
+      "std_luma": 0.2006
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0073.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2007
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0074.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2007
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0075.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0076.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4729,
+      "std_luma": 0.2013
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0077.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4657,
+      "std_luma": 0.2046
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0078.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4656,
+      "std_luma": 0.2051
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0079.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4639,
+      "std_luma": 0.2052
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0080.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4627,
+      "std_luma": 0.2056
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0081.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4621,
+      "std_luma": 0.2061
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0082.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4628,
+      "std_luma": 0.2064
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0083.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4638,
+      "std_luma": 0.2065
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0084.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4645,
+      "std_luma": 0.2063
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0085.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2064
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0086.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2064
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0087.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2066
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0088.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2066
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0089.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2066
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0090.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2065
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0091.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4646,
+      "std_luma": 0.2069
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0092.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4636,
+      "std_luma": 0.2081
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0093.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4627,
+      "std_luma": 0.2094
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0094.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4631,
+      "std_luma": 0.2102
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0095.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4656,
+      "std_luma": 0.21
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0096.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4674,
+      "std_luma": 0.2095
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0097.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4673,
+      "std_luma": 0.2084
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0098.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4667,
+      "std_luma": 0.2077
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0099.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4659,
+      "std_luma": 0.2074
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0100.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4648,
+      "std_luma": 0.2074
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0101.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4632,
+      "std_luma": 0.2082
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0102.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4621,
+      "std_luma": 0.209
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0103.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4625,
+      "std_luma": 0.208
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0104.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4625,
+      "std_luma": 0.2072
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0105.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4619,
+      "std_luma": 0.2078
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0106.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4628,
+      "std_luma": 0.207
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0107.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4637,
+      "std_luma": 0.2061
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0108.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4638,
+      "std_luma": 0.2057
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0109.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4635,
+      "std_luma": 0.2052
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0110.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4624,
+      "std_luma": 0.205
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0111.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.461,
+      "std_luma": 0.2045
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0112.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4598,
+      "std_luma": 0.2022
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0113.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4666,
+      "std_luma": 0.2035
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0114.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.474,
+      "std_luma": 0.2029
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0115.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4754,
+      "std_luma": 0.2012
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0116.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4755,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0117.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4758,
+      "std_luma": 0.2001
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0118.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4756,
+      "std_luma": 0.2
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0119.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4752,
+      "std_luma": 0.2002
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0120.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4749,
+      "std_luma": 0.2003
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0121.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4746,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0122.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0123.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4745,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0124.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0125.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0126.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0127.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4744,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0128.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0129.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0130.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0131.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0132.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0133.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0134.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0135.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0136.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0137.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0138.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0139.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2004
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0140.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4743,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0141.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0142.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-pistol/motion-Pistol/0143.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5123,
+      "std_luma": 0.2131
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.525,
+      "std_luma": 0.2339
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4598,
+      "std_luma": 0.2072
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4345,
+      "std_luma": 0.2279
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4592,
+      "std_luma": 0.2069
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4666,
+      "std_luma": 0.2046
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5263,
+      "std_luma": 0.2338
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-BattleRifle-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5156,
+      "std_luma": 0.2347
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5081,
+      "std_luma": 0.2166
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5235,
+      "std_luma": 0.2356
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-hip-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.2618,
+      "std_luma": 0.0891
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4575,
+      "std_luma": 0.209
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4342,
+      "std_luma": 0.2281
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4454,
+      "std_luma": 0.2216
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4404,
+      "std_luma": 0.22
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5248,
+      "std_luma": 0.2355
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Carbine-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.514,
+      "std_luma": 0.2361
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5113,
+      "std_luma": 0.2148
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5228,
+      "std_luma": 0.2367
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.459,
+      "std_luma": 0.2096
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4343,
+      "std_luma": 0.228
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4551,
+      "std_luma": 0.2082
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4662,
+      "std_luma": 0.2057
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5242,
+      "std_luma": 0.2365
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Lmg-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5125,
+      "std_luma": 0.2373
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5245,
+      "std_luma": 0.2345
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4581,
+      "std_luma": 0.209
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4343,
+      "std_luma": 0.2279
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4543,
+      "std_luma": 0.2055
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.464,
+      "std_luma": 0.2063
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5258,
+      "std_luma": 0.2344
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Marksman-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5139,
+      "std_luma": 0.2353
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5276,
+      "std_luma": 0.2123
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5257,
+      "std_luma": 0.2332
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-hip-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.2955,
+      "std_luma": 0.0965
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4742,
+      "std_luma": 0.2005
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4342,
+      "std_luma": 0.228
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4646,
+      "std_luma": 0.2067
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4603,
+      "std_luma": 0.2046
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5271,
+      "std_luma": 0.2331
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Pistol-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5169,
+      "std_luma": 0.2338
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5109,
+      "std_luma": 0.2165
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5255,
+      "std_luma": 0.2334
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4588,
+      "std_luma": 0.2087
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4347,
+      "std_luma": 0.2275
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4613,
+      "std_luma": 0.2079
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4658,
+      "std_luma": 0.2059
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5269,
+      "std_luma": 0.2332
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Smg-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5162,
+      "std_luma": 0.2343
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5244,
+      "std_luma": 0.2353
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4585,
+      "std_luma": 0.2091
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4343,
+      "std_luma": 0.2281
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4511,
+      "std_luma": 0.2096
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4616,
+      "std_luma": 0.2097
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5256,
+      "std_luma": 0.2353
+    },
+    {
+      "frame": "checks/pistol-rig/Blue-Sniper-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5132,
+      "std_luma": 0.2358
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.515,
+      "std_luma": 0.2103
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5261,
+      "std_luma": 0.2323
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4613,
+      "std_luma": 0.2059
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4349,
+      "std_luma": 0.2275
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4604,
+      "std_luma": 0.2055
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4684,
+      "std_luma": 0.2034
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5273,
+      "std_luma": 0.2322
+    },
+    {
+      "frame": "checks/pistol-rig/Red-BattleRifle-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5171,
+      "std_luma": 0.2325
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5072,
+      "std_luma": 0.2173
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5247,
+      "std_luma": 0.234
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-hip-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.2614,
+      "std_luma": 0.0893
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4571,
+      "std_luma": 0.2093
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4346,
+      "std_luma": 0.2277
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4449,
+      "std_luma": 0.2222
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4393,
+      "std_luma": 0.2209
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5259,
+      "std_luma": 0.2339
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Carbine-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5154,
+      "std_luma": 0.2339
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5131,
+      "std_luma": 0.2131
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5238,
+      "std_luma": 0.2352
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4605,
+      "std_luma": 0.2082
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4347,
+      "std_luma": 0.2277
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4565,
+      "std_luma": 0.2069
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4679,
+      "std_luma": 0.2045
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5252,
+      "std_luma": 0.2349
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Lmg-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.514,
+      "std_luma": 0.2353
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5256,
+      "std_luma": 0.2329
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4597,
+      "std_luma": 0.2074
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4348,
+      "std_luma": 0.2276
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4561,
+      "std_luma": 0.2037
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4662,
+      "std_luma": 0.2046
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.527,
+      "std_luma": 0.2326
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Marksman-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5155,
+      "std_luma": 0.2331
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5291,
+      "std_luma": 0.2091
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.527,
+      "std_luma": 0.2314
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-hip-contact.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.2994,
+      "std_luma": 0.0923
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4736,
+      "std_luma": 0.2003
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4347,
+      "std_luma": 0.2276
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.466,
+      "std_luma": 0.2055
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.464,
+      "std_luma": 0.2011
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5282,
+      "std_luma": 0.2312
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Pistol-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5184,
+      "std_luma": 0.2315
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-ads.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5125,
+      "std_luma": 0.2146
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5266,
+      "std_luma": 0.2317
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4605,
+      "std_luma": 0.2072
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4352,
+      "std_luma": 0.2271
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4626,
+      "std_luma": 0.2063
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4673,
+      "std_luma": 0.2048
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5281,
+      "std_luma": 0.2313
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Smg-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5177,
+      "std_luma": 0.232
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-crouch.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5255,
+      "std_luma": 0.2337
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-hip.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4601,
+      "std_luma": 0.2076
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-prone.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4348,
+      "std_luma": 0.2277
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-reload40.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4523,
+      "std_luma": 0.2084
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-reload87.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.4632,
+      "std_luma": 0.2086
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-slide.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5266,
+      "std_luma": 0.2336
+    },
+    {
+      "frame": "checks/pistol-rig/Red-Sniper-stand.png",
+      "blank": false,
+      "magenta": false,
+      "all_white": false,
+      "all_black": false,
+      "mean_luma": 0.5147,
+      "std_luma": 0.2337
+    }
+  ]
+}

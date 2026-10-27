@@ -31,6 +31,8 @@ namespace Ironfront.UnityPrototype
         Vector3 oldMagazineOffset, newMagazineOffset;
         Vector3 pistolInsertionOffset;
         Quaternion pistolInsertionRotation;
+        Quaternion legacyLeftBasis, legacyRightBasis;
+        Vector3 legacyHoldOffset;
         const float PistolInsertPhase = 38f / 51f;
         readonly float[] packContactPhases = { 0f, 7f/51f, 37f/51f, 1f };
         Vector3[] packContactOffsets;
@@ -42,6 +44,7 @@ namespace Ironfront.UnityPrototype
         public float SupportGrasp { get; private set; } = .85f;
         public float SupportPinch { get; private set; }
         public bool UsesHandCandidate => handCandidate;
+        public bool UsesLegacySourceHands => viewArms != null && viewArms.UsesLegacySourceHands;
         public Vector3 ReloadViewPosition => pistolCandidate ? new Vector3(.12f,.035f,.54f) : new Vector3(.17f,-.015f,.66f);
         public Quaternion ReloadViewRotation => pistolCandidate ? Quaternion.Euler(-6f,-32f,-22f) : Quaternion.Euler(-8f,-22f,-18f);
         public float ReloadPoseWeight(float p) => Ease(p,0,.16f)*(1f-Ease(p,.90f,1f));
@@ -78,7 +81,9 @@ namespace Ironfront.UnityPrototype
             {
                 rig.handCandidate = id == PrototypeWeaponId.Pistol || id == PrototypeWeaponId.Carbine;
                 rig.pistolCandidate = id == PrototypeWeaponId.Pistol;
-                rig.viewArms = PrototypeSoldierArtRig.CreateWeaponViewArms(rig.transform, team, rig.handCandidate);
+                // P8 trial: retarget Reload02 to the pre-independent-finger rig.
+                rig.viewArms = PrototypeSoldierArtRig.CreateWeaponViewArms(rig.transform, team,
+                    rig.handCandidate && !rig.pistolCandidate, rig.pistolCandidate);
                 if (rig.handCandidate)
                 {
                     rig.freshMagazine = Instantiate(rig.Magazine.gameObject, rig.Magazine.parent, false).transform;
@@ -129,7 +134,7 @@ namespace Ironfront.UnityPrototype
             leftHome = LeftGrip.localPosition;
             MagazineGrip.localPosition += new Vector3(-.075f, .09f, -.015f)/VisualScale;
             ChargingGrip.localPosition += new Vector3(-.025f, -.015f, -.035f)/VisualScale;
-            if (handCandidate)
+            if (handCandidate && !pistolCandidate)
             {
                 RightGrip.position = transform.TransformPoint(rightContactLocal + new Vector3(.075f,.020f,-.088f));
                 RightGrip.localRotation = Quaternion.Euler(10f,0f,0f);
@@ -247,6 +252,13 @@ namespace Ironfront.UnityPrototype
             packContactOffsets = new Vector3[packContactPhases.Length];
             var targets = new[]{packLeftHome,packMagazineContact,packMagazineContact,packLeftHome};
             Vector3 right=transform.InverseTransformPoint(RightGrip.position);
+            if(UsesLegacySourceHands)
+            {
+                PrototypeSoldierPackMotion.Sample(packMotion.Hold,0f,packMotion.View);
+                legacyLeftBasis=Quaternion.Inverse(packMotion.View.leftRotation)*LeftHandRotation;
+                legacyRightBasis=Quaternion.Inverse(packMotion.View.rightRotation)*RightGrip.localRotation;
+                legacyHoldOffset=packLeftHome-(right+packMotion.View.leftHand/.65f);
+            }
             if (pistolCandidate)
             {
                 PrototypeSoldierPackMotion.Sample(packMotion.Reload,PistolInsertPhase,packMotion.View);
@@ -254,7 +266,7 @@ namespace Ironfront.UnityPrototype
                 // the legacy socket was a wrist for grasping the magazine side.
                 packMagazineContact+=new Vector3(-.015f,-.045f,.13f);
                 pistolInsertionOffset=packMagazineContact-(right+packMotion.View.leftHand/.65f);
-                pistolInsertionRotation=Quaternion.Euler(18f,0,0)*packMotion.View.leftRotation;
+                pistolInsertionRotation=SourceLeftRotation(packMotion.View.leftRotation);
                 Quaternion q=Quaternion.Inverse(pistolInsertionRotation);
                 newMagazineOffset=q*(packMagazineHome-packMagazineContact);
                 newMagazineOffsetRotation=q*packMagazineRotation;
@@ -272,6 +284,8 @@ namespace Ironfront.UnityPrototype
                 }
             }
         }
+        Quaternion SourceLeftRotation(Quaternion rotation) => UsesLegacySourceHands?
+            rotation*legacyLeftBasis:Quaternion.Euler(18f,0,0)*rotation;
         // Actual authored weapon motion, expressed relative to its first frame.
         public bool TrySourceReloadView(float phase,out Vector3 position,out Quaternion rotation)
         {
@@ -298,20 +312,20 @@ namespace Ironfront.UnityPrototype
             if(sourceReload && pistolCandidate)
             {
                 float contact=Ease(phase,.38f,.69f)*(1f-Ease(phase,PistolInsertPhase,.96f));
-                left+=pistolInsertionOffset*contact;
+                left+=UsesLegacySourceHands?Vector3.Lerp(legacyHoldOffset,pistolInsertionOffset,contact):pistolInsertionOffset*contact;
             }
             else if(sourceReload)
             {
                 int i=0;while(i<packContactPhases.Length-2 && phase>packContactPhases[i+1])i++;
                 left+=Vector3.Lerp(packContactOffsets[i],packContactOffsets[i+1],Ease(phase,packContactPhases[i],packContactPhases[i+1]));
             }
-            else if(!pistolCandidate)
+            else if(!pistolCandidate || UsesLegacySourceHands)
                 left+=packLeftHome-(right+packMotion.Hold.frames[0].leftHand/.65f);
             supportLocal=Vector3.Lerp(supportLocal,left,packWeight);
             // The source props use a different grip rake. A fixed alignment
             // brings the authored finger pads down onto this weapon's grip.
             Quaternion gripAlignment=Quaternion.Euler(18f,0f,0f);
-            supportLocalRotation=Quaternion.Slerp(supportLocalRotation,pistolCandidate?gripAlignment*f.leftRotation:f.leftRotation,packWeight);
+            supportLocalRotation=Quaternion.Slerp(supportLocalRotation,pistolCandidate?SourceLeftRotation(f.leftRotation):f.leftRotation,packWeight);
             if(pistolCandidate && sourceReload && phase<PistolInsertPhase)
             {
                 // Retarget the last approach to this prop's inclined magazine
@@ -322,7 +336,8 @@ namespace Ironfront.UnityPrototype
                 supportLocal=Vector3.Lerp(supportLocal,seated-wrist*newMagazineOffset,align);
                 supportLocalRotation=wrist;
             }
-            RightGrip.localRotation=Quaternion.Slerp(rightGripHomeRotation,gripAlignment*f.rightRotation,packWeight);
+            RightGrip.localRotation=Quaternion.Slerp(rightGripHomeRotation,UsesLegacySourceHands?
+                f.rightRotation*legacyRightBasis:gripAlignment*f.rightRotation,packWeight);
             viewArms.SourcePoseWeight=packWeight;
             viewArms.SourceLeftElbow=transform.TransformPoint(right+f.leftElbow/.65f);
             viewArms.SourceRightElbow=transform.TransformPoint(right+f.rightElbow/.65f);

@@ -1,0 +1,1172 @@
+{
+  "output": "legacy-arms-reload02-comparison.mp4",
+  "fps": 30,
+  "dimensions": [
+    1920,
+    800
+  ],
+  "frames": 276,
+  "durationSeconds": 9.2,
+  "gameReloadSeconds": 1.3,
+  "historicalProbeCommit": "c21faf2",
+  "historicalSampling": "0.66.2 source frame 75..164 has phase (frame-75)/90; recovery starts at 165",
+  "phaseMapping": "Nearest original 0.66.2 phase to the later 39-frame reload; pre/post frames retain 30 fps",
+  "maxHistoricalPhaseError": 0.005128205128205221,
+  "maxHistoricalTimeErrorSeconds": 0.006666666666666788,
+  "composition": "Full original views scaled equally; historical sleeves and meshes retained; no crop or generated motion",
+  "slowMotion": "Duplicate frames twice; no interpolated frames or audio",
+  "segments": [
+    {
+      "label": "正常速度 1× · 第 1 遍",
+      "startSeconds": 0.0,
+      "endSeconds": 2.3,
+      "playbackRate": 1.0
+    },
+    {
+      "label": "正常速度 1× · 第 2 遍",
+      "startSeconds": 2.3,
+      "endSeconds": 4.6,
+      "playbackRate": 1.0
+    },
+    {
+      "label": "半速观察 0.5×",
+      "startSeconds": 4.6,
+      "endSeconds": 9.2,
+      "playbackRate": 0.5
+    }
+  ],
+  "frameMapping": [
+    {
+      "timelineFrame": 0,
+      "sourceFrames": [
+        60,
+        60
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 1,
+      "sourceFrames": [
+        61,
+        61
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 2,
+      "sourceFrames": [
+        62,
+        62
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 3,
+      "sourceFrames": [
+        63,
+        63
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 4,
+      "sourceFrames": [
+        64,
+        64
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 5,
+      "sourceFrames": [
+        65,
+        65
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 6,
+      "sourceFrames": [
+        66,
+        66
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 7,
+      "sourceFrames": [
+        67,
+        67
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 8,
+      "sourceFrames": [
+        68,
+        68
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 9,
+      "sourceFrames": [
+        69,
+        69
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 10,
+      "sourceFrames": [
+        70,
+        70
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 11,
+      "sourceFrames": [
+        71,
+        71
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 12,
+      "sourceFrames": [
+        72,
+        72
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 13,
+      "sourceFrames": [
+        73,
+        73
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 14,
+      "sourceFrames": [
+        74,
+        74
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 15,
+      "sourceFrames": [
+        75,
+        75
+      ],
+      "targetReloadPhase": 0.0
+    },
+    {
+      "timelineFrame": 16,
+      "sourceFrames": [
+        77,
+        76
+      ],
+      "targetReloadPhase": 0.02564102564102564
+    },
+    {
+      "timelineFrame": 17,
+      "sourceFrames": [
+        80,
+        77
+      ],
+      "targetReloadPhase": 0.05128205128205128
+    },
+    {
+      "timelineFrame": 18,
+      "sourceFrames": [
+        82,
+        78
+      ],
+      "targetReloadPhase": 0.07692307692307693
+    },
+    {
+      "timelineFrame": 19,
+      "sourceFrames": [
+        84,
+        79
+      ],
+      "targetReloadPhase": 0.10256410256410256
+    },
+    {
+      "timelineFrame": 20,
+      "sourceFrames": [
+        87,
+        80
+      ],
+      "targetReloadPhase": 0.1282051282051282
+    },
+    {
+      "timelineFrame": 21,
+      "sourceFrames": [
+        89,
+        81
+      ],
+      "targetReloadPhase": 0.15384615384615385
+    },
+    {
+      "timelineFrame": 22,
+      "sourceFrames": [
+        91,
+        82
+      ],
+      "targetReloadPhase": 0.1794871794871795
+    },
+    {
+      "timelineFrame": 23,
+      "sourceFrames": [
+        93,
+        83
+      ],
+      "targetReloadPhase": 0.20512820512820512
+    },
+    {
+      "timelineFrame": 24,
+      "sourceFrames": [
+        96,
+        84
+      ],
+      "targetReloadPhase": 0.23076923076923078
+    },
+    {
+      "timelineFrame": 25,
+      "sourceFrames": [
+        98,
+        85
+      ],
+      "targetReloadPhase": 0.2564102564102564
+    },
+    {
+      "timelineFrame": 26,
+      "sourceFrames": [
+        100,
+        86
+      ],
+      "targetReloadPhase": 0.28205128205128205
+    },
+    {
+      "timelineFrame": 27,
+      "sourceFrames": [
+        103,
+        87
+      ],
+      "targetReloadPhase": 0.3076923076923077
+    },
+    {
+      "timelineFrame": 28,
+      "sourceFrames": [
+        105,
+        88
+      ],
+      "targetReloadPhase": 0.3333333333333333
+    },
+    {
+      "timelineFrame": 29,
+      "sourceFrames": [
+        107,
+        89
+      ],
+      "targetReloadPhase": 0.358974358974359
+    },
+    {
+      "timelineFrame": 30,
+      "sourceFrames": [
+        110,
+        90
+      ],
+      "targetReloadPhase": 0.38461538461538464
+    },
+    {
+      "timelineFrame": 31,
+      "sourceFrames": [
+        112,
+        91
+      ],
+      "targetReloadPhase": 0.41025641025641024
+    },
+    {
+      "timelineFrame": 32,
+      "sourceFrames": [
+        114,
+        92
+      ],
+      "targetReloadPhase": 0.4358974358974359
+    },
+    {
+      "timelineFrame": 33,
+      "sourceFrames": [
+        117,
+        93
+      ],
+      "targetReloadPhase": 0.46153846153846156
+    },
+    {
+      "timelineFrame": 34,
+      "sourceFrames": [
+        119,
+        94
+      ],
+      "targetReloadPhase": 0.48717948717948717
+    },
+    {
+      "timelineFrame": 35,
+      "sourceFrames": [
+        121,
+        95
+      ],
+      "targetReloadPhase": 0.5128205128205128
+    },
+    {
+      "timelineFrame": 36,
+      "sourceFrames": [
+        123,
+        96
+      ],
+      "targetReloadPhase": 0.5384615384615384
+    },
+    {
+      "timelineFrame": 37,
+      "sourceFrames": [
+        126,
+        97
+      ],
+      "targetReloadPhase": 0.5641025641025641
+    },
+    {
+      "timelineFrame": 38,
+      "sourceFrames": [
+        128,
+        98
+      ],
+      "targetReloadPhase": 0.5897435897435898
+    },
+    {
+      "timelineFrame": 39,
+      "sourceFrames": [
+        130,
+        99
+      ],
+      "targetReloadPhase": 0.6153846153846154
+    },
+    {
+      "timelineFrame": 40,
+      "sourceFrames": [
+        133,
+        100
+      ],
+      "targetReloadPhase": 0.6410256410256411
+    },
+    {
+      "timelineFrame": 41,
+      "sourceFrames": [
+        135,
+        101
+      ],
+      "targetReloadPhase": 0.6666666666666666
+    },
+    {
+      "timelineFrame": 42,
+      "sourceFrames": [
+        137,
+        102
+      ],
+      "targetReloadPhase": 0.6923076923076923
+    },
+    {
+      "timelineFrame": 43,
+      "sourceFrames": [
+        140,
+        103
+      ],
+      "targetReloadPhase": 0.717948717948718
+    },
+    {
+      "timelineFrame": 44,
+      "sourceFrames": [
+        142,
+        104
+      ],
+      "targetReloadPhase": 0.7435897435897436
+    },
+    {
+      "timelineFrame": 45,
+      "sourceFrames": [
+        144,
+        105
+      ],
+      "targetReloadPhase": 0.7692307692307693
+    },
+    {
+      "timelineFrame": 46,
+      "sourceFrames": [
+        147,
+        106
+      ],
+      "targetReloadPhase": 0.7948717948717948
+    },
+    {
+      "timelineFrame": 47,
+      "sourceFrames": [
+        149,
+        107
+      ],
+      "targetReloadPhase": 0.8205128205128205
+    },
+    {
+      "timelineFrame": 48,
+      "sourceFrames": [
+        151,
+        108
+      ],
+      "targetReloadPhase": 0.8461538461538461
+    },
+    {
+      "timelineFrame": 49,
+      "sourceFrames": [
+        153,
+        109
+      ],
+      "targetReloadPhase": 0.8717948717948718
+    },
+    {
+      "timelineFrame": 50,
+      "sourceFrames": [
+        156,
+        110
+      ],
+      "targetReloadPhase": 0.8974358974358975
+    },
+    {
+      "timelineFrame": 51,
+      "sourceFrames": [
+        158,
+        111
+      ],
+      "targetReloadPhase": 0.9230769230769231
+    },
+    {
+      "timelineFrame": 52,
+      "sourceFrames": [
+        160,
+        112
+      ],
+      "targetReloadPhase": 0.9487179487179487
+    },
+    {
+      "timelineFrame": 53,
+      "sourceFrames": [
+        163,
+        113
+      ],
+      "targetReloadPhase": 0.9743589743589743
+    },
+    {
+      "timelineFrame": 54,
+      "sourceFrames": [
+        165,
+        114
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 55,
+      "sourceFrames": [
+        166,
+        115
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 56,
+      "sourceFrames": [
+        167,
+        116
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 57,
+      "sourceFrames": [
+        168,
+        117
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 58,
+      "sourceFrames": [
+        169,
+        118
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 59,
+      "sourceFrames": [
+        170,
+        119
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 60,
+      "sourceFrames": [
+        171,
+        120
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 61,
+      "sourceFrames": [
+        172,
+        121
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 62,
+      "sourceFrames": [
+        173,
+        122
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 63,
+      "sourceFrames": [
+        174,
+        123
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 64,
+      "sourceFrames": [
+        175,
+        124
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 65,
+      "sourceFrames": [
+        176,
+        125
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 66,
+      "sourceFrames": [
+        177,
+        126
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 67,
+      "sourceFrames": [
+        178,
+        127
+      ],
+      "targetReloadPhase": null
+    },
+    {
+      "timelineFrame": 68,
+      "sourceFrames": [
+        179,
+        128
+      ],
+      "targetReloadPhase": null
+    }
+  ],
+  "sources": [
+    {
+      "version": "0.66.2",
+      "directory": "art/characters/weapon-fit-2026-10-26/checks/motion",
+      "frames": [
+        {
+          "frame": 60,
+          "sha256": "a440d20969628df9bf54206859ea1f9c4c4bdf3de95ce3691c0f9df3879498a3"
+        },
+        {
+          "frame": 61,
+          "sha256": "e3b149015f39db62d009aa034ca41154141845b7e0f15acafd82a43d208901a7"
+        },
+        {
+          "frame": 62,
+          "sha256": "09ca02148edadf01b0aa93166bec829f5380fdd3e4e2dfc35c12c04526d264af"
+        },
+        {
+          "frame": 63,
+          "sha256": "d645bf70ebae730b952178e928c3f81e1f2b73f5efba4e49e8501e44509c868b"
+        },
+        {
+          "frame": 64,
+          "sha256": "bd466d23c4860fb38d612f97a37f5977c14b31280b5bba4a0c89f859115f4b36"
+        },
+        {
+          "frame": 65,
+          "sha256": "aac866ba2becba96aad16d705b3cf7018335fbaecc2b15e3a57862e4434e8ee1"
+        },
+        {
+          "frame": 66,
+          "sha256": "08611cd4fc0e8267d1ff267a13639880306e644beb5bcf40838f64887262c5fe"
+        },
+        {
+          "frame": 67,
+          "sha256": "f686a4b260970a244e3655c2645d0d427d09069f5c5b1b9dd278ed937be1575b"
+        },
+        {
+          "frame": 68,
+          "sha256": "69ad463d92769ac780d6d63638129313261f40823b74b614ea3cc283c93cc4bb"
+        },
+        {
+          "frame": 69,
+          "sha256": "90db49e9bf0bd2faded085f25d12ea4e71d2aaa25081d4069937326149396069"
+        },
+        {
+          "frame": 70,
+          "sha256": "30cf6051f9c617fb0d17f1428496728c7e7fa3b4331f7db2c1422c946b57d72b"
+        },
+        {
+          "frame": 71,
+          "sha256": "c89e8455c62eb8d2d5f8eab06f08a6915693c3e49540ac7a1c664c898d55b7b1"
+        },
+        {
+          "frame": 72,
+          "sha256": "68751a70b5f493c8aee87ec7079c368d87f5f3e7acae0ca7f090b2871ed4cbcb"
+        },
+        {
+          "frame": 73,
+          "sha256": "40bf988e05ffb3c1a6d1c471e2231f094d5e56f609e2761b789e2879cede784a"
+        },
+        {
+          "frame": 74,
+          "sha256": "0028de4df8ffbf573f426d0410b1516a14eb218c450ee88678d2e9e87dbda0dd"
+        },
+        {
+          "frame": 75,
+          "sha256": "67202065f8e722b3c934daa5060deb3e7c7499bb977c8f12854476404572db51"
+        },
+        {
+          "frame": 77,
+          "sha256": "7ebc1c10f6e2fff793f88a9e06f6fb6e31e9b2e5c2ceb6e1d883c65ece697c08"
+        },
+        {
+          "frame": 80,
+          "sha256": "a2493b20a57787c3c0a64950a16a851769ebb475b956e600a8d855c2a04e7311"
+        },
+        {
+          "frame": 82,
+          "sha256": "24de74647a47a84a70436b7e859ed25a420d00071a4def39c31942cba77e397e"
+        },
+        {
+          "frame": 84,
+          "sha256": "969276f2e9dd44bfbe2fc649fe0d63cf0d3dcae1df2d3e7ad4ae03b4d0736689"
+        },
+        {
+          "frame": 87,
+          "sha256": "9ea6cbb9c788fc6078fd1298deba160d07f4b0a72d53f3f6599d860e3bb7c880"
+        },
+        {
+          "frame": 89,
+          "sha256": "d171d90c7b3d31590e00e384b35d18800e72543ffe286faf6a67755e1e31fe7d"
+        },
+        {
+          "frame": 91,
+          "sha256": "b916297b0d8ac4f6d10d05353ef5e0fd4cd6cca27a9550daf649429648cc2d92"
+        },
+        {
+          "frame": 93,
+          "sha256": "529d0618095626d2fea32b0c7301587ffeb17d1faaae56a17c13fea7fec7ef40"
+        },
+        {
+          "frame": 96,
+          "sha256": "02b3e2e287831739a2e009404ad9ab1db1d468e7edcb307bbd38636bfde17d4e"
+        },
+        {
+          "frame": 98,
+          "sha256": "d9beb33d01513dcb7735238fa8a626a23a3c2e0c91396c12ebd3ec874dd610c8"
+        },
+        {
+          "frame": 100,
+          "sha256": "e957a96036edda9aedfa2e2071354dce9f91472c16e6af6451f36eccef615240"
+        },
+        {
+          "frame": 103,
+          "sha256": "06982fef0cdb6d7f26189a20634444486fc186a05f0e927ad0b46c3bf733e2f5"
+        },
+        {
+          "frame": 105,
+          "sha256": "bd85da083ab15d20ce49b1ff6e88ff3f3788d7a725fd81d71629a5a46d8fd384"
+        },
+        {
+          "frame": 107,
+          "sha256": "a0a738267630cd85a09ea32eb770ae821a9904f956c13252a088c0a7f39f9a1e"
+        },
+        {
+          "frame": 110,
+          "sha256": "955d7fc4d4b4ab562278f2b368b48ecd4482f6eb86ad4d3ce3b096701457a87f"
+        },
+        {
+          "frame": 112,
+          "sha256": "0651f6df3dff4673fc58535bcc7ce43deb29f3d3bc461515180ff318ca80bdf4"
+        },
+        {
+          "frame": 114,
+          "sha256": "d75db50d8fddc95218fc89d6efe9a0d791cc6484648b7d77a9ef57a384a6e22e"
+        },
+        {
+          "frame": 117,
+          "sha256": "9fc061bc6d90b1a839dd977538d4d9587f2afb41a0612119d5f6420a8b0c10c5"
+        },
+        {
+          "frame": 119,
+          "sha256": "67195c74ad48e067711f0224d636876c756da72cba846ba5ee98a64da9fa80e5"
+        },
+        {
+          "frame": 121,
+          "sha256": "4f59368ef6a7c5b933c921d3375933fd511d941110b96e2f351a5119bd41a541"
+        },
+        {
+          "frame": 123,
+          "sha256": "3fa8de06d1cd329a070d1f827b58d941e7f44707461860ea83b560580f11ce77"
+        },
+        {
+          "frame": 126,
+          "sha256": "e49c7b73e8a322c8f07e012aafecba9e45b405ed7dde466413cd06f6cbb19347"
+        },
+        {
+          "frame": 128,
+          "sha256": "fd3709b4bf2ba196fd26f8a49c868ac411c1a5249e7d7af75984ae17f2fb2df8"
+        },
+        {
+          "frame": 130,
+          "sha256": "be3d7c2b65827147eb6a77a00152f9d99f7eea451589631e87c746e7b9ac8cd8"
+        },
+        {
+          "frame": 133,
+          "sha256": "ae1945acfef1a0dae3c70d9b8bd60d0e2fb3d39ec154d0db7ef59dcd9f587358"
+        },
+        {
+          "frame": 135,
+          "sha256": "97a9785cc673bdc9789643d4f4647f14e44fe406d4141579c59085d06c6d7f96"
+        },
+        {
+          "frame": 137,
+          "sha256": "c2c8caa53b9bc32b60d3d4c9c21034bd1e7a2a4d0eaf1d14b9094ea06204a6e2"
+        },
+        {
+          "frame": 140,
+          "sha256": "cda329088b30996e0e5c71861f257c8f1e4ca9764cd3070a416858e3572e39e1"
+        },
+        {
+          "frame": 142,
+          "sha256": "7185626ef937b2dcf6cb4b8ea5c3ec1035d6adf687b937e37bbd12a11bf6dfc5"
+        },
+        {
+          "frame": 144,
+          "sha256": "532f13e01697720f7b0536dc810d3ff49f0db87b377d23db54189203277e5a4a"
+        },
+        {
+          "frame": 147,
+          "sha256": "cbdb8450ccac84466e28b8f9ff9ff2708c9f94563c26b7976e1073bdecaacd8e"
+        },
+        {
+          "frame": 149,
+          "sha256": "421f40357fd3e8144f17be25ab243c4e5148eaf288d9da0227aa5c11026560fc"
+        },
+        {
+          "frame": 151,
+          "sha256": "1487988323cf6b9c91429c75c16286c71d23a638e26a4c5850d04668f6fb0517"
+        },
+        {
+          "frame": 153,
+          "sha256": "ebe82020e3607279bb93d9acaa2048cae00f2f07236893d742e76ce84112b11e"
+        },
+        {
+          "frame": 156,
+          "sha256": "d7638b395fdf1b625a81ce3560ee96d82c664718d36ad184b5f6da203a544acb"
+        },
+        {
+          "frame": 158,
+          "sha256": "0e06cf70ca1164e40f052066fdb6f359794c6ce1a32589daebf67918eaae4ff1"
+        },
+        {
+          "frame": 160,
+          "sha256": "327479c7a38c787a565e73e66c811389cab7dc5d89ab4f29b15bcb7e62d09ce2"
+        },
+        {
+          "frame": 163,
+          "sha256": "0108dd9af6b5d4ec194b0892ffa84c95631ba14fad3c335575f592a03bcdf247"
+        },
+        {
+          "frame": 165,
+          "sha256": "56821c7255e641fbc58b6767dca63ff5f283d68ee6fd6b6874a4159627ab7f7c"
+        },
+        {
+          "frame": 166,
+          "sha256": "e1618fe1e93b9497b83466b389c837c98c4fb07299f0a2c1c652f44846de26de"
+        },
+        {
+          "frame": 167,
+          "sha256": "f5c44ef4ea6682483ecefdc3eb50dccc1b33f0c5e4b39bf0cbd61df20ed6d41f"
+        },
+        {
+          "frame": 168,
+          "sha256": "e078b44ebeb8cafc77e9db4fffa555d4bfb188adf34fe7b217e25ad2399b36ba"
+        },
+        {
+          "frame": 169,
+          "sha256": "49df63c3f70012591f36de6c1328d2609d5f2dedfd16343cbf02cc4b001897e0"
+        },
+        {
+          "frame": 170,
+          "sha256": "af3cef2f0d7dd22f5c58c81b71745bbae672434bebda681f7c795d55ec4ea87f"
+        },
+        {
+          "frame": 171,
+          "sha256": "080d1a0eed04a9d1501ae2ce0dac38513f51666f55ef29f1c1eceae8d4beb4fe"
+        },
+        {
+          "frame": 172,
+          "sha256": "65264530033d98c621493847b60e698a3d3ee5556dc1a218b5fd968229175ee7"
+        },
+        {
+          "frame": 173,
+          "sha256": "3d89868dc76fae49709df050329b2e47a503ea63da7aca7c63d393c7a025244e"
+        },
+        {
+          "frame": 174,
+          "sha256": "c08f947bf06c0bb4d3d8bc5991cdf910cf4337cc4583a737b1eef87258db840d"
+        },
+        {
+          "frame": 175,
+          "sha256": "8a3016002fee2472b8d4e2ec8bfbb77e151d85e341c18a40390ef31fe431ba19"
+        },
+        {
+          "frame": 176,
+          "sha256": "3797ba96ab2aed0dc1d8c38b8023796e1cc2b20c1cf5a6c9cd582c657b470ffa"
+        },
+        {
+          "frame": 177,
+          "sha256": "e81d398dd9baeaa4770d001f49e72ef4176bdc920b8e58088bb3f30becbaf744"
+        },
+        {
+          "frame": 178,
+          "sha256": "b0e671fdf33ec7a536302a70b10cca5b03d94d7972628b83dc54373cb16b3354"
+        },
+        {
+          "frame": 179,
+          "sha256": "fc65c4ffe8b50ea488133b482509fe1a5e97bb4be70b1ff92ac2a3404b3a9d53"
+        }
+      ]
+    },
+    {
+      "version": "0.66.10",
+      "directory": "art/characters/p8-legacy-pack-2026-10-27/checks/pistol-pistol",
+      "frames": [
+        {
+          "frame": 60,
+          "sha256": "eca86bdb77711f114663c5df5b2a384658352e0fb44a16dcfc7c7da62087d9cf"
+        },
+        {
+          "frame": 61,
+          "sha256": "f574242b6ef53d76b7b1ca28b70743e8508b6a43e327d42cb92ccefab0f8b038"
+        },
+        {
+          "frame": 62,
+          "sha256": "b57cfe84974f60bd3c44e1f72eb120f0b3b35eea442dff9ec4b41b844d6ec908"
+        },
+        {
+          "frame": 63,
+          "sha256": "d2565cd731dd5b2063658c604450b77f7092847b30b6864d7cad11020f1848e6"
+        },
+        {
+          "frame": 64,
+          "sha256": "3036c3a64b937be65cba5d03d0ac5b449b3a55cd0feca40575828612b1aeab4e"
+        },
+        {
+          "frame": 65,
+          "sha256": "714f31045c5d958ba0e965c508fd449bd866e50121e0c656bae00d33205669e4"
+        },
+        {
+          "frame": 66,
+          "sha256": "18433fb418b65b7eca7b78cbacf3b630e50de2f521958fa64968b84cf29891f2"
+        },
+        {
+          "frame": 67,
+          "sha256": "3e3a69a08fb3b5f37d2505efdbb8a063263cfbb34a18a7b813962d252aacca6e"
+        },
+        {
+          "frame": 68,
+          "sha256": "78e22b891b4524eb17782a95db657548f59c4daffc4dcc1483c62c5b53979ea7"
+        },
+        {
+          "frame": 69,
+          "sha256": "297ff8fac81f7715eb8e23e32ec3a69b2b99b47df41e184588eb49ce3d78fa40"
+        },
+        {
+          "frame": 70,
+          "sha256": "47fed4133eb97c4149c578e1445e2467dfeea41aacd61a8182a0e9c1f03aac77"
+        },
+        {
+          "frame": 71,
+          "sha256": "f9a2fff5be1410861c315a6d4bcd5952d9a21abfc05397016228dae53b5dbc16"
+        },
+        {
+          "frame": 72,
+          "sha256": "cbfabc002779866e8bca8819434ad837a64fa3bd66ba476956b40e29c4ebea1a"
+        },
+        {
+          "frame": 73,
+          "sha256": "59b3d9590f5f869cd88148c1a3a49bdd0daebf49f3d4bfe80518ab18b9061a8e"
+        },
+        {
+          "frame": 74,
+          "sha256": "9e035c5646f42aca8e3c0b490855c7f70d85e09439026dfd30411c7dc2caa22e"
+        },
+        {
+          "frame": 75,
+          "sha256": "f1e4f6cb84e916cfc8c4c2984aeffaec4fc1436b9092d39044a1d59ce160726f"
+        },
+        {
+          "frame": 76,
+          "sha256": "69db0b202432c2e8e31262f93f7ac2323fd4bbfd6e0f6193b0027d4e3dbb89cd"
+        },
+        {
+          "frame": 77,
+          "sha256": "eb37e9c5e588edca7309535f270d38136d8b7ed7e3e2bc99c05bc3af63eb6212"
+        },
+        {
+          "frame": 78,
+          "sha256": "065f6499dc9fe08af3f8a8b1a4647b11ea238d29616784e2316fc7e7cb4c64e1"
+        },
+        {
+          "frame": 79,
+          "sha256": "0d0ba811919d4950c90eb7028a3f22250a5f35c4d9e6e05897aaa8ae4445c6f2"
+        },
+        {
+          "frame": 80,
+          "sha256": "449b51c35a57f0c7269b5dbc1ba9f4c1495760d6234826be84cba5b44888c599"
+        },
+        {
+          "frame": 81,
+          "sha256": "1e9daa5a73ed254ce25e0d3abbafc92d50af95c169b2003aea25a781a2f7e756"
+        },
+        {
+          "frame": 82,
+          "sha256": "f614623aa6220d9345cead99971df74c3237330eb5a45c620fcbfa54e431d256"
+        },
+        {
+          "frame": 83,
+          "sha256": "260d943ea906adc7706a06b2b63d677c87cc3fd22e888573000a7877d9c46b88"
+        },
+        {
+          "frame": 84,
+          "sha256": "728ff21836ed31dd5e7a8277ffc79a2a183f441b489dfcb56ff8ffc575173099"
+        },
+        {
+          "frame": 85,
+          "sha256": "9f2d88d1a63c8ce903da167c732eb13869db0d5cf1aaf6f959389fd8e04a7a5d"
+        },
+        {
+          "frame": 86,
+          "sha256": "dba0ef03dc6f2f33aeb7464582d68d10d5abbba758202240a2118a1e6daa4dce"
+        },
+        {
+          "frame": 87,
+          "sha256": "5d940685f92947a5d09a7e6f0d39ba0853c1a6af90055889e509aa974152d244"
+        },
+        {
+          "frame": 88,
+          "sha256": "203bcbca90b2542c26fd6fc5ff1bbc489ad084622818112b708cbf04062a971d"
+        },
+        {
+          "frame": 89,
+          "sha256": "53551a7b4328c95df72167e658e00b850b2349068f313b21c81895db6f9aab2a"
+        },
+        {
+          "frame": 90,
+          "sha256": "09e9be2f77844f5a6d92addb06195306b63a0a979f93d56b3213281fdf8d9140"
+        },
+        {
+          "frame": 91,
+          "sha256": "0ba917e26e06067fa9ee9b23200a44c9ca63bb9401bc7c37eb5b9fb6c3be5631"
+        },
+        {
+          "frame": 92,
+          "sha256": "de673b8596b692575f8d35176799e21de3df57228ea912e20747c652ce310bdc"
+        },
+        {
+          "frame": 93,
+          "sha256": "753a8e08a432a20617c8b25c9cff80dd4f7cfb91547609149fe036cbeacbb581"
+        },
+        {
+          "frame": 94,
+          "sha256": "a1abd2e8b6f3e506db30717775bb6fb2171dcf8da790699aa1f8212ec3f5dc32"
+        },
+        {
+          "frame": 95,
+          "sha256": "35fd7ad11c574678806dff77df598f3e10ec17ad3a260406676ca46517c61272"
+        },
+        {
+          "frame": 96,
+          "sha256": "ca22a9bf03ebbe6c64a6490ee1662a45fe51627dccb8f320a23b9142dfa721cf"
+        },
+        {
+          "frame": 97,
+          "sha256": "0b04498c37a809978cd3b9ea5350511d5ff7718f052926fedc7567124e1e3c9a"
+        },
+        {
+          "frame": 98,
+          "sha256": "85d7ed2282ba354ebc84bd665ea8e157096942940fb4035bd716dda6897ac89c"
+        },
+        {
+          "frame": 99,
+          "sha256": "4cc7c3f4c4d16672f31b702d39530a1e4ce093166c9d86f8f91c37dad456b3df"
+        },
+        {
+          "frame": 100,
+          "sha256": "ab51ef3c19064b8101b368ddb37031befdd773470930bdfb29973930258c7509"
+        },
+        {
+          "frame": 101,
+          "sha256": "b22fe38d035f96220bc42476e7c86ff0eb02ff5a95c6ed0571093b6b88849687"
+        },
+        {
+          "frame": 102,
+          "sha256": "31dec5cb91cd48e0e591c3614daaaad459c67d753614655be90c633d900bd7e6"
+        },
+        {
+          "frame": 103,
+          "sha256": "5b2b5f4c6d023d126b1e5be72646780db9872b6ae12052efaff513235887ca1b"
+        },
+        {
+          "frame": 104,
+          "sha256": "9c7e0410c63a755ea0edff6fbd2e72ce5fd7df923214261c2a9ce1ba46c334eb"
+        },
+        {
+          "frame": 105,
+          "sha256": "aa02e825a757bd98114904748ace226625c4ec98e389072ebd354f273c4f3925"
+        },
+        {
+          "frame": 106,
+          "sha256": "70244b6bf2459bb325363021c243a33718c50f0e9a6674520ded8654aaa3a0dc"
+        },
+        {
+          "frame": 107,
+          "sha256": "e6c7de59a99f3ab76c995dd0c7047db454f9b776ede3f9d9a28b621d422d3024"
+        },
+        {
+          "frame": 108,
+          "sha256": "45d5cafdeb8e1bc77db4c753a82db2021d77bc1625bc51a97b4047c405885333"
+        },
+        {
+          "frame": 109,
+          "sha256": "d842535cc193a7ab0cddb4c9f49596b625609bd23f9ec3b8297812961a511bd3"
+        },
+        {
+          "frame": 110,
+          "sha256": "edc70d0b22ebaa11eb0929f30959972a3f62ad23c6772ca3964352a2dc4a789a"
+        },
+        {
+          "frame": 111,
+          "sha256": "8ddcedcbd6b3bb5b9447a8f8f2731929707eb1807db01f6bc97a0fa8745e4e36"
+        },
+        {
+          "frame": 112,
+          "sha256": "04f7e34d2d9e0984880f59a71ff6018766436ba7dc4663c07c717f5dbb47e488"
+        },
+        {
+          "frame": 113,
+          "sha256": "48e3c173c65da9ffd291afa8960e4163eccf85a8144055120c10699e8604ae21"
+        },
+        {
+          "frame": 114,
+          "sha256": "c3501733bce155a58a15ec083d0364ab26de1949cad9248217d6c15d767ee579"
+        },
+        {
+          "frame": 115,
+          "sha256": "2cd1a01b32485db35358b9d47282b73212edefad30171e9aefc2b2bf6fb398ef"
+        },
+        {
+          "frame": 116,
+          "sha256": "78d0b6e2f86d9f7c49c6563d2a9966932e5e338336711bd25b2ec3f2db1ec82d"
+        },
+        {
+          "frame": 117,
+          "sha256": "7e024c197f049693e7e01e5d4732b5b99699387a3fafa295d42403cac1fcd8c0"
+        },
+        {
+          "frame": 118,
+          "sha256": "316d6a2f4aa58fd48f3ffff26fc23d6d7622f005969df4f0aef8b25540d1ba99"
+        },
+        {
+          "frame": 119,
+          "sha256": "4bec27fbee8a3c45969c7e3ae9708bb2ea3a00510294d13056cbd2694a3e9003"
+        },
+        {
+          "frame": 120,
+          "sha256": "01048dcc0a337c3ea95d105ccbaf5a45180f44d6f6f05b473b529bf11fe69b02"
+        },
+        {
+          "frame": 121,
+          "sha256": "7832758e83bffc1a22c3696c8cbdb5fb1ecbd11b78524c28c82831042a4adc62"
+        },
+        {
+          "frame": 122,
+          "sha256": "ed187a26f09e6f01e9394e391b9a6bd7207a9fc1cbae6763cb720de0b192e393"
+        },
+        {
+          "frame": 123,
+          "sha256": "3d1a269ed30445548b1b318ab3ae4cd5668643d15cab0fe215bc3e7e9436c6d3"
+        },
+        {
+          "frame": 124,
+          "sha256": "d11faef2232a803e495008f2ae2744fb612c790b132dab9b2df488f9f7bb8f4c"
+        },
+        {
+          "frame": 125,
+          "sha256": "092b0921da70dad4bd692d37c9bd90e815764ec1060f98e0b0b8c14c604de000"
+        },
+        {
+          "frame": 126,
+          "sha256": "58e7b6d5ad31ff0229990edf37a2ab7f226e91c0761694a5e21125e99869f100"
+        },
+        {
+          "frame": 127,
+          "sha256": "22cae40c6f5699e3b081226e5063df7eccf961a30bd39a8e33f6b21a13c016a0"
+        },
+        {
+          "frame": 128,
+          "sha256": "a2a0866b673f576cb7e6b98d48a2aa2cceeb9d8e2feb3bc50ffbcd745b154db1"
+        }
+      ]
+    }
+  ],
+  "encoded": {
+    "path": "legacy-arms-reload02-comparison.mp4",
+    "frames": 276,
+    "fps": 30,
+    "durationSeconds": 9.2,
+    "dimensions": [
+      1920,
+      800
+    ],
+    "bytes": 4859793,
+    "sha256": "cb98a535458ce3bbb05f1a3d831ea43ce0e0b2f381dd1f38b13773329c65686a",
+    "nativeDecode": "PASS; 8 extracted frames"
+  },
+  "playback": "QuickTime playback state observed on at start, off at 9.2 seconds; discrete UI observations, not continuous human visual review."
+}

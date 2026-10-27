@@ -1,0 +1,20 @@
+{
+  "commit": "ed6143ff7e5e03112ae540ca0cec5fc2cc3c35ce",
+  "files": {
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": "0f3a257b96115031c9ff7c33635df8e9e24cfc818b06bc2855c219f7852cad0b",
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": "c11dc0fee61bb0190c28af8ad70d2f670b563e4d4548477e3cb8333ec291fadc",
+    "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs": "8043a7ba27a6e6186a7ca52b7f64a70fd2a291feb8df0fc5ec37862e90b75154",
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+    "UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+    "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019",
+    "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+    "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab.meta": "36a9dec7c7e8b0e91c4435ea295423c7a298b3dea79fed3100a2c6344d5106e8",
+    "UnityProject/Assets/Resources/Soldiers/HandCandidate.meta": "14284c092cee5b951f564f72ae030d1e859c8b53daf62f6ce6250611007bf0e3",
+    "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+    "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab.meta": "c5417482e42e615999b64fc0f95d985da418109dc10b93b133da4fabbe2f0b8b",
+    "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab": "cd08cd344855dcddacadeefb3fd6a9198a9d806181f121d2fd37d966e3d2cb81",
+    "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab.meta": "51470c00396ef37c81e891aae88de530c6426bba38cc23e67ba9e50f088dc32a",
+    "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab": "0af08008260f76c1314d2112fe0a0abbaf2760b4de05c2357195ae4814245f61",
+    "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab.meta": "d18331f831389954ae6894667d2a6af309cd7a420b648d0d03272ce66d30ff0a"
+  }
+}

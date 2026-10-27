@@ -61,9 +61,22 @@ namespace Ironfront.UnityPrototype
                 Check(Mathf.Abs(art.transform.lossyScale.x-.55f/.65f)<.001f,team+" "+id+" arms retain original scale");
                 if (fp.UsesHandCandidate)
                 {
-                    Check(art.Digits != null && art.Digits.Length == 30 && art.Digits.Select(j => j.Bone).Distinct().Count() == 30,
-                        team + " " + id + " thirty independent finger joints");
-                    Check(art.Fingers.Length == 0,team + " " + id + " no legacy shared finger driver");
+                    if(id==PrototypeWeaponId.Pistol)
+                    {
+                        Check(fp.UsesLegacySourceHands && (art.Digits==null || art.Digits.Length==0) &&
+                            art.Fingers.Length==2 && art.Thumbs.Length==2,team+" Pistol retains original shared-finger rig");
+                        var legacy=Resources.Load<GameObject>("Soldiers/"+team+"Soldier").GetComponent<PrototypeSoldierArtRig>();
+                        Check(art.ViewArmMeshes.SequenceEqual(legacy.ViewArmMeshes),team+" Pistol uses unchanged original arm meshes");
+                        fp.SetPresentation(true,.4f,100f);Quaternion closed=art.Fingers[0].localRotation;
+                        fp.SetPresentation(true,.74f,100f);
+                        Check(Quaternion.Angle(closed,art.Fingers[0].localRotation)>30f,team+" Pistol shared fingers open with source insertion pose");
+                    }
+                    else
+                    {
+                        Check(art.Digits != null && art.Digits.Length == 30 && art.Digits.Select(j => j.Bone).Distinct().Count() == 30,
+                            team + " " + id + " thirty independent finger joints");
+                        Check(art.Fingers.Length == 0,team + " " + id + " no legacy shared finger driver");
+                    }
                     Check(fp.UsesSoldierPack,team+" "+id+" authored soldier pack loaded");
                     fp.SetPresentation(false,0f,100f);
                     Check(fp.SourceAction.Contains(id==PrototypeWeaponId.Pistol?"Gun_Aim02":"AssaultRifle_Aim01"),team+" "+id+" actual hold source="+fp.SourceAction);
@@ -244,8 +257,10 @@ namespace Ironfront.UnityPrototype
         [Serializable] class JointData { public string name,parent; public Vector3 p; public Quaternion q,local,rest; }
         void ExportStudy(string name,PrototypeWeaponArtRig fp,PrototypeSoldierArtRig art)
         {
-            var joints=art.Bindings.Select(b=>b.Bone).Concat(art.Digits.Select(j=>j.Bone));
-            var data=new StudyData { rightContact=fp.transform.InverseTransformPoint(fp.RightContactPosition),magazineContact=fp.transform.InverseTransformPoint(fp.MagazineGrip.position),chargeContact=fp.transform.InverseTransformPoint(fp.ChargingGrip.position),joints=joints.Select(b=>new JointData {name=b.name,parent=b.parent.name,p=fp.transform.InverseTransformPoint(b.position),q=Quaternion.Inverse(fp.transform.rotation)*b.rotation,local=b.localRotation,rest=art.Digits.FirstOrDefault(j=>j.Bone==b).Rest}).ToArray()};
+            var digits=art.Digits??Array.Empty<PrototypeSoldierArtRig.DigitJoint>();
+            var joints=art.Bindings.Select(b=>b.Bone).Concat(digits.Select(j=>j.Bone))
+                .Concat(art.Fingers??Array.Empty<Transform>()).Concat(art.Thumbs??Array.Empty<Transform>());
+            var data=new StudyData { rightContact=fp.transform.InverseTransformPoint(fp.RightContactPosition),magazineContact=fp.transform.InverseTransformPoint(fp.MagazineGrip.position),chargeContact=fp.transform.InverseTransformPoint(fp.ChargingGrip.position),joints=joints.Select(b=>new JointData {name=b.name,parent=b.parent.name,p=fp.transform.InverseTransformPoint(b.position),q=Quaternion.Inverse(fp.transform.rotation)*b.rotation,local=b.localRotation,rest=digits.FirstOrDefault(j=>j.Bone==b).Rest}).ToArray()};
             File.WriteAllText(Path.Combine(output,name+"-study.json"),JsonUtility.ToJson(data,true));
         }
         void Capture(string name)

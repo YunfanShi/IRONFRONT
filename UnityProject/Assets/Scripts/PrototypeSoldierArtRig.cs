@@ -43,6 +43,15 @@ namespace Ironfront.UnityPrototype
         [NonSerialized] public float SourcePoseWeight;
         [NonSerialized] public Vector3 SourceLeftElbow, SourceRightElbow;
         private Quaternion[] sourceFingerRest, sourceFingerBaseline;
+        public bool UsesLegacySourceHands { get; private set; }
+        private Vector3[] legacySourceFingerDirections;
+        private void ConfigureLegacySourceHands()
+        {
+            if (Fingers == null || Fingers.Length != 2 || Thumbs == null || Thumbs.Length != 2) return;
+            UsesLegacySourceHands = true;
+            // Preserve its original binding offsets; the weapon retargets
+            // authored wrist motion relative to this model's calibrated hold.
+        }
         public void CaptureSourceFingerRest()
         {
             if (Digits == null || Digits.Length != 30) return;
@@ -56,6 +65,8 @@ namespace Ironfront.UnityPrototype
         }
         public void CalibrateSourceFingerDirections(Vector3[] directions)
         {
+            if(UsesLegacySourceHands)
+            { legacySourceFingerDirections=directions; return; }
             if(sourceFingerRest==null || directions==null || directions.Length!=30)return;
             for(int i=0;i<30;i++)
             {
@@ -68,6 +79,8 @@ namespace Ironfront.UnityPrototype
         }
         public void ApplySourceFingers(Quaternion[] deltas, float weight)
         {
+            if(UsesLegacySourceHands)
+            { ApplyLegacySourceFingers(deltas,weight); return; }
             if (sourceFingerRest == null || deltas == null || deltas.Length != 30 || weight <= 0f) return;
             for(int i=0;i<30;i++)sourceFingerBaseline[i]=Digits[i].Bone.rotation;
             for(int i=0;i<30;i++)
@@ -76,6 +89,32 @@ namespace Ironfront.UnityPrototype
                 Quaternion semantic=hand.Bone.rotation*Quaternion.Inverse(hand.RotationOffset);
                 Digits[i].Bone.rotation=Quaternion.Slerp(sourceFingerBaseline[i],semantic*deltas[i]*sourceFingerRest[i],weight);
             }
+        }
+        private void ApplyLegacySourceFingers(Quaternion[] deltas,float weight)
+        {
+            if(deltas==null || deltas.Length!=30 || legacySourceFingerDirections==null ||
+                legacySourceFingerDirections.Length!=30 || weight<=0f)return;
+            for(int side=0;side<2;side++)
+            {
+                // The old mesh has one knuckle hinge for all four fingers.
+                // Average the authored MCP flex to retain its opening timing.
+                float flex=0f;
+                for(int digit=0;digit<4;digit++)
+                    flex+=LegacySourceFlex(deltas,side*15+digit*3,side);
+                float curl=side==0?Mathf.Clamp(flex*.25f*(65f/30.7f),4f,82f):
+                    Mathf.Clamp(flex*.25f,58f,72f);
+                Fingers[side].localRotation=Quaternion.Slerp(Fingers[side].localRotation,
+                    FingerRest[side]*Quaternion.Euler(-curl,0,0),weight);
+                float thumb=18f+(LegacySourceFlex(deltas,side*15+12,side)-12f)*.45f;
+                Thumbs[side].localRotation=Quaternion.Slerp(Thumbs[side].localRotation,
+                    ThumbRest[side]*Quaternion.Euler(Mathf.Clamp(thumb,-5f,35f),0,0),weight);
+            }
+        }
+        private float LegacySourceFlex(Quaternion[] deltas,int joint,int side)
+        {
+            Vector3 rest=Vector3.ProjectOnPlane(legacySourceFingerDirections[joint],Vector3.up);
+            Vector3 posed=Vector3.ProjectOnPlane(deltas[joint]*legacySourceFingerDirections[joint],Vector3.up);
+            return Vector3.SignedAngle(rest,posed,Vector3.up)*(side==0?1f:-1f);
         }
         private void OnDestroy(){if(viewArmMaterials!=null)foreach(var m in viewArmMaterials)Destroy(m);}
         [NonSerialized] public float SupportHandWeight;
@@ -166,10 +205,11 @@ namespace Ironfront.UnityPrototype
             art.CurlFingers();
             return true;
         }
-        public static PrototypeSoldierArtRig CreateWeaponViewArms(Transform parent, PrototypeTeam team, bool candidate = false)
+        public static PrototypeSoldierArtRig CreateWeaponViewArms(Transform parent, PrototypeTeam team, bool candidate = false, bool legacySourceHands = false)
         {
             var art=Create(parent,team,candidate); if(art==null)return null;
             art.name="Authored first person arms";art.SetFirstPerson(true,true);
+            if(legacySourceHands)art.ConfigureLegacySourceHands();
             var camera=parent.GetComponentInParent<Camera>();
             art.viewCamera=camera!=null?camera.transform:null;
             // Camera arms can be viewed from inside their shoulder seam. Render
