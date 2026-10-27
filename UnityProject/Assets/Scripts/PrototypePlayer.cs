@@ -571,6 +571,8 @@ namespace Ironfront.UnityPrototype
                     (IsSliding ? -11f : 0f));
                 if(firstPersonArt!=null && Reloading)
                     firstPose=firstPersonArt.UsesHandCandidate?Quaternion.Slerp(Quaternion.identity,firstPersonArt.ReloadViewRotation,firstPersonArt.ReloadPoseWeight(reload)):Quaternion.Euler(-10f*reloadDip,-22f*reloadDip,-22f*reloadDip);
+                if(firstPersonArt!=null && Reloading && firstPersonArt.TrySourceReloadView(reload,out var sourcePosition,out var sourceRotation))
+                {firstHome=sourcePosition;firstPose=sourceRotation;}
                 if(firstPersonArt!=null && !Reloading)
                 {
                     float age=Time.time-lastShotAt;

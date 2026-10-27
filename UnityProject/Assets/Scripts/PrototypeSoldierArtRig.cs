@@ -40,6 +40,43 @@ namespace Ironfront.UnityPrototype
         private Transform[] drivers;
         private Transform viewCamera;
         private Material[] viewArmMaterials;
+        [NonSerialized] public float SourcePoseWeight;
+        [NonSerialized] public Vector3 SourceLeftElbow, SourceRightElbow;
+        private Quaternion[] sourceFingerRest, sourceFingerBaseline;
+        public void CaptureSourceFingerRest()
+        {
+            if (Digits == null || Digits.Length != 30) return;
+            sourceFingerRest = new Quaternion[30]; sourceFingerBaseline = new Quaternion[30];
+            for (int i=0;i<30;i++)
+            {
+                var hand=Bindings[Digits[i].Left?7:8];
+                Quaternion semantic=hand.Bone.rotation*Quaternion.Inverse(hand.RotationOffset);
+                sourceFingerRest[i]=Quaternion.Inverse(semantic)*Digits[i].Bone.rotation;
+            }
+        }
+        public void CalibrateSourceFingerDirections(Vector3[] directions)
+        {
+            if(sourceFingerRest==null || directions==null || directions.Length!=30)return;
+            for(int i=0;i<30;i++)
+            {
+                var joint=Digits[i];var hand=Bindings[joint.Left?7:8];
+                Quaternion semantic=hand.Bone.rotation*Quaternion.Inverse(hand.RotationOffset);
+                Vector3 axis=joint.Joint<2?Digits[i+1].Bone.position-joint.Bone.position:joint.Bone.up;
+                Vector3 restDirection=Quaternion.Inverse(semantic)*axis.normalized;
+                sourceFingerRest[i]=Quaternion.FromToRotation(restDirection,directions[i])*sourceFingerRest[i];
+            }
+        }
+        public void ApplySourceFingers(Quaternion[] deltas, float weight)
+        {
+            if (sourceFingerRest == null || deltas == null || deltas.Length != 30 || weight <= 0f) return;
+            for(int i=0;i<30;i++)sourceFingerBaseline[i]=Digits[i].Bone.rotation;
+            for(int i=0;i<30;i++)
+            {
+                var hand=Bindings[Digits[i].Left?7:8];
+                Quaternion semantic=hand.Bone.rotation*Quaternion.Inverse(hand.RotationOffset);
+                Digits[i].Bone.rotation=Quaternion.Slerp(sourceFingerBaseline[i],semantic*deltas[i]*sourceFingerRest[i],weight);
+            }
+        }
         private void OnDestroy(){if(viewArmMaterials!=null)foreach(var m in viewArmMaterials)Destroy(m);}
         [NonSerialized] public float SupportHandWeight;
         public bool FirstPerson { get; private set; }
@@ -156,6 +193,7 @@ namespace Ironfront.UnityPrototype
             // Authored weapons are normalized by 1/.65 during import. Match
             // that scale, instead of doubling only the hands relative to guns.
             art.transform.localScale=Vector3.one/.65f;art.GetComponent<LODGroup>().ForceLOD(0);
+            art.CaptureSourceFingerRest();
             return art;
         }
         public void PoseWeaponViewArms(Vector3 right,Vector3 left,Quaternion rightRotation,Quaternion leftRotation)
@@ -183,6 +221,9 @@ namespace Ironfront.UnityPrototype
                     // points the sleeve into the camera and hides the fingers.
                     if (left && PistolPose)
                         anchor = Vector3.Lerp(anchor, new Vector3(-.44f, -.20f, .20f), ChargingPoseBlend);
+                    // Full-body source shoulders are above a hip-held rifle. The
+                    // view mesh has long shoulder seams: anchor them to the
+                    // camera chest and retarget the authored elbow pole below.
                     return transform.InverseTransformPoint(viewCamera.TransformPoint(anchor));
                 }
                 float depth=Mathf.Max(.12f,viewCamera.InverseTransformPoint(target).z-.38f);
@@ -203,6 +244,9 @@ namespace Ironfront.UnityPrototype
             Vector3 direction = delta.normalized;
             Vector3 poleDirection=new Vector3(left ? -1 : 1, -.7f, -.3f);
             if(viewCamera!=null)poleDirection=transform.InverseTransformDirection(viewCamera.TransformDirection(poleDirection));
+            if (SourcePoseWeight > 0f)
+                poleDirection=Vector3.Lerp(poleDirection.normalized,
+                    (transform.InverseTransformPoint(left?SourceLeftElbow:SourceRightElbow)-origin).normalized,SourcePoseWeight);
             Vector3 pole = Vector3.ProjectOnPlane(poleDirection, direction).normalized;
             float along = (upper * upper + distance * distance - lower * lower) / (2 * distance);
             Vector3 elbow = origin + direction * along + pole * Mathf.Sqrt(Mathf.Max(0, upper * upper - along * along));

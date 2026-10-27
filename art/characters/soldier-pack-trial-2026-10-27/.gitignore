@@ -1,0 +1,5 @@
+source/
+baseline/
+checks*/
+*.log
+*.blend1

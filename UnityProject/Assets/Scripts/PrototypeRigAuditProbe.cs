@@ -62,6 +62,15 @@ namespace Ironfront.UnityPrototype
                     Check(art.Digits != null && art.Digits.Length == 30 && art.Digits.Select(j => j.Bone).Distinct().Count() == 30,
                         team + " " + id + " thirty independent finger joints");
                     Check(art.Fingers.Length == 0,team + " " + id + " no legacy shared finger driver");
+                    Check(fp.UsesSoldierPack,team+" "+id+" authored soldier pack loaded");
+                    fp.SetPresentation(false,0f,100f);
+                    Check(fp.SourceAction.Contains(id==PrototypeWeaponId.Pistol?"Gun_Aim02":"AssaultRifle_Aim01"),team+" "+id+" actual hold source="+fp.SourceAction);
+                    if(id==PrototypeWeaponId.Carbine)
+                    {
+                        fp.SetPresentation(true,.4f,100f);
+                        Check(fp.SourceAction.Contains("AssaultRifle_Reload01"),team+" "+id+" actual reload source="+fp.SourceAction);
+                        fp.SetPresentation(false,0f,100f);
+                    }
                     Vector3 home = fp.Magazine.localPosition;
                     Quaternion homeRotation = fp.Magazine.localRotation;
                     foreach (float interrupt in new[]{.24f,.35f,.55f,.70f,.88f})
@@ -128,7 +137,7 @@ namespace Ironfront.UnityPrototype
                     if(!fp.ScopeViewActive){AuditSkin(team,id,pose,art);Capture(name);}
                     if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&(pose=="hip" || motion && (pose=="reload24" || pose=="reload34" || pose=="reload66" || pose=="reload87")))
                     {
-                        ExportObj(name,fp,art);
+                        ExportObj(name,fp,art);ExportStudy(name,fp,art);
                         Vector3 saved=camera.transform.position;Quaternion rotation=camera.transform.rotation;float fov=camera.fieldOfView;
                         // Inspect the same evaluated first-person mesh from the
                         // opposite side without moving its parent weapon.

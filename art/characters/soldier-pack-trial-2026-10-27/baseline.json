@@ -1,0 +1,10 @@
+{
+  "version": "0.66.4",
+  "commit": "e4bb251",
+  "files": {
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": "9d15532ab710afddb4daead52164171e358cf3cfcf50ad78369e15852cee7720",
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": "387492eed183fc962c2389ed5032a2fe93bea0abebfee469405a306e8c4e4519",
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": "76f5b45e04495d6b79e2e5243c933bcc2c71a06b65d73578ca5f41884e649990",
+    "UnityProject/Assets/Scripts/PrototypeFingerPoses.cs": "adbe2170894adc64cb8873b2e0e2742e83cb48d9bd39331d8039849736979f5a"
+  }
+}

@@ -1,0 +1,7 @@
+[
+  {
+    "probe": "if27",
+    "exitCode": 0,
+    "report": "PASS\nVersion=0.66.5\nRuntimeErrors=0\nRuntime starts\nActual inventory instantiates both authored weapons\nWorld gun has three distance LODs\nReticle stays millimetre scale after FBX import\nFirst-person right hand on grip\nSight aligned to camera center: (0.50, 0.50, 0.45)\nADS line clear through Body\nADS line clear through Magazine\nADS line clear through ChargingHandle\nADS line clear through Bolt\nADS line clear through Stock\nFirst-person right hand on grip\nMagazine articulates in FP\nSelected source reload returns to handguard without a handle pull\nSupport hand follows reload targets, maximum=4.768372E-07\nReload returns magazine to home\nMagazine articulates in TP\nProcedural handle articulates in TP\nSupport hand follows reload targets, maximum=4.315854E-05\nTP reload keeps pistol grip ahead of chest: 0.1714478\nReload returns magazine to home\nTP right grip standing\nTP right grip run\nTP right grip crouch\nTP right grip prone\nActual firing consumes one round\nActual bullet spawns at authored muzzle\nCarbine authored weapon path\nMarksman authored weapon path\nSmg authored weapon path\nLmg authored weapon path\nBattleRifle authored weapon path\nSniper authored weapon path\nPistol authored weapon path"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "runtimeDataSha256": "e48f9af4784a66c355f29ada42c2ddd9f0316699c3f9d598012d7dac5eb05500",
+  "packageSha256": "5a9f20fb075363c8b28a97c3360c3c93d9a6004af6e5caf7bcb1e852f6783b40",
+  "coordinateChecks": "finite vectors and normalized quaternions; 30 finger tracks in every frame",
+  "clips": [
+    {
+      "clip": "HumanM@AssaultRifle_Reload01",
+      "samples": 103,
+      "sourceSeconds": 1.7,
+      "maxLeftFingerRotationFromStartDegrees": 125.676,
+      "endpointHandDistanceMetres": 0.0
+    },
+    {
+      "clip": "HumanM@AssaultRifle_Aim01",
+      "samples": 141,
+      "sourceSeconds": 2.3333333333333335,
+      "maxLeftFingerRotationFromStartDegrees": 0.033,
+      "endpointHandDistanceMetres": 0.0
+    },
+    {
+      "clip": "HumanM@Gun_Aim02",
+      "samples": 141,
+      "sourceSeconds": 2.3333333333333335,
+      "maxLeftFingerRotationFromStartDegrees": 0.032,
+      "endpointHandDistanceMetres": 0.0
+    }
+  ]
+}

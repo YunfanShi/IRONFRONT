@@ -24,6 +24,16 @@ namespace Ironfront.UnityPrototype
         bool gripsCalibrated;
         bool handCandidate;
         bool pistolCandidate;
+        PrototypeSoldierPackMotion packMotion;
+        Quaternion rightGripHomeRotation;
+        Vector3 packLeftHome, packMagazineContact, packMagazineHome;
+        Quaternion packMagazineRotation, oldMagazineOffsetRotation, newMagazineOffsetRotation;
+        Vector3 oldMagazineOffset, newMagazineOffset;
+        readonly float[] packContactPhases = { 0f, 7f/51f, 37f/51f, 1f };
+        Vector3[] packContactOffsets;
+        float packWeight;
+        public bool UsesSoldierPack => packMotion != null && packMotion.Valid;
+        public string SourceAction => UsesSoldierPack ? (ReloadActive && !pistolCandidate ? packMotion.Reload.sourceAction : packMotion.Hold.sourceAction) : "";
         Transform freshMagazine;
         Renderer[] magazineRenderers;
         public float SupportGrasp { get; private set; } = .85f;
@@ -72,6 +82,7 @@ namespace Ironfront.UnityPrototype
                     rig.freshMagazine.name = "Fresh reload magazine";
                     rig.freshMagazine.gameObject.SetActive(false);
                     rig.magazineRenderers = rig.Magazine.GetComponentsInChildren<Renderer>();
+                    rig.InitializePackMotion();
                 }
                 rig.SetPresentation(false, 0, 100);
             }
@@ -214,9 +225,90 @@ namespace Ironfront.UnityPrototype
                 viewArms.LeftGrasp = SupportGrasp;
                 viewArms.LeftPinch = SupportPinch;
                 viewArms.TriggerRelease = reloading ? Ease(p,0f,.08f)*(1f-Ease(p,.94f,1f)) : 0f;
+                ApplyPackMotion(reloading,p,shot);
                 viewArms.PoseWeaponViewArms(RightGrip.position,SupportPosition,
                 RightGrip.rotation,SupportRotation);
+                if (UsesSoldierPack) viewArms.ApplySourceFingers(packMotion.Pose.fingers,packWeight);
             }
+        }
+        void InitializePackMotion()
+        {
+            packMotion = new PrototypeSoldierPackMotion(pistolCandidate);
+            if (!UsesSoldierPack) return;
+            viewArms.CalibrateSourceFingerDirections(packMotion.FingerRestDirections);
+            rightGripHomeRotation = RightGrip.localRotation;
+            packLeftHome = transform.InverseTransformPoint(LeftGrip.parent.TransformPoint(leftHome));
+            packMagazineContact = transform.InverseTransformPoint(MagazineGrip.position);
+            packMagazineHome = transform.InverseTransformPoint(Magazine.position);
+            packMagazineRotation = Quaternion.Inverse(transform.rotation)*Magazine.rotation;
+            packContactOffsets = new Vector3[packContactPhases.Length];
+            var targets = new[]{packLeftHome,packMagazineContact,packMagazineContact,packLeftHome};
+            Vector3 right=transform.InverseTransformPoint(RightGrip.position);
+            for(int i=0;i<packContactPhases.Length;i++)
+            {
+                PrototypeSoldierPackMotion.Sample(packMotion.Reload,packContactPhases[i],packMotion.View);
+                packContactOffsets[i]=targets[i]-(right+packMotion.View.leftHand/.65f);
+                if(i==1 || i==2)
+                {
+                    Quaternion q=Quaternion.Inverse(packMotion.View.leftRotation);
+                    if(i==1){oldMagazineOffset=q*(packMagazineHome-packMagazineContact);oldMagazineOffsetRotation=q*packMagazineRotation;}
+                    else{newMagazineOffset=q*(packMagazineHome-packMagazineContact);newMagazineOffsetRotation=q*packMagazineRotation;}
+                }
+            }
+        }
+        // Actual authored weapon motion, expressed relative to its first frame.
+        public bool TrySourceReloadView(float phase,out Vector3 position,out Quaternion rotation)
+        {
+            position=HipPosition;rotation=Quaternion.identity;
+            if(!UsesSoldierPack || pistolCandidate)return false;
+            PrototypeSoldierPackMotion.Sample(packMotion.Reload,phase,packMotion.View);
+            float envelope=Ease(phase,0,.08f)*(1f-Ease(phase,.94f,1f));
+            position+=(packMotion.View.gunPosition*(.55f/.65f)+new Vector3(-.04f,.11f,0f))*envelope;
+            rotation=Quaternion.Slerp(Quaternion.identity,packMotion.View.gunRotation,envelope);
+            return true;
+        }
+        void ApplyPackMotion(bool reloading,float phase,float shot)
+        {
+            if(!UsesSoldierPack)return;
+            bool sourceReload=reloading&&!pistolCandidate;
+            packMotion.Evaluate(sourceReload,phase,Time.time);
+            var f=packMotion.Pose;
+            packWeight=pistolCandidate&&reloading?Mathf.Clamp01(1f-Ease(phase,0,.10f)+Ease(phase,.92f,1f)):1f;
+            Vector3 right=transform.InverseTransformPoint(RightGrip.position);
+            Vector3 left=right+f.leftHand/.65f;
+            if(sourceReload)
+            {
+                int i=0;while(i<packContactPhases.Length-2 && phase>packContactPhases[i+1])i++;
+                left+=Vector3.Lerp(packContactOffsets[i],packContactOffsets[i+1],Ease(phase,packContactPhases[i],packContactPhases[i+1]));
+            }
+            else if(!pistolCandidate)
+                left+=packLeftHome-(right+packMotion.Hold.frames[0].leftHand/.65f);
+            supportLocal=Vector3.Lerp(supportLocal,left,packWeight);
+            // The source props use a different grip rake. A fixed alignment
+            // brings the authored finger pads down onto this weapon's grip.
+            Quaternion gripAlignment=Quaternion.Euler(18f,0f,0f);
+            supportLocalRotation=Quaternion.Slerp(supportLocalRotation,pistolCandidate?gripAlignment*f.leftRotation:f.leftRotation,packWeight);
+            RightGrip.localRotation=Quaternion.Slerp(rightGripHomeRotation,gripAlignment*f.rightRotation,packWeight);
+            viewArms.SourcePoseWeight=packWeight;
+            viewArms.SourceLeftElbow=transform.TransformPoint(right+f.leftElbow/.65f);
+            viewArms.SourceRightElbow=transform.TransformPoint(right+f.rightElbow/.65f);
+            if(!sourceReload)return;
+            const float grab=7f/51f,drop=19f/51f,pick=25f/51f,insert=37f/51f;
+            bool oldHeld=phase>=grab&&phase<drop, newHeld=phase>=pick&&phase<insert;
+            Magazine.localPosition=magazineHome;Magazine.localRotation=magazineRotation;
+            foreach(var r in magazineRenderers)r.enabled=phase<drop||phase>=insert;
+            freshMagazine.gameObject.SetActive(newHeld);
+            if(oldHeld)AttachMagazine(Magazine,oldMagazineOffset,oldMagazineOffsetRotation);
+            if(newHeld)AttachMagazine(freshMagazine,newMagazineOffset,newMagazineOffsetRotation);
+            // The selected source ends with an open-hand return to the
+            // handguard. It contains no charging-handle pull.
+            ChargingHandle.localPosition=chargingHome;
+            Bolt.localPosition=boltHome+Vector3.back*(BoltTravel*shot);
+        }
+        void AttachMagazine(Transform prop,Vector3 offset,Quaternion rotationOffset)
+        {
+            prop.SetPositionAndRotation(transform.TransformPoint(supportLocal+supportLocalRotation*offset),
+                transform.rotation*supportLocalRotation*rotationOffset);
         }
         void PresentHandReload(bool reloading, float p, float shot, float cycle)
         {

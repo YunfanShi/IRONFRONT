@@ -83,7 +83,8 @@ namespace Ironfront.UnityPrototype
                 if(player.IsFirstPerson!=first)player.TogglePerspective();
                 player.Kit.ApplyNetworkAmmo(12,player.Kit.Weapon.Reserve);
                 int frames=Mathf.CeilToInt(player.Kit.Weapon.ReloadSeconds*30f);
-                Vector3 magHome=fp.Magazine.localPosition,handleHome=fp.ChargingHandle.localPosition;
+                var presented=first?fp:tp;
+                Vector3 magHome=presented.Magazine.localPosition,handleHome=presented.ChargingHandle.localPosition;
                 float maxDrop=0,maxCharge=0,maxHand=0,minGripForward=float.MaxValue;
                 for(int i=0;i<=frames;i++)
                 {
@@ -91,8 +92,8 @@ namespace Ironfront.UnityPrototype
                     Set(player.Kit,"reloadEndsAt",i==frames?0f:Time.time+(1-p)*player.Kit.Weapon.ReloadSeconds);
                     Invoke(player,"UpdateInfantryPresentation");soldier.RefreshPose(true);
                     if(!first){camera.transform.position=center+new Vector3(2.1f,1.35f,1.7f);camera.transform.LookAt(center+new Vector3(0,1,.12f));camera.fieldOfView=45;}
-                    maxDrop=Mathf.Max(maxDrop,Vector3.Distance(fp.Magazine.localPosition,magHome));
-                    maxCharge=Mathf.Max(maxCharge,Vector3.Distance(fp.ChargingHandle.localPosition,handleHome));
+                    maxDrop=Mathf.Max(maxDrop,Vector3.Distance(presented.Magazine.localPosition,magHome));
+                    maxCharge=Mathf.Max(maxCharge,Vector3.Distance(presented.ChargingHandle.localPosition,handleHome));
                     Vector3 supportHand=first?fp.GetComponentInChildren<PrototypeSoldierArtRig>().Bindings[7].Bone.position:
                         ((Transform)Get(soldier,"leftHand")).position;
                     maxHand=Mathf.Max(maxHand,Vector3.Distance(supportHand,(first?fp:tp).SupportPosition));
@@ -100,10 +101,13 @@ namespace Ironfront.UnityPrototype
                     if(!first)minGripForward=Mathf.Min(minGripForward,player.transform.InverseTransformPoint(tp.RightContactPosition).z);
                     yield return Capture((first?"reload-fp":"reload-tp")+"/"+i.ToString("D4"));
                 }
-                Check(maxDrop>.25f&&maxCharge>.08f,"Magazine and handle articulate in "+(first?"FP":"TP"));
+                Check(maxDrop>.25f,"Magazine articulates in "+(first?"FP":"TP"));
+                if(presented.UsesSoldierPack)
+                    Check(maxCharge<.0001f,"Selected source reload returns to handguard without a handle pull");
+                else Check(maxCharge>.08f,"Procedural handle articulates in "+(first?"FP":"TP"));
                 Check(maxHand<.005f,"Support hand follows reload targets, maximum="+maxHand);
                 if(!first)Check(minGripForward>.14f,"TP reload keeps pistol grip ahead of chest: "+minGripForward);
-                Check(Vector3.Distance(fp.Magazine.localPosition,magHome)<.001f,"Reload returns magazine to home");
+                Check(Vector3.Distance(presented.Magazine.localPosition,magHome)<.001f,"Reload returns magazine to home");
             }
             if(player.IsFirstPerson)player.TogglePerspective();
             foreach(string pose in new[]{"standing","run","crouch","prone"})

@@ -1,0 +1,51 @@
+{
+  "version": "0.66.5",
+  "build": "build05.log",
+  "runtimePresentationLastChanged": "build04.log",
+  "finalBuildDelta": "Only PrototypeWeaponArtProbe: check selected source without handle pull and measure the correct third-person rig.",
+  "video": {
+    "path": "soldier-pack-30fps.mp4",
+    "frames": 306,
+    "fps": 30,
+    "durationSeconds": 10.2,
+    "sha256": "850c22111ece2b6cd384a64c5609651a7434febc66bc142458312575e84b78b7",
+    "decode": "PASS, 8 independent AVFoundation samples"
+  },
+  "sourceDataValidation": "data-validation.json",
+  "visualReview": {
+    "method": "Source rig keyframes, Unity evaluated first-person and opposite-side views; all IF-27 reload frames checked in timestamped sheets.",
+    "limitation": "Computer-use service timed out; did not verify continuous playback via the UI. Normal-speed file exported and independently decoded."
+  },
+  "checks": [
+    {
+      "probe": "motion",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "build": "build04.log"
+    },
+    {
+      "probe": "rig",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "build": "build04.log"
+    },
+    {
+      "probe": "batch2",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "build": "build04.log"
+    },
+    {
+      "probe": "if27",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "build": "build05.log"
+    },
+    {
+      "probe": "sprint",
+      "status": "PASS",
+      "runtimeErrors": 0,
+      "build": "build04.log"
+    }
+  ]
+}
