@@ -1,0 +1,178 @@
+{
+  "fits": [
+    {
+      "name": "right-curl-95",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -95,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "right-curl-65",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "right-curl-35",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -35,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "right-curl0",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "right-curl35",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    },
+    {
+      "name": "right-curl65",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": 65,
+        "y": 0,
+        "z": 0
+      },
+      "isolateRight": true
+    }
+  ]
+}

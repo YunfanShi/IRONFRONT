@@ -31,7 +31,7 @@ namespace Ironfront.UnityPrototype
         Vector3 oldMagazineOffset, newMagazineOffset;
         Vector3 pistolInsertionOffset;
         Quaternion pistolInsertionRotation;
-        Quaternion legacyLeftBasis, legacyRightBasis;
+        Quaternion legacyLeftBasis, legacyRightBasis, legacyLeftThumbAlign, legacyRightThumbAlign;
         Vector3 legacyHoldOffset;
         const float PistolInsertPhase = 38f / 51f;
         readonly float[] packContactPhases = { 0f, 7f/51f, 37f/51f, 1f };
@@ -130,6 +130,15 @@ namespace Ironfront.UnityPrototype
                 Vector3 support=LeftGrip.localPosition;support.z/=VisualScale;
                 LeftGrip.localPosition = support + new Vector3(-.14f, -.04f, -.035f)/VisualScale;
                 LeftHandRotation = Quaternion.AngleAxis(90f,Vector3.forward)*Quaternion.Euler(10f,180f,0f);
+            }
+            if (pistol && handCandidate)
+            {
+                // v03 palm frame measured from wrist/knuckle direction and the
+                // four-finger row. The support palm encloses the main hand.
+                RightGrip.position=transform.TransformPoint(rightContactLocal+new Vector3(.055f,-.01f,-.155f));
+                RightGrip.localRotation=Quaternion.Euler(7.354f,99.560f,-96.976f);
+                LeftGrip.position=transform.TransformPoint(rightContactLocal+new Vector3(-.055f,-.035f,-.205f));
+                LeftHandRotation=Quaternion.Euler(17.907f,-108.334f,93.246f);
             }
             leftHome = LeftGrip.localPosition;
             MagazineGrip.localPosition += new Vector3(-.075f, .09f, -.015f)/VisualScale;
@@ -258,6 +267,13 @@ namespace Ironfront.UnityPrototype
                 legacyLeftBasis=Quaternion.Inverse(packMotion.View.leftRotation)*LeftHandRotation;
                 legacyRightBasis=Quaternion.Inverse(packMotion.View.rightRotation)*RightGrip.localRotation;
                 legacyHoldOffset=packLeftHome-(right+packMotion.View.leftHand/.65f);
+                // The pack's support thumb points almost vertically at rest.
+                // Calibrate its MCP direction to this pistol, then retain the
+                // source thumb motion in its moving hand frame during reload.
+                legacyLeftThumbAlign=Quaternion.FromToRotation(packMotion.View.fingers[12]*packMotion.FingerRestDirections[12],
+                    Quaternion.Inverse(packMotion.View.leftRotation)*new Vector3(.15f,.12f,1f).normalized);
+                legacyRightThumbAlign=Quaternion.FromToRotation(packMotion.View.fingers[27]*packMotion.FingerRestDirections[27],
+                    Quaternion.Inverse(packMotion.View.rightRotation)*new Vector3(-.25f,.10f,1f).normalized);
             }
             if (pistolCandidate)
             {
@@ -341,6 +357,11 @@ namespace Ironfront.UnityPrototype
             viewArms.SourcePoseWeight=packWeight;
             viewArms.SourceLeftElbow=transform.TransformPoint(right+f.leftElbow/.65f);
             viewArms.SourceRightElbow=transform.TransformPoint(right+f.rightElbow/.65f);
+            if(UsesLegacySourceHands)
+            {
+                viewArms.SourceLeftThumb=transform.TransformDirection(f.leftRotation*legacyLeftThumbAlign*f.fingers[12]*packMotion.FingerRestDirections[12]);
+                viewArms.SourceRightThumb=transform.TransformDirection(f.rightRotation*legacyRightThumbAlign*f.fingers[27]*packMotion.FingerRestDirections[27]);
+            }
             if(pistolCandidate)
             {
                 PresentPistolPackMagazine(sourceReload,phase,shot);

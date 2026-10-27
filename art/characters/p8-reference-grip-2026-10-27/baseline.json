@@ -1,0 +1,11 @@
+{
+  "commit": "a83c1ebc15c94b1c7f7c6c7d22b22738b460d6c0",
+  "files": {
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": "250d2f1d12a49ae6e1025c5a1dd079a101f19c0874b9becddcdb4a0f2ea411a8",
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": "06b0a132e718d1f6a58de9a0cc47b3266bd446cbea2e5a30c85b88c735324311",
+    "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs": "5a11c89c0673a8f78e60982a5f973f626a8fbe95793d55b93611b0bc36ba756e",
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+    "UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+    "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019"
+  }
+}

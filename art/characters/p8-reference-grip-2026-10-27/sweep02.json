@@ -1,0 +1,256 @@
+{
+  "fits": [
+    {
+      "name": "low-pitch-35-yaw140",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": -35,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": -35,
+        "y": 140,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch-35-yaw180",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": -35,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": -35,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch-35-yaw220",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": -35,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": -35,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch-15-yaw140",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": -15,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": -15,
+        "y": 140,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch-15-yaw180",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": -15,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": -15,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch-15-yaw220",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": -15,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": -15,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch5-yaw140",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 5,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": 5,
+        "y": 140,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch5-yaw180",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 5,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": 5,
+        "y": 180,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "low-pitch5-yaw220",
+      "rightOffset": {
+        "x": 0.05,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 5,
+        "y": 180,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.065,
+        "y": -0.055,
+        "z": -0.12
+      },
+      "leftAngles": {
+        "x": 5,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ]
+}

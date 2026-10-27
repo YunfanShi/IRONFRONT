@@ -1,0 +1,256 @@
+{
+  "fits": [
+    {
+      "name": "palms-right210-left100",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 210,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 100,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right210-left130",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 210,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 130,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right210-left160",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 210,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 160,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right240-left100",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 240,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 100,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right240-left130",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 240,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 130,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right240-left160",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 240,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 160,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right270-left100",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 270,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 100,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right270-left130",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 270,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 130,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "palms-right270-left160",
+      "rightOffset": {
+        "x": 0.025,
+        "y": -0.035,
+        "z": -0.13
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 270,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.035,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 160,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ]
+}

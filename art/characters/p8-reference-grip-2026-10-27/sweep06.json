@@ -1,0 +1,256 @@
+{
+  "fits": [
+    {
+      "name": "inward-yaw120-span0.06",
+      "rightOffset": {
+        "x": 0.06,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 120,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 240,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw120-span0.09",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 120,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 240,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw120-span0.12",
+      "rightOffset": {
+        "x": 0.12,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 120,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.135,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 240,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw140-span0.06",
+      "rightOffset": {
+        "x": 0.06,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw140-span0.09",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw140-span0.12",
+      "rightOffset": {
+        "x": 0.12,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 140,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.135,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 220,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw160-span0.06",
+      "rightOffset": {
+        "x": 0.06,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 160,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.075,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 200,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw160-span0.09",
+      "rightOffset": {
+        "x": 0.09,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 160,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.105,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 200,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "name": "inward-yaw160-span0.12",
+      "rightOffset": {
+        "x": 0.12,
+        "y": -0.035,
+        "z": -0.12
+      },
+      "rightAngles": {
+        "x": 90,
+        "y": 160,
+        "z": 0
+      },
+      "leftOffset": {
+        "x": -0.135,
+        "y": -0.045,
+        "z": -0.15
+      },
+      "leftAngles": {
+        "x": 90,
+        "y": 200,
+        "z": 0
+      },
+      "fingerAngles": {
+        "x": -65,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ]
+}

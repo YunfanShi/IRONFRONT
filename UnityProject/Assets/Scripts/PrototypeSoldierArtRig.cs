@@ -45,6 +45,13 @@ namespace Ironfront.UnityPrototype
         private Quaternion[] sourceFingerRest, sourceFingerBaseline;
         public bool UsesLegacySourceHands { get; private set; }
         private Vector3[] legacySourceFingerDirections;
+        [NonSerialized] public Vector3 SourceLeftThumb, SourceRightThumb;
+        // Measured across the actual four-finger row in the unchanged v03 mesh.
+        // Local X is almost perpendicular to that row and twisted all four digits.
+        static readonly Vector3[] LegacyFingerAxes = {
+            new Vector3(-.096511f,-.027319f,.994957f).normalized,
+            new Vector3(-.109828f,.032130f,-.993431f).normalized
+        };
         private void ConfigureLegacySourceHands()
         {
             if (Fingers == null || Fingers.Length != 2 || Thumbs == null || Thumbs.Length != 2) return;
@@ -101,13 +108,16 @@ namespace Ironfront.UnityPrototype
                 float flex=0f;
                 for(int digit=0;digit<4;digit++)
                     flex+=LegacySourceFlex(deltas,side*15+digit*3,side);
-                float curl=side==0?Mathf.Clamp(flex*.25f*(65f/30.7f),4f,82f):
-                    Mathf.Clamp(flex*.25f,58f,72f);
+                float curl=side==0?Mathf.Clamp(flex*.25f*(70f/30.7f),4f,85f):
+                    Mathf.Clamp(70f+(flex*.25f-30.7f)*.3f,64f,76f);
                 Fingers[side].localRotation=Quaternion.Slerp(Fingers[side].localRotation,
-                    FingerRest[side]*Quaternion.Euler(-curl,0,0),weight);
-                float thumb=18f+(LegacySourceFlex(deltas,side*15+12,side)-12f)*.45f;
-                Thumbs[side].localRotation=Quaternion.Slerp(Thumbs[side].localRotation,
-                    ThumbRest[side]*Quaternion.Euler(Mathf.Clamp(thumb,-5f,35f),0,0),weight);
+                    FingerRest[side]*Quaternion.AngleAxis(curl,LegacyFingerAxes[side]),weight);
+                Vector3 thumbDirection=side==0?SourceLeftThumb:SourceRightThumb;
+                if(thumbDirection.sqrMagnitude>.0001f)
+                {
+                    Quaternion target=Quaternion.FromToRotation(Thumbs[side].up,thumbDirection)*Thumbs[side].rotation;
+                    Thumbs[side].rotation=Quaternion.Slerp(Thumbs[side].rotation,target,weight);
+                }
             }
         }
         private float LegacySourceFlex(Quaternion[] deltas,int joint,int side)
@@ -184,7 +194,9 @@ namespace Ironfront.UnityPrototype
             for (int i = 0; i < Fingers.Length; i++)
                 // The imported finger X axis bends toward the palm at negative
                 // angles. Positive flex folded the fingers over the hand plate.
-                Fingers[i].localRotation = FingerRest[i] * Quaternion.Euler(i == 0 ? Mathf.Lerp(-65f, -12f, SupportHandWeight) : -65f, 0f, 0f);
+                Fingers[i].localRotation = FingerRest[i] * (UsesLegacySourceHands ?
+                    Quaternion.AngleAxis(i==0?Mathf.Lerp(70f,12f,SupportHandWeight):70f,LegacyFingerAxes[i]) :
+                    Quaternion.Euler(i == 0 ? Mathf.Lerp(-65f, -12f, SupportHandWeight) : -65f, 0f, 0f));
             if (Thumbs != null && ThumbRest != null)
                 for (int i = 0; i < Thumbs.Length; i++)
                     Thumbs[i].localRotation = ThumbRest[i] * Quaternion.Euler(18f, 0f, 0f);
@@ -253,7 +265,7 @@ namespace Ironfront.UnityPrototype
                 // A first-person sleeve must enter from below the image. Keep
                 // its shoulder behind the hand, rather than near the camera
                 // where perspective exposes the source body's shoulder cut.
-                if (Digits != null && Digits.Length > 0)
+                if (UsesLegacySourceHands || Digits != null && Digits.Length > 0)
                 {
                     var anchor = new Vector3(left ? -.26f : .26f, -.32f, -.08f);
                     // Bring the support elbow around the pistol as the palm

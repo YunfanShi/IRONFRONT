@@ -17,7 +17,7 @@ namespace Ironfront.UnityPrototype
         readonly List<string> checks=new List<string>();
         readonly List<string> samples=new List<string>{"team,weapon,pose,arm,upper_error,forearm_error,max_skin_edge_ratio,p95_skin_edge_ratio"};
         [Serializable] class Sweep { public Fit[] fits; }
-        [Serializable] class Fit { public string name; public Vector3 rightOffset,rightAngles,leftOffset,leftAngles,fingerAngles; public bool isolateRight, isolateLeft, currentRight, currentLeft, reloading, supportRotationOverride; public float phase; public Vector3 supportDelta,supportAngles; public Vector3[] joints; }
+        [Serializable] class Fit { public string name; public Vector3 rightOffset,rightAngles,leftOffset,leftAngles,fingerAngles; public bool isolateRight, isolateLeft, currentRight, currentLeft, reloading, supportRotationOverride, sourceThumbs; public float phase; public Vector3 supportDelta,supportAngles; public Vector3[] joints, legacyFingers; }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot(){var a=Environment.GetCommandLineArgs();for(int i=0;i+1<a.Length;i++)if(a[i]=="-ironfrontRigAudit")new GameObject("Evaluated rig audit").AddComponent<PrototypeRigAuditProbe>().output=Path.GetFullPath(a[i+1]);}
         IEnumerator Start()
@@ -103,6 +103,8 @@ namespace Ironfront.UnityPrototype
                     }
                     Vector3 home = fp.Magazine.localPosition;
                     Quaternion homeRotation = fp.Magazine.localRotation;
+                    Vector3 handHome=fp.SupportPosition,mainHome=fp.RightGrip.position;
+                    Quaternion handHomeRotation=fp.SupportRotation,mainHomeRotation=fp.RightGrip.rotation;
                     foreach (float interrupt in new[]{.24f,.35f,.55f,.70f,.88f})
                     {
                         fp.SetPresentation(true,interrupt,100f);
@@ -111,6 +113,10 @@ namespace Ironfront.UnityPrototype
                             Quaternion.Angle(homeRotation,fp.Magazine.localRotation)<.01f &&
                             !((Transform)Get(fp,"freshMagazine")).gameObject.activeSelf,
                             team + " " + id + " reload interruption resets props at " + interrupt);
+                        if(id==PrototypeWeaponId.Pistol)
+                            Check(Vector3.Distance(handHome,fp.SupportPosition)<.0001f && Vector3.Distance(mainHome,fp.RightGrip.position)<.0001f &&
+                                Quaternion.Angle(handHomeRotation,fp.SupportRotation)<.05f && Quaternion.Angle(mainHomeRotation,fp.RightGrip.rotation)<.05f,
+                                team+" Pistol restores both calibrated grip wrists at "+interrupt);
                     }
                 }
                 if(!player.IsFirstPerson)player.TogglePerspective();
@@ -126,10 +132,23 @@ namespace Ironfront.UnityPrototype
                         Set(fp,"leftHome",fp.LeftGrip.localPosition);
                         art.StudyFingerAngles=fit.joints;
                         fp.SetPresentation(fit.reloading,fit.phase,100);
-                        art.PoseWeaponViewArms(fp.RightGrip.position,fp.SupportPosition+fp.transform.TransformVector(fit.supportDelta),fp.RightGrip.rotation,fit.supportRotationOverride?fp.transform.rotation*Quaternion.Euler(fit.supportAngles):fp.SupportRotation);
-                        for(int f=0;f<art.Fingers.Length;f++)art.Fingers[f].localRotation=art.FingerRest[f]*Quaternion.Euler(fit.fingerAngles);
+                        // Study poses must be applied after source playback, which otherwise
+                        // overwrites the sampled wrist rotation and support target.
+                        if(!fit.currentRight)fp.RightGrip.localRotation=Quaternion.Euler(fit.rightAngles);
+                        Vector3 studyLeft=fit.currentLeft?fp.SupportPosition:fp.LeftGrip.position;
+                        Quaternion studyLeftRotation=fit.supportRotationOverride?fp.transform.rotation*Quaternion.Euler(fit.supportAngles):
+                            fit.currentLeft?fp.SupportRotation:fp.transform.rotation*Quaternion.Euler(fit.leftAngles);
+                        art.PoseWeaponViewArms(fp.RightGrip.position,studyLeft+fp.transform.TransformVector(fit.supportDelta),fp.RightGrip.rotation,studyLeftRotation);
+                        for(int f=0;f<art.Fingers.Length;f++)art.Fingers[f].localRotation=art.FingerRest[f]*Quaternion.Euler(fit.legacyFingers!=null && fit.legacyFingers.Length==2 ? fit.legacyFingers[f] : fit.fingerAngles);
+                        if(fit.sourceThumbs)
+                            for(int t=0;t<art.Thumbs.Length;t++)
+                                art.Thumbs[t].rotation=Quaternion.FromToRotation(art.Thumbs[t].up,t==0?art.SourceLeftThumb:art.SourceRightThumb)*art.Thumbs[t].rotation;
                         foreach(var ar in art.Arms)ar.enabled=(!fit.isolateRight||ar.name.EndsWith("_ArmL"))&&(!fit.isolateLeft||ar.name.EndsWith("_ArmR"));
                         yield return null;Capture(fit.name);ExportObj(fit.name,fp,art);ExportStudy(fit.name,fp,art);
+                        var close=new GameObject("Reference grip camera").AddComponent<Camera>();close.CopyFrom(camera);
+                        close.transform.position=camera.transform.position;
+                        close.transform.LookAt(fp.RightContactPosition+fp.transform.TransformVector(new Vector3(-.015f,.06f,-.02f)),camera.transform.up);
+                        close.fieldOfView=27;camera=close;Capture(fit.name+"-close");camera=player.ViewCamera;Destroy(close.gameObject);
                         var observer=new GameObject("Fit contact camera").AddComponent<Camera>();observer.CopyFrom(camera);
                         observer.transform.position=fp.RightContactPosition+fp.transform.TransformDirection(new Vector3(.45f,.2f,.4f));observer.transform.LookAt(fp.RightContactPosition);observer.fieldOfView=30;
                         camera=observer;Capture(fit.name+"-contact");
@@ -168,6 +187,13 @@ namespace Ironfront.UnityPrototype
                     if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&(pose=="hip" || motion && (pose=="reload24" || pose=="reload34" || pose=="reload66" || pose=="reload70" || pose=="reload74" || pose=="reload75" || pose=="reload79" || pose=="reload87")))
                     {
                         ExportObj(name,fp,art);ExportStudy(name,fp,art);
+                        if(id==PrototypeWeaponId.Pistol && pose=="hip")
+                        {
+                            var detail=new GameObject("Reference grip closeup").AddComponent<Camera>();detail.CopyFrom(camera);
+                            detail.transform.position=camera.transform.position;
+                            detail.transform.LookAt(fp.RightContactPosition+fp.transform.TransformVector(new Vector3(-.015f,.06f,-.02f)),camera.transform.up);
+                            detail.fieldOfView=27;camera=detail;Capture(name+"-close");camera=player.ViewCamera;Destroy(detail.gameObject);
+                        }
                         Vector3 saved=camera.transform.position;Quaternion rotation=camera.transform.rotation;float fov=camera.fieldOfView;
                         // Inspect the same evaluated first-person mesh from the
                         // opposite side without moving its parent weapon.

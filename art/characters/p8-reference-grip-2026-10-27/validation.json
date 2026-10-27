@@ -1,0 +1,149 @@
+{
+  "version": "0.66.11",
+  "baselineCommit": "a83c1ebc15c94b1c7f7c6c7d22b22738b460d6c0",
+  "buildLog": "build06.log",
+  "buildResult": "PASS",
+  "developmentPlayer": true,
+  "unity": "6000.5.10f1",
+  "probes": [
+    {
+      "probe": "pistol",
+      "checks": 52,
+      "exitCode": 0,
+      "runtimeErrors": 0
+    },
+    {
+      "probe": "rig",
+      "checks": 211,
+      "exitCode": 0,
+      "runtimeErrors": 0
+    }
+  ],
+  "images": {
+    "count": 286,
+    "errors": 0,
+    "report": "image-checks.json"
+  },
+  "preservation": [
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs",
+      "baselineSha256": "250d2f1d12a49ae6e1025c5a1dd079a101f19c0874b9becddcdb4a0f2ea411a8",
+      "currentSha256": "ee63e6ee841dea7521e841afbc41680632273e025dca24df086b72d05544165c",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs",
+      "baselineSha256": "06b0a132e718d1f6a58de9a0cc47b3266bd446cbea2e5a30c85b88c735324311",
+      "currentSha256": "1e87b7265768947771f42f1061fe25e014534e91e0102900f0a0b76551ce888f",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs",
+      "baselineSha256": "5a11c89c0673a8f78e60982a5f973f626a8fbe95793d55b93611b0bc36ba756e",
+      "currentSha256": "c5b32958357b2ebda615708ddad6d050ba28904de8b9b3404b8466425f3f5e1d",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypePlayer.cs",
+      "baselineSha256": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+      "currentSha256": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs",
+      "baselineSha256": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+      "currentSha256": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json",
+      "baselineSha256": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019",
+      "currentSha256": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab",
+      "baselineSha256": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+      "currentSha256": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab.meta",
+      "baselineSha256": "36a9dec7c7e8b0e91c4435ea295423c7a298b3dea79fed3100a2c6344d5106e8",
+      "currentSha256": "36a9dec7c7e8b0e91c4435ea295423c7a298b3dea79fed3100a2c6344d5106e8",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate.meta",
+      "baselineSha256": "14284c092cee5b951f564f72ae030d1e859c8b53daf62f6ce6250611007bf0e3",
+      "currentSha256": "14284c092cee5b951f564f72ae030d1e859c8b53daf62f6ce6250611007bf0e3",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab",
+      "baselineSha256": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+      "currentSha256": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab.meta",
+      "baselineSha256": "c5417482e42e615999b64fc0f95d985da418109dc10b93b133da4fabbe2f0b8b",
+      "currentSha256": "c5417482e42e615999b64fc0f95d985da418109dc10b93b133da4fabbe2f0b8b",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab",
+      "baselineSha256": "cd08cd344855dcddacadeefb3fd6a9198a9d806181f121d2fd37d966e3d2cb81",
+      "currentSha256": "cd08cd344855dcddacadeefb3fd6a9198a9d806181f121d2fd37d966e3d2cb81",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab.meta",
+      "baselineSha256": "51470c00396ef37c81e891aae88de530c6426bba38cc23e67ba9e50f088dc32a",
+      "currentSha256": "51470c00396ef37c81e891aae88de530c6426bba38cc23e67ba9e50f088dc32a",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab",
+      "baselineSha256": "0af08008260f76c1314d2112fe0a0abbaf2760b4de05c2357195ae4814245f61",
+      "currentSha256": "0af08008260f76c1314d2112fe0a0abbaf2760b4de05c2357195ae4814245f61",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab.meta",
+      "baselineSha256": "d18331f831389954ae6894667d2a6af309cd7a420b648d0d03272ce66d30ff0a",
+      "currentSha256": "d18331f831389954ae6894667d2a6af309cd7a420b648d0d03272ce66d30ff0a",
+      "unchanged": true
+    }
+  ],
+  "visuallyReviewed": [
+    "checks/pistol-pistol/Blue-Pistol-hip-close.png",
+    "checks/pistol-pistol/Blue-Pistol-hip-contact.png",
+    "checks/pistol-pistol/Blue-Pistol-reload74-contact.png",
+    "review/P8-grip-before-after.jpg",
+    "review/P8-final-poses.jpg",
+    "review/P8-final-sequence.jpg"
+  ],
+  "limitations": [
+    "Four fingers remain one shared bone; no independent interphalangeal curls.",
+    "Original glove mesh/materials do not match the reference fidelity.",
+    "No exhaustive triangle-intersection test; reverse observer views show old sleeve cut edges."
+  ],
+  "finalCandidate": "build06; checks/pistol-pistol and checks/pistol-rig",
+  "superseded": "All sweep/checks-build directories and build01-05 are calibration evidence only.",
+  "video": {
+    "file": "p8-grip-before-after.mp4",
+    "sha256": "f98ea15434e952a8cf71ba135679f1922bd090d317edc908f263db37ce814425",
+    "bytes": 6098166,
+    "frames": 288,
+    "fps": 30,
+    "durationSeconds": 9.6,
+    "dimensions": [
+      1920,
+      800
+    ],
+    "avfoundationDecode": "PASS",
+    "decodedFrames": 8,
+    "decodedSheetReviewed": "review/video-decode-sheet.jpg"
+  }
+}
