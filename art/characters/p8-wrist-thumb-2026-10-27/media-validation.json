@@ -1,0 +1,73 @@
+{
+  "video": "p8-wrist-thumb-before-after.mp4",
+  "bytes": 6190849,
+  "sha256": "97f9538751f62c9cd638630d7b8900cdb08892a33480b8c9324f8aa6279523d7",
+  "encode": "PASS",
+  "frames": 288,
+  "durationSeconds": 9.6,
+  "fps": 30,
+  "dimensions": [
+    1920,
+    800
+  ],
+  "avFoundationDecode": "PASS",
+  "decodedFrames": [
+    "video-2.6s.png",
+    "video-3.0s.png",
+    "video-3.5s.png",
+    "video-4.1s.png",
+    "video-8.1s.png",
+    "video-8.4s.png",
+    "video-8.7s.png",
+    "video-9.1s.png"
+  ],
+  "quickTimePlayback": {
+    "openedCorrectFile": true,
+    "observedPlayingAtSeconds": 0.3991247264770241,
+    "observedEndAtSeconds": 9.6,
+    "note": "Playback start and completion observed through UI; key visual poses reviewed as stills and decoded samples, not a claim of continuous human viewing."
+  },
+  "exactTimeToleranceSeconds": 0,
+  "decodedSourceComparisons": [
+    {
+      "seconds": 2.6,
+      "frame": 78,
+      "meanAbsoluteRgbError": 1.2125746527777779
+    },
+    {
+      "seconds": 3.0,
+      "frame": 90,
+      "meanAbsoluteRgbError": 1.2236026475694444
+    },
+    {
+      "seconds": 3.5,
+      "frame": 105,
+      "meanAbsoluteRgbError": 1.2531273871527777
+    },
+    {
+      "seconds": 4.1,
+      "frame": 123,
+      "meanAbsoluteRgbError": 1.1966861979166667
+    },
+    {
+      "seconds": 8.1,
+      "frame": 243,
+      "meanAbsoluteRgbError": 1.2074503038194444
+    },
+    {
+      "seconds": 8.4,
+      "frame": 252,
+      "meanAbsoluteRgbError": 1.1892087673611111
+    },
+    {
+      "seconds": 8.7,
+      "frame": 261,
+      "meanAbsoluteRgbError": 1.1937762586805556
+    },
+    {
+      "seconds": 9.1,
+      "frame": 273,
+      "meanAbsoluteRgbError": 1.1786846788194445
+    }
+  ]
+}

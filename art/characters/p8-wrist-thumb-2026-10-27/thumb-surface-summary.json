@@ -1,0 +1,195 @@
+[
+  {
+    "build": "01",
+    "poses": [
+      {
+        "phase": -1.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 27.11194588987547,
+        "thumbCenterRadialFromFingers": 0.058823158348251595
+      },
+      {
+        "phase": 0.23999999463558197,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 27.111910590303737,
+        "thumbCenterRadialFromFingers": -0.07511733002807619
+      },
+      {
+        "phase": 0.6600000262260437,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 27.111945131113718,
+        "thumbCenterRadialFromFingers": -0.04765493775186136
+      },
+      {
+        "phase": 0.7400000095367432,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 27.11197920040932,
+        "thumbCenterRadialFromFingers": -0.05041559729457749
+      },
+      {
+        "phase": 0.8700000047683716,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 27.11199966249517,
+        "thumbCenterRadialFromFingers": 0.010638847673437972
+      }
+    ]
+  },
+  {
+    "build": "02",
+    "poses": [
+      {
+        "phase": -1.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.023833199944968797,
+        "thumbCenterRadialFromFingers": 0.09988170668030377
+      },
+      {
+        "phase": 0.23999999463558197,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.033768007159813665
+      },
+      {
+        "phase": 0.6600000262260437,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.03349823853927533
+      },
+      {
+        "phase": 0.7400000095367432,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.03306887679966046,
+        "thumbCenterRadialFromFingers": 0.03345325515273369
+      },
+      {
+        "phase": 0.8700000047683716,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.064639901752996
+      }
+    ]
+  },
+  {
+    "build": "03",
+    "poses": [
+      {
+        "phase": -2.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.03178929972146524,
+        "thumbCenterRadialFromFingers": 0.06430621441790699
+      },
+      {
+        "phase": -1.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.037013388737049235,
+        "thumbCenterRadialFromFingers": 0.09641053109295317
+      },
+      {
+        "phase": 0.23999999463558197,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.030312624427298172
+      },
+      {
+        "phase": 0.6600000262260437,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.03004593937706775
+      },
+      {
+        "phase": 0.7400000095367432,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.030413769689595825,
+        "thumbCenterRadialFromFingers": 0.0300059421802383
+      },
+      {
+        "phase": 0.8700000047683716,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.026782814044387888,
+        "thumbCenterRadialFromFingers": 0.06117825197705889
+      }
+    ]
+  },
+  {
+    "build": "04",
+    "poses": [
+      {
+        "phase": -2.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.03178929972146524,
+        "thumbCenterRadialFromFingers": 0.06430621441790699
+      },
+      {
+        "phase": -1.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.020052535257169928,
+        "thumbCenterRadialFromFingers": 0.03562748470768456
+      },
+      {
+        "phase": 0.23999999463558197,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.030312613281597282
+      },
+      {
+        "phase": 0.6600000262260437,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.030045932684403275
+      },
+      {
+        "phase": 0.7400000095367432,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.011204961976816025,
+        "thumbCenterRadialFromFingers": 0.030005897490018175
+      },
+      {
+        "phase": 0.8700000047683716,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.06117832386963853
+      }
+    ]
+  },
+  {
+    "build": "05",
+    "poses": [
+      {
+        "phase": -2.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.03178929972146524,
+        "thumbCenterRadialFromFingers": 0.06430621441790699
+      },
+      {
+        "phase": -1.0,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.020052535257169928,
+        "thumbCenterRadialFromFingers": 0.03562748470768456
+      },
+      {
+        "phase": 0.23999999463558197,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.030312699760770175
+      },
+      {
+        "phase": 0.6600000262260437,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.031730286689461686,
+        "thumbCenterRadialFromFingers": 0.03004582704461808
+      },
+      {
+        "phase": 0.7400000095367432,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.023445432777982042,
+        "thumbCenterRadialFromFingers": 0.030005946916491257
+      },
+      {
+        "phase": 0.8700000047683716,
+        "pureThumbVertices": 49,
+        "surfaceVsDriverDegrees": 0.0,
+        "thumbCenterRadialFromFingers": 0.06117857597225233
+      }
+    ]
+  }
+]

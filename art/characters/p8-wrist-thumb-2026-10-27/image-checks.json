@@ -1,0 +1,2085 @@
+{
+  "count": 297,
+  "errors": [],
+  "frames": [
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.85 stops, std 0.224, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.08 EV, centre vs surround +0.22 stops, std 0.233, saturation 0.241 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-hip-close.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.27, log-avg -1.74 EV, centre vs surround -1.07 stops, std 0.097, saturation 0.228 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-hip-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.28, log-avg -1.63 EV, centre vs surround -1.17 stops, std 0.097, saturation 0.167 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-hip-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.36, log-avg -1.17 EV, centre vs surround -1.65 stops, std 0.223, saturation 0.218 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.48 stops, std 0.228, saturation 0.174 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload10.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.34 EV, centre vs surround +0.70 stops, std 0.208, saturation 0.275 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload24-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.39, log-avg -1.24 EV, centre vs surround -0.09 stops, std 0.260, saturation 0.244 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload24-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.24, log-avg -2.06 EV, centre vs surround -0.53 stops, std 0.069, saturation 0.207 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload24.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.86 stops, std 0.207, saturation 0.279 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload34-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.86 EV, centre vs surround +0.20 stops, std 0.253, saturation 0.246 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload34-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.23, log-avg -2.11 EV, centre vs surround -0.09 stops, std 0.069, saturation 0.197 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload34.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.85 stops, std 0.205, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload55.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.35 EV, centre vs surround +0.84 stops, std 0.214, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload66-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.40, log-avg -0.97 EV, centre vs surround -0.37 stops, std 0.241, saturation 0.220 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload66-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.24, log-avg -2.00 EV, centre vs surround -0.68 stops, std 0.074, saturation 0.192 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload66.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.80 stops, std 0.209, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload70-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.42, log-avg -0.81 EV, centre vs surround -0.89 stops, std 0.252, saturation 0.225 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload70-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.25, log-avg -1.92 EV, centre vs surround -0.75 stops, std 0.075, saturation 0.192 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload70.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.77 stops, std 0.208, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload74-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.68 EV, centre vs surround -2.07 stops, std 0.260, saturation 0.218 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload74-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.26, log-avg -1.83 EV, centre vs surround -0.79 stops, std 0.076, saturation 0.195 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload74.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.32 EV, centre vs surround +0.71 stops, std 0.209, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload75-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.73 EV, centre vs surround -2.08 stops, std 0.260, saturation 0.216 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload75-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.26, log-avg -1.83 EV, centre vs surround -0.80 stops, std 0.077, saturation 0.196 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload75.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.32 EV, centre vs surround +0.70 stops, std 0.210, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload79-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.38, log-avg -1.11 EV, centre vs surround -1.80 stops, std 0.243, saturation 0.203 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload79-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.25, log-avg -1.91 EV, centre vs surround -0.68 stops, std 0.081, saturation 0.199 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload79.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.37 EV, centre vs surround +0.72 stops, std 0.212, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload87-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.30, log-avg -1.76 EV, centre vs surround -1.59 stops, std 0.192, saturation 0.191 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload87-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.27, log-avg -1.79 EV, centre vs surround -0.44 stops, std 0.097, saturation 0.213 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.41 EV, centre vs surround +0.64 stops, std 0.212, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-reload96.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.39 EV, centre vs surround +0.77 stops, std 0.214, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.09 EV, centre vs surround +0.27 stops, std 0.233, saturation 0.241 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/Blue-Pistol-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.01 EV, centre vs surround -0.09 stops, std 0.234, saturation 0.244 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0000.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0001.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0002.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0003.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0004.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0005.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0006.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0007.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0008.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0009.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0010.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0011.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0012.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0013.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0014.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0015.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0016.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0017.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0018.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0019.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0020.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0021.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0022.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0023.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0024.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0025.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0026.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0027.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0028.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0029.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0030.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.48, log-avg -0.14 EV, centre vs surround +0.89 stops, std 0.208, saturation 0.265 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0031.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.49, log-avg -0.07 EV, centre vs surround +0.89 stops, std 0.210, saturation 0.263 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0032.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.50, log-avg -0.04 EV, centre vs surround +0.89 stops, std 0.214, saturation 0.259 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0033.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.50, log-avg -0.03 EV, centre vs surround +0.88 stops, std 0.217, saturation 0.258 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0034.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.50, log-avg -0.02 EV, centre vs surround +0.87 stops, std 0.219, saturation 0.257 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0035.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.50, log-avg -0.01 EV, centre vs surround +0.86 stops, std 0.221, saturation 0.256 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0036.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.01 EV, centre vs surround +0.85 stops, std 0.221, saturation 0.256 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0037.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.00 EV, centre vs surround +0.85 stops, std 0.222, saturation 0.256 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0038.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.85 stops, std 0.222, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0039.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.85 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0040.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0041.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0042.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0043.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0044.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0045.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0046.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0047.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0048.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0049.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0050.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0051.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0052.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0053.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0054.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0055.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0056.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0057.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0058.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0059.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0060.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.49, log-avg -0.05 EV, centre vs surround +0.89 stops, std 0.213, saturation 0.260 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0061.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.48, log-avg -0.10 EV, centre vs surround +0.89 stops, std 0.209, saturation 0.264 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0062.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.48, log-avg -0.15 EV, centre vs surround +0.89 stops, std 0.207, saturation 0.266 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0063.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.18 EV, centre vs surround +0.90 stops, std 0.207, saturation 0.267 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0064.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.20 EV, centre vs surround +0.90 stops, std 0.206, saturation 0.267 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0065.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.22 EV, centre vs surround +0.90 stops, std 0.206, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0066.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.23 EV, centre vs surround +0.90 stops, std 0.206, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0067.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.23 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0068.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0069.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0070.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0071.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0072.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0073.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0074.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0075.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0076.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.89 stops, std 0.204, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0077.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0078.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.85 stops, std 0.205, saturation 0.272 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0079.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.81 stops, std 0.206, saturation 0.273 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0080.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.80 stops, std 0.206, saturation 0.275 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0081.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.79 stops, std 0.207, saturation 0.277 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0082.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.80 stops, std 0.207, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0083.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.28 EV, centre vs surround +0.83 stops, std 0.208, saturation 0.279 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0084.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.84 stops, std 0.207, saturation 0.279 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0085.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.85 stops, std 0.207, saturation 0.279 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0086.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.26 EV, centre vs surround +0.85 stops, std 0.207, saturation 0.279 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0087.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.26 EV, centre vs surround +0.85 stops, std 0.207, saturation 0.279 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0088.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0089.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0090.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0091.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.85 stops, std 0.205, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0092.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.85 stops, std 0.205, saturation 0.277 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0093.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.276 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0094.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.28 EV, centre vs surround +0.85 stops, std 0.209, saturation 0.274 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0095.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.33 EV, centre vs surround +0.85 stops, std 0.213, saturation 0.273 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0096.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.34 EV, centre vs surround +0.85 stops, std 0.214, saturation 0.272 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0097.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.34 EV, centre vs surround +0.85 stops, std 0.214, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0098.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.34 EV, centre vs surround +0.85 stops, std 0.214, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0099.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.33 EV, centre vs surround +0.83 stops, std 0.212, saturation 0.267 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0100.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.82 stops, std 0.210, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0101.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.81 stops, std 0.209, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0102.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.79 stops, std 0.208, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0103.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.76 stops, std 0.209, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0104.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.74 stops, std 0.209, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0105.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.32 EV, centre vs surround +0.74 stops, std 0.210, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0106.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.33 EV, centre vs surround +0.76 stops, std 0.210, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0107.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.36 EV, centre vs surround +0.75 stops, std 0.212, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0108.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.37 EV, centre vs surround +0.73 stops, std 0.212, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0109.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.36 EV, centre vs surround +0.71 stops, std 0.211, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0110.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.38 EV, centre vs surround +0.67 stops, std 0.211, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0111.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.41 EV, centre vs surround +0.62 stops, std 0.212, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0112.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.43 EV, centre vs surround +0.59 stops, std 0.212, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0113.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.37 EV, centre vs surround +0.76 stops, std 0.213, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0114.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.86 stops, std 0.207, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0115.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.88 stops, std 0.206, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0116.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0117.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.89 stops, std 0.204, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0118.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.89 stops, std 0.204, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0119.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.204, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0120.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0121.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0122.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0123.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0124.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0125.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0126.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0127.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0128.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0129.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0130.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0131.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0132.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0133.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0134.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0135.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0136.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0137.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0138.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.90 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0139.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0140.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0141.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0142.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-pistol/motion-Pistol/0143.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.08 EV, centre vs surround +0.74 stops, std 0.213, saturation 0.236 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.07 EV, centre vs surround +0.22 stops, std 0.234, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.28 EV, centre vs surround +0.91 stops, std 0.207, saturation 0.261 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.47 stops, std 0.228, saturation 0.174 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.78 stops, std 0.207, saturation 0.259 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.22 EV, centre vs surround +0.87 stops, std 0.205, saturation 0.265 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.08 EV, centre vs surround +0.27 stops, std 0.234, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-BattleRifle-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.00 EV, centre vs surround -0.10 stops, std 0.235, saturation 0.243 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.05 EV, centre vs surround +0.80 stops, std 0.217, saturation 0.247 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.05 EV, centre vs surround +0.20 stops, std 0.236, saturation 0.240 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-hip-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.26, log-avg -1.86 EV, centre vs surround -0.84 stops, std 0.089, saturation 0.158 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.91 stops, std 0.209, saturation 0.266 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.47 stops, std 0.228, saturation 0.174 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.47 EV, centre vs surround +0.87 stops, std 0.222, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.50 EV, centre vs surround +0.73 stops, std 0.220, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.06 EV, centre vs surround +0.26 stops, std 0.235, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Carbine-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.02 EV, centre vs surround -0.13 stops, std 0.236, saturation 0.243 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.08 EV, centre vs surround +0.80 stops, std 0.215, saturation 0.238 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.04 EV, centre vs surround +0.22 stops, std 0.237, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.90 stops, std 0.210, saturation 0.260 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.49 stops, std 0.228, saturation 0.174 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.33 EV, centre vs surround +0.66 stops, std 0.208, saturation 0.260 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.23 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.262 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.05 EV, centre vs surround +0.27 stops, std 0.236, saturation 0.238 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Lmg-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.04 EV, centre vs surround -0.15 stops, std 0.237, saturation 0.242 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.06 EV, centre vs surround +0.21 stops, std 0.234, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.91 stops, std 0.209, saturation 0.262 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.47 stops, std 0.228, saturation 0.173 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.32 EV, centre vs surround +0.62 stops, std 0.205, saturation 0.254 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.85 stops, std 0.206, saturation 0.264 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.07 EV, centre vs surround +0.26 stops, std 0.234, saturation 0.238 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Marksman-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.02 EV, centre vs surround -0.16 stops, std 0.235, saturation 0.243 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.01 EV, centre vs surround +0.84 stops, std 0.223, saturation 0.255 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.08 EV, centre vs surround +0.22 stops, std 0.233, saturation 0.241 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-hip-close.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.27, log-avg -1.74 EV, centre vs surround -1.06 stops, std 0.097, saturation 0.229 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-hip-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.28, log-avg -1.63 EV, centre vs surround -1.17 stops, std 0.097, saturation 0.167 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-hip-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.36, log-avg -1.17 EV, centre vs surround -1.66 stops, std 0.223, saturation 0.218 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.24 EV, centre vs surround +0.89 stops, std 0.205, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.48 stops, std 0.228, saturation 0.174 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.85 stops, std 0.205, saturation 0.278 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.41 EV, centre vs surround +0.64 stops, std 0.212, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.09 EV, centre vs surround +0.28 stops, std 0.233, saturation 0.240 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Pistol-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.01 EV, centre vs surround -0.07 stops, std 0.234, saturation 0.244 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.06 EV, centre vs surround +0.77 stops, std 0.216, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.07 EV, centre vs surround +0.22 stops, std 0.233, saturation 0.241 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.91 stops, std 0.209, saturation 0.261 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.46 stops, std 0.228, saturation 0.174 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.82 stops, std 0.208, saturation 0.265 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.24 EV, centre vs surround +0.87 stops, std 0.206, saturation 0.264 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.09 EV, centre vs surround +0.27 stops, std 0.233, saturation 0.240 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Smg-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.00 EV, centre vs surround -0.09 stops, std 0.234, saturation 0.244 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.06 EV, centre vs surround +0.23 stops, std 0.235, saturation 0.239 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.90 stops, std 0.209, saturation 0.261 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.50 EV, centre vs surround -1.47 stops, std 0.228, saturation 0.173 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.38 EV, centre vs surround +0.57 stops, std 0.210, saturation 0.260 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.29 EV, centre vs surround +0.85 stops, std 0.210, saturation 0.262 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.07 EV, centre vs surround +0.28 stops, std 0.235, saturation 0.238 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Blue-Sniper-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.02 EV, centre vs surround -0.17 stops, std 0.236, saturation 0.242 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.11 EV, centre vs surround +0.74 stops, std 0.210, saturation 0.238 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.09 EV, centre vs surround +0.22 stops, std 0.232, saturation 0.231 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.26 EV, centre vs surround +0.90 stops, std 0.206, saturation 0.262 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.45 stops, std 0.228, saturation 0.172 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.77 stops, std 0.205, saturation 0.259 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.20 EV, centre vs surround +0.86 stops, std 0.203, saturation 0.271 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.10 EV, centre vs surround +0.27 stops, std 0.232, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-BattleRifle-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.03 EV, centre vs surround -0.10 stops, std 0.233, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.05 EV, centre vs surround +0.80 stops, std 0.217, saturation 0.253 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.07 EV, centre vs surround +0.21 stops, std 0.234, saturation 0.231 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-hip-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.26, log-avg -1.86 EV, centre vs surround -0.84 stops, std 0.089, saturation 0.163 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.91 stops, std 0.209, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.45 stops, std 0.228, saturation 0.171 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.47 EV, centre vs surround +0.87 stops, std 0.222, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.51 EV, centre vs surround +0.72 stops, std 0.221, saturation 0.275 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.08 EV, centre vs surround +0.26 stops, std 0.234, saturation 0.231 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Carbine-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.01 EV, centre vs surround -0.12 stops, std 0.234, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.09 EV, centre vs surround +0.80 stops, std 0.213, saturation 0.240 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.06 EV, centre vs surround +0.22 stops, std 0.235, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.28 EV, centre vs surround +0.90 stops, std 0.208, saturation 0.261 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.47 stops, std 0.228, saturation 0.172 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.31 EV, centre vs surround +0.65 stops, std 0.207, saturation 0.260 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.21 EV, centre vs surround +0.84 stops, std 0.204, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.07 EV, centre vs surround +0.28 stops, std 0.235, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Lmg-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg -0.01 EV, centre vs surround -0.14 stops, std 0.235, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.08 EV, centre vs surround +0.21 stops, std 0.233, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.28 EV, centre vs surround +0.90 stops, std 0.207, saturation 0.262 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.45 stops, std 0.228, saturation 0.171 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.30 EV, centre vs surround +0.61 stops, std 0.204, saturation 0.256 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.23 EV, centre vs surround +0.84 stops, std 0.205, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.10 EV, centre vs surround +0.26 stops, std 0.233, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Marksman-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.01 EV, centre vs surround -0.15 stops, std 0.233, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.07 EV, centre vs surround +0.82 stops, std 0.218, saturation 0.264 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.10 EV, centre vs surround +0.22 stops, std 0.231, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-hip-close.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.27, log-avg -1.69 EV, centre vs surround -0.71 stops, std 0.087, saturation 0.226 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-hip-contact.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.29, log-avg -1.56 EV, centre vs surround -0.94 stops, std 0.095, saturation 0.162 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-hip-support.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.37, log-avg -1.04 EV, centre vs surround -1.40 stops, std 0.218, saturation 0.199 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.23 EV, centre vs surround +0.89 stops, std 0.204, saturation 0.269 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.46 stops, std 0.228, saturation 0.172 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.20 EV, centre vs surround +0.84 stops, std 0.203, saturation 0.282 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.33 EV, centre vs surround +0.66 stops, std 0.208, saturation 0.273 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.11 EV, centre vs surround +0.27 stops, std 0.231, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Pistol-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.04 EV, centre vs surround -0.06 stops, std 0.232, saturation 0.233 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-ads.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.08 EV, centre vs surround +0.77 stops, std 0.215, saturation 0.243 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.10 EV, centre vs surround +0.22 stops, std 0.232, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.90 stops, std 0.207, saturation 0.262 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.44, log-avg -0.48 EV, centre vs surround -1.43 stops, std 0.227, saturation 0.172 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.25 EV, centre vs surround +0.82 stops, std 0.206, saturation 0.267 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.47, log-avg -0.22 EV, centre vs surround +0.86 stops, std 0.205, saturation 0.270 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.11 EV, centre vs surround +0.27 stops, std 0.231, saturation 0.231 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Smg-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.52, log-avg +0.03 EV, centre vs surround -0.08 stops, std 0.232, saturation 0.233 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-crouch.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.08 EV, centre vs surround +0.23 stops, std 0.234, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-hip.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.28 EV, centre vs surround +0.90 stops, std 0.208, saturation 0.261 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-prone.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.43, log-avg -0.49 EV, centre vs surround -1.44 stops, std 0.228, saturation 0.171 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-reload40.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.45, log-avg -0.36 EV, centre vs surround +0.57 stops, std 0.208, saturation 0.261 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-reload87.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.46, log-avg -0.27 EV, centre vs surround +0.84 stops, std 0.209, saturation 0.268 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-slide.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.53, log-avg +0.09 EV, centre vs surround +0.28 stops, std 0.234, saturation 0.230 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    },
+    {
+      "path": "checks/pistol-rig/Red-Sniper-stand.png",
+      "flags": null,
+      "verdict": [
+        "info: mean luma 0.51, log-avg +0.00 EV, centre vs surround -0.16 stops, std 0.234, saturation 0.232 (compare with the previous iteration: a sudden drop means lost materials or colour)"
+      ]
+    }
+  ]
+}

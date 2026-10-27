@@ -1,0 +1,230 @@
+{
+  "version": "0.66.12",
+  "baselineCommit": "aad51351e0cc113d1cfac29c8369f8112d5dd6bd",
+  "build": "build05",
+  "developmentPlayer": true,
+  "unity": "6000.5.10f1",
+  "buildBytes": 819558160,
+  "probes": [
+    {
+      "probe": "pistol",
+      "checks": 70,
+      "runtimeErrors": 0,
+      "exitCode": 0
+    },
+    {
+      "probe": "rig",
+      "checks": 223,
+      "runtimeErrors": 0,
+      "exitCode": 0
+    }
+  ],
+  "imageCount": 297,
+  "imageErrors": 0,
+  "anatomy": {
+    "sampleCount": 158,
+    "maxLeftWristDegrees": 38.0138,
+    "minThumbSurfaceRadialDot": 0.2427,
+    "keyPoses": [
+      {
+        "team": "Blue",
+        "pose": "hip",
+        "left_wrist_degrees": "11.6754",
+        "thumb_radial_dot": "0.2862"
+      },
+      {
+        "team": "Blue",
+        "pose": "ads",
+        "left_wrist_degrees": "11.1679",
+        "thumb_radial_dot": "0.2862"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload10",
+        "left_wrist_degrees": "19.1068",
+        "thumb_radial_dot": "0.4177"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload24",
+        "left_wrist_degrees": "38.0138",
+        "thumb_radial_dot": "0.2455"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload34",
+        "left_wrist_degrees": "37.9964",
+        "thumb_radial_dot": "0.2474"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload40",
+        "left_wrist_degrees": "37.9972",
+        "thumb_radial_dot": "0.2464"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload55",
+        "left_wrist_degrees": "37.9951",
+        "thumb_radial_dot": "0.2428"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload66",
+        "left_wrist_degrees": "37.9971",
+        "thumb_radial_dot": "0.2434"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload70",
+        "left_wrist_degrees": "37.9912",
+        "thumb_radial_dot": "0.2431"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload74",
+        "left_wrist_degrees": "38.0056",
+        "thumb_radial_dot": "0.2431"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload75",
+        "left_wrist_degrees": "38.0026",
+        "thumb_radial_dot": "0.2435"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload79",
+        "left_wrist_degrees": "38.0012",
+        "thumb_radial_dot": "0.2472"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload87",
+        "left_wrist_degrees": "37.9979",
+        "thumb_radial_dot": "0.4819"
+      },
+      {
+        "team": "Blue",
+        "pose": "reload96",
+        "left_wrist_degrees": "19.1550",
+        "thumb_radial_dot": "0.4063"
+      }
+    ],
+    "baseline": "baseline-anatomy.json",
+    "surfaceGeometry": "thumb-surface-summary.json"
+  },
+  "preservation": [
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs",
+      "baselineSha256": "ee63e6ee841dea7521e841afbc41680632273e025dca24df086b72d05544165c",
+      "currentSha256": "aca1b00df7b079aa4b7f3b2fde377c00355476cf18ed6722ec9261fd64743f05",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs",
+      "baselineSha256": "1e87b7265768947771f42f1061fe25e014534e91e0102900f0a0b76551ce888f",
+      "currentSha256": "9381a32a697e0d2db46bc12b9f93e95e44fe5cb5fdf695bb0f28f6dbae57b324",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeRigAuditProbe.cs",
+      "baselineSha256": "c5b32958357b2ebda615708ddad6d050ba28904de8b9b3404b8466425f3f5e1d",
+      "currentSha256": "7ff10cea25032f4ca6879c2a531bc89d694be901144f7f87ecfd0e838f5fdf29",
+      "unchanged": false
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypePlayer.cs",
+      "baselineSha256": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+      "currentSha256": "00c8cb932696f3c1bb32199e28c0fea34c3d1c509eb4c94f1dd3be36b3deb47c",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs",
+      "baselineSha256": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+      "currentSha256": "9e61ec3fa938ab617845b3b35c4c30f5300e7c21f27f3c6408f77c8858c53049",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json",
+      "baselineSha256": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019",
+      "currentSha256": "f449c8327c6a79ad37c618672402c7fcdc27b19467f0275c8166aa7655773019",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab",
+      "baselineSha256": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+      "currentSha256": "630da0ba10c16ecf11066f63859e8314ae6ea8af17b6910eeca82c21800f9396",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab.meta",
+      "baselineSha256": "36a9dec7c7e8b0e91c4435ea295423c7a298b3dea79fed3100a2c6344d5106e8",
+      "currentSha256": "36a9dec7c7e8b0e91c4435ea295423c7a298b3dea79fed3100a2c6344d5106e8",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate.meta",
+      "baselineSha256": "14284c092cee5b951f564f72ae030d1e859c8b53daf62f6ce6250611007bf0e3",
+      "currentSha256": "14284c092cee5b951f564f72ae030d1e859c8b53daf62f6ce6250611007bf0e3",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/BlueSoldier.prefab",
+      "baselineSha256": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+      "currentSha256": "cf02a08e1c142a53d13f534b23ec8e49e7ac80acda592ff5cf432fafed1bcdf7",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/RedSoldier.prefab.meta",
+      "baselineSha256": "c5417482e42e615999b64fc0f95d985da418109dc10b93b133da4fabbe2f0b8b",
+      "currentSha256": "c5417482e42e615999b64fc0f95d985da418109dc10b93b133da4fabbe2f0b8b",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab",
+      "baselineSha256": "cd08cd344855dcddacadeefb3fd6a9198a9d806181f121d2fd37d966e3d2cb81",
+      "currentSha256": "cd08cd344855dcddacadeefb3fd6a9198a9d806181f121d2fd37d966e3d2cb81",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab.meta",
+      "baselineSha256": "51470c00396ef37c81e891aae88de530c6426bba38cc23e67ba9e50f088dc32a",
+      "currentSha256": "51470c00396ef37c81e891aae88de530c6426bba38cc23e67ba9e50f088dc32a",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/BlueSoldier.prefab",
+      "baselineSha256": "0af08008260f76c1314d2112fe0a0abbaf2760b4de05c2357195ae4814245f61",
+      "currentSha256": "0af08008260f76c1314d2112fe0a0abbaf2760b4de05c2357195ae4814245f61",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/Assets/Resources/Soldiers/HandCandidate/RedSoldier.prefab.meta",
+      "baselineSha256": "d18331f831389954ae6894667d2a6af309cd7a420b648d0d03272ce66d30ff0a",
+      "currentSha256": "d18331f831389954ae6894667d2a6af309cd7a420b648d0d03272ce66d30ff0a",
+      "unchanged": true
+    },
+    {
+      "path": "UnityProject/ProjectSettings/ProjectSettings.asset",
+      "baselineSha256": "0e18647db6d4db03f79c55e54ac807e722731e5952ddfbf48b8c66e67b428f1d",
+      "currentSha256": "1538ee06038b8f5fdf2550ed770c2cf4d1986c468111f824b161c5baac0e1897",
+      "unchanged": false
+    }
+  ],
+  "visualReview": [
+    "Blue-Pistol-hip-close.png",
+    "Blue-Pistol-reload66-contact.png",
+    "Blue-Pistol-reload74.png",
+    "Blue-Pistol-reload87-contact.png",
+    "review/P8-wrist-before-after.jpg",
+    "review/P8-thumb-before-after.jpg",
+    "review/P8-final-sequence.jpg"
+  ],
+  "limitations": [
+    "Original low-poly shared-four-finger mesh and single thumb are retained.",
+    "No exhaustive triangle intersection check.",
+    "Reverse diagnostic viewpoints can reveal the existing shoulder cut surface."
+  ],
+  "superseded": "build01-04 and checks-build01-04 are rejected calibration iterations, not final evidence."
+}

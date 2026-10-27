@@ -45,17 +45,40 @@ namespace Ironfront.UnityPrototype
         private Quaternion[] sourceFingerRest, sourceFingerBaseline;
         public bool UsesLegacySourceHands { get; private set; }
         private Vector3[] legacySourceFingerDirections;
+        private Quaternion legacyLeftForearmInHand;
+        private Vector3 legacyLeftForearmDistal;
+        private Vector3 legacyLeftThumbSkinAxis=Vector3.up;
+        public Vector3 LeftThumbSurfaceDirection => Thumbs[0].TransformDirection(legacyLeftThumbSkinAxis);
         [NonSerialized] public Vector3 SourceLeftThumb, SourceRightThumb;
         // Measured across the actual four-finger row in the unchanged v03 mesh.
         // Local X is almost perpendicular to that row and twisted all four digits.
         static readonly Vector3[] LegacyFingerAxes = {
-            new Vector3(-.096511f,-.027319f,.994957f).normalized,
+            new Vector3(.096511f,.027319f,-.994957f).normalized,
             new Vector3(-.109828f,.032130f,-.993431f).normalized
         };
         private void ConfigureLegacySourceHands()
         {
             if (Fingers == null || Fingers.Length != 2 || Thumbs == null || Thumbs.Length != 2) return;
             UsesLegacySourceHands = true;
+            var hand=Bindings[7].Bone;var forearm=Bindings[5].Bone;
+            legacyLeftForearmInHand=Quaternion.Inverse(hand.rotation)*forearm.rotation;
+            legacyLeftForearmDistal=forearm.InverseTransformDirection(hand.position-forearm.position).normalized;
+            // This old thumb bone does not run along the visible thumb. Measure
+            // the fully weighted tip region in bind space once per arm instance.
+            Vector3 thumbTip=Vector3.zero;int count=0;
+            for(int arm=0;arm<Mathf.Min(2,Arms.Length);arm++)
+            {
+                var mesh=Arms[arm].sharedMesh;int bone=Array.IndexOf(Arms[arm].bones,Thumbs[0]);
+                if(bone<0)continue;
+                var vertices=mesh.vertices;var weights=mesh.boneWeights;var bind=mesh.bindposes[bone];
+                for(int i=0;i<weights.Length;i++)
+                {
+                    var w=weights[i];float t=(w.boneIndex0==bone?w.weight0:0)+(w.boneIndex1==bone?w.weight1:0)+
+                        (w.boneIndex2==bone?w.weight2:0)+(w.boneIndex3==bone?w.weight3:0);
+                    if(t>.999f){thumbTip+=bind.MultiplyPoint3x4(vertices[i]);count++;}
+                }
+            }
+            if(count>0 && thumbTip.sqrMagnitude>.0001f)legacyLeftThumbSkinAxis=thumbTip.normalized;
             // Preserve its original binding offsets; the weapon retargets
             // authored wrist motion relative to this model's calibrated hold.
         }
@@ -115,7 +138,8 @@ namespace Ironfront.UnityPrototype
                 Vector3 thumbDirection=side==0?SourceLeftThumb:SourceRightThumb;
                 if(thumbDirection.sqrMagnitude>.0001f)
                 {
-                    Quaternion target=Quaternion.FromToRotation(Thumbs[side].up,thumbDirection)*Thumbs[side].rotation;
+                    Vector3 visibleAxis=side==0?LeftThumbSurfaceDirection:Thumbs[side].up;
+                    Quaternion target=Quaternion.FromToRotation(visibleAxis,thumbDirection)*Thumbs[side].rotation;
                     Thumbs[side].rotation=Quaternion.Slerp(Thumbs[side].rotation,target,weight);
                 }
             }
@@ -302,6 +326,23 @@ namespace Ironfront.UnityPrototype
             Vector3 pole = Vector3.ProjectOnPlane(poleDirection, direction).normalized;
             float along = (upper * upper + distance * distance - lower * lower) / (2 * distance);
             Vector3 elbow = origin + direction * along + pole * Mathf.Sqrt(Mathf.Max(0, upper * upper - along * along));
+            if(left && UsesLegacySourceHands && gripRotation.HasValue)
+            {
+                // Keep the support palm and forearm nearly in line. The full-body
+                // source elbow is not a valid pole after moving the wrist onto P8.
+                Vector3 distal=(gripRotation.Value*Bindings[7].RotationOffset*Fingers[0].localPosition).normalized;
+                float wristLimit=Mathf.Lerp(18f,38f,MagazinePoseBlend);
+                Vector3 approach=Vector3.RotateTowards(distal,(target-elbow).normalized,wristLimit*Mathf.Deg2Rad,0f);
+                elbow=target-approach*lower;
+                // Shoulder seam is off-camera; preserve both arm segment lengths.
+                Vector3 shoulderDirection=(origin-elbow).normalized;
+                if(viewCamera!=null)
+                {
+                    Vector3 down=transform.InverseTransformDirection(viewCamera.TransformDirection(new Vector3(-.15f,-1f,-.15f)));
+                    shoulderDirection=Vector3.Slerp(shoulderDirection,down.normalized,MagazinePoseBlend);
+                }
+                origin=elbow+shoulderDirection*upper;
+            }
             Quaternion upperArm = Quaternion.FromToRotation(Vector3.down, elbow - origin);
             Quaternion forearm = Quaternion.FromToRotation(Vector3.down, target - elbow);
             if (gripRotation.HasValue)
@@ -315,6 +356,13 @@ namespace Ironfront.UnityPrototype
                 Vector3 upperForward = Vector3.ProjectOnPlane(handForward, elbow-origin);
                 if (upperForward.sqrMagnitude > .0001f)
                     upperArm = Quaternion.LookRotation(upperForward.normalized, (origin-elbow).normalized);
+            }
+            if(left && UsesLegacySourceHands && gripRotation.HasValue)
+            {
+                // Preserve the mesh's neutral wrist roll as well as its bend.
+                Quaternion boneRotation=gripRotation.Value*Bindings[7].RotationOffset*legacyLeftForearmInHand;
+                boneRotation=Quaternion.FromToRotation(boneRotation*legacyLeftForearmDistal,target-elbow)*boneRotation;
+                forearm=boneRotation*Quaternion.Inverse(Bindings[5].RotationOffset);
             }
             SetArmBone(left ? 3 : 4, origin, upperArm);
             SetArmBone(left ? 5 : 6, elbow, forearm);

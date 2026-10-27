@@ -15,6 +15,7 @@ namespace Ironfront.UnityPrototype
         const BindingFlags Hidden=BindingFlags.Instance|BindingFlags.NonPublic;
         string output; int errors, failures; Camera camera;
         readonly List<string> checks=new List<string>();
+        readonly List<string> supportAnatomy=new List<string>{"team,pose,left_wrist_degrees,thumb_radial_dot"};
         readonly List<string> samples=new List<string>{"team,weapon,pose,arm,upper_error,forearm_error,max_skin_edge_ratio,p95_skin_edge_ratio"};
         [Serializable] class Sweep { public Fit[] fits; }
         [Serializable] class Fit { public string name; public Vector3 rightOffset,rightAngles,leftOffset,leftAngles,fingerAngles; public bool isolateRight, isolateLeft, currentRight, currentLeft, reloading, supportRotationOverride, sourceThumbs; public float phase; public Vector3 supportDelta,supportAngles; public Vector3[] joints, legacyFingers; }
@@ -27,7 +28,7 @@ namespace Ironfront.UnityPrototype
             while(true){bool more=false;object current=null;try{more=work.MoveNext();if(more)current=work.Current;}catch(Exception e){failure=e;}if(!more||failure!=null)break;yield return current;}
             bool pass=failure==null&&errors==0&&failures==0;
             File.WriteAllText(Path.Combine(output,"results.txt"),(pass?"PASS":"FAIL")+"\nVersion="+Application.version+"\nRuntimeErrors="+errors+"\n"+string.Join("\n",checks)+(failure==null?"":"\n"+failure));
-            File.WriteAllLines(Path.Combine(output,"skin-metrics.csv"),samples);Application.logMessageReceived-=Observe;Application.Quit(pass?0:1);
+            File.WriteAllLines(Path.Combine(output,"skin-metrics.csv"),samples);File.WriteAllLines(Path.Combine(output,"support-anatomy.csv"),supportAnatomy);Application.logMessageReceived-=Observe;Application.Quit(pass?0:1);
         }
         IEnumerator Verify()
         {
@@ -178,12 +179,14 @@ namespace Ironfront.UnityPrototype
                             Set(player,"aiming",aim);Set(player.ActiveKit,"reloadEndsAt",phase<0?0f:Time.time+(1-phase)*player.ActiveWeapon.ReloadSeconds);
                             Invoke(player,"UpdateInfantryPresentation");soldier.RefreshPose(true);yield return null;
                             Capture("motion-"+id+"/"+f.ToString("D4"));
+                            if(id==PrototypeWeaponId.Pistol)RecordSupportAnatomy(team,"frame"+f,art,false);
                         }
                         Set(player,"aiming",false);Set(player.ActiveKit,"reloadEndsAt",0f);
                         for(int f=0;f<35;f++){Invoke(player,"UpdateInfantryPresentation");yield return null;}
                     }
                     string name=team+"-"+id+"-"+pose;
                     if(!fp.ScopeViewActive){AuditSkin(team,id,pose,art);Capture(name);}
+                    if(id==PrototypeWeaponId.Pistol)RecordSupportAnatomy(team,pose,art,true);
                     if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&(pose=="hip" || motion && (pose=="reload24" || pose=="reload34" || pose=="reload66" || pose=="reload70" || pose=="reload74" || pose=="reload75" || pose=="reload79" || pose=="reload87")))
                     {
                         ExportObj(name,fp,art);ExportStudy(name,fp,art);
@@ -200,6 +203,13 @@ namespace Ironfront.UnityPrototype
                         var observer=new GameObject("Grip detail camera").AddComponent<Camera>();observer.CopyFrom(camera);
                         Vector3 aim=pose=="hip" ? fp.RightGrip.position : fp.SupportPosition;observer.transform.position=aim+fp.transform.TransformDirection(new Vector3(.5f,.25f,.45f));observer.transform.LookAt(aim);observer.fieldOfView=34;
                         camera=observer;Capture(name+"-contact");camera=player.ViewCamera;
+                        if(id==PrototypeWeaponId.Pistol)
+                        {
+                            Vector3 focus=Vector3.Lerp(art.Bindings[5].Bone.position,art.Fingers[0].position,.65f);
+                            observer.transform.position=focus+fp.transform.TransformDirection(new Vector3(-.5f,.20f,-.5f));
+                            observer.transform.LookAt(focus);observer.fieldOfView=36;
+                            camera=observer;Capture(name+"-support");camera=player.ViewCamera;
+                        }
                         if(calibration)
                         {
                             Quaternion rr=fp.RightGrip.localRotation,lr=fp.LeftHandRotation;
@@ -245,6 +255,21 @@ namespace Ironfront.UnityPrototype
                     player.Slide.Reset();
                 }
                 Set(player,"crouched",false);Set(player,"prone",false);
+            }
+        }
+        void RecordSupportAnatomy(PrototypeTeam team,string pose,PrototypeSoldierArtRig art,bool assertPose)
+        {
+            Vector3 forearm=art.Bindings[7].Bone.position-art.Bindings[5].Bone.position;
+            Vector3 palm=art.Fingers[0].position-art.Bindings[7].Bone.position;
+            float angle=Vector3.Angle(forearm,palm);
+            Vector3 radial=art.Fingers[0].rotation*new Vector3(.096511f,.027319f,-.994957f).normalized;
+            float thumb=Vector3.Dot(art.LeftThumbSurfaceDirection,radial);
+            supportAnatomy.Add($"{team},{pose},{angle:F4},{thumb:F4}");
+            if(assertPose)
+            {
+                Check(angle<=Mathf.Lerp(18f,38f,art.MagazinePoseBlend)+.1f,team+" Pistol "+pose+" left wrist follows forearm: "+angle.ToString("F2")+" degrees");
+                if(pose=="hip" || pose=="reload66" || pose=="reload74" || pose=="reload87")
+                    Check(thumb>0f,team+" Pistol "+pose+" thumb stays on index side of palm");
             }
         }
         void AuditSkin(PrototypeTeam team,PrototypeWeaponId id,string pose,PrototypeSoldierArtRig art)

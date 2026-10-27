@@ -1,0 +1,47 @@
+[
+  {
+    "pose": "Blue-Pistol-hip-study.json",
+    "leftWristDegrees": 50.298509166374984,
+    "thumbRadialDot": -0.06316927432993458
+  },
+  {
+    "pose": "Blue-Pistol-reload24-study.json",
+    "leftWristDegrees": 61.15096141175941,
+    "thumbRadialDot": -0.6978000962200112
+  },
+  {
+    "pose": "Blue-Pistol-reload34-study.json",
+    "leftWristDegrees": 59.23937535808424,
+    "thumbRadialDot": -0.7342273813181082
+  },
+  {
+    "pose": "Blue-Pistol-reload66-study.json",
+    "leftWristDegrees": 56.473761209155725,
+    "thumbRadialDot": -0.6445199846177937
+  },
+  {
+    "pose": "Blue-Pistol-reload70-study.json",
+    "leftWristDegrees": 59.937725308314434,
+    "thumbRadialDot": -0.7453161693399252
+  },
+  {
+    "pose": "Blue-Pistol-reload74-study.json",
+    "leftWristDegrees": 61.20789980306887,
+    "thumbRadialDot": -0.8469662852780581
+  },
+  {
+    "pose": "Blue-Pistol-reload75-study.json",
+    "leftWristDegrees": 61.17014051179334,
+    "thumbRadialDot": -0.8443753101298193
+  },
+  {
+    "pose": "Blue-Pistol-reload79-study.json",
+    "leftWristDegrees": 56.81871300643979,
+    "thumbRadialDot": -0.7699618083418207
+  },
+  {
+    "pose": "Blue-Pistol-reload87-study.json",
+    "leftWristDegrees": 39.21385336986962,
+    "thumbRadialDot": -0.474957098059043
+  }
+]

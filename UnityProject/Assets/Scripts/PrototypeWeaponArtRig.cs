@@ -31,7 +31,7 @@ namespace Ironfront.UnityPrototype
         Vector3 oldMagazineOffset, newMagazineOffset;
         Vector3 pistolInsertionOffset;
         Quaternion pistolInsertionRotation;
-        Quaternion legacyLeftBasis, legacyRightBasis, legacyLeftThumbAlign, legacyRightThumbAlign;
+        Quaternion legacyLeftBasis, legacyRightBasis, legacyLeftHoldAdjustment, legacyRightThumbAlign;
         Vector3 legacyHoldOffset;
         const float PistolInsertPhase = 38f / 51f;
         readonly float[] packContactPhases = { 0f, 7f/51f, 37f/51f, 1f };
@@ -133,12 +133,17 @@ namespace Ironfront.UnityPrototype
             }
             if (pistol && handCandidate)
             {
-                // v03 palm frame measured from wrist/knuckle direction and the
-                // four-finger row. The support palm encloses the main hand.
+                // The signed row comes from the actual thumb-side surface. An
+                // unsigned finger-row PCA previously inverted the support palm.
                 RightGrip.position=transform.TransformPoint(rightContactLocal+new Vector3(.055f,-.01f,-.155f));
                 RightGrip.localRotation=Quaternion.Euler(7.354f,99.560f,-96.976f);
-                LeftGrip.position=transform.TransformPoint(rightContactLocal+new Vector3(-.055f,-.035f,-.205f));
-                LeftHandRotation=Quaternion.Euler(17.907f,-108.334f,93.246f);
+                // Turn the palm inward about its knuckles; move the wrist outward,
+                // keeping the support contact around the right hand.
+                Quaternion oldSupport=Quaternion.AngleAxis(180f,new Vector3(-.02481f,.14925f,.98849f).normalized)*Quaternion.Euler(17.907f,-108.334f,93.246f);
+                Quaternion turn=Quaternion.AngleAxis(30f,Vector3.up);
+                Vector3 knuckles=new Vector3(-.003829f,.023013f,.152421f);
+                LeftGrip.position=transform.TransformPoint(rightContactLocal+new Vector3(-.055f,-.035f,-.205f)+knuckles-turn*knuckles);
+                LeftHandRotation=turn*oldSupport;
             }
             leftHome = LeftGrip.localPosition;
             MagazineGrip.localPosition += new Vector3(-.075f, .09f, -.015f)/VisualScale;
@@ -264,14 +269,13 @@ namespace Ironfront.UnityPrototype
             if(UsesLegacySourceHands)
             {
                 PrototypeSoldierPackMotion.Sample(packMotion.Hold,0f,packMotion.View);
-                legacyLeftBasis=Quaternion.Inverse(packMotion.View.leftRotation)*LeftHandRotation;
+                Quaternion oldSupport=Quaternion.AngleAxis(180f,new Vector3(-.02481f,.14925f,.98849f).normalized)*Quaternion.Euler(17.907f,-108.334f,93.246f);
+                legacyLeftBasis=Quaternion.Inverse(packMotion.View.leftRotation)*oldSupport;
+                legacyLeftHoldAdjustment=LeftHandRotation*Quaternion.Inverse(oldSupport);
                 legacyRightBasis=Quaternion.Inverse(packMotion.View.rightRotation)*RightGrip.localRotation;
                 legacyHoldOffset=packLeftHome-(right+packMotion.View.leftHand/.65f);
-                // The pack's support thumb points almost vertically at rest.
-                // Calibrate its MCP direction to this pistol, then retain the
-                // source thumb motion in its moving hand frame during reload.
-                legacyLeftThumbAlign=Quaternion.FromToRotation(packMotion.View.fingers[12]*packMotion.FingerRestDirections[12],
-                    Quaternion.Inverse(packMotion.View.leftRotation)*new Vector3(.15f,.12f,1f).normalized);
+                // The support thumb uses all three source segments below,
+                // in the final corrected palm frame (including insertion).
                 legacyRightThumbAlign=Quaternion.FromToRotation(packMotion.View.fingers[27]*packMotion.FingerRestDirections[27],
                     Quaternion.Inverse(packMotion.View.rightRotation)*new Vector3(-.25f,.10f,1f).normalized);
             }
@@ -352,6 +356,9 @@ namespace Ironfront.UnityPrototype
                 supportLocal=Vector3.Lerp(supportLocal,seated-wrist*newMagazineOffset,align);
                 supportLocalRotation=wrist;
             }
+            float legacyHold=sourceReload?1f-Ease(phase,0f,.12f)*(1f-Ease(phase,.87f,1f)):1f;
+            if(UsesLegacySourceHands)
+                supportLocalRotation=Quaternion.Slerp(supportLocalRotation,legacyLeftHoldAdjustment*supportLocalRotation,legacyHold);
             RightGrip.localRotation=Quaternion.Slerp(rightGripHomeRotation,UsesLegacySourceHands?
                 f.rightRotation*legacyRightBasis:gripAlignment*f.rightRotation,packWeight);
             viewArms.SourcePoseWeight=packWeight;
@@ -359,7 +366,16 @@ namespace Ironfront.UnityPrototype
             viewArms.SourceRightElbow=transform.TransformPoint(right+f.rightElbow/.65f);
             if(UsesLegacySourceHands)
             {
-                viewArms.SourceLeftThumb=transform.TransformDirection(f.leftRotation*legacyLeftThumbAlign*f.fingers[12]*packMotion.FingerRestDirections[12]);
+                // A single old thumb approximates the source chain's overall direction.
+                // +Y is the index/thumb edge of the source palm, not world up.
+                Vector3 thumb=Vector3.zero;
+                for(int j=12;j<15;j++)thumb+=f.fingers[j]*packMotion.FingerRestDirections[j];
+                thumb.Normalize();
+                // One rigid thumb cannot reproduce the source IP joints folding
+                // across the palm. Keep its visible tip on the index side.
+                thumb.y=Mathf.Max(.25f,thumb.y);thumb.Normalize();
+                thumb=Vector3.Slerp(thumb,new Vector3(.10f,.30f,1f).normalized,legacyHold);
+                viewArms.SourceLeftThumb=transform.TransformDirection(supportLocalRotation*Quaternion.Inverse(legacyLeftBasis)*thumb);
                 viewArms.SourceRightThumb=transform.TransformDirection(f.rightRotation*legacyRightThumbAlign*f.fingers[27]*packMotion.FingerRestDirections[27]);
             }
             if(pistolCandidate)
