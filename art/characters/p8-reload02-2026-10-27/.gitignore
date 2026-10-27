@@ -1,0 +1,5 @@
+baseline/
+checks*/
+*.log
+# Superseded first-build probe; final evidence is pistol-summary-pistol.json.
+pistol-summary-motion.json

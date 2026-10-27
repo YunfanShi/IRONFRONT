@@ -1,0 +1,7 @@
+frames/
+video-frames/
+holds/
+source-review.json
+*.mp4
+*.gif
+*.log

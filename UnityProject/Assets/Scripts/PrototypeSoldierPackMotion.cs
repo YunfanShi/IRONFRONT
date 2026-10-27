@@ -36,7 +36,7 @@ namespace Ironfront.UnityPrototype
             }
             if (library?.clips == null) return;
             Hold = Array.Find(library.clips, c => c.key == (pistol ? "pistolHold" : "rifleHold"));
-            Reload = Array.Find(library.clips, c => c.key == "rifleReload");
+            Reload = Array.Find(library.clips, c => c.key == (pistol ? "pistolReload" : "rifleReload"));
         }
         public void Evaluate(bool reload, float phase, float elapsed)
         {

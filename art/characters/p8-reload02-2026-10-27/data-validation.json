@@ -1,0 +1,15 @@
+{
+  "sourceAction": "HumanM@Gun_Reload02",
+  "samples": 103,
+  "jointsPerFrame": 30,
+  "sourceDuration": 1.7,
+  "gameDuration": 1.3,
+  "priorClipsUnchanged": true,
+  "endpointComponentErrors": {
+    "leftHand": 0.0,
+    "leftRotation": 0.0,
+    "rightRotation": 0.0,
+    "fingers": 5.960464477539063e-08
+  },
+  "maxQuaternionNormError": 3.1172959324976546e-07
+}

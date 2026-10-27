@@ -1,0 +1,47 @@
+{
+  "version": "0.66.9",
+  "sourceAction": "HumanM@Gun_Reload02",
+  "sourceBlendSha256": "b1d45ea5f9281708d5fcac1294bc7c1989e7a3bfbc82fb97c11a7fb7dc01e64a",
+  "sourceUnchanged": true,
+  "unchangedScripts": {
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeInfantryRoles.cs": true
+  },
+  "build": "IRONFRONT optimization build PASS: 819548460 bytes; /Users/liuwenjun/Documents/ChatGPT/优化IRON FRONT/IRONFRONT/UnityProject/Builds/PistolReload02-0.66.9/IRONFRONT.app",
+  "probes": {
+    "pistol": [
+      "PASS",
+      "Version=0.66.9",
+      "RuntimeErrors=0"
+    ],
+    "rig": [
+      "PASS",
+      "Version=0.66.9",
+      "RuntimeErrors=0"
+    ]
+  },
+  "visualEvidenceReviewed": [
+    "P8-final-poses.jpg",
+    "P8-final-sequence.jpg",
+    "P8-final-contact.jpg"
+  ],
+  "video": {
+    "fps": 30,
+    "frames": 432,
+    "durationSeconds": 14.4,
+    "dimensions": [
+      960,
+      640
+    ],
+    "gameReloadSeconds": 1.3,
+    "repetitions": 3,
+    "nativeDecode": "PASS",
+    "quickTimePlayback": "started and reached 14.4 seconds; UI observation is discrete"
+  },
+  "limits": [
+    "No empty-chamber slide-rack segment in this source clip",
+    "Numerical probe is not triangle-level intersection proof",
+    "User visual acceptance not yet supplied"
+  ]
+}

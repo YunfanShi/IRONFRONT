@@ -1,0 +1,10 @@
+{
+  "action": "HumanM@Gun_Reload02",
+  "firstFrame": 1,
+  "lastFrame": 52,
+  "sourceDuration": 1.7,
+  "sampleRate": 60,
+  "samples": 103,
+  "fingerJointsPerFrame": 30,
+  "existingClipsUnchanged": true
+}

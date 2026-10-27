@@ -1,0 +1,9 @@
+{
+  "version": "0.66.9",
+  "baselineCommit": "cf69ff5",
+  "app": "UnityProject/Builds/PistolReload02-0.66.9/IRONFRONT.app",
+  "video": "art/characters/p8-reload02-2026-10-27/p8-reload02-30fps.mp4",
+  "handoff": "docs/UNITY_HANDOFF_0669.md",
+  "validation": "art/characters/p8-reload02-2026-10-27/validation.json",
+  "localOnly": true
+}

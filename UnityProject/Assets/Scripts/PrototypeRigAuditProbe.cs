@@ -38,6 +38,7 @@ namespace Ironfront.UnityPrototype
             player.GetComponent<CharacterController>().enabled=false;player.transform.SetPositionAndRotation(center,Quaternion.identity);camera=player.ViewCamera;camera.enabled=false;
             bool calibration=Environment.GetCommandLineArgs().Contains("-gripCalibration");
             bool motion=Environment.GetCommandLineArgs().Contains("-rigMotion");
+            bool pistolOnly=Environment.GetCommandLineArgs().Contains("-pistolOnly");
             string[] args=Environment.GetCommandLineArgs();int sweepArg=Array.IndexOf(args,"-gripSweep");
             Sweep sweep=sweepArg>=0?JsonUtility.FromJson<Sweep>(File.ReadAllText(args[sweepArg+1])):null;
             foreach(var team in new[]{PrototypeTeam.Blue,PrototypeTeam.Red})
@@ -45,6 +46,7 @@ namespace Ironfront.UnityPrototype
             {
                 if(calibration&&(team!=PrototypeTeam.Blue||id!=PrototypeWeaponId.Pistol))continue;
                 if(motion&&(team!=PrototypeTeam.Blue||(id!=PrototypeWeaponId.Pistol&&id!=PrototypeWeaponId.Carbine)))continue;
+                if(pistolOnly && id!=PrototypeWeaponId.Pistol)continue;
                 if(sweep!=null&&(team!=PrototypeTeam.Blue||id!=PrototypeWeaponId.Pistol))continue;
                 player.SetTeam(team);
                 player.GetComponent<CharacterController>().enabled=false;player.transform.SetPositionAndRotation(center,Quaternion.identity);
@@ -65,10 +67,25 @@ namespace Ironfront.UnityPrototype
                     Check(fp.UsesSoldierPack,team+" "+id+" authored soldier pack loaded");
                     fp.SetPresentation(false,0f,100f);
                     Check(fp.SourceAction.Contains(id==PrototypeWeaponId.Pistol?"Gun_Aim02":"AssaultRifle_Aim01"),team+" "+id+" actual hold source="+fp.SourceAction);
-                    if(id==PrototypeWeaponId.Carbine)
+                    if(id==PrototypeWeaponId.Carbine || id==PrototypeWeaponId.Pistol)
                     {
                         fp.SetPresentation(true,.4f,100f);
-                        Check(fp.SourceAction.Contains("AssaultRifle_Reload01"),team+" "+id+" actual reload source="+fp.SourceAction);
+                        Check(fp.SourceAction.Contains(id==PrototypeWeaponId.Pistol?"Gun_Reload02":"AssaultRifle_Reload01"),team+" "+id+" actual reload source="+fp.SourceAction);
+                        if(id==PrototypeWeaponId.Pistol)
+                        {
+                            Vector3 handle=fp.ChargingHandle.localPosition;
+                            fp.SetPresentation(true,.87f,100f);
+                            Check(Vector3.Distance(handle,fp.ChargingHandle.localPosition)<.00001f && art.ChargingPoseBlend==0f,
+                                team+" Pistol source return has no procedural slide pull");
+                            var fresh=(Transform)Get(fp,"freshMagazine");
+                            fp.SetPresentation(true,38f/51f-.00001f,100f);
+                            Check(fresh.gameObject.activeSelf && Vector3.Distance(fresh.position,fp.Magazine.position)<.001f &&
+                                Quaternion.Angle(fresh.rotation,fp.Magazine.rotation)<.1f,
+                                team+" Pistol held magazine meets seated magazine before handoff");
+                            fp.SetPresentation(true,38f/51f+.00001f,100f);
+                            Check(!fresh.gameObject.activeSelf && fp.Magazine.GetComponentsInChildren<Renderer>().All(r=>r.enabled),
+                                team+" Pistol insertion shows one seated magazine");
+                        }
                         fp.SetPresentation(false,0f,100f);
                     }
                     Vector3 home = fp.Magazine.localPosition;
@@ -110,7 +127,7 @@ namespace Ironfront.UnityPrototype
                     }
                     continue;
                 }
-                foreach(string pose in (motion ? new[]{"hip","ads","reload10","reload24","reload34","reload40","reload55","reload66","reload74","reload87","reload96"} : new[]{"hip","ads","reload40","reload87"}))
+                foreach(string pose in (motion ? new[]{"hip","ads","reload10","reload24","reload34","reload40","reload55","reload66","reload70","reload74","reload75","reload79","reload87","reload96"} : new[]{"hip","ads","reload40","reload87"}))
                 {
                     Set(player,"aiming",pose=="ads");Set(player,"lastShotAt",-10f);
                     for(int i=0;i<35;i++)
@@ -135,7 +152,7 @@ namespace Ironfront.UnityPrototype
                     }
                     string name=team+"-"+id+"-"+pose;
                     if(!fp.ScopeViewActive){AuditSkin(team,id,pose,art);Capture(name);}
-                    if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&(pose=="hip" || motion && (pose=="reload24" || pose=="reload34" || pose=="reload66" || pose=="reload87")))
+                    if((id==PrototypeWeaponId.Pistol||id==PrototypeWeaponId.Carbine)&&(pose=="hip" || motion && (pose=="reload24" || pose=="reload34" || pose=="reload66" || pose=="reload70" || pose=="reload74" || pose=="reload75" || pose=="reload79" || pose=="reload87")))
                     {
                         ExportObj(name,fp,art);ExportStudy(name,fp,art);
                         Vector3 saved=camera.transform.position;Quaternion rotation=camera.transform.rotation;float fov=camera.fieldOfView;
