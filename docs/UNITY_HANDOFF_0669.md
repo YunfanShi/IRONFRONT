@@ -44,6 +44,7 @@
 
 ## 交付与复现
 
+- 按用户追加要求提供三阶段对比：`art/characters/p8-reload02-2026-10-27/p8-three-stage-comparison.mp4`。从左到右为 0.66.2（四指共用弯曲骨）、0.66.8（独立五指／原程序化换弹）、0.66.9（独立五指／Reload02）。保留各版本当时的袖管与模型。两遍正常速度、一遍半速，共 9.2 秒、30 fps、2880×800。0.66.2 使用最终 build-06 的真实 Player 检查帧；其原探针把换弹分布在 90 帧中，本视频依据历史提交 `c21faf2` 中的 `(frame-75)/90` 换弹进度，选取与现在 39 帧／1.3 秒周期最接近的原帧同步，并在片内标注。该段属于按相位重定时的历史检查画面，不是新录制的旧版实时游玩。准备与恢复各保留 0.5 秒，半速逐帧重复，不生成新动作。映射、误差与帧哈希见 `three-stage-manifest.json`；制作脚本 `compare_three_stages.py`。编码命令在 `encode_comparison.swift` 默认双栏参数后增加 `2880 800 276`。
 - 后续按用户要求新增左右同步对比：`art/characters/p8-reload02-2026-10-27/p8-before-after-comparison.mp4`。左为 0.66.8 程序化换弹，右为 0.66.9 Reload02；两遍正常速度，再一遍 0.5 倍速。11.2 秒、30 fps、1920×800。两侧使用原始实机序列第 60–143 帧，同步第 75 帧开始换弹，第 114 帧结束，游戏换弹均为 1.3 秒；完整画幅等比缩小，没有裁剪或生成动作帧。半速仅重复显示原帧，没有插帧。来源哈希和剪辑时序见 `comparison-manifest.json`，复现脚本为 `compare_before_after.py`、`encode_comparison.swift`。
 - 应用：`UnityProject/Builds/PistolReload02-0.66.9/IRONFRONT.app`。
 - 视频：`art/characters/p8-reload02-2026-10-27/p8-reload02-30fps.mp4`。

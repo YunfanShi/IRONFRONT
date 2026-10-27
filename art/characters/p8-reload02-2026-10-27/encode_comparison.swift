@@ -7,14 +7,16 @@ let root = URL(fileURLWithPath: args[1])
 let output = URL(fileURLWithPath: args[2])
 let frames = try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil)
     .filter { $0.pathExtension == "png" }.sorted { $0.lastPathComponent < $1.lastPathComponent }
-guard frames.count == 336 else { fatalError("Expected 336 comparison frames") }
+let expectedFrames = args.count > 5 ? Int(args[5])! : 336
+guard frames.count == expectedFrames else { fatalError("Expected \(expectedFrames) comparison frames") }
 if FileManager.default.fileExists(atPath: output.path) { try FileManager.default.removeItem(at: output) }
-let width = 1920, height = 800
+let width = args.count > 3 ? Int(args[3])! : 1920
+let height = args.count > 4 ? Int(args[4])! : 800
 let writer = try AVAssetWriter(outputURL: output, fileType: .mp4)
 writer.shouldOptimizeForNetworkUse = true
 let input = AVAssetWriterInput(mediaType: .video, outputSettings: [
     AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: width, AVVideoHeightKey: height,
-    AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: 8000000]])
+    AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: 8000000*width/1920]])
 input.expectsMediaDataInRealTime = false
 let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: [
     kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB,
@@ -49,4 +51,4 @@ let done = DispatchSemaphore(value: 0)
 writer.finishWriting { done.signal() }
 done.wait()
 guard writer.status == .completed else { fatalError("Encode failed: \(String(describing: writer.error))") }
-print("ENCODE_PASS frames=\(frames.count) duration=11.2 fps=30 size=1920x800 output=\(output.path)")
+print("ENCODE_PASS frames=\(frames.count) duration=\(Double(frames.count)/30) fps=30 size=\(width)x\(height) output=\(output.path)")
