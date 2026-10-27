@@ -1,0 +1,43 @@
+{
+  "version": "0.66.8",
+  "baselineVersion": "0.66.7",
+  "baselineCommit": "8e0784b",
+  "localOnly": true,
+  "scope": "Thicken five digits with .10 transverse offset factor, blended through existing skin weights; both teams P8/IF27 FP",
+  "assetValidation": "PASS; rest skeleton, topology, all weights, body and every non-digit-weighted vertex unchanged; six fresh FBX imports",
+  "runtimeFilesUnchanged": {
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeSoldierPackMotion.cs": true,
+    "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json": true
+  },
+  "probes": {
+    "motion": "PASS",
+    "rig": "PASS"
+  },
+  "runtimeErrors": 0,
+  "captureChecks": {
+    "pass": true,
+    "images": 458,
+    "blankOrMagentaErrors": []
+  },
+  "build": "UnityProject/Builds/FingerVolume-0.66.8/IRONFRONT.app",
+  "geometry": {
+    "digitVerticesChangedPerArm": 1511,
+    "maxSourceOffsetMeters": 0.001544799993093567,
+    "maxAxialDriftMeters": 3.769673639908433e-08,
+    "maxFaceNormalChangeDegrees": 15.492641471678537
+  },
+  "visualReview": "Viewed fixed neutral front/back/side/three-quarter comparisons, FP hold/ADS/reload key sheets, and reverse contact pairs for P8 grip/trigger guard/slide and IF27 grip/magazine. No obvious new interference in inspected views; unchanged old motion not globally reapproved.",
+  "video": {
+    "file": "art/characters/finger-volume-2026-10-27/finger-volume-30fps.mp4",
+    "frames": 306,
+    "fps": 30,
+    "seconds": 10.2,
+    "decodedSamples": 8,
+    "sha256": "d3ea965a9a18a59417f15af85e72217336d9e215f9810fdc1f7cc57650d0e17d"
+  },
+  "limits": "No continuous UI playback observed. Capture pass does not establish zero intersection in all frames/angles. Digit-root blended vertices change; palm is not globally scaled.",
+  "oldBuildPreserved": true
+}

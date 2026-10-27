@@ -1,0 +1,158 @@
+[
+  {
+    "team": "blue",
+    "targetTransverseGrowth": 0.1,
+    "meshes": [
+      {
+        "mesh": "BlueSoldier_LOD0_ArmL",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "BlueSoldier_LOD0_ArmR",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "BlueSoldier_LOD1_ArmL",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "BlueSoldier_LOD1_ArmR",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "BlueSoldier_LOD2_ArmL",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "BlueSoldier_LOD2_ArmR",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      }
+    ]
+  },
+  {
+    "team": "red",
+    "targetTransverseGrowth": 0.1,
+    "meshes": [
+      {
+        "mesh": "RedSoldier_LOD0_ArmL",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "RedSoldier_LOD0_ArmR",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "RedSoldier_LOD1_ArmL",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "RedSoldier_LOD1_ArmR",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "RedSoldier_LOD2_ArmL",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      },
+      {
+        "mesh": "RedSoldier_LOD2_ArmR",
+        "changedDigitVertices": 1511,
+        "maxOffsetMeters": 0.001544805914175886,
+        "verticesByFinger": {
+          "Index": 348,
+          "Middle": 398,
+          "Ring": 396,
+          "Pinky": 358,
+          "Thumb": 250
+        }
+      }
+    ]
+  }
+]

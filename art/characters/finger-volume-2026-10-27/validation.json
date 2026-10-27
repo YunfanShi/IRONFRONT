@@ -1,0 +1,101 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "team": "blue",
+      "bodyGeometryAndWeightsPreserved": true,
+      "restSkeletonPreserved": true,
+      "allTopologyAndWeightsPreserved": true,
+      "nonDigitSurfaceExactlyPreserved": true,
+      "changedDigitVertices": {
+        "BlueSoldier_LOD0_ArmL": 1511,
+        "BlueSoldier_LOD0_ArmR": 1511,
+        "BlueSoldier_LOD1_ArmL": 1511,
+        "BlueSoldier_LOD1_ArmR": 1511,
+        "BlueSoldier_LOD2_ArmL": 1511,
+        "BlueSoldier_LOD2_ArmR": 1511
+      },
+      "maxOffsetMeters": 0.001544799993093567,
+      "maxDigitAxialDriftMeters": 3.769673639908433e-08,
+      "maxFaceNormalChangeDegrees": 15.492641471678537
+    },
+    {
+      "team": "blue",
+      "lod": 0,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 12607,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    },
+    {
+      "team": "blue",
+      "lod": 1,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 7068,
+      "maxInfluences": 4,
+      "maxWeightError": 3.91155481338501e-08
+    },
+    {
+      "team": "blue",
+      "lod": 2,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 5500,
+      "maxInfluences": 4,
+      "maxWeightError": 3.771856427192688e-08
+    },
+    {
+      "team": "red",
+      "bodyGeometryAndWeightsPreserved": true,
+      "restSkeletonPreserved": true,
+      "allTopologyAndWeightsPreserved": true,
+      "nonDigitSurfaceExactlyPreserved": true,
+      "changedDigitVertices": {
+        "RedSoldier_LOD0_ArmL": 1511,
+        "RedSoldier_LOD0_ArmR": 1511,
+        "RedSoldier_LOD1_ArmL": 1511,
+        "RedSoldier_LOD1_ArmR": 1511,
+        "RedSoldier_LOD2_ArmL": 1511,
+        "RedSoldier_LOD2_ArmR": 1511
+      },
+      "maxOffsetMeters": 0.001544799993093567,
+      "maxDigitAxialDriftMeters": 3.769673639908433e-08,
+      "maxFaceNormalChangeDegrees": 15.492641471678537
+    },
+    {
+      "team": "red",
+      "lod": 0,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 12653,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    },
+    {
+      "team": "red",
+      "lod": 1,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 7090,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    },
+    {
+      "team": "red",
+      "lod": 2,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 5492,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    }
+  ]
+}

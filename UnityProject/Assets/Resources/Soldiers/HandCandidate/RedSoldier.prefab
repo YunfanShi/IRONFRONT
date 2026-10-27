@@ -88,9 +88,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8fc650383a424f0790c13d7a6902f21, type: 2}
-  - {fileID: 2100000, guid: f640fc06743e7487cbc5de49a4a176fb, type: 2}
-  - {fileID: 2100000, guid: 5b4afc2fc40ad47808a4f61afffbbf29, type: 2}
+  - {fileID: 2100000, guid: a152f616dcfd24f53a68039a8f11df64, type: 2}
+  - {fileID: 2100000, guid: a303b5467b65d4e4b9677bc0d93f0d25, type: 2}
+  - {fileID: 2100000, guid: 73b7eb528d9ba435e8851c242bd8a920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,7 +117,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -126626737110493336, guid: 4035993585691495f97d4ff29003fe31, type: 3}
+  m_Mesh: {fileID: -126626737110493336, guid: 8bd6563a0dd3f42c499e94385c5aae8b, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -228,9 +228,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8fc650383a424f0790c13d7a6902f21, type: 2}
-  - {fileID: 2100000, guid: f640fc06743e7487cbc5de49a4a176fb, type: 2}
-  - {fileID: 2100000, guid: 5b4afc2fc40ad47808a4f61afffbbf29, type: 2}
+  - {fileID: 2100000, guid: a152f616dcfd24f53a68039a8f11df64, type: 2}
+  - {fileID: 2100000, guid: a303b5467b65d4e4b9677bc0d93f0d25, type: 2}
+  - {fileID: 2100000, guid: 73b7eb528d9ba435e8851c242bd8a920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -257,7 +257,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 18750542142339169, guid: 4c789dd5c85914e379a9322baba0ff03, type: 3}
+  m_Mesh: {fileID: 18750542142339169, guid: 11591221ac9034edbb38448381c220f7, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -442,37 +442,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8972902194831811939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1319968330204350819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1190460067302513590}
-  m_Layer: 0
-  m_Name: SoldierRig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1190460067302513590
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319968330204350819}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6885412563057814216}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458845110210875482
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,9 +561,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8fc650383a424f0790c13d7a6902f21, type: 2}
-  - {fileID: 2100000, guid: f640fc06743e7487cbc5de49a4a176fb, type: 2}
-  - {fileID: 2100000, guid: 5b4afc2fc40ad47808a4f61afffbbf29, type: 2}
+  - {fileID: 2100000, guid: a152f616dcfd24f53a68039a8f11df64, type: 2}
+  - {fileID: 2100000, guid: a303b5467b65d4e4b9677bc0d93f0d25, type: 2}
+  - {fileID: 2100000, guid: 73b7eb528d9ba435e8851c242bd8a920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -621,7 +590,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -7891362429652287824, guid: 4164c727d9a0944929f8aace48431d7f, type: 3}
+  m_Mesh: {fileID: -7891362429652287824, guid: 5d373e890682d4d7ab2b219ae1091d97, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -790,7 +759,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 3812330591402183508, guid: 4c789dd5c85914e379a9322baba0ff03, type: 3}
+  m_Mesh: {fileID: 3812330591402183508, guid: 11591221ac9034edbb38448381c220f7, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -1067,7 +1036,7 @@ Transform:
   - {fileID: 5037743281071005261}
   - {fileID: 5677103167003171959}
   - {fileID: 268522593988053694}
-  - {fileID: 1190460067302513590}
+  - {fileID: 5572696456460965718}
   m_Father: {fileID: 3416926578700730943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2857511373896797125
@@ -1198,6 +1167,37 @@ Transform:
   - {fileID: 9109547884869665553}
   m_Father: {fileID: 6710616005549659548}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3262492474599963927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4237813777946036357}
+  m_Layer: 0
+  m_Name: SoldierRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4237813777946036357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262492474599963927}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 141436740819053956}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3368632137164166329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,37 +1229,6 @@ Transform:
   m_Children:
   - {fileID: 7897534458781660471}
   m_Father: {fileID: 6710616005549659548}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3410348337611188902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4467415704179198411}
-  m_Layer: 0
-  m_Name: SoldierRig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4467415704179198411
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3410348337611188902}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 141436740819053956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3429730391449026689
 GameObject:
@@ -1737,7 +1706,7 @@ Transform:
   - {fileID: 8853229237223057031}
   - {fileID: 5911338450450404410}
   - {fileID: 888490064829747971}
-  - {fileID: 4467415704179198411}
+  - {fileID: 4237813777946036357}
   m_Father: {fileID: 3416926578700730943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6511940377501966946
@@ -1771,6 +1740,37 @@ Transform:
   m_Children:
   - {fileID: 1424515881148040327}
   m_Father: {fileID: 2346234088846472545}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6612923789575910461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5572696456460965718}
+  m_Layer: 0
+  m_Name: SoldierRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5572696456460965718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612923789575910461}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6885412563057814216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6787689486892358479
 GameObject:
@@ -2023,9 +2023,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8fc650383a424f0790c13d7a6902f21, type: 2}
-  - {fileID: 2100000, guid: f640fc06743e7487cbc5de49a4a176fb, type: 2}
-  - {fileID: 2100000, guid: 5b4afc2fc40ad47808a4f61afffbbf29, type: 2}
+  - {fileID: 2100000, guid: a152f616dcfd24f53a68039a8f11df64, type: 2}
+  - {fileID: 2100000, guid: a303b5467b65d4e4b9677bc0d93f0d25, type: 2}
+  - {fileID: 2100000, guid: 73b7eb528d9ba435e8851c242bd8a920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2052,7 +2052,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 2251760354478559089, guid: 4c789dd5c85914e379a9322baba0ff03, type: 3}
+  m_Mesh: {fileID: 2251760354478559089, guid: 11591221ac9034edbb38448381c220f7, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -2190,7 +2190,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 7125102506207114167, guid: 4164c727d9a0944929f8aace48431d7f, type: 3}
+  m_Mesh: {fileID: 7125102506207114167, guid: 5d373e890682d4d7ab2b219ae1091d97, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -2333,9 +2333,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8fc650383a424f0790c13d7a6902f21, type: 2}
-  - {fileID: 2100000, guid: f640fc06743e7487cbc5de49a4a176fb, type: 2}
-  - {fileID: 2100000, guid: 5b4afc2fc40ad47808a4f61afffbbf29, type: 2}
+  - {fileID: 2100000, guid: a152f616dcfd24f53a68039a8f11df64, type: 2}
+  - {fileID: 2100000, guid: a303b5467b65d4e4b9677bc0d93f0d25, type: 2}
+  - {fileID: 2100000, guid: 73b7eb528d9ba435e8851c242bd8a920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2362,7 +2362,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -996772859159680388, guid: 4164c727d9a0944929f8aace48431d7f, type: 3}
+  m_Mesh: {fileID: -996772859159680388, guid: 5d373e890682d4d7ab2b219ae1091d97, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -2599,7 +2599,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 5181461908183833772, guid: 4035993585691495f97d4ff29003fe31, type: 3}
+  m_Mesh: {fileID: 5181461908183833772, guid: 8bd6563a0dd3f42c499e94385c5aae8b, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -2710,9 +2710,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8fc650383a424f0790c13d7a6902f21, type: 2}
-  - {fileID: 2100000, guid: f640fc06743e7487cbc5de49a4a176fb, type: 2}
-  - {fileID: 2100000, guid: 5b4afc2fc40ad47808a4f61afffbbf29, type: 2}
+  - {fileID: 2100000, guid: a152f616dcfd24f53a68039a8f11df64, type: 2}
+  - {fileID: 2100000, guid: a303b5467b65d4e4b9677bc0d93f0d25, type: 2}
+  - {fileID: 2100000, guid: 73b7eb528d9ba435e8851c242bd8a920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2739,7 +2739,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 6792315325896385837, guid: 4035993585691495f97d4ff29003fe31, type: 3}
+  m_Mesh: {fileID: 6792315325896385837, guid: 8bd6563a0dd3f42c499e94385c5aae8b, type: 3}
   m_Bones:
   - {fileID: 7388603456389211813}
   - {fileID: 9002295924228326733}
@@ -3088,19 +3088,19 @@ MonoBehaviour:
   - {fileID: 2074302498772817111}
   - {fileID: 328870743845304135}
   FullArmMeshes:
-  - {fileID: -7891362429652287824, guid: 4164c727d9a0944929f8aace48431d7f, type: 3}
-  - {fileID: -996772859159680388, guid: 4164c727d9a0944929f8aace48431d7f, type: 3}
-  - {fileID: 2251760354478559089, guid: 4c789dd5c85914e379a9322baba0ff03, type: 3}
-  - {fileID: 18750542142339169, guid: 4c789dd5c85914e379a9322baba0ff03, type: 3}
-  - {fileID: -126626737110493336, guid: 4035993585691495f97d4ff29003fe31, type: 3}
-  - {fileID: 6792315325896385837, guid: 4035993585691495f97d4ff29003fe31, type: 3}
+  - {fileID: -7891362429652287824, guid: 5d373e890682d4d7ab2b219ae1091d97, type: 3}
+  - {fileID: -996772859159680388, guid: 5d373e890682d4d7ab2b219ae1091d97, type: 3}
+  - {fileID: 2251760354478559089, guid: 11591221ac9034edbb38448381c220f7, type: 3}
+  - {fileID: 18750542142339169, guid: 11591221ac9034edbb38448381c220f7, type: 3}
+  - {fileID: -126626737110493336, guid: 8bd6563a0dd3f42c499e94385c5aae8b, type: 3}
+  - {fileID: 6792315325896385837, guid: 8bd6563a0dd3f42c499e94385c5aae8b, type: 3}
   ViewArmMeshes:
-  - {fileID: 4300000, guid: 50a9467c39e79403e99abfb110455ff2, type: 2}
-  - {fileID: 4300000, guid: d713b7e4e535b4b7382336ee656ec400, type: 2}
-  - {fileID: 4300000, guid: 0e77e149a7698486b8704732ad24ac7c, type: 2}
-  - {fileID: 4300000, guid: bb9ce4474526d455483f59b5d98d9348, type: 2}
-  - {fileID: 4300000, guid: 6964023520ee744b8a99b2576eb97b5c, type: 2}
-  - {fileID: 4300000, guid: 23e3af4cde86e403b98459bf01d1f4ac, type: 2}
+  - {fileID: 4300000, guid: 8f58a11b58e5e426884a40f40b0d1328, type: 2}
+  - {fileID: 4300000, guid: 9e16eb57675d7409682a04e797ce493e, type: 2}
+  - {fileID: 4300000, guid: 01bceac93ea0f4e6ebe83df5d836d5fe, type: 2}
+  - {fileID: 4300000, guid: 562eecfbd7f29479390ef405b83b7878, type: 2}
+  - {fileID: 4300000, guid: 4503daa15a09e43e792329a21b41d0a9, type: 2}
+  - {fileID: 4300000, guid: 7f8c5f484fc0c4c288ee38c589e05e43, type: 2}
   Fingers: []
   FingerRest: []
   Thumbs: []

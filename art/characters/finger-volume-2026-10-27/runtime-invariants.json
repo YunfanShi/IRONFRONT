@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "filesUnchanged": {
+    "UnityProject/Assets/Scripts/PrototypePlayer.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeWeaponArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeSoldierArtRig.cs": true,
+    "UnityProject/Assets/Scripts/PrototypeSoldierPackMotion.cs": true,
+    "UnityProject/Assets/Resources/Animation/SoldierPackTrial.json": true
+  }
+}
