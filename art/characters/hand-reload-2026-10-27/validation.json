@@ -11,7 +11,7 @@
       "freshImport": true,
       "bones": 46,
       "digitJoints": 30,
-      "vertices": 12861,
+      "vertices": 12607,
       "maxInfluencesIncludingPreservedBody": 4,
       "maxWeightError": 4.470348358154297e-08
     },
@@ -21,7 +21,7 @@
       "freshImport": true,
       "bones": 46,
       "digitJoints": 30,
-      "vertices": 6279,
+      "vertices": 7068,
       "maxInfluencesIncludingPreservedBody": 4,
       "maxWeightError": 3.91155481338501e-08
     },
@@ -31,7 +31,7 @@
       "freshImport": true,
       "bones": 46,
       "digitJoints": 30,
-      "vertices": 4415,
+      "vertices": 5500,
       "maxInfluencesIncludingPreservedBody": 4,
       "maxWeightError": 3.771856427192688e-08
     },
@@ -45,7 +45,7 @@
       "freshImport": true,
       "bones": 46,
       "digitJoints": 30,
-      "vertices": 12947,
+      "vertices": 12653,
       "maxInfluencesIncludingPreservedBody": 4,
       "maxWeightError": 4.470348358154297e-08
     },
@@ -55,7 +55,7 @@
       "freshImport": true,
       "bones": 46,
       "digitJoints": 30,
-      "vertices": 6324,
+      "vertices": 7090,
       "maxInfluencesIncludingPreservedBody": 4,
       "maxWeightError": 4.470348358154297e-08
     },
@@ -65,7 +65,7 @@
       "freshImport": true,
       "bones": 46,
       "digitJoints": 30,
-      "vertices": 4419,
+      "vertices": 5492,
       "maxInfluencesIncludingPreservedBody": 4,
       "maxWeightError": 4.470348358154297e-08
     }

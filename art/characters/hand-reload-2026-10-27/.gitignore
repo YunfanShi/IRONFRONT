@@ -13,3 +13,5 @@ summary-*.json
 source/*
 !source/fps-arms-para-cc0.7z
 !source/inspection.json
+
+refined-summary-*.json

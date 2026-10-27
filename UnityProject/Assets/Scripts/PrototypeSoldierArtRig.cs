@@ -21,6 +21,9 @@ namespace Ironfront.UnityPrototype
             public int Digit, Joint;
         }
         public DigitJoint[] Digits;
+        [NonSerialized] public Vector3[] StudyFingerAngles;
+        [NonSerialized] public bool PistolPose;
+        [NonSerialized] public float MagazinePoseBlend, ChargingPoseBlend;
         [NonSerialized] public float LeftGrasp = .85f;
         [NonSerialized] public float LeftPinch;
         [NonSerialized] public float TriggerRelease;
@@ -70,8 +73,26 @@ namespace Ironfront.UnityPrototype
         {
             if (Digits != null && Digits.Length > 0)
             {
-                foreach (var joint in Digits)
+                for (int i = 0; i < Digits.Length; i++)
                 {
+                    var joint = Digits[i];
+                    if (StudyFingerAngles != null && StudyFingerAngles.Length == Digits.Length)
+                    { joint.Bone.localRotation = joint.Rest * Quaternion.Euler(StudyFingerAngles[i]); continue; }
+                    if (FirstPerson)
+                    {
+                        int n = joint.Digit * 3 + joint.Joint;
+                        Vector3 closed = PrototypeFingerPoses.WeaponGrip[n];
+                        if (joint.Left)
+                        {
+                            closed = Vector3.Lerp(PistolPose ? PrototypeFingerPoses.PistolSupport[n] : PrototypeFingerPoses.RifleSupport[n], PrototypeFingerPoses.Magazine[n], MagazinePoseBlend);
+                            closed = Vector3.Lerp(closed, PistolPose ? PrototypeFingerPoses.Slide[n] : PrototypeFingerPoses.RifleCharge[n], ChargingPoseBlend);
+                            closed = Vector3.Lerp(PrototypeFingerPoses.Relaxed(joint.Digit, joint.Joint), closed, LeftGrasp);
+                        }
+                        else if (joint.Digit == 0)
+                            closed = Vector3.Lerp(closed, new Vector3(-5f,0,joint.Joint == 0 ? -14f : 0f), TriggerRelease);
+                        joint.Bone.localRotation = joint.Rest * Quaternion.Euler(closed);
+                        continue;
+                    }
                     float grasp = joint.Left ? LeftGrasp : 1f;
                     if (joint.Left && LeftPinch > 0f && joint.Digit > 1 && joint.Digit < 4)
                         grasp = Mathf.Lerp(grasp, .20f, LeftPinch);
@@ -116,14 +137,22 @@ namespace Ironfront.UnityPrototype
             art.viewCamera=camera!=null?camera.transform:null;
             // Camera arms can be viewed from inside their shoulder seam. Render
             // the existing inner surface instead of culling it into a hole.
-            var sourceMaterials = art.Arms[0].sharedMaterials;
-            art.viewArmMaterials = new Material[sourceMaterials.Length];
-            for (int i = 0; i < sourceMaterials.Length; i++)
+            var clones = new System.Collections.Generic.Dictionary<Material,Material>();
+            foreach(var arm in art.Arms)
             {
-                art.viewArmMaterials[i] = new Material(sourceMaterials[i]) { name = "First-person surface " + i };
-                art.viewArmMaterials[i].SetFloat("_Cull", 0f);
+                var materials=arm.sharedMaterials;
+                for(int i=0;i<materials.Length;i++)
+                {
+                    if(!clones.TryGetValue(materials[i],out var clone))
+                    {
+                        clone=new Material(materials[i]) { name="First-person "+materials[i].name };
+                        clone.SetFloat("_Cull",0f);clones.Add(materials[i],clone);
+                    }
+                    materials[i]=clone;
+                }
+                arm.sharedMaterials=materials;
             }
-            foreach(var arm in art.Arms)arm.sharedMaterials=art.viewArmMaterials;
+            art.viewArmMaterials=new Material[clones.Count];clones.Values.CopyTo(art.viewArmMaterials,0);
             // Authored weapons are normalized by 1/.65 during import. Match
             // that scale, instead of doubling only the hands relative to guns.
             art.transform.localScale=Vector3.one/.65f;art.GetComponent<LODGroup>().ForceLOD(0);
@@ -146,6 +175,16 @@ namespace Ironfront.UnityPrototype
                 // A first-person sleeve must enter from below the image. Keep
                 // its shoulder behind the hand, rather than near the camera
                 // where perspective exposes the source body's shoulder cut.
+                if (Digits != null && Digits.Length > 0)
+                {
+                    var anchor = new Vector3(left ? -.26f : .26f, -.32f, -.08f);
+                    // Bring the support elbow around the pistol as the palm
+                    // reaches over its slide. A straight approach from below
+                    // points the sleeve into the camera and hides the fingers.
+                    if (left && PistolPose)
+                        anchor = Vector3.Lerp(anchor, new Vector3(-.44f, -.20f, .20f), ChargingPoseBlend);
+                    return transform.InverseTransformPoint(viewCamera.TransformPoint(anchor));
+                }
                 float depth=Mathf.Max(.12f,viewCamera.InverseTransformPoint(target).z-.38f);
                 var shoulder=new Vector3(left?-.30f:.30f,-Mathf.Max(.58f,depth),depth);
                 return transform.InverseTransformPoint(viewCamera.TransformPoint(shoulder));

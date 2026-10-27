@@ -88,8 +88,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3c2a2cfaa744770b49f206bea2660b, type: 2}
   - {fileID: 2100000, guid: f563504b1e6ff4a01b30682afcfb5369, type: 2}
+  - {fileID: 2100000, guid: d8f7b7dd1f80147f98f0da33b2ee5867, type: 2}
+  - {fileID: 2100000, guid: 2e631571cffd84b42a23a41764702f29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,8 +228,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3c2a2cfaa744770b49f206bea2660b, type: 2}
   - {fileID: 2100000, guid: f563504b1e6ff4a01b30682afcfb5369, type: 2}
+  - {fileID: 2100000, guid: d8f7b7dd1f80147f98f0da33b2ee5867, type: 2}
+  - {fileID: 2100000, guid: 2e631571cffd84b42a23a41764702f29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -471,38 +473,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 407490783928394140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1571021867699394018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3223384640574037311}
-  m_Layer: 0
-  m_Name: SoldierRig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3223384640574037311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571021867699394018}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7388603456389211813}
-  m_Father: {fileID: 5833021761514484137}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597574207253419410
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,8 +561,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3c2a2cfaa744770b49f206bea2660b, type: 2}
   - {fileID: 2100000, guid: f563504b1e6ff4a01b30682afcfb5369, type: 2}
+  - {fileID: 2100000, guid: d8f7b7dd1f80147f98f0da33b2ee5867, type: 2}
+  - {fileID: 2100000, guid: 2e631571cffd84b42a23a41764702f29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -970,6 +941,37 @@ Transform:
   - {fileID: 6710616005549659548}
   m_Father: {fileID: 566890782717566172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2313853527604172685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4595693265563335406}
+  m_Layer: 0
+  m_Name: SoldierRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4595693265563335406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2313853527604172685}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 141436740819053956}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2454784928294206286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,7 +1067,7 @@ Transform:
   - {fileID: 5037743281071005261}
   - {fileID: 5677103167003171959}
   - {fileID: 268522593988053694}
-  - {fileID: 7135031261176097486}
+  - {fileID: 802339503948852048}
   m_Father: {fileID: 3416926578700730943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2857511373896797125
@@ -1260,7 +1262,7 @@ Transform:
   - {fileID: 6678795981754524913}
   - {fileID: 9002295924228326733}
   - {fileID: 1210914817717304532}
-  m_Father: {fileID: 3223384640574037311}
+  m_Father: {fileID: 230527088251394952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3467694964454506406
 GameObject:
@@ -1483,37 +1485,6 @@ Transform:
   - {fileID: 7926260958985867375}
   m_Father: {fileID: 7388603456389211813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4381232169458089909
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7135031261176097486}
-  m_Layer: 0
-  m_Name: SoldierRig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7135031261176097486
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4381232169458089909}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6885412563057814216}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5062815420790979826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1548,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9109547884869665553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5851705997304405917
+--- !u!1 &5623173721240665300
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1585,7 +1556,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1536142430009459224}
+  - component: {fileID: 802339503948852048}
   m_Layer: 0
   m_Name: SoldierRig
   m_TagString: Untagged
@@ -1593,20 +1564,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1536142430009459224
+--- !u!4 &802339503948852048
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5851705997304405917}
+  m_GameObject: {fileID: 5623173721240665300}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 141436740819053956}
+  m_Father: {fileID: 6885412563057814216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6033424862206806298
 GameObject:
@@ -1766,7 +1737,7 @@ Transform:
   - {fileID: 8853229237223057031}
   - {fileID: 5911338450450404410}
   - {fileID: 888490064829747971}
-  - {fileID: 1536142430009459224}
+  - {fileID: 4595693265563335406}
   m_Father: {fileID: 3416926578700730943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6511940377501966946
@@ -2020,8 +1991,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3c2a2cfaa744770b49f206bea2660b, type: 2}
   - {fileID: 2100000, guid: f563504b1e6ff4a01b30682afcfb5369, type: 2}
+  - {fileID: 2100000, guid: d8f7b7dd1f80147f98f0da33b2ee5867, type: 2}
+  - {fileID: 2100000, guid: 2e631571cffd84b42a23a41764702f29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2329,8 +2301,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3c2a2cfaa744770b49f206bea2660b, type: 2}
   - {fileID: 2100000, guid: f563504b1e6ff4a01b30682afcfb5369, type: 2}
+  - {fileID: 2100000, guid: d8f7b7dd1f80147f98f0da33b2ee5867, type: 2}
+  - {fileID: 2100000, guid: 2e631571cffd84b42a23a41764702f29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2648,6 +2621,38 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 2.5, y: 2.5, z: 2.5}
   m_DirtyAABB: 0
+--- !u!1 &8047212030839007576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 230527088251394952}
+  m_Layer: 0
+  m_Name: SoldierRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &230527088251394952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047212030839007576}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7388603456389211813}
+  m_Father: {fileID: 5833021761514484137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8189347418361218299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,8 +2710,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3c2a2cfaa744770b49f206bea2660b, type: 2}
   - {fileID: 2100000, guid: f563504b1e6ff4a01b30682afcfb5369, type: 2}
+  - {fileID: 2100000, guid: d8f7b7dd1f80147f98f0da33b2ee5867, type: 2}
+  - {fileID: 2100000, guid: 2e631571cffd84b42a23a41764702f29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2819,7 +2825,7 @@ Transform:
   - {fileID: 4372957432258797400}
   - {fileID: 2638991114017010866}
   - {fileID: 5647801636709354947}
-  - {fileID: 3223384640574037311}
+  - {fileID: 230527088251394952}
   m_Father: {fileID: 3416926578700730943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8450083549868639140

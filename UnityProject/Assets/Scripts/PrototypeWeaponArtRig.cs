@@ -29,8 +29,9 @@ namespace Ironfront.UnityPrototype
         public float SupportGrasp { get; private set; } = .85f;
         public float SupportPinch { get; private set; }
         public bool UsesHandCandidate => handCandidate;
-        public Vector3 ReloadViewPosition => pistolCandidate ? new Vector3(.13f,-.14f,.54f) : new Vector3(.20f,-.16f,.64f);
-        public Quaternion ReloadViewRotation => Quaternion.Euler(-8f,-12f,-14f);
+        public Vector3 ReloadViewPosition => pistolCandidate ? new Vector3(.12f,.035f,.54f) : new Vector3(.17f,-.015f,.66f);
+        public Quaternion ReloadViewRotation => pistolCandidate ? Quaternion.Euler(-6f,-32f,-22f) : Quaternion.Euler(-8f,-22f,-18f);
+        public float ReloadPoseWeight(float p) => Ease(p,0,.16f)*(1f-Ease(p,.90f,1f));
         Vector3 supportLocal;
         Quaternion supportLocalRotation;
         public Vector3 RightContactPosition => gripsCalibrated ? transform.TransformPoint(rightContactLocal) : RightGrip.position;
@@ -116,16 +117,26 @@ namespace Ironfront.UnityPrototype
             ChargingGrip.localPosition += new Vector3(-.025f, -.015f, -.035f)/VisualScale;
             if (handCandidate)
             {
-                RightGrip.position = transform.TransformPoint(rightContactLocal + new Vector3(.055f,.025f,-.11f));
+                RightGrip.position = transform.TransformPoint(rightContactLocal + new Vector3(.075f,.020f,-.088f));
                 RightGrip.localRotation = Quaternion.Euler(10f,0f,0f);
                 if (pistol)
                 {
-                    LeftGrip.localPosition = RightGrip.localPosition + new Vector3(-.115f,-.005f,.045f)/VisualScale;
+                    LeftGrip.position = transform.TransformPoint(rightContactLocal + new Vector3(-.085f,-.015f,-.083f));
                     LeftHandRotation = Quaternion.Euler(10f,0f,0f);
                 }
-                else LeftHandRotation = Quaternion.LookRotation(Vector3.right,Vector3.forward);
+                else { LeftHandRotation = Quaternion.LookRotation(Vector3.right,Vector3.forward); LeftGrip.localPosition += new Vector3(.045f,-.01f,0)/VisualScale; }
                 MagazineGrip.localPosition += new Vector3(.005f,-.075f,-.085f)/VisualScale;
                 ChargingGrip.localPosition += new Vector3(-.095f,.04f,0f)/VisualScale;
+                if (pistol)
+                {
+                    MagazineGrip.localPosition += new Vector3(-.005f,0,-.055f)/VisualScale;
+                    ChargingGrip.localPosition += new Vector3(.06f,.055f,.08f)/VisualScale;
+                }
+                else
+                {
+                    MagazineGrip.localPosition += new Vector3(-.005f,0,.055f)/VisualScale;
+                    ChargingGrip.localPosition += new Vector3(.025f,-.005f,.025f)/VisualScale;
+                }
                 leftHome = LeftGrip.localPosition;
             }
         }
@@ -197,6 +208,9 @@ namespace Ironfront.UnityPrototype
             if (handCandidate) PresentHandReload(reloading, p, shot, cycle);
             if(viewArms!=null)
             {
+                viewArms.PistolPose = pistolCandidate;
+                viewArms.MagazinePoseBlend = reloading ? Ease(p,.08f,.22f)*(1f-Ease(p,.92f,1f)) : 0f;
+                viewArms.ChargingPoseBlend = reloading ? Ease(p,.76f,.82f)*(1f-Ease(p,.92f,1f)) : 0f;
                 viewArms.LeftGrasp = SupportGrasp;
                 viewArms.LeftPinch = SupportPinch;
                 viewArms.TriggerRelease = reloading ? Ease(p,0f,.08f)*(1f-Ease(p,.94f,1f)) : 0f;
@@ -207,7 +221,7 @@ namespace Ironfront.UnityPrototype
         void PresentHandReload(bool reloading, float p, float shot, float cycle)
         {
             Vector3 rest = transform.InverseTransformPoint(LeftGrip.parent.TransformPoint(leftHome));
-            Vector3 withdrawal = pistolCandidate ? new Vector3(-.035f,-.22f,-.035f) : new Vector3(-.06f,-.27f,-.025f);
+            Vector3 withdrawal = pistolCandidate ? new Vector3(-.035f,-.145f,-.035f) : new Vector3(-.06f,-.27f,-.025f);
             Vector3 pouch = withdrawal + new Vector3(-.18f,-.28f,-.10f);
             float pull = Ease(p,.26f,.38f), stow = Ease(p,.38f,.47f);
             float clear = Ease(p,.34f,.38f);
@@ -233,14 +247,15 @@ namespace Ironfront.UnityPrototype
             Quaternion wrist = Quaternion.Inverse(transform.rotation) * (p >= .47f && p < .72f ? freshMagazine.rotation : Magazine.rotation) * Quaternion.Euler(10f,0f,0f);
             float reach = Ease(p,.08f,.22f);
             supportLocal = Vector3.Lerp(rest + new Vector3(-.035f,-.015f,0)*Ease(p,0,.09f), magTarget, reach);
+            supportLocal += new Vector3(-.055f,0,-.035f)*Mathf.Sin(reach*Mathf.PI);
             supportLocalRotation = Quaternion.Slerp(LeftHandRotation,wrist,reach);
-            SupportGrasp = Mathf.Lerp(.85f,.08f,Ease(p,0,.10f));
-            SupportGrasp = Mathf.Lerp(SupportGrasp,.92f,Ease(p,.20f,.26f));
+            SupportGrasp = Mathf.Lerp(1f,.08f,Ease(p,0,.10f));
+            SupportGrasp = Mathf.Lerp(SupportGrasp,1f,Ease(p,.20f,.26f));
             // The old magazine leaves with a closed hand; fingers open in the
             // pouch region, then close on a separate fresh magazine.
             if (p > .41f && p < .53f)
-                SupportGrasp = Mathf.Lerp(.92f,.10f,Ease(p,.41f,.46f)) + .82f*Ease(p,.48f,.53f);
-            if (p >= .53f) SupportGrasp = Mathf.Lerp(.92f,.10f,Ease(p,.72f,.77f));
+                SupportGrasp = Mathf.Lerp(1f,.10f,Ease(p,.41f,.46f)) + .90f*Ease(p,.48f,.53f);
+            if (p >= .53f) SupportGrasp = Mathf.Lerp(1f,.10f,Ease(p,.72f,.77f));
             float chargeReach = Ease(p,.76f,.82f);
             float charge = Ease(p,.83f,.88f)*(1f-Ease(p,.895f,.915f));
             ChargingHandle.localPosition = chargingHome + Vector3.back*(ChargingTravel*Mathf.Max(charge,cycle));
@@ -248,16 +263,18 @@ namespace Ironfront.UnityPrototype
             if (p >= .72f)
             {
                 supportLocal = Vector3.Lerp(magTarget,transform.InverseTransformPoint(ChargingGrip.position),chargeReach);
+                supportLocal += new Vector3(-.13f,.07f,-.04f)*Mathf.Sin(chargeReach*Mathf.PI);
                 supportLocalRotation = Quaternion.Slerp(wrist,Quaternion.LookRotation(Vector3.right,Vector3.back),chargeReach);
-                SupportGrasp = Mathf.Lerp(SupportGrasp,pistolCandidate?.85f:.8f,Ease(p,.80f,.83f));
+                SupportGrasp = Mathf.Lerp(SupportGrasp,1f,Ease(p,.80f,.83f));
                 SupportGrasp = Mathf.Lerp(SupportGrasp,.12f,Ease(p,.89f,.92f));
                 float home = Ease(p,.92f,1f);
                 supportLocal = Vector3.Lerp(supportLocal,rest,home);
+                supportLocal += new Vector3(-.06f,.035f,-.02f)*Mathf.Sin(home*Mathf.PI);
                 supportLocalRotation = Quaternion.Slerp(supportLocalRotation,LeftHandRotation,home);
-                SupportGrasp = Mathf.Lerp(SupportGrasp,.85f,home);
+                SupportGrasp = Mathf.Lerp(SupportGrasp,1f,home);
             }
             SupportPinch = pistolCandidate ? 0f : chargeReach*(1f-Ease(p,.90f,.94f));
-            if (!reloading) { supportLocal=rest; supportLocalRotation=LeftHandRotation; SupportGrasp=.85f; SupportPinch=0f; }
+            if (!reloading) { supportLocal=rest; supportLocalRotation=LeftHandRotation; SupportGrasp=1f; SupportPinch=0f; }
         }
     }
 }

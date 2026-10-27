@@ -91,7 +91,8 @@ namespace Ironfront.UnityPrototype.Editor
                     importer.animationType = ModelImporterAnimationType.Generic; importer.importAnimation = false;
                     importer.optimizeGameObjects = false; importer.isReadable = true;
                     importer.skinWeights = ModelImporterSkinWeights.Custom; importer.maxBonesPerVertex = 4;
-                    importer.materialImportMode = ModelImporterMaterialImportMode.None;
+                    importer.materialImportMode = candidate ? ModelImporterMaterialImportMode.ImportStandard : ModelImporterMaterialImportMode.None;
+                    if(candidate)importer.materialLocation=ModelImporterMaterialLocation.InPrefab;
                     importer.SaveAndReimport();
                     var instance = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(path), root.transform);
                     instance.name = "LOD" + i;
@@ -162,8 +163,34 @@ namespace Ironfront.UnityPrototype.Editor
                             string glovePath = destination + "/HandGlove.mat";
                             var glove = AssetDatabase.LoadAssetAtPath<Material>(glovePath);
                             if (glove == null) { glove = new Material(Shader.Find("Universal Render Pipeline/Lit")); AssetDatabase.CreateAsset(glove, glovePath); }
-                            glove.SetColor("_BaseColor", new Color(.11f,.125f,.14f)); glove.SetFloat("_Smoothness", .18f);
-                            r.sharedMaterials = Enumerable.Range(0, r.sharedMesh.subMeshCount).Select(n => n == 0 ? material : glove).ToArray();
+                            glove.SetColor("_BaseColor", new Color(.11f,.125f,.14f)); glove.SetFloat("_Smoothness", .18f);glove.SetFloat("_Metallic",0f);
+                            var candidateMaterials = new Material[] { material, glove, null, null };
+                            for(int slot=2;slot<4;slot++)
+                            {
+                                string surfacePath=destination+(slot==2?"/Sleeve.mat":"/ForearmPad.mat");
+                                var surface=AssetDatabase.LoadAssetAtPath<Material>(surfacePath);
+                                if(surface==null){surface=new Material(Shader.Find("Universal Render Pipeline/Lit"));AssetDatabase.CreateAsset(surface,surfacePath);}
+                                bool blue=team=="Blue";
+                                surface.SetColor("_BaseColor",slot==2?(blue?new Color(.10f,.15f,.23f):new Color(.23f,.10f,.11f)):(blue?new Color(.31f,.41f,.56f):new Color(.48f,.24f,.25f)));
+                                surface.SetFloat("_Smoothness",slot==2?.12f:.25f);surface.SetFloat("_Metallic",0f);
+                                if(slot==2)
+                                {
+                                    string weavePath=destination+"/SleeveWeave.asset";
+                                    var weave=AssetDatabase.LoadAssetAtPath<Texture2D>(weavePath);
+                                    if(weave==null)
+                                    {
+                                        weave=new Texture2D(128,128,TextureFormat.RGB24,true,true);weave.name="Sleeve fabric weave";
+                                        var pixels=new Color[128*128];
+                                        for(int y=0;y<128;y++)for(int x=0;x<128;x++)
+                                        {float value=.88f+.06f*Mathf.PerlinNoise(x*.16f,y*.16f)+(((x/2+y/2)%2==0)?.025f:-.025f);pixels[y*128+x]=new Color(value,value,value);}
+                                        weave.SetPixels(pixels);weave.Apply();weave.wrapMode=TextureWrapMode.Repeat;AssetDatabase.CreateAsset(weave,weavePath);
+                                    }
+                                    surface.SetTexture("_BaseMap",weave);surface.SetTextureScale("_BaseMap",new Vector2(4,4));
+                                }
+                                candidateMaterials[slot]=surface;
+                            }
+                            Debug.Log("CANDIDATE_MATERIAL_SLOTS "+r.name+" "+string.Join(",",r.sharedMaterials.Select(m=>m==null?"null":m.name)));
+                            r.sharedMaterials = r.sharedMaterials.Select(m => m != null && m.name.StartsWith("HandGlove") ? glove : m != null && m.name.StartsWith("Candidate sleeve") ? candidateMaterials[2] : m != null && m.name.StartsWith("Candidate armor") ? candidateMaterials[3] : material).ToArray();
                         }
                         else r.sharedMaterial = material;
                         r.quality = SkinQuality.Bone4;

@@ -17,7 +17,7 @@ namespace Ironfront.UnityPrototype
         readonly List<string> checks=new List<string>();
         readonly List<string> samples=new List<string>{"team,weapon,pose,arm,upper_error,forearm_error,max_skin_edge_ratio,p95_skin_edge_ratio"};
         [Serializable] class Sweep { public Fit[] fits; }
-        [Serializable] class Fit { public string name; public Vector3 rightOffset,rightAngles,leftOffset,leftAngles,fingerAngles; public bool isolateRight; }
+        [Serializable] class Fit { public string name; public Vector3 rightOffset,rightAngles,leftOffset,leftAngles,fingerAngles; public bool isolateRight, isolateLeft, currentRight, currentLeft, reloading, supportRotationOverride; public float phase; public Vector3 supportDelta,supportAngles; public Vector3[] joints; }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot(){var a=Environment.GetCommandLineArgs();for(int i=0;i+1<a.Length;i++)if(a[i]=="-ironfrontRigAudit")new GameObject("Evaluated rig audit").AddComponent<PrototypeRigAuditProbe>().output=Path.GetFullPath(a[i+1]);}
         IEnumerator Start()
@@ -80,18 +80,24 @@ namespace Ironfront.UnityPrototype
                     for(int i=0;i<35;i++){Invoke(player,"UpdateInfantryPresentation");yield return null;}
                     foreach(var fit in sweep.fits)
                     {
-                        fp.RightGrip.position=fp.RightContactPosition+fp.transform.TransformVector(fit.rightOffset);
-                        fp.RightGrip.localRotation=Quaternion.Euler(fit.rightAngles);
-                        fp.LeftGrip.position=fp.RightContactPosition+fp.transform.TransformVector(fit.leftOffset);
-                        fp.LeftHandRotation=Quaternion.Euler(fit.leftAngles);
+                        if(!fit.currentRight)fp.RightGrip.position=fp.RightContactPosition+fp.transform.TransformVector(fit.rightOffset);
+                        if(!fit.currentRight)fp.RightGrip.localRotation=Quaternion.Euler(fit.rightAngles);
+                        if(!fit.currentLeft)fp.LeftGrip.position=fp.RightContactPosition+fp.transform.TransformVector(fit.leftOffset);
+                        if(!fit.currentLeft)fp.LeftHandRotation=Quaternion.Euler(fit.leftAngles);
                         Set(fp,"leftHome",fp.LeftGrip.localPosition);
-                        fp.SetPresentation(false,0,100);
+                        art.StudyFingerAngles=fit.joints;
+                        fp.SetPresentation(fit.reloading,fit.phase,100);
+                        art.PoseWeaponViewArms(fp.RightGrip.position,fp.SupportPosition+fp.transform.TransformVector(fit.supportDelta),fp.RightGrip.rotation,fit.supportRotationOverride?fp.transform.rotation*Quaternion.Euler(fit.supportAngles):fp.SupportRotation);
                         for(int f=0;f<art.Fingers.Length;f++)art.Fingers[f].localRotation=art.FingerRest[f]*Quaternion.Euler(fit.fingerAngles);
-                        foreach(var ar in art.Arms)ar.enabled=!fit.isolateRight||ar.name.EndsWith("_ArmL");
-                        yield return null;Capture(fit.name);
+                        foreach(var ar in art.Arms)ar.enabled=(!fit.isolateRight||ar.name.EndsWith("_ArmL"))&&(!fit.isolateLeft||ar.name.EndsWith("_ArmR"));
+                        yield return null;Capture(fit.name);ExportObj(fit.name,fp,art);ExportStudy(fit.name,fp,art);
                         var observer=new GameObject("Fit contact camera").AddComponent<Camera>();observer.CopyFrom(camera);
                         observer.transform.position=fp.RightContactPosition+fp.transform.TransformDirection(new Vector3(.45f,.2f,.4f));observer.transform.LookAt(fp.RightContactPosition);observer.fieldOfView=30;
-                        camera=observer;Capture(fit.name+"-contact");camera=player.ViewCamera;Destroy(observer.gameObject);
+                        camera=observer;Capture(fit.name+"-contact");
+                        Vector3 focus=fit.reloading?fp.SupportPosition:fp.RightContactPosition;
+                        foreach(var view in new[]{Vector3.right,Vector3.left,Vector3.back,Vector3.up})
+                        {observer.transform.position=focus+fp.transform.TransformDirection(view*.8f);observer.transform.LookAt(focus,fp.transform.up);observer.fieldOfView=32;Capture(fit.name+"-axis-"+view.ToString());}
+                        camera=player.ViewCamera;Destroy(observer.gameObject);
                     }
                     continue;
                 }
@@ -206,6 +212,15 @@ namespace Ironfront.UnityPrototype
             foreach(var m in fp.GetComponentsInChildren<MeshFilter>())if(m.GetComponentInParent<PrototypeSoldierArtRig>()==null)add(m.transform.parent.name,m.sharedMesh,m.transform);
             File.WriteAllText(Path.Combine(output,name+".obj"),sb.ToString());
             var bones=art.Bindings.Select(b=>b.Bone.name+" "+fp.transform.InverseTransformPoint(b.Bone.position).ToString("F5")+" rotation "+(Quaternion.Inverse(fp.transform.rotation)*b.Bone.rotation).eulerAngles.ToString("F2"));File.WriteAllLines(Path.Combine(output,name+"-bones.txt"),bones);
+        }
+
+        [Serializable] class StudyData { public JointData[] joints; public Vector3 rightContact,magazineContact,chargeContact; }
+        [Serializable] class JointData { public string name,parent; public Vector3 p; public Quaternion q,local,rest; }
+        void ExportStudy(string name,PrototypeWeaponArtRig fp,PrototypeSoldierArtRig art)
+        {
+            var joints=art.Bindings.Select(b=>b.Bone).Concat(art.Digits.Select(j=>j.Bone));
+            var data=new StudyData { rightContact=fp.transform.InverseTransformPoint(fp.RightContactPosition),magazineContact=fp.transform.InverseTransformPoint(fp.MagazineGrip.position),chargeContact=fp.transform.InverseTransformPoint(fp.ChargingGrip.position),joints=joints.Select(b=>new JointData {name=b.name,parent=b.parent.name,p=fp.transform.InverseTransformPoint(b.position),q=Quaternion.Inverse(fp.transform.rotation)*b.rotation,local=b.localRotation,rest=art.Digits.FirstOrDefault(j=>j.Bone==b).Rest}).ToArray()};
+            File.WriteAllText(Path.Combine(output,name+"-study.json"),JsonUtility.ToJson(data,true));
         }
         void Capture(string name)
         {

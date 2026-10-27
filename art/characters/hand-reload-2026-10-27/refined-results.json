@@ -1,0 +1,110 @@
+{
+  "functionalChecks": [
+    {
+      "probe": "motion",
+      "pass": true,
+      "version": "0.66.4",
+      "runtimeErrors": 0
+    },
+    {
+      "probe": "rig",
+      "pass": true,
+      "version": "0.66.4",
+      "runtimeErrors": 0
+    },
+    {
+      "probe": "batch2",
+      "pass": true,
+      "version": "0.66.4",
+      "runtimeErrors": 0
+    },
+    {
+      "probe": "if27",
+      "pass": true,
+      "version": "0.66.4",
+      "runtimeErrors": 0
+    },
+    {
+      "probe": "sprint",
+      "pass": true,
+      "version": "0.66.4",
+      "runtimeErrors": 0
+    }
+  ],
+  "assetValidation": {
+    "pass": true,
+    "checks": [
+      {
+        "team": "blue",
+        "bodyGeometryAndWeightsPreserved": true
+      },
+      {
+        "team": "blue",
+        "lod": 0,
+        "freshImport": true,
+        "bones": 46,
+        "digitJoints": 30,
+        "vertices": 12607,
+        "maxInfluencesIncludingPreservedBody": 4,
+        "maxWeightError": 4.470348358154297e-08
+      },
+      {
+        "team": "blue",
+        "lod": 1,
+        "freshImport": true,
+        "bones": 46,
+        "digitJoints": 30,
+        "vertices": 7068,
+        "maxInfluencesIncludingPreservedBody": 4,
+        "maxWeightError": 3.91155481338501e-08
+      },
+      {
+        "team": "blue",
+        "lod": 2,
+        "freshImport": true,
+        "bones": 46,
+        "digitJoints": 30,
+        "vertices": 5500,
+        "maxInfluencesIncludingPreservedBody": 4,
+        "maxWeightError": 3.771856427192688e-08
+      },
+      {
+        "team": "red",
+        "bodyGeometryAndWeightsPreserved": true
+      },
+      {
+        "team": "red",
+        "lod": 0,
+        "freshImport": true,
+        "bones": 46,
+        "digitJoints": 30,
+        "vertices": 12653,
+        "maxInfluencesIncludingPreservedBody": 4,
+        "maxWeightError": 4.470348358154297e-08
+      },
+      {
+        "team": "red",
+        "lod": 1,
+        "freshImport": true,
+        "bones": 46,
+        "digitJoints": 30,
+        "vertices": 7090,
+        "maxInfluencesIncludingPreservedBody": 4,
+        "maxWeightError": 4.470348358154297e-08
+      },
+      {
+        "team": "red",
+        "lod": 2,
+        "freshImport": true,
+        "bones": 46,
+        "digitJoints": 30,
+        "vertices": 5492,
+        "maxInfluencesIncludingPreservedBody": 4,
+        "maxWeightError": 4.470348358154297e-08
+      }
+    ]
+  },
+  "visualAcceptance": "Not user-accepted; candidate only. See docs/UNITY_HANDOFF_0664.md.",
+  "buildLog": "refine-build-slim.log",
+  "finalRefinement": "P8 support elbow sweeps from the side during slide handling; sleeve elbow/upper-arm profile narrowed, wrist size preserved."
+}

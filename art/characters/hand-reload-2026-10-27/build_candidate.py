@@ -1,7 +1,7 @@
-"""Reproducible FP candidate: retain soldier body/UVs, replace gloves from CC0 hand topology.
+"""Reproducible FP candidate: preserve the body; build continuous sleeves and CC0-based hands.
 Only the P8/IF-27 first-person resource opts in. Original v03 files are untouched.
 """
-import bpy,bmesh,json,hashlib,math
+import bpy,json,math
 from pathlib import Path
 from mathutils import Vector,Matrix
 ROOT=Path(__file__).resolve().parent
@@ -14,7 +14,7 @@ X=ref.data.bones['f_index.01.L'].head_local-ref.data.bones['f_pinky.01.L'].head_
 X=(X-Y*X.dot(Y)).normalized();Z=X.cross(Y).normalized()
 frame=Matrix((X,Y,Z)).transposed();inv=frame.transposed()
 # Anatomical neutral surface and original authored skin weights, cropped at the cuff.
-keep={v.index for v in mesh.data.vertices if v.co.x>0 and (v.co-wrist).dot(Y)>-.20}
+keep={v.index for v in mesh.data.vertices if v.co.x>0 and (v.co-wrist).dot(Y)>-.60}
 verts={v.index:{'p':list(inv@(v.co-wrist)),'w':{mesh.vertex_groups[g.group].name:g.weight for g in v.groups}} for v in mesh.data.vertices if v.index in keep}
 faces=[list(p.vertices) for p in mesh.data.polygons if all(i in keep for i in p.vertices)]
 finger_names=['Index','Middle','Ring','Pinky','Thumb']
@@ -55,23 +55,17 @@ for team in ['blue','red']:
  for o in parts:
   if o.name.endswith('_Body'):continue
   side='L' if o.name.endswith('_ArmL') else 'R';sign=-1 if side=='L' else 1;basis,origin,scale=maps[side]
-  # Remove old mitten geometry at the wrist, preserve every upper-arm/body vertex.
-  bm=bmesh.new();bm.from_mesh(o.data)
-  bmesh.ops.bisect_plane(bm,geom=list(bm.verts)+list(bm.edges)+list(bm.faces),plane_co=(0,0,1.02),plane_no=(0,0,1),clear_inner=True,clear_outer=False)
-  bm.to_mesh(o.data);bm.free()
-  # Slim the cuff and distal armor toward the anatomical forearm, retaining UVs.
-  for v in o.data.vertices:
-   if v.co.z<1.17:
-    t=max(0,min(1,(1.17-v.co.z)/.16));z=v.co.z
-    a=Vector((sign*.335,0,1.2));b=origin
-    center=a+(b-a)*max(0,min(1,(1.2-z)/.22))
-    v.co.x=center.x+(v.co.x-center.x)*(1-.30*t)
-    v.co.y=center.y+(v.co.y-center.y)*(1-.30*t)
+  # A complete candidate sleeve avoids joining a narrow anatomical forearm
+  # to the original armor's oversized, displaced open cross-section.
+  # The full-body meshes and the original v03 assets stay unchanged.
+  o.data.clear_geometry()
   ids=list(verts);remap={n:i for i,n in enumerate(ids)}
   # Since reference-frame projection and target basis can reflect, use actual determinant.
   flip=(basis@inv).determinant()<0
   fs=[[remap[i] for i in (list(reversed(p)) if flip else p)] for p in faces]
-  data=bpy.data.meshes.new(o.name+'_Glove');data.from_pydata([origin+basis@Vector(verts[i]['p'])*scale for i in ids],[],fs);data.update()
+  def glove_point(n):
+   return origin+basis@Vector(verts[n]['p'])*scale
+  data=bpy.data.meshes.new(o.name+'_Glove');data.from_pydata([glove_point(i) for i in ids],[],fs);data.update()
   hand=bpy.data.objects.new(o.name+'_Glove',data);bpy.context.collection.objects.link(hand);hand.data.materials.append(glove)
   for i,n in enumerate(ids):
    ww={}
@@ -87,24 +81,64 @@ for team in ['blue','red']:
    for n,w in ww:
     vg=hand.vertex_groups.get(n) or hand.vertex_groups.new(name=n);vg.add([i],w/total,'REPLACE')
   for p in hand.data.polygons:p.use_smooth=True
-  # Short flexible wrist gaiter overlaps both the glove edge and trimmed sleeve.
-  cv=[];cf=[];rings=[(-.015,.030,.023),(.005,.031,.025),(.035,.034,.027),(.070,.040,.030)]
-  for h,rx,ry in rings:
-   c=origin+Vector((-sign*.36*h,0,h))
-   for n in range(20):
-    theta=2*math.pi*n/20;cv.append(c+Vector((rx*math.cos(theta),ry*math.sin(theta),0)))
-  for ring in range(3):
-   for n in range(20):cf.append((ring*20+n,ring*20+(n+1)%20,(ring+1)*20+(n+1)%20,(ring+1)*20+n))
-  cd=bpy.data.meshes.new('Flexible wrist cuff');cd.from_pydata(cv,[],cf);cd.materials.append(glove)
-  cuff=bpy.data.objects.new('Flexible wrist cuff',cd);bpy.context.collection.objects.link(cuff)
-  vg=cuff.vertex_groups.new(name='Hand_'+side);fg=cuff.vertex_groups.new(name='Forearm_'+side)
-  for n in range(80):
-   w=[1,.7,.2,0][n//20]
-   if w>0:vg.add([n],w,'REPLACE')
-   if w<1:fg.add([n],1-w,'REPLACE')
-  for p in cd.polygons:p.use_smooth=True
-  bpy.ops.object.select_all(action='DESELECT');hand.select_set(True);cuff.select_set(True);bpy.context.view_layer.objects.active=hand;bpy.ops.object.join()
-  bpy.ops.object.select_all(action='DESELECT');o.hide_set(False);o.select_set(True);hand.select_set(True);bpy.context.view_layer.objects.active=o;bpy.ops.object.join()
+  # All sleeve rings share the forearm transform; only the original wrist
+  # topology blends into the hand. Small folds keep a rounded sleeve silhouette.
+  elbow=Vector((sign*.335,0,1.2));axis=(elbow-origin).normalized()
+  dorsal=Vector((0,-1,0));dorsal=(dorsal-axis*dorsal.dot(axis)).normalized();across=axis.cross(dorsal).normalized()
+  sv=[];sf=[];sm=[]
+  rings=[(.022,.029,.025),(.030,.030,.026),(.043,.032,.027),(.058,.033,.028),(.074,.034,.029),(.09,.035,.030),(.115,.036,.031),(.14,.038,.032),(.17,.040,.034),(.20,.043,.036),(.23,.047,.039)]
+  shoulder=rig.data.bones['UpperArm_'+side].head_local.copy()
+  lower_length=(elbow-origin).length;upper_axis=(shoulder-elbow).normalized();upper_length=(shoulder-elbow).length
+  rings=rings+[(lower_length+.025,.048,.040),(lower_length+.055,.049,.041),(lower_length+.09,.050,.042),(lower_length+.14,.051,.043),(lower_length+.19,.052,.044),(lower_length+upper_length,.054,.045),(lower_length+upper_length+.12,.052,.044),(lower_length+upper_length+.35,.050,.043)]
+  centers=[];frames=[]
+  for j,(h,rx,ry) in enumerate(rings):
+   c=origin+axis*min(h,lower_length)+upper_axis*max(0,h-lower_length)
+   blend=max(0,min(1,(h-lower_length+.04)/.08));ring_axis=axis.lerp(upper_axis,blend).normalized()
+   ring_dorsal=(dorsal-ring_axis*dorsal.dot(ring_axis)).normalized();ring_across=ring_axis.cross(ring_dorsal).normalized()
+   centers.append(c);frames.append((ring_across,ring_dorsal))
+   for n in range(32):
+    a=2*math.pi*n/32;fold=1+((.05 if abs(h-lower_length)<.07 else .025)*math.cos(a*3+j*1.7) if j>2 else 0)
+    sv.append(c+ring_across*(rx*math.cos(a)*fold)+ring_dorsal*(ry*math.sin(a)*fold))
+  for j in range(len(rings)-1):
+   for n in range(32):sf.append((j*32+n,j*32+(n+1)%32,(j+1)*32+(n+1)%32,(j+1)*32+n));sm.append(0 if j<2 else 1)
+  # Inward cuff return closes the lip around the underlying anatomical wrist.
+  for n in range(32):
+   a=2*math.pi*n/32;sv.append(origin+axis*.028+across*(.025*math.cos(a))+dorsal*(.021*math.sin(a)))
+  for n in range(32):sf.append((n,(n+1)%32,len(rings)*32+(n+1)%32,len(rings)*32+n));sm.append(0)
+  sleeve_mesh=bpy.data.meshes.new('Continuous FP sleeve');sleeve_mesh.from_pydata(sv,[],[list(reversed(f)) for f in sf]);sleeve_mesh.materials.append(glove)
+  cloth=bpy.data.materials.get('Candidate sleeve') or bpy.data.materials.new('Candidate sleeve');cloth.diffuse_color=(.065,.095,.145,1) if team=='blue' else (.14,.055,.06,1)
+  sleeve_mesh.materials.append(cloth)
+  uv=sleeve_mesh.uv_layers.new(name='Sleeve weave')
+  for poly in sleeve_mesh.polygons:
+   raw=[sleeve_mesh.loops[k].vertex_index for k in poly.loop_indices]
+   wrap=any(i%32==0 for i in raw) and any(i%32==31 for i in raw)
+   for k in poly.loop_indices:
+    index=sleeve_mesh.loops[k].vertex_index;n=index%32;j=min(index//32,len(rings)-1)
+    uv.data[k].uv=(1.0 if wrap and n==0 else n/32,rings[j][0]*4)
+  for i,p in enumerate(sleeve_mesh.polygons):p.material_index=sm[i];p.use_smooth=True
+  sleeve=bpy.data.objects.new('Continuous FP sleeve',sleeve_mesh);bpy.context.collection.objects.link(sleeve)
+  fg=sleeve.vertex_groups.new(name='Forearm_'+side);ug=sleeve.vertex_groups.new(name='UpperArm_'+side)
+  for j,(h,_,_) in enumerate(rings):
+   w=max(0,min(1,(h-lower_length+.035)/.07));indices=list(range(j*32,(j+1)*32))
+   if w<1:fg.add(indices,1-w,'REPLACE')
+   if w>0:ug.add(indices,w,'REPLACE')
+  fg.add(list(range(len(rings)*32,len(sv))),1,'REPLACE')
+  # Bevelled dorsal pad follows the forearm, never the hand or fingers.
+  outline=[(-.022,.065),(.022,.065),(.032,.082),(.034,.157),(.023,.181),(-.023,.181),(-.034,.157),(-.032,.082)]
+  pv=[];pf=[]
+  for inset,rise in [(1,0),(.85,.007)]:
+   for x,h in outline:
+    centerh=.123;hh=centerh+(h-centerh)*inset
+    pv.append(origin+axis*hh+across*(x*inset)+dorsal*(.026+hh*.05+rise))
+  pf.append(tuple(range(8,16)))
+  for n in range(8):pf.append((n,(n+1)%8,(n+1)%8+8,n+8))
+  pd=bpy.data.meshes.new('Dorsal forearm pad');pd.from_pydata(pv,[],pf)
+  armor=bpy.data.materials.get('Candidate armor') or bpy.data.materials.new('Candidate armor');armor.diffuse_color=(.22,.30,.43,1) if team=='blue' else (.42,.18,.19,1);pd.materials.append(armor)
+  pad=bpy.data.objects.new('Dorsal forearm pad',pd);bpy.context.collection.objects.link(pad);pad.vertex_groups.new(name='Forearm_'+side).add(list(range(16)),1,'REPLACE')
+  # Establish deterministic material order: original, glove, sleeve, pad.
+  o.data.materials.append(glove);o.data.materials.append(cloth);o.data.materials.append(armor)
+  bpy.ops.object.select_all(action='DESELECT');o.hide_set(False);o.select_set(True);hand.select_set(True);sleeve.select_set(True);pad.select_set(True);bpy.context.view_layer.objects.active=o;bpy.ops.object.join()
+
   # LOD1/2 keep the same deformation topology in this close-up candidate.
   for v in o.data.vertices:
    merged={}
