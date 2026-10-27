@@ -1,0 +1,48 @@
+PASS
+Version=0.66.7
+RuntimeErrors=0
+Runtime starts
+CharacterController grounded on flat fixture at (-325.00, 50.02, -320.00)
+Forward Shift starts sprint
+Trigger interrupts before movement
+Combat interruption is also cleared from network intent
+Releasing trigger alone leaves walking
+Release/repress Shift re-arms sprint
+ADS interrupts and uses existing aim walk speed
+Releasing ADS alone leaves walking
+Simultaneous fire and aim have priority over Shift
+Pure strafe does not sprint
+Backwards does not sprint
+Forward diagonal can sprint
+Crouch speed preserved
+Prone speed preserved
+Slide remains separate from sprint and ADS
+Empty trigger cancels sprint and retains auto reload
+Trigger on cooldown still cancels sprint without consuming ammo
+Pistol single shot cancels sprint
+Host rejects simultaneous sprint/fire speed in peer input
+fp-fire-interrupt first click fires on interruption frame
+fp-fire-interrupt: 126 frames, instant interruption, held-button walking, Shift release/repress re-arms
+fp-fire-interrupt ammo semantics
+fp-fire-interrupt gentle chest counter-rotation in both directions
+fp-fire-interrupt first-person camera sways with hidden body
+fp-fire-interrupt subtle vertical camera bob
+fp-fire-interrupt stock retained with view visibility
+fp-aim-interrupt: 126 frames, instant interruption, held-button walking, Shift release/repress re-arms
+fp-aim-interrupt ammo semantics
+fp-aim-interrupt gentle chest counter-rotation in both directions
+fp-aim-interrupt first-person camera sways with hidden body
+fp-aim-interrupt subtle vertical camera bob
+fp-aim-interrupt stock retained with view visibility
+tp-fire-interrupt first click fires on interruption frame
+tp-fire-interrupt: 126 frames, instant interruption, held-button walking, Shift release/repress re-arms
+tp-fire-interrupt ammo semantics
+tp-fire-interrupt gentle chest counter-rotation in both directions
+tp-fire-interrupt stock retained with view visibility
+tp-aim-interrupt: 126 frames, instant interruption, held-button walking, Shift release/repress re-arms
+tp-aim-interrupt ammo semantics
+tp-aim-interrupt gentle chest counter-rotation in both directions
+tp-aim-interrupt stock retained with view visibility
+Forward/Shift held against a wall: camera settles without actual movement
+Switching to third person removes additive camera tilt immediately
+Stopping restores steady eye height and view

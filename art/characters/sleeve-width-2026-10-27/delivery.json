@@ -1,0 +1,38 @@
+{
+  "version": "0.66.7",
+  "baselineVersion": "0.66.6",
+  "baselineCommit": "0a2118d",
+  "localOnly": true,
+  "scope": "P8/IF27 FP blue/red sleeve width +12%, depth +8%; tapered cuff +4%/+2%; pad refitted",
+  "sourceValidation": "PASS; hands, bones, body, arm topology and weights unchanged; six FBX fresh imports",
+  "runtimeInvariants": "PASS; five runtime source/animation SHA256 unchanged",
+  "build": "UnityProject/Builds/SleeveWidth-0.66.7/IRONFRONT.app",
+  "probes": {
+    "motion": "PASS",
+    "rig": "PASS",
+    "sprint": "PASS"
+  },
+  "runtimeErrors": 0,
+  "captureChecks": {
+    "pass": true,
+    "images": 458,
+    "checks": [
+      "all_white",
+      "all_black",
+      "uniform",
+      "magenta"
+    ],
+    "errors": []
+  },
+  "visualReview": "Viewed old/new hold, ADS and reload comparisons; both reload sequence sheets; red P8 ADS, P8 cuff/contact closeup, sprint frame. No new sight-center blockage in tested views.",
+  "video": {
+    "file": "art/characters/sleeve-width-2026-10-27/sleeve-width-30fps.mp4",
+    "frames": 306,
+    "fps": 30,
+    "seconds": 10.2,
+    "decodedSamples": 8,
+    "sha256": "c833921ad9d76db0d5a36c4f62a06d53cf564ed456fa7bfc3764ac85f009afd7"
+  },
+  "limitations": "Existing folds/materials/animations retained. Normal-speed UI playback not observed; no user visual acceptance claimed.",
+  "oldBuildPreserved": true
+}

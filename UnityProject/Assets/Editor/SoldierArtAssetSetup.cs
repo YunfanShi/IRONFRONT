@@ -71,8 +71,8 @@ namespace Ironfront.UnityPrototype.Editor
         {
             string lower = team.ToLowerInvariant();
             string folder = "Assets/Art/Characters/" + team + "Soldier";
-            string destination = folder + (candidate ? "/hand-candidate-v06" : "/rigged-v03"); Directory.CreateDirectory(destination);
-            string source = Path.GetFullPath(Path.Combine(Application.dataPath, candidate ? "../../art/characters/sleeve-volume-2026-10-27/candidate/" + lower : "../../art/characters/" + lower + "-soldier/rigged-v03"));
+            string destination = folder + (candidate ? "/hand-candidate-v07" : "/rigged-v03"); Directory.CreateDirectory(destination);
+            string source = Path.GetFullPath(Path.Combine(Application.dataPath, candidate ? "../../art/characters/sleeve-width-2026-10-27/candidate/" + lower : "../../art/characters/" + lower + "-soldier/rigged-v03"));
             for (int i = 0; i < 3; i++) File.Copy(Path.Combine(source, lower + "-soldier-skinned-lod" + i + ".fbx"), destination + "/" + lower + "-soldier-skinned-lod" + i + ".fbx", true);
             AssetDatabase.Refresh();
             var root = new GameObject(team + "Soldier");

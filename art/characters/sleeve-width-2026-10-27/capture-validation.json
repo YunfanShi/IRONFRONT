@@ -1,0 +1,11 @@
+{
+  "pass": true,
+  "images": 458,
+  "checks": [
+    "all_white",
+    "all_black",
+    "uniform",
+    "magenta"
+  ],
+  "errors": []
+}

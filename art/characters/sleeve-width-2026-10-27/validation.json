@@ -1,0 +1,147 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "team": "blue",
+      "bodyGeometryAndWeightsPreserved": true,
+      "restSkeletonPreserved": true,
+      "gloveGeometryAndWeightsPreserved": true,
+      "allArmTopologyAndWeightsPreserved": true,
+      "hands": {
+        "BlueSoldier_LOD0_ArmL": {
+          "hash": "f589785fee74c67b9e9985e2551f26cc3962a2dae71c877db1e28b2edb2c93c8",
+          "vertices": 1689
+        },
+        "BlueSoldier_LOD0_ArmR": {
+          "hash": "3f3d57335d53743f8d31b88217d444d97c5a44fec4b8178bc25174008c749c20",
+          "vertices": 1689
+        },
+        "BlueSoldier_LOD1_ArmL": {
+          "hash": "f589785fee74c67b9e9985e2551f26cc3962a2dae71c877db1e28b2edb2c93c8",
+          "vertices": 1689
+        },
+        "BlueSoldier_LOD1_ArmR": {
+          "hash": "3f3d57335d53743f8d31b88217d444d97c5a44fec4b8178bc25174008c749c20",
+          "vertices": 1689
+        },
+        "BlueSoldier_LOD2_ArmL": {
+          "hash": "f589785fee74c67b9e9985e2551f26cc3962a2dae71c877db1e28b2edb2c93c8",
+          "vertices": 1689
+        },
+        "BlueSoldier_LOD2_ArmR": {
+          "hash": "3f3d57335d53743f8d31b88217d444d97c5a44fec4b8178bc25174008c749c20",
+          "vertices": 1689
+        }
+      },
+      "changedSleeveAndPadVertices": {
+        "BlueSoldier_LOD0_ArmL": 624,
+        "BlueSoldier_LOD0_ArmR": 624,
+        "BlueSoldier_LOD1_ArmL": 624,
+        "BlueSoldier_LOD1_ArmR": 624,
+        "BlueSoldier_LOD2_ArmL": 624,
+        "BlueSoldier_LOD2_ArmR": 624
+      }
+    },
+    {
+      "team": "blue",
+      "lod": 0,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 12607,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    },
+    {
+      "team": "blue",
+      "lod": 1,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 7068,
+      "maxInfluences": 4,
+      "maxWeightError": 3.91155481338501e-08
+    },
+    {
+      "team": "blue",
+      "lod": 2,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 5500,
+      "maxInfluences": 4,
+      "maxWeightError": 3.771856427192688e-08
+    },
+    {
+      "team": "red",
+      "bodyGeometryAndWeightsPreserved": true,
+      "restSkeletonPreserved": true,
+      "gloveGeometryAndWeightsPreserved": true,
+      "allArmTopologyAndWeightsPreserved": true,
+      "hands": {
+        "RedSoldier_LOD0_ArmL": {
+          "hash": "f589785fee74c67b9e9985e2551f26cc3962a2dae71c877db1e28b2edb2c93c8",
+          "vertices": 1689
+        },
+        "RedSoldier_LOD0_ArmR": {
+          "hash": "3f3d57335d53743f8d31b88217d444d97c5a44fec4b8178bc25174008c749c20",
+          "vertices": 1689
+        },
+        "RedSoldier_LOD1_ArmL": {
+          "hash": "f589785fee74c67b9e9985e2551f26cc3962a2dae71c877db1e28b2edb2c93c8",
+          "vertices": 1689
+        },
+        "RedSoldier_LOD1_ArmR": {
+          "hash": "3f3d57335d53743f8d31b88217d444d97c5a44fec4b8178bc25174008c749c20",
+          "vertices": 1689
+        },
+        "RedSoldier_LOD2_ArmL": {
+          "hash": "f589785fee74c67b9e9985e2551f26cc3962a2dae71c877db1e28b2edb2c93c8",
+          "vertices": 1689
+        },
+        "RedSoldier_LOD2_ArmR": {
+          "hash": "3f3d57335d53743f8d31b88217d444d97c5a44fec4b8178bc25174008c749c20",
+          "vertices": 1689
+        }
+      },
+      "changedSleeveAndPadVertices": {
+        "RedSoldier_LOD0_ArmL": 624,
+        "RedSoldier_LOD0_ArmR": 624,
+        "RedSoldier_LOD1_ArmL": 624,
+        "RedSoldier_LOD1_ArmR": 624,
+        "RedSoldier_LOD2_ArmL": 624,
+        "RedSoldier_LOD2_ArmR": 624
+      }
+    },
+    {
+      "team": "red",
+      "lod": 0,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 12653,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    },
+    {
+      "team": "red",
+      "lod": 1,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 7090,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    },
+    {
+      "team": "red",
+      "lod": 2,
+      "freshImport": true,
+      "bones": 46,
+      "digitJoints": 30,
+      "vertices": 5492,
+      "maxInfluences": 4,
+      "maxWeightError": 4.470348358154297e-08
+    }
+  ]
+}
