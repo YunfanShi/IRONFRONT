@@ -44,6 +44,7 @@
 
 ## 交付与复现
 
+- 后续按用户要求新增左右同步对比：`art/characters/p8-reload02-2026-10-27/p8-before-after-comparison.mp4`。左为 0.66.8 程序化换弹，右为 0.66.9 Reload02；两遍正常速度，再一遍 0.5 倍速。11.2 秒、30 fps、1920×800。两侧使用原始实机序列第 60–143 帧，同步第 75 帧开始换弹，第 114 帧结束，游戏换弹均为 1.3 秒；完整画幅等比缩小，没有裁剪或生成动作帧。半速仅重复显示原帧，没有插帧。来源哈希和剪辑时序见 `comparison-manifest.json`，复现脚本为 `compare_before_after.py`、`encode_comparison.swift`。
 - 应用：`UnityProject/Builds/PistolReload02-0.66.9/IRONFRONT.app`。
 - 视频：`art/characters/p8-reload02-2026-10-27/p8-reload02-30fps.mp4`。
 - 最终实机图：同目录 `review/P8-final-poses.jpg`、`P8-final-sequence.jpg`、`P8-final-contact.jpg`。
