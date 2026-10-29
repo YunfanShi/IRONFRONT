@@ -412,16 +412,13 @@ namespace Ironfront.UnityPrototype
                 Mathf.Lerp((artRig != null ? .18f : .18f) + crouch * .10f, .49f, prone));
             weaponMount.localPosition += new Vector3(-swing*.009f, Mathf.Cos(gait*2f)*movement*.008f*(1f-prone)+breath*.002f,0);
             weaponMount.localRotation = Quaternion.Euler(prone*2f,-swing*2f*movement,prone*(-3f+swing*3f));
-            // VX-9 has a shoulder stock and front grip: carry it with both
-            // hands while running. Only the P8 uses the one-handed carry.
-            bool compact = heldWeaponId == PrototypeWeaponId.Pistol;
             bool firearm = heldEquipmentKind == PrototypeHeldEquipment.Firearm;
             float carry = slidePoseWeight < .001f && firearm && (player == null || !player.Reloading) ?
                 strideLean * (1f - aimWeight) : 0f;
-            if (firearm && !compact)
+            if (firearm)
             {
-                // A long gun remains in both hands, with a diagonal low-ready
-                // hold and the arms following the counter-rotation of the chest.
+                // Keep firearms supported in both hands while moving, with
+                // a low-ready hold that follows the chest's counter-rotation.
                 weaponMount.localPosition += new Vector3(swing * carry * .02f,
                     -carry * .06f + Mathf.Sin(gait * 2f) * carry * .01f,
                     carry * .13f + swing * carry * .01f);
@@ -455,20 +452,6 @@ namespace Ironfront.UnityPrototype
             Transform weaponFrame = heldEquipment != null ? heldEquipment.transform :
                 heldWeapon != null ? heldWeapon.transform : weaponMount;
             bool pistol = heldWeaponId == PrototypeWeaponId.Pistol;
-            if (compact && carry > 0f && heldWeapon != null)
-            {
-                // Match the actual grip after the player's pitch/bob update.
-                // This keeps a low-held SMG or pistol attached to the right
-                // hand even though their local grip offsets are different.
-                weaponMount.localRotation = Quaternion.Slerp(Quaternion.identity,
-                    Quaternion.Euler(63f, -5f, -8f), carry);
-                Vector3 currentGrip = model.transform.InverseTransformPoint(
-                    weaponArt != null ? weaponArt.RightGrip.position :
-                    weaponFrame.TransformPoint(new Vector3(0f, -.18f, pistol ? -.045f : -.18f)));
-                Vector3 carryGrip = new Vector3(.37f + swing * .025f,
-                    hipY + .23f + swing * .04f, .12f + swing * .25f);
-                weaponMount.localPosition += (carryGrip - currentGrip) * carry;
-            }
             Vector3 rightGrip = model.transform.InverseTransformPoint(
                 weaponFrame.TransformPoint(new Vector3(0f, -.18f, pistol ? -.045f : -.18f)));
             Vector3 leftGrip = model.transform.InverseTransformPoint(
@@ -479,10 +462,6 @@ namespace Ironfront.UnityPrototype
                 rightGrip=model.transform.InverseTransformPoint(weaponArt.RightGrip.position);
                 leftGrip=model.transform.InverseTransformPoint(weaponArt.SupportPosition);
             }
-            if (compact && carry > 0f)
-                leftGrip = Vector3.Lerp(leftGrip,
-                    new Vector3(-.39f, hipY + .25f - swing * .025f,
-                        .12f - swing * .34f), carry);
             if ((heldEquipmentKind == PrototypeHeldEquipment.Launcher || heldEquipmentKind == PrototypeHeldEquipment.AntiAirLauncher) && heldEquipment != null)
             {
                 rightGrip = model.transform.InverseTransformPoint(weaponFrame.TransformPoint(
@@ -508,8 +487,8 @@ namespace Ironfront.UnityPrototype
                 {
                     Vector3 correction=ReachCorrection(rightOrigin,rightGrip,reach);
                     weaponMount.localPosition+=correction;rightGrip+=correction;
-                    leftGrip+=correction*(compact?1f-carry:1f);
-                    if((!compact||carry<.001f)&&prone*movement<.001f)
+                    leftGrip+=correction;
+                    if(prone*movement<.001f)
                     {
                         correction=ReachCorrection(leftOrigin,leftGrip,reach);
                         weaponMount.localPosition+=correction;rightGrip+=correction;leftGrip+=correction;
@@ -525,17 +504,10 @@ namespace Ironfront.UnityPrototype
             // swinging a rigid rifle through the ground with the torso.
             Vector3 armPole = Vector3.Lerp(new Vector3(.25f, -1f, -.12f),
                 new Vector3(.22f, -1f, -.12f), prone);
-            if (firearm && !compact)
+            if (firearm)
                 armPole = Vector3.Lerp(armPole, new Vector3(.65f, -.70f, -.25f), carry);
             Vector3 leftPole = new Vector3(-armPole.x, armPole.y, armPole.z);
             Vector3 rightPole = armPole;
-            if (compact && carry > 0f)
-            {
-                // Keep a free running elbow low and close to the ribs. An
-                // outward pole otherwise splays both upper arms like a T pose.
-                leftPole = Vector3.Lerp(leftPole, new Vector3(-.15f, -1f, -swing * .6f), carry);
-                rightPole = Vector3.Lerp(rightPole, new Vector3(.2f, -1f, swing * .3f), carry);
-            }
             PoseArm(leftArm, leftElbow, leftHand, leftGrip,
                 leftPole, prone>.98f?.09f:-1f);
             PoseArm(rightArm, rightElbow, rightHand, rightGrip, rightPole, prone>.98f?.09f:-1f);
@@ -544,8 +516,6 @@ namespace Ironfront.UnityPrototype
                 rightHand.rotation=weaponArt.RightGrip.rotation;
                 leftHand.rotation=weaponArt.SupportRotation;
             }
-            if (compact && carry > .8f)
-                leftHand.rotation = model.transform.rotation * Quaternion.Euler(10f, 0f, -10f);
             if (prone > .98f && !downed)
             {
                 // Rifle stays in the right hand. The support arm plants its
