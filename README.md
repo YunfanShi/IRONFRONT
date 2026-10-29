@@ -1,5 +1,13 @@
 # PROJECT IRONFRONT 0.66.12
 
+## 下载试玩版
+
+**[下载 0.66.12 macOS 游戏包（约 414 MB）](https://github.com/YunfanShi/IRONFRONT/releases/download/unity-v0.66.12/IRONFRONT-0.66.12-macOS-universal.zip)** · [发布说明与校验文件](https://github.com/YunfanShi/IRONFRONT/releases/tag/unity-v0.66.12)
+
+支持 macOS 12 及以上的 Apple 芯片和 Intel Mac。解压后打开 `IRONFRONT.app`，无需安装 Unity 或 Node.js；Windows 不能运行此包。应用尚未进行 Apple Developer ID 签名和公证，首次打开可能需要在 macOS 安全设置中确认允许。
+
+此开发试玩版来自 `codex/unity-port` 分支的 `293e3ce`，使用 2026-10-28 的 MotionUpdate 构建。GitHub 的 **Code → Download ZIP** 和 Release 中的 **Source code** 下载的是工程源码；直接游玩请选择上方游戏包。同步范围、构建来源与验证边界见 [0.66.12 发布记录](docs/GITHUB_RELEASE_06612.md)。
+
 0.66.12：修正 P8 左前臂与腕掌衔接，以及左掌反向、换弹拇指方向错误；继续使用旧手臂和动作包。独立应用、同机位正常速度对比及验证见 [左腕与拇指交接](docs/UNITY_HANDOFF_06612.md)。
 
 0.66.11：按用户参考校正 P8 旧手臂双手握姿，修复四指共用骨绕错轴的问题，收拢手掌并调整拇指方向。独立应用、实际画面对比和视觉边界见 [参考握姿交接](docs/UNITY_HANDOFF_06611.md)。
