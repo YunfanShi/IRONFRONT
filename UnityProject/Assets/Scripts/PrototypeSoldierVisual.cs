@@ -412,8 +412,9 @@ namespace Ironfront.UnityPrototype
                 Mathf.Lerp((artRig != null ? .18f : .18f) + crouch * .10f, .49f, prone));
             weaponMount.localPosition += new Vector3(-swing*.009f, Mathf.Cos(gait*2f)*movement*.008f*(1f-prone)+breath*.002f,0);
             weaponMount.localRotation = Quaternion.Euler(prone*2f,-swing*2f*movement,prone*(-3f+swing*3f));
-            bool compact = heldWeaponId == PrototypeWeaponId.Pistol ||
-                heldWeaponId == PrototypeWeaponId.Smg;
+            // VX-9 has a shoulder stock and front grip: carry it with both
+            // hands while running. Only the P8 uses the one-handed carry.
+            bool compact = heldWeaponId == PrototypeWeaponId.Pistol;
             bool firearm = heldEquipmentKind == PrototypeHeldEquipment.Firearm;
             float carry = slidePoseWeight < .001f && firearm && (player == null || !player.Reloading) ?
                 strideLean * (1f - aimWeight) : 0f;
